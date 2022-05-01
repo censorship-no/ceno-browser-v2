@@ -307,6 +307,8 @@ dependencies {
 
     implementation Deps.google_material
 
+    implementation Deps.eventbus
+
     androidTestImplementation Deps.uiautomator
 
     androidTestImplementation Deps.espresso_core, {
