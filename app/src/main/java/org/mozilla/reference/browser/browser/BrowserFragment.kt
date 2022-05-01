@@ -146,4 +146,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             }
         }
     }
+
+    // Define message class for Eventbus
+    class MessageEvent(val message: String) {}
 }
