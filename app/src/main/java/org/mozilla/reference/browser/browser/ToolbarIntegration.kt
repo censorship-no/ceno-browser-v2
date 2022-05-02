@@ -37,6 +37,7 @@ import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
+import org.greenrobot.eventbus.EventBus
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.addons.AddonsActivity
 import org.mozilla.reference.browser.ext.components
@@ -60,6 +61,8 @@ class ToolbarIntegration(
     }
 
     private val scope = MainScope()
+
+    private val toastArray = context.resources.getStringArray(R.array.toasts_array)
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tint = ContextCompat.getColor(context, R.color.icons)
@@ -171,6 +174,11 @@ class ToolbarIntegration(
                 val intent = Intent(context, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
+            },
+
+            TextMenuCandidate(text = "Make a Toast") {
+                val message = toastArray.random()
+                EventBus.getDefault().postSticky(BrowserFragment.MessageEvent(message))
             }
         )
     }

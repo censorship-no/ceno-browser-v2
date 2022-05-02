@@ -198,4 +198,54 @@
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
+
+    <!-- "Cheers" in many different languages, source https://matadornetwork.com/nights/how-to-say-cheers-in-50-languages/ -->
+    <string-array name="toasts_array">
+        <item name="af">Gesondheid!</item>
+        <item name="ar">فى صحتك</item>
+        <item name="az">Nuş olsun!</item>
+        <item name="bg">Наздраве</item>
+        <item name="ca">Salut</item>
+        <item name="cy">Iechyd da</item>
+        <item name="el">ΥΓΕΙΑ</item>
+        <item name="es">¡Salude!</item>
+        <item name="en">Cheers!</item>
+        <item name="et">Terviseks!</item>
+        <item name="fr">Santé!</item>
+        <item name="fi">Kippis!</item>
+        <item name="de">Prost!</item>
+        <item name="da">Skål!</item>
+        <item name="hi">Å’kålè ma’luna</item>
+        <item name="hr">Živjeli!</item>
+        <item name="hu">Egészségedre</item>
+        <item name="hy">Կէնաձդ</item>
+        <item name="is">Skál</item>
+        <item name="it">Cin cin!</item>
+        <item name="iw">לחיים</item>
+        <item name="ga">Sláinte!</item>
+        <item name="gl">Salud</item>
+        <item name="gu">Biba</item>
+        <item name="ja">乾杯</item>
+        <item name="ji">Sei gesund</item>
+        <item name="ko">건배</item>
+        <item name="lv">Priekā</item>
+        <item name="lt">į sveikatą</item>
+        <item name="mk">На здравје</item>
+        <item name="mn">Эрүүл мэндийн төлөө</item>
+        <item name="my">Aung myin par say</item>
+        <item name="pl">Na zdrowie</item>
+        <item name="pt">Saúde</item>
+        <item name="ro">Noroc</item>
+        <item name="sl">Na zdravje</item>
+        <item name="sk">Na zdravie</item>
+        <item name="sr">živeli</item>
+        <item name="sq">Gëzuar</item>
+        <item name="th">Chok dee</item>
+        <item name="tl">Mabuhay</item>
+        <item name="tr">Şerefe</item>
+        <item name="uk">будьмо</item>
+        <item name="vi">Dô / Vô / Một hai ba, yo</item>
+        <item name="zh">干杯</item>
+    </string-array>
+
 </resources>
