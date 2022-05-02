@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -25,11 +26,14 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.mozilla.reference.browser.addons.WebExtensionActionPopupActivity
 import org.mozilla.reference.browser.browser.BrowserFragment
 import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
+
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -53,6 +57,16 @@ open class BrowserActivity : AppCompatActivity() {
      */
     open fun createBrowserFragment(sessionId: String?): Fragment =
         BrowserFragment.create(sessionId)
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,5 +173,12 @@ open class BrowserActivity : AppCompatActivity() {
         intent.putExtra("web_extension_name", webExtensionState.name)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    @Subscribe(sticky = true)
+    fun handleEvent(event: BrowserFragment.MessageEvent) {
+        // Display message to user via Toast pop-up
+        Toast.makeText(this, event.message, Toast.LENGTH_SHORT).show()
+        // Do not remove sticky event, so it can be read later in other activities
     }
 }

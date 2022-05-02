@@ -33,6 +33,8 @@ private object Versions {
 
     const val compose_version = "1.0.0-rc02"
 
+    const val eventbus = "3.3.1"
+
     object AndroidX {
         const val activity_compose = "1.3.0-rc02"
         const val core = "1.1.0"
@@ -150,4 +152,5 @@ object Deps {
     const val tools_test_rules = "androidx.test:rules:${Versions.tools_test_rules}"
     const val tools_test_runner = "androidx.test:runner:${Versions.tools_test_runner}"
     const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.uiautomator}"
+    const val eventbus = "org.greenrobot:eventbus:${Versions.eventbus}"
 }
