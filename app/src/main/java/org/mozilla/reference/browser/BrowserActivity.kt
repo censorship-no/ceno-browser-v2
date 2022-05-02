@@ -179,7 +179,6 @@ open class BrowserActivity : AppCompatActivity() {
     fun handleEvent(event: BrowserFragment.MessageEvent) {
         // Display message to user via Toast pop-up
         Toast.makeText(this, event.message, Toast.LENGTH_SHORT).show()
-        // prevent event from re-delivering, like when leaving and coming back to app
-        EventBus.getDefault().removeStickyEvent(event)
+        // Do not remove sticky event, so it can be read later in other activities
     }
 }
