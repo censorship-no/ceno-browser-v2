@@ -20,6 +20,8 @@ import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import mozilla.components.support.ktx.android.view.showKeyboard
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.R.string.pref_key_about_page
 import org.mozilla.reference.browser.R.string.pref_key_firefox_account
@@ -29,7 +31,9 @@ import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
 import org.mozilla.reference.browser.R.string.pref_key_sign_in
+import org.mozilla.reference.browser.R.string.pref_key_read_toast
 import org.mozilla.reference.browser.autofill.AutofillPreference
+import org.mozilla.reference.browser.browser.BrowserFragment
 import org.mozilla.reference.browser.ext.getPreferenceKey
 import org.mozilla.reference.browser.ext.requireComponents
 import kotlin.system.exitProcess
@@ -47,6 +51,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
         true
     }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    private var eventReceived = false
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -72,6 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
+        val readToastKey = requireContext().getPreferenceKey(R.string.pref_key_read_toast)
 
         val preferenceSignIn = findPreference<Preference>(signInKey)
         val preferencePairSignIn = findPreference<Preference>(signInPairKey)
@@ -82,6 +99,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
+        val preferenceReadToast = findPreference<Preference>(readToastKey)
 
         val accountManager = requireComponents.backgroundServices.accountManager
         if (accountManager.authenticatedAccount() != null) {
@@ -109,6 +127,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
+
+        if (eventReceived) {
+            preferenceReadToast?.isEnabled = true
+            preferenceReadToast?.onPreferenceClickListener = getReadToastListener()
+        } else {
+            preferenceReadToast?.isEnabled = false
+        }
     }
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
@@ -233,7 +258,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+
+    private fun getReadToastListener(): OnPreferenceClickListener {
+        return OnPreferenceClickListener { preference ->
+            val stickyEvent: BrowserFragment.MessageEvent = EventBus.getDefault().removeStickyEvent(BrowserFragment.MessageEvent::class.java)
+            Toast.makeText(context, stickyEvent.message, Toast.LENGTH_SHORT).show()
+            preference.isEnabled = false
+            eventReceived = false
+            true
+        }
+    }
+
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
+    }
+
+    @Subscribe(sticky = true)
+    fun handleEvent(event: BrowserFragment.MessageEvent) {
+        // Set flag that event was received to enable "Read toast" option
+        eventReceived = true
     }
 }

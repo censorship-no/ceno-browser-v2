@@ -199,6 +199,8 @@
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 
+    <string name="preferences_read_toast">Read most recent toast</string>
+
     <!-- "Cheers" in many different languages, source https://matadornetwork.com/nights/how-to-say-cheers-in-50-languages/ -->
     <string-array name="toasts_array">
         <item name="af">Gesondheid!</item>

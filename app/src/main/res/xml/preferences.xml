@@ -43,6 +43,10 @@
         android:defaultValue="false"
         android:title="@string/preferences_compose_ui"/>
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_read_toast"
+        android:title="@string/preferences_read_toast" />
+
     <PreferenceCategory
         android:title="@string/developer_tools_category">
 
