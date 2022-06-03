@@ -198,4 +198,14 @@
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
+
+    <!-- Service notification and actions -->
+    <string name="ceno_notification_title">CENO Browser Service</string>
+    <string name="ceno_notification_description">Tap to stop</string>
+    <string name="ceno_notification_home_description">Home</string>
+    <string name="ceno_notification_purge_description">Erase&#9888;</string>
+    <string name="ceno_notification_purge_do_description">Yes</string>
+    <string name="ceno_notification_channel_name">CENO Service</string>
+    <!-- </CENO> -->
+
 </resources>
