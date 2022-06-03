@@ -9,6 +9,9 @@ apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
 
+Properties localProperties = new Properties()
+localProperties.load(rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion Config.compileSdkVersion
 
@@ -22,6 +25,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
+
+        buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
+        buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
+        buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
     }
 
     def releaseTemplate = {
@@ -306,6 +313,27 @@ dependencies {
     implementation Deps.androidx_compose_material
 
     implementation Deps.google_material
+
+    if (System.getenv('OUINET_LIBRARY')) {
+        project.logger.lifecycle('OUINET local AAR')
+        implementation(name: "${System.env.OUINET_LIBRARY}", ext: 'aar')
+    } else {
+        switch(localProperties['ABI']) {
+            case 'x86_64':
+                project.logger.lifecycle('OUINET_X86_64 from Maven')
+                implementation Deps.ouinet_x86_64
+                break
+            case 'arm64-v8a':
+                project.logger.lifecycle('OUINET_ARM64_V8A from Maven')
+                implementation Deps.ouinet_arm64_v8a
+                break
+            default:
+                project.logger.lifecycle('OUINET_ARMEABI_V7A from Maven')
+                implementation Deps.ouinet_armeabi_v7a
+                break
+        }
+    }
+    implementation Deps.relinker
 
     androidTestImplementation Deps.uiautomator
     androidTestImplementation Deps.junit_ktx
