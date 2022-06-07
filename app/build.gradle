@@ -15,6 +15,10 @@ localProperties.load(rootProject.file('local.properties').newDataInputStream())
 android {
     compileSdkVersion Config.compileSdkVersion
 
+    aaptOptions {
+        ignoreAssetsPattern '!._'
+    }
+
     defaultConfig {
         applicationId "org.mozilla.reference.browser"
         minSdkVersion Config.minSdkVersion
