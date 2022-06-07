@@ -1,3 +1,3 @@
-[submodule "app/src/main/addons/ceno"]
-	path = app/src/main/addons/ceno
+[submodule "app/src/main/assets/addons/ceno"]
+	path = app/src/main/assets/addons/ceno
 	url = https://github.com/censorship-no/ceno-ext-settings
