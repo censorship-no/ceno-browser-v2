@@ -75,7 +75,8 @@ class Core(private val context: Context) {
             remoteDebuggingEnabled = prefs.getBoolean(context.getPreferenceKey(pref_key_remote_debugging), false),
             testingModeEnabled = prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_testing_mode), false),
             trackingProtectionPolicy = createTrackingProtectionPolicy(prefs),
-            historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage)
+            historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage),
+            httpsOnlyMode = Engine.HttpsOnlyMode.ENABLED
         )
         EngineProvider.createEngine(context, defaultSettings)
     }
