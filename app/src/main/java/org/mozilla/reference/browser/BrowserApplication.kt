@@ -66,6 +66,7 @@ open class BrowserApplication : Application() {
             return
         }
 
+        components.core.setRootCertificate(ouinetConfig.caRootCertPath)
         components.core.engine.warmUp()
 
         restoreBrowserState()

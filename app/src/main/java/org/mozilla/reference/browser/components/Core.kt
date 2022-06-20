@@ -62,6 +62,7 @@ private const val DAY_IN_MINUTES = 24 * 60L
  * Component group for all core browser functionality.
  */
 class Core(private val context: Context) {
+
     /**
      * The browser engine component initialized based on the build
      * configuration (see build variants).
@@ -246,6 +247,10 @@ class Core(private val context: Context) {
             !normalMode && privateMode -> trackingPolicy.forPrivateSessionsOnly()
             else -> TrackingProtectionPolicy.none()
         }
+    }
+
+    fun  setRootCertificate( rootCertificate: String) {
+        EngineProvider.rootCertificate = rootCertificate
     }
 
     private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }

@@ -89,8 +89,10 @@ This assumes that you have built, packaged, and published your local GeckoView -
 Do not forget to run a Gradle sync in Android Studio after changing `local.properties`. If you specified any substitutions (e.g. GeckoView), they will be reflected in the modules list, and you'll be able to modify them from a single Android Studio window. For auto-publication workflow, use seperate Android Studio windows.
 
 # Ouinet Integration
-Prior to building the CENO Reference Browser, you just need to create a `local.properties` file in the root of this project and set the values as follows before building the app:
+Prior to building the CENO Reference Browser, you will need to build our fork of gecko-dev, which is cloned as submodule to this repo, create a `local.properties` file in the root of this project, and set the values as follows before building the app, assuming your test device is 64bit architecture:
 ```groovy
+dependencySubstitutions.geckoviewTopsrcdir=../gecko-dev
+dependencySubstitutions.geckoviewTopobjdir=../gecko-dev/obj-aarch64-unknown-linux-android
 ABI=arm64_v8a
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"

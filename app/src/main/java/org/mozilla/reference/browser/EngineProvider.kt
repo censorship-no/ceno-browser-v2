@@ -21,6 +21,7 @@ import org.mozilla.reference.browser.ext.isCrashReportActive
 object EngineProvider {
 
     private var runtime: GeckoRuntime? = null
+    var rootCertificate : String = ""
 
     @Synchronized
     fun getOrCreateRuntime(context: Context): GeckoRuntime {
@@ -36,6 +37,9 @@ object EngineProvider {
 
             // About config it's no longer enabled by default
             builder.aboutConfigEnabled(true)
+
+            // Set the root certificate for ouinet proxy
+            builder.rootCertificate(rootCertificate)
 
             runtime = GeckoRuntime.create(context, builder.build())
         }
