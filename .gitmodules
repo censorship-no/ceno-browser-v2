@@ -1,3 +1,6 @@
 [submodule "app/src/main/assets/addons/ceno"]
 	path = app/src/main/assets/addons/ceno
 	url = https://github.com/censorship-no/ceno-ext-settings
+[submodule "gecko-dev"]
+	path = gecko-dev
+	url = https://github.com/paidforby/gecko-dev
