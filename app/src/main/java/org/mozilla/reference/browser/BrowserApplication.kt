@@ -148,6 +148,13 @@ open class BrowserApplication : Application() {
 
     companion object {
         const val NON_FATAL_CRASH_BROADCAST = "org.mozilla.reference.browser"
+        init {
+            System.setProperty("http.proxyHost", "127.0.0.1");
+            System.setProperty("http.proxyPort", "8077");
+
+            System.setProperty("https.proxyHost", "127.0.0.1");
+            System.setProperty("https.proxyPort", "8077");
+        }
     }
 }
 
