@@ -27,8 +27,8 @@ open class OuinetBroadcastReceiver : BroadcastReceiver() {
         Process.killProcess(Process.myPid())
     }
     companion object {
-        const val EXTRA_ACTION_STOP = "org.mozilla.gecko.OuinetBroadcastReceiver.STOP"
-        const val EXTRA_ACTION_PURGE = "org.mozilla.gecko.OuinetBroadcastReceiver.PURGE"
+        const val EXTRA_ACTION_STOP = "org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.STOP"
+        const val EXTRA_ACTION_PURGE = "org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.PURGE"
         private const val TAG = "OuinetBroadcastReceiver"
 
         fun createStopIntent(context: Context): Intent {
