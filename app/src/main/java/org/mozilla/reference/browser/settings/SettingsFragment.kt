@@ -29,6 +29,7 @@ import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
 import org.mozilla.reference.browser.R.string.pref_key_sign_in
+import org.mozilla.reference.browser.R.string.pref_key_mobile_data
 import org.mozilla.reference.browser.autofill.AutofillPreference
 import org.mozilla.reference.browser.ext.getPreferenceKey
 import org.mozilla.reference.browser.ext.requireComponents
@@ -72,6 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
+        val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
 
         val preferenceSignIn = findPreference<Preference>(signInKey)
         val preferencePairSignIn = findPreference<Preference>(signInPairKey)
@@ -82,6 +84,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
+        val preferenceMobileData = findPreference<Preference>(mobileDataKey)
 
         val accountManager = requireComponents.backgroundServices.accountManager
         if (accountManager.authenticatedAccount() != null) {
@@ -109,6 +112,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
+        preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
     }
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
@@ -233,6 +237,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+
+    private fun getChangeListenerForMobileData(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, newValue ->
+            if (newValue == true) {
+                /* this should pop-up the mobile data dialog to provide warning and allow user to select option*/
+                Toast.makeText(context, R.string.preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(context, R.string.preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
+            }
+            true
+        }
+    }
+
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }

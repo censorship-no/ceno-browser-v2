@@ -9,6 +9,11 @@ import androidx.preference.PreferenceManager
 import org.mozilla.reference.browser.R
 
 object Settings {
+    fun isMobileDataEnabled(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_mobile_data), false
+        )
+
     fun isTelemetryEnabled(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_telemetry), true
@@ -23,6 +28,14 @@ object Settings {
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_override_amo_collection), ""
         ) ?: ""
+
+    fun setMobileData(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_mobile_data)
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(key, value)
+                .apply()
+    }
 
     fun setOverrideAmoUser(context: Context, value: String) {
         val key = context.getString(R.string.pref_key_override_amo_user)
