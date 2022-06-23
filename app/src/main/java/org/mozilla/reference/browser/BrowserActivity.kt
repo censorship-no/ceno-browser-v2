@@ -18,7 +18,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import ie.equalit.ouinet.Config
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.TabSessionState
@@ -154,26 +153,6 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //------------------------------------------------------------
-        // Ouinet
-        //------------------------------------------------------------
-
-        val ouinetConfig = Config.ConfigBuilder(this)
-                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
-                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
-                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
-                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
-                .setCacheType("bep5-http")
-                .setLogLevel(Config.LogLevel.DEBUG)
-                //.setDisableOriginAccess(true)
-                .build()
-
-        Logger.info(" --------- Starting ouinet service")
-        OuinetService.startOuinetService(this, ouinetConfig)
-        //------------------------------------------------------------
-
-        components.core.setRootCertificate(ouinetConfig.caRootCertPath)
-
         /* check if mobile data is the active connection type */
         if (getConnectionType(this) == 1) {
             showOnMobileDataDialog()
@@ -203,7 +182,7 @@ open class BrowserActivity : AppCompatActivity() {
                 if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.DISCONNECTED) {
                     OuinetService.stopOuinetService(this@BrowserActivity)
                     // TODO: Insert a pause / check client state.
-                    OuinetService.startOuinetService(this@BrowserActivity, ouinetConfig)
+                    OuinetService.startOuinetService(this@BrowserActivity, BrowserApplication.mOuinetConfig)
                 }
             }
         }, intentFilter)

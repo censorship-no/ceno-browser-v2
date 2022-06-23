@@ -5,6 +5,7 @@
 package org.mozilla.reference.browser
 
 import android.app.Application
+import ie.equalit.ouinet.Config
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,6 +22,7 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
+import org.mozilla.reference.browser.browser.OuinetService
 import org.mozilla.reference.browser.ext.isCrashReportActive
 import org.mozilla.reference.browser.push.PushFxaIntegration
 import org.mozilla.reference.browser.push.WebPushEngineIntegration
@@ -37,6 +39,23 @@ open class BrowserApplication : Application() {
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
 
+        //------------------------------------------------------------
+        // Ouinet
+        //------------------------------------------------------------
+
+        mOuinetConfig = Config.ConfigBuilder(this)
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
+                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
+                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .setCacheType("bep5-http")
+                .setLogLevel(Config.LogLevel.DEBUG)
+                //.setDisableOriginAccess(true)
+                .build()
+
+        Logger.info(" --------- Starting ouinet service")
+        OuinetService.startOuinetService(this, mOuinetConfig)
+        //------------------------------------------------------------
 
 
         if (!isMainProcess()) {
@@ -47,6 +66,8 @@ open class BrowserApplication : Application() {
             return
         }
 
+        /* Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
+        components.core.setRootCertificate(mOuinetConfig!!.caRootCertPath)
         components.core.engine.warmUp()
 
         restoreBrowserState()
@@ -128,6 +149,7 @@ open class BrowserApplication : Application() {
     }
 
     companion object {
+        var mOuinetConfig: Config? = null
         const val NON_FATAL_CRASH_BROADCAST = "org.mozilla.reference.browser"
         init {
             System.setProperty("http.proxyHost", "127.0.0.1");
