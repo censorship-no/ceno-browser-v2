@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import ie.equalit.ouinet.Config
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.TabSessionState
@@ -28,6 +29,7 @@ import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.mozilla.reference.browser.addons.WebExtensionActionPopupActivity
 import org.mozilla.reference.browser.browser.BrowserFragment
 import org.mozilla.reference.browser.browser.CrashIntegration
+import org.mozilla.reference.browser.browser.OuinetService
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
@@ -57,6 +59,26 @@ open class BrowserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //------------------------------------------------------------
+        // Ouinet
+        //------------------------------------------------------------
+
+        val ouinetConfig = Config.ConfigBuilder(this)
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
+                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
+                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .setCacheType("bep5-http")
+                .setLogLevel(Config.LogLevel.DEBUG)
+                //.setDisableOriginAccess(true)
+                .build()
+
+        Logger.info(" --------- Starting ouinet service")
+        OuinetService.startOuinetService(this, ouinetConfig)
+        //------------------------------------------------------------
+
+        components.core.setRootCertificate(ouinetConfig.caRootCertPath)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
