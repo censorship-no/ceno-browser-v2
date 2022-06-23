@@ -7,7 +7,7 @@ package org.mozilla.reference.browser
 import android.content.Context
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
-import mozilla.components.browser.engine.gecko.glean.GeckoAdapter
+//import mozilla.components.browser.engine.gecko.glean.GeckoAdapter
 import mozilla.components.concept.engine.DefaultSettings
 import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.fetch.Client
@@ -32,8 +32,9 @@ object EngineProvider {
                 builder.crashHandler(CrashHandlerService::class.java)
             }
 
-            // Allow for exfiltrating Gecko metrics through the Glean SDK.
-            builder.telemetryDelegate(GeckoAdapter())
+            /* Don't allow telemetry data to be reported
+             * builder.telemetryDelegate(GeckoAdapter())
+             */
 
             // About config it's no longer enabled by default
             builder.aboutConfigEnabled(true)

@@ -201,7 +201,10 @@ open class BrowserActivity : AppCompatActivity() {
             lifecycle.addObserver(crashIntegration)
         }
 
-        NotificationManager.checkAndNotifyPolicy(this)
+        /* Do not notify user of data policy because we are not collecting telemetry data
+        *  and we already have a notification for stopping/pausing/purging local CENO data
+        * NotificationManager.checkAndNotifyPolicy(this)
+         */
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
