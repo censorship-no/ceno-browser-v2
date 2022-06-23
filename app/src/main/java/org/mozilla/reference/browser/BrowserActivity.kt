@@ -4,12 +4,17 @@
 
 package org.mozilla.reference.browser
 
-import android.content.Context
-import android.content.Intent
+import android.app.AlertDialog
+import android.content.*
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -32,6 +37,7 @@ import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.browser.OuinetService
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
+import org.mozilla.reference.browser.settings.Settings
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -48,6 +54,94 @@ open class BrowserActivity : AppCompatActivity() {
 
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.core.store, ::openPopup)
+    }
+
+    private var mOnMobileDataDialog: AlertDialog? = null
+
+    open fun showOnMobileDataDialog() {
+        if (Settings.isMobileDataEnabled(this)) {
+            Logger.debug("Mobile data has been enabled already")
+            return
+        }
+        if (mOnMobileDataDialog == null) {
+            Logger.debug("First time the on mobile data dialog is called, create.")
+            createOnMobileDataDialog()
+        }
+        if (!(mOnMobileDataDialog!!.isShowing())) {
+            Logger.debug("Showing on mobile data dialog.")
+            mOnMobileDataDialog!!.show()
+        }
+    }
+
+    open fun hideOnMobileDataDialog() {
+        if (mOnMobileDataDialog == null) {
+            Logger.debug("Not hiding on mobile data dialog, not yet created.")
+            return
+        }
+        if (mOnMobileDataDialog!!.isShowing()) {
+            Logger.debug("Hiding on mobile data dialog.")
+            mOnMobileDataDialog!!.dismiss() // `.hide()` results in it now showing up again
+        }
+    }
+
+    private fun createOnMobileDataDialog() {
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    Logger.debug("Stopping application from on mobile data dialog")
+                    /**
+                     * This is the preferred way to exit the app, but it is triggering an
+                     * exception in the cpp code which brings up the crash handler dialog.
+                     * ActivityCompat.finishAffinity(GeckoApp.this);
+                     */
+                    OuinetService.stopOuinetService(this@BrowserActivity)
+                    ActivityCompat.finishAffinity(this@BrowserActivity);
+                }
+                DialogInterface.BUTTON_NEUTRAL -> Logger.debug("Dismissing on mobile data dialog")
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    Logger.debug("Stop showing on mobile data dialog button pressed by user")
+                    Settings.setMobileData(this, true)
+                }
+            }
+        }
+        val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
+                .setTitle(R.string.ceno_on_mobile_data_dialog_title)
+                .setMessage(R.string.ceno_on_mobile_data_dialog_description)
+                .setPositiveButton(R.string.ceno_on_mobile_data_dialog_stop_now, dialogClickListener)
+                .setNeutralButton(R.string.ceno_on_mobile_data_dialog_continue, dialogClickListener)
+                .setNegativeButton(R.string.ceno_on_mobile_data_dialog_stop_showing, dialogClickListener)
+        mOnMobileDataDialog = dialogBuilder.create()
+    }
+
+    fun getConnectionType(context: Context?): Int {
+        var result = 0 // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            cm?.run {
+                cm.getNetworkCapabilities(cm.activeNetwork)?.run {
+                    if (hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        result = 2
+                    } else if (hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        result = 1
+                    } else if (hasTransport(NetworkCapabilities.TRANSPORT_VPN)){
+                        result = 3
+                    }
+                }
+            }
+        } else {
+            cm?.run {
+                cm.activeNetworkInfo?.run {
+                    if (type == ConnectivityManager.TYPE_WIFI) {
+                        result = 2
+                    } else if (type == ConnectivityManager.TYPE_MOBILE) {
+                        result = 1
+                    } else if(type == ConnectivityManager.TYPE_VPN) {
+                        result = 3
+                    }
+                }
+            }
+        }
+        return result
     }
 
     /**
@@ -79,6 +173,40 @@ open class BrowserActivity : AppCompatActivity() {
         //------------------------------------------------------------
 
         components.core.setRootCertificate(ouinetConfig.caRootCertPath)
+
+        /* check if mobile data is the active connection type */
+        if (getConnectionType(this) == 1) {
+            showOnMobileDataDialog()
+        }
+
+        /* The below method for accessing detecting connectivity changes has been deprecated as of API 28
+         * should replace with the more flexible NetworkRequestCallback, but that requires min API 23
+         */
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent) {
+                val info = intent.getParcelableExtra<NetworkInfo>(ConnectivityManager.EXTRA_NETWORK_INFO)
+                        ?: return
+                if (getConnectionType(context) == 1) {
+                    if (info.isConnected) {
+                        Logger.debug("Mobile connection detected, showing on mobile data dialog")
+                        showOnMobileDataDialog()
+                    } else {
+                        Logger.debug("Mobile connection disabled, hiding on mobile data dialog")
+                        hideOnMobileDataDialog()
+                    }
+                }
+
+                // Restart the Ouinet client whenever connectivity has changed and become stable.
+                val state = info.state
+                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.DISCONNECTED) {
+                    OuinetService.stopOuinetService(this@BrowserActivity)
+                    // TODO: Insert a pause / check client state.
+                    OuinetService.startOuinetService(this@BrowserActivity, ouinetConfig)
+                }
+            }
+        }, intentFilter)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {

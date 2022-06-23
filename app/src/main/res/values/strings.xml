@@ -208,4 +208,11 @@
     <string name="ceno_notification_channel_name">CENO Service</string>
     <!-- </CENO> -->
 
+    <!-- "On mobile data" dialog -->
+    <string name="ceno_on_mobile_data_dialog_title">CENO Browser notice</string>
+    <string name="ceno_on_mobile_data_dialog_description">It is recommended to use CENO when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop CENO when using mobile data.</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now">Stop CENO now</string>
+    <string name="ceno_on_mobile_data_dialog_continue">Continue</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
+
 </resources>
