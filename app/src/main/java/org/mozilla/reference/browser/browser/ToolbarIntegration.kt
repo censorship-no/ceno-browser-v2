@@ -39,6 +39,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.addons.AddonsActivity
+import org.mozilla.reference.browser.components.ceno.WebExtensionToolbarFeature
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.share
 import org.mozilla.reference.browser.settings.SettingsActivity
@@ -148,19 +149,26 @@ class ToolbarIntegration(
             emptyList()
         }
 
+        val cenoExtension = context.components.core.store.state.extensions["ceno@equalit.ie"]
+        var cenoBrowserAction = {}
+        /* Check if CENO extension has been loaded yet, then assign onClick function for menu item */
+        cenoExtension?.let { ext ->
+            ext.browserAction?.let{ action ->
+               cenoBrowserAction = action.onClick
+            }
+        }
+
         return sessionMenuItems + listOf(
             TextMenuCandidate(text = "Add-ons") {
                 val intent = Intent(context, AddonsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             },
-
             TextMenuCandidate(text = "Synced Tabs") {
                 val intent = Intent(context, SyncedTabsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             },
-
             TextMenuCandidate(text = "Report issue") {
                 tabsUseCases.addTab(
                     url = "https://github.com/mozilla-mobile/reference-browser/issues/new"
@@ -171,7 +179,11 @@ class ToolbarIntegration(
                 val intent = Intent(context, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
-            }
+            },
+            TextMenuCandidate(
+                text = "CENO",
+                onClick = cenoBrowserAction
+            )
         )
     }
 
@@ -197,12 +209,22 @@ class ToolbarIntegration(
             ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
         )
 
+        /* Create WebExtension Toolbar Feature to handle adding page action button */
+        val cenoToolbarFeature = WebExtensionToolbarFeature(
+                toolbar,
+                context.components.core.store
+        )
+
         scope.launch {
             store.flow()
                 .map { state -> state.selectedTab }
                 .ifChanged()
                 .collect { tab ->
                     menuController.submitList(menuItems(tab))
+                    /* pageAction buttons are removed globally,
+                     * manually add only CENO pageAction button here
+                     */
+                    cenoToolbarFeature.addPageActionButton(context, "ceno@equalit.ie")
                 }
         }
     }
