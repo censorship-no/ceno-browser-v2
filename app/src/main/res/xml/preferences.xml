@@ -6,20 +6,6 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.preference.Preference
-            android:key="@string/pref_key_sign_in"
-            android:title="@string/sign_in"
-            android:summary="@string/preferences_sign_in_summary"/>
-
-    <androidx.preference.Preference
-        android:key="@string/pref_key_pair_sign_in"
-        android:title="@string/pair_sign_in"
-        android:summary="@string/preferences_pair_sign_in_summary"/>
-
-    <androidx.preference.Preference
-        android:key="@string/pref_key_firefox_account"
-        android:title="@string/firefox_account" />
-
-    <androidx.preference.Preference
         android:key="@string/pref_key_privacy"
         android:title="@string/privacy"
         android:summary="@string/preferences_privacy_summary"/>

@@ -168,32 +168,32 @@
 
     <!-- <CENO> -->
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Use normal tabs to share content with other CENO users. Use private tabs to avoid sharing, or for pages that require login. Tap here to learn more.</string>
+    <string name="ceno_home_mode_description">Usa pestañas normales para compartir contenido con otros usuarios de CENO, y privadas para no compartir o para páginas con contraseña. Toca para saber más.</string>
 
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
-    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
 
     <!-- Extra paragraph in private tab panel. -->
-    <string name="ceno_private_tab_panel_description">CENO will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string>
+    <string name="ceno_private_tab_panel_description">CENO no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string>
 
     <!-- Service notification and actions -->
-    <string name="ceno_notification_title">CENO Browser Service</string>
-    <string name="ceno_notification_description">Tap to stop</string>
-    <string name="ceno_notification_home_description">Home</string>
-    <string name="ceno_notification_purge_description">Erase&#9888;</string>
-    <string name="ceno_notification_purge_do_description">Yes</string>
-    <string name="ceno_notification_channel_name">CENO Service</string>
+    <string name="ceno_notification_title">Servicio del Navegador CENO</string>
+    <string name="ceno_notification_description">Toca para parar</string>
+    <string name="ceno_notification_home_description">Inicio</string>
+    <string name="ceno_notification_purge_description">Borrar&#9888;</string>
+    <string name="ceno_notification_purge_do_description">Sí</string>
+    <string name="ceno_notification_channel_name">Servicio CENO</string>
+    <!-- </CENO> -->
 
     <!-- "On mobile data" dialog -->
-    <string name="ceno_on_mobile_data_dialog_title">CENO Browser notice</string>
-    <string name="ceno_on_mobile_data_dialog_description">It is recommended to use CENO when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop CENO when using mobile data.</string>
-    <string name="ceno_on_mobile_data_dialog_stop_now">Stop CENO now</string>
-    <string name="ceno_on_mobile_data_dialog_continue">Continue</string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
+    <string name="ceno_on_mobile_data_dialog_title">Aviso del Navegador CENO</string>
+    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar CENO con Wi-Fi, ya que puede consumir más datos de los esperados. Tal vez prefiera parar CENO cuando use datos móviles.</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now">Parar CENO ahora</string>
+    <string name="ceno_on_mobile_data_dialog_continue">Continuar</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
 
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
-    <!-- </CENO> -->
 
 </resources>

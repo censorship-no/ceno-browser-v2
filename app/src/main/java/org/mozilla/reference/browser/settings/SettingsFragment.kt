@@ -64,9 +64,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     @Suppress("LongMethod") // Yep, this should be refactored.
     private fun setupPreferences() {
+        /*
         val signInKey = requireContext().getPreferenceKey(pref_key_sign_in)
         val signInPairKey = requireContext().getPreferenceKey(pref_key_pair_sign_in)
         val firefoxAccountKey = requireContext().getPreferenceKey(pref_key_firefox_account)
+         */
         val makeDefaultBrowserKey = requireContext().getPreferenceKey(pref_key_make_default_browser)
         val remoteDebuggingKey = requireContext().getPreferenceKey(pref_key_remote_debugging)
         val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
@@ -75,9 +77,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
         val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
 
+        /*
         val preferenceSignIn = findPreference<Preference>(signInKey)
         val preferencePairSignIn = findPreference<Preference>(signInPairKey)
         val preferenceFirefoxAccount = findPreference<Preference>(firefoxAccountKey)
+        */
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
         val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
         val preferenceAboutPage = findPreference<Preference>(aboutPageKey)
@@ -86,6 +90,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
         val preferenceMobileData = findPreference<Preference>(mobileDataKey)
 
+        /*
         val accountManager = requireComponents.backgroundServices.accountManager
         if (accountManager.authenticatedAccount() != null) {
             preferenceSignIn?.isVisible = false
@@ -100,6 +105,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             preferencePairSignIn?.isVisible = true
             preferencePairSignIn?.onPreferenceClickListener = getClickListenerForPairingSignIn()
         }
+        */
 
         if (!AutofillPreference.isSupported(requireContext())) {
             preferenceAutofill?.isVisible = false
@@ -150,6 +156,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    /*
     private fun getClickListenerForFirefoxAccount(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
@@ -162,6 +169,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+     */
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
