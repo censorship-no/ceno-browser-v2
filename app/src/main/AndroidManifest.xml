@@ -193,13 +193,13 @@
             android:value="false" />
 
         <service
-            android:name="org.mozilla.reference.browser.browser.OuinetService"
+            android:name="org.mozilla.reference.browser.components.ceno.OuinetService"
             android:exported="false"
             android:isolatedProcess="false"
             android:process=":ouinetService"/>
 
         <receiver
-            android:name="org.mozilla.reference.browser.browser.OuinetBroadcastReceiver"
+            android:name="org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.STOP" />

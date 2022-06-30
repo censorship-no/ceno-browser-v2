@@ -1,4 +1,4 @@
-package org.mozilla.reference.browser.browser
+package org.mozilla.reference.browser.components.ceno
 
 import android.app.ActivityManager
 import android.content.BroadcastReceiver
@@ -27,8 +27,8 @@ open class OuinetBroadcastReceiver : BroadcastReceiver() {
         Process.killProcess(Process.myPid())
     }
     companion object {
-        const val EXTRA_ACTION_STOP = "org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.STOP"
-        const val EXTRA_ACTION_PURGE = "org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.PURGE"
+        const val EXTRA_ACTION_STOP = "org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver.STOP"
+        const val EXTRA_ACTION_PURGE = "org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver.PURGE"
         private const val TAG = "OuinetBroadcastReceiver"
 
         fun createStopIntent(context: Context): Intent {

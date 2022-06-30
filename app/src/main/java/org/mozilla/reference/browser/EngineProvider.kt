@@ -15,7 +15,7 @@ import mozilla.components.feature.webcompat.WebCompatFeature
 import mozilla.components.lib.crash.handler.CrashHandlerService
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
-import org.mozilla.reference.browser.addons.CenoWebExt
+import org.mozilla.reference.browser.components.ceno.CenoWebExt
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
 object EngineProvider {

@@ -1,10 +1,10 @@
-package org.mozilla.reference.browser.browser
+package org.mozilla.reference.browser.components.ceno
 
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.net.Uri;
+import android.net.Uri
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
