@@ -16,6 +16,7 @@ import mozilla.components.lib.crash.handler.CrashHandlerService
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
 import org.mozilla.reference.browser.components.ceno.CenoWebExt
+import org.mozilla.reference.browser.components.ceno.HttpsByDefaultWebExt
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
 object EngineProvider {
@@ -54,6 +55,7 @@ object EngineProvider {
         return GeckoEngine(context, defaultSettings, runtime).also {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
+            HttpsByDefaultWebExt.install(it)
         }
     }
 

@@ -39,6 +39,8 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.addons.AddonsActivity
+import org.mozilla.reference.browser.components.ceno.CenoWebExt.CENO_EXTENSION_ID
+import org.mozilla.reference.browser.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
 import org.mozilla.reference.browser.components.ceno.WebExtensionToolbarFeature
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.share
@@ -61,6 +63,12 @@ class ToolbarIntegration(
     }
 
     private val scope = MainScope()
+
+    /* Create WebExtension Toolbar Feature to handle adding browserAction and pageAction buttons */
+    private val cenoToolbarFeature = WebExtensionToolbarFeature(
+            toolbar,
+            context.components.core.store
+    )
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tint = ContextCompat.getColor(context, R.color.icons)
@@ -149,14 +157,6 @@ class ToolbarIntegration(
             emptyList()
         }
 
-        val cenoExtension = context.components.core.store.state.extensions["ceno@equalit.ie"]
-        var cenoBrowserAction = {}
-        /* Check if CENO extension has been loaded yet, then assign onClick function for menu item */
-        cenoExtension?.let { ext ->
-            ext.browserAction?.let{ action ->
-               cenoBrowserAction = action.onClick
-            }
-        }
 
         return sessionMenuItems + listOf(
             TextMenuCandidate(text = "Add-ons") {
@@ -184,7 +184,11 @@ class ToolbarIntegration(
             },
             TextMenuCandidate(
                 text = "CENO",
-                onClick = cenoBrowserAction
+                onClick = cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)
+            ),
+            TextMenuCandidate(
+                text = "HTTPS by default",
+                onClick = cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)
             )
         )
     }
@@ -211,12 +215,6 @@ class ToolbarIntegration(
             ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
         )
 
-        /* Create WebExtension Toolbar Feature to handle adding page action button */
-        val cenoToolbarFeature = WebExtensionToolbarFeature(
-                toolbar,
-                context.components.core.store
-        )
-
         scope.launch {
             store.flow()
                 .map { state -> state.selectedTab }
@@ -226,7 +224,7 @@ class ToolbarIntegration(
                     /* pageAction buttons are removed globally,
                      * manually add only CENO pageAction button here
                      */
-                    cenoToolbarFeature.addPageActionButton(context, "ceno@equalit.ie")
+                    cenoToolbarFeature.addPageActionButton(context, CENO_EXTENSION_ID)
                 }
         }
     }

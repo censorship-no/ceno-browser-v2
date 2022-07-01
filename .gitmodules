@@ -4,3 +4,7 @@
 [submodule "gecko-dev"]
 	path = gecko-dev
 	url = https://github.com/paidforby/gecko-dev
+[submodule "app/src/main/assets/addons/https-by-default"]
+	path = app/src/main/assets/addons/https-by-default
+	url = https://github.com/censorship-no/https-by-default
+	branch = ceno

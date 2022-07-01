@@ -64,6 +64,17 @@ class WebExtensionToolbarFeature(
     ): Boolean = extension?.allowedInPrivateBrowsing == false && tab?.content?.private == true
      */
 
+    fun getBrowserAction(id: String): () -> Unit {
+        var browserAction = {}
+        /* Check if extension has been loaded yet, then return onClick function */
+        store.state.extensions[id]?.let { ext ->
+            ext.browserAction?.let{ action ->
+                browserAction = action.onClick
+            }
+        }
+        return browserAction
+    }
+
     suspend fun addPageActionButton(context: Context, id: String) {
         context.components.core.store.state.extensions[id]?.let { ext ->
             ext.pageAction?.let { pageAction ->

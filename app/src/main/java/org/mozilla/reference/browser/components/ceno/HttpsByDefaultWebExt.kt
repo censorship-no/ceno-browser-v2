@@ -7,25 +7,25 @@ import mozilla.components.concept.engine.webextension.WebExtensionRuntime
 import mozilla.components.support.base.log.logger.Logger
 
 /**
- * Feature to enable CENO Settings extension.
+ * Feature to enable https-by-default
  */
-object CenoWebExt {
-    private val logger = Logger("equalitie-ceno")
+object HttpsByDefaultWebExt {
+    private val logger = Logger("https-by-default")
 
-    internal const val CENO_EXTENSION_ID = "ceno@equalit.ie"
-    internal const val CENO_EXTENSION_URL = "resource://android/assets/addons/ceno/"
+    internal const val HTTPS_BY_DEFAULT_EXTENSION_ID = "https-by-default@robwu.nl"
+    internal const val HTTPS_BY_DEFAULT_EXTENSION_URL = "resource://android/assets/addons/https-by-default/firefox/"
 
     /**
      * Installs the web extension in the runtime through the WebExtensionRuntime install method
      */
     fun install(runtime: WebExtensionRuntime) {
         runtime.installWebExtension(
-                CENO_EXTENSION_ID, CENO_EXTENSION_URL,
+                HTTPS_BY_DEFAULT_EXTENSION_ID, HTTPS_BY_DEFAULT_EXTENSION_URL,
                 onSuccess = {
-                    logger.debug("Installed CENO webextension: ${it.id}")
+                    logger.debug("Installed HTTPS by default WebExtension: ${it.id}")
                 },
                 onError = { ext, throwable ->
-                    logger.error("Failed to install CENO webextension: $ext", throwable)
+                    logger.error("Failed to install HTTPS by default WebExtension: $ext", throwable)
                 }
         )
     }
