@@ -22,13 +22,13 @@ import androidx.preference.SwitchPreferenceCompat
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.R.string.pref_key_about_page
-import org.mozilla.reference.browser.R.string.pref_key_firefox_account
+//import org.mozilla.reference.browser.R.string.pref_key_firefox_account
 import org.mozilla.reference.browser.R.string.pref_key_make_default_browser
 import org.mozilla.reference.browser.R.string.pref_key_override_amo_collection
-import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
+//import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
-import org.mozilla.reference.browser.R.string.pref_key_sign_in
+//import org.mozilla.reference.browser.R.string.pref_key_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_mobile_data
 import org.mozilla.reference.browser.autofill.AutofillPreference
 import org.mozilla.reference.browser.ext.getPreferenceKey
@@ -135,6 +135,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    /*
     private fun getClickListenerForSignIn(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             requireComponents.services.accountsAuthFeature.beginAuthentication(requireContext())
@@ -156,7 +157,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    /*
     private fun getClickListenerForFirefoxAccount(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()

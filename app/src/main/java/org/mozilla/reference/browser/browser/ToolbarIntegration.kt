@@ -43,7 +43,7 @@ import org.mozilla.reference.browser.components.ceno.WebExtensionToolbarFeature
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.share
 import org.mozilla.reference.browser.settings.SettingsActivity
-import org.mozilla.reference.browser.tabs.synced.SyncedTabsActivity
+//import org.mozilla.reference.browser.tabs.synced.SyncedTabsActivity
 
 @Suppress("LongParameterList")
 class ToolbarIntegration(
@@ -164,11 +164,13 @@ class ToolbarIntegration(
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             },
+            /*
             TextMenuCandidate(text = "Synced Tabs") {
                 val intent = Intent(context, SyncedTabsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             },
+             */
             TextMenuCandidate(text = "Report issue") {
                 tabsUseCases.addTab(
                     url = "https://github.com/mozilla-mobile/reference-browser/issues/new"

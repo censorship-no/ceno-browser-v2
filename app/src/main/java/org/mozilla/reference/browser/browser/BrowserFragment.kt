@@ -46,10 +46,12 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private val readerViewAppearanceButton: FloatingActionButton
         get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
+    /*
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
             getString(R.string.pref_key_compose_ui), false
         )
+     */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

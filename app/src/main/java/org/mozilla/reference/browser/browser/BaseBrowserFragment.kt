@@ -108,7 +108,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         return inflater.inflate(R.layout.fragment_browser, container, false)
     }
 
-    abstract val shouldUseComposeUI: Boolean
+    //abstract val shouldUseComposeUI: Boolean
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -301,6 +301,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
 
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
+        /*
         if (shouldUseComposeUI) {
             composeView.visibility = View.VISIBLE
             composeView.setContent { BrowserToolbar() }
@@ -309,6 +310,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             params.topMargin = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
             swipeRefresh.layoutParams = params
         }
+        */
     }
 
     private fun fullScreenChanged(enabled: Boolean) {

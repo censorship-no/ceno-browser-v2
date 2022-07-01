@@ -2,59 +2,47 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!DOCTYPE resources [
+    <!ENTITY brandShortName "CENO">
+    <!ENTITY  brandFullName   "eQualitie CENO">
+    <!ENTITY  vendorShortName "eQualitie">
+    ]>
 <resources>
     <string name="app_name">Reference Browser</string>
 
     <!-- Text shown in the toolbar if it is empty -->
-    <string name="toolbar_hint">Search or enter address</string>
+    <string name="toolbar_hint">Término de búsqueda o dirección</string>
 
     <!-- Menu option on the toolbar to open a new tab-->
-    <string name="menu_action_add_tab">Add New Tab</string>
+    <string name="menu_action_add_tab">Pestaña nueva</string>
 
     <!-- Menu option on the toolbar to close all tabs-->
-    <string name="menu_action_close_tabs">Close All Tabs</string>
-    <string name="menu_action_close_tabs_private">Close Private Tabs</string>
-
-    <!-- Preference summary for settings related sign in -->
-    <string name="preferences_sign_in_summary">Sync your tabs and history</string>
-
-    <!-- Preference summary for pairing sign in -->
-    <string name="preferences_pair_sign_in_summary">Pair with Firefox Desktop</string>
+    <string name="menu_action_close_tabs">Cerrar todas las pestañas</string>
+    <string name="menu_action_close_tabs_private">Cerrar pestañas privadas</string>
 
     <!-- Preference summary for settings related to send telemetry data -->
     <string name="preferences_use_telemetry_summary">Send usage data</string>
 
     <!-- Preference for settings related to changing the default browser -->
-    <string name="preferences_make_default_browser">Make default browser</string>
-
-    <string name="preferences_compose_ui">Use experimental Jetpack Compose UI</string>
+    <string name="preferences_make_default_browser">Convierte a &brandShortName; en tu navegador predeterminado</string>
 
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
 
-    <!-- Preference enables sync for history -->
-    <string name="preferences_sync_history">History</string>
-
-    <!-- Preference enables sync for synced tabs -->
-    <string name="preferences_sync_tabs">Open tabs</string>
-
-    <!-- Preference enables sync for synced tabs -->
-    <string name="preferences_sync_passwords">Passwords</string>
-
     <!-- Preference enabling remote debugging -->
-    <string name="preferences_remote_debugging">Remote debugging via USB</string>
+    <string name="preferences_remote_debugging">Depuración remota USB</string>
 
     <!-- Preference for enabling tracking protection in normal mode -->
     <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
 
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Enable in Private Browsing Mode</string>
+    <string name="preferences_tracking_protection_private">Activada en navegación privada</string>
 
     <!-- Preference about page -->
-    <string name="preferences_about_page">About Reference Browser</string>
+    <string name="preferences_about_page">Acerca de &brandShortName;</string>
 
     <!-- Preference for privacy -->
-    <string name="privacy">Privacy</string>
+    <string name="privacy">Privacidad</string>
 
     <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
@@ -63,7 +51,7 @@
     <string name="open_links_in_apps">Open links in apps</string>
 
     <!-- Preference category for developer tools -->
-    <string name="developer_tools_category">Developer tools</string>
+    <string name="developer_tools_category">Herramientas de desarrollo</string>
 
     <!-- Preference for settings related turn on telemetry data-->
     <string name="use_telemetry">Use Telemetry</string>
@@ -72,37 +60,27 @@
     <string name="mozilla_category">Mozilla</string>
 
     <!-- Preference category for tracking protection -->
-    <string name="tracker_category">Tracking Protection</string>
+    <string name="tracker_category">Protección contra rastreo</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Data Choices</string>
+    <string name="data_choices_category">Elección de datos</string>
 
     <!-- Menu option on the toolbar that takes you to settings page-->
-    <string name="settings">Settings</string>
-
-    <!-- Menu option on the toolbar that takes you to synced tabs page-->
-    <string name="synced_tabs">Synced Tabs</string>
-
-    <!-- Menu option on the toolbar that takes you to account settings page-->
-    <string name="account_settings">Account Settings</string>
+    <string name="settings">Configuración</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Privacy Settings</string>
-
-    <!-- Menu option on the toolbar that takes you to pairing QR code page-->
-    <string name="pair_preferences">Pairing</string>
-    <string name="pair_instructions">Open firefox.com/pair in Firefox Desktop for your pairing code</string>
+    <string name="privacy_settings">Privacidad Configuración</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
+    <string name="crash_report_non_fatal_message">Lo sentimos</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_action">Report</string>
+    <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
 
-    <!-- Private Browsing -->
-    <string name="private_browsing_title">Private Browsing</string>
+    <!-- Navegación privada -->
+    <string name="private_browsing_title">Navegación privada</string>
     <string name="private_browsing_body"><![CDATA[
-<h1>Private Browsing</h1>
+<h1>Navegación privada</h1>
 <p>When you browse in a Private Window, Reference Browser <strong>does not save</strong>:</p>
 <ul class="two-column">
     <li>visited pages</li>
@@ -110,16 +88,10 @@
     <li>cookies</li>
     <li>temporary files</li>
 </ul>
-<p>Private Browsing <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
-<p class="about-info">Learn more about <a id="learnMore">Private Browsing</a>.</p>
+<p>Navegación privada <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
+<p class="about-info">Learn more about <a id="learnMore">Navegación privada</a>.</p>
      ]]></string>
 
-    <!-- Title of the notification shown on app startup informing about the data policy -->
-    <string name="datareporting_notification_title">Reference Browser</string>
-
-    <!-- Summary of the notification shown on app startup informing about the data policy -->
-    <string name="datareporting_notification_summary">To improve your experience, Reference Browser automatically sends some information to Mozilla.</string>
-    
     <string name="default_notification_channel">Browser</string>
 
     <!-- About content -->
@@ -135,22 +107,6 @@
 
     <string name="menu_share_with">Share with…</string>
     <string name="toast_copied">Copied!</string>
-
-    <!-- Send Tab -->
-    <!-- Name of the "receive tabs" notification channel. Displayed in the "App notifications" system settings for the app -->
-    <string name="fxa_received_tab_channel_name">Received tabs</string>
-    <!-- Description of the "receive tabs" notification channel. Displayed in the "App notifications" system settings for the app -->
-    <string name="fxa_received_tab_channel_description">Notifications for tabs received from other Firefox devices.</string>
-    <!--  The body for these is the URL of the tab received  -->
-    <string name="fxa_tab_received_notification_name">Tab Received</string>
-    <!-- %s is the device name -->
-    <string name="fxa_tab_received_from_notification_name">Tab from %s</string>
-
-    <!-- Synced Tabs -->
-    <string name="synced_tabs_connect_to_sync_account">Connect with a Firefox Account.</string>
-    <string name="synced_tabs_connect_another_device">Connect another device.</string>
-    <string name="synced_tabs_reauth">Please re-authenticate.</string>
-    <string name="synced_tabs_enable_tab_syncing">Please enable tab syncing.</string>
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->

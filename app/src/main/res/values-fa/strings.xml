@@ -11,38 +11,38 @@
     <string name="app_name">Reference Browser</string>
 
     <!-- Text shown in the toolbar if it is empty -->
-    <string name="toolbar_hint">Search or enter address</string>
+    <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
 
     <!-- Menu option on the toolbar to open a new tab-->
-    <string name="menu_action_add_tab">Add New Tab</string>
+    <string name="menu_action_add_tab">زبانه جدید</string>
 
     <!-- Menu option on the toolbar to close all tabs-->
-    <string name="menu_action_close_tabs">Close All Tabs</string>
-    <string name="menu_action_close_tabs_private">Close Private Tabs</string>
+    <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
+    <string name="menu_action_close_tabs_private">بستن زبانه‌های خصوصی</string>
 
     <!-- Preference summary for settings related to send telemetry data -->
     <string name="preferences_use_telemetry_summary">Send usage data</string>
 
     <!-- Preference for settings related to changing the default browser -->
-    <string name="preferences_make_default_browser">Make &brandShortName; your default browser</string>
+    <string name="preferences_make_default_browser">&brandShortName; را مرورگر پیش فرض خود قرار دهید</string>
 
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
 
     <!-- Preference enabling remote debugging -->
-    <string name="preferences_remote_debugging">Remote debugging via USB</string>
+    <string name="preferences_remote_debugging">اشکال‌زدایی از راه دور به‌وسیله USB</string>
 
     <!-- Preference for enabling tracking protection in normal mode -->
     <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
 
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Enable in Private Browsing Mode</string>
+    <string name="preferences_tracking_protection_private">فعال شده در حالت مرور خصوصی</string>
 
     <!-- Preference about page -->
-    <string name="preferences_about_page">About Reference Browser</string>
+    <string name="preferences_about_page">درباره &brandShortName;</string>
 
     <!-- Preference for privacy -->
-    <string name="privacy">Privacy</string>
+    <string name="privacy">حریم خصوصی</string>
 
     <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
@@ -51,7 +51,7 @@
     <string name="open_links_in_apps">Open links in apps</string>
 
     <!-- Preference category for developer tools -->
-    <string name="developer_tools_category">Developer tools</string>
+    <string name="developer_tools_category">ابزارهای توسعه‌دهندگان</string>
 
     <!-- Preference for settings related turn on telemetry data-->
     <string name="use_telemetry">Use Telemetry</string>
@@ -60,27 +60,27 @@
     <string name="mozilla_category">Mozilla</string>
 
     <!-- Preference category for tracking protection -->
-    <string name="tracker_category">Tracking Protection</string>
+    <string name="tracker_category">محافظت در برابر ردگیری</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Data Choices</string>
+    <string name="data_choices_category">انتخاب داده‌ها</string>
 
     <!-- Menu option on the toolbar that takes you to settings page-->
-    <string name="settings">Settings</string>
+    <string name="settings">تنظیمات</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Privacy Settings</string>
+    <string name="privacy_settings">حریم خصوصی تنظیمات</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
+    <string name="crash_report_non_fatal_message">متأسفیم</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_action">Report</string>
+    <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
 
-    <!-- Private Browsing -->
-    <string name="private_browsing_title">Private Browsing</string>
+    <!-- مرور خصوصی -->
+    <string name="private_browsing_title">مرور خصوصی</string>
     <string name="private_browsing_body"><![CDATA[
-<h1>Private Browsing</h1>
+<h1>مرور خصوصی</h1>
 <p>When you browse in a Private Window, Reference Browser <strong>does not save</strong>:</p>
 <ul class="two-column">
     <li>visited pages</li>
@@ -88,8 +88,8 @@
     <li>cookies</li>
     <li>temporary files</li>
 </ul>
-<p>Private Browsing <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
-<p class="about-info">Learn more about <a id="learnMore">Private Browsing</a>.</p>
+<p>مرور خصوصی <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
+<p class="about-info">Learn more about <a id="learnMore">مرور خصوصی</a>.</p>
      ]]></string>
 
     <string name="default_notification_channel">Browser</string>
@@ -123,29 +123,29 @@
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 
     <!-- <CENO> -->
-    <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Use normal tabs to share content with other CENO users. Use private tabs to avoid sharing, or for pages that require login. Tap here to learn more.</string>
+    <!-- خانه page browsing mode reminder. -->
+    <string name="ceno_home_mode_description">با استفاده از برگه‌های معمولی، محتوا را با سایر کاربران CENO مبادله کنید. برای جلوگیری از به اشتراک‌گذاری یا برای صفحاتی که نیاز به اطلاعات ورودی دارند، از برگه‌های خصوصی استفاده کنید. این‌جا بیشتر بخوانید.</string>
 
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
-    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/fa/concepts/public-private.html</string>
 
     <!-- Extra paragraph in private tab panel. -->
-    <string name="ceno_private_tab_panel_description">CENO will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string>
+    <string name="ceno_private_tab_panel_description">«سنو» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.</string>
 
     <!-- Service notification and actions -->
-    <string name="ceno_notification_title">CENO Browser Service</string>
-    <string name="ceno_notification_description">Tap to stop</string>
-    <string name="ceno_notification_home_description">Home</string>
-    <string name="ceno_notification_purge_description">Erase&#9888;</string>
-    <string name="ceno_notification_purge_do_description">Yes</string>
-    <string name="ceno_notification_channel_name">CENO Service</string>
+    <string name="ceno_notification_title">خدمات مرورگر CENO</string>
+    <string name="ceno_notification_description">برای توقف ضربه بزنید</string>
+    <string name="ceno_notification_home_description">خانه</string>
+    <string name="ceno_notification_purge_description">پاک کردن</string>
+    <string name="ceno_notification_purge_do_description">بله</string>
+    <string name="ceno_notification_channel_name">سرویس CENO</string>
 
     <!-- "On mobile data" dialog -->
-    <string name="ceno_on_mobile_data_dialog_title">CENO Browser notice</string>
-    <string name="ceno_on_mobile_data_dialog_description">It is recommended to use CENO when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop CENO when using mobile data.</string>
-    <string name="ceno_on_mobile_data_dialog_stop_now">Stop CENO now</string>
-    <string name="ceno_on_mobile_data_dialog_continue">Continue</string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
+    <string name="ceno_on_mobile_data_dialog_title">اطلاعیه مرورگر CENO</string>
+    <string name="ceno_on_mobile_data_dialog_description">توصیه می‌شود هنگام اتصال Wi-Fi از CENO استفاده کنید، زیرا ممکن است مصرف داده بیش از حد انتظارتان باشد. شاید بخواهید هنگام استفاده از داده تلفن همراه، CENO را متوقف کنید.</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now">CENO را همین حالا متوقف کنید</string>
+    <string name="ceno_on_mobile_data_dialog_continue">ادامه</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
 
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>

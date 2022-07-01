@@ -25,9 +25,9 @@ import mozilla.components.service.fxa.SyncEngine
 import mozilla.components.service.fxa.manager.FxaAccountManager
 import mozilla.components.service.fxa.sync.GlobalSyncableStoreProvider
 import mozilla.components.service.sync.logins.SyncableLoginsStorage
-import org.mozilla.reference.browser.NotificationManager
+//import org.mozilla.reference.browser.NotificationManager
 import org.mozilla.reference.browser.ext.components
-import org.mozilla.reference.browser.tabs.synced.SyncedTabsIntegration
+//import org.mozilla.reference.browser.tabs.synced.SyncedTabsIntegration
 
 /**
  * Component group for background services. These are components that need to be accessed from
@@ -78,13 +78,15 @@ class BackgroundServices(
             setOf("https://identity.mozilla.com/apps/oldsync")
         ).also { accountManager ->
 
+            /*
             SendTabFeature(accountManager) { device, tabs ->
                 NotificationManager.showReceivedTabs(context, device, tabs)
             }
+            */
 
             push.feature?.let { push -> FxaPushSupportFeature(context, accountManager, push) }
 
-            SyncedTabsIntegration(context, accountManager).launch()
+            //SyncedTabsIntegration(context, accountManager).launch()
 
             CoroutineScope(Dispatchers.Main).launch { accountManager.start() }
         }
