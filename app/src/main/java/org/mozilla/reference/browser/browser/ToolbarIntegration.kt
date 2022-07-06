@@ -41,6 +41,7 @@ import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.addons.AddonsActivity
 import org.mozilla.reference.browser.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import org.mozilla.reference.browser.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
+import org.mozilla.reference.browser.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import org.mozilla.reference.browser.components.ceno.WebExtensionToolbarFeature
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.share
@@ -184,11 +185,15 @@ class ToolbarIntegration(
             },
             TextMenuCandidate(
                 text = "CENO",
-                onClick = cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)
+                onClick = cenoToolbarFeature.getBrowserAction(context, CENO_EXTENSION_ID)
             ),
             TextMenuCandidate(
                 text = "HTTPS by default",
-                onClick = cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)
+                onClick = cenoToolbarFeature.getBrowserAction(context, HTTPS_BY_DEFAULT_EXTENSION_ID)
+            ),
+            TextMenuCandidate(
+                    text = "uBlock Origin",
+                    onClick = cenoToolbarFeature.getBrowserAction(context, UBLOCK_ORIGIN_EXTENSION_ID)
             )
         )
     }

@@ -17,6 +17,7 @@ import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
 import org.mozilla.reference.browser.components.ceno.CenoWebExt
 import org.mozilla.reference.browser.components.ceno.HttpsByDefaultWebExt
+import org.mozilla.reference.browser.components.ceno.UblockOriginWebExt
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
 object EngineProvider {
@@ -56,6 +57,7 @@ object EngineProvider {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
             HttpsByDefaultWebExt.install(it)
+            UblockOriginWebExt.installFromXpi(runtime)
         }
     }
 

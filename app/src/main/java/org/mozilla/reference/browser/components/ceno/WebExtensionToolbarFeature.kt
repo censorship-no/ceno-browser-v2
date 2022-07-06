@@ -7,6 +7,7 @@ package org.mozilla.reference.browser.components.ceno
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -64,8 +65,10 @@ class WebExtensionToolbarFeature(
     ): Boolean = extension?.allowedInPrivateBrowsing == false && tab?.content?.private == true
      */
 
-    fun getBrowserAction(id: String): () -> Unit {
-        var browserAction = {}
+    fun getBrowserAction(context : Context, id: String): () -> Unit {
+        var browserAction : () -> Unit = {
+            Toast.makeText(context, "Feature not yet installed", Toast.LENGTH_SHORT).show()
+        }
         /* Check if extension has been loaded yet, then return onClick function */
         store.state.extensions[id]?.let { ext ->
             ext.browserAction?.let{ action ->
