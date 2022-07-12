@@ -16,4 +16,12 @@
     <string name="pref_key_override_amo_collection" translatable="false">pref_key_override_amo_collection</string>
     <string name="pref_key_override_amo_user" translatable="false">pref_key_override_amo_user</string>
     <string name="pref_key_mobile_data" translatable="false">pref_key_mobile_data</string>
+
+    <!-- CENO: COPIED FROM FENIX -->
+    <!-- Top Sites -->
+    <string name="default_top_sites_added" translatable="false">pref_key_pocket_top_site_added</string>
+    <!-- Maximum number of top sites to display -->
+    <string name="pref_key_top_sites_max_limit" translatable="false">pref_key_top_sites_max_limit</string>
+    <!-- CENO: END OF COPIED FROM FENIX -->
+
 </resources>

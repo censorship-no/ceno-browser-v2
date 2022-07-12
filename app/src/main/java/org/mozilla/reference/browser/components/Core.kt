@@ -38,6 +38,8 @@ import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.search.region.RegionMiddleware
 import mozilla.components.feature.session.HistoryDelegate
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
+import mozilla.components.feature.top.sites.DefaultTopSitesStorage
+import mozilla.components.feature.top.sites.PinnedSiteStorage
 import mozilla.components.feature.webnotifications.WebNotificationFeature
 import mozilla.components.lib.dataprotect.SecureAbove22Preferences
 import mozilla.components.service.location.LocationService
@@ -52,8 +54,10 @@ import org.mozilla.reference.browser.R.string.pref_key_tracking_protection_norma
 import org.mozilla.reference.browser.R.string.pref_key_tracking_protection_private
 import org.mozilla.reference.browser.downloads.DownloadService
 import org.mozilla.reference.browser.ext.getPreferenceKey
+import org.mozilla.reference.browser.ext.cenoPreferences
 import org.mozilla.reference.browser.media.MediaSessionService
 import org.mozilla.reference.browser.settings.Settings
+import org.mozilla.reference.browser.settings.CenoSupportUtils
 import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -193,6 +197,36 @@ class Core(private val context: Context) {
         } else {
             provideDefaultAddonCollectionProvider()
         }
+    }
+
+    /* CENO: add storage locations for pinned/suggested sites */
+    val cenoPinnedSiteStorage by lazy { PinnedSiteStorage(context) }
+
+    val cenoTopSitesStorage by lazy {
+        val defaultTopSites = mutableListOf<Pair<String, String>>()
+
+        if (!context.cenoPreferences().defaultTopSitesAdded) {
+            defaultTopSites.add(
+                Pair(
+                    context.getString(R.string.default_top_site_ceno),
+                    CenoSupportUtils.CENO_URL
+                )
+            )
+            defaultTopSites.add(
+                Pair(
+                    context.getString(R.string.default_top_site_wikipedia),
+                    CenoSupportUtils.WIKIPEDIA_URL
+                )
+            )
+        context.cenoPreferences().defaultTopSitesAdded = true
+        }
+
+        DefaultTopSitesStorage(
+            pinnedSitesStorage = cenoPinnedSiteStorage,
+            historyStorage = historyStorage,
+            topSitesProvider = null, //contileTopSitesProvider,
+            defaultTopSites = defaultTopSites
+        )
     }
 
     @Suppress("MagicNumber")

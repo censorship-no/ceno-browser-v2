@@ -100,7 +100,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     protected var webAppToolbarShouldBeVisible = true
 
-    final override fun onCreateView(
+    /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -108,6 +109,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         return inflater.inflate(R.layout.fragment_browser, container, false)
     }
 
+    /* CENO: not using Jetpack ComposeUI anywhere yet
+    *  option was removed from Settings, will be added back if needed */
     //abstract val shouldUseComposeUI: Boolean
 
     @CallSuper
@@ -299,9 +302,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 view = view
             )
         }
-
-        val composeView = view.findViewById<ComposeView>(R.id.compose_view)
+        /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
+        val composeView = view.findViewById<ComposeView>(R.id.compose_view)
         if (shouldUseComposeUI) {
             composeView.visibility = View.VISIBLE
             composeView.setContent { BrowserToolbar() }

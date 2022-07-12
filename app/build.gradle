@@ -5,6 +5,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
+/* CENO: adding kapt for databinding support */
+apply plugin: 'kotlin-kapt'
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
@@ -43,6 +45,8 @@ android {
 
     buildFeatures {
         compose true
+        /* CENO: set databinding true, required for building HomeFragment */
+        dataBinding true
     }
 
     composeOptions {
@@ -318,6 +322,10 @@ dependencies {
 
     implementation Deps.google_material
 
+    /* CENO: Begin implement additonal dependencies */
+    implementation Deps.mozilla_feature_top_sites
+    implementation Deps.mozilla_ui_widgets
+
     if (System.getenv('OUINET_LIBRARY')) {
         project.logger.lifecycle('OUINET local AAR')
         implementation(name: "${System.env.OUINET_LIBRARY}", ext: 'aar')
@@ -338,6 +346,7 @@ dependencies {
         }
     }
     implementation Deps.relinker
+    /* CENO: End implement additonal dependencies */
 
     androidTestImplementation Deps.uiautomator
     androidTestImplementation Deps.junit_ktx

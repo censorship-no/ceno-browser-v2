@@ -16,6 +16,7 @@ import org.mozilla.reference.browser.components.Push
 import org.mozilla.reference.browser.components.Services
 import org.mozilla.reference.browser.components.UseCases
 import org.mozilla.reference.browser.components.Utilities
+import org.mozilla.reference.browser.utils.CenoPreferences
 
 /**
  * Provides access to all components.
@@ -66,4 +67,8 @@ class Components(private val context: Context) {
             httpClient = core.client
         )
     }
+
+    /* CENO: Allow access to CENO SharedPreference wrapper through components*/
+    val cenoPreferences by lazy { CenoPreferences(context) }
+
 }

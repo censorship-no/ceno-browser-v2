@@ -27,6 +27,7 @@ import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.mozilla.reference.browser.addons.WebExtensionActionPopupActivity
 import org.mozilla.reference.browser.browser.BrowserFragment
 import org.mozilla.reference.browser.browser.CrashIntegration
+import org.mozilla.reference.browser.browser.CenoHomeFragment
 import org.mozilla.reference.browser.components.ceno.MobileDataDialog
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
@@ -49,6 +50,12 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /**
+     * CENO: Returns a new instance of [CenoHomeFragment] to display.
+     */
+    open fun createCenoHomeFragment(sessionId: String?): Fragment =
+        CenoHomeFragment.create(sessionId)
+
+    /**
      * Returns a new instance of [BrowserFragment] to display.
      */
     open fun createBrowserFragment(sessionId: String?): Fragment =
@@ -62,7 +69,8 @@ open class BrowserActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, createBrowserFragment(sessionId))
+                /* CENO: Create HomeFragement when starting BrowserActivity instead of BrowserFragment */
+                replace(R.id.container, createCenoHomeFragment(sessionId))
                 commit()
             }
         }
@@ -164,5 +172,19 @@ open class BrowserActivity : AppCompatActivity() {
         intent.putExtra("web_extension_name", webExtensionState.name)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    /* CENO: Add function to open requested site in BrowserFragment */
+    fun openToBrowser(url : String){//from: BrowserDirection, customTabSessionId: String? = null) {
+        /* TODO check if url is already open and set to active tab if so */
+        components.useCases.tabsUseCases.addTab(
+            url = url
+        )
+        /* and do fragment transaction to BrowserFragment */
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, createBrowserFragment(sessionId))
+            addToBackStack(null);
+            commit()
+        }
     }
 }

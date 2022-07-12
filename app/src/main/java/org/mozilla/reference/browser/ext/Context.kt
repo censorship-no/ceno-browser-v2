@@ -33,6 +33,8 @@ val Context.components: Components
 fun Context.getPreferenceKey(@StringRes resourceId: Int): String =
     resources.getString(resourceId)
 
+fun Context.cenoPreferences() = components.cenoPreferences
+
 /**
  *  Shares content via [ACTION_SEND] intent.
  *

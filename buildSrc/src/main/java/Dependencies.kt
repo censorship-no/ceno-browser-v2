@@ -27,8 +27,6 @@ private object Versions {
     const val espresso_version = "3.4.0"
     const val mockwebserver = "4.9.0"
     const val orchestrator = "1.4.1"
-    const val ouinet_version = "0.20.0"
-    const val relinker_version = "1.4.4"
     const val tools_test_rules = "1.1.0"
     const val tools_test_runner = "1.4.0"
     const val uiautomator = "2.2.0"
@@ -43,6 +41,10 @@ private object Versions {
         const val lifecycle = "2.2.0"
         const val swiperefreshlayout = "1.1.0"
     }
+
+    /* CENO: Versions for additional dependencies */
+    const val ouinet_version = "0.20.0"
+    const val relinker_version = "1.4.4"
 }
 
 // Synchronized dependencies used by (some) modules
@@ -150,12 +152,16 @@ object Deps {
     const val espresso_web = "androidx.test.espresso:espresso-web:${Versions.espresso_version}"
     const val mockwebserver = "com.squareup.okhttp3:mockwebserver:${Versions.mockwebserver}"
     const val orchestrator =  "androidx.test:orchestrator:${Versions.orchestrator}"
-    const val ouinet_arm64_v8a = "ie.equalit.ouinet:ouinet-arm64-v8a:${Versions.ouinet_version}"
-    const val ouinet_armeabi_v7a = "ie.equalit.ouinet:ouinet-armeabi-v7a:${Versions.ouinet_version}"
-    const val ouinet_x86_64 = "ie.equalit.ouinet:ouinet-x86_64:${Versions.ouinet_version}"
-    const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
     const val tools_test_rules = "androidx.test:rules:${Versions.tools_test_rules}"
     const val tools_test_runner = "androidx.test:runner:${Versions.tools_test_runner}"
     const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.uiautomator}"
     const val junit_ktx = "androidx.test.ext:junit-ktx:${Versions.junit_ktx}"
+
+    /* CENO: Additional dependencies required */
+    const val mozilla_feature_top_sites = "org.mozilla.components:feature-top-sites:${Versions.mozilla_android_components}"
+    const val mozilla_ui_widgets = "org.mozilla.components:ui-widgets:${Versions.mozilla_android_components}"
+    const val ouinet_arm64_v8a = "ie.equalit.ouinet:ouinet-arm64-v8a:${Versions.ouinet_version}"
+    const val ouinet_armeabi_v7a = "ie.equalit.ouinet:ouinet-armeabi-v7a:${Versions.ouinet_version}"
+    const val ouinet_x86_64 = "ie.equalit.ouinet:ouinet-x86_64:${Versions.ouinet_version}"
+    const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
 }

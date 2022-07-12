@@ -29,7 +29,6 @@ import org.mozilla.reference.browser.R.string.pref_key_override_amo_collection
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
 //import org.mozilla.reference.browser.R.string.pref_key_sign_in
-import org.mozilla.reference.browser.R.string.pref_key_mobile_data
 import org.mozilla.reference.browser.autofill.AutofillPreference
 import org.mozilla.reference.browser.ext.getPreferenceKey
 import org.mozilla.reference.browser.ext.requireComponents
