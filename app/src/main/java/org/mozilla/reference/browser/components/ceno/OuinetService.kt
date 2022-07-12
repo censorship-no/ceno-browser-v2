@@ -5,6 +5,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -13,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import org.mozilla.reference.browser.R
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
+import org.mozilla.reference.browser.BrowserActivity
 
 
 open class OuinetService : Service(){
@@ -46,8 +48,11 @@ open class OuinetService : Service(){
     }
 
     // added to suppress PendingIntent error TODO: fix
-    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        var flags = PendingIntent.FLAG_CANCEL_CURRENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            flags = flags or PendingIntent.FLAG_IMMUTABLE
+        }
         if (intent.hasExtra(HIDE_PURGE_EXTRA)) {
             Log.d(TAG, "Hiding purge action, intent:$intent")
             startForeground(NOTIFICATION_ID, createNotification(false))
@@ -60,7 +65,7 @@ open class OuinetService : Service(){
             // Show notification without purge action after some time.
             val hidePurgePIntent = PendingIntent.getService(this, 0,
                     createHidePurgeIntent(this),
-                    PendingIntent.FLAG_CANCEL_CURRENT)
+                    flags)
             Handler(Looper.myLooper()!!).postDelayed(Runnable {
                 try {
                     hidePurgePIntent.send()
@@ -95,6 +100,22 @@ open class OuinetService : Service(){
         }).start()
     }
 
+
+    private fun stopOuinet() {
+        synchronized(this) {
+            if (mOuinet == null) return
+            val ouinet: Ouinet = mOuinet as Ouinet
+            mOuinet = null
+            val thread = Thread { ouinet.stop() }
+            thread.start()
+            try {
+                // Wait a little to allow ouinet to finish gracefuly
+                thread.join(10000 /* ms */) // average stop takes 5 seconds
+            } catch (ex: java.lang.Exception) {
+            }
+        }
+    }
+
     private fun setProxyProperties() {
         Log.d(TAG, "Setting proxy system properties")
         System.setProperty("http.proxyHost", "127.0.0.1")
@@ -104,13 +125,10 @@ open class OuinetService : Service(){
     }
 
     private fun createHomeIntent(context: Context): Intent {
-        // Intent characteristics from `GeckoApp.launchOrBringToFront`.
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("about:home")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-        intent.setClassName("org.mozilla.reference-browser",//AppConstants.ANDROID_PACKAGE_NAME,
-                "org.mozilla.reference-browser.BrowserApplication")//AppConstants.MOZ_ANDROID_BROWSER_INTENT_CLASS)
+        /* Just start BrowserActivity again when "Home" is tapped */
+        val intent = Intent(this, BrowserActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         return intent
     }
 
@@ -127,10 +145,12 @@ open class OuinetService : Service(){
     }
 
     // added two more lint suppressors? TODO: fix issues correctly
-    @SuppressLint("NewApi", "UnspecifiedImmutableFlag", "LaunchActivityFromNotification")
+    @SuppressLint("LaunchActivityFromNotification")
     private fun createNotification(showRealPurgeAction: Boolean): Notification? {
         var channel_id = CHANNEL_ID
-        if (true) { //!AppConstants.Versions.preO) {
+        var flags = PendingIntent.FLAG_UPDATE_CURRENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            flags = flags or PendingIntent.FLAG_IMMUTABLE
             // Create a notification channel for Ouinet notifications. Recreating a notification
             // that already exists has no effect.
             val channel = NotificationChannel(CHANNEL_ID,
@@ -143,13 +163,16 @@ open class OuinetService : Service(){
         var requestCode = 0
         val stopPIntent = PendingIntent.getBroadcast(this, requestCode++,
                 OuinetBroadcastReceiver.createStopIntent(this),
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                flags
+        )
         val homePIntent = PendingIntent.getActivity(this, requestCode++,
                 createHomeIntent(this),
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                flags
+        )
         val showPurgePIntent = PendingIntent.getService(this, requestCode++,
                 createShowPurgeIntent(this)!!,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                flags
+        )
         val notifb: NotificationCompat.Builder = NotificationCompat.Builder(this, channel_id!!)
                 .setSmallIcon(R.drawable.ic_icon_foreground) //ic_status_logo)
                 .setContentTitle(getString(R.string.ceno_notification_title))
@@ -166,7 +189,8 @@ open class OuinetService : Service(){
         if (showRealPurgeAction) {
             val purgePIntent = PendingIntent.getBroadcast(this, requestCode++,
                     OuinetBroadcastReceiver.createPurgeIntent(this),
-                    PendingIntent.FLAG_UPDATE_CURRENT)
+                    flags
+            )
             notifb.addAction(R.drawable.ic_icon_foreground, //ic_cancel_pm,
                     getString(R.string.ceno_notification_purge_do_description),
                     purgePIntent)
@@ -176,19 +200,7 @@ open class OuinetService : Service(){
 
     override fun onDestroy() {
         Log.d(TAG, "Destroying service")
-        synchronized(this) {
-            if (mOuinet != null) {
-                val ouinet: Ouinet = mOuinet as Ouinet
-                mOuinet = null
-                val thread = Thread { ouinet.stop() }
-                thread.start()
-                try {
-                    // Wait a little to allow ouinet to finish gracefuly
-                    thread.join(3000 /* ms */)
-                } catch (ex: Exception) {
-                }
-            }
-        }
+        stopOuinet()
         Log.d(TAG, "Service destroyed")
     }
 

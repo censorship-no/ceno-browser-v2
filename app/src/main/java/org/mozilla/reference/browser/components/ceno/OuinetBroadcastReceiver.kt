@@ -7,8 +7,6 @@ import android.content.Intent
 import android.os.Process
 import android.util.Log
 
-import java.util.Arrays
-
 open class OuinetBroadcastReceiver : BroadcastReceiver() {
     // The value constants also force us to use
     // the right type check for the extras bundle.
@@ -55,8 +53,16 @@ open class OuinetBroadcastReceiver : BroadcastReceiver() {
                 // Current process will be killed last
                 continue
             }
+            /* CENO pre-v2 (i.e. java) handled killing the processes like so */
+            /*
             val pkgs: MutableList<Array<String>> = Arrays.asList(process.pkgList)
             if (pkgs.contains(arrayOf(thisPkg))) {
+                Log.i(TAG, "Killing process: " + process.processName + " (" + process.pid + ")")
+                Process.killProcess(process.pid)
+            }
+            */
+            /* Was not able to easily port to kotlin, so using the method below */
+            if (process.processName.contains(thisPkg)){
                 Log.i(TAG, "Killing process: " + process.processName + " (" + process.pid + ")")
                 Process.killProcess(process.pid)
             }

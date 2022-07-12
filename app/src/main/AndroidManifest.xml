@@ -195,7 +195,7 @@
             android:name="org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="org.mozilla.reference.browser.browser.OuinetBroadcastReceiver.STOP" />
+                <action android:name="org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver.STOP" />
             </intent-filter>
         </receiver>
 
