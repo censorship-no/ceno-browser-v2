@@ -22,6 +22,7 @@ import org.mozilla.reference.browser.ext.ceno.bitmapForUrl
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.ceno.loadIntoView
 import org.mozilla.reference.browser.home.sessioncontrol.TopSiteInteractor
+import org.mozilla.reference.browser.settings.CenoSupportUtils
 import org.mozilla.reference.browser.utils.view.CenoViewHolder
 
 class TopSiteItemViewHolder(
@@ -84,32 +85,27 @@ class TopSiteItemViewHolder(
                 }
             }
         } else {
-            /* TODO: Include icons for our default top-sites */
-            /*
-        when (topSite.url) {
-            SupportUtils.POCKET_TRENDING_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_pocket))
+            /* CENO: Load built-in icons for suggested sites */
+            when (topSite.url) {
+                CenoSupportUtils.CENO_URL -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_cenomanual))
+                }
+                CenoSupportUtils.WIKIPEDIA_URL -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_wikipedia))
+                }
+                CenoSupportUtils.APNEWS_URL -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_apnews))
+                }
+                CenoSupportUtils.REUTERS_URL -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_reuters))
+                }
+                CenoSupportUtils.BBC_URL -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_bbc))
+                }
+                else -> {
+                    itemView.context.components.core.icons.loadIntoView(binding.faviconImage, topSite.url)
+                }
             }
-            SupportUtils.BAIDU_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_baidu))
-            }
-            SupportUtils.JD_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_jd))
-            }
-            SupportUtils.PDD_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_pdd))
-            }
-            SupportUtils.TC_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_tc))
-            }
-            SupportUtils.MEITUAN_URL -> {
-                binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.ic_meituan))
-            }
-            else -> {
-            //}
-        }
-             */
-            itemView.context.components.core.icons.loadIntoView(binding.faviconImage, topSite.url)
         }
 
         this.topSite = topSite
