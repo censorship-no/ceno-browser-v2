@@ -68,9 +68,11 @@ open class BrowserActivity : AppCompatActivity() {
         MobileDataDialog(this, this)
 
         if (savedInstanceState == null) {
+            /* CENO: Select or create an "about:home" tab on first start, then open CenoHomeFragment */
+            components.useCases.tabsUseCases.selectOrAddTab(CenoHomeFragment.ABOUT_HOME)
             supportFragmentManager.beginTransaction().apply {
                 /* CENO: Create HomeFragement when starting BrowserActivity instead of BrowserFragment */
-                replace(R.id.container, createCenoHomeFragment(sessionId))
+                replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
                 commit()
             }
         }
@@ -175,16 +177,10 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String){//from: BrowserDirection, customTabSessionId: String? = null) {
-        /* TODO check if url is already open and set to active tab if so */
-        components.useCases.tabsUseCases.addTab(
+    fun openToBrowser(url : String){
+        components.useCases.sessionUseCases.loadUrl(
             url = url
         )
-        /* and do fragment transaction to BrowserFragment */
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, createBrowserFragment(sessionId))
-            addToBackStack(null);
-            commit()
-        }
+        /* No need to change fragments, this is handled by the toolbar observing the change of url */
     }
 }

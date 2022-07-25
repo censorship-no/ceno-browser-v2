@@ -10,14 +10,13 @@ import android.graphics.drawable.Drawable
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import mozilla.components.browser.state.state.WebExtensionState
-import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.concept.engine.webextension.Action
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import org.mozilla.reference.browser.ext.components
 
 /**
- * This is a stripped-down version of the WebExtensionToolbarFeature android-component
+ * CENO: This is a stripped-down version of the WebExtensionToolbarFeature android-component
  * that allows only the pageAction to be added to the toolbar instead of also adding browserAction button.
  * Additionally, it adds the pageAction as a BrowserToolbar.Button, instead of
  * as a WebExtensionToolbarAction, which failed to trigger the pageAction in reference-browser
@@ -26,14 +25,15 @@ import org.mozilla.reference.browser.ext.components
  * extensions changes.
  */
 class WebExtensionToolbarFeature(
-        private val toolbar: BrowserToolbar,
-        private var store: BrowserStore
+        private val context: Context,
+        private val toolbar: BrowserToolbar
 ) : LifecycleAwareFeature {
     // This maps web extension ids to [WebExtensionToolbarAction]s for efficient
     // updates of global and tab-specific browser/page actions within the same
     // lifecycle.
     @VisibleForTesting
     internal val webExtensionPageActions = HashMap<String, BrowserToolbar.Button>()
+    private val store = context.components.core.store
 
     /**
      * Starts observing for the state of web extensions changes
@@ -65,21 +65,21 @@ class WebExtensionToolbarFeature(
     ): Boolean = extension?.allowedInPrivateBrowsing == false && tab?.content?.private == true
      */
 
-    fun getBrowserAction(context : Context, id: String): () -> Unit {
-        var browserAction : () -> Unit = {
-            Toast.makeText(context, "Feature not yet installed", Toast.LENGTH_SHORT).show()
-        }
+    /* CENO: function to retrieve an extension's browserAction from BrowserStore */
+    fun getBrowserAction(id: String): () -> Unit {
         /* Check if extension has been loaded yet, then return onClick function */
-        store.state.extensions[id]?.let { ext ->
-            ext.browserAction?.let{ action ->
-                browserAction = action.onClick
+        store.state.extensions[id]?.let{ ext ->
+            ext.browserAction?.let { action ->
+                return action.onClick
             }
         }
-        return browserAction
+        /* else return a explanatory toast */
+        return { Toast.makeText(context, "Feature not yet installed", Toast.LENGTH_SHORT).show() }
     }
 
-    suspend fun addPageActionButton(context: Context, id: String) {
-        context.components.core.store.state.extensions[id]?.let { ext ->
+    /* CENO: async function to add pageAction button for given extension to the provided toolbar */
+    suspend fun addPageActionButton(id: String) {
+        store.state.extensions[id]?.let { ext ->
             ext.pageAction?.let { pageAction ->
                 /* loading icon is a suspend function and must be called in coroutine */
                 val loadIcon = pageAction.loadIcon?.invoke(32)
@@ -88,7 +88,7 @@ class WebExtensionToolbarFeature(
                         extension = ext,
                         globalAction = pageAction,
                         imageDraw = BitmapDrawable(context.resources, loadIcon),
-                        contentDesc = ext.name!! //"CENO Sources"
+                        contentDesc = ext.name!!
                 )
             }
         }

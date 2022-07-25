@@ -141,8 +141,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private fun showTabs() {
         // For now we are performing manual fragment transactions here. Once we can use the new
         // navigation support library we may want to pass navigation graphs around.
+        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment())
+            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            addToBackStack(null)
             commit()
         }
     }
@@ -151,6 +153,8 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         readerViewFeature.onBackPressed() || super.onBackPressed()
 
     companion object {
+        /* CENO: Add a tag to keep track of whether this fragment is open */
+        const val TAG = "BROWSER"
         fun create(sessionId: String? = null) = BrowserFragment().apply {
             arguments = Bundle().apply {
                 putSessionId(sessionId)

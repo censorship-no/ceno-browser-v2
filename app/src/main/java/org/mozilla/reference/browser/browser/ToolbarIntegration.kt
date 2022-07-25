@@ -32,15 +32,19 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
-import mozilla.components.feature.toolbar.ToolbarFeature
+//import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
+/* CENO: ifAnyChanged used for observing changes to extensions in addition to selectedTab*/
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.addons.AddonsActivity
 import org.mozilla.reference.browser.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import org.mozilla.reference.browser.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
+/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
+import org.mozilla.reference.browser.components.ceno.toolbar.ToolbarFeature
 import org.mozilla.reference.browser.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import org.mozilla.reference.browser.components.ceno.WebExtensionToolbarFeature
 import org.mozilla.reference.browser.ext.components
@@ -48,6 +52,7 @@ import org.mozilla.reference.browser.ext.share
 import org.mozilla.reference.browser.settings.SettingsActivity
 //import org.mozilla.reference.browser.tabs.synced.SyncedTabsActivity
 
+/* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
 class ToolbarIntegration(
     private val context: Context,
@@ -57,7 +62,8 @@ class ToolbarIntegration(
     private val sessionUseCases: SessionUseCases,
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
-    sessionId: String? = null
+    sessionId: String? = null,
+    private val onTabUrlChange: (String) -> Unit
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -65,11 +71,8 @@ class ToolbarIntegration(
 
     private val scope = MainScope()
 
-    /* Create WebExtension Toolbar Feature to handle adding browserAction and pageAction buttons */
-    private val cenoToolbarFeature = WebExtensionToolbarFeature(
-            toolbar,
-            context.components.core.store
-    )
+    /* CENO: Create WebExtension Toolbar Feature to handle adding browserAction and pageAction buttons */
+    private val cenoToolbarFeature = WebExtensionToolbarFeature(context, toolbar)
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tint = ContextCompat.getColor(context, R.color.icons)
@@ -158,8 +161,8 @@ class ToolbarIntegration(
             emptyList()
         }
 
-
-        return sessionMenuItems + listOf(
+        /* CENO: List of persistent menu items, will be joined with session/extension-dependent items */
+        val staticMenuItems = listOf(
             TextMenuCandidate(text = "Add-ons") {
                 val intent = Intent(context, AddonsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -182,20 +185,32 @@ class ToolbarIntegration(
                 val intent = Intent(context, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
-            },
-            TextMenuCandidate(
-                text = "CENO",
-                onClick = cenoToolbarFeature.getBrowserAction(context, CENO_EXTENSION_ID)
-            ),
-            TextMenuCandidate(
-                text = "HTTPS by default",
-                onClick = cenoToolbarFeature.getBrowserAction(context, HTTPS_BY_DEFAULT_EXTENSION_ID)
-            ),
-            TextMenuCandidate(
-                    text = "uBlock Origin",
-                    onClick = cenoToolbarFeature.getBrowserAction(context, UBLOCK_ORIGIN_EXTENSION_ID)
-            )
+            }
         )
+
+        /* CENO: Only add CENO menu items to list if their browserActions are not null */
+        val cenoMenuItems : MutableList<MenuCandidate>  = emptyList<MenuCandidate>().toMutableList()
+        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)?.let{
+            cenoMenuItems += TextMenuCandidate(
+                text = "CENO",
+                onClick = it
+            )
+        }
+
+        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
+            cenoMenuItems += TextMenuCandidate(
+                text = "HTTPS by default",
+                onClick = it
+            )
+        }
+
+        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
+            cenoMenuItems += TextMenuCandidate(
+                text = "uBlock Origin",
+                onClick = it
+            )
+        }
+        return sessionMenuItems + staticMenuItems + cenoMenuItems
     }
 
     private val menuController: MenuController = BrowserMenuController()
@@ -220,20 +235,36 @@ class ToolbarIntegration(
             ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
         )
 
+        /* CENO: launch coroutine to observe for changes to the current tab URL
+        *  will handle fragment transactions between homepage and browser */
         scope.launch {
             store.flow()
-                .map { state -> state.selectedTab }
+                .map { state -> state.selectedTab?.content?.url }
                 .ifChanged()
-                .collect { tab ->
-                    menuController.submitList(menuItems(tab))
+                .collect { url ->
+                    if (url != null) {
+                        onTabUrlChange.invoke(url)
+                    }
+                }
+        }
+
+        /* CENO: this coroutine must also monitor for changes to the extensions
+         * so their browserActions get added to the three-dot menu once installed */
+        scope.launch {
+            store.flow()
+                .ifAnyChanged { arrayOf(it.selectedTab, it.extensions) }
+                .collect { state ->
+                    menuController.submitList(menuItems(state.selectedTab))
                     /* pageAction buttons are removed globally,
                      * manually add only CENO pageAction button here
                      */
-                    cenoToolbarFeature.addPageActionButton(context, CENO_EXTENSION_ID)
+                    cenoToolbarFeature.addPageActionButton(CENO_EXTENSION_ID)
                 }
         }
     }
 
+    /* CENO: Requires components.ceno.toolbar which add hiddenAddressList
+     * enabling specified urls to be hidden in the address bar */
     private val toolbarFeature: ToolbarFeature = ToolbarFeature(
         toolbar,
         context.components.core.store,
@@ -245,7 +276,8 @@ class ToolbarIntegration(
                 parentSessionId = null
             )
         },
-        sessionId
+        sessionId,
+        hiddenAddressList = listOf(CenoHomeFragment.ABOUT_HOME)
     )
 
     override fun start() {

@@ -50,6 +50,7 @@ import org.mozilla.reference.browser.downloads.DownloadService
 import org.mozilla.reference.browser.ext.getPreferenceKey
 import org.mozilla.reference.browser.ext.requireComponents
 import org.mozilla.reference.browser.pip.PictureInPictureIntegration
+import org.mozilla.reference.browser.tabs.TabsTrayFragment
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarBehaviorToolbarPosition
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngineBehaviorToolbarPosition
 
@@ -135,6 +136,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 MozacToolbarBehaviorToolbarPosition.BOTTOM
             )
         }
+        /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
             feature = ToolbarIntegration(
                 requireContext(),
@@ -144,7 +146,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.sessionUseCases,
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
-                sessionId
+                sessionId,
+                ::onTabUrlChanged,
             ),
             owner = this,
             view = view
@@ -314,6 +317,51 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             swipeRefresh.layoutParams = params
         }
         */
+    }
+
+    /* CENO: Functions to handle hiding/showing the CenoHomeFragment when "about:home" url is requested */
+    private fun showHome() {
+        activity?.supportFragmentManager?.findFragmentByTag(CenoHomeFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
+                return
+            }
+        }
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
+    private fun showBrowser() {
+        activity?.supportFragmentManager?.findFragmentByTag(BrowserFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: HomeFragment is already being displayed, don't do another transaction */
+                return
+            }
+        }
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
+    private fun onTabUrlChanged(url : String) {
+        activity?.supportFragmentManager?.findFragmentByTag(TabsTrayFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
+                *  TabsTray will handle fragment transactions on it's own */
+                return
+            }
+        }
+        if(url == CenoHomeFragment.ABOUT_HOME) {
+            showHome()
+        }
+        else {
+            showBrowser()
+        }
     }
 
     private fun fullScreenChanged(enabled: Boolean) {

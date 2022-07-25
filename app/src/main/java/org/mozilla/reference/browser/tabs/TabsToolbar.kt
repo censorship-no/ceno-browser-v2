@@ -10,19 +10,22 @@ import mozilla.components.feature.tabs.tabstray.TabsFeature
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.ext.components
 
+/* CENO: Modify closeTabsTray function to take booleans for determining
+ * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
+ * with or without a new blank tab? */
 class TabsToolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : androidx.appcompat.widget.Toolbar(context, attrs) {
     private var tabsFeature: TabsFeature? = null
     private var isPrivateTray = false
-    private var closeTabsTray: (() -> Unit)? = null
+    private var closeTabsTray: ((Boolean, Boolean) -> Unit)? = null
 
     init {
         navigationContentDescription = "back"
         setNavigationIcon(R.drawable.mozac_ic_back)
         setNavigationOnClickListener {
-            closeTabsTray?.invoke()
+            closeTabsTray?.invoke(false, false)
         }
         inflateMenu(R.menu.tabstray_menu)
         setOnMenuItemClickListener {
@@ -31,9 +34,10 @@ class TabsToolbar @JvmOverloads constructor(
                 R.id.newTab -> {
                     when (isPrivateTray) {
                         true -> tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
-                        false -> tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                        false -> closeTabsTray?.invoke(true, true)
                     }
-                    closeTabsTray?.invoke()
+                    /* TODO: openNewPrivateTab */
+                    //closeTabsTray?.invoke()
                 }
                 R.id.closeTab -> {
                     when (isPrivateTray) {
@@ -46,7 +50,7 @@ class TabsToolbar @JvmOverloads constructor(
         }
     }
 
-    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: () -> Unit) {
+    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: (Boolean, Boolean) -> Unit) {
         this.tabsFeature = tabsFeature
         this.closeTabsTray = closeTabsTray
     }

@@ -238,13 +238,19 @@ class CenoHomeFragment : BaseBrowserFragment() {
     private fun showTabs() {
         // For now we are performing manual fragment transactions here. Once we can use the new
         // navigation support library we may want to pass navigation graphs around.
+        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment())
+            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            addToBackStack(null)
             commit()
         }
     }
 
     companion object {
+        /* CENO: Add default home url and a tag to keep track of whether this fragment is open */
+        const val ABOUT_HOME = "about:home"
+        const val TAG = "HOME"
+
         @JvmStatic
         fun create(sessionId: String? = null) = CenoHomeFragment().apply {
             arguments = Bundle().apply {
