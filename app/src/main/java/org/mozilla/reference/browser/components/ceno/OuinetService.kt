@@ -47,7 +47,6 @@ open class OuinetService : Service(){
         Log.d(TAG, "Service created")
     }
 
-    // added to suppress PendingIntent error TODO: fix
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         var flags = PendingIntent.FLAG_CANCEL_CURRENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -174,16 +173,16 @@ open class OuinetService : Service(){
                 flags
         )
         val notifb: NotificationCompat.Builder = NotificationCompat.Builder(this, channel_id!!)
-                .setSmallIcon(R.drawable.ic_icon_foreground) //ic_status_logo)
+                .setSmallIcon(R.drawable.ic_status_logo)
                 .setContentTitle(getString(R.string.ceno_notification_title))
                 .setContentText(getString(R.string.ceno_notification_description))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(stopPIntent)
                 .setAutoCancel(true) // Close on tap.
-                .addAction(R.drawable.ic_icon_foreground, //ic_globe_pm,
+                .addAction(R.drawable.ic_globe_pm,
                         getString(R.string.ceno_notification_home_description),
                         homePIntent)
-                .addAction(R.drawable.ic_icon_foreground, //ic_cancel_pm,
+                .addAction(R.drawable.ic_cancel_pm,
                         getString(R.string.ceno_notification_purge_description),
                         showPurgePIntent)
         if (showRealPurgeAction) {
@@ -191,7 +190,7 @@ open class OuinetService : Service(){
                     OuinetBroadcastReceiver.createPurgeIntent(this),
                     flags
             )
-            notifb.addAction(R.drawable.ic_icon_foreground, //ic_cancel_pm,
+            notifb.addAction(R.drawable.ic_cancel_pm,
                     getString(R.string.ceno_notification_purge_do_description),
                     purgePIntent)
         }
