@@ -77,21 +77,25 @@ class ToolbarIntegration(
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tint = ContextCompat.getColor(context, R.color.icons)
 
-        val forward = SmallMenuCandidate(
-            contentDescription = "Forward",
-            icon = DrawableMenuIcon(
-                context,
-                mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
-                tint = tint
-            ),
-            containerStyle = ContainerStyle(
-                isEnabled = session?.content?.canGoForward == true
-            )
-        ) {
-            sessionUseCases.goForward.invoke()
+        /* CENO: Hide forward and stop row menu items when they are not relevant */
+        val rowMenuItems : MutableList<SmallMenuCandidate>  = emptyList<SmallMenuCandidate>().toMutableList()
+        if (session?.content?.canGoForward == true) {
+            rowMenuItems += SmallMenuCandidate(
+                contentDescription = "Forward",
+                icon = DrawableMenuIcon(
+                    context,
+                    mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
+                    tint = tint
+                ),
+                containerStyle = ContainerStyle(
+                    isEnabled = session.content.canGoForward
+                )
+            ) {
+                sessionUseCases.goForward.invoke()
+            }
         }
 
-        val refresh = SmallMenuCandidate(
+        rowMenuItems += SmallMenuCandidate(
             contentDescription = "Refresh",
             icon = DrawableMenuIcon(
                 context,
@@ -102,18 +106,20 @@ class ToolbarIntegration(
             sessionUseCases.reload.invoke()
         }
 
-        val stop = SmallMenuCandidate(
-            contentDescription = "Stop",
-            icon = DrawableMenuIcon(
-                context,
-                mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
-                tint = tint
-            )
-        ) {
-            sessionUseCases.stopLoading.invoke()
+        if (session?.content?.loading == true) {
+            rowMenuItems += SmallMenuCandidate(
+                contentDescription = "Stop",
+                icon = DrawableMenuIcon(
+                    context,
+                    mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
+                    tint = tint
+                )
+            ) {
+                sessionUseCases.stopLoading.invoke()
+            }
         }
 
-        return RowMenuCandidate(listOf(forward, refresh, stop))
+        return RowMenuCandidate(rowMenuItems)
     }
 
     private fun sessionMenuItems(sessionState: SessionState): List<MenuCandidate> {
