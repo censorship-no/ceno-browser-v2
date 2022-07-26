@@ -15,6 +15,7 @@ import org.mozilla.reference.browser.R
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
 import org.mozilla.reference.browser.BrowserActivity
+import org.mozilla.reference.browser.browser.CenoHomeFragment
 
 
 open class OuinetService : Service(){
@@ -26,6 +27,7 @@ open class OuinetService : Service(){
         private const val HIDE_PURGE_EXTRA = "hide-purge"
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "ouinet-notification-channel"
+        const val URI_EXTRA = "uri"
 
         // To see whether this service is running, you may try this command:
         // adb -s $mi shell dumpsys activity services OuinetService
@@ -124,10 +126,13 @@ open class OuinetService : Service(){
     }
 
     private fun createHomeIntent(context: Context): Intent {
-        /* Just start BrowserActivity again when "Home" is tapped */
-        val intent = Intent(this, BrowserActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+        /* Bring BrowserActivity to front and provide homepage uri to be opened */
+        val intent = Intent(this, BrowserActivity::class.java)
+        intent.putExtra(URI_EXTRA, CenoHomeFragment.ABOUT_HOME)
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         return intent
     }
 

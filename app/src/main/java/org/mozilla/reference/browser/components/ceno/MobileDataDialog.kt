@@ -18,29 +18,30 @@ class MobileDataDialog (
         private val activity: BrowserActivity)
     {
     private var mOnMobileDataDialog: AlertDialog? = null
+    private val logger = Logger("MobileDataDialog")
 
     private fun showOnMobileDataDialog() {
         if (Settings.isMobileDataEnabled(context)) {
-            Logger.debug("Mobile data has been enabled already")
+            logger.debug("Mobile data has been enabled already")
             return
         }
         if (mOnMobileDataDialog == null) {
-            Logger.debug("First time the on mobile data dialog is called, create.")
+            logger.debug("First time the on mobile data dialog is called, create.")
             createOnMobileDataDialog()
         }
         if (!(mOnMobileDataDialog!!.isShowing())) {
-            Logger.debug("Showing on mobile data dialog.")
+            logger.debug("Showing on mobile data dialog.")
             mOnMobileDataDialog!!.show()
         }
     }
 
     private fun hideOnMobileDataDialog() {
         if (mOnMobileDataDialog == null) {
-            Logger.debug("Not hiding on mobile data dialog, not yet created.")
+            logger.debug("Not hiding on mobile data dialog, not yet created.")
             return
         }
         if (mOnMobileDataDialog!!.isShowing()) {
-            Logger.debug("Hiding on mobile data dialog.")
+            logger.debug("Hiding on mobile data dialog.")
             mOnMobileDataDialog!!.dismiss() // `.hide()` results in it now showing up again
         }
     }
@@ -126,10 +127,10 @@ class MobileDataDialog (
                         ?: return
                 if (getConnectionType(context) == MOBILE) {
                     if (info.isConnected) {
-                        Logger.debug("Mobile connection detected, showing on mobile data dialog")
+                        logger.debug("Mobile connection detected, showing on mobile data dialog")
                         showOnMobileDataDialog()
                     } else {
-                        Logger.debug("Mobile connection disabled, hiding on mobile data dialog")
+                        logger.debug("Mobile connection disabled, hiding on mobile data dialog")
                         hideOnMobileDataDialog()
                     }
                 }
@@ -138,6 +139,7 @@ class MobileDataDialog (
                 val state = info.state
                 if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.DISCONNECTED) {
                     if (context != null) {
+                        logger.debug("Network state chagned to ${state}")
                         OuinetService.stopOuinetService(context)
                         // TODO: Insert a pause / check client state.
                         OuinetService.startOuinetService(context, BrowserApplication.mOuinetConfig)

@@ -4,7 +4,8 @@
 
 package org.mozilla.reference.browser
 
-import android.content.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -26,9 +27,10 @@ import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.mozilla.reference.browser.addons.WebExtensionActionPopupActivity
 import org.mozilla.reference.browser.browser.BrowserFragment
-import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.browser.CenoHomeFragment
+import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.components.ceno.MobileDataDialog
+import org.mozilla.reference.browser.components.ceno.OuinetService
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
@@ -117,6 +119,15 @@ open class BrowserActivity : AppCompatActivity() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    /* CENO: Handle intent sent to BrowserActivity to open tab if needed */
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val uri = intent?.getStringExtra(OuinetService.URI_EXTRA)
+        if (uri != null){
+            components.useCases.tabsUseCases.selectOrAddTab(uri)
+        }
     }
 
     /**
