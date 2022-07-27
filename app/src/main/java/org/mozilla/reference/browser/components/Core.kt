@@ -167,7 +167,8 @@ class Core(private val context: Context) {
     /**
      * Component for managing shortcuts (both regular and PWA).
      */
-    val shortcutManager by lazy { WebAppShortcutManager(context, client, ManifestStorage(context)) }
+    /* CENO: supportWebApps was breaking AddToHomescreen for some websites, set to false */
+    val shortcutManager by lazy { WebAppShortcutManager(context, client, ManifestStorage(context), false) }
 
     /**
      * A storage component for site permissions.

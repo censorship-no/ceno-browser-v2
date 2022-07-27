@@ -51,6 +51,7 @@ import org.mozilla.reference.browser.ext.getPreferenceKey
 import org.mozilla.reference.browser.ext.requireComponents
 import org.mozilla.reference.browser.pip.PictureInPictureIntegration
 import org.mozilla.reference.browser.tabs.TabsTrayFragment
+import java.lang.Exception
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarBehaviorToolbarPosition
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngineBehaviorToolbarPosition
 
@@ -327,10 +328,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 return
             }
         }
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-            addToBackStack(null)
-            commit()
+
+        try {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
+                addToBackStack(null)
+                commit()
+            }
+        } catch (ex : Exception) {
+            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
+                addToBackStack(null)
+                commitAllowingStateLoss()
+            }
         }
     }
 
@@ -341,11 +352,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 return
             }
         }
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-            addToBackStack(null)
-            commit()
+        try {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                addToBackStack(null)
+                commit()
+            }
         }
+        catch (ex: Exception){
+            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                addToBackStack(null)
+                commitAllowingStateLoss()
+            }
+        }
+        /* TODO: Allowing for state loss probably isn't best solution, should figure out how to avoid exception */
     }
 
     private fun onTabUrlChanged(url : String) {
