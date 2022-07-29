@@ -22,9 +22,9 @@ import java.util.Locale
 object CenoSupportUtils {
     const val CENO_URL = "https://censorship.no/user-manual/"
     const val WIKIPEDIA_URL = "https://www.wikipedia.org/"
-    const val APNEWS_URL = "https://apnews.com"
-    const val REUTERS_URL = "https://reuters.com"
-    const val BBC_URL = "https://bbc.com/news"
+    const val APNEWS_URL = "https://apnews.com/"
+    const val REUTERS_URL = "https://www.reuters.com/"
+    const val BBC_URL = "https://www.bbc.com/news"
 
     enum class SumoTopic(internal val topicStr: String) {
         HELP("faq-android"),

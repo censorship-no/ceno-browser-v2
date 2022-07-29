@@ -6,6 +6,7 @@ package org.mozilla.reference.browser.browser
 
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import kotlinx.coroutines.MainScope
@@ -32,6 +33,7 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
+import mozilla.components.feature.top.sites.TopSite
 //import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
@@ -73,6 +75,8 @@ class ToolbarIntegration(
 
     /* CENO: Create WebExtension Toolbar Feature to handle adding browserAction and pageAction buttons */
     private val cenoToolbarFeature = WebExtensionToolbarFeature(context, toolbar)
+
+    private var isCurrentUrlPinned = false
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tint = ContextCompat.getColor(context, R.color.icons)
@@ -123,13 +127,14 @@ class ToolbarIntegration(
     }
 
     private fun sessionMenuItems(sessionState: SessionState): List<MenuCandidate> {
-        return listOfNotNull(
-            menuToolbar(sessionState),
 
-            TextMenuCandidate("Share") {
-                val url = sessionState.content.url
-                context.share(url)
-            },
+        val sessionItems: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
+        sessionItems += menuToolbar(sessionState)
+
+        sessionItems += listOf(TextMenuCandidate("Share") {
+            val url = sessionState.content.url
+            context.share(url)
+        },
 
             CompoundMenuCandidate(
                 text = "Request desktop site",
@@ -137,27 +142,74 @@ class ToolbarIntegration(
                 end = CompoundMenuCandidate.ButtonType.SWITCH
             ) { checked ->
                 sessionUseCases.requestDesktopSite.invoke(checked)
-            },
+            })
 
-            if (webAppUseCases.isPinningSupported()) {
-                TextMenuCandidate(
-                    text = "Add to homescreen",
-                    containerStyle = ContainerStyle(
-                        isVisible = webAppUseCases.isPinningSupported()
-                    )
-                ) {
-                    scope.launch { webAppUseCases.addToHomescreen() }
+        if (webAppUseCases.isPinningSupported()) {
+            sessionItems += TextMenuCandidate(
+                text = "Add to homescreen",
+                containerStyle = ContainerStyle(
+                    isVisible = webAppUseCases.isPinningSupported()
+                )
+            ) {
+                scope.launch { webAppUseCases.addToHomescreen() }
+            }
+        } else {
+            null
+        }
+
+        /* CENO: Add menu option for adding or removing a shortcut from the homepage */
+        if (isCurrentUrlPinned) {
+            sessionItems += TextMenuCandidate(
+                text = "Remove from shortcuts",
+            ) {
+                scope.launch {
+                    val removedTopSite: TopSite? =
+                        context.components.core.cenoPinnedSiteStorage
+                            .getPinnedSites()
+                            .find { it.url == sessionState.content.url }
+                    if (removedTopSite != null) {
+                        with(context.components.useCases.cenoTopSitesUseCase) {
+                            removeTopSites(removedTopSite)
+                        }
+                    }
                 }
-            } else {
-                null
-            },
+            }
+        }
+        else {
+            sessionItems += TextMenuCandidate(
+                text = "Add to shortcuts",
+            ) {
+                scope.launch {
+                    //val context = swipeRefresh.context
+                    val numPinnedSites = context.components.core.cenoTopSitesStorage.cachedTopSites
+                        .filter { it is TopSite.Default || it is TopSite.Pinned }.size
 
-            TextMenuCandidate(
+                    if (numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit) {
+                        AlertDialog.Builder(context).apply {
+                            setTitle(R.string.shortcut_max_limit_title)
+                            setMessage(R.string.shortcut_max_limit_content)
+                            setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            create()
+                        }.show()
+                    } else {
+                        sessionState.let {
+                            with(context.components.useCases.cenoTopSitesUseCase) {
+                                addPinnedSites(it.content.title, it.content.url)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        sessionItems += TextMenuCandidate(
                 text = "Find in Page"
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
-        )
+
+        return sessionItems
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
@@ -241,15 +293,32 @@ class ToolbarIntegration(
             ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
         )
 
+        /* CENO: launch coroutine to watch for changes to list of top sites
+         * and update the isCurrentUrlPinned flag and resubmit */
+        scope.launch {
+            context.components.appStore.flow()
+                .map { state -> state.topSites }
+                .ifChanged()
+                .collect(){ topSites ->
+                    isCurrentUrlPinned = topSites
+                        .find { it.url == store.state.selectedTab?.content?.url } != null
+                    /* Resubmit menu items in case state of pinned sites changed */
+                    menuController.submitList(menuItems(store.state.selectedTab))
+                }
+        }
+
         /* CENO: launch coroutine to observe for changes to the current tab URL
         *  will handle fragment transactions between homepage and browser */
         scope.launch {
             store.flow()
                 .map { state -> state.selectedTab?.content?.url }
                 .ifChanged()
-                .collect { url ->
-                    if (url != null) {
-                        onTabUrlChange.invoke(url)
+                .collect { newUrl ->
+                    isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
+                        .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
+                        .find { it.url == newUrl } != null
+                    if (newUrl != null) {
+                        onTabUrlChange.invoke(newUrl)
                     }
                 }
         }
