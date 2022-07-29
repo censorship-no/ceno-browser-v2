@@ -5,14 +5,22 @@
 package org.mozilla.reference.browser.home.sessioncontrol
 
 import android.annotation.SuppressLint
-/*
+import android.view.LayoutInflater
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+/*
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.Engine
 import mozilla.components.feature.tabs.TabsUseCases
  */
 import mozilla.components.feature.top.sites.TopSite
+import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.reference.browser.BrowserActivity
+import org.mozilla.reference.browser.R
+import org.mozilla.reference.browser.ext.components
 
 /**
  * [HomeFragment] controller. An interface that handles the view manipulation of the Tabs triggered
@@ -54,18 +62,16 @@ class DefaultSessionControlController(
     private val engine: Engine,
     private val store: BrowserStore,
     private val addTabUseCase: TabsUseCases.AddNewTabUseCase,
-    private val viewLifecycleScope: CoroutineScope,
      */
+    private val viewLifecycleScope: CoroutineScope,
 ) : SessionControlController {
 
     override fun handleMenuOpened() {
         //dismissSearchDialogIfDisplayed()
     }
 
-    /* TODO: Currently only selecting the site only does anything, fix rename and remove options */
     @SuppressLint("InflateParams")
     override fun handleRenameTopSiteClicked(topSite: TopSite) {
-        /*
         activity.let {
             val customLayout =
                 LayoutInflater.from(it).inflate(R.layout.top_sites_rename_dialog, null)
@@ -78,7 +84,7 @@ class DefaultSessionControlController(
                 setView(customLayout)
                 setPositiveButton(R.string.top_sites_rename_dialog_ok) { dialog, _ ->
                     viewLifecycleScope.launch(Dispatchers.IO) {
-                        with(activity.components.useCases.topSitesUseCase) {
+                        with(activity.components.useCases.cenoTopSitesUseCase) {
                             updateTopSites(
                                 topSite,
                                 topSiteLabelEditText.text.toString(),
@@ -96,23 +102,14 @@ class DefaultSessionControlController(
                 topSiteLabelEditText.showKeyboard()
             }
         }
-         */
     }
 
     override fun handleRemoveTopSiteClicked(topSite: TopSite) {
-        /*
-        when (topSite.url) {
-            SupportUtils.POCKET_TRENDING_URL -> Pocket.pocketTopSiteRemoved.record(NoExtras())
-            SupportUtils.GOOGLE_URL -> TopSites.googleTopSiteRemoved.record(NoExtras())
-            SupportUtils.BAIDU_URL -> TopSites.baiduTopSiteRemoved.record(NoExtras())
-        }
-
         viewLifecycleScope.launch(Dispatchers.IO) {
-            with(activity.components.useCases.topSitesUseCase) {
+            with(activity.components.useCases.cenoTopSitesUseCase) {
                 removeTopSites(topSite)
             }
         }
-         */
     }
 
     override fun handleSelectTopSite(topSite: TopSite, position: Int) {

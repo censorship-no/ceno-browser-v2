@@ -16,6 +16,8 @@ import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.session.SettingsUseCases
 import mozilla.components.feature.tabs.CustomTabsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
+import mozilla.components.feature.top.sites.TopSitesStorage
+import mozilla.components.feature.top.sites.TopSitesUseCases
 
 /**
  * Component group for all use cases. Use cases are provided by feature
@@ -25,7 +27,9 @@ class UseCases(
     private val context: Context,
     private val engine: Engine,
     private val store: BrowserStore,
-    private val shortcutManager: WebAppShortcutManager
+    private val shortcutManager: WebAppShortcutManager,
+    /* CENO: Copied from Fenix for CenoHomeFragment */
+    private val topSitesStorage: TopSitesStorage
 ) {
     /**
      * Use cases that provide engine interactions for a given browser session.
@@ -68,4 +72,10 @@ class UseCases(
      * Use cases related to Custom Tabs.
      */
     val customTabsUseCases: CustomTabsUseCases by lazy { CustomTabsUseCases(store, sessionUseCases.loadUrl) }
+
+    /* CENO: copied from Fenix for CenoHomeFragment */
+    /**
+     * Use cases that provide top sites management.
+     */
+    val cenoTopSitesUseCase by lazy { TopSitesUseCases(topSitesStorage) }
 }

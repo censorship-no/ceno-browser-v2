@@ -209,14 +209,32 @@ class Core(private val context: Context) {
         if (!context.cenoPreferences().defaultTopSitesAdded) {
             defaultTopSites.add(
                 Pair(
-                    context.getString(R.string.default_top_site_ceno),
-                    CenoSupportUtils.CENO_URL
+                    context.getString(R.string.default_top_site_1_title),
+                    context.getString(R.string.default_top_site_1_url)
                 )
             )
             defaultTopSites.add(
                 Pair(
-                    context.getString(R.string.default_top_site_wikipedia),
-                    CenoSupportUtils.WIKIPEDIA_URL
+                    context.getString(R.string.default_top_site_2_title),
+                    context.getString(R.string.default_top_site_2_url)
+                )
+            )
+            defaultTopSites.add(
+                Pair(
+                    context.getString(R.string.default_top_site_3_title),
+                    context.getString(R.string.default_top_site_3_url)
+                )
+            )
+            defaultTopSites.add(
+                Pair(
+                    context.getString(R.string.default_top_site_4_title),
+                    context.getString(R.string.default_top_site_4_url)
+                )
+            )
+            defaultTopSites.add(
+                Pair(
+                    context.getString(R.string.default_top_site_5_title),
+                    context.getString(R.string.default_top_site_5_url)
                 )
             )
         context.cenoPreferences().defaultTopSitesAdded = true

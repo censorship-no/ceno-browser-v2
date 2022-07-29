@@ -99,11 +99,10 @@ class AdapterItemDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
     private val viewLifecycleOwner: LifecycleOwner,
-    context: Context,
-    data: List<AdapterItem>) :
+    context: Context
+    ) :
     ListAdapter<AdapterItem, RecyclerView.ViewHolder>(AdapterItemDiffCallback())
     {
-    private val mData: List<AdapterItem>
     private val mInflater: LayoutInflater
     private var mClickListener: ItemClickListener? = null
 
@@ -149,11 +148,6 @@ class SessionControlAdapter internal constructor(
          */
     }
 
-    // total number of rows
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
     // stores and recycles views as they are scrolled off screen
         /*
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -170,26 +164,13 @@ class SessionControlAdapter internal constructor(
     }
          */
 
-    // convenience method for getting data at click position
-    override fun getItem(id: Int): AdapterItem? {
-        return mData[id]
-    }
-
-
-        // allows clicks events to be caught
-    fun setClickListener(itemClickListener: ItemClickListener?) {
-        mClickListener = itemClickListener
-    }
-
     // parent activity will implement this method to respond to click events
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
     }
 
-    // data is passed into the constructor
     init {
-        mInflater = LayoutInflater.from(context)//.inflate(viewType, parent, false)// LayoutInflater.from(context)
-        mData = data
+        mInflater = LayoutInflater.from(context)
     }
 
     override fun onBindViewHolder(

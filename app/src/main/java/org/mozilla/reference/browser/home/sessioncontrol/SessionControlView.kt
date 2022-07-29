@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.feature.top.sites.TopSite
+import org.mozilla.reference.browser.components.ceno.appstate.AppState
 import org.mozilla.reference.browser.ext.cenoPreferences
 import org.mozilla.reference.browser.utils.CenoPreferences
 
@@ -26,22 +27,23 @@ internal fun normalModeAdapterItems(
     return items
 }
 
+private fun AppState.toAdapterList(prefs: CenoPreferences): List<AdapterItem> =
+    normalModeAdapterItems(
+        prefs,
+        topSites
+    )
+
 class SessionControlView(
     val containerView: View,
     viewLifecycleOwner: LifecycleOwner,
-    internal val interactor: SessionControlInteractor,
-    val data: List<TopSite>
+    internal val interactor: SessionControlInteractor
 ) {
     val view: RecyclerView = containerView as RecyclerView
 
     private val sessionControlAdapter = SessionControlAdapter(
         interactor,
         viewLifecycleOwner,
-        containerView.context,
-        normalModeAdapterItems(
-            view.context.cenoPreferences(),
-            data
-        )
+        containerView.context
     )
 
     init {
@@ -55,5 +57,14 @@ class SessionControlView(
                 }
             }
         }
+    }
+
+    fun update(state: AppState) {
+        /* TODO: add onboarding pages
+        if (state.shouldShowHomeOnboardingDialog(view.context.settings())) {
+            interactor.showOnboardingDialog()
+        }
+         */
+        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences()))
     }
 }

@@ -18,14 +18,6 @@
     <string name="pocket_pinned_top_articles" translatable="false">Top Articles</string>
     <!-- Default title for pinned Wikipedia top site that links to Wikipedia home page -->
     <string name="default_top_site_wikipedia" translatable="false">Wikipedia</string>
-    <!-- Default title for pinned CENO Manual top site -->
-    <string name="default_top_site_ceno" translatable="false">CENO Manual</string>
-    <!-- Default title for pinned AP news top site -->
-    <string name="default_top_site_apnews" translatable="false">AP News</string>
-    <!-- Default title for pinned Reuters top site -->
-    <string name="default_top_site_reuters" translatable="false">Reuters</string>
-    <!-- Default title for pinned BBC top site -->
-    <string name="default_top_site_bbc" translatable="false">BBC News</string>
     <!-- Android Components abbreviation used in AboutFragment -->
     <string name="components_abbreviation" translatable="false">AC</string>
     <!-- Application Services abbreviation used in AboutFragment -->

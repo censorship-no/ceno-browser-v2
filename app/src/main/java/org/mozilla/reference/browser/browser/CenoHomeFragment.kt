@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -14,10 +15,10 @@ import mozilla.components.feature.awesomebar.AwesomeBarFeature
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
-import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
+import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import org.mozilla.reference.browser.BrowserActivity
 import org.mozilla.reference.browser.R
@@ -30,7 +31,6 @@ import org.mozilla.reference.browser.home.sessioncontrol.SessionControlInteracto
 import org.mozilla.reference.browser.home.sessioncontrol.SessionControlView
 import org.mozilla.reference.browser.home.topsites.DefaultTopSitesView
 import org.mozilla.reference.browser.search.AwesomeBarWrapper
-import org.mozilla.reference.browser.settings.CenoSupportUtils
 import org.mozilla.reference.browser.tabs.TabsTrayFragment
 import org.mozilla.reference.browser.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_THRESHOLD
 
@@ -88,65 +88,24 @@ class CenoHomeFragment : BaseBrowserFragment() {
 
         _sessionControlInteractor = SessionControlInteractor(
             controller = DefaultSessionControlController(
-                activity = activity
+                activity = activity,
+                viewLifecycleScope = viewLifecycleOwner.lifecycleScope
             )
-        )
-
-        /* TODO: make these default sites locale dependent */
-        val cenoSite = TopSite.Default(
-            id = 1,
-            title = requireContext().getString(R.string.default_top_site_ceno),
-            url = CenoSupportUtils.CENO_URL,
-            createdAt = null
-        )
-
-        val wikiSite = TopSite.Default(
-            id = 2,
-            title = requireContext().getString(R.string.default_top_site_wikipedia),
-            url = CenoSupportUtils.WIKIPEDIA_URL,
-            createdAt = null
-        )
-
-        val apSite = TopSite.Default(
-            id = 3,
-            title = requireContext().getString(R.string.default_top_site_apnews),
-            url = CenoSupportUtils.APNEWS_URL,
-            createdAt = null
-        )
-
-        val reutersSite = TopSite.Default(
-            id = 4,
-            title = requireContext().getString(R.string.default_top_site_reuters),
-            url = CenoSupportUtils.REUTERS_URL,
-            createdAt = null
-        )
-
-        val bbcSite = TopSite.Default(
-            id = 5,
-            title = requireContext().getString(R.string.default_top_site_bbc),
-            url = CenoSupportUtils.BBC_URL,
-            createdAt = null
-        )
-
-        val topSites : List<TopSite> = listOf(
-            cenoSite as TopSite,
-            wikiSite as TopSite,
-            apSite as TopSite,
-            reutersSite as TopSite,
-            bbcSite as TopSite
         )
 
         sessionControlView = SessionControlView(
             binding.sessionControlRecyclerView,
             viewLifecycleOwner,
-            sessionControlInteractor,
-            topSites)
+            sessionControlInteractor
+        )
+
+        updateSessionControlView()
 
         appBarLayout = binding.homeAppBar
         return binding.root
     }
 
-    /**
+    /** CENO: Copied from Fenix
      * Returns a [TopSitesConfig] which specifies how many top sites to display and whether or
      * not frequently visited sites should be displayed.
      */
@@ -161,6 +120,20 @@ class CenoHomeFragment : BaseBrowserFragment() {
                 maxThreshold = TOP_SITES_PROVIDER_MAX_THRESHOLD,
             )
         )
+    }
+
+    /** CENO: Copied from Fenix
+     * The [SessionControlView] is forced to update with our current state when we call
+     * [HomeFragment.onCreateView] in order to be able to draw everything at once with the current
+     * data in our store. The [View.consumeFrom] coroutine dispatch
+     * doesn't get run right away which means that we won't draw on the first layout pass.
+     */
+    private fun updateSessionControlView() {
+        sessionControlView?.update(requireComponents.appStore.state)
+
+        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            sessionControlView?.update(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

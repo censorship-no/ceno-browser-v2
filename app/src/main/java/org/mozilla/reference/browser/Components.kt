@@ -5,6 +5,7 @@
 package org.mozilla.reference.browser
 
 import android.content.Context
+import android.os.Build
 import mozilla.components.feature.autofill.AutofillConfiguration
 import org.mozilla.reference.browser.autofill.AutofillConfirmActivity
 import org.mozilla.reference.browser.autofill.AutofillSearchActivity
@@ -16,6 +17,9 @@ import org.mozilla.reference.browser.components.Push
 import org.mozilla.reference.browser.components.Services
 import org.mozilla.reference.browser.components.UseCases
 import org.mozilla.reference.browser.components.Utilities
+import org.mozilla.reference.browser.components.ceno.AppStore
+import org.mozilla.reference.browser.components.ceno.appstate.AppState
+import org.mozilla.reference.browser.ext.ceno.sort
 import org.mozilla.reference.browser.utils.CenoPreferences
 
 /**
@@ -28,7 +32,8 @@ class Components(private val context: Context) {
             context,
             core.engine,
             core.store,
-            core.shortcutManager
+            core.shortcutManager,
+            core.cenoTopSitesStorage
         )
     }
 
@@ -57,18 +62,31 @@ class Components(private val context: Context) {
     val push by lazy { Push(context, analytics.crashReporter) }
 
     val autofillConfiguration by lazy {
-        AutofillConfiguration(
-            storage = core.loginsStorage,
-            publicSuffixList = utils.publicSuffixList,
-            unlockActivity = AutofillUnlockActivity::class.java,
-            confirmActivity = AutofillConfirmActivity::class.java,
-            searchActivity = AutofillSearchActivity::class.java,
-            applicationName = context.getString(R.string.app_name),
-            httpClient = core.client
-        )
+        /* CENO: Support older versions of Android, which don't have Autofill activities */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AutofillConfiguration(
+                storage = core.loginsStorage,
+                publicSuffixList = utils.publicSuffixList,
+                unlockActivity = AutofillUnlockActivity::class.java,
+                confirmActivity = AutofillConfirmActivity::class.java,
+                searchActivity = AutofillSearchActivity::class.java,
+                applicationName = context.getString(R.string.app_name),
+                httpClient = core.client
+            )
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
     }
 
     /* CENO: Allow access to CENO SharedPreference wrapper through components*/
     val cenoPreferences by lazy { CenoPreferences(context) }
 
+    /* CENO: Initialize AppStore with cached top sites */
+    val appStore by lazy {
+        AppStore(
+            initialState = AppState(
+                topSites = core.cenoTopSitesStorage.cachedTopSites.sort(),
+            )
+        )
+    }
 }
