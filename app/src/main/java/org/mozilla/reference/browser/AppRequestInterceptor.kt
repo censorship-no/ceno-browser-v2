@@ -11,6 +11,7 @@ import mozilla.components.browser.errorpages.ErrorPages
 import mozilla.components.browser.errorpages.ErrorType
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.request.RequestInterceptor
+import org.mozilla.reference.browser.browser.CenoHomeFragment
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.tabs.PrivatePage
 
@@ -61,8 +62,21 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
         errorType: ErrorType,
         uri: String?
     ): RequestInterceptor.ErrorResponse {
-        val errorPage = ErrorPages.createUrlEncodedErrorPage(context, errorType, uri)
-        return RequestInterceptor.ErrorResponse(errorPage)
+        /* CENO: Intercept the error page that is loaded for homepage
+         * and modify the error code, title, description to make less scary */
+        return if (uri == CenoHomeFragment.ABOUT_HOME) {
+            val errorPage = ErrorPages.createUrlEncodedErrorPage(
+                context,
+                ErrorType.UNKNOWN,
+                uri,
+                titleOverride = {"CENO Homepage"},
+                descriptionOverride = {"Loading"}
+            )
+            RequestInterceptor.ErrorResponse(errorPage)
+        } else {
+            val errorPage = ErrorPages.createUrlEncodedErrorPage(context, errorType, uri)
+            RequestInterceptor.ErrorResponse(errorPage)
+        }
     }
 
     override fun interceptsAppInitiatedRequests() = true
