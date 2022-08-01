@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.TabSessionState
@@ -31,6 +35,9 @@ import org.mozilla.reference.browser.browser.CenoHomeFragment
 import org.mozilla.reference.browser.browser.CrashIntegration
 import org.mozilla.reference.browser.components.ceno.MobileDataDialog
 import org.mozilla.reference.browser.components.ceno.OuinetService
+import org.mozilla.reference.browser.components.ceno.TopSitesStorageObserver
+import org.mozilla.reference.browser.components.ceno.appstate.AppAction
+import org.mozilla.reference.browser.ext.ceno.sort
 import org.mozilla.reference.browser.ext.components
 import org.mozilla.reference.browser.ext.isCrashReportActive
 
@@ -67,6 +74,7 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /* CENO: Create service object that observes changes to mobile data status */
         MobileDataDialog(this, this)
 
         if (savedInstanceState == null) {
@@ -78,6 +86,9 @@ open class BrowserActivity : AppCompatActivity() {
                 commit()
             }
         }
+
+        /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
+        initializeTopSites()
 
         if (isCrashReportActive) {
             crashIntegration = CrashIntegration(this, components.analytics.crashReporter) { crash ->
@@ -193,5 +204,29 @@ open class BrowserActivity : AppCompatActivity() {
             url = url
         )
         /* No need to change fragments, this is handled by the toolbar observing the change of url */
+    }
+
+    /* CENO: Function to initialize top site storage and observer */
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun initializeTopSites() {
+        /*  Launch a coroutine to initialize top site storage cache and update it in the store */
+        GlobalScope.launch(Dispatchers.IO) {
+            components.core.cenoTopSitesStorage.getTopSites(
+                totalSites = components.cenoPreferences.topSitesMaxLimit
+            )
+            components.appStore.dispatch(
+                AppAction.Change(topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort())
+            )
+        }
+
+        /* Register TopSitesStorageObserver, which will update AppStore when top sites are changed/added/removed */
+        components.core.cenoTopSitesStorage.apply{
+            register(
+                observer = TopSitesStorageObserver(
+                    this,
+                    components.cenoPreferences,
+                    components.appStore)
+            )
+        }
     }
 }

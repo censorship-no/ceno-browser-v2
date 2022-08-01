@@ -23,9 +23,6 @@ import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
 import org.mozilla.reference.browser.components.ceno.OuinetService
-import org.mozilla.reference.browser.components.ceno.TopSitesStorageObserver
-import org.mozilla.reference.browser.components.ceno.appstate.AppAction
-import org.mozilla.reference.browser.ext.ceno.sort
 import org.mozilla.reference.browser.ext.isCrashReportActive
 import org.mozilla.reference.browser.push.PushFxaIntegration
 import org.mozilla.reference.browser.push.WebPushEngineIntegration
@@ -71,9 +68,6 @@ open class BrowserApplication : Application() {
 
         /* CENO: Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
         components.core.setRootCertificate(mOuinetConfig!!.caRootCertPath)
-
-        /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
-        initializeTopSites()
 
         components.core.engine.warmUp()
 
@@ -153,30 +147,6 @@ open class BrowserApplication : Application() {
             .periodicallyInForeground(interval = 30, unit = TimeUnit.SECONDS)
             .whenGoingToBackground()
             .whenSessionsChange()
-    }
-
-    /* CENO: Function to initialize top site storage and observer */
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun initializeTopSites() {
-        /*  Launch a coroutine to initialize top site storage cache and update it in the store */
-        GlobalScope.launch(Dispatchers.IO) {
-            components.core.cenoTopSitesStorage.getTopSites(
-                totalSites = components.cenoPreferences.topSitesMaxLimit
-            )
-            components.appStore.dispatch(
-                AppAction.Change(topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort())
-            )
-        }
-
-        /* Register TopSitesStorageObserver, which will update AppStore when top sites are changed/added/removed */
-        components.core.cenoTopSitesStorage.apply{
-            register(
-                observer = TopSitesStorageObserver(
-                    this,
-                    components.cenoPreferences,
-                    components.appStore)
-            )
-        }
     }
 
     companion object {
