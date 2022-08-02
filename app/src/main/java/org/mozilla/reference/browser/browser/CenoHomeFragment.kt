@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.concept.engine.EngineView
@@ -22,7 +24,9 @@ import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import org.mozilla.reference.browser.BrowserActivity
 import org.mozilla.reference.browser.R
+import org.mozilla.reference.browser.components.ceno.appstate.AppAction
 import org.mozilla.reference.browser.databinding.FragmentHomeBinding
+import org.mozilla.reference.browser.ext.ceno.sort
 import org.mozilla.reference.browser.ext.requireComponents
 import org.mozilla.reference.browser.ext.cenoPreferences
 import org.mozilla.reference.browser.home.sessioncontrol.DefaultSessionControlController
@@ -65,6 +69,8 @@ class CenoHomeFragment : BaseBrowserFragment() {
 
     private val topSitesFeature = ViewBoundFeatureWrapper<TopSitesFeature>()
 
+    private val scope = MainScope()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +79,14 @@ class CenoHomeFragment : BaseBrowserFragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container,false);
         val activity = activity as BrowserActivity
         val components = requireComponents
+
+        /* Run coroutine to update the top site store in case it changed since last load */
+        scope.launch {
+            components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
+            components.appStore.dispatch(
+                AppAction.Change(topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort())
+            )
+        }
 
         topSitesFeature.set(
             feature = TopSitesFeature(
