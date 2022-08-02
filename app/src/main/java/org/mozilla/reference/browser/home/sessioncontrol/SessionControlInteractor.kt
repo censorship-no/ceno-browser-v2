@@ -63,6 +63,13 @@ interface CustomizeHomeIteractor {
 }
  */
 
+interface CenoModeInteractor {
+    /**
+     * Opens the customize home settings page.
+     */
+    fun onCenoModeClicked()
+}
+
 /**
  * Interface for top site related actions in the [SessionControlInteractor].
  */
@@ -126,6 +133,7 @@ class SessionControlInteractor(
     private val controller: SessionControlController,
 ) :
     //OnboardingInteractor,
+    CenoModeInteractor,
     TopSiteInteractor
     //CustomizeHomeIteractor,
     {
@@ -155,5 +163,9 @@ class SessionControlInteractor(
 
         override fun onTopSiteMenuOpened() {
             controller.handleMenuOpened()
+        }
+
+        override fun onCenoModeClicked() {
+            controller.handleCenoModeClicked()
         }
     }

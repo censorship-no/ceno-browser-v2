@@ -21,6 +21,11 @@ internal fun normalModeAdapterItems(
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
 
+    // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
+    items.add(AdapterItem.TopPlaceholderItem)
+
+    items.add(AdapterItem.CenoModeItem)
+
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
     }
@@ -42,8 +47,7 @@ class SessionControlView(
 
     private val sessionControlAdapter = SessionControlAdapter(
         interactor,
-        viewLifecycleOwner,
-        containerView.context
+        viewLifecycleOwner
     )
 
     init {

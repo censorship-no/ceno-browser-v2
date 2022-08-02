@@ -1,21 +1,23 @@
 package org.mozilla.reference.browser.home.sessioncontrol
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.feature.top.sites.TopSite
-import mozilla.components.support.base.log.logger.Logger
-import org.mozilla.reference.browser.R
+import org.mozilla.reference.browser.home.CenoModeViewHolder
+import org.mozilla.reference.browser.home.TopPlaceholderViewHolder
 import org.mozilla.reference.browser.home.topsites.TopSitePagerViewHolder
 
 sealed class AdapterItem(@LayoutRes val viewType: Int) {
+
+    object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.LAYOUT_ID)
+
+    object CenoModeItem : AdapterItem(CenoModeViewHolder.LAYOUT_ID)
+
     /**
      * Contains a set of [Pair]s where [Pair.first] is the index of the changed [TopSite] and
      * [Pair.second] is the new [TopSite].
@@ -98,35 +100,24 @@ class AdapterItemDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
 
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
-    private val viewLifecycleOwner: LifecycleOwner,
-    context: Context
+    private val viewLifecycleOwner: LifecycleOwner
     ) :
     ListAdapter<AdapterItem, RecyclerView.ViewHolder>(AdapterItemDiffCallback())
     {
-    private val mInflater: LayoutInflater
-    private var mClickListener: ItemClickListener? = null
-
-    private val logger = Logger("HomeRecyclerViewAdapter")
-
     // inflates the row layout from xml when needed
     // This method triggers the ComplexMethod lint error when in fact it's quite simple.
     @SuppressWarnings("ComplexMethod", "LongMethod", "ReturnCount")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.component_top_sites_pager, parent, false)
-        return TopSitePagerViewHolder(
-            view = view,
-            viewLifecycleOwner = viewLifecycleOwner,
-            interactor = interactor
-        )
-        /* TODO: return different views based on viewtype */
-        /*
+        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            //TopPlaceholderViewHolder.LAYOUT_ID -> TopPlaceholderViewHolder(view)
+            TopPlaceholderViewHolder.LAYOUT_ID -> TopPlaceholderViewHolder(view)
+            CenoModeViewHolder.LAYOUT_ID -> CenoModeViewHolder(view, interactor)
             TopSitePagerViewHolder.LAYOUT_ID -> TopSitePagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
+            /*
             OnboardingHeaderViewHolder.LAYOUT_ID -> OnboardingHeaderViewHolder(view)
             OnboardingSectionHeaderViewHolder.LAYOUT_ID -> OnboardingSectionHeaderViewHolder(view)
             OnboardingManualSignInViewHolder.LAYOUT_ID -> OnboardingManualSignInViewHolder(view)
@@ -143,35 +134,12 @@ class SessionControlAdapter internal constructor(
                 view
             )
             BottomSpacerViewHolder.LAYOUT_ID -> BottomSpacerViewHolder(view)
+             */
             else -> throw IllegalStateException()
         }
-         */
     }
 
-    // stores and recycles views as they are scrolled off screen
-        /*
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        var myTextView: TextView
-        override fun onClick(view: View?) {
-            if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
-        }
-
-        init {
-            myTextView = itemView.findViewById(R.id.tvAnimalName)
-            itemView.setOnClickListener(this)
-        }
-    }
-         */
-
-    // parent activity will implement this method to respond to click events
-    interface ItemClickListener {
-        fun onItemClick(view: View?, position: Int)
-    }
-
-    init {
-        mInflater = LayoutInflater.from(context)
-    }
+    override fun getItemViewType(position: Int) = getItem(position).viewType
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
@@ -195,23 +163,22 @@ class SessionControlAdapter internal constructor(
     @SuppressWarnings("ComplexMethod")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        logger.debug("item gotten = $item")
-        val hold = holder as TopSitePagerViewHolder
-        hold.bind((item as AdapterItem.TopSitePager).topSites)
-        /* TODO: support different view holders for different adapters */
-        /*
         when (holder) {
             is TopPlaceholderViewHolder -> {
+                holder.bind()
+            }
+            is CenoModeViewHolder -> {
                 holder.bind()
             }
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)
             }
+            /*
             is OnboardingSectionHeaderViewHolder -> holder.bind(
                 (item as AdapterItem.OnboardingSectionHeader).labelBuilder
             )
             is OnboardingManualSignInViewHolder -> holder.bind()
+            */
         }
-             */
     }
 }

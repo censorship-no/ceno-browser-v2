@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/ceno_home_mode_description"
+    android:textColor="@color/dark"
+    android:textSize="@dimen/ceno_mode_text_size"
+    android:layout_marginHorizontal="@dimen/ceno_mode_margin_horizontal"
+    android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
+    />
+</layout>

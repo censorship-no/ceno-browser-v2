@@ -53,6 +53,7 @@ interface SessionControlController {
      */
     fun handleMenuOpened()
 
+    fun handleCenoModeClicked()
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -158,5 +159,11 @@ class DefaultSessionControlController(
             HomeFragmentDirections.actionGlobalHomeSettingsFragment()
         )
          */
+    }
+
+    override fun handleCenoModeClicked() {
+        activity.apply{
+            openToBrowser(getString(R.string.ceno_mode_manual_link))
+        }
     }
 }

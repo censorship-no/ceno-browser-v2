@@ -3,6 +3,11 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="ceno_mode_text_size">16sp</dimen>
+    <dimen name="ceno_mode_margin_horizontal">16dp</dimen>
+    <dimen name="ceno_mode_margin_bottom">16dp</dimen>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <dimen name="crash_reporter_close_tab_button_horizontal_margin">26dp</dimen>
