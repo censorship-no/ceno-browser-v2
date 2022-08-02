@@ -24,6 +24,19 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/favicon_image"
                 style="@style/topSiteFavicon" />
+
+            <!-- CENO: Add visual-affordance implying that
+                 top site items have long click option with ellipsis -->
+            <TextView
+                android:layout_gravity="bottom|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horizontal_ellipsis"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="5dp"
+                android:textColor="@color/dark"
+                />
+
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

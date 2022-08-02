@@ -157,6 +157,8 @@
     <!-- Default url for pinned top site 5 -->
     <string name="default_top_site_5_url" translatable="false">https://www.bbc.com/news</string>
 
+    <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
+
     <!-- </CENO> -->
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
