@@ -199,10 +199,19 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String){
-        components.useCases.sessionUseCases.loadUrl(
-            url = url
-        )
+    fun openToBrowser(url : String, newTab : Boolean = false, private: Boolean = false){
+        if (newTab) {
+            components.useCases.tabsUseCases.addTab(
+                url = url,
+                selectTab = true,
+                private = private,
+            )
+        }
+        else {
+            components.useCases.sessionUseCases.loadUrl(
+                url = url
+            )
+        }
         /* No need to change fragments, this is handled by the toolbar observing the change of url */
     }
 

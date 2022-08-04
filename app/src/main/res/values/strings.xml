@@ -113,6 +113,12 @@
     <!-- Extra paragraph in private tab panel. -->
     <string name="ceno_private_tab_panel_description">CENO will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string>
 
+    <string name="ceno_private_browsing_body"><![CDATA[
+<h1>Private Browsing</h1>
+<p>CENO will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
+<p class="about-info"><a id="learnMore">Want to learn more?</p>
+     ]]></string>
+
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">CENO Browser Service</string>
     <string name="ceno_notification_description">Tap to stop</string>

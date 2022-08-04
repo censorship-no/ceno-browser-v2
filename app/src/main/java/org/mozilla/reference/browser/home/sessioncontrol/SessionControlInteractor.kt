@@ -138,7 +138,7 @@ class SessionControlInteractor(
     //CustomizeHomeIteractor,
     {
         override fun onOpenInPrivateTabClicked(topSite: TopSite) {
-            TODO("Not yet implemented")
+            controller.handleOpenInPrivateTabClicked(topSite)
         }
 
         override fun onRenameTopSiteClicked(topSite: TopSite) {

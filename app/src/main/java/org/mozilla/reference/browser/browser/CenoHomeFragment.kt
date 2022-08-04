@@ -218,6 +218,13 @@ class CenoHomeFragment : BaseBrowserFragment() {
             view = view
         )
         */
+        binding.privateBrowsingButton.setOnClickListener {
+            requireComponents.useCases.tabsUseCases.addTab(
+                "about:privatebrowsing",
+                selectTab = true,
+                private = true
+            )
+        }
 
         engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
     }

@@ -63,6 +63,15 @@ class TabsPanel @JvmOverloads constructor(
         updateTabsToolbar?.invoke(tab == privateTab)
     }
 
+    /* CENO: Needed method to select normal/private tab during init of TabsTray */
+    fun selectTab(isPrivate: Boolean) {
+        if (isPrivate)  {
+            privateTab.select()
+        } else {
+            normalTab.select()
+        }
+    }
+
     override fun onTabReselected(tab: Tab?) {
         // no-op
     }

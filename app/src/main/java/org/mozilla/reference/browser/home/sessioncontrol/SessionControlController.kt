@@ -44,6 +44,11 @@ interface SessionControlController {
     fun handleSelectTopSite(topSite: TopSite, position: Int)
 
     /**
+     * @see [TopSiteInteractor.onOpenInPrivateTabClicked]
+     */
+    fun handleOpenInPrivateTabClicked(topSite: TopSite)
+
+    /**
      * @see [TopSiteInteractor.onSettingsClicked]
      */
     fun handleTopSiteSettingsClicked()
@@ -150,6 +155,16 @@ class DefaultSessionControlController(
         }
          */
         activity.openToBrowser(topSite.url)
+    }
+
+    override fun handleOpenInPrivateTabClicked(topSite: TopSite) {
+        with(activity) {
+            openToBrowser(
+                url = topSite.url,
+                newTab = true,
+                private = true
+            )
+        }
     }
 
     override fun handleTopSiteSettingsClicked() {

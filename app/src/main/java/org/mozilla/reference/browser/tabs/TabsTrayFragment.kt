@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
 import mozilla.components.browser.tabstray.TabsAdapter
@@ -46,7 +47,16 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             trayAdapter,
             requireComponents.core.store,
             { closeTabsTray(toHome = true, withNewTab = true) }
-        ) { !it.content.private }
+        ) {
+            /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
+            if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
+                selectTabInPanel(isPrivate = true)
+                it.content.private
+            } else {
+                selectTabInPanel(isPrivate = false)
+                !it.content.private
+            }
+        }
 
         val tabsPanel: TabsPanel = view.findViewById(R.id.tabsPanel)
         val tabsToolbar: TabsToolbar = view.findViewById(R.id.tabsToolbar)
@@ -95,6 +105,12 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private fun updateTabsToolbar(isPrivate: Boolean) {
         val tabsToolbar = requireView().findViewById<TabsToolbar>(R.id.tabsToolbar)
         tabsToolbar.updateToolbar(isPrivate)
+    }
+
+    /* CENO: Needed method to select normal/private tab during init of TabsTray */
+    private fun selectTabInPanel(isPrivate: Boolean) {
+        val tabsPanel = requireView().findViewById<TabsPanel>(R.id.tabsPanel)
+        tabsPanel.selectTab(isPrivate)
     }
 
     private fun createAndSetupTabsTray(context: Context): TabsTray {
