@@ -21,7 +21,7 @@ class CenoModeViewHolder(
     private val binding = CenoModeItemBinding.bind(view)
 
     init {
-        binding.textView.setOnClickListener {
+        binding.cenoModeItem.setOnClickListener {
             interactor.onCenoModeClicked()
         }
     }

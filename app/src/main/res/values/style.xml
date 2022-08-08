@@ -25,6 +25,12 @@
         <item name="android:windowBackground">@color/dark</item>
     </style>
 
+    <style name="CenoMode.Card" parent="Mozac.Widgets.Favicon">
+        <item name="cardBackgroundColor">@color/fx_mobile_layer_color_2</item>
+        <item name="cardCornerRadius">@dimen/top_sites_card_radius</item>
+        <item name="cardElevation">@dimen/top_sites_card_elevation</item>
+    </style>
+
     <!-- CENO: COPIED FROM FENIX -->
     <style name="Body16TextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/fx_mobile_text_color_primary</item>
