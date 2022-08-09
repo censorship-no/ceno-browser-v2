@@ -84,10 +84,15 @@ ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
 #}
 
 function patch_mc {
+    local COOKIE_FILE="${BUILD_DIR}"/.finished-patch
+    if [[ -e "${COOKIE_FILE}" ]]; then
+        return
+    fi
     pushd "${MOZ_DIR}" >/dev/null
     # Apply any patches needed for CENO/Ouinet functionality
     moz-phab patch --apply-to here --nocommit --skip-dependencies D153882
     popd >/dev/null
+    touch "${COOKIE_FILE}"
 }
 
 function bootstrap_mc {
