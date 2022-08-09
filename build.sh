@@ -18,6 +18,7 @@ CLEAN=false
 BUILD_RELEASE=false
 BUILD_DEBUG=false
 BUILD_OUINET=false
+BUILD_LIGHT=false
 
 ABIS=()
 #OUINET_CONFIG_XML=
@@ -37,6 +38,7 @@ function usage {
     echo "                                Default for debug builds is ${DEFAULT_ABI}."
     echo "                                Default for release builds is all supported ABIs."
     echo "  -g <gecko-dir>                The directory where local copy of gecko-dev source code is stored"
+    echo "  -l                            Light build, only re-run gradle build for supplied ABIs, do not re-build gecko-dev"
     echo "  -v <version-number>           The version number to use on the APK."
     echo "  -k <keystore-file>            The keystore to use for signing the release APK."
     echo "                                Must contain the signing key aliased as '${RELEASE_KEYSTORE_KEY_ALIAS}'."
@@ -46,7 +48,7 @@ function usage {
     exit 1
 }
 
-while getopts crdoa:g:v:k:p: option; do
+while getopts crdoa:g:lv:k:p: option; do
     case "$option" in
         c)
             CLEAN=true
@@ -58,7 +60,7 @@ while getopts crdoa:g:v:k:p: option; do
             BUILD_DEBUG=true
             ;;
         o)
-	        echo "Option not currently supported" && usage
+            echo "Option not currently supported" && usage
             #BUILD_OUINET=true
             ;;
         a)
@@ -77,6 +79,9 @@ while getopts crdoa:g:v:k:p: option; do
             ;;
         g)
             GECKO_DIR="${OPTARG}"
+            ;;
+        l)
+            BUILD_LIGHT=true
             ;;
         v)
             [[ -n $VERSION_NUMBER ]] && usage
@@ -173,7 +178,9 @@ for variant in debug release; do
             OUINET_AAR_BUILT_PARAMS="-o ${OUINET_AAR}"
         fi
 
-        ABI=${ABI} MOZ_DIR=${GECKO_DIR} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+        if [ $BUILD_LIGHT = false ]; then
+            ABI=${ABI} MOZ_DIR=${GECKO_DIR} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+        fi
 
         GECKO_OBJ_DIR=${SOURCE_DIR}/build-${ABI}-${variant}
 

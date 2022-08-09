@@ -19,6 +19,7 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
+import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
@@ -128,7 +129,9 @@ class CenoHomeFragment : BaseBrowserFragment() {
         val settings = requireContext().cenoPreferences()
         return TopSitesConfig(
             totalSites = settings.topSitesMaxLimit,
-            frecencyConfig = FrecencyThresholdOption.SKIP_ONE_TIME_PAGES,
+            frecencyConfig = TopSitesFrecencyConfig(
+                    FrecencyThresholdOption.SKIP_ONE_TIME_PAGES,
+            ),
             providerConfig = TopSitesProviderConfig(
                 showProviderTopSites = false,//settings.showContileFeature,
                 maxThreshold = TOP_SITES_PROVIDER_MAX_THRESHOLD,

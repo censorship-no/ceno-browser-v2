@@ -83,7 +83,14 @@ ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
 #    fi
 #}
 
-function bootstrap_fennec {
+function patch_mc {
+    pushd "${MOZ_DIR}" >/dev/null
+    # Apply any patches needed for CENO/Ouinet functionality
+    moz-phab patch --apply-to here --nocommit --skip-dependencies D153882
+    popd >/dev/null
+}
+
+function bootstrap_mc {
     local COOKIE_FILE="${BUILD_DIR}"/.finished-bootstrap
     if [[ -e "${COOKIE_FILE}" ]]; then
         return
@@ -169,7 +176,8 @@ function package_mc {
 }
 
 #mount_cow
-bootstrap_fennec
+patch_mc
+bootstrap_mc
 write_build_config
 build_mc
 package_mc
