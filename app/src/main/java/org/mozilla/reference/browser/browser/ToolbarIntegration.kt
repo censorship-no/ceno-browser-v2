@@ -65,7 +65,8 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
-    private val onTabUrlChange: (String) -> Unit
+    private val onTabUrlChange: (String) -> Unit,
+    isPrivate : Boolean
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -289,9 +290,20 @@ class ToolbarIntegration(
             addDomainProvider(shippedDomainsProvider)
         }
 
-        toolbar.display.setUrlBackground(
-            ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
-        )
+        /* CENO: Set toolbar appearance based on whether current tab is private or not */
+        toolbar.private = isPrivate
+        if (isPrivate) {
+            toolbar.display.setUrlBackground(
+                ResourcesCompat.getDrawable(context.resources, R.drawable.url_private_background, context.theme)
+            )
+            toolbar.background = ResourcesCompat.getDrawable(context.resources, R.drawable.toolbar_background, context.theme)
+        }
+        else {
+            toolbar.display.setUrlBackground(
+                ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
+            )
+        }
+
 
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */
