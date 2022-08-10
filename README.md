@@ -1,6 +1,6 @@
-#  Reference Browser
+#  CENO Browser v2
 
-[![Task Status](https://github.taskcluster.net/v1/repository/mozilla-mobile/reference-browser/master/badge.svg)](https://github.taskcluster.net/v1/repository/mozilla-mobile/reference-browser/master/latest)
+WARNING: This repository does represent the stable version of CENO Browser, please see https://github.com/censorship-no/ceno-browser for the current stable release of CENO Browser.  
 
 A web browser reference implementation using [Mozilla Android Components](https://github.com/mozilla-mobile/android-components).
 
