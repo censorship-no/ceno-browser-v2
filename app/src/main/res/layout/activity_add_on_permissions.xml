@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".addons.PermissionsDetailsActivity">
+        tools:context="ie.equalit.cenoV2.addons.PermissionsDetailsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/add_ons_permissions"

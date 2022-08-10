@@ -13,7 +13,7 @@
         android:id="@+id/add_ons_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".BrowserActivity"/>
+        tools:context="ie.equalit.cenoV2.BrowserActivity"/>
 
 
     <include

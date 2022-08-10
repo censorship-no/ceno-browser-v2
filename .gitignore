@@ -65,3 +65,9 @@ test_artifacts/
 google-cloud-sdk/
 *.jar
 *.gz
+
+# CENO-specific ignores
+.finished-*
+build-*
+*.keystore
+*.keystore-passwords

@@ -7,14 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.mozilla.reference.browser.tabs.TabsPanel
+    <ie.equalit.cenoV2.tabs.TabsPanel
         android:id="@+id/tabsPanel"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/photonPurple50">
-    </org.mozilla.reference.browser.tabs.TabsPanel>
+    </ie.equalit.cenoV2.tabs.TabsPanel>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tabsTray"
@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabsPanel"/>
 
-    <org.mozilla.reference.browser.tabs.TabsToolbar
+    <ie.equalit.cenoV2.tabs.TabsToolbar
         android:id="@+id/tabsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

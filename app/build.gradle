@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.mozilla.reference.browser"
+        applicationId "ie.eqaulit.cenoV2"
         minSdkVersion Config.minSdkVersion
         compileSdkVersion Config.targetSdkVersion
         targetSdkVersion Config.targetSdkVersion

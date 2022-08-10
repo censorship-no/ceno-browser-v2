@@ -4,7 +4,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.mozilla.reference.browser">
+    package="ie.equalit.cenoV2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -23,10 +23,10 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppThemeNotActionBar"
-        android:name=".BrowserApplication"
+        android:name="ie.equalit.cenoV2.BrowserApplication"
         tools:ignore="UnusedAttribute">
 
-        <activity android:name=".BrowserActivity"
+        <activity android:name="ie.equalit.cenoV2.BrowserActivity"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
@@ -40,14 +40,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BrowserTestActivity"
+        <activity android:name="ie.equalit.cenoV2.BrowserTestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ExternalAppBrowserActivity"
+        <activity android:name="ie.equalit.cenoV2.ExternalAppBrowserActivity"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:exported="false"
@@ -58,42 +58,42 @@
 
         <activity
             android:theme="@style/Theme.AppCompat.Light"
-            android:name=".addons.AddonsActivity"
+            android:name="ie.equalit.cenoV2.addons.AddonsActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:exported="false"
-            android:parentActivityName=".BrowserActivity" />
+            android:parentActivityName="ie.equalit.cenoV2.BrowserActivity" />
 
         <activity
             android:theme="@style/Theme.AppCompat.Light"
-            android:name=".addons.AddonDetailsActivity"
+            android:name="ie.equalit.cenoV2.addons.AddonDetailsActivity"
             android:exported="false"
             android:label="@string/mozac_feature_addons_addons" />
 
-        <activity android:name=".addons.InstalledAddonDetailsActivity"
+        <activity android:name="ie.equalit.cenoV2.addons.InstalledAddonDetailsActivity"
             android:label="@string/mozac_feature_addons_addons"
-            android:parentActivityName=".addons.AddonsActivity"
+            android:parentActivityName="ie.equalit.cenoV2.addons.AddonsActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name=".addons.PermissionsDetailsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
-            android:name=".addons.AddonSettingsActivity"
+            android:name="ie.equalit.cenoV2.addons.PermissionsDetailsActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name=".addons.WebExtensionActionPopupActivity"
+            android:name="ie.equalit.cenoV2.addons.AddonSettingsActivity"
+            android:label="@string/mozac_feature_addons_addons"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
+            android:name="ie.equalit.cenoV2.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:theme="@style/Theme.AppCompat.Light"/>
 
         <activity
-            android:name=".IntentReceiverActivity"
+            android:name="ie.equalit.cenoV2.IntentReceiverActivity"
             android:relinquishTaskIdentity="true"
             android:taskAffinity=""
             android:exported="true"
@@ -133,7 +133,7 @@
         </activity>
 
         <service
-            android:name=".customtabs.CustomTabsService"
+            android:name="ie.equalit.cenoV2.customtabs.CustomTabsService"
             android:exported="true"
             tools:ignore="ExportedService">
             <intent-filter>
@@ -141,24 +141,24 @@
             </intent-filter>
         </service>
 
-        <service android:name=".downloads.DownloadService" />
+        <service android:name="ie.equalit.cenoV2.downloads.DownloadService" />
 
         <activity
-          android:name=".settings.SettingsActivity"
+          android:name="ie.equalit.cenoV2.settings.SettingsActivity"
           android:label="@string/settings"
           android:theme="@style/AppTheme"
-          android:parentActivityName=".BrowserActivity" />
+          android:parentActivityName="ie.equalit.cenoV2.BrowserActivity" />
 
         <activity
-            android:name=".CrashListActivity"
+            android:name="ie.equalit.cenoV2.CrashListActivity"
             android:exported="false" />
 
-        <activity android:name=".autofill.AutofillUnlockActivity"
+        <activity android:name="ie.equalit.cenoV2.autofill.AutofillUnlockActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
-            android:name=".autofill.AutofillService"
+            android:name="ie.equalit.cenoV2.autofill.AutofillService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_AUTOFILL_SERVICE"
             android:exported="true">
@@ -167,11 +167,11 @@
             </intent-filter>
         </service>
 
-        <service android:name=".media.MediaSessionService"
+        <service android:name="ie.equalit.cenoV2.media.MediaSessionService"
             android:exported="false" />
 
         <service
-            android:name=".push.FirebasePush"
+            android:name="ie.equalit.cenoV2.push.FirebasePush"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -186,16 +186,16 @@
             android:value="false" />
 
         <service
-            android:name="org.mozilla.reference.browser.components.ceno.OuinetService"
+            android:name="ie.equalit.cenoV2.components.ceno.OuinetService"
             android:exported="false"
             android:isolatedProcess="false"
             android:process=":ouinetService"/>
 
         <receiver
-            android:name="org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver"
+            android:name="ie.equalit.cenoV2.components.ceno.OuinetBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="org.mozilla.reference.browser.components.ceno.OuinetBroadcastReceiver.STOP" />
+                <action android:name="ie.equalit.cenoV2.components.ceno.OuinetBroadcastReceiver.STOP" />
             </intent-filter>
         </receiver>
 
