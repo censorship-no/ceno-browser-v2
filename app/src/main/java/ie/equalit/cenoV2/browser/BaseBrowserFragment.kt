@@ -354,14 +354,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         try {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                addToBackStack(null)
                 commit()
             }
         } catch (ex : Exception) {
             /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                addToBackStack(null)
                 commitAllowingStateLoss()
             }
         }
@@ -377,7 +375,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         try {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commit()
             }
         }
@@ -385,7 +382,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commitAllowingStateLoss()
             }
         }

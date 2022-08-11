@@ -143,7 +143,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
-            addToBackStack(null)
             commit()
         }
     }
