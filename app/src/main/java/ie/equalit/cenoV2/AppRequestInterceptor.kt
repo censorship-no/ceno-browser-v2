@@ -63,16 +63,10 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
         uri: String?
     ): RequestInterceptor.ErrorResponse {
         /* CENO: Intercept the error page that is loaded for homepage
-         * and modify the error code, title, description to make less scary */
+         * and instead load a blank html page that the home fragment will overlay */
         return if (uri == CenoHomeFragment.ABOUT_HOME) {
-            val errorPage = ErrorPages.createUrlEncodedErrorPage(
-                context,
-                ErrorType.UNKNOWN,
-                uri,
-                titleOverride = {"CENO Homepage"},
-                descriptionOverride = {"Loading"}
-            )
-            RequestInterceptor.ErrorResponse(errorPage)
+            val page = "resource://android/assets/about_home.html"
+            RequestInterceptor.ErrorResponse(page)
         } else {
             val errorPage = ErrorPages.createUrlEncodedErrorPage(context, errorType, uri)
             RequestInterceptor.ErrorResponse(errorPage)

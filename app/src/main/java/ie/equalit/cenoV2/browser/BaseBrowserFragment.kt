@@ -147,8 +147,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                ::onTabUrlChanged,
-                requireComponents.core.store.state.selectedTab?.content?.private ?: false,
+                ::onTabUrlChanged
             ),
             owner = this,
             view = view

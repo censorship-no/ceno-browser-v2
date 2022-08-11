@@ -64,7 +64,6 @@ class ToolbarIntegration(
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
     private val onTabUrlChange: (String) -> Unit,
-    isPrivate : Boolean
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
