@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import ie.equalit.cenoV2.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -288,21 +287,6 @@ class ToolbarIntegration(
             addHistoryStorageProvider(historyStorage)
             addDomainProvider(shippedDomainsProvider)
         }
-
-        /* CENO: Set toolbar appearance based on whether current tab is private or not */
-        toolbar.private = isPrivate
-        if (isPrivate) {
-            toolbar.display.setUrlBackground(
-                ResourcesCompat.getDrawable(context.resources, R.drawable.url_private_background, context.theme)
-            )
-            toolbar.background = ResourcesCompat.getDrawable(context.resources, R.drawable.toolbar_background, context.theme)
-        }
-        else {
-            toolbar.display.setUrlBackground(
-                ResourcesCompat.getDrawable(context.resources, R.drawable.url_background, context.theme)
-            )
-        }
-
 
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */

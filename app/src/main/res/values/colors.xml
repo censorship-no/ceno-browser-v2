@@ -296,7 +296,9 @@
     <color name="accent_normal_theme">@color/photonInk20</color>
     <color name="accent_high_contrast_normal_theme">@color/photonInk20</color>
     <color name="neutral_normal_theme">@color/photonGrey30</color>
+    <!--
     <color name="neutral_faded_normal_theme">@color/photonGrey20</color>
+    -->
     <color name="fill_link_from_clipboard_normal_theme">@color/photonInk20</color>
     <color name="sync_disconnected_icon_fill_normal_theme">@color/photonYellow70</color>
     <color name="sync_disconnected_background_normal_theme">#FFFDE2</color>
@@ -354,5 +356,9 @@
 
     <!-- App Spinners colors -->
     <color name="spinner_selected_item">#1415141A</color>
+
+    <!-- Normal theme colors for dark mode -->
+    <color name="neutral_faded_normal_theme">#1FFBFBFE</color>
+
     <!-- CENO: END OF COPIED FROM FENIX -->
 </resources>

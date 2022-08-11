@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -317,6 +318,29 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             swipeRefresh.layoutParams = params
         }
         */
+    }
+
+    override fun onStart() {
+        super.onStart()
+        /* CENO: Set toolbar appearance based on whether current tab is private or not
+         * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
+         */
+        requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
+            toolbar.private = private
+            /* TODO: this is messy, should create proper theme manager */
+            if (private) {
+                toolbar.display.setUrlBackground(
+                    context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_private_background, ctx.theme) }
+                )
+                toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_background, ctx.theme) }
+            }
+            else {
+                toolbar.display.setUrlBackground(
+                    context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_background, ctx.theme) }
+                )
+                toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_dark_background, ctx.theme) }
+            }
+        }
     }
 
     /* CENO: Functions to handle hiding/showing the CenoHomeFragment when "about:home" url is requested */
