@@ -20,6 +20,7 @@ import mozilla.components.concept.engine.window.WindowRequest
 import mozilla.components.lib.state.ext.consumeFrom
 import ie.equalit.cenoV2.R
 import ie.equalit.cenoV2.ext.components
+import ie.equalit.cenoV2.ext.requireComponents
 
 /**
  * An activity to show the pop up action of a web extension.
@@ -105,8 +106,9 @@ class WebExtensionActionPopupActivity : AppCompatActivity() {
                 activity?.onBackPressed()
             }
             else {
-                /* CENO: Handle links in popups by loading the requested url in the popup window */
-                engineSession?.loadUrl(windowRequest.url)
+                /* CENO: Handle links in popups by loading the requested url in a new tab and closing the popup */
+                requireComponents.useCases.tabsUseCases.selectOrAddTab(windowRequest.url)
+                activity?.onBackPressed()
             }
         }
 
