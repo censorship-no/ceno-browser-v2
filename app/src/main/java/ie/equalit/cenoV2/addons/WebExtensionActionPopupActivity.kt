@@ -104,6 +104,10 @@ class WebExtensionActionPopupActivity : AppCompatActivity() {
             if (windowRequest.type == WindowRequest.Type.CLOSE) {
                 activity?.onBackPressed()
             }
+            else {
+                /* CENO: Handle links in popups by loading the requested url in the popup window */
+                engineSession?.loadUrl(windowRequest.url)
+            }
         }
 
         private fun consumePopupSession() {
