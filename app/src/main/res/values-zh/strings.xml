@@ -150,6 +150,18 @@
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
+
+    <!-- Default suggested site title and urls -->
+    <string name="default_top_site_1_title">CENO Manual</string>
+    <string name="default_top_site_1_url">https://censorship.no/user-manual/</string>
+    <string name="default_top_site_2_title">Wikipedia</string>
+    <string name="default_top_site_2_url">https://www.wikipedia.org/</string>
+    <string name="default_top_site_3_title">自由時報</string>
+    <string name="default_top_site_3_url">https://www.ltn.com.tw/</string>
+    <string name="default_top_site_4_title">報導者</string>
+    <string name="default_top_site_4_url">https://www.twreporter.org/</string>
+    <string name="default_top_site_5_title">BBC 中文</string>
+    <string name="default_top_site_5_url">https://www.bbc.com/zhongwen/simp</string>
     <!-- </CENO> -->
 
 </resources>

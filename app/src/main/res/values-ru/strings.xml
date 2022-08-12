@@ -156,6 +156,18 @@
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
+
+    <!-- Default suggested site title and urls -->
+    <string name="default_top_site_1_title">CENO Мануал</string>
+    <string name="default_top_site_1_url">https://censorship.no/user-manual/ru/</string>
+    <string name="default_top_site_2_title">Wikipedia</string>
+    <string name="default_top_site_2_url">https://www.wikipedia.org/</string>
+    <string name="default_top_site_3_title">Медуза</string>
+    <string name="default_top_site_3_url">https://meduza.io/</string>
+    <string name="default_top_site_4_title">Медиазона</string>
+    <string name="default_top_site_4_url">https://zona.media/</string>
+    <string name="default_top_site_5_title">BBC Русская служба</string>
+    <string name="default_top_site_5_url">https://www.bbc.com/russian</string>
     <!-- </CENO> -->
 
 </resources>

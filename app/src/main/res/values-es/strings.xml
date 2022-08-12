@@ -152,4 +152,18 @@
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
 
+
+    <!-- Default suggested site title and urls -->
+    <string name="default_top_site_1_title">Manual CENO</string>
+    <string name="default_top_site_1_url">https://censorship.no/user-manual/es/</string>
+    <string name="default_top_site_2_title">Wikipedia</string>
+    <string name="default_top_site_2_url">"https://www.wikipedia.org/</string>
+    <string name="default_top_site_3_title">El País</string>
+    <string name="default_top_site_3_url">https://elpais.com/internacional/</string>
+    <string name="default_top_site_4_title">Infobae</string>
+    <string name="default_top_site_4_url">https://www.infobae.com/america/</string>
+    <string name="default_top_site_5_title">BBC Mundo</string>
+    <string name="default_top_site_5_url">https://www.bbc.com/mundo</string>
+    <!-- </CENO> -->
+
 </resources>

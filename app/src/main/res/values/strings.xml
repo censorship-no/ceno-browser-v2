@@ -138,33 +138,18 @@
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
 
-    <!-- Default title for pinned top site 1 -->
-    <string name="default_top_site_1_title" translatable="false">CENO Manual</string>
-    <!-- Default url for pinned top site 1 -->
-    <string name="default_top_site_1_url" translatable="false">https://censorship.no/user-manual/</string>
-
-    <!-- Default title for pinned top site 2 -->
-    <string name="default_top_site_2_title" translatable="false">Wikipedia</string>
-    <!-- Default url for pinned top site 2 -->
-    <string name="default_top_site_2_url" translatable="false">"https://www.wikipedia.org/</string>
-
-    <!-- Default title for pinned top site 3 -->
-    <string name="default_top_site_3_title" translatable="false">AP News</string>
-    <!-- Default url for pinned top site 3 -->
-    <string name="default_top_site_3_url" translatable="false">https://apnews.com/</string>
-
-    <!-- Default title for pinned top site 4 -->
-    <string name="default_top_site_4_title" translatable="false">Reuters</string>
-    <!-- Default url for pinned top site 4 -->
-    <string name="default_top_site_4_url" translatable="false">https://www.reuters.com/</string>
-
-    <!-- Default title for pinned top site 5 -->
-    <string name="default_top_site_5_title" translatable="false">BBC News</string>
-    <!-- Default url for pinned top site 5 -->
-    <string name="default_top_site_5_url" translatable="false">https://www.bbc.com/news</string>
-
+    <!-- Default suggested site title and urls -->
+    <string name="default_top_site_1_title">CENO Manual</string>
+    <string name="default_top_site_1_url">https://censorship.no/user-manual/</string>
+    <string name="default_top_site_2_title">Wikipedia</string>
+    <string name="default_top_site_2_url">"https://www.wikipedia.org/</string>
+    <string name="default_top_site_3_title">AP News</string>
+    <string name="default_top_site_3_url">https://apnews.com/</string>
+    <string name="default_top_site_4_title">Reuters</string>
+    <string name="default_top_site_4_url">https://www.reuters.com/</string>
+    <string name="default_top_site_5_title">BBC News</string>
+    <string name="default_top_site_5_url">https://www.bbc.com/news</string>
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
-
     <!-- </CENO> -->
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
