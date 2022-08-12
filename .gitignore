@@ -71,3 +71,4 @@ google-cloud-sdk/
 build-*
 *.keystore
 *.keystore-passwords
+*ouinet.xml

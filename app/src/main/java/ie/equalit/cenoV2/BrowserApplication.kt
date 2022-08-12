@@ -5,7 +5,12 @@
 package ie.equalit.cenoV2
 
 import android.app.Application
-import ie.equalit.cenoV2.BuildConfig
+import android.content.Context
+import android.telephony.TelephonyManager
+import ie.equalit.cenoV2.components.ceno.OuinetService
+import ie.equalit.cenoV2.ext.isCrashReportActive
+import ie.equalit.cenoV2.push.PushFxaIntegration
+import ie.equalit.cenoV2.push.WebPushEngineIntegration
 import ie.equalit.ouinet.Config
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +28,7 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import ie.equalit.cenoV2.components.ceno.OuinetService
-import ie.equalit.cenoV2.ext.isCrashReportActive
-import ie.equalit.cenoV2.push.PushFxaIntegration
-import ie.equalit.cenoV2.push.WebPushEngineIntegration
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 open class BrowserApplication : Application() {
@@ -44,6 +46,36 @@ open class BrowserApplication : Application() {
         // Ouinet
         //------------------------------------------------------------
 
+        var btBootstrapExtras: Set<String>? = null
+        // Attempt to get ISO 3166-1 alpha-2 country code from telephony manager,
+        // fall back to locale country otherwise.
+        var countryIsoCode = ""
+        val tm = applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        countryIsoCode = tm.networkCountryIso
+        if (countryIsoCode.isEmpty()) {// no telephony or unavaiable country code
+            countryIsoCode = Locale.getDefault().country
+            Logger.info(" --------- Telephony failed to get country code, setting to locale default $countryIsoCode")
+        }
+        else {
+            Logger.info(" --------- Telephony got country code $countryIsoCode")
+        }
+        countryIsoCode = countryIsoCode.uppercase(Locale.getDefault()) // just in case
+
+        // Attempt country-specific `R.string.ouinet_bt_bootstrap_extras_XX`,
+        // fall back to `R.string.ouinet_bt_bootstrap_extras` otherwise.
+        val btbsxsRName = "ouinet_bt_bootstrap_extras"
+        var btbsxsRId = 0 // invalid resource id
+        if (!countryIsoCode.isEmpty()) btbsxsRId = resources.getIdentifier(
+            btbsxsRName + "_" + countryIsoCode, "string",
+            packageName
+        )
+        if (btbsxsRId == 0) btbsxsRId =
+            resources.getIdentifier(btbsxsRName, "string", packageName)
+        val btbsxs: HashSet<String> = HashSet()
+        for (x in resources.getString(btbsxsRId).split(" ")
+            .toTypedArray()) if (x.length > 0) btbsxs.add(x)
+        if (btbsxs.size > 0) btBootstrapExtras = btbsxs
+
         mOuinetConfig = Config.ConfigBuilder(this)
                 .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
                 .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -51,7 +83,7 @@ open class BrowserApplication : Application() {
                 .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
                 .setCacheType("bep5-http")
                 .setLogLevel(Config.LogLevel.DEBUG)
-                //.setDisableOriginAccess(true)
+                .setBtBootstrapExtras(btBootstrapExtras)
                 .build()
 
         Logger.info(" --------- Starting ouinet service")

@@ -6,7 +6,6 @@ BUILD_DIR=$(pwd)
 SOURCE_DIR=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 GECKO_DIR=gecko-dev
 ANDROID_HOME=$HOME/Android/Sdk
-# CENO v2: References to OUINET_CONFIG_XML removed, use local.properties instead
 LOCAL_PROPERTIES=local.properties
 
 SUPPORTED_ABIS=(armeabi-v7a arm64-v8a x86 x86_64)
@@ -21,7 +20,7 @@ BUILD_OUINET=false
 BUILD_LIGHT=false
 
 ABIS=()
-#OUINET_CONFIG_XML=
+OUINET_CONFIG_XML=
 VERSION_NUMBER=
 RELEASE_KEYSTORE_FILE=
 RELEASE_KEYSTORE_PASSWORDS_FILE=
@@ -48,7 +47,7 @@ function usage {
     exit 1
 }
 
-while getopts crdoa:g:lv:k:p: option; do
+while getopts crdoa:g:lx:v:k:p: option; do
     case "$option" in
         c)
             CLEAN=true
@@ -83,6 +82,10 @@ while getopts crdoa:g:lv:k:p: option; do
         l)
             BUILD_LIGHT=true
             ;;
+        x)
+            [[ -n $OUINET_CONFIG_XML ]] && usage
+            OUINET_CONFIG_XML="${OPTARG}"
+            ;;
         v)
             [[ -n $VERSION_NUMBER ]] && usage
             VERSION_NUMBER="${OPTARG}"
@@ -109,6 +112,14 @@ if $CLEAN; then
     rm -rf ouinet-*-{debug,release}/build-android-*-{debug,release} || true
     exit
 fi
+
+[[ -z $OUINET_CONFIG_XML ]] && echo "Missing ouinet config xml" && usage
+
+function cp_if_different {
+    local from="$1"
+    local to="$2"
+    cmp -s "$from" "$to" || cp "$from" "$to"
+}
 
 $BUILD_RELEASE || $BUILD_DEBUG || BUILD_DEBUG=true
 
@@ -227,6 +238,10 @@ for variant in debug release; do
             exit 1
         fi
 
+        if [[ -n $OUINET_CONFIG_XML ]]; then
+            cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
+        fi
+
         CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${variant}"
 
         if [[ $variant = debug ]]; then
@@ -236,8 +251,8 @@ for variant in debug release; do
             #"${SOURCE_DIR}"/gradlew assembleRelease
         fi
 
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/app-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/cenoV2-${ABI}-${variant}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
 
     done
