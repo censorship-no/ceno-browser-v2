@@ -100,7 +100,7 @@
             android:overScrollMode="never"
             tools:listitem="@layout/collection_home_list_row"
             tools:itemCount="3"
-            android:background="@color/device_type_mobile_background"
+            android:background="@drawable/home_background"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <mozilla.components.feature.findinpage.view.FindInPageBar
