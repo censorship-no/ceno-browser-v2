@@ -44,7 +44,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/mozilla_category">
+        android:title="@string/vendor_category">
 
         <androidx.preference.Preference
             android:key="@string/pref_key_about_page"

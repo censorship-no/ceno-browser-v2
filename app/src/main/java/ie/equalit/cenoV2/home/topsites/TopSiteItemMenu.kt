@@ -64,6 +64,8 @@ class TopSiteItemMenu(
             } else {
                 null
             },
+            /* CENO: There are currently no provided sites in CENO */
+            /*
             if (isProvidedSite) {
                 SimpleBrowserMenuItem(
                     context.getString(R.string.top_sites_menu_settings)
@@ -82,6 +84,7 @@ class TopSiteItemMenu(
             } else {
                 null
             }
+             */
         )
     }
 }

@@ -8,8 +8,6 @@
     <!ENTITY  vendorShortName "eQualitie">
     ]>
 <resources>
-    <string name="app_name">Reference Browser</string>
-
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
 
@@ -21,19 +19,19 @@
     <string name="menu_action_close_tabs_private">بستن زبانه‌های خصوصی</string>
 
     <!-- Preference summary for settings related to send telemetry data -->
-    <string name="preferences_use_telemetry_summary">Send usage data</string>
+    <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
 
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">&brandShortName; را مرورگر پیش فرض خود قرار دهید</string>
 
-    <string name="preferences_autofill">Autofill apps</string>
-    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
+    <!-- <string name="preferences_autofill">Autofill apps</string> -->
+    <!-- <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string> -->
 
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">اشکال‌زدایی از راه دور به‌وسیله USB</string>
 
     <!-- Preference for enabling tracking protection in normal mode -->
-    <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
+    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
 
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">فعال شده در حالت مرور خصوصی</string>
@@ -45,19 +43,16 @@
     <string name="privacy">حریم خصوصی</string>
 
     <!-- Preference summary for privacy -->
-    <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
+    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
 
     <!-- Preference for open links in apps -->
-    <string name="open_links_in_apps">Open links in apps</string>
+    <!-- <string name="open_links_in_apps">Open links in apps</string> -->
 
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">ابزارهای توسعه‌دهندگان</string>
 
     <!-- Preference for settings related turn on telemetry data-->
-    <string name="use_telemetry">Use Telemetry</string>
-
-    <!-- Preference category for Mozilla about/legal etc. -->
-    <string name="mozilla_category">Mozilla</string>
+    <!-- <string name="use_telemetry">Use Telemetry</string> -->
 
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">محافظت در برابر ردگیری</string>
@@ -79,22 +74,9 @@
 
     <!-- مرور خصوصی -->
     <string name="private_browsing_title">مرور خصوصی</string>
-    <string name="private_browsing_body"><![CDATA[
-<h1>مرور خصوصی</h1>
-<p>When you browse in a Private Window, Reference Browser <strong>does not save</strong>:</p>
-<ul class="two-column">
-    <li>visited pages</li>
-    <li>searches</li>
-    <li>cookies</li>
-    <li>temporary files</li>
-</ul>
-<p>مرور خصوصی <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
-<p class="about-info">Learn more about <a id="learnMore">مرور خصوصی</a>.</p>
-     ]]></string>
-
-    <string name="default_notification_channel">Browser</string>
 
     <!-- About content -->
+    <!--
     <string name="about_content"><![CDATA[
 <p>%1$s puts you in control.</p>
 <p>Use it as a reference to:
@@ -107,23 +89,24 @@
 
     <string name="menu_share_with">Share with…</string>
     <string name="toast_copied">Copied!</string>
+    -->
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
+    <string name="preferences_customize_amo_collection">مجموعه افزودنی سفارشی</string>
     <!-- Button caption to confirm the add-on collection configuration -->
-    <string name="customize_addon_collection_ok">OK</string>
+    <string name="customize_addon_collection_ok">تایید</string>
     <!-- Button caption to abort the add-on collection configuration -->
-    <string name="customize_addon_collection_cancel">Cancel</string>
+    <string name="customize_addon_collection_cancel">لغو</string>
     <!-- Hint displayed on input field for custom collection name -->
-    <string name="customize_addon_collection_hint">Collection name</string>
+    <string name="customize_addon_collection_hint">نام مجموعه</string>
     <!-- Hint displayed on input field for custom collection user ID-->
-    <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
+    <string name="customize_addon_collection_user_hint">مالک مجموعه (شناسه کاربری)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
-    <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
+    <string name="toast_customize_addon_collection_done">مجموعه افزونه اصلاح شده است. ترک برنامه برای اعمال تغییرات…</string>
 
     <!-- <CENO> -->
-    <!-- خانه page browsing mode reminder. -->
+    <!--Home page browsing mode reminder. -->
     <string name="ceno_home_mode_description">با استفاده از برگه‌های معمولی، محتوا را با سایر کاربران CENO مبادله کنید. برای جلوگیری از به اشتراک‌گذاری یا برای صفحاتی که نیاز به اطلاعات ورودی دارند، از برگه‌های خصوصی استفاده کنید. این‌جا بیشتر بخوانید.</string>
 
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
@@ -131,6 +114,12 @@
 
     <!-- Extra paragraph in private tab panel. -->
     <string name="ceno_private_tab_panel_description">«سنو» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.</string>
+
+    <string name="ceno_private_browsing_body"><![CDATA[
+<h1>مرور خصوصی</h1>
+<p>«سنو» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.</p>
+<p class="about-info"><a id="learnMore">مایلید بیشتر بدانید؟</p>
+     ]]></string>
 
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">خدمات مرورگر CENO</string>
@@ -147,9 +136,11 @@
     <string name="ceno_on_mobile_data_dialog_continue">ادامه</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
 
+    <!--
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
+    -->
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">دفترچه راهنمای CENO</string>
@@ -163,5 +154,41 @@
     <string name="default_top_site_5_title">صفحه اول - BBC News</string>
     <string name="default_top_site_5_url">https://www.bbc.com/persian</string>
     <!-- </CENO> -->
+
+    <!-- CENO: COPIED FROM FENIX -->
+    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
+    <string name="content_description_private_browsing_button">فعال کردن حالت خصوصی</string>
+
+    <!-- Bookmark overflow menu open in private tab button -->
+    <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه خصوصی</string>
+
+    <!-- Sessions -->
+    <!-- Text for the menu button to rename a top site -->
+    <string name="rename_top_site">تغییر نام</string>
+    <!-- Text for the menu button to remove a top site -->
+    <string name="remove_top_site">حذف</string>
+    <!-- Text for the menu button to delete a top site from history -->
+    <string name="delete_from_history">حذف از تاریخچه</string>
+
+    <!-- Top Sites -->
+    <!-- TODO: strings with "shortcut" in them were changed as of Firefox 101 release,
+            but are not yet updated for FA or MY, check later for new strings -->
+    <!-- Title text displayed in the dialog when top sites limit is reached. -->
+    <string name="shortcut_max_limit_title">حد نصاب سایت‌های برتر شما پر شده است</string>
+    <!-- Content description text displayed in the dialog when top sites limit is reached. -->
+    <string name="shortcut_max_limit_content">برای افزودن یک سایت برتر جدید، یکی را حذف کنید. سایت را لمس و نگه دارید و سپس حذف را انتخاب کنید.</string>
+    <!-- Confirmation dialog button text when top sites limit is reached. -->
+    <string name="top_sites_max_limit_confirmation_button">باشه،‌ متوجه شدم</string>
+    <!-- Title text displayed in the rename top site dialog. -->
+    <string name="top_sites_rename_dialog_title">نام</string>
+    <!-- Hint for renaming title of a shortcut -->
+    <string name="shortcut_name_hint">نامِ سایتِ برتر</string>
+    <!-- Button caption to confirm the renaming of the top site. -->
+    <string name="top_sites_rename_dialog_ok">تایید</string>
+    <!-- Dialog button text for canceling the rename top site prompt. -->
+    <string name="top_sites_rename_dialog_cancel">انصراف</string>
+    <!-- Label text displayed for a sponsored top site. -->
+    <!-- <string name="top_sites_sponsored_label">Sponsored</string> -->
+    <!-- CENO: END OF COPIED FROM FENIX -->
 
 </resources>

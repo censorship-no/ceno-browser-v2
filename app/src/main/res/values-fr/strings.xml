@@ -8,8 +8,6 @@
     <!ENTITY  vendorShortName "eQualitie">
     ]>
 <resources>
-    <string name="app_name">Reference Browser</string>
-
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Recherche ou adresse</string>
 
@@ -21,19 +19,21 @@
     <string name="menu_action_close_tabs_private">Fermer les onglets privés</string>
 
     <!-- Preference summary for settings related to send telemetry data -->
-    <string name="preferences_use_telemetry_summary">Send usage data</string>
+    <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
 
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Faire de &brandShortName; votre navigateur par défaut</string>
 
+    <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
+    -->
 
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Débogage distant par USB</string>
 
     <!-- Preference for enabling tracking protection in normal mode -->
-    <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
+    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
 
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Activée en navigation privée</string>
@@ -45,19 +45,16 @@
     <string name="privacy">Vie privée</string>
 
     <!-- Preference summary for privacy -->
-    <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
+    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
 
     <!-- Preference for open links in apps -->
-    <string name="open_links_in_apps">Open links in apps</string>
+    <!-- <string name="open_links_in_apps">Open links in apps</string> -->
 
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Outils de développement</string>
 
     <!-- Preference for settings related turn on telemetry data-->
-    <string name="use_telemetry">Use Telemetry</string>
-
-    <!-- Preference category for Mozilla about/legal etc. -->
-    <string name="mozilla_category">Mozilla</string>
+    <!-- <string name="use_telemetry">Use Telemetry</string> -->
 
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">Protection contre le pistage</string>
@@ -79,22 +76,9 @@
 
     <!-- Navigation privée -->
     <string name="private_browsing_title">Navigation privée</string>
-    <string name="private_browsing_body"><![CDATA[
-<h1>Navigation privée</h1>
-<p>When you browse in a Private Window, Reference Browser <strong>does not save</strong>:</p>
-<ul class="two-column">
-    <li>visited pages</li>
-    <li>searches</li>
-    <li>cookies</li>
-    <li>temporary files</li>
-</ul>
-<p>Navigation privée <strong>doesn\'t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
-<p class="about-info">Learn more about <a id="learnMore">Navigation privée</a>.</p>
-     ]]></string>
-
-    <string name="default_notification_channel">Browser</string>
 
     <!-- About content -->
+    <!--
     <string name="about_content"><![CDATA[
 <p>%1$s puts you in control.</p>
 <p>Use it as a reference to:
@@ -107,23 +91,24 @@
 
     <string name="menu_share_with">Share with…</string>
     <string name="toast_copied">Copied!</string>
+    -->
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
+    <string name="preferences_customize_amo_collection">Collection de modules personnalisée</string>
     <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
     <!-- Button caption to abort the add-on collection configuration -->
-    <string name="customize_addon_collection_cancel">Cancel</string>
+    <string name="customize_addon_collection_cancel">Annuler</string>
     <!-- Hint displayed on input field for custom collection name -->
-    <string name="customize_addon_collection_hint">Collection name</string>
+    <string name="customize_addon_collection_hint">Nom de la collection</string>
     <!-- Hint displayed on input field for custom collection user ID-->
-    <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
+    <string name="customize_addon_collection_user_hint">Propriétaire de la collection (identifiant utilisateur)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
-    <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
+    <string name="toast_customize_addon_collection_done">Collection de modules complémentaires modifiée. Fermeture de l’application pour appliquer les modifications…</string>
 
     <!-- <CENO> -->
-    <!-- Accueil page browsing mode reminder. -->
+    <!-- Home page browsing mode reminder. -->
     <string name="ceno_home_mode_description">Utilisez les onglets normaux pour partager du contenu avec d\'autres utilisateurs de CENO. Utilisez des onglets privés pour éviter le partage, ou pour les pages qui nécessitent une connexion. Appuyez ici pour en savoir plus.</string>
 
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
@@ -131,6 +116,12 @@
 
     <!-- Extra paragraph in private tab panel. -->
     <string name="ceno_private_tab_panel_description">CENO ne partagera pas le contenu des onglets privés avec d\'autres utilisateurs. Vous pouvez visiter en toute sécurité des sites qui nécessitent une connexion. Une connexion vers Internet est cependant nécessaire.</string>
+
+    <string name="ceno_private_browsing_body"><![CDATA[
+<h1>Navigation privée</h1>
+<p>CENO ne partagera pas le contenu des onglets privés avec d\'autres utilisateurs. Vous pouvez visiter en toute sécurité des sites qui nécessitent une connexion. Une connexion vers Internet est cependant nécessaire.</p>
+<p class="about-info"><a id="learnMore">Vous souhaitez en savoir plus ?</p>
+     ]]></string>
 
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Service du Navigateur CENO</string>
@@ -147,9 +138,11 @@
     <string name="ceno_on_mobile_data_dialog_continue">Continuer</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Ne plus afficher</string>
 
+    <!--
     <string name="preferences_mobile_data">Do not show mobile data warning</string>
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
+    -->
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manuel CENO</string>
@@ -164,4 +157,37 @@
     <string name="default_top_site_5_url">https://www.bbc.com/</string>
     <!-- </CENO> -->
 
+    <!-- CENO: COPIED FROM FENIX -->
+    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
+    <string name="content_description_private_browsing_button">Activer la navigation privée</string>
+
+    <!-- Bookmark overflow menu open in private tab button -->
+    <string name="bookmark_menu_open_in_private_tab_button">Ouvrir dans un onglet privé</string>
+
+    <!-- Sessions -->
+    <!-- Text for the menu button to rename a top site -->
+    <string name="rename_top_site">Renommer</string>
+    <!-- Text for the menu button to remove a top site -->
+    <string name="remove_top_site">Supprimer</string>
+    <!-- Text for the menu button to delete a top site from history -->
+    <string name="delete_from_history">Supprimer de l’historique</string>
+
+    <!-- Top Sites -->
+    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
+    <string name="shortcut_max_limit_title">Nombre maximal de raccourcis atteint</string>
+    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
+    <string name="shortcut_max_limit_content">Pour ajouter un nouveau raccourci, supprimez-en un autre. Faites un appui long sur le site et sélectionnez supprimer.</string>
+    <!-- Confirmation dialog button text when top sites limit is reached. -->
+    <string name="top_sites_max_limit_confirmation_button">J’ai compris</string>
+    <!-- Title text displayed in the rename top site dialog. -->
+    <string name="top_sites_rename_dialog_title">Nom</string>
+    <!-- Hint for renaming title of a shortcut -->
+    <string name="shortcut_name_hint">Nom du raccourci</string>
+    <!-- Button caption to confirm the renaming of the top site. -->
+    <string name="top_sites_rename_dialog_ok">OK</string>
+    <!-- Dialog button text for canceling the rename top site prompt. -->
+    <string name="top_sites_rename_dialog_cancel">Annuler</string>
+    <!-- Label text displayed for a sponsored top site. -->
+    <string name="top_sites_sponsored_label">Sponsorisé</string>
+    <!-- CENO: END OF COPIED FROM FENIX -->
 </resources>

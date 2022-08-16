@@ -35,10 +35,12 @@ class SettingsViewRobot {
     fun verifySettingsViewExists() = assertSettingsView()
 
     fun verifyNavigateUp() = assertNavigateUpButton()
+    /*
     fun verifySyncSigninButton() = assertSyncSigninButton()
     fun verifySyncHistorySummary() = assertSyncHistorySummary()
     fun verifySyncQrCodeButton() = assertSyncQrCodeButton()
     fun verifySyncQrSummary() = assertSyncQrSummary()
+    */
     fun verifyPrivacyButton() = assertPrivacyButton()
     fun verifyPrivacySummary() = assertPrivacySummary()
     fun verifyOpenLinksInApps() = assertOpenLinksInApps()
@@ -80,6 +82,7 @@ class SettingsViewRobot {
             return SettingsViewPrivacyRobot.Transition()
         }
 
+        /*
         fun openFXASignin(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
             syncSigninButton().click()
             BrowserRobot().interact()
@@ -91,6 +94,7 @@ class SettingsViewRobot {
             ExternalAppsRobot().interact()
             return ExternalAppsRobot.Transition()
         }
+        */
 
         fun makeDefaultBrowser(interact: ExternalAppsRobot.() -> Unit):
                 ExternalAppsRobot.Transition {
@@ -135,10 +139,12 @@ private fun assertSettingsView() {
     Espresso.onView(withText(R.string.preferences_about_page))
 }
 
+/*
 private fun syncSigninButton() = Espresso.onView(withText(R.string.sign_in))
 private fun syncHistorySummary() = Espresso.onView(withText(R.string.preferences_sign_in_summary))
 private fun syncQrCodeButton() = Espresso.onView(withText(R.string.pair_sign_in))
 private fun syncQrSummary() = Espresso.onView(withText(R.string.preferences_pair_sign_in_summary))
+ */
 private fun privacyButton() = Espresso.onView(withText(R.string.privacy))
 private fun privacySummary() = Espresso.onView(withText(R.string.preferences_privacy_summary))
 private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
@@ -149,12 +155,13 @@ private fun autofillAppsSummary() = onView(withText("Autofill logins and passwor
 private fun developerToolsHeading() = Espresso.onView(withText(R.string.developer_tools_category))
 private fun remoteDebuggingToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_remote_debugging))))
 private fun customAddonCollectionButton() = onView(withText("Custom Add-on collection"))
-private fun mozillaHeading() = Espresso.onView(withText(R.string.mozilla_category))
+private fun mozillaHeading() = Espresso.onView(withText(R.string.vendor_category))
 private fun aboutReferenceBrowserButton() = Espresso.onView(withText(R.string.preferences_about_page))
 
 private fun assertNavigateUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+/*
 private fun assertSyncSigninButton() = syncSigninButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertSyncHistorySummary() = syncHistorySummary()
@@ -163,6 +170,7 @@ private fun assertSyncQrCodeButton() = syncQrCodeButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertSyncQrSummary() = syncQrSummary()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+*/
 private fun assertPrivacyButton() = privacyButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertPrivacySummary() = privacySummary()
