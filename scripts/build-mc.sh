@@ -90,7 +90,7 @@ function patch_mc {
     fi
     pushd "${MOZ_DIR}" >/dev/null
     # Apply any patches needed for CENO/Ouinet functionality
-    moz-phab patch --apply-to here --nocommit --skip-dependencies D153882
+    #moz-phab patch --apply-to here --nocommit --skip-dependencies D153882
     popd >/dev/null
     touch "${COOKIE_FILE}"
 }
@@ -136,7 +136,7 @@ ac_add_options --enable-linker=lld
 
 mk_add_options 'export CCACHE_COMPRESS=""'
 mk_add_options 'export CCACHE_CPP2=yes'
-ac_add_options --with-ccache
+ac_add_options --with-ccache=sccache
 
 mk_add_options MOZ_OBJDIR="${ABI_BUILD_DIR}"
 
@@ -152,7 +152,8 @@ MOZCONFIG_BASE
         # It also disables site issue reporting,
         # according to `gecko-dev/mobile/android/extensions/moz.build`
         # and `gecko-dev/mobile/android/locales/jar.mn`.
-        echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
+        #echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
+        echo "ac_add_options --enable-release" >> mozconfig-new
     fi
 
     if [ "$ABI" == armeabi-v7a -o "$ABI" == x86 -o "$ABI" == x86_64 ]; then
@@ -181,7 +182,7 @@ function package_mc {
 }
 
 #mount_cow
-patch_mc
+#patch_mc
 bootstrap_mc
 write_build_config
 build_mc
