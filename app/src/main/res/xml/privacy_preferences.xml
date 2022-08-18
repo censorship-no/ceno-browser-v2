@@ -21,6 +21,7 @@
 
     </PreferenceCategory>
 
+    <!-- CENO: Telemetry is disabled by default and not possible to enable
     <PreferenceCategory
         android:title="@string/data_choices_category">
 
@@ -31,6 +32,7 @@
             android:summary="@string/preferences_use_telemetry_summary"/>
 
     </PreferenceCategory>
+    -->
 
 
 </androidx.preference.PreferenceScreen>

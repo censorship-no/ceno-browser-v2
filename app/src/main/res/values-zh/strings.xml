@@ -18,9 +18,6 @@
     <string name="menu_action_close_tabs">关闭所有标签页</string>
     <string name="menu_action_close_tabs_private">关闭隐私标签页</string>
 
-    <!-- Preference summary for settings related to send telemetry data -->
-    <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
-
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">将 &brandShortName; 设为您的默认浏览器</string>
 
@@ -48,13 +45,10 @@
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
 
     <!-- Preference for open links in apps -->
-    <!-- <string name="open_links_in_apps">Open links in apps</string> -->
+    <string name="open_links_in_apps">用外部应用打开链接</string>
 
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">开发者工具</string>
-
-    <!-- Preference for settings related turn on telemetry data-->
-    <!-- <string name="use_telemetry">Use Telemetry</string> -->
 
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">跟踪保护</string>
@@ -149,6 +143,9 @@
     <string name="ceno_purge_dialog_purge_cache_only">Clear CENO cache only</string>
     <string name="ceno_purge_dialog_title">Purge CENO</string>
     <string name="ceno_purge_dialog_description">WARNING: Clearing cache and app data will reset the CENO application as if it was never used.</string>
+    <string name="ceno_purge_action_description">Purge</string>
+
+    <string name="browser_menu_report_issue">Remove from shortcuts</string>
     -->
 
     <!-- Default suggested site title and urls -->
@@ -195,5 +192,33 @@
     <string name="top_sites_rename_dialog_cancel">取消</string>
     <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">赞助项目</string>
+
+    <!-- Browser Fragment -->
+    <!-- TODO: these are from Fenix values-zh-rCN, values-zh-rTW looked different,
+            should check differences, maybe include values for both regions -->
+    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
+    <string name="browser_menu_back">后退</string>
+    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
+    <string name="browser_menu_forward">前进</string>
+    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
+    <string name="browser_menu_refresh">刷新</string>
+    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
+    <string name="browser_menu_stop">停止</string>
+    <!-- Browser menu button that opens the addon manager -->
+    <string name="browser_menu_add_ons">附加组件</string>
+    <!-- Browser menu button that opens the settings menu -->
+    <string name="browser_menu_settings">设置</string>
+    <!-- Browser menu toggle that requests a desktop site -->
+    <string name="browser_menu_desktop_site">桌面版网站</string>
+    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
+    <string name="browser_menu_add_to_homescreen">添加到主屏幕</string>
+    <!-- Browser menu button that opens the find in page menu -->
+    <string name="browser_menu_find_in_page">在页面中查找</string>
+    <!-- Browser menu button that open a share menu to share the current site -->
+    <string name="browser_menu_share">分享</string>
+    <!-- Browser menu button that adds a shortcut to the home fragment -->
+    <string name="browser_menu_add_to_shortcuts">添加快捷方式</string>
+    <!-- Browser menu button that removes a shortcut from the home fragment -->
+    <string name="browser_menu_remove_from_shortcuts">已从快捷方式删除</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
 </resources>

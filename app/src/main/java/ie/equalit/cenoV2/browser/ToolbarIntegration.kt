@@ -83,7 +83,7 @@ class ToolbarIntegration(
         val rowMenuItems : MutableList<SmallMenuCandidate>  = emptyList<SmallMenuCandidate>().toMutableList()
         if (session?.content?.canGoForward == true) {
             rowMenuItems += SmallMenuCandidate(
-                contentDescription = "Forward",
+                contentDescription = context.getString(R.string.browser_menu_forward),
                 icon = DrawableMenuIcon(
                     context,
                     mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
@@ -98,7 +98,7 @@ class ToolbarIntegration(
         }
 
         rowMenuItems += SmallMenuCandidate(
-            contentDescription = "Refresh",
+            contentDescription = context.getString(R.string.browser_menu_refresh),
             icon = DrawableMenuIcon(
                 context,
                 mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
@@ -110,7 +110,7 @@ class ToolbarIntegration(
 
         if (session?.content?.loading == true) {
             rowMenuItems += SmallMenuCandidate(
-                contentDescription = "Stop",
+                contentDescription = context.getString(R.string.browser_menu_stop),
                 icon = DrawableMenuIcon(
                     context,
                     mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
@@ -129,13 +129,13 @@ class ToolbarIntegration(
         val sessionItems: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         sessionItems += menuToolbar(sessionState)
 
-        sessionItems += listOf(TextMenuCandidate("Share") {
+        sessionItems += listOf(TextMenuCandidate(context.getString(R.string.browser_menu_share)) {
             val url = sessionState.content.url
             context.share(url)
         },
 
             CompoundMenuCandidate(
-                text = "Request desktop site",
+                text = context.getString(R.string.browser_menu_desktop_site),
                 isChecked = sessionState.content.desktopMode,
                 end = CompoundMenuCandidate.ButtonType.SWITCH
             ) { checked ->
@@ -144,7 +144,7 @@ class ToolbarIntegration(
 
         if (webAppUseCases.isPinningSupported()) {
             sessionItems += TextMenuCandidate(
-                text = "Add to homescreen",
+                text = context.getString(R.string.browser_menu_add_to_homescreen),
                 containerStyle = ContainerStyle(
                     isVisible = webAppUseCases.isPinningSupported()
                 )
@@ -158,7 +158,7 @@ class ToolbarIntegration(
         /* CENO: Add menu option for adding or removing a shortcut from the homepage */
         if (isCurrentUrlPinned) {
             sessionItems += TextMenuCandidate(
-                text = "Remove from shortcuts",
+                text = context.getString(R.string.browser_menu_remove_from_shortcuts),
             ) {
                 scope.launch {
                     val removedTopSite: TopSite? =
@@ -175,7 +175,7 @@ class ToolbarIntegration(
         }
         else {
             sessionItems += TextMenuCandidate(
-                text = "Add to shortcuts",
+                text = context.getString(R.string.browser_menu_add_to_shortcuts),
             ) {
                 scope.launch {
                     //val context = swipeRefresh.context
@@ -202,7 +202,7 @@ class ToolbarIntegration(
             }
         }
         sessionItems += TextMenuCandidate(
-                text = "Find in Page"
+                text = context.getString(R.string.browser_menu_find_in_page)
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
@@ -219,7 +219,7 @@ class ToolbarIntegration(
 
         /* CENO: List of persistent menu items, will be joined with session/extension-dependent items */
         val staticMenuItems = listOf(
-            TextMenuCandidate(text = "Add-ons") {
+            TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
                 val intent = Intent(context, AddonsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
@@ -231,13 +231,13 @@ class ToolbarIntegration(
                 context.startActivity(intent)
             },
              */
-            TextMenuCandidate(text = "Report issue") {
+            TextMenuCandidate(text = context.getString(R.string.browser_menu_report_issue)) {
                 tabsUseCases.addTab(
-                    url = "https://github.com/mozilla-mobile/reference-browser/issues/new"
+                    url = "https://github.com/censorship-no/ceno-browser-v2/issues"
                 )
             },
 
-            TextMenuCandidate(text = "Settings") {
+            TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
                 val intent = Intent(context, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
@@ -246,23 +246,23 @@ class ToolbarIntegration(
 
         /* CENO: Only add CENO menu items to list if their browserActions are not null */
         val cenoMenuItems : MutableList<MenuCandidate>  = emptyList<MenuCandidate>().toMutableList()
-        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)?.let{
+        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID).let{
             cenoMenuItems += TextMenuCandidate(
-                text = "CENO",
+                text = context.getString(R.string.browser_menu_ceno_ext),
                 onClick = it
             )
         }
 
-        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
+        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID).let{
             cenoMenuItems += TextMenuCandidate(
-                text = "HTTPS by default",
+                text = context.getString(R.string.browser_menu_https_by_default),
                 onClick = it
             )
         }
 
-        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
+        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID).let{
             cenoMenuItems += TextMenuCandidate(
-                text = "uBlock Origin",
+                text = context.getString(R.string.browser_menu_ublock_origin),
                 onClick = it
             )
         }
