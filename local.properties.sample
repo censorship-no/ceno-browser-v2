@@ -1,11 +1,12 @@
 /* SAMPLE LOCAL PROPERTIES FILE, DO NOT CHECK IN WORKING LOCAL PROPERTIES TO VCS */
 
+/* Automatically updated by build.sh for each ABI */
 sdk.dir=/path/to/Android/Sdk
-
 dependencySubstitutions.geckoviewTopsrcdir=/path/to/gecko-dev
 dependencySubstitutions.geckoviewTopobjdir=/path/to/gecko-dev/obj-aarch64-unknown-linux-android
 ABI=armeabi-v7a
 
+/* Manually replace with your ouinet configuration parameters */
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
 // It's important to keep the new line characters in the beggining and the end
@@ -13,3 +14,9 @@ INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
 INJECTOR_TLS_CERT="-----BEGIN CERTIFICATE-----\\n\
 ABCDEFG...\
 \\n-----END CERTIFICATE-----"
+
+/* Updated by build.sh for release builds */
+RELEASE_STORE_FILE=/path/to/debug.keystore
+RELEASE_STORE_PASSWORD=android
+RELEASE_KEY_ALIAS=androiddebugkey
+RELEASE_KEY_PASSWORD=android

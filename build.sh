@@ -238,6 +238,32 @@ for variant in debug release; do
             exit 1
         fi
 
+        if grep -q '^RELEASE_STORE_FILE=.*' ${LOCAL_PROPERTIES}; then
+            sed -i "s|^RELEASE_STORE_FILE=.*|RELEASE_STORE_FILE=${KEYSTORE_FILE}|" ${LOCAL_PROPERTIES}
+        else 
+            echo "RELEASE_STORE_FILE=${KEYSTORE_FILE}" ${LOCAL_PROPERTIES}
+        fi
+
+        STORE_PASSWORD=$(sed -n '1p' ${KEYSTORE_PASSWORDS_FILE})
+        if grep -q '^RELEASE_STORE_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
+            sed -i "s|^RELEASE_STORE_PASSWORD=.*|RELEASE_STORE_PASSWORD=${STORE_PASSWORD}|" ${LOCAL_PROPERTIES}
+        else 
+            echo "RELEASE_STORE_PASSWORD=${STORE_PASSWORD}" ${LOCAL_PROPERTIES}
+        fi
+
+        if grep -q '^RELEASE_KEY_ALIAS=.*' ${LOCAL_PROPERTIES}; then
+            sed -i "s|^RELEASE_KEY_ALIAS=.*|RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}|" ${LOCAL_PROPERTIES}
+        else 
+            echo "RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}" ${LOCAL_PROPERTIES}
+        fi
+
+        KEY_PASSWORD=$(sed -n '2p' ${KEYSTORE_PASSWORDS_FILE})
+        if grep -q '^RELEASE_KEY_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
+            sed -i "s|^RELEASE_KEY_PASSWORD=.*|RELEASE_KEY_PASSWORD=${KEY_PASSWORD}|" ${LOCAL_PROPERTIES}
+        else 
+            echo "RELEASE_KEY_PASSWORD=${KEY_PASSWORD}" ${LOCAL_PROPERTIES}
+        fi
+
         if [[ -n $OUINET_CONFIG_XML ]]; then
             cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
         fi
@@ -247,8 +273,7 @@ for variant in debug release; do
         if [[ $variant = debug ]]; then
             "${SOURCE_DIR}"/gradlew assembleDebug
         else
-            echo "Release build not yet supported"
-            #"${SOURCE_DIR}"/gradlew assembleRelease
+            "${SOURCE_DIR}"/gradlew assembleRelease
         fi
 
         CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk

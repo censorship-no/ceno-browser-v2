@@ -161,6 +161,8 @@ MOZCONFIG_BASE
         # and `gecko-dev/mobile/android/locales/jar.mn`.
         #echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
         echo "ac_add_options --enable-release" >> mozconfig-new
+        echo "ac_add_options --disable-debug" >> mozconfig-new
+        echo "ac_add_options --enable-optimize" >> mozconfig-new
     fi
 
     if [ "$ABI" == armeabi-v7a -o "$ABI" == x86 -o "$ABI" == x86_64 ]; then

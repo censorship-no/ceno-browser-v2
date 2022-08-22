@@ -37,6 +37,21 @@ android {
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
     }
 
+    /* CENO: Add signing config for release builds */
+    signingConfigs {
+        release {
+            storeFile file(localProperties['RELEASE_STORE_FILE'])
+            storePassword localProperties['RELEASE_STORE_PASSWORD']
+            keyAlias localProperties['RELEASE_KEY_ALIAS']
+            keyPassword localProperties['RELEASE_KEY_PASSWORD']
+
+            // Optional, specify signing versions used
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+
     def releaseTemplate = {
         minifyEnabled false
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -57,6 +72,10 @@ android {
         debug {
             applicationIdSuffix ".debug"
         }
+        /* CENO: Add release build type, allows automatic signing of apks by gradle */
+        release {
+            signingConfig signingConfigs.release
+        }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
             applicationIdSuffix ".raptor"
             manifestPlaceholders.isRaptorEnabled = "true"
@@ -67,11 +86,14 @@ android {
         }
     }
 
+    /* CENO: Don't ignore release buildType */
+    /*
     variantFilter { // There's a "release" build type that exists by default that we don't use (it's replaced by "nightly" and "beta")
         if (buildType.name == 'release') {
             setIgnore true
         }
     }
+    */
 
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
@@ -322,7 +344,7 @@ dependencies {
 
     implementation Deps.google_material
 
-    /* CENO: Begin implement additonal dependencies */
+    /* CENO: Begin implement additional dependencies */
     implementation Deps.mozilla_feature_top_sites
     implementation Deps.mozilla_ui_widgets
 
@@ -346,7 +368,7 @@ dependencies {
         }
     }
     implementation Deps.relinker
-    /* CENO: End implement additonal dependencies */
+    /* CENO: End implement additional dependencies */
 
     androidTestImplementation Deps.uiautomator
     androidTestImplementation Deps.junit_ktx
