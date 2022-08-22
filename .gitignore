@@ -72,3 +72,6 @@ build-*
 *.keystore
 *.keystore-passwords
 *ouinet.xml
+*.jks
+*.pass
+_cache

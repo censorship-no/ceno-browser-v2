@@ -1,0 +1,19 @@
+# Use this configuration to build CENO
+# with a normal user inside of the build container
+# instead of root.
+
+FROM registry.gitlab.com/censorship-no/ceno-browser-v2:bootstrap
+
+# Default UID and GID of the normal user in the build container.
+# If they do not match those of the host user running the container
+# (passed in with `docker run --user UID:GID`),
+# please redefine using `docker build --build-arg`.
+ARG USER_UID=1000
+ARG USER_GID=1000
+
+RUN addgroup --quiet --gid "${USER_GID}" ceno \
+ && adduser --quiet --home ~ --no-create-home \
+            --uid "${USER_UID}" --ingroup ceno \
+            --disabled-password --gecos CENO ceno \
+ && chown ceno:ceno ~ \
+ && chown -R ceno:ceno ~/.cache

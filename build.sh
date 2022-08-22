@@ -5,7 +5,7 @@ set -e
 BUILD_DIR=$(pwd)
 SOURCE_DIR=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 GECKO_DIR=gecko-dev
-ANDROID_HOME=$HOME/Android/Sdk
+ANDROID_HOME=$HOME/.mozbuild/android-sdk-linux
 LOCAL_PROPERTIES=local.properties
 
 SUPPORTED_ABIS=(armeabi-v7a arm64-v8a x86 x86_64)
@@ -251,7 +251,7 @@ for variant in debug release; do
             #"${SOURCE_DIR}"/gradlew assembleRelease
         fi
 
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/cenoV2-${ABI}-${variant}.apk
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
         CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
 

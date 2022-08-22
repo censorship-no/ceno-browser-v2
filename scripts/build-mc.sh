@@ -10,9 +10,8 @@ BUILD_DIR=$(realpath $(pwd))
 
 IS_RELEASE_BUILD=0
 
-# CENO v2: Not sure these are needed for for m-c
-#export MOZBUILD_STATE_PATH="${HOME}/.mozbuild"
-#export PATH="${MOZBUILD_STATE_PATH}/android-sdk-linux/build-tools/30.0.3/:$HOME/.cargo/bin:$PATH"
+export MOZBUILD_STATE_PATH="${HOME}/.mozbuild"
+export PATH="${MOZBUILD_STATE_PATH}/android-sdk-linux/build-tools/31.0.0/:$HOME/.cargo/bin:$PATH"
 
 function usage {
     echo "build-mc.sh -- Builds mozilla-central binaries for android"
@@ -131,6 +130,14 @@ function write_build_config {
 ac_add_options --enable-application=mobile/android
 ac_add_options --target=${TARGET}
 
+# With the following Android SDK and NDK
+ac_add_options --with-android-sdk="${MOZBUILD_STATE_PATH}/android-sdk-linux"
+# Only the NDK version installed by ./mach bootstrap is supported.
+ac_add_options --with-android-ndk="${MOZBUILD_STATE_PATH}/android-ndk-r21d"
+
+# Only the versions of clang and ld installed by ./mach bootstrap are supported.
+CC="${MOZBUILD_STATE_PATH}/clang/bin/clang"
+CXX="${MOZBUILD_STATE_PATH}/clang/bin/clang++"
 # Use the linker installed by mach instead of the system linker.
 ac_add_options --enable-linker=lld
 
