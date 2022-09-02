@@ -8,7 +8,7 @@ GECKO_DIR=gecko-dev
 ANDROID_HOME=$HOME/.mozbuild/android-sdk-linux
 LOCAL_PROPERTIES=local.properties
 
-SUPPORTED_ABIS=(armeabi-v7a arm64-v8a x86 x86_64)
+SUPPORTED_ABIS=(omni armeabi-v7a arm64-v8a x86 x86_64)
 RELEASE_DEFAULT_ABIS=(armeabi-v7a arm64-v8a)
 DEFAULT_ABI=armeabi-v7a
 RELEASE_KEYSTORE_KEY_ALIAS=upload
@@ -190,7 +190,22 @@ for variant in debug release; do
         fi
 
         if [ $BUILD_LIGHT = false ]; then
-            ABI=${ABI} MOZ_DIR=${GECKO_DIR} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+
+            BUILD_DATE_COOKIE=${SOURCE_DIR}/".moz_build_date"
+            if [ -e "${BUILD_DATE_COOKIE}" ]; then
+                BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
+            else
+                BUILD_DATE=$(date +%Y%m%d%H%M%S)
+                echo $BUILD_DATE > .build_date
+            fi
+
+            if [ "$ABI" == omni ]; then
+                ABI=armeabi-v7a MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+                ABI=arm64-v8a MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+                ABI=omni MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+            else
+                ABI=${ABI} MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+            fi
         fi
 
         GECKO_OBJ_DIR=${SOURCE_DIR}/build-${ABI}-${variant}
@@ -276,9 +291,19 @@ for variant in debug release; do
             "${SOURCE_DIR}"/gradlew assembleRelease
         fi
 
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+        if [ "${ABI}" == omni ]; then
+            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${variant}.apk
+            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${variant}-${VERSION_NUMBER}-${DATE}.apk
+            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+
+            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${variant}.apk
+            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${variant}-${VERSION_NUMBER}-${DATE}.apk
+            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+        else
+            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
+            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
+            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+        fi
 
     done
 done

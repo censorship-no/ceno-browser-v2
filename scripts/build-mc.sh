@@ -12,6 +12,7 @@ IS_RELEASE_BUILD=0
 
 export MOZBUILD_STATE_PATH="${HOME}/.mozbuild"
 export PATH="${MOZBUILD_STATE_PATH}/android-sdk-linux/build-tools/31.0.0/:$HOME/.cargo/bin:$PATH"
+MOZ_FETCHES_DIR=${BUILD_DIR}/moz_fetches
 
 function usage {
     echo "build-mc.sh -- Builds mozilla-central binaries for android"
@@ -34,6 +35,9 @@ done
 
 ABI=${ABI:-armeabi-v7a}
 case "$ABI" in
+    omni)
+        TARGET=aarch64
+        ;;
     armeabi-v7a)
         TARGET=arm-linux-androideabi
         ;;
@@ -57,6 +61,7 @@ else
 fi
 
 ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
+AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview-default-omni-${ABI}/105.0.${MOZ_BUILD_DATE}
 
 # CENO v2: TODO mount_cow was triggering "Too many open files" error, is this still needed?
 #function mount_cow {
@@ -171,7 +176,15 @@ MOZCONFIG_BASE
         echo "ac_add_options --disable-elf-hack" >> mozconfig-new
     fi
 
+    if [ "$ABI" == omni ]; then
+        export MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR}
+        export MOZ_ANDROID_FAT_AAR_ARCHITECTURES="armeabi-v7a,arm64-v8a"
+        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview-default-omni-arm64-v8a-105.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview-default-omni-armeabi-v7a-105.0.${MOZ_BUILD_DATE}.aar
+    fi
+
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
+    export MOZ_BUILD_DATE=${MOZ_BUILD_DATE}
 
     cp_if_different mozconfig-new mozconfig
 
@@ -186,7 +199,10 @@ function build_mc {
 
 function package_mc {
     pushd "${MOZ_DIR}" >/dev/null
-    ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
+    if [ "$ABI" != omni ]; then
+        ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
+        mkdir -p "${MOZ_FETCHES_DIR}" && cp "${AAR_OUTPUT_DIR}"/*.aar ${MOZ_FETCHES_DIR}/.
+    fi
     popd >/dev/null
 }
 

@@ -352,6 +352,8 @@ dependencies {
         project.logger.lifecycle('OUINET local AAR')
         implementation(name: "${System.env.OUINET_LIBRARY}", ext: 'aar')
     } else {
+        implementation Deps.ouinet_omni
+        /*
         switch(localProperties['ABI']) {
             case 'x86_64':
                 project.logger.lifecycle('OUINET_X86_64 from Maven')
@@ -366,6 +368,7 @@ dependencies {
                 implementation Deps.ouinet_armeabi_v7a
                 break
         }
+         */
     }
     implementation Deps.relinker
     /* CENO: End implement additional dependencies */

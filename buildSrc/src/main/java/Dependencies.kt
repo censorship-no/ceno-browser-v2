@@ -163,5 +163,6 @@ object Deps {
     const val ouinet_arm64_v8a = "ie.equalit.ouinet:ouinet-arm64-v8a:${Versions.ouinet_version}"
     const val ouinet_armeabi_v7a = "ie.equalit.ouinet:ouinet-armeabi-v7a:${Versions.ouinet_version}"
     const val ouinet_x86_64 = "ie.equalit.ouinet:ouinet-x86_64:${Versions.ouinet_version}"
+    const val ouinet_omni = "ie.equalit.ouinet:ouinet-omni:${Versions.ouinet_version}"
     const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
 }
