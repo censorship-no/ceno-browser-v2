@@ -66,15 +66,15 @@ class WebExtensionToolbarFeature(
      */
 
     /* CENO: function to retrieve an extension's browserAction from BrowserStore */
-    fun getBrowserAction(id: String): () -> Unit {
+    fun getBrowserAction(id: String): (() -> Unit)? {
         /* Check if extension has been loaded yet, then return onClick function */
         store.state.extensions[id]?.let{ ext ->
             ext.browserAction?.let { action ->
                 return action.onClick
             }
         }
-        /* else return a explanatory toast */
-        return { Toast.makeText(context, "Feature not yet installed", Toast.LENGTH_SHORT).show() }
+        /* else */
+        return null
     }
 
     /* CENO: async function to add pageAction button for given extension to the provided toolbar */

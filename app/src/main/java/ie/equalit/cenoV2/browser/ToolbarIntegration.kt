@@ -225,17 +225,19 @@ class ToolbarIntegration(
                 context.startActivity(intent)
             },
             /*
+            CENO: Synced tabs not-supported in CENO
             TextMenuCandidate(text = "Synced Tabs") {
                 val intent = Intent(context, SyncedTabsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             },
-             */
+            CENO: Don't show report issue in three-dot menu, maybe add to Settings page?
             TextMenuCandidate(text = context.getString(R.string.browser_menu_report_issue)) {
                 tabsUseCases.addTab(
                     url = "https://github.com/censorship-no/ceno-browser-v2/issues"
                 )
             },
+            */
 
             TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
                 val intent = Intent(context, SettingsActivity::class.java)
@@ -246,21 +248,21 @@ class ToolbarIntegration(
 
         /* CENO: Only add CENO menu items to list if their browserActions are not null */
         val cenoMenuItems : MutableList<MenuCandidate>  = emptyList<MenuCandidate>().toMutableList()
-        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID).let{
+        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)?.let{
             cenoMenuItems += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_ceno_ext),
                 onClick = it
             )
         }
 
-        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID).let{
+        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
             cenoMenuItems += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_https_by_default),
                 onClick = it
             )
         }
 
-        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID).let{
+        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
             cenoMenuItems += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_ublock_origin),
                 onClick = it
