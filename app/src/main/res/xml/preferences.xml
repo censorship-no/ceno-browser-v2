@@ -29,6 +29,10 @@
         android:defaultValue="false"
         android:title="@string/preferences_mobile_data"/>
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_language"
+        android:title="@string/language_settings"/>
+
     <PreferenceCategory
         android:title="@string/developer_tools_category">
 

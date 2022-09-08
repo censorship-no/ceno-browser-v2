@@ -116,6 +116,7 @@ object Deps {
     const val mozilla_support_images = "org.mozilla.components:support-images:${Versions.mozilla_android_components}"
     const val mozilla_support_utils = "org.mozilla.components:support-utils:${Versions.mozilla_android_components}"
     const val mozilla_support_ktx= "org.mozilla.components:support-ktx:${Versions.mozilla_android_components}"
+    const val mozilla_support_locale= "org.mozilla.components:support-locale:${Versions.mozilla_android_components}"
     const val mozilla_support_rustlog = "org.mozilla.components:support-rustlog:${Versions.mozilla_android_components}"
     const val mozilla_support_rusthttp = "org.mozilla.components:support-rusthttp:${Versions.mozilla_android_components}"
     const val mozilla_support_webextensions = "org.mozilla.components:support-webextensions:${Versions.mozilla_android_components}"

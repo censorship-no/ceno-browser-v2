@@ -23,6 +23,7 @@ import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.cenoV2.R
 import ie.equalit.cenoV2.R.string.pref_key_about_page
 //import ie.equalit.cenoV2.R.string.pref_key_firefox_account
+import ie.equalit.cenoV2.R.string.pref_key_language
 import ie.equalit.cenoV2.R.string.pref_key_make_default_browser
 import ie.equalit.cenoV2.R.string.pref_key_override_amo_collection
 //import ie.equalit.cenoV2.R.string.pref_key_pair_sign_in
@@ -32,6 +33,7 @@ import ie.equalit.cenoV2.R.string.pref_key_remote_debugging
 import ie.equalit.cenoV2.autofill.AutofillPreference
 import ie.equalit.cenoV2.ext.getPreferenceKey
 import ie.equalit.cenoV2.ext.requireComponents
+import ie.equalit.cenoV2.settings.advanced.LocaleSettingsFragment
 import kotlin.system.exitProcess
 
 private typealias RBSettings = ie.equalit.cenoV2.settings.Settings
@@ -72,6 +74,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val remoteDebuggingKey = requireContext().getPreferenceKey(pref_key_remote_debugging)
         val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
+        val languageKey = requireContext().getPreferenceKey(pref_key_language)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
         val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
@@ -85,6 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
         val preferenceAboutPage = findPreference<Preference>(aboutPageKey)
         val preferencePrivacy = findPreference<Preference>(privacyKey)
+        val preferenceLanguage = findPreference<Preference>(languageKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
         val preferenceMobileData = findPreference<Preference>(mobileDataKey)
@@ -116,6 +120,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceRemoteDebugging?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
+        preferenceLanguage?.onPreferenceClickListener = getClickListenerForLanguage()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
         preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
     }
@@ -178,6 +183,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .commit()
             getActionBarUpdater().apply {
                 updateTitle(R.string.privacy_settings)
+            }
+            true
+        }
+    }
+
+    private fun getClickListenerForLanguage(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(android.R.id.content, LocaleSettingsFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBarUpdater().apply {
+                updateTitle(R.string.language_settings)
             }
             true
         }

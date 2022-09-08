@@ -228,5 +228,15 @@
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
+
+    <!-- Locale Settings Fragment -->
+    <!-- Content description for tick mark on selected language -->
+    <string name="a11y_selected_locale_content_description">Selected language</string>
+    <!-- Text for default locale item -->
+    <string name="default_locale_text">Follow device language</string>
+    <!-- Placeholder text shown in the search bar before a user enters text -->
+    <string name="locale_search_hint">Search language</string>
+
+    <string name="language_settings">Language</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
 </resources>
