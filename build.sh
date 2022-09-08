@@ -22,6 +22,7 @@ BUILD_LIGHT=false
 ABIS=()
 OUINET_CONFIG_XML=
 VERSION_NUMBER=
+MOZ_VERSION=104
 RELEASE_KEYSTORE_FILE=
 RELEASE_KEYSTORE_PASSWORDS_FILE=
 
@@ -39,6 +40,7 @@ function usage {
     echo "  -g <gecko-dir>                The directory where local copy of gecko-dev source code is stored"
     echo "  -l                            Light build, only re-run gradle build for supplied ABIs, do not re-build gecko-dev"
     echo "  -v <version-number>           The version number to use on the APK."
+    echo "  -m <mozilla-version-number>   The major version number of mozilla-central to be used."
     echo "  -k <keystore-file>            The keystore to use for signing the release APK."
     echo "                                Must contain the signing key aliased as '${RELEASE_KEYSTORE_KEY_ALIAS}'."
     echo "  -p <keystore-password-file>   The password file containing passwords to unlock the keystore file."
@@ -89,6 +91,10 @@ while getopts crdoa:g:lx:v:k:p: option; do
         v)
             [[ -n $VERSION_NUMBER ]] && usage
             VERSION_NUMBER="${OPTARG}"
+            ;;
+        m)
+            [[ -n $MOZ_VERSION ]] && usage
+            MOZ_VERSION="${OPTARG}"
             ;;
         k)
             [[ -n $RELEASE_KEYSTORE_FILE ]] && usage
@@ -196,13 +202,13 @@ for variant in debug release; do
                 BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
             else
                 BUILD_DATE=$(date +%Y%m%d%H%M%S)
-                echo $BUILD_DATE > .build_date
+                echo $BUILD_DATE > $BUILD_DATE_COOKIE
             fi
 
             if [ "$ABI" == omni ]; then
-                ABI=armeabi-v7a MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-                ABI=arm64-v8a MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-                ABI=omni MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+                ABI=armeabi-v7a MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+                ABI=arm64-v8a MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+                ABI=omni MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
             else
                 ABI=${ABI} MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
             fi

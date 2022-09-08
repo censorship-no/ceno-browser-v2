@@ -61,7 +61,7 @@ else
 fi
 
 ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
-AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview-default-omni-${ABI}/105.0.${MOZ_BUILD_DATE}
+AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview-default-omni-${ABI}/${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}
 
 # CENO v2: TODO mount_cow was triggering "Too many open files" error, is this still needed?
 #function mount_cow {
@@ -179,8 +179,8 @@ MOZCONFIG_BASE
     if [ "$ABI" == omni ]; then
         export MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR}
         export MOZ_ANDROID_FAT_AAR_ARCHITECTURES="armeabi-v7a,arm64-v8a"
-        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview-default-omni-arm64-v8a-105.0.${MOZ_BUILD_DATE}.aar
-        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview-default-omni-armeabi-v7a-105.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview-default-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview-default-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
     fi
 
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
