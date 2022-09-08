@@ -4,8 +4,12 @@
 [submodule "gecko-dev"]
 	path = gecko-dev
 	url = https://github.com/censorship-no/gecko-dev
-	branch = ceno-v2
+	branch = release-ceno-v2
 [submodule "app/src/main/assets/addons/https-by-default"]
 	path = app/src/main/assets/addons/https-by-default
 	url = https://github.com/censorship-no/https-by-default
 	branch = ceno
+[submodule "android-components"]
+	path = android-components
+	url = https://github.com/mozilla-mobile/android-components
+	branch = v104.0.9
