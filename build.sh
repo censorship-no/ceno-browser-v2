@@ -237,17 +237,18 @@ for variant in debug release; do
             echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_OBJ_DIR}" ${LOCAL_PROPERTIES}
         fi
 
-        if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
-            if ${BUILD_RELEASE}; then
-                sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-            else
-                sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-            fi
-        else
-            if ${BUILD_RELEASE}; then
-                echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
-            fi
-        fi
+        # Add back if using local a-c is needed
+        #if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
+        #    if ${BUILD_RELEASE}; then
+        #        sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+        #    else
+        #        sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+        #    fi
+        #else
+        #    if ${BUILD_RELEASE}; then
+        #        echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
+        #    fi
+        #fi
 
         if grep -q '^ABI=.*' ${LOCAL_PROPERTIES}; then
             sed -i "s|^ABI=.*|ABI=${ABI}|" ${LOCAL_PROPERTIES}

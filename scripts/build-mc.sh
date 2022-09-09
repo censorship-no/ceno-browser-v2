@@ -56,12 +56,14 @@ case "$ABI" in
 esac
 if [ $IS_RELEASE_BUILD -eq 1 ]; then
     VARIANT=release
+    SUFFIX=
 else
     VARIANT=debug
+    SUFFIX=-default
 fi
 
 ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
-AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview-default-omni-${ABI}/${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}
+AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview${SUFFIX}-omni-${ABI}/${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}
 
 # CENO v2: TODO mount_cow was triggering "Too many open files" error, is this still needed?
 #function mount_cow {
@@ -164,7 +166,8 @@ MOZCONFIG_BASE
         # It also disables site issue reporting,
         # according to `gecko-dev/mobile/android/extensions/moz.build`
         # and `gecko-dev/mobile/android/locales/jar.mn`.
-        #echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
+	#echo "mk_add_options MOZ_UPDATE_CHANNEL=release"
+        echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
         echo "ac_add_options --enable-release" >> mozconfig-new
         echo "ac_add_options --disable-debug" >> mozconfig-new
         echo "ac_add_options --enable-optimize" >> mozconfig-new
@@ -179,8 +182,8 @@ MOZCONFIG_BASE
     if [ "$ABI" == omni ]; then
         export MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR}
         export MOZ_ANDROID_FAT_AAR_ARCHITECTURES="armeabi-v7a,arm64-v8a"
-        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview-default-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
-        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview-default-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview${SUFFIX}-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview${SUFFIX}-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
     fi
 
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
