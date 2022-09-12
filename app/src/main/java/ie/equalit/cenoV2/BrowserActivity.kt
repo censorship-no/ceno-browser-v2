@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import ie.equalit.cenoV2.R
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -41,6 +40,9 @@ import ie.equalit.cenoV2.components.ceno.appstate.AppAction
 import ie.equalit.cenoV2.ext.ceno.sort
 import ie.equalit.cenoV2.ext.components
 import ie.equalit.cenoV2.ext.isCrashReportActive
+import ie.equalit.cenoV2.onboarding.OnboardingFragment
+import ie.equalit.cenoV2.settings.Settings
+import mozilla.components.browser.state.selector.selectedTab
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -62,6 +64,12 @@ open class BrowserActivity : AppCompatActivity() {
     /**
      * CENO: Returns a new instance of [CenoHomeFragment] to display.
      */
+    open fun createOnboardingFragment(sessionId: String?): Fragment =
+        OnboardingFragment.create(sessionId)
+
+    /**
+     * CENO: Returns a new instance of [CenoHomeFragment] to display.
+     */
     open fun createCenoHomeFragment(sessionId: String?): Fragment =
         CenoHomeFragment.create(sessionId)
 
@@ -79,12 +87,26 @@ open class BrowserActivity : AppCompatActivity() {
         MobileDataDialog(this, this)
 
         if (savedInstanceState == null) {
-            /* CENO: Select or create an "about:home" tab on first start, then open CenoHomeFragment */
-            components.useCases.tabsUseCases.selectOrAddTab(CenoHomeFragment.ABOUT_HOME)
-            supportFragmentManager.beginTransaction().apply {
-                /* CENO: Create HomeFragement when starting BrowserActivity instead of BrowserFragment */
-                replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
-                commit()
+            /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
+            if (Settings.isOnboardingComplete(this)) {
+                if (components.core.store.state.selectedTab?.content?.url == CenoHomeFragment.ABOUT_HOME) {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
+                        commit()
+                    }
+                }
+                else {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container, createBrowserFragment(sessionId), BrowserFragment.TAG)
+                        commit()
+                    }
+                }
+            }
+            else {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
+                    commit()
+                }
             }
         }
 

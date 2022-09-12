@@ -159,6 +159,9 @@
     <string name="default_top_site_4_url">https://www.infobae.com/america/</string>
     <string name="default_top_site_5_title">BBC Mundo</string>
     <string name="default_top_site_5_url">https://www.bbc.com/mundo</string>
+
+    <string name="onboardingfragment">Bienvendios a CENO v2</string>
+    <string name="onboarding_button">¡Vámonos!</string>
     <!-- </CENO> -->
 
     <!-- CENO: COPIED FROM FENIX -->

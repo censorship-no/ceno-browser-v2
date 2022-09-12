@@ -168,6 +168,9 @@
     <string name="default_top_site_5_title">BBC News</string>
     <string name="default_top_site_5_url">https://www.bbc.com/news</string>
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
+
+    <string name="onboardingfragment">Welcome to CENO v2</string>
+    <string name="onboarding_button">Let\'s go!</string>
     <!-- </CENO> -->
 
     <!-- CENO: COPIED FROM FENIX -->

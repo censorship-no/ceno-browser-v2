@@ -9,6 +9,10 @@ import androidx.preference.PreferenceManager
 import ie.equalit.cenoV2.R
 
 object Settings {
+    fun isOnboardingComplete(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_onboarding_complete), false
+        )
     fun isMobileDataEnabled(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_mobile_data), false
@@ -28,6 +32,14 @@ object Settings {
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_override_amo_collection), ""
         ) ?: ""
+
+    fun setOnboardingComplete(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_onboarding_complete)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
 
     fun setMobileData(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_mobile_data)
