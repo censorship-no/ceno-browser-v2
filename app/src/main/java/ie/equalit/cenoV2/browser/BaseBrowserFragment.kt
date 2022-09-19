@@ -29,6 +29,7 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.feature.downloads.share.ShareDownloadFeature
 import mozilla.components.feature.findinpage.view.FindInPageBar
 import mozilla.components.feature.findinpage.view.FindInPageView
 import mozilla.components.feature.prompts.PromptFeature
@@ -45,7 +46,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.enterToImmersiveMode
-//import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
+import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
@@ -73,6 +74,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val toolbarIntegration = ViewBoundFeatureWrapper<ToolbarIntegration>()
     private val contextMenuIntegration = ViewBoundFeatureWrapper<ContextMenuIntegration>()
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
+    private val shareDownloadsFeature = ViewBoundFeatureWrapper<ShareDownloadFeature>()
     private val appLinksFeature = ViewBoundFeatureWrapper<AppLinksFeature>()
     private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
     private val fullScreenFeature = ViewBoundFeatureWrapper<FullScreenFeature>()
@@ -171,6 +173,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 engineView,
                 view,
                 sessionId
+            ),
+            owner = this,
+            view = view
+        )
+
+        shareDownloadsFeature.set(
+            ShareDownloadFeature(
+                context = requireContext().applicationContext,
+                httpClient = requireComponents.core.client,
+                store = requireComponents.core.store,
+                tabId = sessionId
             ),
             owner = this,
             view = view
@@ -501,8 +514,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             toolbar.visibility = View.GONE
             engineView.setDynamicToolbarMaxHeight(0)
         } else {
-            /// TODO: exitImmersiveMode removed from a-c?
-            //activity?.exitImmersiveModeIfNeeded()
+            activity?.exitImmersiveMode()
             toolbar.visibility = View.VISIBLE
             engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
         }
