@@ -8,6 +8,7 @@ GECKO_DIR=gecko-dev
 AC_DIR=./android-components
 ANDROID_HOME=$HOME/.mozbuild/android-sdk-linux
 LOCAL_PROPERTIES=local.properties
+MOZ_FETCHES_DIR=${BUILD_DIR}/moz_fetches
 
 SUPPORTED_ABIS=(omni armeabi-v7a arm64-v8a x86 x86_64)
 RELEASE_DEFAULT_ABIS=(armeabi-v7a arm64-v8a)
@@ -50,7 +51,7 @@ function usage {
     exit 1
 }
 
-while getopts crdoa:g:lx:v:k:p: option; do
+while getopts crdoa:g:lx:v:m:k:p: option; do
     case "$option" in
         c)
             CLEAN=true
@@ -163,6 +164,12 @@ if $BUILD_DEBUG; then
     fi
 fi
 
+if [ ${#ABIS[@]} -gt 1 ]; then
+    IS_OMNI_BUILD=true
+else
+    IS_OMNI_BUILD=false
+fi
+
 GECKO_SRC_DIR=${SOURCE_DIR}/${GECKO_DIR}
 DATE="$(date  +'%Y-%m-%d_%H%m')"
 for variant in debug release; do
@@ -197,7 +204,8 @@ for variant in debug release; do
         fi
 
         if [ $BUILD_LIGHT = false ]; then
-
+            ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
+            AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview${SUFFIX}-omni-${ABI}/${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}
             BUILD_DATE_COOKIE=${SOURCE_DIR}/".moz_build_date"
             if [ -e "${BUILD_DATE_COOKIE}" ]; then
                 BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
@@ -206,124 +214,125 @@ for variant in debug release; do
                 echo $BUILD_DATE > $BUILD_DATE_COOKIE
             fi
 
-            if [ "$ABI" == omni ]; then
-                ABI=armeabi-v7a MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-                ABI=arm64-v8a MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-                ABI=omni MOZ_DIR=${GECKO_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-            else
-                ABI=${ABI} MOZ_DIR=${GECKO_DIR} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+            ABI=${ABI} MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+
+            if $IS_OMNI_BUILD; then
+                mkdir -p "${MOZ_FETCHES_DIR}" && cp "${AAR_OUTPUT_DIR}"/*.aar ${MOZ_FETCHES_DIR}/.
             fi
         fi
+    done
 
-        GECKO_OBJ_DIR=${SOURCE_DIR}/build-${ABI}-${variant}
+    if $IS_OMNI_BUILD; then
+        ABI=omni MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+    fi
 
-        cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
+    GECKO_OBJ_DIR=${SOURCE_DIR}/build-${ABI}-${variant}
 
-        if grep -q '^sdk.dir=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^sdk.dir=.*|sdk.dir=${ANDROID_HOME}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "sdk.dir=${ANDROID_HOME}" >> ${LOCAL_PROPERTIES}
-        fi
+    cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
 
-        if grep -q '^dependencySubstitutions.geckoviewTopsrcdir=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^dependencySubstitutions.geckoviewTopsrcdir=.*|dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}" ${LOCAL_PROPERTIES}
-        fi
+    if grep -q '^sdk.dir=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^sdk.dir=.*|sdk.dir=${ANDROID_HOME}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "sdk.dir=${ANDROID_HOME}" >> ${LOCAL_PROPERTIES}
+    fi
 
-        if grep -q '^dependencySubstitutions.geckoviewTopobjdir=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^dependencySubstitutions.geckoviewTopobjdir=.*|dependencySubstitutions.geckoviewTopobjdir=${GECKO_OBJ_DIR}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_OBJ_DIR}" ${LOCAL_PROPERTIES}
-        fi
+    if grep -q '^dependencySubstitutions.geckoviewTopsrcdir=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^dependencySubstitutions.geckoviewTopsrcdir=.*|dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}" ${LOCAL_PROPERTIES}
+    fi
 
-        # Add back if using local a-c is needed
-        #if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
-        #    if ${BUILD_RELEASE}; then
-        #        sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-        #    else
-        #        sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-        #    fi
-        #else
-        #    if ${BUILD_RELEASE}; then
-        #        echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
-        #    fi
-        #fi
+    if grep -q '^dependencySubstitutions.geckoviewTopobjdir=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^dependencySubstitutions.geckoviewTopobjdir=.*|dependencySubstitutions.geckoviewTopobjdir=${GECKO_OBJ_DIR}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_OBJ_DIR}" ${LOCAL_PROPERTIES}
+    fi
 
-        if grep -q '^ABI=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^ABI=.*|ABI=${ABI}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "ABI=${ABI}" ${LOCAL_PROPERTIES}
-        fi
+    # Add back if using local a-c is needed
+    #if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
+    #    if ${BUILD_RELEASE}; then
+    #        sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+    #    else
+    #        sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+    #    fi
+    #else
+    #    if ${BUILD_RELEASE}; then
+    #        echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
+    #    fi
+    #fi
 
-        if grep -q '^CACHE_PUB_KEY=.*' ${LOCAL_PROPERTIES}; then 
-            if grep -q '^INJECTOR_CREDENTIALS=.*' ${LOCAL_PROPERTIES}; then 
-                if grep -q '^INJECTOR_TLS_CERT=.*' ${LOCAL_PROPERTIES}; then
-                    echo "Ouinet configuration found"
-                else
-                    echo "INJECTOR_TLS_CERT not found, please add to local.properties"
-                    exit 1
-                fi
+    if grep -q '^ABI=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^ABI=.*|ABI=${ABI}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "ABI=${ABI}" ${LOCAL_PROPERTIES}
+    fi
+
+    if grep -q '^CACHE_PUB_KEY=.*' ${LOCAL_PROPERTIES}; then 
+        if grep -q '^INJECTOR_CREDENTIALS=.*' ${LOCAL_PROPERTIES}; then 
+            if grep -q '^INJECTOR_TLS_CERT=.*' ${LOCAL_PROPERTIES}; then
+                echo "Ouinet configuration found"
             else
-               echo "INJECTOR_CREDENTIAL not found, please add to local.properties"
-               exit 1
+                echo "INJECTOR_TLS_CERT not found, please add to local.properties"
+                exit 1
             fi
         else
-            echo "CACHE_PUB_KEY not found, please add to local.properties"
+            echo "INJECTOR_CREDENTIAL not found, please add to local.properties"
             exit 1
         fi
+    else
+        echo "CACHE_PUB_KEY not found, please add to local.properties"
+        exit 1
+    fi
 
-        if grep -q '^RELEASE_STORE_FILE=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^RELEASE_STORE_FILE=.*|RELEASE_STORE_FILE=${KEYSTORE_FILE}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "RELEASE_STORE_FILE=${KEYSTORE_FILE}" ${LOCAL_PROPERTIES}
-        fi
+    if grep -q '^RELEASE_STORE_FILE=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^RELEASE_STORE_FILE=.*|RELEASE_STORE_FILE=${KEYSTORE_FILE}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "RELEASE_STORE_FILE=${KEYSTORE_FILE}" ${LOCAL_PROPERTIES}
+    fi
 
-        STORE_PASSWORD=$(sed -n '1p' ${KEYSTORE_PASSWORDS_FILE})
-        if grep -q '^RELEASE_STORE_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^RELEASE_STORE_PASSWORD=.*|RELEASE_STORE_PASSWORD=${STORE_PASSWORD}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "RELEASE_STORE_PASSWORD=${STORE_PASSWORD}" ${LOCAL_PROPERTIES}
-        fi
+    STORE_PASSWORD=$(sed -n '1p' ${KEYSTORE_PASSWORDS_FILE})
+    if grep -q '^RELEASE_STORE_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^RELEASE_STORE_PASSWORD=.*|RELEASE_STORE_PASSWORD=${STORE_PASSWORD}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "RELEASE_STORE_PASSWORD=${STORE_PASSWORD}" ${LOCAL_PROPERTIES}
+    fi
 
-        if grep -q '^RELEASE_KEY_ALIAS=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^RELEASE_KEY_ALIAS=.*|RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}" ${LOCAL_PROPERTIES}
-        fi
+    if grep -q '^RELEASE_KEY_ALIAS=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^RELEASE_KEY_ALIAS=.*|RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "RELEASE_KEY_ALIAS=${KEYSTORE_KEY_ALIAS}" ${LOCAL_PROPERTIES}
+    fi
 
-        KEY_PASSWORD=$(sed -n '2p' ${KEYSTORE_PASSWORDS_FILE})
-        if grep -q '^RELEASE_KEY_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
-            sed -i "s|^RELEASE_KEY_PASSWORD=.*|RELEASE_KEY_PASSWORD=${KEY_PASSWORD}|" ${LOCAL_PROPERTIES}
-        else 
-            echo "RELEASE_KEY_PASSWORD=${KEY_PASSWORD}" ${LOCAL_PROPERTIES}
-        fi
+    KEY_PASSWORD=$(sed -n '2p' ${KEYSTORE_PASSWORDS_FILE})
+    if grep -q '^RELEASE_KEY_PASSWORD=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^RELEASE_KEY_PASSWORD=.*|RELEASE_KEY_PASSWORD=${KEY_PASSWORD}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "RELEASE_KEY_PASSWORD=${KEY_PASSWORD}" ${LOCAL_PROPERTIES}
+    fi
 
-        if [[ -n $OUINET_CONFIG_XML ]]; then
-            cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
-        fi
+    if [[ -n $OUINET_CONFIG_XML ]]; then
+        cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
+    fi
 
-        CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${variant}"
+    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${variant}"
 
-        if [[ $variant = debug ]]; then
-            "${SOURCE_DIR}"/gradlew assembleDebug
-        else
-            "${SOURCE_DIR}"/gradlew assembleRelease
-        fi
+    if [[ $variant = debug ]]; then
+        "${SOURCE_DIR}"/gradlew assembleDebug
+    else
+        "${SOURCE_DIR}"/gradlew assembleRelease
+    fi
 
-        if [ "${ABI}" == omni ]; then
-            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${variant}.apk
-            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${variant}-${VERSION_NUMBER}-${DATE}.apk
-            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    if $IS_OMNI_BUILD; then
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${variant}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${variant}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
 
-            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${variant}.apk
-            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${variant}-${VERSION_NUMBER}-${DATE}.apk
-            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-        else
-            CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
-            CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
-            cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-        fi
-
-    done
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${variant}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${variant}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    else
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    fi
 done

@@ -45,7 +45,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.enterToImmersiveMode
-import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
+//import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
@@ -501,7 +501,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             toolbar.visibility = View.GONE
             engineView.setDynamicToolbarMaxHeight(0)
         } else {
-            activity?.exitImmersiveModeIfNeeded()
+            /// TODO: exitImmersiveMode removed from a-c?
+            //activity?.exitImmersiveModeIfNeeded()
             toolbar.visibility = View.VISIBLE
             engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
         }
