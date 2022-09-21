@@ -95,7 +95,6 @@ while getopts crdoa:g:lx:v:m:k:p: option; do
             VERSION_NUMBER="${OPTARG}"
             ;;
         m)
-            [[ -n $MOZ_VERSION ]] && usage
             MOZ_VERSION="${OPTARG}"
             ;;
         k)
@@ -106,9 +105,9 @@ while getopts crdoa:g:lx:v:m:k:p: option; do
             [[ -n $RELEASE_KEYSTORE_PASSWORDS_FILE ]] && usage
             RELEASE_KEYSTORE_PASSWORDS_FILE="${OPTARG}"
             ;;
-	s) 
-	    ANDROID_HOME="${OPTARG}"
-	    ;;
+        s)
+            ANDROID_HOME="${OPTARG}"
+            ;;
         *)
             usage
     esac
@@ -129,6 +128,42 @@ function cp_if_different {
     cmp -s "$from" "$to" || cp "$from" "$to"
 }
 
+function build_apk_for {
+    local abi="$1"
+    local var="$2"
+
+    GECKO_OBJ_DIR=${SOURCE_DIR}/build-${abi}-${var}
+
+    if grep -q '^dependencySubstitutions.geckoviewTopsrcdir=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^dependencySubstitutions.geckoviewTopsrcdir=.*|dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}" ${LOCAL_PROPERTIES}
+    fi
+
+    if grep -q '^dependencySubstitutions.geckoviewTopobjdir=.*' ${LOCAL_PROPERTIES}; then
+        sed -i "s|^dependencySubstitutions.geckoviewTopobjdir=.*|dependencySubstitutions.geckoviewTopobjdir=${GECKO_OBJ_DIR}|" ${LOCAL_PROPERTIES}
+    else 
+        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_OBJ_DIR}" ${LOCAL_PROPERTIES}
+    fi
+
+    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${var}"
+    if [[ $var = debug ]]; then
+        "${SOURCE_DIR}"/gradlew assembleDebug
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${abi}-${var}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    elif [[ $var = release && $abi = omni ]]; then
+        "${SOURCE_DIR}"/gradlew assembleRelease
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${var}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${var}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${var}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${var}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    fi
+}
+
 $BUILD_RELEASE || $BUILD_DEBUG || BUILD_DEBUG=true
 
 if $BUILD_RELEASE; then
@@ -143,6 +178,12 @@ if [[ ${#ABIS[@]} -eq 0 ]]; then
     else
         ABIS=($DEFAULT_ABI)
     fi
+fi
+if [[ ${#ABIS[@]} -eq 1 ]]; then
+    IS_OMNI_BUILD=false
+else
+    echo "Omni build"
+    IS_OMNI_BUILD=true
 fi
 
 if $BUILD_DEBUG; then
@@ -164,12 +205,6 @@ if $BUILD_DEBUG; then
     fi
 fi
 
-if [ ${#ABIS[@]} -gt 1 ]; then
-    IS_OMNI_BUILD=true
-else
-    IS_OMNI_BUILD=false
-fi
-
 GECKO_SRC_DIR=${SOURCE_DIR}/${GECKO_DIR}
 DATE="$(date  +'%Y-%m-%d_%H%m')"
 for variant in debug release; do
@@ -180,6 +215,7 @@ for variant in debug release; do
         KEYSTORE_PASSWORDS_FILE="$(realpath ${DEBUG_KEYSTORE_PASSWORDS_FILE})"
         OUINET_VARIANT_FLAGS=
         GECKO_VARIANT_FLAGS=
+        SUFFIX=-default
     else
         $BUILD_RELEASE || continue
         KEYSTORE_FILE="$(realpath ${RELEASE_KEYSTORE_FILE})"
@@ -187,46 +223,8 @@ for variant in debug release; do
         KEYSTORE_PASSWORDS_FILE="$(realpath ${RELEASE_KEYSTORE_PASSWORDS_FILE})"
         OUINET_VARIANT_FLAGS=-r
         GECKO_VARIANT_FLAGS=-r
+        SUFFIX=
     fi
-
-    for ABI in ${ABIS[@]}; do
-        if $BUILD_OUINET; then
-            OUINET_BUILD_DIR="${BUILD_DIR}/ouinet-${ABI}-${variant}"
-            mkdir -p "${OUINET_BUILD_DIR}"
-            pushd "${OUINET_BUILD_DIR}" >/dev/null
-            ABI=${ABI} "${SOURCE_DIR}"/ouinet/scripts/build-android.sh ${OUINET_VARIANT_FLAGS}
-            popd >/dev/null
-
-            OUINET_AAR_BUILT="${OUINET_BUILD_DIR}"/build-android-${ABI}-${variant}/ouinet/outputs/aar/ouinet-${variant}.aar
-            OUINET_AAR="$(realpath ${BUILD_DIR}/ouinet-${ABI}-${variant}-${DATE}.aar)"
-            cp "${OUINET_AAR_BUILT}" "${OUINET_AAR}"
-            OUINET_AAR_BUILT_PARAMS="-o ${OUINET_AAR}"
-        fi
-
-        if [ $BUILD_LIGHT = false ]; then
-            ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
-            AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview${SUFFIX}-omni-${ABI}/${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}
-            BUILD_DATE_COOKIE=${SOURCE_DIR}/".moz_build_date"
-            if [ -e "${BUILD_DATE_COOKIE}" ]; then
-                BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
-            else
-                BUILD_DATE=$(date +%Y%m%d%H%M%S)
-                echo $BUILD_DATE > $BUILD_DATE_COOKIE
-            fi
-
-            ABI=${ABI} MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-
-            if $IS_OMNI_BUILD; then
-                mkdir -p "${MOZ_FETCHES_DIR}" && cp "${AAR_OUTPUT_DIR}"/*.aar ${MOZ_FETCHES_DIR}/.
-            fi
-        fi
-    done
-
-    if $IS_OMNI_BUILD; then
-        ABI=omni MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
-    fi
-
-    GECKO_OBJ_DIR=${SOURCE_DIR}/build-${ABI}-${variant}
 
     cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
 
@@ -234,37 +232,6 @@ for variant in debug release; do
         sed -i "s|^sdk.dir=.*|sdk.dir=${ANDROID_HOME}|" ${LOCAL_PROPERTIES}
     else 
         echo "sdk.dir=${ANDROID_HOME}" >> ${LOCAL_PROPERTIES}
-    fi
-
-    if grep -q '^dependencySubstitutions.geckoviewTopsrcdir=.*' ${LOCAL_PROPERTIES}; then
-        sed -i "s|^dependencySubstitutions.geckoviewTopsrcdir=.*|dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}|" ${LOCAL_PROPERTIES}
-    else 
-        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_SRC_DIR}" ${LOCAL_PROPERTIES}
-    fi
-
-    if grep -q '^dependencySubstitutions.geckoviewTopobjdir=.*' ${LOCAL_PROPERTIES}; then
-        sed -i "s|^dependencySubstitutions.geckoviewTopobjdir=.*|dependencySubstitutions.geckoviewTopobjdir=${GECKO_OBJ_DIR}|" ${LOCAL_PROPERTIES}
-    else 
-        echo "dependencySubstitutions.geckoviewTopsrcdir=${GECKO_OBJ_DIR}" ${LOCAL_PROPERTIES}
-    fi
-
-    # Add back if using local a-c is needed
-    #if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
-    #    if ${BUILD_RELEASE}; then
-    #        sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-    #    else
-    #        sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
-    #    fi
-    #else
-    #    if ${BUILD_RELEASE}; then
-    #        echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
-    #    fi
-    #fi
-
-    if grep -q '^ABI=.*' ${LOCAL_PROPERTIES}; then
-        sed -i "s|^ABI=.*|ABI=${ABI}|" ${LOCAL_PROPERTIES}
-    else 
-        echo "ABI=${ABI}" ${LOCAL_PROPERTIES}
     fi
 
     if grep -q '^CACHE_PUB_KEY=.*' ${LOCAL_PROPERTIES}; then 
@@ -283,6 +250,19 @@ for variant in debug release; do
         echo "CACHE_PUB_KEY not found, please add to local.properties"
         exit 1
     fi
+
+    # Add back if using local a-c is needed
+    #if grep -q '#\?autoPublish.android-components.dir=.*' ${LOCAL_PROPERTIES}; then
+    #    if ${BUILD_RELEASE}; then
+    #        sed -i "s|#\?autoPublish.android-components.dir=.*|autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+    #    else
+    #        sed -i "s|#\?autoPublish.android-components.dir=.*|#autoPublish.android-components.dir=${AC_DIR}|" ${LOCAL_PROPERTIES}
+    #    fi
+    #else
+    #    if ${BUILD_RELEASE}; then
+    #        echo "autoPublish.android-components.dir=${AC_DIR}" ${LOCAL_PROPERTIES}
+    #    fi
+    #fi
 
     if grep -q '^RELEASE_STORE_FILE=.*' ${LOCAL_PROPERTIES}; then
         sed -i "s|^RELEASE_STORE_FILE=.*|RELEASE_STORE_FILE=${KEYSTORE_FILE}|" ${LOCAL_PROPERTIES}
@@ -314,25 +294,46 @@ for variant in debug release; do
         cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
     fi
 
-    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${variant}"
+    for ABI in ${ABIS[@]}; do
+        if $BUILD_OUINET; then
+            OUINET_BUILD_DIR="${BUILD_DIR}/ouinet-${ABI}-${variant}"
+            mkdir -p "${OUINET_BUILD_DIR}"
+            pushd "${OUINET_BUILD_DIR}" >/dev/null
+            ABI=${ABI} "${SOURCE_DIR}"/ouinet/scripts/build-android.sh ${OUINET_VARIANT_FLAGS}
+            popd >/dev/null
 
-    if [[ $variant = debug ]]; then
-        "${SOURCE_DIR}"/gradlew assembleDebug
-    else
-        "${SOURCE_DIR}"/gradlew assembleRelease
-    fi
+            OUINET_AAR_BUILT="${OUINET_BUILD_DIR}"/build-android-${ABI}-${variant}/ouinet/outputs/aar/ouinet-${variant}.aar
+            OUINET_AAR="$(realpath ${BUILD_DIR}/ouinet-${ABI}-${variant}-${DATE}.aar)"
+            cp "${OUINET_AAR_BUILT}" "${OUINET_AAR}"
+            OUINET_AAR_BUILT_PARAMS="-o ${OUINET_AAR}"
+        fi
+
+        if [ $BUILD_LIGHT = false ]; then
+            BUILD_DATE_COOKIE=${SOURCE_DIR}/".moz_build_date"
+            if [ -e "${BUILD_DATE_COOKIE}" ]; then
+                BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
+            else
+                BUILD_DATE=$(date +%Y%m%d%H%M%S)
+                echo $BUILD_DATE > $BUILD_DATE_COOKIE
+            fi
+            ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${variant}
+            AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview${SUFFIX}-omni-${ABI}/${MOZ_VERSION}.0.${BUILD_DATE}
+            ABI=${ABI} MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+
+            if $IS_OMNI_BUILD; then
+                mkdir -p "${MOZ_FETCHES_DIR}" && cp "${AAR_OUTPUT_DIR}"/*.aar ${MOZ_FETCHES_DIR}/.
+            fi
+        fi
+        if [[ $IS_OMNI_BUILD = false ]]; then
+            build_apk_for $ABI $variant
+        fi
+    done
 
     if $IS_OMNI_BUILD; then
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${variant}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${variant}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${variant}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${variant}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-    else
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${ABI}-${variant}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${ABI}-${variant}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+        if [ $BUILD_LIGHT = false ]; then
+            ABI_BUILD_DIR="${BUILD_DIR}"/build-omni-${variant}
+            ABI=omni MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+        fi
+        build_apk_for omni $variant
     fi
 done

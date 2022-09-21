@@ -162,8 +162,7 @@ MOZCONFIG_BASE
         # It also disables site issue reporting,
         # according to `gecko-dev/mobile/android/extensions/moz.build`
         # and `gecko-dev/mobile/android/locales/jar.mn`.
-	#echo "mk_add_options MOZ_UPDATE_CHANNEL=release"
-        echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
+        #echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
         echo "ac_add_options --enable-release" >> mozconfig-new
         echo "ac_add_options --disable-debug" >> mozconfig-new
         echo "ac_add_options --enable-optimize" >> mozconfig-new
