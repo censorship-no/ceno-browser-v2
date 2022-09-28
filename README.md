@@ -4,8 +4,6 @@ WARNING: This repository does represent the stable version of CENO Browser, plea
 
 A web browser reference implementation using [Mozilla Android Components](https://github.com/mozilla-mobile/android-components).
 
-*The Reference Browser is not a product intended to ship to end users. Instead it is a Technology Preview for many new mobile components that multiple teams at Mozilla are currently working on*
-
 It includes the Mozilla Web Platform via GeckoView, a new modern Firefox Accounts and Cloud Sync implementation and the new "Glean" telemetry library. All these components will be foundational for Mozilla's existing and upcoming Android products.
 
 The Reference Browser can also be a starting point for your own new browser-like applications. It depends heavily on the [Android Components](https://github.com/mozilla-mobile/android-components) project where most of the actual implementation lives. That project also includes many smaller sample applications.
