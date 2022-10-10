@@ -50,8 +50,11 @@ import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.cenoV2.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
+import ie.equalit.cenoV2.BrowserActivity
 import ie.equalit.cenoV2.BuildConfig
 import ie.equalit.cenoV2.R
+import ie.equalit.cenoV2.components.ceno.OuinetBroadcastReceiver
+import ie.equalit.cenoV2.components.ceno.OuinetService
 import ie.equalit.cenoV2.components.ceno.PurgeToolbarAction
 import ie.equalit.cenoV2.downloads.DownloadService
 import ie.equalit.cenoV2.ext.getPreferenceKey
@@ -440,19 +443,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     Logger.debug("Clear CENO cache and app data selected")
-                    /**
-                     * This is the preferred way to exit the app, but it is triggering an
-                     * exception in the cpp code which brings up the crash handler dialog.
-                     * ActivityCompat.finishAffinity(GeckoApp.this);
-                     */
-                    //OuinetService.stopOuinetService(context)
-                    //ActivityCompat.finishAffinity(activity);
                     Toast.makeText(context, "Application data cleared", Toast.LENGTH_SHORT).show()
-                    killPackageProcesses(requireContext())
-                    val am =
-                        requireContext().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-                    am.clearApplicationUserData()
-                    Process.killProcess(Process.myPid())
+                    OuinetBroadcastReceiver.stopService(requireContext(), doPurge = true, doClose = true)
                 }
                 DialogInterface.BUTTON_NEUTRAL -> {
                     Logger.debug("Dismissing purge dialog")

@@ -155,12 +155,16 @@ open class BrowserActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    /* CENO: Handle intent sent to BrowserActivity to open tab if needed */
+    /* CENO: Handle intent sent to BrowserActivity to open tab if needed or close the app */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val uri = intent?.getStringExtra(OuinetService.URI_EXTRA)
         if (uri != null){
             components.useCases.tabsUseCases.selectOrAddTab(uri)
+        }
+        val close = intent?.getBooleanExtra(OuinetService.CLOSE_EXTRA,false)
+        if (close == true){
+            this.finishAffinity()
         }
     }
 
