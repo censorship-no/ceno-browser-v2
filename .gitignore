@@ -68,7 +68,7 @@ google-cloud-sdk/
 
 # CENO-specific ignores
 .finished-*
-build-*
+build-*/
 *.keystore
 *.keystore-passwords
 *ouinet.xml

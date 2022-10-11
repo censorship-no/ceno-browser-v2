@@ -26,6 +26,7 @@ while getopts r option; do
     case "$option" in
         r)
             IS_RELEASE_BUILD=1
+            shift $((OPTIND -1))
             ;;
         *)
             usage
@@ -55,11 +56,23 @@ case "$ABI" in
 esac
 if [ $IS_RELEASE_BUILD -eq 1 ]; then
     VARIANT=release
-    SUFFIX=
+    SUFFIX=-ceno
 else
     VARIANT=debug
     SUFFIX=-default
 fi
+
+ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
+MODES=
+ALLOWED_MODES="bootstrap build emu publish"
+DEFAULT_MODES="bootstrap build"
+
+function check_mode {
+    if echo "$MODES" | grep -q "\b$1\b"; then
+        return 0
+    fi
+    return 1
+}
 
 # CENO v2: TODO mount_cow was triggering "Too many open files" error, is this still needed?
 #function mount_cow {
@@ -124,6 +137,14 @@ function write_build_config {
         cmp -s "$from" "$to" || cp "$from" "$to"
     }
 
+    BUILD_DATE_COOKIE=${BUILD_DIR}/".moz_build_date"
+    if [ -e "${BUILD_DATE_COOKIE}" ]; then
+        MOZ_BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
+    else
+        MOZ_BUILD_DATE=$(date +%Y%m%d%H%M%S)
+        echo $MOZ_BUILD_DATE > $BUILD_DATE_COOKIE
+    fi
+
     mkdir -p "${ABI_BUILD_DIR}"
 
     pushd "${ABI_BUILD_DIR}" >/dev/null
@@ -162,8 +183,8 @@ MOZCONFIG_BASE
         # It also disables site issue reporting,
         # according to `gecko-dev/mobile/android/extensions/moz.build`
         # and `gecko-dev/mobile/android/locales/jar.mn`.
-        #echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
-        echo "ac_add_options --enable-release" >> mozconfig-new
+        echo "ac_add_options --enable-update-channel=release" >> mozconfig-new
+        #echo "ac_add_options --enable-release" >> mozconfig-new
         echo "ac_add_options --disable-debug" >> mozconfig-new
         echo "ac_add_options --enable-optimize" >> mozconfig-new
     fi
@@ -175,7 +196,8 @@ MOZCONFIG_BASE
     fi
 
     if [ "$ABI" == omni ]; then
-        export MOZ_FETCHES_DIR=${MOZ_FETCHES}
+        mkdir -p "${MOZ_FETCHES_DIR}"
+        export MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR}
         export MOZ_ANDROID_FAT_AAR_ARCHITECTURES="armeabi-v7a,arm64-v8a"
         export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview${SUFFIX}-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
         export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview${SUFFIX}-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
@@ -183,6 +205,18 @@ MOZCONFIG_BASE
 
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
     export MOZ_BUILD_DATE=${MOZ_BUILD_DATE}
+    export OSSRH_USERNAME="${OSSRH_USERNAME}"
+	export OSSRH_PASSWORD="${OSSRH_PASSWORD}"
+    export SONATYPE_STAGING_PROFILE_ID=${SONATYPE_STAGING_PROFILE_ID}
+    export SIGNING_PASSWORD="${SIGNING_PASSWORD}"
+    export SIGNING_KEY_ID="${SIGNING_KEY_ID}"
+    export SIGNING_KEY="${SIGNING_KEY}"
+    #if [ "$PUBLISH_REPO" == sonatype ]; then
+    #    export PUBLISH_URL="https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+    #else
+    #    export PUBLISH_URL="${ABI_BUILD_DIR}/gradle/maven"
+    #fi
+
 
     cp_if_different mozconfig-new mozconfig
 
@@ -197,15 +231,61 @@ function build_mc {
 
 function package_mc {
     pushd "${MOZ_DIR}" >/dev/null
-    if [ "$ABI" != omni ]; then
+    if [ "$VARIANT" -eq debug ]; then
         ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
+    else
+        ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesReleasePublicationToMavenRepository
     fi
     popd >/dev/null
 }
 
-#mount_cow
-#patch_mc
-bootstrap_mc
-write_build_config
-build_mc
-package_mc
+######################################################################
+
+# Parse modes and leave emulator arguments.
+
+progname=$(basename "$0")
+if [ "$1" = --help ]; then
+    echo "Usage: $progname [MODE...] [-- EMULATOR_ARG...]"
+    echo "Accepted values of MODE: $ALLOWED_MODES"
+    echo "If no MODE is provided, assume \"$DEFAULT_MODES\"."
+    exit 0
+fi
+
+while [ -n "$1" -a "$1" != -- ]; do
+    if ! echo "$ALLOWED_MODES" | grep -q "\b$1\b"; then
+        echo "$progname: unknown mode \"$1\"; accepted modes: $ALLOWED_MODES" >&2
+        exit 1
+    fi
+    MODES="$MODES $1"
+    shift
+done
+
+if [ "$1" = -- ]; then
+    shift  # leave the rest of arguments for the emulator
+fi
+
+if [ ! "$MODES" ]; then
+    MODES="$DEFAULT_MODES"
+fi
+
+if check_mode patch; then
+    patch_mc
+fi
+
+if check_mode bootstrap; then
+    bootstrap_mc
+fi
+
+if check_mode build; then
+    write_build_config
+    build_mc
+fi
+
+if check_mode publish; then
+    if [[  $IS_RELEASE_BUILD -eq 0 ]]; then
+        echo "Artifacts can be published only when the build is a Release."
+        exit 1;
+    else
+        package_mc
+    fi
+fi

@@ -149,17 +149,19 @@ function build_apk_for {
     CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${var}"
     if [[ $var = debug ]]; then
         "${SOURCE_DIR}"/gradlew assembleDebug
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${abi}-${var}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-    elif [[ $var = release && $abi = omni ]]; then
+    elif [[ $var = release ]]; then
         "${SOURCE_DIR}"/gradlew assembleRelease
+    fi
+    if [[ $abi = omni ]]; then
         CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-arm64-v8a-${var}.apk
         CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-arm64-v8a-${var}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-
         CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-armeabi-v7a-${var}.apk
         CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-armeabi-v7a-${var}-${VERSION_NUMBER}-${DATE}.apk
+        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+    else
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${abi}-${var}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
     fi
 }
@@ -223,7 +225,7 @@ for variant in debug release; do
         KEYSTORE_PASSWORDS_FILE="$(realpath ${RELEASE_KEYSTORE_PASSWORDS_FILE})"
         OUINET_VARIANT_FLAGS=-r
         GECKO_VARIANT_FLAGS=-r
-        SUFFIX=
+        SUFFIX=-ceno
     fi
 
     cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
@@ -318,7 +320,11 @@ for variant in debug release; do
             fi
             ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${variant}
             AAR_OUTPUT_DIR="${ABI_BUILD_DIR}"/gradle/maven/org/mozilla/geckoview/geckoview${SUFFIX}-omni-${ABI}/${MOZ_VERSION}.0.${BUILD_DATE}
-            ABI=${ABI} MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+            ABI=${ABI} \
+            MOZ_DIR=${GECKO_DIR} \
+            MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR} \
+            MOZ_MAJOR_VER=${MOZ_VERSION} \
+            "${SOURCE_DIR}"/scripts/build-geckoview.sh ${GECKO_VARIANT_FLAGS} bootstrap build publish
 
             if $IS_OMNI_BUILD; then
                 mkdir -p "${MOZ_FETCHES_DIR}" && cp "${AAR_OUTPUT_DIR}"/*.aar ${MOZ_FETCHES_DIR}/.
@@ -331,8 +337,11 @@ for variant in debug release; do
 
     if $IS_OMNI_BUILD; then
         if [ $BUILD_LIGHT = false ]; then
-            ABI_BUILD_DIR="${BUILD_DIR}"/build-omni-${variant}
-            ABI=omni MOZ_DIR=${GECKO_DIR} ABI_BUILD_DIR=${ABI_BUILD_DIR} MOZ_FETCHES=${MOZ_FETCHES_DIR} MOZ_MAJOR_VER=${MOZ_VERSION} MOZ_BUILD_DATE=${BUILD_DATE} "${SOURCE_DIR}"/scripts/build-mc.sh ${GECKO_VARIANT_FLAGS}
+            ABI=omni \
+            MOZ_DIR=${GECKO_DIR} \
+            MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR} \
+            MOZ_MAJOR_VER=${MOZ_VERSION} \
+            "${SOURCE_DIR}"/scripts/build-geckoview.sh ${GECKO_VARIANT_FLAGS} build publish
         fi
         build_apk_for omni $variant
     fi
