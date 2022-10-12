@@ -4,7 +4,8 @@
 
 set -e
 
-BUILD_DIR=$(realpath $(pwd))
+BUILD_DIR=$(realpath $(pwd))/geckoview
+mkdir -p "${BUILD_DIR}"
 #SOURCE_DIR=$(dirname -- $(dirname -- "$(readlink -f -- "$BASH_SOURCE")"))
 #SOURCE_DIR_RW=${BUILD_DIR}/source-rw
 
@@ -130,20 +131,22 @@ function bootstrap_mc {
     touch "${COOKIE_FILE}"
 }
 
+function get_set_build_date {
+    BUILD_DATE_COOKIE=${BUILD_DIR}/".build_date"
+    if [ -e "${BUILD_DATE_COOKIE}" ]; then
+        BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
+    else
+        BUILD_DATE=$(date +%Y%m%d%H%M%S)
+        echo $BUILD_DATE > $BUILD_DATE_COOKIE
+    fi
+}
+
 function write_build_config {
     function cp_if_different {
         local from="$1"
         local to="$2"
         cmp -s "$from" "$to" || cp "$from" "$to"
     }
-
-    BUILD_DATE_COOKIE=${BUILD_DIR}/".moz_build_date"
-    if [ -e "${BUILD_DATE_COOKIE}" ]; then
-        MOZ_BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
-    else
-        MOZ_BUILD_DATE=$(date +%Y%m%d%H%M%S)
-        echo $MOZ_BUILD_DATE > $BUILD_DATE_COOKIE
-    fi
 
     mkdir -p "${ABI_BUILD_DIR}"
 
@@ -199,43 +202,35 @@ MOZCONFIG_BASE
         mkdir -p "${MOZ_FETCHES_DIR}"
         export MOZ_FETCHES_DIR=${MOZ_FETCHES_DIR}
         export MOZ_ANDROID_FAT_AAR_ARCHITECTURES="armeabi-v7a,arm64-v8a"
-        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview${SUFFIX}-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
-        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview${SUFFIX}-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${MOZ_BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview${SUFFIX}-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${BUILD_DATE}.aar
+        export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview${SUFFIX}-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${BUILD_DATE}.aar
     fi
 
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
-    export MOZ_BUILD_DATE=${MOZ_BUILD_DATE}
+    export MOZ_BUILD_DATE=${BUILD_DATE}
+    export GROUP_ID="${GROUP_ID}"
     export OSSRH_USERNAME="${OSSRH_USERNAME}"
 	export OSSRH_PASSWORD="${OSSRH_PASSWORD}"
-    export SONATYPE_STAGING_PROFILE_ID=${SONATYPE_STAGING_PROFILE_ID}
     export SIGNING_PASSWORD="${SIGNING_PASSWORD}"
     export SIGNING_KEY_ID="${SIGNING_KEY_ID}"
     export SIGNING_KEY="${SIGNING_KEY}"
-    #if [ "$PUBLISH_REPO" == sonatype ]; then
-    #    export PUBLISH_URL="https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
-    #else
-    #    export PUBLISH_URL="${ABI_BUILD_DIR}/gradle/maven"
-    #fi
-
+    export EXOPLAYER_VERSION="${EXOPLAYER_VERSION}"
 
     cp_if_different mozconfig-new mozconfig
 
     popd >/dev/null
 }
 
-function build_mc {
+function build_geckoview_aar {
     pushd "${MOZ_DIR}" >/dev/null
     ./mach build
+    ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
     popd >/dev/null
 }
 
-function package_mc {
+function publish_geckoview_aar {
     pushd "${MOZ_DIR}" >/dev/null
-    if [ "$VARIANT" -eq debug ]; then
-        ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
-    else
-        ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesReleasePublicationToMavenRepository
-    fi
+    ./mach gradle geckoview:publishWithGeckoBinariesReleasePublicationToSonatypeRepository
     popd >/dev/null
 }
 
@@ -277,8 +272,9 @@ if check_mode bootstrap; then
 fi
 
 if check_mode build; then
+    get_set_build_date
     write_build_config
-    build_mc
+    build_geckoview_aar
 fi
 
 if check_mode publish; then
@@ -286,6 +282,6 @@ if check_mode publish; then
         echo "Artifacts can be published only when the build is a Release."
         exit 1;
     else
-        package_mc
+        publish_geckoview_aar
     fi
 fi

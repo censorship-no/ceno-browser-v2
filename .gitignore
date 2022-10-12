@@ -75,5 +75,4 @@ build-*/
 *.jks
 *.pass
 _cache
-moz_fetches
-.moz_build_date
+geckoview

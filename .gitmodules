@@ -9,3 +9,7 @@
 	path = app/src/main/assets/addons/https-by-default
 	url = https://github.com/censorship-no/https-by-default
 	branch = ceno
+[submodule "android-components"]
+	path = android-components
+	url = https://github.com/censorship-no/android-components
+	branch = ceno
