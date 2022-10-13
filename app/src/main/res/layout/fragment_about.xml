@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="ie.equalit.cenoV2.settings.AboutFragment">
+    tools:context="ie.equalit.ceno.settings.AboutFragment">
 
     <TextView
         android:id="@+id/about_content"

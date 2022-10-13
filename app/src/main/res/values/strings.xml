@@ -3,7 +3,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <!DOCTYPE resources [<!ENTITY brandShortName "CENO"><!ENTITY  brandFullName   "eQualitie CENO"><!ENTITY  vendorShortName "eQualitie">]>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" translatable="false">&brandShortName; v2</string>
+    <string name="app_name" translatable="false">&brandShortName;</string>
 
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Search or enter address</string>

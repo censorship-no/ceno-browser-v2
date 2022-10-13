@@ -19,6 +19,7 @@ BUILD_DEBUG=false
 BUILD_OUINET=false
 USE_LOCAL_GECKOVIEW=false
 VARIANT=
+BUILD_DATE=
 
 ABIS=()
 OUINET_CONFIG_XML=
@@ -166,6 +167,16 @@ function check_variant {
     done
 }
 
+function get_set_build_date {
+    BUILD_DATE_COOKIE=${BUILD_DIR}/".build_date"
+    if [ -e "${BUILD_DATE_COOKIE}" ]; then
+        BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
+    else
+        BUILD_DATE=$(date +%Y%m%d%H%M%S)
+        echo $BUILD_DATE > $BUILD_DATE_COOKIE
+    fi
+}
+
 function get_set_abis {
     if [[ ${#ABIS[@]} -eq 0 ]]; then
         if $BUILD_RELEASE; then
@@ -235,6 +246,7 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
+    set_property buildId ${BUILD_DATE}
     set_property autoPublish.android-components.dir ${AC_DIR}
     set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
@@ -287,12 +299,13 @@ function build_apk_for {
 
     for abi in ${list[@]}; do
         CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${abi}-${var}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/cenoV2-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/ceno-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
     done
 }
 
 check_variant
+get_set_build_date
 get_set_abis
 maybe_build_ouinet
 maybe_build_geckoview

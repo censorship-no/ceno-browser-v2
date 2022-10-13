@@ -22,12 +22,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "ie.eqaulit.cenoV2"
+        applicationId "ie.eqaulit.ceno"
         minSdkVersion Config.minSdkVersion
         compileSdkVersion Config.targetSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
-        versionName Config.generateDebugVersionName()
+        versionName localProperties['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -179,13 +179,26 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
         // with ARM compatibility mode.
 
-        def versionName = Config.releaseVersionName(project)
+        def versionName = localProperties['versionName']
 
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
 
-            def versionCodeOverride = baseVersionCode
+            /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO */
+            def stdout = new ByteArrayOutputStream()
+            exec {
+                workingDir rootDir.toString() + '/gecko-dev/python/mozbuild/mozbuild/'
+                commandLine 'python', 'android_version_code.py',
+                                '--with-android-cpu-arch', abi,
+                                '--with-android-min-sdk-version', Config.minSdkVersion,
+                                '--with-android-max-sdk-version', Config.targetSdkVersion,
+                                localProperties['buildId']
+                standardOutput = stdout
+            }
 
+            def versionCodeOverride = stdout.toString() as int
+
+            /*
             if (abi == "x86_64") {
                 versionCodeOverride = baseVersionCode + 3
             } else if (abi == "x86") {
@@ -195,6 +208,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
             } else if (abi == "armeabi-v7a") {
                 versionCodeOverride = baseVersionCode
             }
+            */
 
             println("versionCode for $abi = $versionCodeOverride")
 

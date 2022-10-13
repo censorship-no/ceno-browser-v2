@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.equalit.cenoV2.BrowserActivity">
+    tools:context="ie.equalit.ceno.BrowserActivity">
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"
@@ -30,7 +30,7 @@
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ie.equalit.cenoV2.search.AwesomeBarWrapper
+    <ie.equalit.ceno.search.AwesomeBarWrapper
         android:id="@+id/awesomeBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,7 +48,7 @@
         mozac:findInPageResultCountTextColor="#ff88ff"
         mozac:findInPageButtonsTint="#ff88ff"
         android:visibility="gone"
-        app:layout_behavior="ie.equalit.cenoV2.browser.FindInPageBarBehavior" />
+        app:layout_behavior="ie.equalit.ceno.browser.FindInPageBarBehavior" />
 
     <mozilla.components.browser.toolbar.BrowserToolbar
         android:id="@+id/toolbar"
@@ -79,6 +79,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_behavior="ie.equalit.cenoV2.browser.ReaderViewAppearanceButtonBehavior" />
+        app:layout_behavior="ie.equalit.ceno.browser.ReaderViewAppearanceButtonBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

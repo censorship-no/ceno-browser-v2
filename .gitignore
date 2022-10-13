@@ -68,7 +68,6 @@ google-cloud-sdk/
 
 # CENO-specific ignores
 .finished-*
-build-*/
 *.keystore
 *.keystore-passwords
 *ouinet.xml
@@ -76,3 +75,4 @@ build-*/
 *.pass
 _cache
 geckoview
+.build_date
