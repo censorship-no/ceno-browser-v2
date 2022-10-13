@@ -2,9 +2,11 @@
 
 /* Automatically updated by build.sh for each ABI */
 sdk.dir=/path/to/Android/Sdk
-dependencySubstitutions.geckoviewTopsrcdir=/path/to/gecko-dev
-dependencySubstitutions.geckoviewTopobjdir=/path/to/gecko-dev/obj-aarch64-unknown-linux-android
-ABI=armeabi-v7a
+
+versionName=0.0.42
+buildId=19700101000000
+
+autoPublish.android-components.dir=./android-components
 
 /* Manually replace with your ouinet configuration parameters */
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"

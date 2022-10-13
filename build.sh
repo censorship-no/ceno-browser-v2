@@ -116,7 +116,7 @@ if $CLEAN; then
     exit
 fi
 
-[[ -z $OUINET_CONFIG_XML ]] && echo "Missing ouinet config xml" && usage
+[[ -z $OUINET_CONFIG_XML ]] && echo "WARNING: no ouinet.xml included, BT Bootstrap configuration may be missing from this build!"
 
 function check_variant {
     $BUILD_RELEASE || $BUILD_DEBUG || BUILD_DEBUG=true

@@ -65,16 +65,25 @@ open class BrowserApplication : Application() {
         // fall back to `R.string.ouinet_bt_bootstrap_extras` otherwise.
         val btbsxsRName = "ouinet_bt_bootstrap_extras"
         var btbsxsRId = 0 // invalid resource id
-        if (!countryIsoCode.isEmpty()) btbsxsRId = resources.getIdentifier(
-            btbsxsRName + "_" + countryIsoCode, "string",
-            packageName
-        )
-        if (btbsxsRId == 0) btbsxsRId =
-            resources.getIdentifier(btbsxsRName, "string", packageName)
-        val btbsxs: HashSet<String> = HashSet()
-        for (x in resources.getString(btbsxsRId).split(" ")
-            .toTypedArray()) if (x.length > 0) btbsxs.add(x)
-        if (btbsxs.size > 0) btBootstrapExtras = btbsxs
+        if (!countryIsoCode.isEmpty()) {
+            // Country code found, try getting bootstrap extras resource for this country
+            btbsxsRId = resources.getIdentifier(btbsxsRName + "_" + countryIsoCode, "string", packageName)
+        }
+
+        if (btbsxsRId == 0) {
+            // No bootstrap extras for this country code, try default resource
+            btbsxsRId = resources.getIdentifier(btbsxsRName, "string", packageName)
+        }
+
+        if (btbsxsRId != 0) {
+            // Bootstrap extras resource found
+            val btbsxs: HashSet<String> = HashSet()
+            for (x in resources.getString(btbsxsRId).split(" ").toTypedArray())
+                if (x.length > 0)
+                    btbsxs.add(x)
+            if (btbsxs.size > 0) btBootstrapExtras = btbsxs
+        }
+        // else no bootstrap extras included, leave null
 
         mOuinetConfig = Config.ConfigBuilder(this)
                 .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
