@@ -110,6 +110,7 @@ while getopts crdoa:glx:v:k:p: option; do
 done
 
 if $CLEAN; then
+    rm .build_date || true
     rm *.apk || true
     rm *.aar || true
     rm -rf ouinet-*-{debug,release}/build-android-*-{debug,release} || true
@@ -246,7 +247,13 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
-    set_property buildId ${BUILD_DATE}
+    if $BUILD_DEBUG; then
+        # Use cached build date for buildId
+        set_property buildId ${BUILD_DATE}
+    else
+        # Generate a new buildId during gradle build
+        set_property buildId ""
+    fi
     set_property autoPublish.android-components.dir ${AC_DIR}
     set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}

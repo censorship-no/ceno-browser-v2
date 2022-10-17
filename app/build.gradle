@@ -132,7 +132,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-def baseVersionCode = generatedVersionCode
+def baseBuildId = generatedBuildId
 
 android.applicationVariants.all { variant ->
 
@@ -180,6 +180,10 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         // with ARM compatibility mode.
 
         def versionName = localProperties['versionName']
+        if (localProperties['buildId']) {
+            /* CENO: Override build id with cached build date for debug variant */
+            baseBuildId = localProperties['buildId']
+        }
 
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
@@ -192,7 +196,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                                 '--with-android-cpu-arch', abi,
                                 '--with-android-min-sdk-version', Config.minSdkVersion,
                                 '--with-android-max-sdk-version', Config.targetSdkVersion,
-                                localProperties['buildId']
+                                baseBuildId
                 standardOutput = stdout
             }
 
