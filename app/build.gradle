@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "ie.eqaulit.ceno"
+        applicationId "ie.equalit.ceno"
         minSdkVersion Config.minSdkVersion
         compileSdkVersion Config.targetSdkVersion
         targetSdkVersion Config.targetSdkVersion
@@ -75,6 +75,7 @@ android {
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
         release {
             signingConfig signingConfigs.release
+            buildConfigField "boolean", "IS_RELEASED", "true"
         }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
             applicationIdSuffix ".raptor"
