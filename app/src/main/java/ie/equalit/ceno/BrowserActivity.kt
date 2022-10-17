@@ -84,7 +84,9 @@ open class BrowserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         /* CENO: Create service object that observes changes to mobile data status */
+        /* Remove mobile data warning until it is refactored to be less scary/intrusive
         MobileDataDialog(this, this)
+         */
 
         if (savedInstanceState == null) {
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
