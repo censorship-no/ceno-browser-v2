@@ -45,9 +45,10 @@ android {
             keyAlias localProperties['RELEASE_KEY_ALIAS']
             keyPassword localProperties['RELEASE_KEY_PASSWORD']
 
-            // Optional, specify signing versions used
-            v1SigningEnabled true
-            v2SigningEnabled true
+            /* CENO: Signing versions must match those used to sign previous releases */
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
         }
     }
 
