@@ -28,9 +28,13 @@ RELEASE_KEYSTORE_KEY_ALIAS=upload
 RELEASE_KEYSTORE_FILE=
 RELEASE_KEYSTORE_PASSWORDS_FILE=
 
+BRAND=ceno
+BRAND_DIR=
+RES_DIR="app/src/main/res"
+
 function usage {
-    echo "build.sh -- Builds ouinet and ouifennec for android"
-    echo "Usage: build-fennec.sh [OPTION]..."
+    echo "build.sh -- Builds CENO v2 APKs and (optionally) builds ouinet and geckoview dependencies"
+    echo "Usage: build.sh [OPTION]..."
     echo "  -c                            Remove build files (keep downloaded dependencies)"
     echo "  -r                            Build a release build. Requires -v, -k, and -p."
     echo "  -d                            Build a debug build. Will optionally apply -x and -v. This is the default."
@@ -50,7 +54,7 @@ function usage {
     exit 1
 }
 
-while getopts crdoa:glx:v:k:p: option; do
+while getopts crdoa:glx:v:k:p:b: option; do
     case "$option" in
         c)
             CLEAN=true
@@ -103,6 +107,9 @@ while getopts crdoa:glx:v:k:p: option; do
             ;;
         s)
             ANDROID_HOME="${OPTARG}"
+            ;;
+        b)
+            BRAND="${OPTARG}"
             ;;
         *)
             usage
@@ -210,6 +217,13 @@ function set_property {
     fi
 }
 
+function get_set_branding {
+    BRAND_DIR="${BUILD_DIR}/branding/${BRAND}"
+    if [[ -d "${BRAND_DIR}" ]]; then
+        cp -rf ${BRAND_DIR}/res/* ${RES_DIR}/.
+    fi
+}
+
 function maybe_build_ouinet {
     for ABI in ${ABIS[@]}; do
         if $BUILD_OUINET; then
@@ -314,6 +328,7 @@ function build_apk_for {
 check_variant
 get_set_build_date
 get_set_abis
+get_set_branding
 maybe_build_ouinet
 maybe_build_geckoview
 write_local_properties
