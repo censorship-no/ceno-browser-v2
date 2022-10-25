@@ -28,9 +28,19 @@ RELEASE_KEYSTORE_KEY_ALIAS=upload
 RELEASE_KEYSTORE_FILE=
 RELEASE_KEYSTORE_PASSWORDS_FILE=
 
-BRAND=ceno
+DEFAULT_PACKAGE=ie.equalit.ceno
+BRAND_PACKAGE=ie.equalit.ceno
 BRAND_DIR=
-RES_DIR="app/src/main/res"
+
+APP_DIR="${BUILD_DIR}/app"
+ASSETS_DIR="${APP_DIR}/src/main/assets"
+JAVA_DIR="${APP_DIR}/src/main/java"
+RES_DIR="${APP_DIR}/src/main/res"
+
+APP_BRAND_DIR="${BUILD_DIR}/app_branded"
+ASSETS_BRAND_DIR="${APP_BRAND_DIR}/src/main/assets"
+JAVA_BRAND_DIR="${APP_BRAND_DIR}/src/main/java"
+RES_BRAND_DIR="${APP_BRAND_DIR}/src/main/res"
 
 function usage {
     echo "build.sh -- Builds CENO v2 APKs and (optionally) builds ouinet and geckoview dependencies"
@@ -109,7 +119,7 @@ while getopts crdoa:glx:v:k:p:b: option; do
             ANDROID_HOME="${OPTARG}"
             ;;
         b)
-            BRAND="${OPTARG}"
+            BRAND_PACKAGE="${OPTARG}"
             ;;
         *)
             usage
@@ -218,10 +228,49 @@ function set_property {
 }
 
 function get_set_branding {
-    BRAND_DIR="${BUILD_DIR}/branding/${BRAND}"
-    if [[ -d "${BRAND_DIR}" ]]; then
-        cp -rf ${BRAND_DIR}/res/* ${RES_DIR}/.
+    DEFAULT_TLD=$(echo $DEFAULT_PACKAGE | cut -d "." -f 1)
+    DEFAULT_ORG=$(echo $DEFAULT_PACKAGE | cut -d "." -f 2)
+    DEFAULT_NAME=$(echo $DEFAULT_PACKAGE | cut -d "." -f 3)
+
+    echo "Building package $BRAND_PACKAGE"
+    if [[ "$BRAND_PACKAGE" == "$DEFAULT_PACKAGE" ]]; then
+        BUILD_APP=app
+        BRAND_TLD=$DEFAULT_TLD
+        BRAND_ORG=$DEFAULT_ORG
+        BRAND_NAME=$DEFAULT_NAME
+        return
+    else
+        BUILD_APP=app_branded
     fi
+
+    BRAND_TLD=$(echo $BRAND_PACKAGE | cut -d "." -f 1)
+    BRAND_ORG=$(echo $BRAND_PACKAGE | cut -d "." -f 2)
+    BRAND_NAME=$(echo $BRAND_PACKAGE | cut -d "." -f 3)
+
+    BRAND_SRC_DIR=${JAVA_BRAND_DIR}/${BRAND_TLD}/${BRAND_ORG}/${BRAND_NAME}
+    DEFAULT_SRC_DIR=${JAVA_DIR}/${DEFAULT_TLD}/${DEFAULT_ORG}/${DEFAULT_NAME}
+
+    mkdir -p ${BRAND_SRC_DIR}
+    mkdir -p ${RES_BRAND_DIR}
+    mkdir -p ${ASSETS_BRAND_DIR}
+    cp ${APP_DIR}/build.gradle ${APP_BRAND_DIR}/.
+    cp ${APP_DIR}/lint.xml ${APP_BRAND_DIR}/.
+    cp ${APP_DIR}/metrics.yaml ${APP_BRAND_DIR}/.
+    cp ${APP_DIR}/proguard-rules.pro ${APP_BRAND_DIR}/.
+    cp ${APP_DIR}/src/main/AndroidManifest.xml ${APP_BRAND_DIR}/src/main/.
+    cp -rf ${ASSETS_DIR}/* ${ASSETS_BRAND_DIR}/.
+    cp -rf ${RES_DIR}/* ${RES_BRAND_DIR}/.
+    cp -rf ${DEFAULT_SRC_DIR}/* ${BRAND_SRC_DIR}/.
+
+    BRAND_DIR="${BUILD_DIR}/branding/${BRAND_NAME}"
+    if [[ -d "${BRAND_DIR}" ]]; then
+        cp -rf ${BRAND_DIR}/res/* ${RES_BRAND_DIR}/.
+    fi
+
+    sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" ${APP_BRAND_DIR}/build.gradle
+    sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" ${APP_BRAND_DIR}/src/main/AndroidManifest.xml
+    find ${JAVA_BRAND_DIR} -type f -exec sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" {} \;
+    find ${RES_BRAND_DIR} -type f -exec sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" {} \;
 }
 
 function maybe_build_ouinet {
@@ -300,7 +349,7 @@ function write_local_properties {
 
     # TODO include bootstrap nodes in local properties also
     if [[ -n $OUINET_CONFIG_XML ]]; then
-        cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/app/src/main/res/values/ouinet.xml
+        cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/${BUILD_APP}/src/main/res/values/ouinet.xml
     fi
 }
 
@@ -311,16 +360,17 @@ function build_apk_for {
 
     local DATE="$(date  +'%Y-%m-%d_%H%m')"
 
-    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/app/build/outputs/apk/${var}"
+    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/${BUILD_APP}/build/outputs/apk/${var}"
+    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:build
     if [[ $var = debug ]]; then
-        "${SOURCE_DIR}"/gradlew assembleDebug
+        "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assembleDebug
     elif [[ $var = release ]]; then
-        "${SOURCE_DIR}"/gradlew assembleRelease
+        "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assembleRelease
     fi
 
     for abi in ${list[@]}; do
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/app-${abi}-${var}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/ceno-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
+        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/${BUILD_APP}-${abi}-${var}.apk
+        CENOBROWSER_APK="${SOURCE_DIR}"/${BRAND_NAME}-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
         cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
     done
 }
