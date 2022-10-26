@@ -86,75 +86,92 @@ class TopSiteItemViewHolder(
             }
         } else {
             /* CENO: Load built-in icons for suggested sites */
+            val resources = itemView.context.resources
             when (topSite.url) {
-                CenoSupportUtils.CENO_URL,
-                CenoSupportUtils.CENO_ES_URL,
-                CenoSupportUtils.CENO_FA_URL,
-                CenoSupportUtils.CENO_MY_URL,
-                CenoSupportUtils.CENO_RU_URL,
-                CenoSupportUtils.CENO_UK_URL -> {
+                /* Try to match with one of the hard-coded suggested site first */
+                resources.getString(R.string.suggestedsites_ceno_en_url),
+                resources.getString(R.string.suggestedsites_ceno_es_url),
+                resources.getString(R.string.suggestedsites_ceno_fa_url),
+                resources.getString(R.string.suggestedsites_ceno_my_url),
+                resources.getString(R.string.suggestedsites_ceno_ru_url),
+                resources.getString(R.string.suggestedsites_ceno_uk_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_cenomanual))
                 }
-                CenoSupportUtils.WIKIPEDIA_URL -> {
+                resources.getString(R.string.suggestedsites_wikipedia_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_wikipedia))
                 }
-                CenoSupportUtils.APNEWS_URL -> {
+                resources.getString(R.string.suggestedsites_apnews_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_apnews))
                 }
-                CenoSupportUtils.REUTERS_URL -> {
+                resources.getString(R.string.suggestedsites_reuters_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_reuters))
                 }
-                CenoSupportUtils.BBC_URL,
-                CenoSupportUtils.BBC_ES_URL,
-                CenoSupportUtils.BBC_FA_URL,
-                CenoSupportUtils.BBC_FR_URL,
-                CenoSupportUtils.BBC_MY_URL,
-                CenoSupportUtils.BBC_RU_URL,
-                CenoSupportUtils.BBC_UK_URL,
-                CenoSupportUtils.BBC_ZH_URL -> {
+                resources.getString(R.string.suggestedsites_bbc_en_url),
+                resources.getString(R.string.suggestedsites_bbc_es_url),
+                resources.getString(R.string.suggestedsites_bbc_fa_url),
+                resources.getString(R.string.suggestedsites_bbc_my_url),
+                resources.getString(R.string.suggestedsites_bbc_ru_url),
+                resources.getString(R.string.suggestedsites_bbc_uk_url),
+                resources.getString(R.string.suggestedsites_bbc_zh_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_bbc))
                 }
-                CenoSupportUtils.ELPAIS_URL -> {
+                resources.getString(R.string.suggestedsites_elpais_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_elpais))
                 }
-                CenoSupportUtils.INFOBAE_URL -> {
+                resources.getString(R.string.suggestedsites_infobae_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_infobae))
                 }
-                CenoSupportUtils.PASKOOCEH_URL -> {
+                resources.getString(R.string.suggestedsites_paskooceh_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_paskoocheh))
                 }
-                CenoSupportUtils.FACTNAMEH_URL -> {
+                resources.getString(R.string.suggestedsites_factnameh_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_factnameh))
                 }
-                CenoSupportUtils.COURRIER_URL -> {
+                resources.getString(R.string.suggestedsites_courier_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_courrierinternational))
                 }
-                CenoSupportUtils.LAPRESSE_URL -> {
+                resources.getString(R.string.suggestedsites_lapresse_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_lapresse))
                 }
-                CenoSupportUtils.MYNOW_URL -> {
+                resources.getString(R.string.suggestedsites_mynow_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_myanmarnow))
                 }
-                CenoSupportUtils.JUSTICEMY_URL -> {
+                resources.getString(R.string.suggestedsites_justicemy_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_justiceformyanmar))
                 }
-                CenoSupportUtils.MEDUZA_URL -> {
+                resources.getString(R.string.suggestedsites_meduza_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_meduza))
                 }
-                CenoSupportUtils.MEDIAZONA_URL -> {
+                resources.getString(R.string.suggestedsites_mediazona_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_mediazona))
                 }
-                CenoSupportUtils.PRAVDA_URL -> {
+                resources.getString(R.string.suggestedsites_pravda_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_pravda))
                 }
-                CenoSupportUtils.HROMADSKE_URL -> {
+                resources.getString(R.string.suggestedsites_hromadske_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_hromadske))
                 }
-                CenoSupportUtils.LTN_URL -> {
+                resources.getString(R.string.suggestedsites_ltn_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_ltn))
                 }
-                CenoSupportUtils.TWREPORTER_URL -> {
+                resources.getString(R.string.suggestedsites_twreporter_url)  -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_twreporter))
+                }
+                /* else fallback to matching url with favicon (useful for white-label suggested sites) */
+                resources.getString(R.string.default_top_site_1_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_1_favicon))
+                }
+                resources.getString(R.string.default_top_site_2_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_2_favicon))
+                }
+                resources.getString(R.string.default_top_site_3_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_3_favicon))
+                }
+                resources.getString(R.string.default_top_site_4_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_4_favicon))
+                }
+                resources.getString(R.string.default_top_site_5_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_5_favicon))
                 }
                 else -> {
                     itemView.context.components.core.icons.loadIntoView(binding.faviconImage, topSite.url)

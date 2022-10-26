@@ -73,15 +73,15 @@
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manual CENO</string>
-    <string name="default_top_site_1_url">https://censorship.no/user-manual/es/</string>
+    <string name="default_top_site_1_url">@string/suggestedsites_ceno_es_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">"https://www.wikipedia.org/</string>
+    <string name="default_top_site_2_url">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">El País</string>
-    <string name="default_top_site_3_url">https://elpais.com/internacional/</string>
+    <string name="default_top_site_3_url">@string/suggestedsites_elpais_url</string>
     <string name="default_top_site_4_title">Infobae</string>
-    <string name="default_top_site_4_url">https://www.infobae.com/america/</string>
+    <string name="default_top_site_4_url">@string/suggestedsites_infobae_url</string>
     <string name="default_top_site_5_title">BBC Mundo</string>
-    <string name="default_top_site_5_url">https://www.bbc.com/mundo</string>
+    <string name="default_top_site_5_url">@string/suggestedsites_bbc_es_url</string>
 
     <string name="onboardingfragment">Bienvendios a &brandShortName; v2</string>
     <string name="onboarding_button">¡Vámonos!</string>
