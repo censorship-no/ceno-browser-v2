@@ -6,8 +6,8 @@ set -e
 
 BUILD_DIR=$(realpath $(pwd))/geckoview
 mkdir -p "${BUILD_DIR}"
-#SOURCE_DIR=$(dirname -- $(dirname -- "$(readlink -f -- "$BASH_SOURCE")"))
-#SOURCE_DIR_RW=${BUILD_DIR}/source-rw
+SOURCE_DIR=$(dirname -- $(dirname -- "$(readlink -f -- "$BASH_SOURCE")"))
+L10N_DIR="${SOURCE_DIR}"/mozilla-l10n
 
 IS_RELEASE_BUILD=0
 
@@ -15,8 +15,8 @@ export MOZBUILD_STATE_PATH="${HOME}/.mozbuild"
 export PATH="${MOZBUILD_STATE_PATH}/android-sdk-linux/build-tools/31.0.0/:$HOME/.cargo/bin:$PATH"
 
 function usage {
-    echo "build-mc.sh -- Builds mozilla-central binaries for android"
-    echo "Usage: build-mc.sh [OPTION]..."
+    echo "build-geckoview.sh -- Builds mozilla-central binaries for android"
+    echo "Usage: build-geckoview.sh [OPTION]..."
     echo "  -r                            Make a release build."
     exit 1
 }
@@ -173,6 +173,7 @@ mk_add_options 'export CCACHE_CPP2=yes'
 ac_add_options --with-ccache=sccache
 
 mk_add_options MOZ_OBJDIR="${ABI_BUILD_DIR}"
+ac_add_options --with-l10n-base="${L10N_DIR}"
 
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
@@ -190,6 +191,8 @@ MOZCONFIG_BASE
         #echo "ac_add_options --enable-release" >> mozconfig-new
         echo "ac_add_options --disable-debug" >> mozconfig-new
         echo "ac_add_options --enable-optimize" >> mozconfig-new
+    else
+        echo "ac_add_options --enable-debug" >> mozconfig-new
     fi
 
     if [ "$ABI" == armeabi-v7a -o "$ABI" == x86 -o "$ABI" == x86_64 ]; then
@@ -205,6 +208,9 @@ MOZCONFIG_BASE
         export MOZ_ANDROID_FAT_AAR_ARM64_V8A=geckoview${SUFFIX}-omni-arm64-v8a-${MOZ_MAJOR_VER}.0.${BUILD_DATE}.aar
         export MOZ_ANDROID_FAT_AAR_ARMEABI_V7A=geckoview${SUFFIX}-omni-armeabi-v7a-${MOZ_MAJOR_VER}.0.${BUILD_DATE}.aar
     fi
+
+    # Maybe required for multi-locale builds? see, https://bugzilla.mozilla.org/show_bug.cgi?id=1658040#c5
+    export GRADLE_INVOKED_WITHIN_MACH_BUILD=1
 
     export MOZCONFIG="${ABI_BUILD_DIR}/mozconfig"
     export MOZ_BUILD_DATE=${BUILD_DATE}
@@ -223,14 +229,39 @@ MOZCONFIG_BASE
 
 function build_geckoview_aar {
     pushd "${MOZ_DIR}" >/dev/null
+    echo "---------- BUILDING GECKOVIEW AAR ----------"
     ./mach build
+    echo "---------- FINISHED BUILDING GECKOVIEW AAR ----------"
+    popd >/dev/null
+}
+
+function rebuild_for_locales {
+    pushd "${MOZ_DIR}" >/dev/null
+    export MOZ_CHROME_MULTILOCALE="es-ES fa fr my ru uk zh-CN"
+    for AB_CD in $MOZ_CHROME_MULTILOCALE; do
+        echo "---------- BUILD CHROME FOR ${AB_CD} ----------"
+       ./mach build chrome-$AB_CD
+        echo "---------- FINISHED BUILDING CHROME FOR ${AB_CD} ----------"
+    done
+    echo "---------- BUILDING MULTILOCALE GECKOVIEW AAR ----------"
+    AB_CD=multi ./mach build
+    echo "---------- FINISHED BUILDING MULTILOCALE GECKOVIEW AAR ----------"
+    popd >/dev/null
+}
+
+function publish_local_geckoview_aar {
+    pushd "${MOZ_DIR}" >/dev/null
+    echo "---------- PUBLISHING AAR LOCALLY ----------"
     ./mach build binaries && ./mach gradle geckoview:publishWithGeckoBinariesDebugPublicationToMavenRepository
+    echo "---------- FINISHED PUBLISHING AAR LOCALLY ----------"
     popd >/dev/null
 }
 
 function publish_geckoview_aar {
     pushd "${MOZ_DIR}" >/dev/null
+    echo "---------- PUBLISHING AAR TO SONATYPE ----------"
     ./mach gradle geckoview:publishWithGeckoBinariesReleasePublicationToSonatypeRepository
+    echo "---------- FINISHED PUBLISHING AAR SONATYPE ----------"
     popd >/dev/null
 }
 
@@ -275,6 +306,8 @@ if check_mode build; then
     get_set_build_date
     write_build_config
     build_geckoview_aar
+    rebuild_for_locales
+    publish_local_geckoview_aar
 fi
 
 if check_mode publish; then

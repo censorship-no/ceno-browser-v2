@@ -13,3 +13,31 @@
 	path = android-components
 	url = https://github.com/censorship-no/android-components
 	branch = ceno
+[submodule "mozilla-l10n/es-ES"]
+	path = mozilla-l10n/es-ES
+	url = https://github.com/censorship-no/l10n-mozilla-central-es-ES
+	branch = default
+[submodule "mozilla-l10n/fa"]
+	path = mozilla-l10n/fa
+	url = https://github.com/censorship-no/l10n-mozilla-central-fa
+	branch = default
+[submodule "mozilla-l10n/my"]
+	path = mozilla-l10n/my
+	url = https://github.com/censorship-no/l10n-mozilla-central-my
+	branch = default
+[submodule "mozilla-l10n/ru"]
+	path = mozilla-l10n/ru
+	url = https://github.com/censorship-no/l10n-mozilla-central-ru
+	branch = default
+[submodule "mozilla-l10n/uk"]
+	path = mozilla-l10n/uk
+	url = https://github.com/censorship-no/l10n-mozilla-central-uk
+	branch = default
+[submodule "mozilla-l10n/zh-CN"]
+	path = mozilla-l10n/zh-CN
+	url = https://github.com/censorship-no/l10n-mozilla-central-zh-CN
+	branch = default
+[submodule "mozilla-l10n/fr"]
+	path = mozilla-l10n/fr
+	url = https://github.com/censorship-no/l10n-mozilla-central-fr
+	branch = default
