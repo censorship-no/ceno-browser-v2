@@ -222,6 +222,8 @@ MOZCONFIG_BASE
     export SIGNING_KEY="${SIGNING_KEY}"
     export EXOPLAYER_VERSION="${EXOPLAYER_VERSION}"
 
+    echo "#define MOZ_BUILDID ${BUILD_DATE}" > buildid.h
+
     cp_if_different mozconfig-new mozconfig
 
     popd >/dev/null
