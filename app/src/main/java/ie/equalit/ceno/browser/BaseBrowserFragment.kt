@@ -441,7 +441,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     Logger.debug("Clear CENO cache and app data selected")
-                    Toast.makeText(context, "Application data cleared", Toast.LENGTH_SHORT).show()
+                    /* TODO: Using Toast right before killing the process is bad form, use a different indication */
+                    //Toast.makeText(context, "Application data cleared", Toast.LENGTH_SHORT).show()
                     OuinetBroadcastReceiver.stopService(requireContext(), doPurge = true, doClose = true)
                 }
                 DialogInterface.BUTTON_NEUTRAL -> {
