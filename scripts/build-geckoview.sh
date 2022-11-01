@@ -8,6 +8,7 @@ BUILD_DIR=$(realpath $(pwd))/geckoview
 mkdir -p "${BUILD_DIR}"
 SOURCE_DIR=$(dirname -- $(dirname -- "$(readlink -f -- "$BASH_SOURCE")"))
 L10N_DIR="${SOURCE_DIR}"/mozilla-l10n
+LOCALES="$( (cd "$L10N_DIR" && echo *) )"
 
 IS_RELEASE_BUILD=0
 
@@ -65,7 +66,7 @@ fi
 
 ABI_BUILD_DIR="${BUILD_DIR}"/build-${ABI}-${VARIANT}
 MODES=
-ALLOWED_MODES="bootstrap build emu publish"
+ALLOWED_MODES="bootstrap build publish"
 DEFAULT_MODES="bootstrap build"
 
 function check_mode {
@@ -239,7 +240,7 @@ function build_geckoview_aar {
 
 function rebuild_for_locales {
     pushd "${MOZ_DIR}" >/dev/null
-    export MOZ_CHROME_MULTILOCALE="es-ES fa fr my ru uk zh-CN"
+    export MOZ_CHROME_MULTILOCALE=${LOCALES}
     for AB_CD in $MOZ_CHROME_MULTILOCALE; do
         echo "---------- BUILD CHROME FOR ${AB_CD} ----------"
        ./mach build chrome-$AB_CD
@@ -313,7 +314,7 @@ if check_mode build; then
 fi
 
 if check_mode publish; then
-    if [[  $IS_RELEASE_BUILD -eq 0 ]]; then
+    if [  $IS_RELEASE_BUILD -eq 0 ]; then
         echo "Artifacts can be published only when the build is a Release."
         exit 1;
     else
