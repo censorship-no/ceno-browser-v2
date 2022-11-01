@@ -1,6 +1,5 @@
-/* SAMPLE LOCAL PROPERTIES FILE, DO NOT CHECK IN WORKING LOCAL PROPERTIES TO VCS */
+# SAMPLE LOCAL PROPERTIES FILE, DO NOT CHECK IN WORKING LOCAL PROPERTIES TO VCS
 
-/* Automatically updated by build.sh for each ABI */
 sdk.dir=/path/to/Android/Sdk
 
 versionName=0.0.42
@@ -8,17 +7,23 @@ buildId=19700101000000
 
 autoPublish.android-components.dir=./android-components
 
-/* Manually replace with your ouinet configuration parameters */
+# Manually replace with your ouinet configuration parameters
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
-// It's important to keep the new line characters in the beggining and the end
-// of certificate delimiters
+# It's important to keep the new line characters in the beggining and the end
+# of certificate delimiters
 INJECTOR_TLS_CERT="-----BEGIN CERTIFICATE-----\\n\
 ABCDEFG...\
 \\n-----END CERTIFICATE-----"
 
-/* Updated by build.sh for release builds */
+# Updated by build.sh for release builds
 RELEASE_STORE_FILE=/path/to/debug.keystore
 RELEASE_STORE_PASSWORD=android
 RELEASE_KEY_ALIAS=androiddebugkey
 RELEASE_KEY_PASSWORD=android
+
+# Add any custom BT bootstrap nodes in an array of String pairs as shown below, 
+# where the first string is the country code for the bootstrap node 
+# and the second string is a space delimited series of hostnames 
+# (or IP addresses) for the bootstrap nodes for the given country
+#BT_BOOTSTRAP_EXTRAS={{"XX", "HOST1_COUNTRY_XX"}, {"XY", "HOST1_COUNTRY_XY"}, {"XZ", "HOST1_COUNTRY_XZ HOST2_COUNTRY_XZ"};

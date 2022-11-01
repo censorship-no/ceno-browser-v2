@@ -7,7 +7,9 @@ package ie.equalit.ceno
 import android.app.Application
 import android.content.Context
 import android.telephony.TelephonyManager
+import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.components.ceno.OuinetService
+import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.push.PushFxaIntegration
 import ie.equalit.ceno.push.WebPushEngineIntegration
@@ -47,41 +49,34 @@ open class BrowserApplication : Application() {
         //------------------------------------------------------------
 
         var btBootstrapExtras: Set<String>? = null
-        // Attempt to get ISO 3166-1 alpha-2 country code from telephony manager,
-        // fall back to locale country otherwise.
+
         var countryIsoCode = ""
-        val tm = applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        countryIsoCode = tm.networkCountryIso
-        if (countryIsoCode.isEmpty()) {// no telephony or unavaiable country code
-            countryIsoCode = Locale.getDefault().country
-            Logger.info(" --------- Telephony failed to get country code, setting to locale default $countryIsoCode")
-        }
-        else {
-            Logger.info(" --------- Telephony got country code $countryIsoCode")
-        }
-        countryIsoCode = countryIsoCode.uppercase(Locale.getDefault()) // just in case
+        val locationUtils = CenoLocationUtils(application)
+        countryIsoCode = locationUtils.currentCountry
 
-        // Attempt country-specific `R.string.ouinet_bt_bootstrap_extras_XX`,
-        // fall back to `R.string.ouinet_bt_bootstrap_extras` otherwise.
-        val btbsxsRName = "ouinet_bt_bootstrap_extras"
-        var btbsxsRId = 0 // invalid resource id
-        if (!countryIsoCode.isEmpty()) {
+        // Attempt getting country-specific `BT_BOOTSTRAP_EXTRAS` entry from BuildConfig,
+        // fall back to empty BT bootstrap extras otherwise.
+        var btbsxsStr= ""
+        if (countryIsoCode.isNotEmpty()) {
             // Country code found, try getting bootstrap extras resource for this country
-            btbsxsRId = resources.getIdentifier(btbsxsRName + "_" + countryIsoCode, "string", packageName)
+            for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
+                if (countryIsoCode == entry[0]) {
+                    btbsxsStr = entry[1]
+                }
+            }
         }
 
-        if (btbsxsRId == 0) {
-            // No bootstrap extras for this country code, try default resource
-            btbsxsRId = resources.getIdentifier(btbsxsRName, "string", packageName)
-        }
-
-        if (btbsxsRId != 0) {
+        if (btbsxsStr != "") {
             // Bootstrap extras resource found
             val btbsxs: HashSet<String> = HashSet()
-            for (x in resources.getString(btbsxsRId).split(" ").toTypedArray())
-                if (x.length > 0)
+            for (x in btbsxsStr.split(" ").toTypedArray()) {
+                if (x.isNotEmpty()) {
                     btbsxs.add(x)
-            if (btbsxs.size > 0) btBootstrapExtras = btbsxs
+                }
+            }
+            if (btbsxs.size > 0) {
+                btBootstrapExtras = btbsxs
+            }
         }
         // else no bootstrap extras included, leave null
 

@@ -35,6 +35,12 @@ android {
         buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
         buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
+        if (gradle.hasProperty('localProperties.BT_BOOTSTRAP_EXTRAS')) {
+            buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS']
+        }
+        else {
+            buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", '{{"",""}}'
+        }
     }
 
     /* CENO: Add signing config for release builds */
