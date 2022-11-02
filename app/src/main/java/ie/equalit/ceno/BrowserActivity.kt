@@ -6,6 +6,8 @@ package ie.equalit.ceno
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -33,6 +35,7 @@ import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
 import ie.equalit.ceno.components.ceno.MobileDataDialog
 import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
@@ -83,10 +86,10 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /* CENO: Create service object that observes changes to mobile data status */
-        /* Remove mobile data warning until it is refactored to be less scary/intrusive
-        MobileDataDialog(this, this)
-         */
+        /* CENO: Register receiver that receives intents on connectivity changes */
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
 
         if (savedInstanceState == null) {
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */

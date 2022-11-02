@@ -13,7 +13,10 @@ import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 
-class MobileDataDialog (
+/* This class has been deprecated in favor of the simpler ConnectivityBroadcastReceiver,
+*  will reintroduce something like this mobile data dialog once we have a better UX for it
+*/
+open class MobileDataDialog (
         private val context: Context,
         private val activity: BrowserActivity
 )
