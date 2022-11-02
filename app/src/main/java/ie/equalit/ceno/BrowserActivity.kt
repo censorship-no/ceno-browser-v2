@@ -36,7 +36,6 @@ import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
-import ie.equalit.ceno.components.ceno.MobileDataDialog
 import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
@@ -85,6 +84,9 @@ open class BrowserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Logger.info(" --------- Starting ouinet service")
+        OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
 
         /* CENO: Register receiver that receives intents on connectivity changes */
         val intentFilter = IntentFilter()

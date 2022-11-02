@@ -90,8 +90,6 @@ open class BrowserApplication : Application() {
                 .setBtBootstrapExtras(btBootstrapExtras)
                 .build()
 
-        Logger.info(" --------- Starting ouinet service")
-        OuinetService.startOuinetService(this, mOuinetConfig)
         //------------------------------------------------------------
 
 
