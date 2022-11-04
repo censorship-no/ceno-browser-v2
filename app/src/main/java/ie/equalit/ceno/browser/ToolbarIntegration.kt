@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -49,13 +50,14 @@ import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSIO
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.share
-import ie.equalit.ceno.settings.SettingsActivity
+import ie.equalit.ceno.settings.SettingsFragment
 //import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
 class ToolbarIntegration(
     private val context: Context,
+    private val activity: FragmentActivity,
     toolbar: BrowserToolbar,
     historyStorage: HistoryStorage,
     store: BrowserStore,
@@ -240,9 +242,12 @@ class ToolbarIntegration(
             */
 
             TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-                val intent = Intent(context, SettingsActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
+                /* CENO: Switch to SettingsFragment instead of starting a new activity */
+                activity.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
+                    addToBackStack(null)
+                    commit()
+                }
             }
         )
 

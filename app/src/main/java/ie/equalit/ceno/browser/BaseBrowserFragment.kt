@@ -12,6 +12,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,6 +130,18 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
+        var toolbarGravity = Gravity.BOTTOM
+        var toolbarPosition = MozacToolbarBehaviorToolbarPosition.BOTTOM
+        var engineToolbarPosition = MozacEngineBehaviorToolbarPosition.BOTTOM
+        var swipeRefreshMarginTop = 0
+
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
+            toolbarGravity = Gravity.TOP
+            toolbarPosition = MozacToolbarBehaviorToolbarPosition.TOP
+            engineToolbarPosition = MozacEngineBehaviorToolbarPosition.TOP
+            swipeRefreshMarginTop = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
+        }
+
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -144,13 +157,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             behavior = BrowserToolbarBehavior(
                 view.context,
                 null,
-                MozacToolbarBehaviorToolbarPosition.BOTTOM
+                toolbarPosition
             )
+            gravity = toolbarGravity
         }
         /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
             feature = ToolbarIntegration(
                 requireContext(),
+                requireActivity(),
                 toolbar,
                 requireComponents.core.historyStorage,
                 requireComponents.core.store,
@@ -304,8 +319,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 null,
                 swipeRefresh,
                 toolbar.height,
-                MozacEngineBehaviorToolbarPosition.BOTTOM
+                engineToolbarPosition
             )
+            topMargin = swipeRefreshMarginTop
         }
         swipeRefreshFeature.set(
             feature = SwipeRefreshFeature(

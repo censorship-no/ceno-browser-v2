@@ -89,6 +89,8 @@
     <string name="onboardingfragment" translatable="false">Welcome to &brandShortName;</string>
     <string name="onboarding_button" translatable="false">Let\'s go!</string>
 
+    <string name="preferences_toolbar_position" translatable="false">Place toolbar at top of screen</string>
+
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
 </resources>

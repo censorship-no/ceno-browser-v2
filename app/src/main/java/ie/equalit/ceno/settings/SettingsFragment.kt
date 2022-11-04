@@ -56,9 +56,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onResume()
 
         setupPreferences()
+        /*
         getActionBarUpdater().apply {
             updateTitle(R.string.settings)
         }
+         */
     }
 
     @Suppress("LongMethod") // Yep, this should be refactored.
@@ -173,12 +175,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(android.R.id.content, PrivacySettingsFragment())
+                .replace(R.id.container, PrivacySettingsFragment())
                 .addToBackStack(null)
                 .commit()
+            /*
             getActionBarUpdater().apply {
                 updateTitle(R.string.privacy_settings)
             }
+             */
             true
         }
     }
@@ -200,7 +204,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getActionBarUpdater() = activity as ActionBarUpdater
+    /* TODO: ActionBarUpdater broken because no longer using SettingsActivity, find workaround */
+    //private fun getActionBarUpdater() = activity as ActionBarUpdater
 
     private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
 
@@ -269,6 +274,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
+        /* CENO: Add a tag to keep track of whether this fragment is open */
+        const val TAG = "SETTINGS"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }
 }

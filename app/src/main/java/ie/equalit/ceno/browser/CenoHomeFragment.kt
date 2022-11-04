@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -30,6 +32,7 @@ import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -81,6 +84,13 @@ class CenoHomeFragment : BaseBrowserFragment() {
         val activity = activity as BrowserActivity
         val components = requireComponents
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        var appBarMarginTop = 0
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
+            appBarMarginTop = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
+        }
+
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
             components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
@@ -117,6 +127,11 @@ class CenoHomeFragment : BaseBrowserFragment() {
         updateSessionControlView()
 
         appBarLayout = binding.homeAppBar
+
+        (appBarLayout!!.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
+            topMargin = appBarMarginTop
+        }
+
         return binding.root
     }
 
