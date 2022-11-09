@@ -8,7 +8,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.browser.thumbnails.BrowserThumbnails
@@ -28,7 +27,7 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.databinding.FragmentHomeBinding
+import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ext.cenoPreferences
@@ -49,12 +48,7 @@ import ie.equalit.ceno.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_TH
  */
 class CenoHomeFragment : BaseBrowserFragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-
     var adapter: SessionControlAdapter? = null
-
-    private var appBarLayout: AppBarLayout? = null
 
     private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
 
@@ -80,16 +74,11 @@ class CenoHomeFragment : BaseBrowserFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container,false);
+        _binding = FragmentBrowserBinding.inflate(inflater, container,false);
         val activity = activity as BrowserActivity
         val components = requireComponents
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
-        var appBarMarginTop = 0
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
-            appBarMarginTop = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
-        }
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -126,10 +115,13 @@ class CenoHomeFragment : BaseBrowserFragment() {
 
         updateSessionControlView()
 
-        appBarLayout = binding.homeAppBar
-
-        (appBarLayout!!.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            topMargin = appBarMarginTop
+        (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
+            topMargin = if(prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
+                    resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
+                }
+                else {
+                    0
+                }
         }
 
         return binding.root
@@ -243,6 +235,10 @@ class CenoHomeFragment : BaseBrowserFragment() {
                 private = true
             )
         }
+
+        binding.swipeRefresh.visibility = View.GONE
+        binding.homeAppBar.visibility = View.VISIBLE
+        binding.sessionControlRecyclerView.visibility = View.VISIBLE
 
         engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
     }

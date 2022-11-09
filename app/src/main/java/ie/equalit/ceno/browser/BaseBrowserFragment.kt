@@ -12,32 +12,24 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.CallSuper
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
-import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.share.ShareDownloadFeature
-import mozilla.components.feature.findinpage.view.FindInPageBar
 import mozilla.components.feature.findinpage.view.FindInPageView
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
-import mozilla.components.feature.session.behavior.EngineViewBrowserToolbarBehavior
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
@@ -55,15 +47,15 @@ import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.OuinetBroadcastReceiver
 import ie.equalit.ceno.components.ceno.PurgeToolbarAction
+import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
+import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.tabs.TabsTrayFragment
 import mozilla.components.concept.fetch.Request
 import java.lang.Exception
-import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarBehaviorToolbarPosition
-import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngineBehaviorToolbarPosition
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -72,6 +64,9 @@ import mozilla.components.feature.session.behavior.ToolbarPosition as MozacEngin
  */
 @Suppress("TooManyFunctions")
 abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+    var _binding: FragmentBrowserBinding? = null
+    val binding get() = _binding!!
+
     private val sessionFeature = ViewBoundFeatureWrapper<SessionFeature>()
     private val toolbarIntegration = ViewBoundFeatureWrapper<ToolbarIntegration>()
     private val contextMenuIntegration = ViewBoundFeatureWrapper<ContextMenuIntegration>()
@@ -86,15 +81,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
-
-    private val engineView: EngineView
-        get() = requireView().findViewById<View>(R.id.engineView) as EngineView
-    private val toolbar: BrowserToolbar
-        get() = requireView().findViewById(R.id.toolbar)
-    private val findInPageBar: FindInPageBar
-        get() = requireView().findViewById(R.id.findInPageBar)
-    private val swipeRefresh: SwipeRefreshLayout
-        get() = requireView().findViewById(R.id.swipeRefresh)
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
         fullScreenFeature,
@@ -119,7 +105,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_browser, container, false)
+        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     /* CENO: not using Jetpack ComposeUI anywhere yet
@@ -130,43 +117,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        var toolbarGravity = Gravity.BOTTOM
-        var toolbarPosition = MozacToolbarBehaviorToolbarPosition.BOTTOM
-        var engineToolbarPosition = MozacEngineBehaviorToolbarPosition.BOTTOM
-        var swipeRefreshMarginTop = 0
-
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
-            toolbarGravity = Gravity.TOP
-            toolbarPosition = MozacToolbarBehaviorToolbarPosition.TOP
-            engineToolbarPosition = MozacEngineBehaviorToolbarPosition.TOP
-            swipeRefreshMarginTop = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
-        }
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases.goBack,
-                engineView,
+                binding.engineView,
                 sessionId
             ),
             owner = this,
             view = view
         )
 
-        (toolbar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            behavior = BrowserToolbarBehavior(
-                view.context,
-                null,
-                toolbarPosition
-            )
-            gravity = toolbarGravity
-        }
         /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
             feature = ToolbarIntegration(
                 requireContext(),
                 requireActivity(),
-                toolbar,
+                binding.toolbar,
                 requireComponents.core.historyStorage,
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases,
@@ -186,7 +153,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.core.store,
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.contextMenuUseCases,
-                engineView,
+                binding.engineView,
                 view,
                 sessionId
             ),
@@ -278,8 +245,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = FindInPageIntegration(
                 requireComponents.core.store,
                 sessionId,
-                findInPageBar as FindInPageView,
-                engineView
+                binding.findInPageBar as FindInPageView,
+                binding.engineView
             ),
             owner = this,
             view = view
@@ -313,21 +280,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
-        (swipeRefresh.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            behavior = EngineViewBrowserToolbarBehavior(
-                context,
-                null,
-                swipeRefresh,
-                toolbar.height,
-                engineToolbarPosition
-            )
-            topMargin = swipeRefreshMarginTop
-        }
         swipeRefreshFeature.set(
             feature = SwipeRefreshFeature(
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases.reload,
-                swipeRefresh
+                binding.swipeRefresh
             ),
             owner = this,
             view = view
@@ -346,10 +303,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         /* CENO: Add purge button to toolbar */
         val purgeDialog: AlertDialog = createPurgeDialog()
-        toolbar.addBrowserAction(
+        binding.toolbar.addBrowserAction(
             PurgeToolbarAction(
                 listener = { purgeDialog.show() }
             )
+        )
+
+        binding.toolbar.enableDynamicBehavior(
+            requireContext(),
+            binding.swipeRefresh,
+            binding.engineView,
+            prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)
         )
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
@@ -372,19 +336,19 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
         requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
-            toolbar.private = private
+            binding.toolbar.private = private
             /* TODO: this is messy, should create proper theme manager */
             if (private) {
-                toolbar.display.setUrlBackground(
+                binding.toolbar.display.setUrlBackground(
                     context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_private_background, ctx.theme) }
                 )
-                toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_background, ctx.theme) }
+                binding.toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_background, ctx.theme) }
             }
             else {
-                toolbar.display.setUrlBackground(
+                binding.toolbar.display.setUrlBackground(
                     context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_background, ctx.theme) }
                 )
-                toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_dark_background, ctx.theme) }
+                binding.toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_dark_background, ctx.theme) }
             }
         }
     }
@@ -518,12 +482,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private fun fullScreenChanged(enabled: Boolean) {
         if (enabled) {
             activity?.enterToImmersiveMode()
-            toolbar.visibility = View.GONE
-            engineView.setDynamicToolbarMaxHeight(0)
+            binding.toolbar.visibility = View.GONE
+            binding.engineView.setDynamicToolbarMaxHeight(0)
         } else {
             activity?.exitImmersiveMode()
-            toolbar.visibility = View.VISIBLE
-            engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
+            binding.toolbar.visibility = View.VISIBLE
+            binding.engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
         }
     }
 
