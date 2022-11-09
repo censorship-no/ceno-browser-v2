@@ -5,8 +5,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
-/* CENO: adding kapt for databinding support */
-apply plugin: 'kotlin-kapt'
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
@@ -68,7 +66,7 @@ android {
     buildFeatures {
         compose true
         /* CENO: set databinding true, required for building HomeFragment */
-        dataBinding true
+        viewBinding true
     }
 
     composeOptions {
