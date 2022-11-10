@@ -50,6 +50,7 @@ import ie.equalit.ceno.components.ceno.PurgeToolbarAction
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.enableDynamicBehavior
+import ie.equalit.ceno.ext.disableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
@@ -309,12 +310,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         )
 
-        binding.toolbar.enableDynamicBehavior(
-            requireContext(),
-            binding.swipeRefresh,
-            binding.engineView,
-            prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)
-        )
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
+            binding.toolbar.enableDynamicBehavior(
+                requireContext(),
+                binding.swipeRefresh,
+                binding.engineView,
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
+                )
+            )
+        }
+        else {
+            binding.toolbar.disableDynamicBehavior(
+                binding.engineView,
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
+                )
+            )
+        }
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*

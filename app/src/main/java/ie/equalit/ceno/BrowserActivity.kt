@@ -13,6 +13,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -110,6 +111,7 @@ open class BrowserActivity : AppCompatActivity() {
                 }
             }
             else {
+                PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
                     commit()

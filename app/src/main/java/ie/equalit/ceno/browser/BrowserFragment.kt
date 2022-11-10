@@ -136,8 +136,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         binding.homeAppBar.visibility = View.GONE
         binding.sessionControlRecyclerView.visibility = View.GONE
         binding.swipeRefresh.visibility = View.VISIBLE
-
-        engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
     }
 
     private fun showTabs() {

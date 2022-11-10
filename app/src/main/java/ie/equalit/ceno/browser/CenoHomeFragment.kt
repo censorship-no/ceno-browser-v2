@@ -239,8 +239,6 @@ class CenoHomeFragment : BaseBrowserFragment() {
         binding.swipeRefresh.visibility = View.GONE
         binding.homeAppBar.visibility = View.VISIBLE
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
-
-        engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
     }
 
     private fun showTabs() {

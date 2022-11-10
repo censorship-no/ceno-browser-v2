@@ -90,6 +90,7 @@
     <string name="onboarding_button" translatable="false">Let\'s go!</string>
 
     <string name="preferences_toolbar_position" translatable="false">Place toolbar at top of screen</string>
+    <string name="preferences_toolbar_hide" translatable="false">Scroll to hide toolbar</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>

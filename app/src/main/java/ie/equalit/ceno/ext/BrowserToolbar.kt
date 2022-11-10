@@ -20,11 +20,22 @@ import mozilla.components.feature.session.behavior.ToolbarPosition as engineTool
  * @param engineView [EngineView] previously set to react to toolbar's dynamic behavior.
  * Will now go through a bit of cleanup to ensure everything will be displayed nicely even without a toolbar.
  */
-fun BrowserToolbar.disableDynamicBehavior(engineView: EngineView) {
+fun BrowserToolbar.disableDynamicBehavior(engineView: EngineView, shouldUseTopToolbar: Boolean) {
     (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = null
+    (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
+        Gravity.TOP
+    }
+    else {
+        Gravity.BOTTOM
+    }
 
     engineView.setDynamicToolbarMaxHeight(0)
-    engineView.asView().translationY = 0f
+    engineView.asView().translationY = if (shouldUseTopToolbar) {
+        context.resources.getDimension(R.dimen.browser_toolbar_height)
+    }
+    else {
+        0f
+    }
     (engineView.asView().layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = null
 }
 

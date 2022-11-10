@@ -17,6 +17,7 @@
     <string name="pref_key_override_amo_user" translatable="false">pref_key_override_amo_user</string>
     <string name="pref_key_mobile_data" translatable="false">pref_key_mobile_data</string>
     <string name="pref_key_toolbar_position" translatable="false">pref_key_toolbar_position</string>
+    <string name="pref_key_toolbar_hide" translatable="false">pref_key_toolbar_hide</string>
     <string name="pref_key_onboarding_complete" translatable="false">pref_key_onboarding_complete</string>
 
     <!-- CENO: COPIED FROM FENIX -->
