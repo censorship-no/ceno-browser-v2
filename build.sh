@@ -22,7 +22,6 @@ VARIANT=
 BUILD_DATE=
 
 ABIS=()
-OUINET_CONFIG_XML=
 VERSION_NUMBER=
 RELEASE_KEYSTORE_KEY_ALIAS=upload
 RELEASE_KEYSTORE_FILE=
@@ -99,10 +98,6 @@ while getopts crdoa:glx:v:k:p:b: option; do
         l)
             USE_LOCAL_GECKOVIEW=true
             ;;
-        x)
-            [[ -n $OUINET_CONFIG_XML ]] && usage
-            OUINET_CONFIG_XML="${OPTARG}"
-            ;;
         v)
             [[ -n $VERSION_NUMBER ]] && usage
             VERSION_NUMBER="${OPTARG}"
@@ -133,8 +128,6 @@ if $CLEAN; then
     rm -rf ouinet-*-{debug,release}/build-android-*-{debug,release} || true
     exit
 fi
-
-[[ -z $OUINET_CONFIG_XML ]] && echo "WARNING: no ouinet.xml included, BT Bootstrap configuration may be missing from this build!"
 
 function check_variant {
     $BUILD_RELEASE || $BUILD_DEBUG || BUILD_DEBUG=true
@@ -345,11 +338,6 @@ function write_local_properties {
     else
         echo "CACHE_PUB_KEY not found, please add to local.properties"
         exit 1
-    fi
-
-    # TODO include bootstrap nodes in local properties also
-    if [[ -n $OUINET_CONFIG_XML ]]; then
-        cp_if_different "${OUINET_CONFIG_XML}" "${SOURCE_DIR}"/${BUILD_APP}/src/main/res/values/ouinet.xml
     fi
 }
 
