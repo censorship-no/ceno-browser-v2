@@ -1,6 +1,6 @@
 #  CENO Browser v2
 
-WARNING: This repository does represent the stable version of CENO Browser, please see https://github.com/censorship-no/ceno-browser for the current stable release of CENO Browser.  
+WARNING: This repository does not represent the current stable version of CENO Browser, please see https://github.com/censorship-no/ceno-browser for the current stable release of CENO Browser.  
 
 A next-generation CENO Browser built from [Mozilla Android Components](https://github.com/mozilla-mobile/android-components).
 
@@ -35,9 +35,10 @@ Here are some ways to help CENO Browser improve:
 
 ### ➿ Translations
 Translation support is needed for:
-* Android strings
-* the [CENO web extension](https://github.com/censorship-no/ceno-web-ext/)
+* [Android strings](https://hosted.weblate.org/projects/censorship-no/android-strings/)
+* the [CENO web extension](https://gitlab.com/censorship-no/ceno-ext-settings/)
 * The [user manual](https://github.com/censorship-no/ceno-docs/)
+* The [website](https://censorship.no)
 
 We use Weblate for continuously-updated translations. To get started, create an account at https://weblate.org and visit https://hosted.weblate.org/projects/censorship-no/ to join the project.
 
@@ -75,13 +76,13 @@ autoPublish.application-services.dir=../application-services
 
 That's it! Next build of `CENO Browser` will be against your local versions of these repositories. Simply make changes in `android-components` or `application-services`, press Play in `reference-browser` and those changes will be picked-up.
 
-See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same with with `CENO Browser`.
+See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same way with `CENO Browser`.
 
 ## Dependency substitutions for [GeckoView](https://hg.mozilla.org/mozilla-central)
 
-CENO Browser requires a fork of GeckoView, this is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
+CENO Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
 
-However, GeckoView currently can also be configured via a dependency substitution to test changes to the library to locally.
+However, GeckoView currently can also be configured via a dependency substitution to test changes to the library locally.
 
 In a `local.properties` file in the root of the `CENO Browser` checkout, specify GeckoView's path via `dependencySubstitutions.geckoviewTopsrcdir=/path/to/mozilla-central` (and, optionally, `dependencySubstitutions.geckoviewTopobjdir=/path/to/topobjdir`). See [Bug 1533465](https://bugzilla.mozilla.org/show_bug.cgi?id=1533465).
 
