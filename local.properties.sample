@@ -1,11 +1,9 @@
 # SAMPLE LOCAL PROPERTIES FILE, DO NOT CHECK IN WORKING LOCAL PROPERTIES TO VCS
 
-sdk.dir=/path/to/Android/Sdk
+sdk.dir=/home/fdroid/android-sdk-linux
 
-versionName=0.0.42
-buildId=19700101000000
-
-autoPublish.android-components.dir=./android-components
+versionName=2.0.0a4
+buildId=2015873547
 
 # Manually replace with your ouinet configuration parameters
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
