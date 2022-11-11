@@ -5,9 +5,7 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
@@ -112,8 +110,12 @@ class Core(private val context: Context) {
             icons.install(engine, this)
 
             WebNotificationFeature(
-                context, engine, icons, R.drawable.ic_notification,
-                geckoSitePermissionsStorage, BrowserActivity::class.java
+                context,
+                engine,
+                icons,
+                R.drawable.ic_notification,
+                geckoSitePermissionsStorage,
+                BrowserActivity::class.java
             )
 
             MediaSessionFeature(context, MediaSessionService::class.java, this).start()
@@ -250,12 +252,8 @@ class Core(private val context: Context) {
     @Suppress("MagicNumber")
     val supportedAddonsChecker by lazy {
         DefaultSupportedAddonsChecker(
-            context, Frequency(12, TimeUnit.HOURS),
-            onNotificationClickIntent = Intent(context, BrowserActivity::class.java).apply {
-                action = Intent.ACTION_VIEW
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                data = "not-clear-what-to-put-here-scheme://settings_addon_manager".toUri()
-            }
+            context,
+            Frequency(12, TimeUnit.HOURS)
         )
     }
 
@@ -293,7 +291,6 @@ class Core(private val context: Context) {
         normalMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_normal), true),
         privateMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_private), true)
     ): TrackingProtectionPolicy {
-
         val trackingPolicy = TrackingProtectionPolicy.recommended()
         return when {
             normalMode && privateMode -> trackingPolicy

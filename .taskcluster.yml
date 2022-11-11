@@ -12,8 +12,10 @@ tasks:
               then: '${tasks_for}@noreply.mozilla.org'
               else:
                   $if: 'tasks_for == "github-push"'
-                  then: '${event.pusher.email}'
-                  # Assume Pull Request
+                  then:
+                      $if: 'event.pusher.email'
+                      then: '${event.pusher.email}'
+                      else: '${event.pusher.name}@users.noreply.github.com'
                   else:
                       $if: 'tasks_for == "github-pull-request"'
                       then: '${event.pull_request.user.login}@users.noreply.github.com'
@@ -140,7 +142,7 @@ tasks:
                                           name: "Decision Task for cron job ${cron.job_name}"
                                           description: 'Created by a [cron task](https://tools.taskcluster.net/tasks/${cron.task_id})'
                         provisionerId: "mobile-${level}"
-                        workerType: "decision"
+                        workerType: "decision-gcp"
                         tags:
                             $if: 'tasks_for in ["github-push", "github-pull-request"]'
                             then:

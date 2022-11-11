@@ -20,10 +20,10 @@ gcloud:
   performance-metrics: true
 
   test-targets:
-    - package ie.equalit.cenoV2.ui
+    - package org.mozilla.reference.browser.ui
 
   device:
-    - model: Pixel2
+    - model: Pixel2.arm
       version: 30
       locale: en_US
 

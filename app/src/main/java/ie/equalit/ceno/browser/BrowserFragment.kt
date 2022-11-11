@@ -48,7 +48,8 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     /*
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
-            getString(R.string.pref_key_compose_ui), false
+            getString(R.string.pref_key_compose_ui),
+            false
         )
      */
 

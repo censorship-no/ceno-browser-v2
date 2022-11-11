@@ -5,7 +5,6 @@
 package ie.equalit.ceno.components.ceno.toolbar
 
 import androidx.annotation.VisibleForTesting
-import androidx.annotation.VisibleForTesting.PRIVATE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
@@ -59,7 +58,7 @@ class ToolbarPresenter(
         renderer.stop()
     }
 
-    @VisibleForTesting(otherwise = PRIVATE)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     internal fun render(state: BrowserState) {
         val tab = state.findCustomTabOrSelectedTab(customTabId)
 
@@ -107,7 +106,7 @@ class ToolbarPresenter(
         }
     }
 
-    @VisibleForTesting(otherwise = PRIVATE)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     internal fun clear() {
         renderer.post("")
 
