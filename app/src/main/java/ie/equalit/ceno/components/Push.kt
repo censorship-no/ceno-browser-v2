@@ -4,6 +4,8 @@
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/* CENO F-Droid: Remove firebase */
+/*
 package ie.equalit.ceno.components
 
 import android.annotation.SuppressLint
@@ -13,11 +15,13 @@ import mozilla.components.feature.push.PushConfig
 import mozilla.components.lib.crash.CrashReporter
 import mozilla.components.support.base.log.logger.Logger
 import ie.equalit.ceno.push.FirebasePush
+*/
 
 /**
  * Component group for push services. These components use services that strongly depend on
  * push messaging (e.g. WebPush, SendTab).
  */
+ /*
 @SuppressLint("DiscouragedApi")
 class Push(
     context: Context,
@@ -33,6 +37,7 @@ class Push(
             )
         }
     }
+    */
 
     /**
      * The push configuration data class used to initialize the AutoPushFeature.
@@ -40,6 +45,7 @@ class Push(
      * If we have the `project_id` resource, then we know that the Firebase configuration and API
      * keys are available for the FCM service to be used.
      */
+     /*
     private val pushConfig by lazy {
         val logger = Logger("AutoPush")
 
@@ -55,3 +61,4 @@ class Push(
 
     private val pushService by lazy { FirebasePush() }
 }
+*/
