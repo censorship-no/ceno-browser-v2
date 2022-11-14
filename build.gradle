@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        /*
         if (project.hasProperty("googleRepo")) {
             maven {
                 name "Google"
@@ -21,6 +22,8 @@ buildscript {
         } else {
             mavenCentral()
         }
+        */
+        mavenLocal()
     }
 
     dependencies {
@@ -35,6 +38,7 @@ plugins {
 
 allprojects {
     repositories {
+        /*
         if (project.hasProperty("googleRepo")) {
             maven {
                 name "Google"
@@ -64,6 +68,8 @@ allprojects {
         } else {
             mavenCentral()
         }
+        */
+        mavenLocal()
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
