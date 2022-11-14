@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId "ie.equalit.ceno"
         minSdkVersion Config.minSdkVersion
-        compileSdkVersion Config.compileSdkVersion
+        compileSdkVersion Config.targetSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
         versionName localProperties['versionName']
@@ -42,8 +42,6 @@ android {
     }
 
     /* CENO: Add signing config for release builds */
-    /* Fdroid signs keys differently, don't use gradle signingConfig */
-    /*
     signingConfigs {
         release {
             storeFile file(localProperties['RELEASE_STORE_FILE'])
@@ -51,12 +49,12 @@ android {
             keyAlias localProperties['RELEASE_KEY_ALIAS']
             keyPassword localProperties['RELEASE_KEY_PASSWORD']
 
+            /* CENO: Signing versions must match those used to sign previous releases */
             enableV1Signing true
             enableV2Signing true
             enableV3Signing true
         }
     }
-    */
 
 
     def releaseTemplate = {
@@ -72,7 +70,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.google_compose_compiler
+        kotlinCompilerExtensionVersion = Versions.compose_version
     }
 
     buildTypes {
@@ -81,7 +79,7 @@ android {
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
         release {
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
@@ -110,7 +108,6 @@ android {
 
     lintOptions {
         lintConfig file("lint.xml")
-        baseline file("lint-baseline.xml")
     }
 
     compileOptions {
@@ -135,9 +132,9 @@ android {
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xjvm-default=all"
         jvmTarget = "1.8"
+        useIR = true
+        freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 }
 
@@ -346,13 +343,13 @@ dependencies {
 
     implementation Deps.mozilla_lib_crash
     implementation Deps.mozilla_lib_crash_sentry
-    /* CENO F-Droid: Remove firebase */
-    //implementation Deps.mozilla_lib_push_firebase
+    implementation Deps.mozilla_lib_push_firebase
     implementation Deps.mozilla_lib_publicsuffixlist
     implementation Deps.mozilla_lib_dataprotect
 
     implementation Deps.thirdparty_sentry
 
+    implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_coroutines
 
     implementation Deps.androidx_appcompat

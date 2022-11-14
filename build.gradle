@@ -2,7 +2,6 @@
 
 buildscript {
     repositories {
-        /*
         if (project.hasProperty("googleRepo")) {
             maven {
                 name "Google"
@@ -22,8 +21,6 @@ buildscript {
         } else {
             mavenCentral()
         }
-        */
-        mavenLocal()
     }
 
     dependencies {
@@ -33,12 +30,11 @@ buildscript {
 }
 
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.19.0" // Variables in plugins {} aren't supported
+    id("io.gitlab.arturbosch.detekt").version("1.19.0")
 }
 
 allprojects {
     repositories {
-        /*
         if (project.hasProperty("googleRepo")) {
             maven {
                 name "Google"
@@ -68,13 +64,11 @@ allprojects {
         } else {
             mavenCentral()
         }
-        */
-        mavenLocal()
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions.freeCompilerArgs += [
-                "-opt-in=kotlin.RequiresOptIn"
+                "-Xopt-in=kotlin.RequiresOptIn"
         ]
     }
 }
@@ -85,7 +79,7 @@ subprojects {
     afterEvaluate {
         if (it.hasProperty('android')) {
             jacoco {
-                toolVersion = Versions.jacoco_version
+                toolVersion = "0.8.2"
             }
 
             android {
@@ -144,6 +138,8 @@ task clean(type: Delete) {
 }
 
 detekt {
+    // The version number is duplicated, please refer to plugins block for more details
+    version = "1.19.0"
     buildUponDefaultConfig = true
     input = files("$projectDir/app")
     config = files("$projectDir/config/detekt.yml")
@@ -162,7 +158,7 @@ configurations {
 }
 
 dependencies {
-    ktlint("com.pinterest:ktlint:${Versions.ktlint_version}") {
+    ktlint("com.pinterest:ktlint:0.41.0") {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, getObjects().named(Bundling, Bundling.EXTERNAL))
         }
