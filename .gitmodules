@@ -41,3 +41,19 @@
 	path = mozilla-l10n/fr
 	url = https://github.com/censorship-no/l10n-mozilla-central-fr
 	branch = default
+[submodule "mozilla-l10n/tr"]
+	path = mozilla-l10n/tr
+	url = https://github.com/censorship-no/l10n-mozilla-central-tr
+	branch = default
+[submodule "mozilla-l10n/pt-BR"]
+	path = mozilla-l10n/pt-BR
+	url = https://github.com/censorship-no/l10n-mozilla-central-pt-BR
+	branch = default	
+[submodule "mozilla-l10n/ur"]
+	path = mozilla-l10n/ur
+	url = https://github.com/censorship-no/l10n-mozilla-central-ur
+	branch = default
+[submodule "mozilla-l10n/ar"]
+	path = mozilla-l10n/ar
+	url = https://github.com/censorship-no/l10n-mozilla-central-ar
+	branch = default
