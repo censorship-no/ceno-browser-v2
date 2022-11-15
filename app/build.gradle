@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId "ie.equalit.ceno"
         minSdkVersion Config.minSdkVersion
-        compileSdkVersion Config.targetSdkVersion
+        compileSdkVersion Config.compileSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
         versionName localProperties['versionName']
@@ -72,7 +72,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose_version
+        kotlinCompilerExtensionVersion = Versions.google_compose_compiler
     }
 
     buildTypes {
@@ -110,6 +110,7 @@ android {
 
     lintOptions {
         lintConfig file("lint.xml")
+        baseline file("lint-baseline.xml")
     }
 
     compileOptions {
@@ -134,9 +135,9 @@ android {
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
+        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs += "-Xjvm-default=all"
         jvmTarget = "1.8"
-        useIR = true
-        freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 }
 
@@ -345,13 +346,13 @@ dependencies {
 
     implementation Deps.mozilla_lib_crash
     implementation Deps.mozilla_lib_crash_sentry
+    /* CENO F-Droid: Remove firebase */
     //implementation Deps.mozilla_lib_push_firebase
     implementation Deps.mozilla_lib_publicsuffixlist
     implementation Deps.mozilla_lib_dataprotect
 
     implementation Deps.thirdparty_sentry
 
-    implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_coroutines
 
     implementation Deps.androidx_appcompat
