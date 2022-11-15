@@ -43,13 +43,13 @@
     <string name="tracker_category">Захист від стеження</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Вибір даних</string>
+    <!-- <string name="data_choices_category">Вибір даних</string> -->
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Налаштування</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Приватність Налаштування</string>
+    <!-- <string name="privacy_settings">Приватність Налаштування</string> -->
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Перепрошуємо</string>
@@ -106,7 +106,7 @@
 
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <string name="browser_menu_back">Назад</string>
+    <!-- <string name="browser_menu_back">Назад</string> -->
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Вперед</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
@@ -130,4 +130,7 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Вилучити з ярликів</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <!-- Content description (not visible, for screen readers etc.): Reader view -->
+    <string name="button_content_readerview">Reader view</string>
 </resources>

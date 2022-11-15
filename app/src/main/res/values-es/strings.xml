@@ -43,13 +43,13 @@
     <string name="tracker_category">Protección contra rastreo</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Elección de datos</string>
+    <!-- <string name="data_choices_category">Elección de datos</string> -->
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Configuración</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Privacidad Configuración</string>
+    <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Lo sentimos</string>
@@ -57,7 +57,14 @@
     <!-- Navegación privada -->
     <string name="private_browsing_title">Navegación privada</string>
 
-    <!-- Aed on input field for custom collection name -->
+    <!-- Add-on Preferences -->
+    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
+    <string name="preferences_customize_amo_collection">Colección de complementos personalizada</string>
+    <!-- Button caption to confirm the add-on collection configuration -->
+    <string name="customize_addon_collection_ok">OK</string>
+    <!-- Button caption to abort the add-on collection configuration -->
+    <string name="customize_addon_collection_cancel">Cancelar</string>
+    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Nombre de la colección</string>
     <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Dueño de la colección (ID de usuario)</string>
@@ -100,7 +107,7 @@
 
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <string name="browser_menu_back">Atrás</string>
+    <!-- <string name="browser_menu_back">Atrás</string> -->
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Hacia delante</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
@@ -126,4 +133,7 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Eliminar de los accesos directos</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <!-- Content description (not visible, for screen readers etc.): Reader view -->
+    <string name="button_content_readerview">Reader view</string>
 </resources>

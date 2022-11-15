@@ -48,13 +48,13 @@
     <string name="tracker_category">Tracking Protection</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Data Choices</string>
+    <!-- <string name="data_choices_category">Data Choices</string> -->
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Settings</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Privacy Settings</string>
+    <!-- <string name="privacy_settings">Privacy Settings</string> -->
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Report</string>
@@ -69,11 +69,11 @@
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection" translatable="false">Custom Add-on collection</string>
+    <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
     <!-- Button caption to confirm the add-on collection configuration -->
-    <string name="customize_addon_collection_ok" translatable="false">OK</string>
+    <string name="customize_addon_collection_ok">OK</string>
     <!-- Button caption to abort the add-on collection configuration -->
-    <string name="customize_addon_collection_cancel" translatable="false">Cancel</string>
+    <string name="customize_addon_collection_cancel">Cancel</string>
     <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Collection name</string>
     <!-- Hint displayed on input field for custom collection user ID-->
@@ -112,11 +112,11 @@
     <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">Cancel</string>
     <!-- Label text displayed for a sponsored top site. -->
-    <string name="top_sites_sponsored_label" translatable="false">Sponsored</string>
+    <string name="top_sites_sponsored_label">Sponsored</string>
 
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <string name="browser_menu_back">Back</string>
+    <!-- <string name="browser_menu_back">Back</string> -->
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Forward</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
@@ -136,8 +136,11 @@
     <!-- Browser menu button that open a share menu to share the current site -->
     <string name="browser_menu_share">Share</string>
     <!-- Browser menu button that adds a shortcut to the home fragment -->
-    <string name="browser_menu_add_to_shortcuts" translatable="false">Add to shortcuts</string>
+    <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
-    <string name="browser_menu_remove_from_shortcuts" translatable="false">Remove from shortcuts</string>
+    <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <!-- Content description (not visible, for screen readers etc.): Reader view -->
+    <string name="button_content_readerview">Reader view</string>
 </resources>

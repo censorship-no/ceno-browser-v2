@@ -106,7 +106,8 @@ android {
         animationsDisabled = true
     }
 
-    lintOptions {
+    lint {
+        disable 'IconDuplicates'
         lintConfig file("lint.xml")
         baseline file("lint-baseline.xml")
     }

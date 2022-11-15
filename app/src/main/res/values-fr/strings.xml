@@ -43,13 +43,13 @@
     <string name="tracker_category">Protection contre le pistage</string>
 
     <!-- Preference category for data choices e.g. usage data -->
-    <string name="data_choices_category">Données collectées</string>
+    <!-- <string name="data_choices_category">Données collectées</string> -->
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Paramètres</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Vie privée Paramètres</string>
+    <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Nous sommes désolés</string>
@@ -106,7 +106,7 @@
 
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <string name="browser_menu_back">Page précédente</string>
+    <!-- <string name="browser_menu_back">Page précédente</string> -->
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Page suivante</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
@@ -130,4 +130,7 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Supprimer des raccourcis</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <!-- Content description (not visible, for screen readers etc.): Reader view -->
+    <string name="button_content_readerview">Reader view</string>
 </resources>

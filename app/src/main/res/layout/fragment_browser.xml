@@ -142,6 +142,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
+        android:contentDescription="@string/button_content_readerview"
         app:layout_behavior="ie.equalit.ceno.browser.ReaderViewAppearanceButtonBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

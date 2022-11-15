@@ -32,11 +32,11 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
 
     <!-- Extra paragraph in private tab panel. -->
-    <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string>
+    <!-- <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string> -->
 
     <string name="ceno_private_browsing_body"><![CDATA[
 <h1>Private Browsing</h1>
-<p>CENO will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
+<p>eQnet will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
 <p class="about-info"><a id="learnMore">Want to learn more?</p>
      ]]></string>
 
@@ -48,7 +48,9 @@
     <string name="ceno_notification_purge_do_description">Yes</string>
     <string name="ceno_notification_channel_name">&brandShortName; Service</string>
 
+    <!--
     <string name="preferences_mobile_data" translatable="false">Do not show mobile data warning</string>
+    -->
     <string name="preferences_mobile_data_warning_disabled" translatable="false">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled" translatable="false">Mobile data warning enabled</string>
 
@@ -68,7 +70,7 @@
     <string name="ceno_purge_action_description" translatable="false">Purge</string>
 
     <!-- Menu options -->
-    <string name="browser_menu_report_issue" translatable="false">Report issue</string>
+    <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="browser_menu_ceno_ext" translatable="false">&brandShortName; Settings</string>
