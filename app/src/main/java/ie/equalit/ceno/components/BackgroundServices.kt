@@ -34,7 +34,7 @@ import ie.equalit.ceno.ext.components
  */
 class BackgroundServices(
     context: Context,
-    push: Push,
+    //push: Push,
     placesHistoryStorage: Lazy<PlacesHistoryStorage>,
     remoteTabsStorage: Lazy<RemoteTabsStorage>,
     loginsStorage: Lazy<SyncableLoginsStorage>
@@ -83,7 +83,8 @@ class BackgroundServices(
             }
             */
 
-            push.feature?.let { push -> FxaPushSupportFeature(context, accountManager, push) }
+            /* CENO F-Droid: Do not use firebase push */
+            //push.feature?.let { push -> FxaPushSupportFeature(context, accountManager, push) }
 
             //SyncedTabsIntegration(context, accountManager).launch()
 

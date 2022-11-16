@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* CENO F-Droid: Not using firefox accounts, firebase push breaks f-droid build */
+/*
 package ie.equalit.ceno.push
 
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +21,7 @@ import mozilla.components.service.fxa.manager.FxaAccountManager
 import mozilla.components.service.fxa.manager.ext.withConstellation
 import ie.equalit.ceno.components.BackgroundServices
 import ie.equalit.ceno.components.Push
+*/
 
 /**
  * A lazy initializer for FxaAccountManager if it isn't already initialized.
@@ -53,6 +56,7 @@ import ie.equalit.ceno.components.Push
  * Our final solution ended up being more concise that the above options that met all our required
  * assurances, and most importantly, maintainable.
  */
+ /*
 class PushFxaIntegration(
     private val pushFeature: AutoPushFeature,
     lazyAccountManager: Lazy<FxaAccountManager>
@@ -63,20 +67,24 @@ class PushFxaIntegration(
             pushFeature
         )
 
+*/
     /**
      * Starts the observer.
      *
      * This should be done before or as soon as push is initialized.
      */
+/*
     fun launch() {
         pushFeature.register(observer)
     }
 }
+*/
 
 /**
  * Observes push messages from [AutoPushFeature], then initializes [FxaAccountManager] if it isn't
  * already.
  */
+ /*
 internal class OneTimePushMessageObserver(
     private val lazyAccountManager: Lazy<FxaAccountManager>,
     private val pushFeature: AutoPushFeature
@@ -105,11 +113,13 @@ internal class OneTimePushMessageObserver(
         }
     }
 }
+*/
 
 /**
  * Waits for the [FxaAccountManager] to authenticate itself in order to deliver the [message], then
  * unregisters itself once complete.
  */
+ /*
 internal class OneTimeMessageDeliveryObserver(
     private val lazyAccount: Lazy<FxaAccountManager>,
     private val message: ByteArray
@@ -127,3 +137,4 @@ internal class OneTimeMessageDeliveryObserver(
         }
     }
 }
+*/
