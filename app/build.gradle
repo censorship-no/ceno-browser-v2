@@ -213,7 +213,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
             def versionCodeOverride = stdout.toString() as int
             */
             /* CENO F-droid: Don't generate build ID, use hard-coded one provided in local.properties */
-            def versionCodeOverride = baseBuildId
+            def versionCodeOverride = baseBuildId as int
 
             /*
             if (abi == "x86_64") {
