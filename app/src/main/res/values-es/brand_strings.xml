@@ -83,8 +83,10 @@
     <string name="default_top_site_5_title">BBC Mundo</string>
     <string name="default_top_site_5_url">@string/suggestedsites_bbc_es_url</string>
 
+    <!--
     <string name="onboardingfragment">Bienvendios a &brandShortName; v2</string>
     <string name="onboarding_button">¡Vámonos!</string>
+    -->
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
