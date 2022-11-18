@@ -31,6 +31,13 @@ DEFAULT_PACKAGE=ie.equalit.ceno
 BRAND_PACKAGE=ie.equalit.ceno
 BRAND_DIR=
 
+BRAND_PROXY_PORT=
+BRAND_FRONTEND_PORT=
+
+declare -A ports
+ports[${DEFAULT_PACKAGE}]="8077,8078"
+ports[ie.equalit.eQnet]="8097,8098"
+
 APP_DIR="${BUILD_DIR}/app"
 ASSETS_DIR="${APP_DIR}/src/main/assets"
 JAVA_DIR="${APP_DIR}/src/main/java"
@@ -224,6 +231,8 @@ function get_set_branding {
     DEFAULT_TLD=$(echo $DEFAULT_PACKAGE | cut -d "." -f 1)
     DEFAULT_ORG=$(echo $DEFAULT_PACKAGE | cut -d "." -f 2)
     DEFAULT_NAME=$(echo $DEFAULT_PACKAGE | cut -d "." -f 3)
+    DEFAULT_PROXY_PORT=$(echo ${ports[${DEFAULT_PACKAGE}]} | cut -d "," -f 1)
+    DEFAULT_FRONTEND_PORT=$(echo ${ports[${DEFAULT_PACKAGE}]} | cut -d "," -f 2)
 
     echo "Building package $BRAND_PACKAGE"
     if [[ "$BRAND_PACKAGE" == "$DEFAULT_PACKAGE" ]]; then
@@ -231,14 +240,22 @@ function get_set_branding {
         BRAND_TLD=$DEFAULT_TLD
         BRAND_ORG=$DEFAULT_ORG
         BRAND_NAME=$DEFAULT_NAME
+        BRAND_PROXY_PORT=$DEFAULT_PROXY_PORT
+        BRAND_FRONTEND_PORT=$DEFAULT_FRONTEND_PORT
         return
-    else
-        BUILD_APP=app_branded
     fi
 
+    BUILD_APP=app_branded
     BRAND_TLD=$(echo $BRAND_PACKAGE | cut -d "." -f 1)
     BRAND_ORG=$(echo $BRAND_PACKAGE | cut -d "." -f 2)
     BRAND_NAME=$(echo $BRAND_PACKAGE | cut -d "." -f 3)
+    if [ -z "${ports[${BRAND_PACKAGE}]}" ]; then
+        BRAND_PROXY_PORT=$DEFAULT_PROXY_PORT
+        BRAND_FRONTEND_PORT=$DEFAULT_FRONTEND_PORT
+    else
+        BRAND_PROXY_PORT=$(echo ${ports[${BRAND_PACKAGE}]} | cut -d "," -f 1)
+        BRAND_FRONTEND_PORT=$(echo ${ports[${BRAND_PACKAGE}]} | cut -d "," -f 2)
+    fi
 
     BRAND_SRC_DIR=${JAVA_BRAND_DIR}/${BRAND_TLD}/${BRAND_ORG}/${BRAND_NAME}
     DEFAULT_SRC_DIR=${JAVA_DIR}/${DEFAULT_TLD}/${DEFAULT_ORG}/${DEFAULT_NAME}
@@ -264,6 +281,11 @@ function get_set_branding {
     sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" ${APP_BRAND_DIR}/src/main/AndroidManifest.xml
     find ${JAVA_BRAND_DIR} -type f -exec sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" {} \;
     find ${RES_BRAND_DIR} -type f -exec sed -i -e "s/${DEFAULT_PACKAGE}/${BRAND_PACKAGE}/g" {} \;
+
+    # TODO: This is workaround to change the port numbers in the extension before building branded app, 
+    # instead should refactor extension to dynamically set port based on app name it is installed to
+    sed -i -e "s/${DEFAULT_PROXY_PORT}/${BRAND_PROXY_PORT}/g" ${APP_BRAND_DIR}/src/main/assets/addons/ceno/config.js
+    sed -i -e "s/${DEFAULT_FRONTEND_PORT}/${BRAND_FRONTEND_PORT}/g" ${APP_BRAND_DIR}/src/main/assets/addons/ceno/config.js
 }
 
 function maybe_build_ouinet {
@@ -315,6 +337,9 @@ function write_local_properties {
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
     set_property RELEASE_KEY_ALIAS ${KEYSTORE_KEY_ALIAS}
     set_property RELEASE_KEY_PASSWORD ${KEY_PASSWORD}
+
+    set_property PROXY_PORT \"${BRAND_PROXY_PORT}\"
+    set_property FRONTEND_PORT \"${BRAND_FRONTEND_PORT}\"
 
     if $USE_LOCAL_GECKOVIEW; then
         GECKO_SRC_DIR=${SOURCE_DIR}/${GECKO_DIR}

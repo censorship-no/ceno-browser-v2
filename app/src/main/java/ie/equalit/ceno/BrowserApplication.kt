@@ -88,6 +88,8 @@ open class BrowserApplication : Application() {
                 .setCacheType("bep5-http")
                 .setLogLevel(Config.LogLevel.DEBUG)
                 .setBtBootstrapExtras(btBootstrapExtras)
+                .setListenOnTcp("127.0.0.1:${BuildConfig.PROXY_PORT}")
+                .setFrontEndEp("127.0.0.1:${BuildConfig.FRONTEND_PORT}")
                 .build()
 
         //------------------------------------------------------------
@@ -188,11 +190,11 @@ open class BrowserApplication : Application() {
         var mOuinetConfig: Config? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
         init {
-            System.setProperty("http.proxyHost", "127.0.0.1");
-            System.setProperty("http.proxyPort", "8077");
+            System.setProperty("http.proxyHost", "127.0.0.1")
+            System.setProperty("http.proxyPort", BuildConfig.PROXY_PORT)
 
-            System.setProperty("https.proxyHost", "127.0.0.1");
-            System.setProperty("https.proxyPort", "8077");
+            System.setProperty("https.proxyHost", "127.0.0.1")
+            System.setProperty("https.proxyPort", BuildConfig.PROXY_PORT)
         }
     }
 }

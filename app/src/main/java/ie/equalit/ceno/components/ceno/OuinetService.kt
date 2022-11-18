@@ -13,6 +13,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.browser.CenoHomeFragment
 import mozilla.components.support.base.log.logger.Logger
 
@@ -115,9 +116,9 @@ open class OuinetService : Service(){
     private fun setProxyProperties() {
         logger.debug("Setting proxy system properties")
         System.setProperty("http.proxyHost", "127.0.0.1")
-        System.setProperty("http.proxyPort", "8077")
+        System.setProperty("http.proxyPort", BuildConfig.PROXY_PORT)
         System.setProperty("https.proxyHost", "127.0.0.1")
-        System.setProperty("https.proxyPort", "8077")
+        System.setProperty("https.proxyPort", BuildConfig.PROXY_PORT)
     }
 
     private fun createHomeIntent(context: Context): Intent {
