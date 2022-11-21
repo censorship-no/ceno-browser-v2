@@ -141,7 +141,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-def baseBuildId = generatedBuildId
+def buildDate = generatedBuildDate
 
 android.applicationVariants.all { variant ->
 
@@ -189,16 +189,11 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         // with ARM compatibility mode.
 
         def versionName = localProperties['versionName']
-        if (localProperties['buildId']) {
-            /* CENO: Override build id with cached build date for debug variant */
-            baseBuildId = localProperties['buildId']
-        }
 
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
 
             /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO */
-            /*
             def stdout = new ByteArrayOutputStream()
             exec {
                 workingDir rootDir.toString() + '/gecko-dev/python/mozbuild/mozbuild/'
@@ -206,26 +201,12 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                                 '--with-android-cpu-arch', abi,
                                 '--with-android-min-sdk-version', Config.minSdkVersion,
                                 '--with-android-max-sdk-version', Config.targetSdkVersion,
-                                baseBuildId
+                                buildDate
                 standardOutput = stdout
             }
 
-            def versionCodeOverride = stdout.toString() as int
-            */
-            /* CENO F-droid: Don't generate build ID, use hard-coded one provided in local.properties */
-            def versionCodeOverride = baseBuildId as int
-
-            /*
-            if (abi == "x86_64") {
-                versionCodeOverride = baseVersionCode + 3
-            } else if (abi == "x86") {
-                versionCodeOverride = baseVersionCode + 2
-            } else if (abi == "arm64-v8a") {
-                versionCodeOverride = baseVersionCode + 1
-            } else if (abi == "armeabi-v7a") {
-                versionCodeOverride = baseVersionCode
-            }
-            */
+            /* CENO: Allow generated buildId to be overridden with value included in local.properties */
+            def versionCodeOverride = (localProperties['buildId'] as int) ?: (stdout.toString() as int)
 
             println("versionCode for $abi = $versionCodeOverride")
 

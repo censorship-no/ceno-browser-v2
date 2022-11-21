@@ -40,8 +40,8 @@ ext {
     /* CENO: Use mozilla style build date for base of generating a unique buildID */
     def date = new SimpleDateFormat("yyyyMMddHHmmss").format(today)
 
-    generatedBuildId = date// as int
+    generatedBuildDate = date
 
-    println("Generated buildId: $generatedBuildId")
+    println("Generated buildId: $generatedBuildDate")
     println()
 }
