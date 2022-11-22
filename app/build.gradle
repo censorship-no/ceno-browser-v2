@@ -193,10 +193,13 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
 
-            /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO */
+            /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO 
+             * python script copied from here, https://hg.mozilla.org/releases/mozilla-release/file/tip/python/mozbuild/mozbuild/android_version_code.py
+             * We should periodically check if any changes are made to it.
+             */
             def stdout = new ByteArrayOutputStream()
             exec {
-                workingDir rootDir.toString() + '/gecko-dev/python/mozbuild/mozbuild/'
+                workingDir rootDir.toString() + '/python/'
                 commandLine 'python', 'android_version_code.py',
                                 '--with-android-cpu-arch', abi,
                                 '--with-android-min-sdk-version', Config.minSdkVersion,
