@@ -1,62 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Recherche ou adresse</string>
-
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Nouvel onglet</string>
-
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Fermer tous les onglets</string>
     <string name="menu_action_close_tabs_private">Fermer les onglets privés</string>
-
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
-
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Débogage distant par USB</string>
-
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Activée en navigation privée</string>
-
     <!-- Preference for privacy -->
     <string name="privacy">Vie privée</string>
-
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Ouvrir les liens dans des applications</string>
-
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Outils de développement</string>
-
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">Protection contre le pistage</string>
-
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Données collectées</string> -->
 
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Paramètres</string>
-
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Nous sommes désolés</string>
-
     <!-- Navigation privée -->
     <string name="private_browsing_title">Navigation privée</string>
-
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Collection de modules personnalisée</string>
@@ -70,14 +54,11 @@
     <string name="customize_addon_collection_user_hint">Propriétaire de la collection (identifiant utilisateur)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Collection de modules complémentaires modifiée. Fermeture de l’application pour appliquer les modifications…</string>
-
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Activer la navigation privée</string>
-
     <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Ouvrir dans un onglet privé</string>
-
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renommer</string>
@@ -85,7 +66,6 @@
     <string name="remove_top_site">Supprimer</string>
     <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Supprimer de l’historique</string>
-
     <!-- Top Sites -->
     <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">Nombre maximal de raccourcis atteint</string>
@@ -103,7 +83,6 @@
     <string name="top_sites_rename_dialog_cancel">Annuler</string>
     <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Sponsorisé</string>
-
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <!-- <string name="browser_menu_back">Page précédente</string> -->
