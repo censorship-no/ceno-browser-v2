@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
+<!ENTITY brandShortName "CENO">
+<!ENTITY brandFullName "eQualitie CENO">
+<!ENTITY vendorShortName "eQualitie">
+]>
+<resources>
+    <string name="ceno_on_mobile_data_dialog_continue">Συνέχεια</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+    <string name="ceno_notification_description">Πατήστε για διακοπή</string>
+    <string name="ceno_notification_purge_do_description">Ναί</string>
+    <string name="ceno_notification_home_description">Αρχική</string>
+    <string name="ceno_notification_channel_name">Υπηρεσία &brandShortName;</string>
+    <string name="ceno_notification_title">Υπηρεσία φυλλομετρητή &brandShortName;</string>
+    <string name="ceno_notification_purge_description">Διαγραφή⚠</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now">Διακοπή &brandShortName; τώρα</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">Να μην εμφανιστεί ξανά</string>
+</resources>
