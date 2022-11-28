@@ -31,12 +31,10 @@
     <string name="tracker_category">Protection contre le pistage</string>
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Données collectées</string> -->
-
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Paramètres</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
-
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Nous sommes désolés</string>
     <!-- Navigation privée -->
@@ -109,7 +107,7 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Supprimer des raccourcis</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
-
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
+    <string name="crash_report_non_fatal_action">Rapport</string>
 </resources>
