@@ -3,7 +3,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
     <!-- Text shown in the toolbar if it is empty -->
-    <string name="toolbar_hint">Введите запрос или адрес</string>
+    <string name="toolbar_hint">Выполните поиск или введите адрес</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Новая вкладка</string>
     <!-- Menu option on the toolbar to close all tabs-->
@@ -18,9 +18,9 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Включено в Приватном просмотре</string>
+    <string name="preferences_tracking_protection_private">Включить в режиме приватного просмотра</string>
     <!-- Preference for privacy -->
-    <string name="privacy">Приватность</string>
+    <string name="privacy">Приватности</string>
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
     <!-- Preference for open links in apps -->
@@ -41,7 +41,7 @@
     <string name="private_browsing_title">Приватный просмотр</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Собственная коллекция дополнений</string>
+    <string name="preferences_customize_amo_collection">Настраиваемая коллекция дополнений</string>
     <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
     <!-- Button caption to abort the add-on collection configuration -->
@@ -108,6 +108,6 @@
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">Восприятие читателя</string>
     <string name="crash_report_non_fatal_action">Отчет</string>
 </resources>
