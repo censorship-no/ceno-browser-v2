@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Recherche ou adresse</string>
     <!-- Menu option on the toolbar to open a new tab-->
