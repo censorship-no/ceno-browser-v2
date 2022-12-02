@@ -58,12 +58,20 @@ open class OuinetService : Service(){
         }
         if (intent.hasExtra(HIDE_PURGE_EXTRA)) {
             logger.debug("Hiding purge action, intent:$intent")
-            startForeground(NOTIFICATION_ID, createNotification(false))
+            try {
+                startForeground(NOTIFICATION_ID, createNotification(false))
+            } catch (_: Exception) {
+                stopSelf()
+            }
             return START_NOT_STICKY
         }
         if (intent.hasExtra(SHOW_PURGE_EXTRA)) {
             logger.debug("Showing purge action, intent:$intent")
-            startForeground(NOTIFICATION_ID, createNotification(true))
+            try {
+                startForeground(NOTIFICATION_ID, createNotification(true))
+            } catch (_: Exception) {
+                stopSelf()
+            }
 
             // Show notification without purge action after some time.
             val hidePurgePIntent = PendingIntent.getService(this, 0,
@@ -87,8 +95,14 @@ open class OuinetService : Service(){
             }
             mOuinet = Ouinet(this, config)
         }
-        startForeground(NOTIFICATION_ID, createNotification(false))
-        startOuinet()
+        try {
+            startForeground(NOTIFICATION_ID, createNotification(false))
+            startOuinet()
+        }
+        catch(ex : Exception) {
+            /* Stop the service, so it can be restarted in onResume */
+            stopSelf()
+        }
         return START_NOT_STICKY
     }
 
