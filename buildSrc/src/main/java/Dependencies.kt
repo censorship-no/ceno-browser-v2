@@ -135,7 +135,8 @@ object Deps {
 
     const val mozilla_lib_crash = "org.mozilla.components:lib-crash:${AndroidComponents.VERSION}"
     const val mozilla_lib_crash_sentry = "org.mozilla.components:lib-crash-sentry:${AndroidComponents.VERSION}"
-    const val mozilla_lib_push_firebase = "org.mozilla.components:lib-push-firebase:${AndroidComponents.VERSION}"
+    /* CENO F-Droid: Remove firebase */
+    //const val mozilla_lib_push_firebase = "org.mozilla.components:lib-push-firebase:${AndroidComponents.VERSION}"
     const val mozilla_lib_dataprotect = "org.mozilla.components:lib-dataprotect:${AndroidComponents.VERSION}"
     const val mozilla_lib_publicsuffixlist = "org.mozilla.components:lib-publicsuffixlist:${AndroidComponents.VERSION}"
 

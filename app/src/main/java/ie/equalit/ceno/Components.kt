@@ -14,7 +14,7 @@ import ie.equalit.ceno.autofill.AutofillUnlockActivity
 import ie.equalit.ceno.components.Analytics
 import ie.equalit.ceno.components.BackgroundServices
 import ie.equalit.ceno.components.Core
-import ie.equalit.ceno.components.Push
+//import ie.equalit.ceno.components.Push
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
 import ie.equalit.ceno.components.Utilities
@@ -42,7 +42,7 @@ class Components(private val context: Context) {
     val backgroundServices by lazy {
         BackgroundServices(
             context,
-            push,
+            //push,
             core.lazyHistoryStorage,
             core.lazyRemoteTabsStorage,
             core.lazyLoginsStorage
@@ -60,7 +60,8 @@ class Components(private val context: Context) {
         )
     }
     val services by lazy { Services(context, backgroundServices.accountManager, useCases.tabsUseCases) }
-    val push by lazy { Push(context, analytics.crashReporter) }
+    /* CENO F-Droid: Do not use firebase push */
+    //val push by lazy { Push(context, analytics.crashReporter) }
 
     val autofillConfiguration by lazy {
         /* CENO: Support older versions of Android, which don't have Autofill activities */

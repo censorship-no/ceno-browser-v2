@@ -7,7 +7,6 @@ import android.telephony.TelephonyManager
 import android.text.TextUtils
 import java.util.*
 import java.util.logging.Logger
-//import javax.inject.Inject
 
 class CenoLocationUtils constructor(app: Application) {
     private val appContext: Context

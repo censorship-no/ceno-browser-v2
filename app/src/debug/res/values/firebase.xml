@@ -5,6 +5,8 @@
   ~  file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
+<!--
+CENO F-Droid: Remove firebase
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_web_client_id" tools:ignore="UnusedResources" translatable="false">973845059695-vgd2p0n78butpgcdbid910jectr92g8j.apps.googleusercontent.com</string>
     <string name="firebase_database_url" tools:ignore="UnusedResources" translatable="false">https://boxwood-axon-825.firebaseio.com</string>
@@ -15,3 +17,4 @@
     <string name="google_storage_bucket" tools:ignore="UnusedResources" translatable="false">boxwood-axon-825.appspot.com</string>
     <string name="project_id" tools:ignore="UnusedResources" translatable="false">boxwood-axon-825</string>
 </resources>
+-->

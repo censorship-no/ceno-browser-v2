@@ -11,8 +11,8 @@ import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
-import ie.equalit.ceno.push.PushFxaIntegration
-import ie.equalit.ceno.push.WebPushEngineIntegration
+//import ie.equalit.ceno.push.PushFxaIntegration
+//import ie.equalit.ceno.push.WebPushEngineIntegration
 import ie.equalit.ouinet.Config
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -147,6 +147,8 @@ open class BrowserApplication : Application() {
             onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest
         )
 
+        /* CENO F-Droid: Not using firefox accounts, firebase push breaks f-droid build */
+        /*
         components.push.feature?.let {
             Logger.info("AutoPushFeature is configured, initializing it...")
 
@@ -161,6 +163,7 @@ open class BrowserApplication : Application() {
             // Initialize the push feature and service.
             it.initialize()
         }
+        */
     }
 
     override fun onTrimMemory(level: Int) {

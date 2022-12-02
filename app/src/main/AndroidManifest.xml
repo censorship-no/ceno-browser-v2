@@ -178,6 +178,8 @@
         <service android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false" />
 
+        <!--
+        CENO F-Droid: Remove firebase */
         <service
             android:name="ie.equalit.ceno.push.FirebasePush"
             android:exported="false">
@@ -192,6 +194,7 @@
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
+            -->
 
         <service
             android:name="ie.equalit.ceno.components.ceno.OuinetService"
