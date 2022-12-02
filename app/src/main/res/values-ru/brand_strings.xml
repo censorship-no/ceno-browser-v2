@@ -32,11 +32,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.</string> -->
-    <string name="ceno_private_browsing_body"><![CDATA[
-<h1>Приватный просмотр</h1>
-<p>eQnet не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.</p>
-<p class="about-info"><a id="learnMore">Хотите узнать больше?</p>
-     ]]></string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;eQnet не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше\?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Сервис браузера &brandShortName;</string>
     <string name="ceno_notification_description">Нажмите, чтобы остановить</string>
@@ -67,15 +63,15 @@
     -->
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">CENO Мануал</string>
-    <string name="default_top_site_1_url">@string/suggestedsites_ceno_ru_url</string>
+    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_ru_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url">\@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">Медуза</string>
-    <string name="default_top_site_3_url">@string/suggestedsites_meduza_url</string>
+    <string name="default_top_site_3_url">\@string/suggestedsites_meduza_url</string>
     <string name="default_top_site_4_title">Медиазона</string>
-    <string name="default_top_site_4_url">@string/suggestedsites_mediazona_url</string>
+    <string name="default_top_site_4_url">\@string/suggestedsites_mediazona_url</string>
     <string name="default_top_site_5_title">BBC Русская служба</string>
-    <string name="default_top_site_5_url">@string/suggestedsites_bbc_ru_url</string>
+    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_ru_url</string>
     <!--
     <string name="onboardingfragment">Welcome to &brandShortName; v2</string>
     <string name="onboarding_button">Let's go!</string>
