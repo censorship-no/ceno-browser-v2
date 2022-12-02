@@ -67,7 +67,7 @@
     -->
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manuel CENO</string>
-    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_fr_url</string>
+    <string name="default_top_site_1_url">@string/suggestedsites_ceno_en_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
     <string name="default_top_site_2_url">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">Courrier international</string>
@@ -75,12 +75,11 @@
     <string name="default_top_site_4_title">La Presse</string>
     <string name="default_top_site_4_url">@string/suggestedsites_lapresse_url</string>
     <string name="default_top_site_5_title">BBC News</string>
-    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_fr_url</string>
+    <string name="default_top_site_5_url">@string/suggestedsites_bbc_en_url</string>
     <!--
     <string name="onboardingfragment">Welcome to &brandShortName; v2</string>
     <string name="onboarding_button">Let\'s go!</string>
     -->
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Appuyez pour le signaler à &vendorShortName;</string>
-    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
 </resources>
