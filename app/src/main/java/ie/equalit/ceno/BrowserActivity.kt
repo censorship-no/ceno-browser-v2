@@ -38,6 +38,7 @@ import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
 import ie.equalit.ceno.components.ceno.OuinetService
+import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
@@ -94,6 +95,8 @@ open class BrowserActivity : AppCompatActivity() {
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
 
+        val permissionHandler = PermissionHandler(this)
+
         if (savedInstanceState == null) {
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
             if (Settings.isOnboardingComplete(this)) {
@@ -116,6 +119,8 @@ open class BrowserActivity : AppCompatActivity() {
                     replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
                     commit()
                 }
+                // TODO: add an onboarding fragment explaining why this needs to be turned off
+                permissionHandler.requestBatteryOptimizationsOff(this)
             }
         }
 
@@ -134,6 +139,14 @@ open class BrowserActivity : AppCompatActivity() {
         * NotificationManager.checkAndNotifyPolicy(this)
          */
         lifecycle.addObserver(webExtensionPopupFeature)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        /* CENO: Service may have stopped while app was in background
+         * try sending an intent to restart the service
+         */
+        OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
     }
 
     override fun onBackPressed() {
