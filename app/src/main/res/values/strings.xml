@@ -56,8 +56,8 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Privacy Settings</string> -->
 
-    <!-- Snackbar action button when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_action">Report</string>
+    <!-- Snackbar message when a non fatal crash happen-->
+    <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
 
     <!-- Private Browsing -->
     <string name="private_browsing_title">Private Browsing</string>
