@@ -32,11 +32,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string> -->
-    <string name="ceno_private_browsing_body"><![CDATA[
-<h1>Navegación privada</h1>
-<p>eQnet no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</p>
-<p class="about-info"><a id="learnMore">¿Desea más información?</p>
-     ]]></string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación privada&lt;/h1&gt; &lt;p&gt;eQnet no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Desea más información\?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Servicio del Navegador &brandShortName;</string>
     <string name="ceno_notification_description">Toca para parar</string>
@@ -67,15 +63,15 @@
     -->
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manual CENO</string>
-    <string name="default_top_site_1_url">@string/suggestedsites_ceno_es_url</string>
+    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_es_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url">\@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">El País</string>
-    <string name="default_top_site_3_url">@string/suggestedsites_elpais_url</string>
+    <string name="default_top_site_3_url">\@string/suggestedsites_elpais_url</string>
     <string name="default_top_site_4_title">Infobae</string>
-    <string name="default_top_site_4_url">@string/suggestedsites_infobae_url</string>
+    <string name="default_top_site_4_url">\@string/suggestedsites_infobae_url</string>
     <string name="default_top_site_5_title">BBC Mundo</string>
-    <string name="default_top_site_5_url">@string/suggestedsites_bbc_es_url</string>
+    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_es_url</string>
     <!--
     <string name="onboardingfragment">Bienvendios a &brandShortName; v2</string>
     <string name="onboarding_button">¡Vámonos!</string>
