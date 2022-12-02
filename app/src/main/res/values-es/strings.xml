@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Término de búsqueda o dirección</string>
-
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Pestaña nueva</string>
-
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Cerrar todas las pestañas</string>
     <string name="menu_action_close_tabs_private">Cerrar pestañas privadas</string>
-
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
-
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Depuración remota USB</string>
-
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Activada en navegación privada</string>
-
     <!-- Preference for privacy -->
     <string name="privacy">Privacidad</string>
-
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Abrir enlaces en aplicaciones</string>
-
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Herramientas de desarrollo</string>
-
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">Protección contra rastreo</string>
-
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Elección de datos</string> -->
-
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Configuración</string>
-
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
-
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Lo sentimos</string>
-
     <!-- Navegación privada -->
     <string name="private_browsing_title">Navegación privada</string>
-
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Colección de complementos personalizada</string>
@@ -70,14 +52,11 @@
     <string name="customize_addon_collection_user_hint">Dueño de la colección (ID de usuario)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Colección de complementos modificada. Cerrando la aplicación para aplicar los cambios…</string>
-
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Habilitar la navegación privada</string>
-
     <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña privada</string>
-
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renombrar</string>
@@ -85,7 +64,6 @@
     <string name="remove_top_site">Eliminar</string>
     <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Eliminar del historial</string>
-
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->
     <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
@@ -104,7 +82,6 @@
     <string name="top_sites_rename_dialog_cancel">Cancelar</string>
     <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Patrocinado</string>
-
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <!-- <string name="browser_menu_back">Atrás</string> -->
@@ -126,14 +103,13 @@
     <string name="browser_menu_find_in_page">Buscar en la página</string>
     <!-- Browser menu button that open a share menu to share the current site -->
     <string name="browser_menu_share">Compartir</string>
-
     <!-- NOTE: strings below are from Fenix values-es-rES. Values in es-rAR and rMX are different -->
     <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Añadir a accesos directos</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Eliminar de los accesos directos</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
-
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
+    <string name="crash_report_non_fatal_action">Reporte</string>
 </resources>
