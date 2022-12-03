@@ -139,7 +139,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-def buildDate = generatedBuildDate
+def baseBuildDate = generatedBuildDate
 
 android.applicationVariants.all { variant ->
 
@@ -191,6 +191,10 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
 
+            /* CENO: Allow generated build date to be overwritten with a hard-coded build date
+             */
+            def buildDateOverride = (localProperties['buildId'] ?: baseBuildDate) as Long
+
             /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO 
              * python script copied from here, https://hg.mozilla.org/releases/mozilla-release/file/tip/python/mozbuild/mozbuild/android_version_code.py
              * We should periodically check if any changes are made to it.
@@ -202,12 +206,12 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                                 '--with-android-cpu-arch', abi,
                                 '--with-android-min-sdk-version', Config.minSdkVersion,
                                 '--with-android-max-sdk-version', Config.targetSdkVersion,
-                                buildDate
+                                buildDateOverride
                 standardOutput = stdout
             }
 
-            /* CENO: Allow generated buildId to be overridden with value included in local.properties */
-            def versionCodeOverride = (localProperties['buildId'] as int) ?: (stdout.toString() as int)
+            /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
+            def versionCodeOverride = (localProperties['buildId'] ?: stdout.toString()) as Long
 
             println("versionCode for $abi = $versionCodeOverride")
 
