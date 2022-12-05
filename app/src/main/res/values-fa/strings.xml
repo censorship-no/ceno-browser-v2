@@ -80,7 +80,7 @@
     <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">انصراف</string>
     <!-- Label text displayed for a sponsored top site. -->
-    <string name="top_sites_sponsored_label">Sponsored</string>
+    <string name="top_sites_sponsored_label">حمایت مالی‌شده</string>
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <!-- <string name="browser_menu_back">عقب</string> -->
@@ -103,9 +103,9 @@
     <!-- Browser menu button that open a share menu to share the current site -->
     <string name="browser_menu_share">اشتراک‌گذاری</string>
     <!-- Browser menu button that adds a shortcut to the home fragment -->
-    <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
+    <string name="browser_menu_add_to_shortcuts">به میان‌برها اضافه کنید</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
-    <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
+    <string name="browser_menu_remove_from_shortcuts">از میان‌برها حذف کنید</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
