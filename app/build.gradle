@@ -193,7 +193,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 
             /* CENO: Allow generated build date to be overwritten with a hard-coded build date
              */
-            def buildDateOverride = (localProperties['buildId'] ?: baseBuildDate) as Long
+            def buildDateOverride = (localProperties['buildDate'] ?: baseBuildDate) as Long
 
             /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO 
              * python script copied from here, https://hg.mozilla.org/releases/mozilla-release/file/tip/python/mozbuild/mozbuild/android_version_code.py
