@@ -110,6 +110,6 @@
     <string name="browser_menu_remove_from_shortcuts">Eliminar de los accesos directos</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">Opinión del lector</string>
     <string name="crash_report_non_fatal_action">Reporte</string>
 </resources>
