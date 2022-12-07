@@ -105,10 +105,10 @@
     <!-- Browser menu button that open a share menu to share the current site -->
     <string name="browser_menu_share">မျှဝေ</string>
     <!-- Browser menu button that adds a shortcut to the home fragment -->
-    <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
+    <string name="browser_menu_add_to_shortcuts">Shortcuts ထဲ ထည့်ပါ</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
-    <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
+    <string name="browser_menu_remove_from_shortcuts">Shortcuts မှ ပယ်ဖျက်ပါ</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">ဖတ်ရှုသူ အမြင်</string>
 </resources>
