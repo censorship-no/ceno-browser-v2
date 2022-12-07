@@ -39,8 +39,6 @@ android {
     }
 
     /* CENO: Add signing config for release builds */
-    /* Fdroid signs keys differently, don't use gradle signingConfig */
-    /*
     signingConfigs {
         release {
             storeFile file(localProperties['RELEASE_STORE_FILE'])
@@ -53,8 +51,6 @@ android {
             enableV3Signing true
         }
     }
-    */
-
 
     def releaseTemplate = {
         minifyEnabled false
@@ -78,7 +74,7 @@ android {
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
         release {
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
@@ -106,7 +102,7 @@ android {
     }
 
     lint {
-        disable 'IconDuplicates'
+        disable 'IconDuplicates', 'MissingTranslation'
         lintConfig file("lint.xml")
         baseline file("lint-baseline.xml")
     }
