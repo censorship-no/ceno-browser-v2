@@ -5,8 +5,10 @@ set -e
 BUILD_DIR=$(pwd)
 SOURCE_DIR=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 GECKO_DIR=gecko-dev
-AC_DIR=./android-components
-ANDROID_HOME=$HOME/.mozbuild/android-sdk-linux
+FX_DIR=./firefox-android
+AC_DIR=${FX_DIR}/android-components
+AC_VER=v107.0.7
+ANDROID_HOME=$HOME/Android/Sdk
 LOCAL_PROPERTIES=local.properties
 
 SUPPORTED_ABIS=(armeabi-v7a arm64-v8a x86 x86_64)
@@ -16,7 +18,6 @@ DEFAULT_ABI=arm64-v8a
 CLEAN=false
 BUILD_RELEASE=false
 BUILD_DEBUG=false
-BUILD_OUINET=false
 USE_LOCAL_GECKOVIEW=false
 VARIANT=
 BUILD_DATE=
@@ -81,10 +82,6 @@ while getopts crdoa:glx:v:k:p:b: option; do
         d)
             BUILD_DEBUG=true
             ;;
-        o)
-            echo "Option not currently supported" && usage
-            #BUILD_OUINET=true
-            ;;
         a)
             supported=false
             for i in ${SUPPORTED_ABIS[@]}; do [[ $i = $OPTARG ]] && supported=true && break; done
@@ -98,9 +95,6 @@ while getopts crdoa:glx:v:k:p:b: option; do
             if ! $listed; then
                 ABIS+=($OPTARG)
             fi
-            ;;
-        g)
-            BUILD_GECKOVIEW=true
             ;;
         l)
             USE_LOCAL_GECKOVIEW=true
@@ -170,7 +164,6 @@ function check_variant {
             KEYSTORE_FILE="$(realpath ${DEBUG_KEYSTORE_FILE})"
             KEYSTORE_KEY_ALIAS="${DEBUG_KEYSTORE_KEY_ALIAS}"
             KEYSTORE_PASSWORDS_FILE="$(realpath ${DEBUG_KEYSTORE_PASSWORDS_FILE})"
-            OUINET_VARIANT_FLAGS=
             GECKO_VARIANT_FLAGS=
             VARIANT=debug
         else
@@ -178,7 +171,6 @@ function check_variant {
             KEYSTORE_FILE="$(realpath ${RELEASE_KEYSTORE_FILE})"
             KEYSTORE_KEY_ALIAS="${RELEASE_KEYSTORE_KEY_ALIAS}"
             KEYSTORE_PASSWORDS_FILE="$(realpath ${RELEASE_KEYSTORE_PASSWORDS_FILE})"
-            OUINET_VARIANT_FLAGS=-r
             GECKO_VARIANT_FLAGS=-r
             VARIANT=release
         fi
@@ -288,32 +280,10 @@ function get_set_branding {
     sed -i -e "s/${DEFAULT_FRONTEND_PORT}/${BRAND_FRONTEND_PORT}/g" ${APP_BRAND_DIR}/src/main/assets/addons/ceno/config.js
 }
 
-function maybe_build_ouinet {
-    for ABI in ${ABIS[@]}; do
-        if $BUILD_OUINET; then
-            OUINET_BUILD_DIR="${BUILD_DIR}/ouinet-${ABI}-${variant}"
-            mkdir -p "${OUINET_BUILD_DIR}"
-            pushd "${OUINET_BUILD_DIR}" >/dev/null
-            ABI=${ABI} "${SOURCE_DIR}"/ouinet/scripts/build-android.sh ${OUINET_VARIANT_FLAGS}
-            popd >/dev/null
-
-            OUINET_AAR_BUILT="${OUINET_BUILD_DIR}"/build-android-${ABI}-${variant}/ouinet/outputs/aar/ouinet-${variant}.aar
-            OUINET_AAR="$(realpath ${BUILD_DIR}/ouinet-${ABI}-${variant}-${DATE}.aar)"
-            cp "${OUINET_AAR_BUILT}" "${OUINET_AAR}"
-            OUINET_AAR_BUILT_PARAMS="-o ${OUINET_AAR}"
-        fi
-    done
-}
-
-function maybe_build_geckoview {
-    if [ $USE_LOCAL_GECKOVIEW ] && [ $BUILD_GECKOVIEW ]; then
-        GROUP_ID=${GROUP_ID} \
-        OSSRH_USERNAME=${OSSRH_USERNAME} \
-        OSSRH_PASSWORD=${OSSRH_PASSWORD} \
-        SIGNING_PASSWORD=${SIGNING_PASSWORD} \
-        SIGNING_KEY_ID=${SIGNING_KEY_ID} \
-        SIGNING_KEY=${SIGNING_KEY} \
-        ./scripts/build-dependencies.sh -r -a armeabi-v7a -a arm64-v8a
+function maybe_clone_fx_android {
+    # TODO: Remove once engine-gecko is published to Sonatype
+    if [[ ! -d ${FX_DIR} ]]; then
+        git clone https://github.com/censorship-no/firefox-android -b ${AC_VER}
     fi
 }
 
@@ -325,13 +295,6 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
-    if $BUILD_DEBUG; then
-        # Use cached build date for buildId
-        set_property buildId ${BUILD_DATE}
-    else
-        # Generate a new buildId during gradle build
-        set_property buildId ""
-    fi
     set_property autoPublish.android-components.dir ${AC_DIR}
     set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
@@ -392,7 +355,6 @@ check_variant
 get_set_build_date
 get_set_abis
 get_set_branding
-maybe_build_ouinet
-maybe_build_geckoview
+maybe_clone_fx_android
 write_local_properties
 build_apk_for ABIS $VARIANT
