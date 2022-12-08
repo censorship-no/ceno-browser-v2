@@ -10,11 +10,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import mozilla.components.support.base.feature.ActivityResultHandler
 
 /* CENO: Handles checking which permissions have been granted,
  * adapted from https://pub.dev/packages/flutter_background
  */
-class PermissionHandler(private val context: Context) {
+class PermissionHandler(private val context: Context) : ActivityResultHandler {
     companion object {
         const val PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS = 5672353
     }
@@ -28,6 +29,7 @@ class PermissionHandler(private val context: Context) {
             true
         };
     }
+    */
 
     fun isIgnoringBatteryOptimizations(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -38,24 +40,24 @@ class PermissionHandler(private val context: Context) {
             true
         }
     }
-    */
 
     @SuppressLint("BatteryLife")
     fun requestBatteryOptimizationsOff(activity: Activity) : Boolean {
         var result = false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // Before Android M the battery optimization doesn't exist -> Always "ignoring"
-            result = true
+            result = false
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val powerManager = (context.getSystemService(Context.POWER_SERVICE) as PowerManager)
             when {
                 powerManager.isIgnoringBatteryOptimizations(context.packageName) -> {
-                    result = true
+                    result = false
                 }
                 context.checkSelfPermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_DENIED -> {
                     result = false
                 }
                 else -> {
+                    // Only return true if intent was sent to request permission
                     val intent = Intent()
                     intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
                     intent.data = Uri.parse("package:${context.packageName}")
@@ -65,5 +67,12 @@ class PermissionHandler(private val context: Context) {
             }
         }
         return result
+    }
+
+    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
+        if (requestCode == PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
+            return this.isIgnoringBatteryOptimizations()
+        }
+        return false
     }
 }

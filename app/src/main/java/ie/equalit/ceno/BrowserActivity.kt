@@ -119,8 +119,6 @@ open class BrowserActivity : AppCompatActivity() {
                     replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
                     commit()
                 }
-                // TODO: add an onboarding fragment explaining why this needs to be turned off
-                permissionHandler.requestBatteryOptimizationsOff(this)
             }
         }
 
