@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import ie.equalit.ceno.Components
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
@@ -30,15 +33,30 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            context?.let { ctx -> Settings.setOnboardingComplete(ctx, true) }
-            requireComponents.useCases.tabsUseCases.addTab(CenoHomeFragment.ABOUT_HOME, selectTab = true)
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(
-                    R.id.container,
-                    CenoHomeFragment.create(sessionId),
-                    CenoHomeFragment.TAG
-                )
-                commit()
+            context?.let { ctx ->
+                if (PermissionHandler(ctx).isIgnoringBatteryOptimizations()) {
+                    Settings.setOnboardingComplete(ctx, true)
+                    activity?.let{ act ->
+                        transitionToHomeFragment(requireComponents, act, sessionId)
+                    }
+                }
+                else {
+                    activity?.supportFragmentManager?.beginTransaction()?.apply {
+                        setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.slide_out,
+                            R.anim.slide_back_in,
+                            R.anim.slide_back_out
+                        )
+                        replace(
+                            R.id.container,
+                            OnboardingBatteryFragment.create(sessionId),
+                            OnboardingBatteryFragment.TAG
+                        )
+                        addToBackStack(null)
+                        commit()
+                    }
+                }
             }
         }
     }
@@ -57,5 +75,29 @@ class OnboardingFragment : Fragment() {
                 putSessionId(sessionId)
             }
         }
+
+        fun transitionToHomeFragment(components: Components, activity: FragmentActivity, sessionId: String?) {
+            components.useCases.tabsUseCases.addTab(
+                CenoHomeFragment.ABOUT_HOME,
+                selectTab = true
+            )
+
+            activity.supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.slide_out,
+                    R.anim.slide_back_in,
+                    R.anim.fade_out
+                )
+                replace(
+                    R.id.container,
+                    CenoHomeFragment.create(sessionId),
+                    CenoHomeFragment.TAG
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
+
     }
 }

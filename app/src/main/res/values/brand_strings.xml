@@ -88,8 +88,16 @@
     <string name="default_top_site_5_url">@string/suggestedsites_bbc_en_url</string>
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
 
-    <string name="onboardingfragment" translatable="false">Welcome to &brandShortName;</string>
+    <string name="onboarding_fragment" translatable="false">Welcome to &brandShortName;</string>
     <string name="onboarding_button" translatable="false">Let\'s go!</string>
+
+    <string name="onboarding_battery_title" translatable="false">Permissions needed</string>
+    <string name="onboarding_battery_text" translatable="false">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_button" translatable="false">Continue</string>
+
+    <string name="onboarding_warning_title" translatable="false">Permission denied</string>
+    <string name="onboarding_warning_text" translatable="false">Battery optimization is still enabled.\n\nGo to \"General Settings > Disable Battery Optimization\" to give permission later</string>
+    <string name="onboarding_warning_button" translatable="false">Start Browsing</string>
 
     <string name="preferences_toolbar_position" translatable="false">Place toolbar at top of screen</string>
     <string name="preferences_toolbar_hide" translatable="false">Scroll to hide toolbar</string>

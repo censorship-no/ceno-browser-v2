@@ -10,7 +10,8 @@
     <dimen name="ceno_mode_margin_horizontal">24dp</dimen>
     <dimen name="ceno_mode_margin_top">8dp</dimen>
     <dimen name="ceno_mode_margin_bottom">12dp</dimen>
-    <dimen name="ceno_onboarding_text">32sp</dimen>
+    <dimen name="ceno_onboarding_title">32sp</dimen>
+    <dimen name="ceno_onboarding_text">22sp</dimen>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
