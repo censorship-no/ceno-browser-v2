@@ -30,6 +30,7 @@ import ie.equalit.ceno.R.string.pref_key_privacy
 import ie.equalit.ceno.R.string.pref_key_remote_debugging
 //import ie.equalit.ceno.R.string.pref_key_sign_in
 import ie.equalit.ceno.autofill.AutofillPreference
+import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import kotlin.system.exitProcess
@@ -77,6 +78,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
         val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
+        val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
 
         /*
         val preferenceSignIn = findPreference<Preference>(signInKey)
@@ -90,6 +92,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
         val preferenceMobileData = findPreference<Preference>(mobileDataKey)
+        val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
 
         /*
         val accountManager = requireComponents.backgroundServices.accountManager
@@ -120,6 +123,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
         preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
+        if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
+                preferenceDisableBatteryOpt?.isVisible = false
+        }
+        else {
+            preferenceDisableBatteryOpt?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
+        }
     }
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
@@ -269,6 +278,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Toast.makeText(context, R.string.preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
             }
             true
+        }
+    }
+
+    private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            OnPreferenceClickListener {
+                PermissionHandler(requireContext()).requestBatteryOptimizationsOff(requireActivity())
+                true
+            }
+        } else {
+            defaultClickListener
         }
     }
 

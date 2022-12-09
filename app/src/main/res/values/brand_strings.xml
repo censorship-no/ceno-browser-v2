@@ -89,18 +89,30 @@
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
 
     <string name="onboarding_fragment" translatable="false">Welcome to &brandShortName;</string>
-    <string name="onboarding_button" translatable="false">Let\'s go!</string>
+    <string name="onboarding_button" translatable="false">Get Started</string>
+    <string name="onboarding_skip_button" translatable="false">Skip</string>
 
-    <string name="onboarding_battery_title" translatable="false">Permissions needed</string>
+    <string name="onboarding_info_title" translatable="false">Not your average browser</string>
+    <string name="onboarding_info_text" translatable="false">&brandShortName; uses peer-to-peer technology to share web content that can be accessed by other &brandShortName; users</string>
+    <string name="onboarding_info_button" translatable="false">Cool!</string>
+
+    <string name="onboarding_battery_title" translatable="false">Permission needed</string>
     <string name="onboarding_battery_text" translatable="false">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
     <string name="onboarding_battery_button" translatable="false">Continue</string>
 
     <string name="onboarding_warning_title" translatable="false">Permission denied</string>
     <string name="onboarding_warning_text" translatable="false">Battery optimization is still enabled.\n\nGo to \"General Settings > Disable Battery Optimization\" to give permission later</string>
-    <string name="onboarding_warning_button" translatable="false">Start Browsing</string>
+    <string name="onboarding_warning_button" translatable="false">Okay</string>
+
+    <string name="onboarding_thanks_title" translatable="false">Thanks for growing the network!</string>
+    <string name="onboarding_thanks_text" translatable="false">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
+    <string name="onboarding_thanks_button" translatable="false">Let\s go!</string>
 
     <string name="preferences_toolbar_position" translatable="false">Place toolbar at top of screen</string>
     <string name="preferences_toolbar_hide" translatable="false">Scroll to hide toolbar</string>
+
+    <string name="preferences_disable_battery_opt" translatable="false">Disable Battery Optimization</string>
+    <string name="preferences_enable_battery_opt" translatable="false">Enable Battery Optimization</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>

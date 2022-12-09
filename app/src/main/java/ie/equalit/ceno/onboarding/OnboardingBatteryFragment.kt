@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
-import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /**
@@ -32,6 +31,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
+        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
         return binding.root
     }
 
@@ -39,43 +39,37 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            context?.let { ctx ->
-                activity?.let { act ->
-                    if(!PermissionHandler(ctx).requestBatteryOptimizationsOff(act)) {
-                        OnboardingFragment.transitionToHomeFragment(requireComponents, act, sessionId)
-                    }
-                }
+            if(!PermissionHandler(requireContext()).requestBatteryOptimizationsOff(requireActivity())) {
+                binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+                OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
             }
+        }
+
+        binding.button2.setOnClickListener {
+            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
         }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         super.onActivityResult(requestCode, resultCode, data)
-        context?.let{ ctx ->
-            if (PermissionHandler(ctx).onActivityResult(requestCode, data, resultCode)) {
-                Settings.setOnboardingComplete(ctx, true)
-                activity?.let { act ->
-                    OnboardingFragment.transitionToHomeFragment(requireComponents, act, sessionId)
-                }
-            }
-            else {
-                activity?.let { act ->
-                    act.supportFragmentManager.beginTransaction().apply {
-                        setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.slide_out,
-                            R.anim.slide_back_out,
-                            R.anim.slide_back_in
-                        )
-                        replace(
-                            R.id.container,
-                            OnboardingWarningFragment.create(sessionId),
-                            OnboardingWarningFragment.TAG
-                        )
-                        addToBackStack(null)
-                        commit()
-                    }
-                }
+        if (PermissionHandler(requireContext()).onActivityResult(requestCode, data, resultCode)) {
+            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
+        }
+        else {
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.slide_out,
+                    R.anim.slide_back_in,
+                    R.anim.slide_back_out
+                )
+                replace(
+                    R.id.container,
+                    OnboardingWarningFragment.create(sessionId),
+                    OnboardingWarningFragment.TAG
+                )
+                addToBackStack(null)
+                commit()
             }
         }
         return true

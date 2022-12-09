@@ -22,7 +22,6 @@
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
 
     <color name="ceno_onboarding_gradient_middle">#4bb0bc</color>
-    <color name="ceno_onboarding_battery_gradient_end">#a1d6dc</color>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->

@@ -5,13 +5,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 <item>
     <shape android:shape="rectangle">
-        <gradient
-            android:angle="135"
-            android:centerY=".5"
-            android:startColor="@color/device_type_mobile_background"
-            android:centerColor="@color/device_type_mobile_background"
-            android:endColor="@color/ceno_onboarding_battery_gradient_end"
-            android:type="linear" />
     </shape>
 </item>
 </layer-list>
