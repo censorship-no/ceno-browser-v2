@@ -112,7 +112,6 @@
     <string name="preferences_toolbar_hide" translatable="false">Scroll to hide toolbar</string>
 
     <string name="preferences_disable_battery_opt" translatable="false">Disable Battery Optimization</string>
-    <string name="preferences_enable_battery_opt" translatable="false">Enable Battery Optimization</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
