@@ -2,7 +2,7 @@
 
 WARNING: This repository does not represent the current stable version of CENO Browser, please see https://github.com/censorship-no/ceno-browser for the current stable release of CENO Browser.  
 
-A next-generation CENO Browser built from [Mozilla Android Components](https://github.com/mozilla-mobile/android-components).
+A next-generation CENO Browser built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefox-android/blob/main/android-components/README.md).
 
 It includes the Mozilla Web Platform via GeckoView and a Ouinet Client for sharing web content peer-to-peer.
 

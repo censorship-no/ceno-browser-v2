@@ -1,17 +1,18 @@
 package ie.equalit.ceno.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import ie.equalit.ceno.Components
+import androidx.fragment.app.FragmentManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.CenoHomeFragment
-import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
-import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.Settings
 
 class OnboardingFragment : Fragment() {
@@ -22,42 +23,38 @@ class OnboardingFragment : Fragment() {
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
 
+    //@SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOnboardingBinding.inflate(inflater, container,false);
+        _binding = FragmentOnboardingBinding.inflate(inflater, container,false)
+        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            context?.let { ctx ->
-                if (PermissionHandler(ctx).isIgnoringBatteryOptimizations()) {
-                    Settings.setOnboardingComplete(ctx, true)
-                    activity?.let{ act ->
-                        transitionToHomeFragment(requireComponents, act, sessionId)
-                    }
-                }
-                else {
-                    activity?.supportFragmentManager?.beginTransaction()?.apply {
-                        setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.slide_out,
-                            R.anim.slide_back_in,
-                            R.anim.slide_back_out
-                        )
-                        replace(
-                            R.id.container,
-                            OnboardingBatteryFragment.create(sessionId),
-                            OnboardingBatteryFragment.TAG
-                        )
-                        addToBackStack(null)
-                        commit()
-                    }
-                }
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.slide_out,
+                    R.anim.slide_back_in,
+                    R.anim.slide_back_out
+                )
+                replace(
+                    R.id.container,
+                    OnboardingInfoFragment.create(sessionId),
+                    OnboardingInfoFragment.TAG
+                )
+                addToBackStack(null)
+                commit()
             }
+        }
+        binding.button2.setOnClickListener {
+            binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+            transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
         }
     }
 
@@ -76,12 +73,16 @@ class OnboardingFragment : Fragment() {
             }
         }
 
-        fun transitionToHomeFragment(components: Components, activity: FragmentActivity, sessionId: String?) {
-            components.useCases.tabsUseCases.addTab(
+        fun transitionToHomeFragment(context: Context, activity: FragmentActivity, sessionId: String?) {
+
+            Settings.setOnboardingComplete(context , true)
+
+            context.components.useCases.tabsUseCases.addTab(
                 CenoHomeFragment.ABOUT_HOME,
                 selectTab = true
             )
 
+            activity.supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             activity.supportFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.fade_in,
@@ -94,7 +95,6 @@ class OnboardingFragment : Fragment() {
                     CenoHomeFragment.create(sessionId),
                     CenoHomeFragment.TAG
                 )
-                addToBackStack(null)
                 commit()
             }
         }

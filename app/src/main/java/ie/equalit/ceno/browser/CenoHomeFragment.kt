@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.MainScope
@@ -123,6 +124,8 @@ class CenoHomeFragment : BaseBrowserFragment() {
                     0
                 }
         }
+
+        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
 
         return binding.root
     }

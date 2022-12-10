@@ -31,6 +31,10 @@
         android:title="@string/preferences_mobile_data"/>
         -->
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_disable_battery_opt"
+        android:title="@string/preferences_disable_battery_opt" />
+
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_toolbar_position"
         android:defaultValue="false"
