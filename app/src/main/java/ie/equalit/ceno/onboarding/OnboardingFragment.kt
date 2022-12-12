@@ -75,7 +75,7 @@ class OnboardingFragment : Fragment() {
 
         fun transitionToHomeFragment(context: Context, activity: FragmentActivity, sessionId: String?) {
 
-            Settings.setOnboardingComplete(context , true)
+            Settings.setShowOnboarding(context , false)
 
             context.components.useCases.tabsUseCases.addTab(
                 CenoHomeFragment.ABOUT_HOME,
