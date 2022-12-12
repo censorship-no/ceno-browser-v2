@@ -108,6 +108,6 @@
     <string name="browser_menu_remove_from_shortcuts">Supprimer des raccourcis</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">Vue lecteur</string>
     <string name="crash_report_non_fatal_action">Rapport</string>
 </resources>
