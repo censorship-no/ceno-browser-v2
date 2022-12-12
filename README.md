@@ -1,10 +1,21 @@
-#  CENO Browser v2
+# CENO Browser
 
-WARNING: This repository does not represent the current stable version of CENO Browser, please see https://github.com/censorship-no/ceno-browser for the current stable release of CENO Browser.  
+[![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/master/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/master)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/censorship-no/ceno-browser)](https://github.com/censorship-no/ceno-browser/releases/latest)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![Weblate](https://hosted.weblate.org/widgets/censorship-no/-/android-strings/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/android-strings/)
 
-A next-generation CENO Browser built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefox-android/blob/main/android-components/README.md).
+CENO (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. CENO can be used to bypass Internet censorship and help others retrieve blocked pages.
 
-It includes the Mozilla Web Platform via GeckoView and a Ouinet Client for sharing web content peer-to-peer.
+Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefox-android/blob/main/android-components/README.md), it includes the Mozilla Web Platform via GeckoView and a [Ouinet](https://ouinet.work) Client for sharing web content peer-to-peer.
+
+## ▶️ Access
+
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+      alt="Get it on Play Store"
+      height="80">](https://play.google.com/store/apps/details?id=ie.equalit.ceno)
+[<img src="https://github.com/censorship-no/ceno-browser/blob/master/paskoocheh_badge.png"
+      alt="Get it on Paskoocheh" height="80">](https://paskoocheh.com/tools/124/android.html?utm_source=UpdatePage)
 
 ## 🚀 Features
 
@@ -21,10 +32,10 @@ By routing user traffic through peer-to-peer networks, CENO Browser incurs less 
 Fight censorship by becoming a bridge! Install and run CENO Browser to instantly join the network and expand the availability of blocked websites to those in censored countries.
 
 👐 **Free and open source.**  
-CENO Browser is powered by Ouinet, an open source library enabling third party developers to incorporate the CENO network into their apps for peer-to-peer connectivity.
+CENO Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the CENO network into their apps for peer-to-peer connectivity.
 
 ## 👪 Contributing!
-Interested in contributing to the project? Great! For starters, make sure to review and agree to the terms of our [Code of Conduct](CODE_OF_CONDUCT.md)
+Interested in contributing to the project? Great! For starters, make sure to review and agree to the terms of our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 Here are some ways to help CENO Browser improve:
 * Test the app with different devices
@@ -36,7 +47,7 @@ Here are some ways to help CENO Browser improve:
 ### ➿ Translations
 Translation support is needed for:
 * [Android strings](https://hosted.weblate.org/projects/censorship-no/android-strings/)
-* the [CENO web extension](https://gitlab.com/censorship-no/ceno-ext-settings/)
+* The [CENO web extension](https://gitlab.com/censorship-no/ceno-ext-settings/)
 * The [user manual](https://github.com/censorship-no/ceno-docs/)
 * The [website](https://censorship.no)
 
@@ -102,6 +113,10 @@ ABCDEFG...\
 An example configuration can be copied from `local.properties.sample`, but this is essentially empty and will not allow you to connect to the production CENO network.
 
 Those values will be loaded by Gradle during the build process in **app/build.gradle**:
+
+# Accessibility
+
+If your code has user-facing changes, follow [Android accessibility best practices](https://github.com/mozilla-mobile/shared-docs/blob/main/android/accessibility_guide.md).
 
 # License
 
