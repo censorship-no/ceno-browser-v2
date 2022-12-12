@@ -41,7 +41,7 @@ Interested in contributing to the project? Great! For starters, make sure to rev
 Here are some ways to help CENO Browser improve:
 * Test the app with different devices
 * Report issues in the [issue tracker](https://gitlab.com/censorship-no/ceno-browser-v2/issues)
-* Create a [Pull Request](https://opensource.guide/how-to-contribute/#opening-a-pull-request)
+* Create a [Merge Request](https://docs.gitlab.com/ee/user/project/merge_requests/getting_started.html)
 * Help increasing the test coverage by contributing unit tests
 * Translate the app on [Weblate](https://hosted.weblate.org/projects/censorship-no/)
 
