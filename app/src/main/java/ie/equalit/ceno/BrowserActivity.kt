@@ -99,7 +99,14 @@ open class BrowserActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
-            if (Settings.isOnboardingComplete(this)) {
+            PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+            if (Settings.shouldShowOnboarding(this)) {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
+                    commit()
+                }
+            }
+            else {
                 if (components.core.store.state.selectedTab?.content?.url == CenoHomeFragment.ABOUT_HOME) {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
@@ -111,13 +118,6 @@ open class BrowserActivity : AppCompatActivity() {
                         replace(R.id.container, createBrowserFragment(sessionId), BrowserFragment.TAG)
                         commit()
                     }
-                }
-            }
-            else {
-                PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-                supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
-                    commit()
                 }
             }
         }

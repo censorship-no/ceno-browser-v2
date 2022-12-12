@@ -45,6 +45,11 @@
         android:defaultValue="true"
         android:title="@string/preferences_toolbar_hide"/>
 
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_show_onboarding"
+        android:defaultValue="true"
+        android:title="@string/preferences_show_onboarding"/>
+
     <PreferenceCategory
         android:title="@string/developer_tools_category">
 

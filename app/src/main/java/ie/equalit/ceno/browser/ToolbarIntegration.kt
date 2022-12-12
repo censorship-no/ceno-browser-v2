@@ -126,40 +126,10 @@ class ToolbarIntegration(
         return RowMenuCandidate(rowMenuItems)
     }
 
-    private fun sessionMenuItems(sessionState: SessionState): List<MenuCandidate> {
-
-        val sessionItems: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
-        sessionItems += menuToolbar(sessionState)
-
-        sessionItems += listOf(TextMenuCandidate(context.getString(R.string.browser_menu_share)) {
-            val url = sessionState.content.url
-            context.share(url)
-        },
-
-            CompoundMenuCandidate(
-                text = context.getString(R.string.browser_menu_desktop_site),
-                isChecked = sessionState.content.desktopMode,
-                end = CompoundMenuCandidate.ButtonType.SWITCH
-            ) { checked ->
-                sessionUseCases.requestDesktopSite.invoke(checked)
-            })
-
-        if (webAppUseCases.isPinningSupported()) {
-            sessionItems += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_add_to_homescreen),
-                containerStyle = ContainerStyle(
-                    isVisible = webAppUseCases.isPinningSupported()
-                )
-            ) {
-                scope.launch { webAppUseCases.addToHomescreen() }
-            }
-        } else {
-            null
-        }
-
-        /* CENO: Add menu option for adding or removing a shortcut from the homepage */
-        if (isCurrentUrlPinned) {
-            sessionItems += TextMenuCandidate(
+    /* CENO: Add menu option for adding or removing a shortcut from the homepage */
+    private fun shortcutMenuItem(sessionState: SessionState): MenuCandidate {
+        return if (isCurrentUrlPinned) {
+            TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_remove_from_shortcuts),
             ) {
                 scope.launch {
@@ -176,7 +146,7 @@ class ToolbarIntegration(
             }
         }
         else {
-            sessionItems += TextMenuCandidate(
+            TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_add_to_shortcuts),
             ) {
                 scope.launch {
@@ -203,77 +173,80 @@ class ToolbarIntegration(
                 }
             }
         }
-        sessionItems += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_find_in_page)
-            ) {
-                FindInPageIntegration.launch?.invoke()
-            }
-
-        return sessionItems
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
-        val sessionMenuItems = if (sessionState != null) {
-            sessionMenuItems(sessionState)
-        } else {
-            emptyList()
+        val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
+        if (sessionState != null) {
+            menuItemsList += menuToolbar(sessionState)
+            menuItemsList += CompoundMenuCandidate(
+                text = context.getString(R.string.browser_menu_desktop_site),
+                isChecked = sessionState.content.desktopMode,
+                end = CompoundMenuCandidate.ButtonType.SWITCH
+            ) { checked ->
+                sessionUseCases.requestDesktopSite.invoke(checked)
+            }
         }
 
-        /* CENO: List of persistent menu items, will be joined with session/extension-dependent items */
-        val staticMenuItems = listOf(
-            TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
-                val intent = Intent(context, AddonsActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
-            },
-            /*
-            CENO: Synced tabs not-supported in CENO
-            TextMenuCandidate(text = "Synced Tabs") {
-                val intent = Intent(context, SyncedTabsActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
-            },
-            CENO: Don't show report issue in three-dot menu, maybe add to Settings page?
-            TextMenuCandidate(text = context.getString(R.string.browser_menu_report_issue)) {
-                tabsUseCases.addTab(
-                    url = "https://github.com/censorship-no/ceno-browser-v2/issues"
-                )
-            },
-            */
-
-            TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-                /* CENO: Switch to SettingsFragment instead of starting a new activity */
-                activity.supportFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
-                    addToBackStack(null)
-                    commit()
-                }
+        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
+            /* CENO: Switch to SettingsFragment instead of starting a new activity */
+            activity.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
+                addToBackStack(null)
+                commit()
             }
-        )
+        }
 
-        /* CENO: Only add CENO menu items to list if their browserActions are not null */
-        val cenoMenuItems : MutableList<MenuCandidate>  = emptyList<MenuCandidate>().toMutableList()
+        /* CENO: Only add extension menu items to list if their browserActions are not null */
         cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)?.let{
-            cenoMenuItems += TextMenuCandidate(
+            menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_ceno_ext),
                 onClick = it
             )
         }
 
+        if (sessionState != null) {
+            if (webAppUseCases.isPinningSupported()) {
+                menuItemsList += TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_add_to_homescreen),
+                    containerStyle = ContainerStyle(
+                        isVisible = webAppUseCases.isPinningSupported()
+                    )
+                ) {
+                    scope.launch { webAppUseCases.addToHomescreen() }
+                }
+            }
+            menuItemsList += shortcutMenuItem(sessionState)
+
+            menuItemsList += TextMenuCandidate(
+                text = context.getString(R.string.browser_menu_find_in_page)
+            ) {
+                FindInPageIntegration.launch?.invoke()
+            }
+        }
+
+        /* CENO: Only add extension menu items to list if their browserActions are not null */
         cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
-            cenoMenuItems += TextMenuCandidate(
+            menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_https_by_default),
                 onClick = it
             )
         }
 
         cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
-            cenoMenuItems += TextMenuCandidate(
+            menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_ublock_origin),
                 onClick = it
             )
         }
-        return sessionMenuItems + staticMenuItems + cenoMenuItems
+
+        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
+            val intent = Intent(context, AddonsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        return menuItemsList //sessionMenuItems + staticMenuItems + cenoMenuItems
     }
 
     private val menuController: MenuController = BrowserMenuController()

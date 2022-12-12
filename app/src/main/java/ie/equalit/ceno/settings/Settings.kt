@@ -9,9 +9,9 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 
 object Settings {
-    fun isOnboardingComplete(context: Context): Boolean =
+    fun shouldShowOnboarding(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_onboarding_complete), false
+            context.getString(R.string.pref_key_show_onboarding), false
         )
     fun isMobileDataEnabled(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
@@ -36,8 +36,8 @@ object Settings {
             ""
         ) ?: ""
 
-    fun setOnboardingComplete(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_onboarding_complete)
+    fun setShowOnboarding(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_onboarding)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putBoolean(key, value)
