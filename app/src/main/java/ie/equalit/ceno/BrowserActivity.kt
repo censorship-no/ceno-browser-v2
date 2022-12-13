@@ -10,6 +10,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -38,7 +39,6 @@ import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
 import ie.equalit.ceno.components.ceno.OuinetService
-import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
@@ -95,7 +95,11 @@ open class BrowserActivity : AppCompatActivity() {
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
 
-        val permissionHandler = PermissionHandler(this)
+        /* CENO: Set default behavior for AppBar */
+        supportActionBar!!.apply {
+            hide()
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         if (savedInstanceState == null) {
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
@@ -145,6 +149,14 @@ open class BrowserActivity : AppCompatActivity() {
          * try sending an intent to restart the service
          */
         OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            onBackPressed()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

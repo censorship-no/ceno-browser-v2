@@ -30,7 +30,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppThemeNotActionBar"
+        android:theme="@style/AppTheme"
         android:name="ie.equalit.ceno.BrowserApplication"
         tools:ignore="UnusedAttribute">
 

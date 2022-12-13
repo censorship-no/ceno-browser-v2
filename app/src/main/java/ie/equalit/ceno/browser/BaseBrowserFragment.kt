@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.CallSuper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -110,6 +111,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     ): View {
         _binding = FragmentBrowserBinding.inflate(inflater, container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
 

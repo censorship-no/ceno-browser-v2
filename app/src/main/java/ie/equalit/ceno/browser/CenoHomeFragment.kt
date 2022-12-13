@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -126,6 +127,7 @@ class CenoHomeFragment : BaseBrowserFragment() {
         }
 
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
 
         return binding.root
     }
