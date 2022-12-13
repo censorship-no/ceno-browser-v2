@@ -22,13 +22,9 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.pref_key_about_page
+import ie.equalit.ceno.R.string.*
 //import ie.equalit.ceno.R.string.pref_key_firefox_account
-import ie.equalit.ceno.R.string.pref_key_make_default_browser
-import ie.equalit.ceno.R.string.pref_key_override_amo_collection
 //import ie.equalit.ceno.R.string.pref_key_pair_sign_in
-import ie.equalit.ceno.R.string.pref_key_privacy
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
 //import ie.equalit.ceno.R.string.pref_key_sign_in
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.PermissionHandler
@@ -77,8 +73,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
-        val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
+        //val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
         val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
+        val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
 
         /*
         val preferenceSignIn = findPreference<Preference>(signInKey)
@@ -91,8 +88,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
-        val preferenceMobileData = findPreference<Preference>(mobileDataKey)
+        //val preferenceMobileData = findPreference<Preference>(mobileDataKey)
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
+        val preferenceCustomization = findPreference<Preference>(customizationKey)
 
         /*
         val accountManager = requireComponents.backgroundServices.accountManager
@@ -122,7 +120,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
-        preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
+        //preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
+        preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
                 preferenceDisableBatteryOpt?.isVisible = false
         }
@@ -188,6 +187,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .addToBackStack(null)
                 .commit()
             getActionBar().setTitle(R.string.privacy_settings)
+            true
+        }
+    }
+
+    private fun getClickListenerForCustomization(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, CustomizationSettingsFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBar().setTitle(R.string.customization_settings)
             true
         }
     }
@@ -264,6 +274,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    /*
     private fun getChangeListenerForMobileData(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
             if (newValue == true) {
@@ -276,6 +287,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+     */
 
     private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
         return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {

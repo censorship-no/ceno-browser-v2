@@ -16,14 +16,14 @@
     <!-- Preference summary for settings related to send telemetry data -->
     <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
 
-    <string name="preferences_autofill" translatable="false">Autofill apps</string>
-    <string name="preferences_autofill_summary" translatable="false">Autofill logins and passwords in other apps</string>
+    <string name="preferences_autofill">Autofill apps</string>
+    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
 
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
 
     <!-- Preference for enabling tracking protection in normal mode -->
-    <string name="preferences_tracking_protection_normal" translatable="false">Enable in Normal Browsing Mode</string>
+    <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
 
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Enable in Private Browsing Mode</string>
@@ -32,7 +32,10 @@
     <string name="privacy">Privacy</string>
 
     <!-- Preference summary for privacy -->
-    <string name="preferences_privacy_summary" translatable="false">Tracking, cookies, data choices</string>
+    <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
+
+    <!-- Preference summary for customizaton -->
+    <string name="preferences_customization_summary">Toolbar settings</string>
 
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>
@@ -47,6 +50,9 @@
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">Tracking Protection</string>
 
+    <!-- Preference category for tracking protection -->
+    <string name="toolbar_category">Toolbar</string>
+
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Data Choices</string> -->
 
@@ -56,6 +62,9 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <string name="privacy_settings">Privacy Settings</string>
 
+    <!-- Menu option on the toolbar that takes you to privacy settings page-->
+    <string name="customization_settings">Customization</string>
+
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
 
@@ -64,8 +73,8 @@
 
     <!-- <string name="default_notification_channel">Browser</string> -->
 
-    <string name="menu_share_with" translatable="false">Share with…</string>
-    <string name="toast_copied" translatable="false">Copied!</string>
+    <string name="menu_share_with">Share with…</string>
+    <string name="toast_copied">Copied!</string>
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->

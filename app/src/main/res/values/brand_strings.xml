@@ -15,7 +15,7 @@
     <string name="vendor_category" translatable="false">&vendorShortName;</string>
 
     <!-- About content -->
-    <string name="about_content" translatable="false"><![CDATA[
+    <string name="about_content"><![CDATA[
 <p>%1$s puts you in control.</p>
 <p>Use it as a reference to:
     <br>&bull; Learn how to build your own browser.
@@ -50,9 +50,9 @@
 
     <!--
     <string name="preferences_mobile_data" translatable="false">Do not show mobile data warning</string>
-    -->
     <string name="preferences_mobile_data_warning_disabled" translatable="false">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled" translatable="false">Mobile data warning enabled</string>
+    -->
 
     <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">&brandShortName; Browser notice</string>
@@ -62,18 +62,18 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
 
     <!-- "Purge button" dialog-->
-    <string name="ceno_purge_dialog_purge_entire_app" translatable="false">Clear &brandShortName; cache and app data</string>
-    <string name="ceno_purge_dialog_cancel" translatable="false">Cancel</string>
-    <string name="ceno_purge_dialog_purge_cache_only" translatable="false">Clear &brandShortName; cache only</string>
-    <string name="ceno_purge_dialog_title" translatable="false">Purge &brandShortName;</string>
-    <string name="ceno_purge_dialog_description" translatable="false">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
-    <string name="ceno_purge_action_description" translatable="false">Purge</string>
+    <string name="ceno_purge_dialog_purge_entire_app">Clear &brandShortName; cache and app data</string>
+    <string name="ceno_purge_dialog_cancel">Cancel</string>
+    <string name="ceno_purge_dialog_purge_cache_only">Clear &brandShortName; cache only</string>
+    <string name="ceno_purge_dialog_title">Clear &brandShortName;</string>
+    <string name="ceno_purge_dialog_description">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
+    <string name="ceno_purge_action_description">Clear</string>
 
     <!-- Menu options -->
     <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
-    <string name="browser_menu_ceno_ext" translatable="false">&brandShortName; Settings</string>
+    <string name="browser_menu_ceno_ext">&brandShortName; Settings</string>
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; Manual</string>
@@ -88,31 +88,33 @@
     <string name="default_top_site_5_url">@string/suggestedsites_bbc_en_url</string>
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
 
-    <string name="onboarding_fragment" translatable="false">Welcome to &brandShortName;</string>
-    <string name="onboarding_button" translatable="false">Get Started</string>
-    <string name="onboarding_skip_button" translatable="false">Skip</string>
+    <string name="onboarding_fragment">Welcome to &brandShortName;</string>
+    <string name="onboarding_button">Get Started</string>
+    <string name="onboarding_skip_button">Skip</string>
 
-    <string name="onboarding_info_title" translatable="false">Not your average browser</string>
-    <string name="onboarding_info_text" translatable="false">&brandShortName; uses peer-to-peer technology to share web content that can be accessed by other &brandShortName; users</string>
-    <string name="onboarding_info_button" translatable="false">Cool!</string>
+    <string name="onboarding_info_title">Not your average browser</string>
+    <string name="onboarding_info_text">&brandShortName; uses peer-to-peer technology to share web content that can be accessed by other &brandShortName; users</string>
+    <string name="onboarding_info_button">Cool!</string>
 
-    <string name="onboarding_battery_title" translatable="false">Permission needed</string>
-    <string name="onboarding_battery_text" translatable="false">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
-    <string name="onboarding_battery_button" translatable="false">Continue</string>
+    <string name="onboarding_battery_title">Permission needed</string>
+    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_button">Continue</string>
 
-    <string name="onboarding_warning_title" translatable="false">Permission denied</string>
-    <string name="onboarding_warning_text" translatable="false">Battery optimization is still enabled.\n\nGo to \"General Settings > Disable Battery Optimization\" to give permission later</string>
-    <string name="onboarding_warning_button" translatable="false">Okay</string>
+    <string name="onboarding_warning_title">Permission denied</string>
+    <string name="onboarding_warning_text">Battery optimization is still enabled.\n\nGo to \"General Settings > Disable Battery Optimization\" to give permission later</string>
+    <string name="onboarding_warning_button">Okay</string>
 
-    <string name="onboarding_thanks_title" translatable="false">Thanks for growing the network!</string>
-    <string name="onboarding_thanks_text" translatable="false">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
-    <string name="onboarding_thanks_button" translatable="false">Let\s go!</string>
+    <string name="onboarding_thanks_title">Thanks for growing the network!</string>
+    <string name="onboarding_thanks_text">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
+    <string name="onboarding_thanks_button">Let\s go!</string>
 
-    <string name="preferences_toolbar_position" translatable="false">Place toolbar at top of screen</string>
-    <string name="preferences_toolbar_hide" translatable="false">Scroll to hide toolbar</string>
+    <string name="preferences_toolbar_position">Place toolbar at top of screen</string>
+    <string name="preferences_toolbar_hide">Scroll to hide toolbar</string>
 
-    <string name="preferences_show_onboarding" translatable="false">Show onboarding on next launch</string>
-    <string name="preferences_disable_battery_opt" translatable="false">Disable Battery Optimization</string>
+    <string name="preferences_show_onboarding">Show onboarding on next launch</string>
+    <string name="preferences_disable_battery_opt">Disable Battery Optimization</string>
+
+    <string name="preferences_customization">Customization</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
