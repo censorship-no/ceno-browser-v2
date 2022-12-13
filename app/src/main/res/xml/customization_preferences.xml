@@ -1,0 +1,37 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/toolbar_category">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="@string/pref_key_toolbar_position"
+            android:defaultValue="false"
+            android:title="@string/preferences_toolbar_position"/>
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="@string/pref_key_toolbar_hide"
+            android:defaultValue="true"
+            android:title="@string/preferences_toolbar_hide"/>
+
+    </PreferenceCategory>
+
+    <!-- CENO: Telemetry is disabled by default and not possible to enable
+    <PreferenceCategory
+        android:title="@string/data_choices_category">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:title="@string/use_telemetry"
+            android:key="@string/pref_key_telemetry"
+            android:summary="@string/preferences_use_telemetry_summary"/>
+
+    </PreferenceCategory>
+    -->
+
+
+</androidx.preference.PreferenceScreen>

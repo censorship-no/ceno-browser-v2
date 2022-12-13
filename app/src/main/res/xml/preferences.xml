@@ -10,6 +10,12 @@
         android:title="@string/privacy"
         android:summary="@string/preferences_privacy_summary"/>
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_customization"
+        android:title="@string/preferences_customization"
+        android:summary="@string/preferences_customization_summary"
+        />
+
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_launch_external_app"
         android:defaultValue="false"
@@ -34,16 +40,6 @@
     <androidx.preference.Preference
         android:key="@string/pref_key_disable_battery_opt"
         android:title="@string/preferences_disable_battery_opt" />
-
-    <androidx.preference.SwitchPreferenceCompat
-        android:key="@string/pref_key_toolbar_position"
-        android:defaultValue="false"
-        android:title="@string/preferences_toolbar_position"/>
-
-    <androidx.preference.SwitchPreferenceCompat
-        android:key="@string/pref_key_toolbar_hide"
-        android:defaultValue="true"
-        android:title="@string/preferences_toolbar_hide"/>
 
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_onboarding"
