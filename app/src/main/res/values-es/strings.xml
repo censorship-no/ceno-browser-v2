@@ -96,7 +96,7 @@
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Configuración general</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Sitio de escritorio</string>
+    <string name="browser_menu_desktop_site">Solicitar el sitio de escritorio</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Agregar a la pantalla de inicio</string>
     <!-- Browser menu button that opens the find in page menu -->
@@ -112,4 +112,5 @@
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Opinión del lector</string>
     <string name="crash_report_non_fatal_action">Reporte</string>
+    <string name="privacy_settings">Ajustes de privacidad</string>
 </resources>
