@@ -54,7 +54,7 @@
     <string name="settings">Settings</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">Privacy Settings</string> -->
+    <string name="privacy_settings">Privacy Settings</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>

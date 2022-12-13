@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -57,11 +58,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onResume()
 
         setupPreferences()
-        /*
-        getActionBarUpdater().apply {
-            updateTitle(R.string.settings)
+        getActionBar().apply{
+            show()
+            setTitle(R.string.settings)
         }
-         */
     }
 
     @Suppress("LongMethod") // Yep, this should be refactored.
@@ -187,11 +187,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .replace(R.id.container, PrivacySettingsFragment())
                 .addToBackStack(null)
                 .commit()
-            /*
-            getActionBarUpdater().apply {
-                updateTitle(R.string.privacy_settings)
-            }
-             */
+            getActionBar().setTitle(R.string.privacy_settings)
             true
         }
     }
@@ -214,7 +210,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     /* TODO: ActionBarUpdater broken because no longer using SettingsActivity, find workaround */
-    //private fun getActionBarUpdater() = activity as ActionBarUpdater
+    private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
         return OnPreferenceClickListener {

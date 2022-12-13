@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -30,6 +31,7 @@ class OnboardingFragment : Fragment() {
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container,false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
 
