@@ -21,6 +21,9 @@
     <string name="pref_key_show_onboarding" translatable="false">pref_key_show_onboarding</string>
     <string name="pref_key_disable_battery_opt" translatable="false">pref_key_disable_battery_opt</string>
     <string name="pref_key_customization" translatable="false">pref_key_customization</string>
+    <string name="pref_key_clear_in_toolbar" translatable="false">pref_key_clear_in_toolbar</string>
+    <string name="pref_key_clear_in_menu" translatable="false">pref_key_clear_in_menu</string>
+    <string name="pref_key_clear_behavior" translatable="false">pref_key_clear_behavior</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

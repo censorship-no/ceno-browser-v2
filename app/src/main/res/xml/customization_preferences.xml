@@ -20,18 +20,27 @@
 
     </PreferenceCategory>
 
-    <!-- CENO: Telemetry is disabled by default and not possible to enable
     <PreferenceCategory
-        android:title="@string/data_choices_category">
+        android:title="@string/clear_button_category">
 
         <androidx.preference.SwitchPreferenceCompat
+            android:key="@string/pref_key_clear_in_toolbar"
             android:defaultValue="true"
-            android:title="@string/use_telemetry"
-            android:key="@string/pref_key_telemetry"
-            android:summary="@string/preferences_use_telemetry_summary"/>
+            android:title="@string/preferences_clear_in_toolbar"/>
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="@string/pref_key_clear_in_menu"
+            android:defaultValue="true"
+            android:title="@string/preferences_clear_in_menu"/>
+
+        <ListPreference
+            android:key="@string/pref_key_clear_behavior"
+            android:title="@string/preferences_clear_behavior"
+            android:summary="@string/preferences_clear_behavior_summary"
+            android:defaultValue="@string/preferences_clear_behavior_default"
+            android:entryValues="@array/preferences_clear_behavior_values"
+            android:entries="@array/preferences_clear_behavior_options"/>
 
     </PreferenceCategory>
-    -->
-
 
 </androidx.preference.PreferenceScreen>

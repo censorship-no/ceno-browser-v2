@@ -4,19 +4,12 @@
 
 package ie.equalit.ceno.browser
 
-import android.annotation.SuppressLint
-import android.app.ActivityManager
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Process
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -48,8 +41,8 @@ import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.OuinetBroadcastReceiver
-import ie.equalit.ceno.components.ceno.PurgeToolbarAction
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
+import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.enableDynamicBehavior
@@ -58,7 +51,6 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.tabs.TabsTrayFragment
-import mozilla.components.concept.fetch.Request
 import java.lang.Exception
 
 /**
@@ -308,12 +300,21 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
 
         /* CENO: Add purge button to toolbar */
-        val purgeDialog: AlertDialog = createPurgeDialog()
-        binding.toolbar.addBrowserAction(
-            PurgeToolbarAction(
-                listener = { purgeDialog.show() }
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+            val clearButtonFeature = ClearButtonFeature(
+                requireContext(),
+                prefs.getString(
+                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                    .toInt()
             )
-        )
+            binding.toolbar.addBrowserAction(
+                ClearToolbarAction(
+                    listener = {
+                        clearButtonFeature.onClick()
+                    }
+                )
+            )
+        }
 
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
@@ -432,70 +433,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
         else {
             showBrowser()
-        }
-    }
-
-    /* CENO: Function to create popup opened by purge toolbar button */
-    private fun createPurgeDialog() : AlertDialog {
-        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
-            when (which) {
-                DialogInterface.BUTTON_POSITIVE -> {
-                    Logger.debug("Clear CENO cache and app data selected")
-                    /* TODO: Using Toast right before killing the process is bad form, use a different indication */
-                    //Toast.makeText(context, "Application data cleared", Toast.LENGTH_SHORT).show()
-                    OuinetBroadcastReceiver.stopService(requireContext(), doPurge = true, doClose = true)
-                }
-                DialogInterface.BUTTON_NEUTRAL -> {
-                    Logger.debug("Dismissing purge dialog")
-                }
-                DialogInterface.BUTTON_NEGATIVE -> {
-                    Logger.debug("Clear CENO cache only selected")
-                    requireComponents.core.client.fetch(Request("http://127.0.0.1:8078/?purge_cache=do")).use {
-                        if (it.status == 200) {
-                            Toast.makeText(context, "Cache purged successfully", Toast.LENGTH_SHORT).show()
-                        }
-                        else {
-                            Toast.makeText(context, "Cache purge failed", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-        /* TODO: Add styling to purge dialog */
-        return AlertDialog.Builder(context) //, R.style.PurgeDialog)
-            .setTitle(R.string.ceno_purge_dialog_title)
-            .setMessage(R.string.ceno_purge_dialog_description)
-            .setPositiveButton(R.string.ceno_purge_dialog_purge_entire_app, dialogClickListener)
-            .setNeutralButton(R.string.ceno_purge_dialog_cancel, dialogClickListener)
-            .setNegativeButton(R.string.ceno_purge_dialog_purge_cache_only, dialogClickListener)
-            .create()
-    }
-
-    /* TODO: same code is used by OuinetBroadcastReceiver, should generalize to shared code */
-    private fun killPackageProcesses(context: Context) {
-        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            ?: return
-        val processes = am.runningAppProcesses ?: return
-        val myPid: Int = Process.myPid()
-        val thisPkg = context.packageName
-        for (process in processes) {
-            if (process.pid == myPid || process.pkgList == null) {
-                // Current process will be killed last
-                continue
-            }
-            /* CENO pre-v2 (i.e. java) handled killing the processes like so */
-            /*
-            val pkgs: MutableList<Array<String>> = Arrays.asList(process.pkgList)
-            if (pkgs.contains(arrayOf(thisPkg))) {
-                Log.i(TAG, "Killing process: " + process.processName + " (" + process.pid + ")")
-                Process.killProcess(process.pid)
-            }
-            */
-            /* Was not able to easily port to kotlin, so using the method below */
-            if (process.processName.contains(thisPkg)){
-                //Log.i(OuinetBroadcastReceiver.TAG, "Killing process: " + process.processName + " (" + process.pid + ")")
-                Process.killProcess(process.pid)
-            }
         }
     }
 
