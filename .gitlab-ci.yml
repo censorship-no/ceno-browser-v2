@@ -58,6 +58,10 @@ before_script:
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
+  # Create local.properties and output directory
+  - cp local.properties.sample local.properties
+  - mkdir -p ./output
+
 # Basic android and gradle stuff
 # Check linting
 lintDebug:
@@ -71,10 +75,11 @@ assembleDebug:
   interruptible: true
   stage: build
   script:
-    - ./gradlew assembleDebug
+    - ./build.sh -a arm64-v8a -a armeabi-v7a
+    - cp -r *.apk output/.
   artifacts:
     paths:
-      - app/build/outputs/
+      - output/
 
 # Run all tests, if any fails, interrupt the pipeline(fail it)
 debugTests:
