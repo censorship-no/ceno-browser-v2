@@ -14,7 +14,7 @@
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
     <!-- Preference enabling remote debugging -->
-    <string name="preferences_remote_debugging">Віддалене зневадження через USB</string>
+    <string name="preferences_remote_debugging">Віддалене знаходження та усунення дефектів через USB</string>
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
@@ -24,7 +24,7 @@
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
     <!-- Preference for open links in apps -->
-    <string name="open_links_in_apps">Відкривати посилання у програмах</string>
+    <string name="open_links_in_apps">Відкривати посилання у застосунках</string>
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Інструменти розробника</string>
     <!-- Preference category for tracking protection -->
@@ -41,7 +41,7 @@
     <string name="private_browsing_title">Приватний перегляд</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Власна збірка додатків</string>
+    <string name="preferences_customize_amo_collection">Власна підбірка застосунків</string>
     <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">Гаразд</string>
     <!-- Button caption to abort the add-on collection configuration -->
@@ -51,7 +51,7 @@
     <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Власник збірки (ID користувача)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
-    <string name="toast_customize_addon_collection_done">Збірку додатків змінено. Вихід з програми для застосування змін…</string>
+    <string name="toast_customize_addon_collection_done">Збірку застосунків змінено. Вихід з застосунку для застосування змін…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Увімкнути приватний перегляд</string>
@@ -95,7 +95,7 @@
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Налаштування</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Версія для комп’ютера</string>
+    <string name="browser_menu_desktop_site">Запит на версію на десктопі</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Додати на головний екран</string>
     <!-- Browser menu button that opens the find in page menu -->
@@ -108,5 +108,15 @@
     <string name="browser_menu_remove_from_shortcuts">Вилучити з ярликів</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">В режимі перегляду</string>
+    <string name="toolbar_category">Панель інструментів</string>
+    <string name="customization_settings">Персоналізація</string>
+    <string name="menu_share_with">Поділитися з…</string>
+    <string name="toast_copied">Скопійовано!</string>
+    <string name="preferences_customization_summary">Налаштування панелі інструментів</string>
+    <string name="privacy_settings">Налаштування приватності</string>
+    <string name="preferences_autofill">Автозаповнення застосунків</string>
+    <string name="preferences_autofill_summary">Автозаповнення логінів і паролів в інших застосунках</string>
+    <string name="preferences_tracking_protection_normal">Увімкнути в звичайному режимі перегляду</string>
+    <string name="preferences_privacy_summary">Відстеження, файли cookie, вибір даних</string>
 </resources>
