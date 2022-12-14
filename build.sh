@@ -20,7 +20,6 @@ BUILD_RELEASE=false
 BUILD_DEBUG=false
 USE_LOCAL_GECKOVIEW=false
 VARIANT=
-BUILD_DATE=
 
 ABIS=()
 VERSION_NUMBER=
@@ -50,18 +49,16 @@ JAVA_BRAND_DIR="${APP_BRAND_DIR}/src/main/java"
 RES_BRAND_DIR="${APP_BRAND_DIR}/src/main/res"
 
 function usage {
-    echo "build.sh -- Builds CENO v2 APKs and (optionally) builds ouinet and geckoview dependencies"
+    echo "build.sh -- Builds APKs for CENO Browser"
     echo "Usage: build.sh [OPTION]..."
     echo "  -c                            Remove build files (keep downloaded dependencies)"
     echo "  -r                            Build a release build. Requires -v, -k, and -p."
     echo "  -d                            Build a debug build. Will optionally apply -x and -v. This is the default."
-    echo "  -o                            Build ouinet from sources and pass the resulting AAR to build-fennec."
     echo "  -a <abi>                      Build for android ABI <abi>. Can be specified multiple times."
     echo "                                Supported ABIs are [${SUPPORTED_ABIS[@]}]."
     echo "                                Default for debug builds is ${DEFAULT_ABI}."
     echo "                                Default for release builds is all supported ABIs."
-    echo "  -g                            Build local copy of geckoview AAR and use in build of CENO"
-    echo "  -l                            Use local build of geckoview AAR in CENO build, but do not rebuild geckoview"
+    echo "  -l                            Use local build of geckoview AAR in CENO build"
     echo "  -v <version-number>           The version number to use on the APK."
     echo "  -k <keystore-file>            The keystore to use for signing the release APK."
     echo "                                Must contain the signing key aliased as '${RELEASE_KEYSTORE_KEY_ALIAS}'."
@@ -123,10 +120,7 @@ while getopts crdoa:glx:v:k:p:b: option; do
 done
 
 if $CLEAN; then
-    rm .build_date || true
     rm *.apk || true
-    rm *.aar || true
-    rm -rf ouinet-*-{debug,release}/build-android-*-{debug,release} || true
     exit
 fi
 
@@ -175,16 +169,6 @@ function check_variant {
             VARIANT=release
         fi
     done
-}
-
-function get_set_build_date {
-    BUILD_DATE_COOKIE=${BUILD_DIR}/".build_date"
-    if [ -e "${BUILD_DATE_COOKIE}" ]; then
-        BUILD_DATE=$(cat ${BUILD_DATE_COOKIE})
-    else
-        BUILD_DATE=$(date +%Y%m%d%H%M%S)
-        echo $BUILD_DATE > $BUILD_DATE_COOKIE
-    fi
 }
 
 function get_set_abis {
@@ -352,7 +336,6 @@ function build_apk_for {
 }
 
 check_variant
-get_set_build_date
 get_set_abis
 get_set_branding
 maybe_clone_fx_android
