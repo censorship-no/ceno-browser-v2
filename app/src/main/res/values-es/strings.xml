@@ -113,4 +113,13 @@
     <string name="button_content_readerview">Opinión del lector</string>
     <string name="crash_report_non_fatal_action">Reporte</string>
     <string name="privacy_settings">Ajustes de privacidad</string>
+    <string name="toast_copied">¡Copiado!</string>
+    <string name="preferences_customization_summary">Configuración de la barra de herramientas</string>
+    <string name="toolbar_category">Barra de herramientas</string>
+    <string name="customization_settings">Personalización</string>
+    <string name="menu_share_with">Compartir con…</string>
+    <string name="preferences_autofill">Aplicaciones de autocompletar</string>
+    <string name="preferences_autofill_summary">Autocompletar inicios de sesión y contraseñas en otras aplicaciones</string>
+    <string name="preferences_tracking_protection_normal">Habilitar en modo de navegación normal</string>
+    <string name="preferences_privacy_summary">Rastreo, cookies, selección de datos</string>
 </resources>
