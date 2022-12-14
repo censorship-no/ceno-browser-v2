@@ -93,9 +93,9 @@
     <!-- Browser menu button that opens the addon manager -->
     <string name="browser_menu_add_ons">Дополнения</string>
     <!-- Browser menu button that opens the settings menu -->
-    <string name="browser_menu_settings">Настройки</string>
+    <string name="browser_menu_settings">Общие настройки</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Вид для ПК</string>
+    <string name="browser_menu_desktop_site">Запросить версию для ПК</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">На домашний экран</string>
     <!-- Browser menu button that opens the find in page menu -->
@@ -110,4 +110,14 @@
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Восприятие читателя</string>
     <string name="crash_report_non_fatal_action">Отчет</string>
+    <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
+    <string name="menu_share_with">Поделиться с …</string>
+    <string name="toast_copied">Скопировано!</string>
+    <string name="preferences_customization_summary">Параметры панели инструментов</string>
+    <string name="privacy_settings">Параметры конфиденциальности</string>
+    <string name="customization_settings">Индивидуальная настройка</string>
+    <string name="toolbar_category">Панель инструментов</string>
+    <string name="preferences_autofill_summary">Автозаполнение логинов и паролей в других приложениях</string>
+    <string name="preferences_autofill">Автозаполнение приложений</string>
+    <string name="preferences_privacy_summary">Отслеживание, файлы cookie, выбор данных</string>
 </resources>
