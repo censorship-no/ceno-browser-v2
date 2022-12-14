@@ -124,7 +124,9 @@
     <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
     <!-- Browser menu button that open a share menu to share the current site -->
+    <!--
     <string name="browser_menu_share">اشتراک‌گذاری</string>
+    -->
     <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
