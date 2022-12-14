@@ -115,6 +115,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
+        /* If all tabs were removed (e.g. browsing data was cleared),
+         * auto-create new home tab
+         */
+        if (requireComponents.core.store.state.tabs.isEmpty()) {
+            requireComponents.useCases.tabsUseCases.addTab(
+                url=CenoHomeFragment.ABOUT_HOME,
+                selectTab = true
+            )
+        }
+
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,

@@ -136,5 +136,6 @@
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
 
+
 </resources>
 
