@@ -94,7 +94,9 @@ See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in ac
 
 CENO Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
 
-However, GeckoView currently can also be configured via a dependency substitution to test changes to the library locally.
+If you are interested in building GeckoView locally, it is recommended that you use our [mozilla-build-scripts](https://gitlab.com/censorship-no/mozilla-build-scripts/) to publish the GeckoView AAR to your local maven repository and then add `mavenLocal()` to the repositories in `app/build.gradle`.
+
+However, GeckoView also be configured via a dependency substitution to test changes to the library locally.
 
 In a `local.properties` file in the root of the `CENO Browser` checkout, specify GeckoView's path via `dependencySubstitutions.geckoviewTopsrcdir=/path/to/mozilla-central` (and, optionally, `dependencySubstitutions.geckoviewTopobjdir=/path/to/topobjdir`). See [Bug 1533465](https://bugzilla.mozilla.org/show_bug.cgi?id=1533465).
 

@@ -102,7 +102,10 @@
     <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">Buscar en la página</string>
     <!-- Browser menu button that open a share menu to share the current site -->
+    <!--
     <string name="browser_menu_share">Compartir</string>
+    -->
+
     <!-- NOTE: strings below are from Fenix values-es-rES. Values in es-rAR and rMX are different -->
     <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Añadir a accesos directos</string>

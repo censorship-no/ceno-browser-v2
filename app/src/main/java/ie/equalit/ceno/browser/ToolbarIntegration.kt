@@ -9,6 +9,7 @@ import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -43,13 +44,14 @@ import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.addons.AddonsActivity
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
 /* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
 import ie.equalit.ceno.components.ceno.toolbar.ToolbarFeature
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.share
+import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.settings.SettingsFragment
 //import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
@@ -176,6 +178,7 @@ class ToolbarIntegration(
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         if (sessionState != null) {
             menuItemsList += menuToolbar(sessionState)
@@ -205,6 +208,21 @@ class ToolbarIntegration(
             )
         }
 
+        val clearButtonFeature = ClearButtonFeature(
+            context,
+            prefs.getString(
+                context.getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                .toInt()
+        )
+
+        if (prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_clear_in_menu), true)) {
+            menuItemsList += TextMenuCandidate(
+                text = context.getString(R.string.ceno_clear_dialog_title),
+                onClick = {
+                    clearButtonFeature.onClick()
+                }
+            )
+        }
         if (sessionState != null) {
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(

@@ -11,4 +11,10 @@
     <declare-styleable name="ToggleImageButton">
         <attr name="android:checked" />
     </declare-styleable>
+
+    <declare-styleable name="DeleteBrowsingDataItem">
+        <attr name="deleteBrowsingDataItemTitle" format="reference" />
+        <attr name="deleteBrowsingDataItemSubtitle" format="reference" />
+        <attr name="deleteBrowsingDataItemIcon" format="reference" />
+    </declare-styleable>
 </resources>

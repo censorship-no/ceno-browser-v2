@@ -30,6 +30,7 @@ import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import kotlin.system.exitProcess
 
 private typealias RBSettings = ie.equalit.ceno.settings.Settings
@@ -76,6 +77,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         //val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
         val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
+        val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
 
         /*
         val preferenceSignIn = findPreference<Preference>(signInKey)
@@ -91,6 +93,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         //val preferenceMobileData = findPreference<Preference>(mobileDataKey)
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
         val preferenceCustomization = findPreference<Preference>(customizationKey)
+        val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
 
         /*
         val accountManager = requireComponents.backgroundServices.accountManager
@@ -122,6 +125,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
         //preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
+        preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
                 preferenceDisableBatteryOpt?.isVisible = false
         }
@@ -198,6 +202,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .addToBackStack(null)
                 .commit()
             getActionBar().setTitle(R.string.customization_settings)
+            true
+        }
+    }
+
+    private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, DeleteBrowsingDataFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBar().setTitle(R.string.preferences_delete_browsing_data)
             true
         }
     }
