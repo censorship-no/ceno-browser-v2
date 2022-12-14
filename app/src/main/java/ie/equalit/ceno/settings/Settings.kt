@@ -71,4 +71,73 @@ object Settings {
     fun isAmoCollectionOverrideConfigured(context: Context): Boolean {
         return getOverrideAmoUser(context).isNotEmpty() && getOverrideAmoCollection(context).isNotEmpty()
     }
+
+    fun deleteOpenTabs(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_delete_open_tabs), false
+        )
+    }
+
+    fun deleteBrowsingHistory(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_delete_browsing_history), false
+        )
+    }
+
+    fun deleteCookies(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_delete_cookies_now), false
+        )
+    }
+
+    fun deleteCache(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_delete_cache_now), false
+        )
+    }
+
+    fun deleteSitePermissions(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_delete_site_permissions), false
+        )
+    }
+
+    fun setDeleteOpenTabs(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_delete_open_tabs)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setDeleteBrowsingHistory(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_delete_browsing_history)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setDeleteCookies(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_delete_cookies_now)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setDeleteCache(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_delete_cache_now)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+    fun setDeleteSitePermissions(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_delete_site_permissions)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
 }

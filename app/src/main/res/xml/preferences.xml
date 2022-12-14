@@ -30,6 +30,10 @@
         android:title="@string/preferences_autofill"
         android:summary="@string/preferences_autofill_summary" />
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_delete_browsing_data"
+        android:title="@string/preferences_delete_browsing_data"/>
+
     <!--
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_mobile_data"

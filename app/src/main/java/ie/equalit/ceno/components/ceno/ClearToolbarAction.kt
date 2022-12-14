@@ -17,14 +17,14 @@ import mozilla.components.support.ktx.android.view.setPadding
  * A [Toolbar.Action] implementation for CENO purge toolbar button.
  */
 @Suppress("LongParameterList")
-open class PurgeToolbarAction (
+open class ClearToolbarAction (
     internal val padding: Padding? = null,
     private val listener: () -> Unit,
 ) : Toolbar.Action {
 
     override fun createView(parent: ViewGroup): View {
         val rootView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.purge_toolbar_action, parent, false)
+            .inflate(R.layout.clear_toolbar_action, parent, false)
 
         rootView.setOnClickListener { listener.invoke() }
 
