@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
     <!-- Text shown in the toolbar if it is empty -->
-    <string name="toolbar_hint">Recherche ou adresse</string>
+    <string name="toolbar_hint">Rechercher ou saisir l\'adresse</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Nouvel onglet</string>
     <!-- Menu option on the toolbar to close all tabs-->
@@ -32,12 +31,10 @@
     <string name="tracker_category">Protection contre le pistage</string>
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Données collectées</string> -->
-
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Paramètres</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
-
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <!-- Navigation privée -->
@@ -98,7 +95,7 @@
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Paramètres</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Version ordinateur</string>
+    <string name="browser_menu_desktop_site">Demander une version ordinateur</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Ajouter à l’écran d’accueil</string>
     <!-- Browser menu button that opens the find in page menu -->
@@ -112,7 +109,8 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Supprimer des raccourcis</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
-
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">Vue lecteur</string>
+    <string name="crash_report_non_fatal_action">Rapport</string>
+    <string name="privacy_settings">Paramètres de confidentialité</string>
 </resources>
