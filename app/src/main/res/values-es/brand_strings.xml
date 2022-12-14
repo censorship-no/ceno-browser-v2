@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -79,4 +81,36 @@
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
     <string name="crash_report_non_fatal_message">Lo sentimos. Fallo interno</string>
+    <string name="onboarding_fragment">Bienvenido a &brandShortName;</string>
+    <string name="onboarding_battery_title">Permiso necesario</string>
+    <string name="onboarding_battery_text">En breve, el sistema operativo te pedirá permiso para desactivar la optimización de la batería.
+\n
+\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano</string>
+    <string name="onboarding_battery_button">Continuar</string>
+    <string name="onboarding_warning_text">La optimización de la batería sigue activada.
+\n
+\nVe a \"Ajustes generales &gt; Desactivar optimización de batería\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_button">De acuerdo</string>
+    <string name="ceno_purge_dialog_purge_entire_app">Borrar &brandShortName; caché y datos de la aplicación</string>
+    <string name="ceno_purge_dialog_title">Borrar &brandShortName;</string>
+    <string name="ceno_purge_dialog_cancel">Cancelar</string>
+    <string name="ceno_purge_action_description">Limpiar</string>
+    <string name="onboarding_button">Comenzar</string>
+    <string name="onboarding_thanks_button">¡Vamos!</string>
+    <string name="ceno_purge_dialog_purge_cache_only">Borrar &brandShortName; solo caché</string>
+    <string name="ceno_purge_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la aplicación restablecerá la &brandShortName; aplicación como si nunca se hubiera utilizado.</string>
+    <string name="onboarding_skip_button">Saltar</string>
+    <string name="onboarding_info_title">No es tu navegador más usado</string>
+    <string name="onboarding_info_button">¡Genial!</string>
+    <string name="onboarding_warning_title">Permiso denegado</string>
+    <string name="onboarding_thanks_title">¡Gracias por hacer crecer la red!</string>
+    <string name="preferences_toolbar_position">Colocar la barra de herramientas en la parte superior de la pantalla</string>
+    <string name="preferences_toolbar_hide">Desplazarse para ocultar la barra de herramientas</string>
+    <string name="preferences_show_onboarding">Mostrar la incorporación en el próximo lanzamiento</string>
+    <string name="preferences_disable_battery_opt">Desactivar la optimización de la batería</string>
+    <string name="preferences_customization">Personalización</string>
+    <string name="about_content">&lt;p&gt;%1$s te da el control.&lt;/p&gt; &lt;p&gt;Úsalo como referencia para: &lt;br&gt;&amp;bull; Aprende a construir tu propio navegador. &lt;br&gt;&amp;bull; Contribuya a facilitar la creación de navegadores. &lt;br&gt;&amp;bull; ¡Archive informes de errores! &lt;/p&gt; &lt;p&gt;%1$s es producido por eQualitie. Nuestra misión es .&lt;br/&gt;</string>
+    <string name="onboarding_info_text">&amp;marcaCortoNombre; utiliza tecnología peer-to-peer para compartir contenido web al que pueden acceder otros &amp;brandShortName; usuarios</string>
+    <string name="onboarding_thanks_text">Como usuario de &brandShortName;, estás ayudando a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
+    <string name="browser_menu_ceno_ext">&brandShortName; Ajustes</string>
 </resources>
