@@ -29,7 +29,7 @@ variables:
 # Packages installation before running script
 before_script:
   - apt-get --quiet update --yes
-  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git
 
   # Setup path as android_home for moving/exporting the downloaded sdk into it
   - export ANDROID_HOME="${PWD}/android-home"
@@ -57,6 +57,9 @@ before_script:
 
   # Not necessary, but just for surity
   - chmod +x ./gradlew
+
+  # Clone android-components, need to autoPublish them locally
+  - git clone https://github.com/censorship-no/firefox-android
 
   # Create local.properties and output directory
   - cp local.properties.sample local.properties
