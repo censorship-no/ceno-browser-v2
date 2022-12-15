@@ -44,10 +44,10 @@ before_script:
   - pushd $ANDROID_HOME
   - unzip cmdline-tools.zip
   - popd
-  - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
+  - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/bin/
 
   # Nothing fancy here, just checking sdkManager version
-  - sdkmanager --version
+  - sdkmanager --sdk_root=${ANDROID_HOME} --version
 
   # use yes to accept all licenses
   - yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
