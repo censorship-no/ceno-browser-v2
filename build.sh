@@ -65,10 +65,11 @@ function usage {
     echo "  -p <keystore-password-file>   The password file containing passwords to unlock the keystore file."
     echo "                                Must contain the password for the keystore, followed by the"
     echo "                                password for the signing key, on separate lines."
+    echo "  -s <sdk-root>                 Root directory of Android SDK to be used for build"
     exit 1
 }
 
-while getopts crdoa:glx:v:k:p:b: option; do
+while getopts crda:lv:k:p:s:b: option; do
     case "$option" in
         c)
             CLEAN=true
@@ -267,7 +268,7 @@ function get_set_branding {
 function maybe_clone_fx_android {
     # TODO: Remove once engine-gecko is published to Sonatype
     if [[ ! -d ${FX_DIR} ]]; then
-        git clone https://github.com/censorship-no/firefox-android -b ${AC_VER}
+        git clone https://github.com/censorship-no/firefox-android
     fi
 }
 
