@@ -35,8 +35,6 @@
     <string name="settings">Налаштування</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Приватність Налаштування</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Перепрошуємо</string>
     <!-- Приватний перегляд -->
     <string name="private_browsing_title">Приватний перегляд</string>
     <!-- Add-on Preferences -->

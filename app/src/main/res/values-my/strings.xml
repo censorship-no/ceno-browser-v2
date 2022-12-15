@@ -35,8 +35,6 @@
     <string name="settings">အပြင်အဆင်များ</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">ကိုယ်ပိုင်လွတ်လပ်ခွင့် အပြင်အဆင်များ</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">တောင်းပန်ပါသည်။</string>
     <!-- လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း -->
     <string name="private_browsing_title">လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း</string>
     <!-- Add-on Preferences -->

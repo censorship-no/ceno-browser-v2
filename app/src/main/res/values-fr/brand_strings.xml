@@ -80,6 +80,8 @@
     -->
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Appuyez pour le signaler à &vendorShortName;</string>
+    <!-- Snackbar message when a non fatal crash happen-->
+    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <string name="onboarding_fragment">Bienvenue dans &brandShortName;</string>
     <string name="ceno_purge_dialog_purge_entire_app">Effacer &brandShortName; cache et données d\'application</string>
     <string name="ceno_purge_dialog_cancel">Annuler</string>

@@ -35,8 +35,6 @@
     <string name="settings">Параметры</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Приватность Параметры</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Приносим свои извинения</string>
     <!-- Приватный просмотр -->
     <string name="private_browsing_title">Приватный просмотр</string>
     <!-- Add-on Preferences -->
@@ -111,7 +109,6 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Восприятие читателя</string>
-    <string name="crash_report_non_fatal_action">Отчет</string>
     <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
     <string name="menu_share_with">Поделиться с …</string>
     <string name="toast_copied">Скопировано!</string>

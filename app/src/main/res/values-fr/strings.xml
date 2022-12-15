@@ -35,8 +35,6 @@
     <string name="settings">Paramètres</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <!-- Navigation privée -->
     <string name="private_browsing_title">Navigation privée</string>
     <!-- Add-on Preferences -->
@@ -111,6 +109,5 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Vue lecteur</string>
-    <string name="crash_report_non_fatal_action">Rapport</string>
     <string name="privacy_settings">Paramètres de confidentialité</string>
 </resources>

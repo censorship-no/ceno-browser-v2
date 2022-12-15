@@ -51,9 +51,6 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">私密 设置</string> -->
 
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">非常抱歉</string>
-
     <!-- 隐私浏览模式 -->
     <string name="private_browsing_title">隐私浏览模式</string>
 

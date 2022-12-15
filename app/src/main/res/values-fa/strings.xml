@@ -33,8 +33,6 @@
     <string name="settings">تنظیمات</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">حریم خصوصی تنظیمات</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">متأسفیم</string>
     <!-- مرور خصوصی -->
     <string name="private_browsing_title">مرور خصوصی</string>
     <!-- Add-on Preferences -->

@@ -91,5 +91,7 @@
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">点此反馈给 &vendorShortName;</string>
+    <!-- Snackbar message when a non fatal crash happen-->
+    <string name="crash_report_non_fatal_message">非常抱歉</string>
 </resources>
 

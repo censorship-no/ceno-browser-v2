@@ -35,8 +35,6 @@
     <string name="settings">Configuración</string>
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Lo sentimos</string>
     <!-- Navegación privada -->
     <string name="private_browsing_title">Navegación privada</string>
     <!-- Add-on Preferences -->
@@ -113,7 +111,6 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Opinión del lector</string>
-    <string name="crash_report_non_fatal_action">Reporte</string>
     <string name="privacy_settings">Ajustes de privacidad</string>
     <string name="toast_copied">¡Copiado!</string>
     <string name="preferences_customization_summary">Configuración de la barra de herramientas</string>
