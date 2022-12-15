@@ -58,9 +58,6 @@ before_script:
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
-  # Clone android-components, need to autoPublish them locally
-  - git clone https://github.com/censorship-no/firefox-android
-
   # Create local.properties and output directory
   - cp local.properties.sample local.properties
   - mkdir -p ./output
@@ -78,7 +75,7 @@ assembleDebug:
   interruptible: true
   stage: build
   script:
-    - ./build.sh -a arm64-v8a -a armeabi-v7a
+    - ./build.sh -s $ANDROID_HOME -a arm64-v8a -a armeabi-v7a
     - cp -r *.apk output/.
   artifacts:
     paths:
