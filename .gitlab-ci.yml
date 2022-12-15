@@ -42,7 +42,7 @@ before_script:
   - wget --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
   # move to the archive at ANDROID_HOME
   - pushd $ANDROID_HOME
-  - unzip -d cmdline-tools cmdline-tools.zip
+  - unzip cmdline-tools.zip
   - popd
   - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
 
