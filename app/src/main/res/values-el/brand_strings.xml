@@ -10,11 +10,11 @@
     <string name="ceno_on_mobile_data_dialog_continue">Συνέχεια</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
     <string name="ceno_notification_description">Πατήστε για διακοπή</string>
-    <string name="ceno_notification_purge_do_description">Ναί</string>
+    <string name="ceno_notification_clear_do_description">Ναί</string>
     <string name="ceno_notification_home_description">Αρχική</string>
     <string name="ceno_notification_channel_name">Υπηρεσία &brandShortName;</string>
     <string name="ceno_notification_title">Υπηρεσία φυλλομετρητή &brandShortName;</string>
-    <string name="ceno_notification_purge_description">Διαγραφή⚠</string>
+    <string name="ceno_notification_clear_description">Διαγραφή⚠</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Διακοπή &brandShortName; τώρα</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Να μην εμφανιστεί ξανά</string>
 </resources>

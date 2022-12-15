@@ -50,7 +50,7 @@ class ClearButtonFeature(
         return AlertDialog.Builder(context) //, R.style.PurgeDialog)
             .setTitle(R.string.ceno_clear_dialog_title)
             .setMessage(R.string.ceno_clear_dialog_description)
-            .setPositiveButton(R.string.ceno_clear_dialog_purge_entire_app, dialogClickListener)
+            .setPositiveButton(R.string.ceno_clear_dialog_clear_entire_app, dialogClickListener)
             .setNeutralButton(R.string.ceno_clear_dialog_cancel, dialogClickListener)
             .setNegativeButton(R.string.ceno_clear_dialog_clear_cache_only, dialogClickListener)
             .create()

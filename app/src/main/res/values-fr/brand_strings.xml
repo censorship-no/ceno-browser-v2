@@ -39,8 +39,8 @@
     <string name="ceno_notification_title">Service du Navigateur &brandShortName;</string>
     <string name="ceno_notification_description">Appuyez pour arrêter</string>
     <string name="ceno_notification_home_description">Accueil</string>
-    <string name="ceno_notification_purge_description">Effacer⚠</string>
-    <string name="ceno_notification_purge_do_description">Oui</string>
+    <string name="ceno_notification_clear_description">Effacer⚠</string>
+    <string name="ceno_notification_clear_do_description">Oui</string>
     <string name="ceno_notification_channel_name">Service &brandShortName;</string>
     <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">Avertissement du Navigateur &brandShortName;</string>
@@ -53,12 +53,12 @@
     <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
     <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
 
-    <string name="ceno_purge_dialog_purge_entire_app">Clear &brandShortName; cache and app data</string>
-    <string name="ceno_purge_dialog_cancel">Cancel</string>
-    <string name="ceno_purge_dialog_purge_cache_only">Clear &brandShortName; cache only</string>
-    <string name="ceno_purge_dialog_title">Purge &brandShortName;</string>
-    <string name="ceno_purge_dialog_description">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
-    <string name="ceno_purge_action_description">Purge</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Clear &brandShortName; cache and app data</string>
+    <string name="ceno_clear_dialog_cancel">Cancel</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Clear &brandShortName; cache only</string>
+    <string name="ceno_clear_dialog_title">Purge &brandShortName;</string>
+    <string name="ceno_clear_dialog_description">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
+    <string name="ceno_clear_action_description">Purge</string>
 
     <string name="browser_menu_report_issue">Report issue</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Settings</string>
@@ -83,11 +83,11 @@
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <string name="onboarding_fragment">Bienvenue dans &brandShortName;</string>
-    <string name="ceno_purge_dialog_purge_entire_app">Effacer &brandShortName; cache et données d\'application</string>
-    <string name="ceno_purge_dialog_cancel">Annuler</string>
-    <string name="ceno_purge_dialog_title">Effacer &brandShortName;</string>
-    <string name="ceno_purge_dialog_purge_cache_only">Effacer &brandShortName; cache uniquement</string>
-    <string name="ceno_purge_action_description">Supprimer</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Effacer &brandShortName; cache et données d\'application</string>
+    <string name="ceno_clear_dialog_cancel">Annuler</string>
+    <string name="ceno_clear_dialog_title">Effacer &brandShortName;</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Effacer &brandShortName; cache uniquement</string>
+    <string name="ceno_clear_action_description">Supprimer</string>
     <string name="preferences_toolbar_position">Placer la barre d\'outils en haut de l\'écran</string>
     <string name="onboarding_button">Commencer</string>
     <string name="onboarding_thanks_button">Allons-y!</string>
@@ -99,7 +99,7 @@
 \n
 \nAllez dans \"Paramètres généraux&gt; Désactiver l\'optimisation de la batterie\" pour donner l\'autorisation plus tard</string>
     <string name="about_content">&lt;p&gt;%1$s vous donne le contrôle.&lt;/p&gt; &lt;p&gt;Utilisez-le comme référence pour : &lt;br&gt;&amp;bull; Apprenez à créer votre propre navigateur. &lt;br&gt;&amp;bull; Contribuez à faciliter la création de navigateurs. &lt;br&gt;&amp;bull; Déposez des rapports de bug ! &lt;/p&gt; &lt;p&gt;%1$s est produit par eQualitie. Notre mission est de .&lt;br/&gt;</string>
-    <string name="ceno_purge_dialog_description">AVERTISSEMENT : Effacer le cache et les données de l\'application réinitialisera le &brandShortName; l\'application comme si elle n\'avait jamais été utilisée.</string>
+    <string name="ceno_clear_dialog_description">AVERTISSEMENT : Effacer le cache et les données de l\'application réinitialisera le &brandShortName; l\'application comme si elle n\'avait jamais été utilisée.</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Paramètre</string>
     <string name="onboarding_skip_button">Sauter</string>
     <string name="onboarding_battery_text">Bientôt, le système d\'exploitation vous demandera la permission de désactiver l\'optimisation de la batterie.

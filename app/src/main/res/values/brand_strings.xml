@@ -44,8 +44,8 @@
     <string name="ceno_notification_title">&brandShortName; Browser Service</string>
     <string name="ceno_notification_description">Tap to stop</string>
     <string name="ceno_notification_home_description">Home</string>
-    <string name="ceno_notification_purge_description">Erase&#9888;</string>
-    <string name="ceno_notification_purge_do_description">Yes</string>
+    <string name="ceno_notification_clear_description">Erase&#9888;</string>
+    <string name="ceno_notification_clear_do_description">Yes</string>
     <string name="ceno_notification_channel_name">&brandShortName; Service</string>
 
     <!--
@@ -62,7 +62,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
 
     <!-- "Purge button" dialog-->
-    <string name="ceno_clear_dialog_purge_entire_app">Clear &brandShortName; cache and app data</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Clear &brandShortName; cache and app data</string>
     <string name="ceno_clear_dialog_cancel">Cancel</string>
     <string name="ceno_clear_dialog_clear_cache_only">Clear &brandShortName; cache only</string>
     <string name="ceno_clear_dialog_title">Clear &brandShortName;</string>
