@@ -280,7 +280,7 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
-    set_property autoPublish.android-components.dir ${AC_DIR}
+    #set_property autoPublish.android-components.dir ${AC_DIR}
     set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
     set_property RELEASE_KEY_ALIAS ${KEYSTORE_KEY_ALIAS}
