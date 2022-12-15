@@ -113,5 +113,9 @@
     <string name="onboarding_battery_button">Continuer</string>
     <string name="onboarding_warning_title">Permission refusée</string>
     <string name="onboarding_warning_button">Bien</string>
-    <string name="preferences_toolbar_hide">Faites défiler pour masquer la barre d\'outils</string>
+    <string name="preferences_toolbar_hide">Faites défiler pour masquer</string>
+    <string name="preferences_clear_in_toolbar">Afficher sur la barre d\'outils</string>
+    <string name="preferences_clear_in_menu">Afficher dans le menu</string>
+    <string name="preferences_clear_behavior">Comportement par défaut</string>
+    <string name="preferences_clear_behavior_default">0</string>
 </resources>
