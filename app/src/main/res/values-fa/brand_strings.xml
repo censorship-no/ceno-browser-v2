@@ -46,21 +46,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_now">&brandShortName; را همین حالا متوقف کنید</string>
     <string name="ceno_on_mobile_data_dialog_continue">ادامه</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
-    <!--
-    <string name="preferences_mobile_data">Do not show mobile data warning</string>
-    <string name="preferences_mobile_data_warning_disabled">Mobile data warning disabled</string>
-    <string name="preferences_mobile_data_warning_enabled">Mobile data warning enabled</string>
 
-    <string name="ceno_clear_dialog_clear_entire_app">Clear &brandShortName; cache and app data</string>
-    <string name="ceno_clear_dialog_cancel">Cancel</string>
-    <string name="ceno_clear_dialog_clear_cache_only">Clear &brandShortName; cache only</string>
-    <string name="ceno_clear_dialog_title">Purge &brandShortName;</string>
-    <string name="ceno_clear_dialog_description">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
-    <string name="ceno_clear_action_description">Purge</string>
-
-    <string name="browser_menu_report_issue">Report issue</string>
-    <string name="browser_menu_ceno_ext">ONCE Settings</string>
-    -->
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">دفترچه راهنمای CENO</string>
     <string name="default_top_site_1_url">\@string/suggestedsites_ceno_fa_url</string>
@@ -72,10 +58,7 @@
     <string name="default_top_site_4_url">\@string/suggestedsites_factnameh_url</string>
     <string name="default_top_site_5_title">صفحه اول - BBC News</string>
     <string name="default_top_site_5_url">\@string/suggestedsites_bbc_fa_url</string>
-    <!--
-    <string name="onboardingfragment">Welcome to ONCE v0</string>
-    <string name="onboarding_button">Let\'s go!</string>
-    -->
+
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
     <!-- Snackbar message when a non fatal crash happen-->
