@@ -103,4 +103,5 @@
     <string name="preferences_clear_in_menu">Afficher dans le menu</string>
     <string name="preferences_clear_behavior">Comportement par défaut</string>
     <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_clear_behavior_summary">Définir le comportement en appuyant sur le bouton Effacer</string>
 </resources>
