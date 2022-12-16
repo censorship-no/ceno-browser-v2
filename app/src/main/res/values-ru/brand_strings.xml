@@ -70,9 +70,9 @@
     <string name="onboarding_warning_button">Хорошо</string>
     <string name="ceno_clear_dialog_clear_entire_app">Очистить &brandShortName; кэш и данные приложения</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Настройки</string>
-    <string name="preferences_toolbar_hide">Прокрутите, чтобы скрыть панель инструментов</string>
+    <string name="preferences_toolbar_hide">Прокрутите, чтобы скрыть</string>
     <string name="onboarding_thanks_button">Оставить!</string>
-    <string name="preferences_toolbar_position">Разместите панель инструментов в верхней части экрана</string>
+    <string name="preferences_toolbar_position">Разместите в верхней части экрана</string>
     <string name="ceno_clear_action_description">Очистить</string>
     <string name="ceno_clear_dialog_title">Очистить &brandShortName;</string>
     <string name="onboarding_button">Начать</string>
@@ -98,4 +98,9 @@
 \n
 \nПерейдите в \"Общие настройки &gt; Отключить оптимизацию батареи\", чтобы дать разрешение позже</string>
     <string name="ceno_clear_dialog_cancel">Отмена</string>
+    <string name="preferences_clear_in_toolbar">показать на панели инструментов</string>
+    <string name="preferences_clear_in_menu">показать в меню</string>
+    <string name="preferences_clear_behavior">Поведение по умолчанию</string>
+    <string name="preferences_clear_behavior_summary">Установить поведение при нажатии кнопки очистки</string>
+    <string name="preferences_clear_behavior_default">0</string>
 </resources>
