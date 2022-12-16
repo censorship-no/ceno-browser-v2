@@ -41,7 +41,7 @@ android {
     /* CENO: Add signing config for release builds */
     signingConfigs {
         release {
-            storeFile file(localProperties['RELEASE_STORE_FILE'])
+            storeFile file(localProperties['RELEASE_STORE_FILE'] ?: "./debug.keystore-passwords")
             storePassword localProperties['RELEASE_STORE_PASSWORD']
             keyAlias localProperties['RELEASE_KEY_ALIAS']
             keyPassword localProperties['RELEASE_KEY_PASSWORD']
