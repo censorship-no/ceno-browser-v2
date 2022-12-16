@@ -102,7 +102,7 @@ android {
     }
 
     lint {
-        disable 'IconDuplicates', 'MissingTranslation'
+        disable 'IconDuplicates', 'MissingTranslation', 'UnusedQuantity'
         lintConfig file("lint.xml")
         baseline file("lint-baseline.xml")
     }

@@ -58,10 +58,6 @@ before_script:
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
-  - export AC_DIR=./firefox-android/android-components
-  - git clone https://github.com/censorship-no/firefox-android
-  - chmod +x ${AC_DIR}/gradlew
-
   # Create local.properties and output directory
   - cp local.properties.sample local.properties
   - mkdir -p ./output
@@ -79,9 +75,6 @@ assembleDebug:
   interruptible: true
   stage: build
   script:
-    - pushd ${AC_DIR}
-    - ./gradlew publishToMavenLocal
-    - popd
     - ./build.sh -s $ANDROID_HOME -a arm64-v8a -a armeabi-v7a
     - cp -r *.apk output/.
   artifacts:

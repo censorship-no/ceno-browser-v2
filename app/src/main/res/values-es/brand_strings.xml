@@ -76,7 +76,6 @@
 \n
 \nVe a \"Ajustes generales &gt; Desactivar optimización de batería\" para dar permiso más tarde</string>
     <string name="onboarding_warning_button">De acuerdo</string>
-    <string name="ceno_clear_dialog_clear_entire_app">Borrar &brandShortName; caché y datos de la aplicación</string>
     <string name="onboarding_button">Comenzar</string>
     <string name="onboarding_thanks_button">¡Vamos!</string>
     <string name="onboarding_skip_button">Saltar</string>
