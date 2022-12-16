@@ -199,7 +199,7 @@ open class OuinetService : Service(){
                         getString(R.string.ceno_notification_home_description),
                         homePIntent)
                 .addAction(R.drawable.ic_cancel_pm,
-                        getString(R.string.ceno_notification_purge_description),
+                        getString(R.string.ceno_notification_clear_description),
                         showPurgePIntent)
         if (showRealPurgeAction) {
             val purgePIntent = PendingIntent.getBroadcast(this, requestCode++,
@@ -207,7 +207,7 @@ open class OuinetService : Service(){
                     flags
             )
             notifb.addAction(R.drawable.ic_cancel_pm,
-                    getString(R.string.ceno_notification_purge_do_description),
+                    getString(R.string.ceno_notification_clear_do_description),
                     purgePIntent)
         }
         return notifb.build()

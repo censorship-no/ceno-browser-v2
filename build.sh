@@ -5,9 +5,7 @@ set -e
 BUILD_DIR=$(pwd)
 SOURCE_DIR=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 GECKO_DIR=gecko-dev
-FX_DIR=./firefox-android
-AC_DIR=${FX_DIR}/android-components
-AC_VER=v107.0.7
+#AC_DIR=
 ANDROID_HOME=$HOME/Android/Sdk
 LOCAL_PROPERTIES=local.properties
 
@@ -265,12 +263,11 @@ function get_set_branding {
     sed -i -e "s/${DEFAULT_FRONTEND_PORT}/${BRAND_FRONTEND_PORT}/g" ${APP_BRAND_DIR}/src/main/assets/addons/ceno/config.js
 }
 
-function maybe_clone_fx_android {
-    # TODO: Remove once engine-gecko is published to Sonatype
-    if [[ ! -d ${FX_DIR} ]]; then
-        git clone https://github.com/censorship-no/firefox-android
-    fi
-}
+#function maybe_clone_fx_android {
+#    if [[ ! -d ${AC_DIR} ]]; then
+#        git clone https://github.com/censorship-no/firefox-android
+#    fi
+#}
 
 function write_local_properties {
     cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
@@ -339,6 +336,6 @@ function build_apk_for {
 check_variant
 get_set_abis
 get_set_branding
-maybe_clone_fx_android
+#maybe_clone_fx_android
 write_local_properties
 build_apk_for ABIS $VARIANT
