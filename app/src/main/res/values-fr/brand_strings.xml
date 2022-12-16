@@ -48,7 +48,6 @@
     <string name="ceno_on_mobile_data_dialog_stop_now">Arrêter &brandShortName; maintenant</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuer</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Ne plus afficher</string>
-
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manuel CENO</string>
     <string name="default_top_site_1_url">\@string/suggestedsites_ceno_en_url</string>
