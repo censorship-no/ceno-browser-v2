@@ -63,7 +63,6 @@
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_es_url</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
-    <string name="crash_report_non_fatal_message">Lo sentimos. Fallo interno</string>
     <string name="onboarding_fragment">Bienvenido a &brandShortName;</string>
     <string name="onboarding_battery_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve, el sistema operativo te pedirá permiso para desactivar la optimización de la batería.
