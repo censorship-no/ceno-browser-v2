@@ -51,15 +51,15 @@
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">CENO Мануал</string>
-    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_ru_url</string>
+    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_ru_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">\@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">Медуза</string>
-    <string name="default_top_site_3_url">\@string/suggestedsites_meduza_url</string>
+    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_meduza_url</string>
     <string name="default_top_site_4_title">Медиазона</string>
-    <string name="default_top_site_4_url">\@string/suggestedsites_mediazona_url</string>
+    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_mediazona_url</string>
     <string name="default_top_site_5_title">BBC Русская служба</string>
-    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_ru_url</string>
+    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_ru_url</string>
     <!--
     <string name="onboardingfragment">Welcome to &brandShortName; v2</string>
     <string name="onboarding_button">Let's go!</string>
