@@ -148,4 +148,5 @@
         <item quantity="many">%d адрес</item>
         <item quantity="other">%d адрес</item>
     </plurals>
+    <string name="close_mode_item">Закрити сповіщення</string>
 </resources>
