@@ -49,15 +49,15 @@
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">دفترچه راهنمای CENO</string>
-    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_fa_url</string>
+    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_fa_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">\@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">پس‌کوچه</string>
-    <string name="default_top_site_3_url">\@string/suggestedsites_paskooceh_url</string>
+    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_paskoocheh_url</string>
     <string name="default_top_site_4_title">فکت‌نامه</string>
-    <string name="default_top_site_4_url">\@string/suggestedsites_factnameh_url</string>
+    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_factnameh_url</string>
     <string name="default_top_site_5_title">صفحه اول - BBC News</string>
-    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_fa_url</string>
+    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_fa_url</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
