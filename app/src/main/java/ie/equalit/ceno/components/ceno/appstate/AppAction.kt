@@ -16,8 +16,10 @@ sealed class AppAction : Action {
 
     data class Change(
         val topSites: List<TopSite>,
+        val showCenoModeItem: Boolean
     ) :
         AppAction()
 
     data class TopSitesChange(val topSites: List<TopSite>) : AppAction()
+    object RemoveCenoModeItem : AppAction()
 }

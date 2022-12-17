@@ -26,7 +26,8 @@
     ]]></string>
 
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Use normal tabs to share content with other &brandShortName; users. Use private tabs to avoid sharing, or for pages that require login. Tap here to learn more.</string>
+    <string name="ceno_home_mode_description">Use normal tabs to share content with other &brandShortName; users. Use private tabs to avoid sharing, or for pages that require login.</string>
+    <string name="ceno_home_mode_link_text">Tap here to learn more.</string>
 
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>

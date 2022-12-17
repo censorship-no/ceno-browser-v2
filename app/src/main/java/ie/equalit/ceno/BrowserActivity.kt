@@ -284,7 +284,10 @@ open class BrowserActivity : AppCompatActivity() {
                 totalSites = components.cenoPreferences.topSitesMaxLimit
             )
             components.appStore.dispatch(
-                AppAction.Change(topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort())
+                AppAction.Change(
+                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                )
             )
         }
 

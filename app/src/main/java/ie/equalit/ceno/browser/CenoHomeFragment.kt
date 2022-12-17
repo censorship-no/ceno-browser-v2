@@ -86,7 +86,10 @@ class CenoHomeFragment : BaseBrowserFragment() {
         scope.launch {
             components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
             components.appStore.dispatch(
-                AppAction.Change(topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort())
+                AppAction.Change(
+                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                )
             )
         }
 
@@ -105,6 +108,8 @@ class CenoHomeFragment : BaseBrowserFragment() {
         _sessionControlInteractor = SessionControlInteractor(
             controller = DefaultSessionControlController(
                 activity = activity,
+                preferences = components.cenoPreferences,
+                appStore = components.appStore,
                 viewLifecycleScope = viewLifecycleOwner.lifecycleScope
             )
         )

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 // This method got a little complex with the addition of the tab tray feature flag
@@ -24,7 +25,9 @@ internal fun normalModeAdapterItems(
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
 
-    items.add(AdapterItem.CenoModeItem)
+    if (settings.showCenoModeItem) {
+        items.add(AdapterItem.CenoModeItem)
+    }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))

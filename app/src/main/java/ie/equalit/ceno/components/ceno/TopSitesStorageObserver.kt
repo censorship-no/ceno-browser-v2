@@ -22,7 +22,10 @@ class TopSitesStorageObserver(
         scope.launch {
             storage.getTopSites(preferences.topSitesMaxLimit)
             store.dispatch(
-                AppAction.Change(topSites = storage.cachedTopSites.sort())
+                AppAction.Change(
+                    topSites = storage.cachedTopSites.sort(),
+                    showCenoModeItem = preferences.showCenoModeItem
+                )
             )
         }
     }

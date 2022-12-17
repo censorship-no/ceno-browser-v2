@@ -3,6 +3,9 @@ package ie.equalit.ceno.home.sessioncontrol
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import ie.equalit.ceno.databinding.CenoModeItemBinding
 import mozilla.components.feature.top.sites.TopSite
 
 /**
@@ -68,6 +71,7 @@ interface CenoModeInteractor {
      * Opens the customize home settings page.
      */
     fun onCenoModeClicked()
+    fun onRemoveCenoModeCard(view : ViewGroup)
 }
 
 /**
@@ -167,5 +171,9 @@ class SessionControlInteractor(
 
         override fun onCenoModeClicked() {
             controller.handleCenoModeClicked()
+        }
+
+        override fun onRemoveCenoModeCard(view: ViewGroup) {
+            controller.handleRemoveCenoModeCard(view)
         }
     }

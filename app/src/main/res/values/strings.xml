@@ -213,4 +213,5 @@
 
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
+    <string name="close_mode_item">Close notification</string>
 </resources>
