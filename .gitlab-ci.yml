@@ -65,7 +65,7 @@ before_script:
   - cp local.properties.sample local.properties
   - mkdir -p ./output
 
-  cache:
+cache:
   paths:
     - .gradle/wrapper
     - .gradle/caches
