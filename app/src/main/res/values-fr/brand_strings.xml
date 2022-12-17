@@ -29,7 +29,7 @@
     <string name="toast_copied">Copied!</string>
     -->
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Utilisez les onglets normaux pour partager du contenu avec d\'autres utilisateurs de &brandShortName;. Utilisez des onglets privés pour éviter le partage, ou pour les pages qui nécessitent une connexion. Appuyez ici pour en savoir plus.</string>
+    <string name="ceno_home_mode_description">Utilisez les onglets normaux pour partager du contenu avec d\'autres utilisateurs de &brandShortName;. Utilisez des onglets privés pour éviter le partage, ou pour les pages qui nécessitent une connexion.</string>
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
@@ -48,7 +48,6 @@
     <string name="ceno_on_mobile_data_dialog_stop_now">Arrêter &brandShortName; maintenant</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuer</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Ne plus afficher</string>
-
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manuel CENO</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
@@ -104,4 +103,6 @@
     <string name="preferences_clear_in_menu">Afficher dans le menu</string>
     <string name="preferences_clear_behavior">Comportement par défaut</string>
     <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_clear_behavior_summary">Définir le comportement en appuyant sur le bouton Effacer</string>
+    <string name="ceno_home_mode_link_text">Appuyez ici pour en savoir plus.</string>
 </resources>
