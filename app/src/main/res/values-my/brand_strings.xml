@@ -49,15 +49,15 @@
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">CENO လက်စွဲ</string>
-    <string name="default_top_site_1_url">\@string/suggestedsites_ceno_my_url</string>
+    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_my_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url">\@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">Myanmar NOW</string>
-    <string name="default_top_site_3_url">\@string/suggestedsites_mynow_url</string>
+    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_mynow_url</string>
     <string name="default_top_site_4_title">Justice For Myanmar</string>
-    <string name="default_top_site_4_url">\@string/suggestedsites_justicemy_url</string>
+    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_justicemy_url</string>
     <string name="default_top_site_5_title">BBC မြန်မာ</string>
-    <string name="default_top_site_5_url">\@string/suggestedsites_bbc_my_url</string>
+    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_my_url</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">&vendorShortName; အားသတင်းပို့ပေးရန် ထိပါ</string>
