@@ -148,4 +148,5 @@
     <string name="clear_button_category">Botón Borrar</string>
     <string name="delete_browsing_data_prompt_message_3">%s borrará los datos de navegación seleccionados.</string>
     <string name="crash_report_non_fatal_message">Perdón. estamos bloqueados</string>
+    <string name="close_mode_item">Cerrar la notificación</string>
 </resources>
