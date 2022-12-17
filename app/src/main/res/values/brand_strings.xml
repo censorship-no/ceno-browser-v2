@@ -78,15 +78,15 @@
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; Manual</string>
-    <string name="default_top_site_1_url" translateable="false">@string/suggestedsites_ceno_en_url</string>
+    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
-    <string name="default_top_site_2_url" translateable="false">@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title">AP News</string>
-    <string name="default_top_site_3_url" translateable="false">@string/suggestedsites_apnews_url</string>
+    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_apnews_url</string>
     <string name="default_top_site_4_title">Reuters</string>
-    <string name="default_top_site_4_url" translateable="false">@string/suggestedsites_reuters_url</string>
+    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_reuters_url</string>
     <string name="default_top_site_5_title">BBC News</string>
-    <string name="default_top_site_5_url" translateable="false">@string/suggestedsites_bbc_en_url</string>
+    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_en_url</string>
     <string name="horizontal_ellipsis" translatable="false">&#8230;</string>
 
     <string name="onboarding_fragment">Welcome to &brandShortName;</string>
