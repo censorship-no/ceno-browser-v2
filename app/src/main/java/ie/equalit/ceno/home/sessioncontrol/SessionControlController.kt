@@ -6,8 +6,11 @@ package ie.equalit.ceno.home.sessioncontrol
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +23,12 @@ import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.components.ceno.AppStore
+import ie.equalit.ceno.components.ceno.appstate.AppAction
+import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.utils.CenoPreferences
 
 /**
  * [HomeFragment] controller. An interface that handles the view manipulation of the Tabs triggered
@@ -59,11 +67,14 @@ interface SessionControlController {
     fun handleMenuOpened()
 
     fun handleCenoModeClicked()
+    fun handleRemoveCenoModeCard(view: ViewGroup)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
 class DefaultSessionControlController(
     private val activity: BrowserActivity,
+    private val preferences: CenoPreferences,
+    private val appStore: AppStore,
     /*
     private val engine: Engine,
     private val store: BrowserStore,
@@ -181,4 +192,8 @@ class DefaultSessionControlController(
             openToBrowser(getString(R.string.ceno_mode_manual_link))
         }
     }
+
+    override fun handleRemoveCenoModeCard(view : ViewGroup) {
+        preferences.showCenoModeItem = false
+        appStore.dispatch(AppAction.RemoveCenoModeItem)    }
 }

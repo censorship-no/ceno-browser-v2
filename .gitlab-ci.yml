@@ -55,12 +55,20 @@ before_script:
   - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
   - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
 
+  # Set gradle home so gradle files can be cached
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
   # Create local.properties and output directory
   - cp local.properties.sample local.properties
   - mkdir -p ./output
+
+  cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
 
 # Basic android and gradle stuff
 # Check linting

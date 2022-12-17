@@ -19,5 +19,9 @@ internal object AppStoreReducer {
         )
 
         is AppAction.TopSitesChange -> state.copy(topSites = action.topSites)
+
+        is AppAction.RemoveCenoModeItem -> {
+            state.copy(showCenoModeItem = false)
+        }
     }
 }

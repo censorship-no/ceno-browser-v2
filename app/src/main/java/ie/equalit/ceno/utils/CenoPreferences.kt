@@ -96,4 +96,9 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         default = TOP_SITES_MAX_COUNT
     )
 
+    var showCenoModeItem by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_show_ceno_mode_item),
+        default = true
+    )
+
 }

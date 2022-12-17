@@ -21,13 +21,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="2dp">
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ceno_home_mode_description"
-            android:textColor="@color/photonBlue30"
-            android:textSize="@dimen/ceno_mode_text_size"
-            android:layout_margin="6dp"
-        />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cardDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ceno_home_mode_description"
+                android:textColor="@color/photonBlack"
+                android:textSize="@dimen/ceno_mode_text_size"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="15dp" />
+
+            <TextView
+                android:id="@+id/cardLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ceno_home_mode_link_text"
+                android:textColor="@color/photonBlue40"
+                android:textSize="@dimen/ceno_mode_text_size"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginHorizontal="15dp"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/closeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+
+            android:contentDescription="@string/close_mode_item"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.home.sessioncontrol.CenoModeInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
 
+
 /**
  * View holder for the CENO normal/private mode description.
  */
@@ -21,8 +22,12 @@ class CenoModeViewHolder(
     private val binding = CenoModeItemBinding.bind(view)
 
     init {
-        binding.cenoModeItem.setOnClickListener {
+        binding.cardLink.setOnClickListener {
             interactor.onCenoModeClicked()
+        }
+
+        binding.closeButton.setOnClickListener {
+            interactor.onRemoveCenoModeCard(binding.root)
         }
     }
 
