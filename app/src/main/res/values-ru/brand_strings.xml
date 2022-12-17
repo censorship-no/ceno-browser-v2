@@ -29,7 +29,7 @@
     <string name="toast_copied">Copied!</string>
     -->
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Обычные вкладки - делятся контентом с сетью &brandShortName;. Приватные — для страниц с авторизацией и тех, которыми вы не хотели бы делиться. Нажмите, чтобы узнать больше.</string>
+    <string name="ceno_home_mode_description">Обычные вкладки - делятся контентом с сетью &brandShortName;. Приватные — для страниц с авторизацией и тех, которыми вы не хотели бы делиться.</string>
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
@@ -103,4 +103,5 @@
     <string name="preferences_clear_behavior">Поведение по умолчанию</string>
     <string name="preferences_clear_behavior_summary">Установить поведение при нажатии кнопки очистки</string>
     <string name="preferences_clear_behavior_default">0</string>
+    <string name="ceno_home_mode_link_text">Нажмите, чтобы узнать больше.</string>
 </resources>
