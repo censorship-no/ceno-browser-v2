@@ -57,10 +57,10 @@
     <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_reuters_url</string>
     <string name="default_top_site_5_title">BBC News</string>
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_en_url</string>
-
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">متأسفیم</string>
     <string name="ceno_home_mode_link_text">این‌جا بیشتر بخوانید.</string>
+    <string name="preferences_clear_behavior_default">0</string>
 </resources>
