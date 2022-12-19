@@ -66,7 +66,14 @@ class DeleteBrowsingDataItem @JvmOverloads constructor(
             )
 
             binding.title.text = resources.getString(titleId)
-            val subtitleText = resources.getString(subtitleId)
+            val subtitleText = try {
+                resources.getString(subtitleId)
+            } catch ( _ : Exception) {
+                /* Subtitle might be a plural instead of string
+                 * catch this exception and set subtitle empty
+                 */
+                resources.getString(R.string.empty_string)
+            }
             binding.subtitle.text = subtitleText
             if (subtitleText.isBlank()) binding.subtitle.visibility = View.GONE
         }
