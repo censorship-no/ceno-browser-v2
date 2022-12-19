@@ -60,7 +60,5 @@
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">&vendorShortName; အားသတင်းပို့ပေးရန် ထိပါ</string>
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">တောင်းပန်ပါသည်။</string>
     <string name="ceno_home_mode_link_text">ပိုမိုလေ့လာရန် နှိပ်ပါ။</string>
 </resources>
