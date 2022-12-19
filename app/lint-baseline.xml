@@ -1,4 +1,389 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <issues format="6" by="lint 7.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (7.3.0)" variant="all" version="7.3.0">
 
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fa&quot; (Persian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_en_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa/brand_strings.xml"
+            line="51"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;my&quot; (Burmese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_my_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-my/brand_strings.xml"
+            line="51"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_en_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/brand_strings.xml"
+            line="53"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_ru_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/brand_strings.xml"
+            line="53"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;uk&quot; (Ukrainian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_uk_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk/brand_strings.xml"
+            line="53"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fa&quot; (Persian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa/brand_strings.xml"
+            line="53"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;my&quot; (Burmese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-my/brand_strings.xml"
+            line="53"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;es&quot; (Spanish) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_es_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;uk&quot; (Ukrainian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fa&quot; (Persian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_apnews_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;my&quot; (Burmese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_mynow_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-my/brand_strings.xml"
+            line="55"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;es&quot; (Spanish) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_courier_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_meduza_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;uk&quot; (Ukrainian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_pravda_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fa&quot; (Persian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_reuters_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;my&quot; (Burmese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_justicemy_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-my/brand_strings.xml"
+            line="57"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;es&quot; (Spanish) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_elpais_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_lapresse_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_mediazona_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;uk&quot; (Ukrainian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_hromadske_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fa&quot; (Persian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_en_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;my&quot; (Burmese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_my_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-my/brand_strings.xml"
+            line="59"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_1_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_1_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ceno_en_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh/brand_strings.xml"
+            line="61"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;es&quot; (Spanish) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_infobae_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/brand_strings.xml"
+            line="61"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_en_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/brand_strings.xml"
+            line="61"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_ru_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/brand_strings.xml"
+            line="61"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;uk&quot; (Ukrainian) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_uk_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk/brand_strings.xml"
+            line="61"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_2_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_2_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_wikipedia_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh/brand_strings.xml"
+            line="63"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;es&quot; (Spanish) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_es_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/brand_strings.xml"
+            line="63"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_3_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_3_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_ltn_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh/brand_strings.xml"
+            line="65"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_4_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_4_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_twreporter_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh/brand_strings.xml"
+            line="67"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;default_top_site_5_url&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        errorLine1="    &lt;string name=&quot;default_top_site_5_url&quot; translatable=&quot;false&quot;>@string/suggestedsites_bbc_zh_url&lt;/string>"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh/brand_strings.xml"
+            line="69"
+            column="43"/>
+    </issue>
+
 </issues>
