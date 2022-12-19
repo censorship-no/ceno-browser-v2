@@ -24,11 +24,8 @@ import kotlinx.coroutines.withContext
 import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.R
-//import org.mozilla.fenix.components.FenixSnackbar
 import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
 import ie.equalit.ceno.ext.requireComponents
-//import ie.equalit.ceno.ext.settings
-//import org.mozilla.fenix.ext.showToolbar
 import ie.equalit.ceno.settings.Settings
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
@@ -186,26 +183,6 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
         updateItemCounts()
 
         Toast.makeText(context, resources.getString(R.string.preferences_delete_browsing_data_snackbar), Toast.LENGTH_SHORT).show()
-        /*
-        FenixSnackbar.make(
-            view = requireView(),
-            duration = FenixSnackbar.LENGTH_SHORT,
-            isDisplayedWithBrowserToolbar = true,
-        )
-            .setText(resources.getString(R.string.preferences_delete_browsing_data_snackbar))
-            .show()
-
-        if (popAfter) {
-            viewLifecycleOwner.lifecycleScope.launch(Main) {
-                findNavController().apply {
-                    // If the user deletes all open tabs we need to make sure we remove
-                    // the BrowserFragment from the backstack.
-                    popBackStack(R.id.homeFragment, false)
-                    navigate(DeleteBrowsingDataFragmentDirections.actionGlobalSettingsFragment())
-                }
-            }
-        }
-        */
     }
 
     override fun onPause() {
@@ -236,7 +213,9 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
             subtitleView.text = resources.getQuantityString(
                 R.plurals.preferences_delete_browsing_data_tabs_subtitle,
                 openTabs,
+                openTabs
             )
+            subtitleView.visibility = View.VISIBLE
         }
     }
 
@@ -251,7 +230,9 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
                         resources.getQuantityString(
                             R.plurals.preferences_delete_browsing_data_browsing_data_subtitle,
                             historyCount,
+                            historyCount
                         )
+                    subtitleView.visibility = View.VISIBLE
                 }
             }
         }
