@@ -32,11 +32,11 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     */
 
     fun isIgnoringBatteryOptimizations(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val powerManager = (context.getSystemService(Context.POWER_SERVICE) as PowerManager)
             powerManager.isIgnoringBatteryOptimizations(context.packageName)
         } else {
-            // Before Android M, the battery optimization doesn't exist -> Always "ignoring"
+            // Before Android 12 (S), the battery optimization isn't needed -> Always "ignoring"
             true
         }
     }
@@ -44,10 +44,10 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     @SuppressLint("BatteryLife")
     fun requestBatteryOptimizationsOff(activity: Activity) : Boolean {
         var result = false
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // Before Android M the battery optimization doesn't exist -> Always "ignoring"
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            // Before Android 12 (S) the battery optimization isn't needed for our use case -> Always "ignoring"
             result = false
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val powerManager = (context.getSystemService(Context.POWER_SERVICE) as PowerManager)
             when {
                 powerManager.isIgnoringBatteryOptimizations(context.packageName) -> {
