@@ -50,15 +50,15 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">دفترچه راهنمای CENO</string>
-    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title">Wikipedia</string>
+    <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_fa_url</string>
+    <string name="default_top_site_2_title" translatable="false">Wikipedia</string>
     <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title">AP News</string>
-    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_apnews_url</string>
-    <string name="default_top_site_4_title">Reuters</string>
-    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_reuters_url</string>
-    <string name="default_top_site_5_title">BBC News</string>
-    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_en_url</string>
+    <string name="default_top_site_3_title" translatable="false">پس‌کوچه</string>
+    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_paskooceh_url</string>
+    <string name="default_top_site_4_title" translatable="false">فکت‌نامه</string>
+    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_factnameh_url</string>
+    <string name="default_top_site_5_title" translatable="false">صفحه اول - BBC News</string>
+    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_fa_url</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
     <string name="ceno_home_mode_link_text">این‌جا بیشتر بخوانید.</string>
@@ -84,7 +84,7 @@
 \nبه بخش تنظیمات عمومی بروید. گزینه بهینه‌سازی باتری را برای دادن مجوز تا بعد، غیر فعال کنید</string>
     <string name="ceno_clear_dialog_cancel">لغو</string>
     <string name="ceno_clear_dialog_description">هشدار: پاک کردن حافظه پنهان و داده‌های برنامه، &amp;brandShortName؛ برنامه را تنظیم مجدد خواهد کرد به گونه‌ای که گویی هرگز استفاده نشده است.</string>
-    <string name="ceno_clear_dialog_title">پاک کردن &amp;brandShortName؛</string>
+    <string name="ceno_clear_dialog_title">پاک کردن &brandShortName;</string>
     <string name="ceno_clear_dialog_clear_cache_only">پاک کردن &brandShortName; فقط کش</string>
     <string name="ceno_clear_action_description">حذف</string>
     <string name="preferences_clear_in_toolbar">نمایش روی نوار ابزار</string>
