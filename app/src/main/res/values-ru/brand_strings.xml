@@ -65,7 +65,6 @@
     -->
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Нажмите, чтобы сообщить в &vendorShortName;</string>
-    <string name="crash_report_non_fatal_message">Извините. Мы сломались</string>
     <string name="onboarding_fragment">Добро пожаловать в &brandShortName;</string>
     <string name="onboarding_warning_button">Хорошо</string>
     <string name="ceno_clear_dialog_clear_entire_app">Очистить &brandShortName; кэш и данные приложения</string>
