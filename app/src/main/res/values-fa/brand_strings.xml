@@ -68,17 +68,19 @@
     <string name="onboarding_thanks_text">به عنوان یک کاربر &brandShortName; شما به رشد شبکه پل‌های موجود کمک می‌کنید که امکان دسترسی به محتوای سانسور شده را فراهم می‌کند.</string>
     <string name="onboarding_info_title">مرورگر معمولی شما نیست</string>
     <string name="onboarding_skip_button">نادیده بگیرید</string>
-    <string name="onboarding_info_text">&brandShortName; \u0020از فناوری همتا‌به‌همتا برای به اشتراک گذاشتن محتوای وب که برای دیگر کاربران \u0020&brandShortName; قابل دسترسی است، استفاده می‌کند.</string>
+    <string name="onboarding_info_text">&brandShortName; از فناوری همتا‌به‌همتا برای به اشتراک گذاشتن محتوای وب که برای دیگر کاربران &brandShortName; قابل دسترسی است، استفاده می‌کند</string>
     <string name="onboarding_info_button">جالب!</string>
     <string name="onboarding_warning_button">اوکی</string>
-    <string name="preferences_show_onboarding">در راه‌اندازی بعدی ادغام را نشان دهید.</string>
+    <string name="preferences_show_onboarding">در راه‌اندازی بعدی ادغام را نشان دهید</string>
     <string name="preferences_disable_battery_opt">بهینه‌سازی باتری را غیرفعال کنید</string>
     <string name="onboarding_button">شروع کنید</string>
     <string name="onboarding_battery_text">به زودی سیستم‌عامل از شما اجازه می خواهد تا سیستم بهینه‌سازی باتری را غیرفعال کنید.
+\n
 \nاین برای ادامه اشتراک‌گذاری وب‌سایت‌ها در حالی که برنامه در پس‌زمینه است، لازم است.</string>
     <string name="onboarding_battery_button">ادامه</string>
     <string name="onboarding_warning_title">مجوز رد شد</string>
     <string name="onboarding_warning_text">بهینه‌سازی باتری همچنان فعال است.
+\n
 \nبه بخش تنظیمات عمومی بروید. گزینه بهینه‌سازی باتری را برای دادن مجوز تا بعد، غیر فعال کنید</string>
     <string name="ceno_clear_dialog_cancel">لغو</string>
     <string name="ceno_clear_dialog_description">هشدار: پاک کردن حافظه پنهان و داده‌های برنامه، &amp;brandShortName؛ برنامه را تنظیم مجدد خواهد کرد به گونه‌ای که گویی هرگز استفاده نشده است.</string>
@@ -93,7 +95,7 @@
     <string name="browser_menu_ceno_ext">تنظیمات &brandShortName;</string>
     <string name="preferences_toolbar_hide">برای پنهان‌سازی اسکرول کنید</string>
     <string name="ceno_clear_dialog_clear_entire_app">پاک کردن&brandShortName; کش و داده‌های برنامه</string>
-    <string name="onboarding_thanks_title">ممنون که به گسترش شبکه کمک می‌کنید</string>
+    <string name="onboarding_thanks_title">ممنون که به گسترش شبکه کمک می‌کنید!</string>
     <string name="onboarding_thanks_button">رها کنید!</string>
     <string name="preferences_toolbar_position">در بالای صفحه قرار دهید</string>
     <string name="preferences_customization">سفارشی‌سازی</string>

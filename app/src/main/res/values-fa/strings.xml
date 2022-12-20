@@ -108,7 +108,7 @@
     <string name="browser_menu_remove_from_shortcuts">از میان‌برها حذف کنید</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Reader view</string>
+    <string name="button_content_readerview">نمای خواننده</string>
     <string name="menu_share_with">به‌اشتراک‌گذاری با …</string>
     <string name="toast_copied">کپی شد!</string>
     <string name="privacy_settings">تنظیمات حریم خصوصی</string>
@@ -124,14 +124,13 @@
     <string name="deleting_browsing_data_in_progress">در حال حذف داده‌های مرورگری</string>
     <string name="preferences_delete_browsing_data">داده‌های مرورگری را حذف کنید</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
-        <item quantity="one">برگه‌
-\nبرگه‌ها</item>
-        <item quantity="other"></item>
+        <item quantity="one">%d برگه‌</item>
+        <item quantity="other">%d برگه‌ها</item>
     </plurals>
     <string name="preferences_delete_browsing_data_browsing_data_title">تاریخچه مرورگری و داده‌های سایت</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
-        <item quantity="one">آدرس/آدرس‌ها</item>
-        <item quantity="other"></item>
+        <item quantity="one">%d آدرس</item>
+        <item quantity="other">%d آدرس‌ها</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">کوکی‌ها</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">شما از اکثر وب‌سایت‌ها خارج خواهید شد</string>
@@ -140,10 +139,10 @@
     <string name="preferences_delete_browsing_data_site_permissions">مجوزهای سایت</string>
     <string name="preferences_delete_browsing_data_button">داده‌های مرورگری را حذف کنید</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">بازکردن برگه‌ها</string>
-    <string name="delete_browsing_data_prompt_message_3">داده‌های مرورگری که انتخاب شده‌اند حذف خواهند شد.</string>
+    <string name="delete_browsing_data_prompt_message_3">%s داده‌های مرورگری که انتخاب شده‌اند حذف خواهند شد.</string>
     <string name="preferences_autofill">اپ‌های با قابلیت تکمیل فرم خودکار</string>
-    <string name="preferences_autofill_summary">در اپلیکیشن‌های دیگر اطلاعات حساب‌های کاربری و رمزهای عبور به‌طور خودکار پر می‌شوند.</string>
+    <string name="preferences_autofill_summary">در اپلیکیشن‌های دیگر اطلاعات حساب‌های کاربری و رمزهای عبور به‌طور خودکار پر می‌شوند</string>
     <string name="preferences_tracking_protection_normal">فعال در حالت مرور عادی</string>
     <string name="preferences_privacy_summary">ردیابی، کوکی‌ها، انتخاب داده‌ها</string>
-    <string name="crash_report_non_fatal_message">متاسفیم. دچار مشکل شدیم.</string>
+    <string name="crash_report_non_fatal_message">متاسفیم. دچار مشکل شدیم</string>
 </resources>
