@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="ceno_notification_description">روکنے کے لئے دبائیں</string>
+    <string name="ceno_notification_home_description">مرکز</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+</resources>
