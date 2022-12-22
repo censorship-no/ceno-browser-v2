@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.util.Log
 import ie.equalit.ceno.BrowserApplication
 
 object ConnectivityBroadcastReceiver : BroadcastReceiver() {
+
+    const val TAG = "ConnectivityReceiver"
 
     override fun onReceive(context: Context?, intent: Intent) {
         val info = intent.getParcelableExtra<NetworkInfo>(ConnectivityManager.EXTRA_NETWORK_INFO)
@@ -30,8 +33,10 @@ object ConnectivityBroadcastReceiver : BroadcastReceiver() {
         if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.DISCONNECTED) {
             if (context != null) {
                 //logger.debug("Network state changed to ${state}")
+                Log.d(TAG, "Stopping OuinetService on connectivity change")
                 OuinetService.stopOuinetService(context)
                 // TODO: Insert a pause / check client state.
+                Log.d(TAG, "Starting OuinetService on connectivity change")
                 OuinetService.startOuinetService(context, BrowserApplication.mOuinetConfig)
             }
         }
