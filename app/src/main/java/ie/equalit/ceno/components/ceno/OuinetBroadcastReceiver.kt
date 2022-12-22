@@ -39,7 +39,6 @@ open class OuinetBroadcastReceiver : BroadcastReceiver() {
 
         fun stopService(context: Context, doPurge : Boolean, doClose : Boolean) {
             OuinetService.stopOuinetService(context)
-            killPackageProcess(context, "ouinetService")
             if (doPurge) {
                 val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                 am.clearApplicationUserData()
