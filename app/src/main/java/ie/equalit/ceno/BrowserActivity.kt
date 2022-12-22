@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MenuItem
@@ -145,10 +146,14 @@ open class BrowserActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        /* CENO: Service may have stopped while app was in background
-         * try sending an intent to restart the service
-         */
-        OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            /* CENO: in Android 12 or later, it is possible that the
+             * service may have stopped while app was in background
+             * try sending an intent to restart the service
+             */
+            Logger.info(" --------- Starting ouinet service onResume")
+            OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
