@@ -106,33 +106,22 @@ open class OuinetService : Service(){
     }
 
     private fun startOuinet() {
-        Thread(Runnable {
-            synchronized(this@OuinetService) {
+        synchronized(this) {
+            Thread(Runnable {
                 if (mOuinet == null) return@Runnable
                 // Start Ouinet and set proxy in a different thread to avoid strict mode violations.
                 setProxyProperties()
                 mOuinet!!.start()
-            }
-        }).start()
+            }).start()
+        }
     }
 
     private fun stopOuinet() {
-        val thread = Thread(Runnable {
-            synchronized(this@OuinetService) {
-                if (mOuinet == null) return@Runnable
-                val ouinet: Ouinet = mOuinet as Ouinet
-                mOuinet = null
-                ouinet.stop()
-            }
-        })
-        thread.start()
-        try {
-            // Wait a little to allow ouinet to finish gracefuly
-            Log.d(TAG, "Wait for ouinet to stop")
-            thread.join(10000 /* ms */) // average stop takes 5 seconds
-            Log.d(TAG, "Ouinet stop finished")
-        } catch ( ex : Exception) {
-            Log.d(TAG, "Ouinet stop failed got exception: $ex")
+        synchronized(this) {
+            if (mOuinet == null) return
+            val ouinet: Ouinet = mOuinet as Ouinet
+            mOuinet = null
+            ouinet.stop()
         }
     }
 
