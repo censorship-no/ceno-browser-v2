@@ -46,7 +46,7 @@ object Versions {
     }
 
     object ThirdParty {
-        const val sentry = "6.8.0"
+        const val sentry = "6.11.0"
     }
 
     /* CENO: Versions for additional dependencies */
