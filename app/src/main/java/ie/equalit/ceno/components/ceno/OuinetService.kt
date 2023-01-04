@@ -87,7 +87,7 @@ open class OuinetService : Service(){
         Log.d(TAG,  "Service starting, intent:$intent")
         require(intent.hasExtra(CONFIG_EXTRA)) { "Service intent missing config extra" }
         val config = intent.getParcelableExtra<Config>(CONFIG_EXTRA)
-        synchronized(this) {
+        synchronized(OuinetService::class.java) {
             if (mOuinet != null) {
                 Log.d(TAG,  "Service already started.")
                 return START_NOT_STICKY
@@ -106,23 +106,27 @@ open class OuinetService : Service(){
     }
 
     private fun startOuinet() {
-        synchronized(this) {
-            Thread(Runnable {
+        Thread(Runnable {
+            synchronized(OuinetService::class.java) {
                 if (mOuinet == null) return@Runnable
                 // Start Ouinet and set proxy in a different thread to avoid strict mode violations.
                 setProxyProperties()
                 mOuinet!!.start()
-            }).start()
-        }
+            }
+        }).start()
     }
 
     private fun stopOuinet() {
-        synchronized(this) {
-            if (mOuinet == null) return
-            val ouinet: Ouinet = mOuinet as Ouinet
-            mOuinet = null
-            ouinet.stop()
-        }
+        val thread = Thread(Runnable {
+            synchronized(OuinetService::class.java) {
+                if (mOuinet == null) return@Runnable
+                val ouinet: Ouinet = mOuinet as Ouinet
+                mOuinet = null
+                ouinet.stop()
+            }
+        })
+        thread.start()
+        thread.join(10000 /* ms */) // average stop takes 5 seconds
     }
 
     private fun setProxyProperties() {
