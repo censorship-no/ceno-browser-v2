@@ -227,9 +227,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(android.R.id.content, AboutFragment())
+                .replace(R.id.container, AboutFragment())
                 .addToBackStack(null)
                 .commit()
+            getActionBar().setTitle(R.string.preferences_about_page)
             true
         }
     }
