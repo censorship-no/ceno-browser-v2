@@ -35,7 +35,7 @@
     <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
 
     <!-- Preference summary for customizaton -->
-    <string name="preferences_customization_summary">Toolbar settings</string>
+    <string name="preferences_customization_summary">App Icon, Toolbar, Clear button</string>
 
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>

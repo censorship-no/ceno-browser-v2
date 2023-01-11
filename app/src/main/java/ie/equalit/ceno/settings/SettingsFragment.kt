@@ -201,7 +201,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .replace(R.id.container, CustomizationSettingsFragment())
                 .addToBackStack(null)
                 .commit()
-            getActionBar().setTitle(R.string.customization_settings)
             true
         }
     }
@@ -227,14 +226,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(android.R.id.content, AboutFragment())
+                .replace(R.id.container, AboutFragment())
                 .addToBackStack(null)
                 .commit()
+            getActionBar().setTitle(R.string.preferences_about_page)
             true
         }
     }
 
-    /* TODO: ActionBarUpdater broken because no longer using SettingsActivity, find workaround */
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {

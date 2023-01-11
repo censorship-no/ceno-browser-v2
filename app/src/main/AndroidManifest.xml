@@ -25,8 +25,8 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher_blue"
+        android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
@@ -36,6 +36,8 @@
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
+            android:icon="@mipmap/ic_launcher_blue"
+            android:roundIcon="@mipmap/ic_launcher_blue_round"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
@@ -43,10 +45,55 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name="ie.equalit.ceno.Launcher"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_blue"
+            android:roundIcon="@mipmap/ic_launcher_blue_round"
+            android:targetActivity="ie.equalit.ceno.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name="ie.equalit.ceno.LauncherWhite"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_white"
+            android:roundIcon="@mipmap/ic_launcher_white_round"
+            android:targetActivity="ie.equalit.ceno.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name="ie.equalit.ceno.LauncherRed"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_red"
+            android:roundIcon="@mipmap/ic_launcher_red_round"
+            android:targetActivity="ie.equalit.ceno.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
 
         <activity android:name="ie.equalit.ceno.BrowserTestActivity"
             android:exported="true">

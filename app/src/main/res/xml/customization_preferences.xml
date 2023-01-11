@@ -5,6 +5,12 @@
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.Preference
+        android:key="@string/pref_key_change_app_icon"
+        android:title="@string/preferences_change_app_icon"
+        />
+
     <PreferenceCategory
         android:title="@string/toolbar_category">
 
