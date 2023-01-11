@@ -134,9 +134,18 @@
         <item>Clear app data and CENO cache</item>
     </string-array>
 
+    <string name="preferences_change_app_icon">Change app icon</string>
+
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
 
+    <!-- COPIED FROM DUCKDUCKGO -->
+    <!-- Change Icon Activity -->
+    <string name="changeIconCtaAccept">Apply</string>
+    <string name="changeIconCtaCancel">Cancel</string>
+    <string name="changeIconDialogTitle">Apply new icon?</string>
+    <string name="changeIconDialogMessage">The app may close to apply changes. Come on back after you\'ve admired your handsome new icon.</string>
+    <!-- END COPIED FROM DUCKDUCKGO -->
 
 </resources>
 

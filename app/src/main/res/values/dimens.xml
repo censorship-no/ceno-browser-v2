@@ -199,4 +199,9 @@
 
     <dimen name="tap_increase_16">16dp</dimen>
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <!-- COPIED FROM DUCKDUCKGO -->
+    <dimen name="changeAppIconPadding">16dp</dimen>
+    <dimen name="changeAppIconSize">75dp</dimen>
+    <!-- END COPIED FROM DUCKDUCKGO -->
 </resources>
