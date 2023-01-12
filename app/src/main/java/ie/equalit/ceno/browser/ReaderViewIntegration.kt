@@ -55,7 +55,8 @@ class ReaderViewIntegration(
     }
 
     init {
-        toolbar.addPageAction(readerViewButton)
+        // TODO: move reader view action to menu
+        //toolbar.addPageAction(readerViewButton)
         readerViewAppearanceButton.setOnClickListener { feature.showControls() }
     }
 
