@@ -113,7 +113,7 @@
     <string name="button_content_readerview">Opinión del lector</string>
     <string name="privacy_settings">Ajustes de privacidad</string>
     <string name="toast_copied">¡Copiado!</string>
-    <string name="preferences_customization_summary">Configuración de la barra de herramientas</string>
+    <string name="preferences_customization_summary">Icono de la aplicación, barra de herramientas, botón Borrar</string>
     <string name="toolbar_category">Opciones de la barra de herramientas</string>
     <string name="customization_settings">Personalización</string>
     <string name="menu_share_with">Compartir con…</string>
