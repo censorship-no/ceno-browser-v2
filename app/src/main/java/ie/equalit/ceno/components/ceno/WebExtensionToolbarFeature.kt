@@ -76,6 +76,17 @@ class WebExtensionToolbarFeature(
         return null
     }
 
+    fun getPageAction(id: String): (() -> Unit)? {
+        /* Check if extension has been loaded yet, then return onClick function */
+        store.state.extensions[id]?.let{ ext ->
+            ext.pageAction?.let { action ->
+                return action.onClick
+            }
+        }
+        /* else */
+        return null
+    }
+
     /* CENO: async function to add pageAction button for given extension to the provided toolbar */
     suspend fun addPageActionButton(id: String) {
         store.state.extensions[id]?.let { ext ->

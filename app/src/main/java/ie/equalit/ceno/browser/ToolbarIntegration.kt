@@ -7,6 +7,7 @@ package ie.equalit.ceno.browser
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -270,6 +271,24 @@ class ToolbarIntegration(
     private val menuController: MenuController = BrowserMenuController()
 
     init {
+        /* CENO: this is replaces the shield icon in the address bar
+         * with the ceno logo, regardless of tracking protection state
+         */
+        toolbar.display.icons = DisplayToolbar.Icons(
+            emptyIcon = null,
+            trackingProtectionTrackersBlocked = requireNotNull(
+                getDrawable(context, R.drawable.ic_status_logo),
+            ),
+            trackingProtectionNothingBlocked = requireNotNull(
+                getDrawable(context, R.drawable.ic_status_logo),
+            ),
+            trackingProtectionException = requireNotNull(
+                getDrawable(context, R.drawable.ic_status_logo),
+            ),
+            highlight = requireNotNull(
+                getDrawable(context, R.drawable.mozac_dot_notification),
+            )
+        )
         toolbar.display.indicators = listOf(
             DisplayToolbar.Indicators.SECURITY,
             DisplayToolbar.Indicators.TRACKING_PROTECTION
@@ -322,10 +341,9 @@ class ToolbarIntegration(
                 .ifAnyChanged { arrayOf(it.selectedTab, it.extensions) }
                 .collect { state ->
                     menuController.submitList(menuItems(state.selectedTab))
-                    /* pageAction buttons are removed globally,
-                     * manually add only CENO pageAction button here
-                     */
-                    cenoToolbarFeature.addPageActionButton(CENO_EXTENSION_ID)
+                    toolbar.display.setOnTrackingProtectionClickedListener {
+                        cenoToolbarFeature.getPageAction(CENO_EXTENSION_ID)?.invoke()
+                    }
                 }
         }
     }
