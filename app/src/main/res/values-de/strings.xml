@@ -22,7 +22,7 @@
         <item quantity="other">%d Tabs</item>
     </plurals>
     <string name="preferences_autofill">Autofill-Anwendungen</string>
-    <string name="preferences_customization_summary">Symbolleisteneinstellungen</string>
+    <string name="preferences_customization_summary">App-Symbol, Symbolleiste, Schaltfläche Löschen</string>
     <string name="browser_menu_refresh">Neu laden</string>
     <string name="toolbar_category">Optionen der Symbolleiste</string>
     <string name="clear_button_category">Löschen-Schaltfläche</string>
