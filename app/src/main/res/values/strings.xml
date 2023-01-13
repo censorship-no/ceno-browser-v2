@@ -32,13 +32,16 @@
     <string name="privacy">Privacy</string>
 
     <!-- Preference summary for privacy -->
-    <string name="preferences_privacy_summary">Tracking, cookies, data choices</string>
+    <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
 
     <!-- Preference summary for customizaton -->
     <string name="preferences_customization_summary">App Icon, Toolbar, Clear button</string>
 
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>
+
+    <!-- Preference category for developer tools -->
+    <string name="general_category">General</string>
 
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>

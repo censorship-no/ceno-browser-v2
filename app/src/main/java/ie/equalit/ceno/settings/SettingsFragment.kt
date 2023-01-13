@@ -193,7 +193,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .replace(R.id.container, PrivacySettingsFragment())
                 .addToBackStack(null)
                 .commit()
-            getActionBar().setTitle(R.string.privacy_settings)
+            getActionBar().setTitle(R.string.tracker_category)
             true
         }
     }
