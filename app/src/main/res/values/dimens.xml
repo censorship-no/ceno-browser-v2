@@ -13,6 +13,9 @@
     <dimen name="ceno_onboarding_title">32sp</dimen>
     <dimen name="ceno_onboarding_text">22sp</dimen>
 
+    <dimen name="preference_margin_start">62dp</dimen>
+    <dimen name="radio_button_text_size">16sp</dimen>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <dimen name="crash_reporter_close_tab_button_horizontal_margin">26dp</dimen>
@@ -204,4 +207,14 @@
     <dimen name="changeAppIconPadding">16dp</dimen>
     <dimen name="changeAppIconSize">75dp</dimen>
     <!-- END COPIED FROM DUCKDUCKGO -->
+
+    <!-- COPIED FROM FOCUS -->
+    <dimen name="preference_root_layout_padding">16dp</dimen>
+    <dimen name="preference_drawable_padding">32dp</dimen>
+    <dimen name="preference_padding_top">8dp</dimen>
+    <dimen name="preference_padding_horizontal">16dp</dimen>
+    <dimen name="preference_padding_vertical">12dp</dimen>
+    <dimen name="preference_row_height">56dp</dimen>
+    <!-- END COPIED FROM FOCUS -->
+
 </resources>
