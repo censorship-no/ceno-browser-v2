@@ -78,6 +78,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
+        val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
 
         /*
         val preferenceSignIn = findPreference<Preference>(signInKey)
@@ -94,6 +95,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
         val preferenceCustomization = findPreference<Preference>(customizationKey)
         val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
+        val preferenceSearch = findPreference<Preference>(searchKey)
 
         /*
         val accountManager = requireComponents.backgroundServices.accountManager
@@ -126,6 +128,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         //preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
+        preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
         if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
                 preferenceDisableBatteryOpt?.isVisible = false
         }
@@ -201,6 +204,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .replace(R.id.container, CustomizationSettingsFragment())
                 .addToBackStack(null)
                 .commit()
+            true
+        }
+    }
+
+    private fun getClickListenerForSearch(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, InstalledSearchEnginesSettingsFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBar().setTitle(R.string.preference_choose_search_engine)
             true
         }
     }
