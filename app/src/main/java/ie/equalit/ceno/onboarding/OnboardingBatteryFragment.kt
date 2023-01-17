@@ -21,6 +21,8 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     private var _binding: FragmentOnboardingBatteryBinding? = null
     private val binding get() = _binding!!
+    private var isActivityResumed = false
+    private var lastCall: (() -> Unit)? = null
 
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
@@ -50,27 +52,56 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        isActivityResumed = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isActivityResumed = true
+        //If we have some fragment to show do it now then clear the queue
+        if(lastCall != null){
+            updateView(lastCall!!)
+            lastCall = null
+        }
+    }
+
+    private val fragmentWarning : () -> Unit = {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.slide_out,
+                R.anim.slide_back_in,
+                R.anim.slide_back_out
+            )
+            replace(
+                R.id.container,
+                OnboardingWarningFragment.create(sessionId),
+                OnboardingWarningFragment.TAG
+            )
+            addToBackStack(null)
+            commit()
+        }
+    }
+
+    private fun updateView(action: () -> Unit){
+        //If the activity is in background we register the transaction
+        if(!isActivityResumed){
+            lastCall = action
+        } else {
+            //Else we just invoke it
+            action.invoke()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         super.onActivityResult(requestCode, resultCode, data)
         if (PermissionHandler(requireContext()).onActivityResult(requestCode, data, resultCode)) {
             OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
         }
         else {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.slide_out,
-                    R.anim.slide_back_in,
-                    R.anim.slide_back_out
-                )
-                replace(
-                    R.id.container,
-                    OnboardingWarningFragment.create(sessionId),
-                    OnboardingWarningFragment.TAG
-                )
-                addToBackStack(null)
-                commit()
-            }
+            updateView(fragmentWarning)
         }
         return true
     }
