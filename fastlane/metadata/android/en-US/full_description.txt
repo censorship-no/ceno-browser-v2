@@ -1,0 +1,3 @@
+Ceno (Censorship.no!) is a decentralized mobile web browser. It uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages.
+
+Say NO to censorship! Install Ceno Browser today and be prepared for the next time you get 🔌 unplugged. 
