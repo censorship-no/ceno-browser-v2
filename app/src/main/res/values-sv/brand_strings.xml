@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="ceno_notification_home_description">Hem</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">Visa inte igen</string>
+    <string name="ceno_notification_description">Tryck för att stoppa</string>
+</resources>
