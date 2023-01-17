@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
@@ -51,6 +52,7 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.tabs.TabsTrayFragment
+import mozilla.components.feature.readerview.view.ReaderViewControlsBar
 import java.lang.Exception
 
 /**
@@ -77,6 +79,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
+    private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
+
+    private val readerViewBar: ReaderViewControlsBar
+        get() = requireView().findViewById(R.id.readerViewBar)
+    private val readerViewAppearanceButton: FloatingActionButton
+        get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
         fullScreenFeature,
@@ -136,6 +144,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
+        val readerViewIntegration = ReaderViewIntegration(
+            requireContext(),
+            requireComponents.core.engine,
+            requireComponents.core.store,
+            binding.toolbar,
+            readerViewBar,
+            readerViewAppearanceButton
+        )
+
+        readerViewFeature.set(
+            feature = readerViewIntegration,
+            owner = this,
+            view = view
+        )
+
+
         /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
             feature = ToolbarIntegration(
@@ -148,7 +172,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                ::onTabUrlChanged
+                ::onTabUrlChanged,
+                readerViewIntegration
             ),
             owner = this,
             view = view

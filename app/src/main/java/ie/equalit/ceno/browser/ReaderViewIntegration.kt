@@ -13,6 +13,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
+import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -32,11 +33,12 @@ class ReaderViewIntegration(
     readerViewAppearanceButton: FloatingActionButton
 ) : LifecycleAwareFeature, UserInteractionHandler {
 
-    private var readerViewButtonVisible = false
+    var readerViewButtonVisible = false
 
     private val readerViewButton: BrowserToolbar.ToggleButton = BrowserToolbar.ToggleButton(
         image = ContextCompat.getDrawable(context, R.drawable.mozac_ic_reader_mode)!!,
-        imageSelected = ContextCompat.getDrawable(context, R.drawable.mozac_ic_reader_mode)!!.mutate().apply {
+        imageSelected = ContextCompat.getDrawable(context, R.drawable.mozac_ic_reader_mode)!!
+            .mutate().apply {
             setTint(ContextCompat.getColor(context, R.color.photonBlue40))
         },
         contentDescription = "Enable Reader View",
@@ -55,8 +57,6 @@ class ReaderViewIntegration(
     }
 
     init {
-        // TODO: move reader view action to menu
-        //toolbar.addPageAction(readerViewButton)
         readerViewAppearanceButton.setOnClickListener { feature.showControls() }
     }
 
@@ -79,6 +79,36 @@ class ReaderViewIntegration(
     override fun onBackPressed(): Boolean {
         return feature.onBackPressed()
     }
+
+    fun showReaderView(){
+        return feature.showReaderView()
+    }
+
+    fun hideReaderView() {
+        return feature.hideReaderView()
+    }
+
+    /*
+    fun launch(enabled :Boolean) {
+        if (enabled) {
+            feature.showReaderView()
+        } else {
+            feature.hideReaderView()
+            feature.hideControls()
+            //readerViewAppearanceButton.hide()
+        }
+    }
+
+    companion object {
+        // This is a workaround to let the menu item find this integration and active "Find in Page" mode. That's a bit
+        // ridiculous and there's no need that we create the toolbar menu items at app start time. Instead the
+        // ToolbarIntegration should create them and get the FindInPageIntegration injected as a dependency if the
+        // menu items need them.
+        var launch: ((Boolean) -> Unit)? = null
+            private set
+
+    }
+     */
 }
 
 /**

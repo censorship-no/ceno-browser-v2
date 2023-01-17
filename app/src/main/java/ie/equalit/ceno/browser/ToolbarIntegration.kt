@@ -53,7 +53,13 @@ import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSIO
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.SettingsFragment
+import kotlinx.coroutines.flow.mapNotNull
+import mozilla.components.feature.readerview.ReaderViewFeature
+import mozilla.components.lib.state.ext.flowScoped
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
+
 //import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
@@ -69,6 +75,7 @@ class ToolbarIntegration(
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
     private val onTabUrlChange: (String) -> Unit,
+    private val readerViewIntegration: ReaderViewIntegration
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -224,6 +231,31 @@ class ToolbarIntegration(
                 }
             )
         }
+
+        if (context.components.core.store.state.selectedTab?.readerState?.readerable == true) {
+            val readerViewActive = context.components.core.store.state.selectedTab?.readerState?.active
+            menuItemsList += if (readerViewActive == true) {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_disable_reader_view)
+                )
+                {
+                    readerViewIntegration.hideReaderView()
+                }
+            } else {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_enable_reader_view)
+                )
+                {
+                    readerViewIntegration.showReaderView()
+                }
+            }
+        }
+
+        menuItemsList += TextMenuCandidate(
+            text = context.getString(R.string.browser_menu_find_in_page)
+        ) {
+            FindInPageIntegration.launch?.invoke()
+        }
         if (sessionState != null) {
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(
@@ -236,12 +268,6 @@ class ToolbarIntegration(
                 }
             }
             menuItemsList += shortcutMenuItem(sessionState)
-
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_find_in_page)
-            ) {
-                FindInPageIntegration.launch?.invoke()
-            }
         }
 
         /* CENO: Only add extension menu items to list if their browserActions are not null */
@@ -304,6 +330,8 @@ class ToolbarIntegration(
             addDomainProvider(shippedDomainsProvider)
         }
 
+        // TODO: all of these coroutines are out of control and reload menu too often,
+        //  need to implement method to invalidate menu so menu is only reload when needed
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */
         scope.launch {
@@ -345,6 +373,25 @@ class ToolbarIntegration(
                         cenoToolbarFeature.getPageAction(CENO_EXTENSION_ID)?.invoke()
                     }
                 }
+        }
+
+
+        scope.launch {
+            store.flowScoped { flow ->
+                flow.mapNotNull { state -> state.tabs }
+                    .filterChanged {
+                        it.readerState
+                    }
+                    .collect { tab ->
+                        if (tab.id == store.state.selectedTabId) {
+                            menuController.submitList(menuItems(store.state.selectedTab))
+                            //maybeNotifyReaderStatusChange(
+                            //    tab.readerState.readerable,
+                            //    tab.readerState.active
+                            //)
+                        }
+                    }
+            }
         }
     }
 

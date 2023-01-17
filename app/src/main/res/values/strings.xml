@@ -230,4 +230,7 @@
     <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
     <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <string name="browser_menu_enable_reader_view">Enable Reader View</string>
+    <string name="browser_menu_disable_reader_view">Disable Reader View</string>
 </resources>
