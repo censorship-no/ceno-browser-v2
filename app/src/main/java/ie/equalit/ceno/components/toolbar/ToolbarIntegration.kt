@@ -53,6 +53,25 @@ import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
+import ie.equalit.ceno.addons.AddonsActivity
+import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
+import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
+/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
+import ie.equalit.ceno.components.ceno.toolbar.ToolbarFeature
+import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.SettingsFragment
+import kotlinx.coroutines.flow.mapNotNull
+import mozilla.components.feature.readerview.ReaderViewFeature
+import mozilla.components.lib.state.ext.flowScoped
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
+
+//import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -66,6 +85,8 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
+    private val onTabUrlChange: (String) -> Unit,
+    private val readerViewIntegration: ReaderViewIntegration
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -227,6 +248,25 @@ class ToolbarIntegration(
                 }
             )
         }
+
+        if (context.components.core.store.state.selectedTab?.readerState?.readerable == true) {
+            val readerViewActive = context.components.core.store.state.selectedTab?.readerState?.active
+            menuItemsList += if (readerViewActive == true) {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_disable_reader_view)
+                )
+                {
+                    readerViewIntegration.hideReaderView()
+                }
+            } else {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_enable_reader_view)
+                )
+                {
+                    readerViewIntegration.showReaderView()
+                }
+            }
+        }
         if (sessionState != null) {
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(
@@ -343,6 +383,25 @@ class ToolbarIntegration(
                         fragment?.showWebExtensionPopupPanel()
                     }
                 }
+        }
+
+
+        scope.launch {
+            store.flowScoped { flow ->
+                flow.mapNotNull { state -> state.tabs }
+                    .filterChanged {
+                        it.readerState
+                    }
+                    .collect { tab ->
+                        if (tab.id == store.state.selectedTabId) {
+                            menuController.submitList(menuItems(store.state.selectedTab))
+                            //maybeNotifyReaderStatusChange(
+                            //    tab.readerState.readerable,
+                            //    tab.readerState.active
+                            //)
+                        }
+                    }
+            }
         }
     }
 

@@ -61,6 +61,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             toolbar.addNavigationAction(homeAction)
         }
 
+        /*
         readerViewFeature.set(
             feature = ReaderViewIntegration(
                 requireContext(),
@@ -73,6 +74,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             owner = this,
             view = view,
         )
+         */
 
         /*
          * Remove WebExtension toolbar feature because
