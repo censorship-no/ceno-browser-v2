@@ -146,8 +146,8 @@ open class BrowserActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            /* CENO: in Android 12 or later, it is possible that the
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background
              * try sending an intent to restart the service
              */

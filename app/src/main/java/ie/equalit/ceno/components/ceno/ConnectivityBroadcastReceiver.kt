@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.os.Build
 import android.util.Log
 import ie.equalit.ceno.BrowserApplication
 
@@ -36,8 +37,13 @@ object ConnectivityBroadcastReceiver : BroadcastReceiver() {
                 Log.d(TAG, "Stopping OuinetService on connectivity change")
                 OuinetService.stopOuinetService(context)
                 // TODO: Insert a pause / check client state.
-                Log.d(TAG, "Starting OuinetService on connectivity change")
-                OuinetService.startOuinetService(context, BrowserApplication.mOuinetConfig)
+                try {
+                    Log.d(TAG, "Starting OuinetService on connectivity change")
+                    OuinetService.startOuinetService(context, BrowserApplication.mOuinetConfig)
+                } catch (ex: Exception) {
+                    // TODO: if the start fails, we should try restarting the service later
+                    Log.w(TAG, "startOuinetService failed with exception: $ex")
+                }
             }
         }
     }
