@@ -30,13 +30,6 @@
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ie.equalit.ceno.search.AwesomeBarWrapper
-        android:id="@+id/awesomeBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:visibility="gone" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/homeAppBar"
         android:layout_width="match_parent"
@@ -99,6 +92,13 @@
         tools:itemCount="3"
         android:background="@drawable/home_background"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    <ie.equalit.ceno.search.AwesomeBarWrapper
+        android:id="@+id/awesomeBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:visibility="gone" />
 
     <mozilla.components.feature.findinpage.view.FindInPageBar
         android:id="@+id/findInPageBar"

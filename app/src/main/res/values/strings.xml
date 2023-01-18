@@ -220,6 +220,10 @@
 
     <!-- CENO: COPIED FROM FOCUS -->
     <string name="preference_category_search">Search</string>
+
+    <!-- Title of "switch" preference that enables/disables search suggestions -->
+    <string name="preference_show_search_suggestions">Get search suggestions</string>
+
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
     <string name="preference_search_summary">Set default</string>
