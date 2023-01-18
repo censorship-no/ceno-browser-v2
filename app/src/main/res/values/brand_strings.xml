@@ -147,5 +147,9 @@
     <string name="changeIconDialogMessage">The app may close to apply changes. Come on back after you\'ve admired your handsome new icon.</string>
     <!-- END COPIED FROM DUCKDUCKGO -->
 
+    <!-- Description of the preference that enables/disables search suggestions -->
+    <string name="preference_show_search_suggestions_summary">&brandShortName; will send what you type in the address bar to your search engine</string>
+
+
 </resources>
 

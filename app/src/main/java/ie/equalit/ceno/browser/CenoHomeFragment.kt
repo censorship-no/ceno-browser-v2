@@ -40,6 +40,7 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
 import ie.equalit.ceno.search.AwesomeBarWrapper
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabsTrayFragment
 import ie.equalit.ceno.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_THRESHOLD
 
@@ -173,27 +174,30 @@ class CenoHomeFragment : BaseBrowserFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AwesomeBarFeature(awesomeBar, toolbar, engineView)
-            .addSearchProvider(
-                requireContext(),
-                requireComponents.core.store,
-                requireComponents.useCases.searchUseCases.defaultSearch,
-                fetchClient = requireComponents.core.client,
-                mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                engine = requireComponents.core.engine,
-                limit = 5,
-                filterExactMatch = true
-            )
-            .addSessionProvider(
+        AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
+            if (Settings.shouldShowSearchSuggestions(requireContext())) {
+                it.addSearchProvider(
+                    requireContext(),
+                    requireComponents.core.store,
+                    requireComponents.useCases.searchUseCases.defaultSearch,
+                    fetchClient = requireComponents.core.client,
+                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                    engine = requireComponents.core.engine,
+                    limit = 5,
+                    filterExactMatch = true
+                )
+            }
+            it.addSessionProvider(
                 resources,
                 requireComponents.core.store,
                 requireComponents.useCases.tabsUseCases.selectTab
             )
-            .addHistoryProvider(
+            it.addHistoryProvider(
                 requireComponents.core.historyStorage,
                 requireComponents.useCases.sessionUseCases.loadUrl
             )
-            .addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
+            it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
+        }
 
         // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
         // a dependency on feature-syncedtabs (which depends on Sync).

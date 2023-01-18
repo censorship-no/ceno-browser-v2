@@ -103,8 +103,9 @@ open class BrowserActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
+            PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
+
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
-            PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
             if (Settings.shouldShowOnboarding(this)) {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)

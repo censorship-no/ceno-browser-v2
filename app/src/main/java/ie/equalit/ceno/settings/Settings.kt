@@ -37,6 +37,11 @@ object Settings {
             ""
         ) ?: ""
 
+    fun shouldShowSearchSuggestions(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_search_suggestions), false
+        )
+
     fun setShowOnboarding(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_onboarding)
         PreferenceManager.getDefaultSharedPreferences(context)
