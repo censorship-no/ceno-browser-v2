@@ -111,7 +111,6 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Opinión del lector</string>
-    <string name="privacy_settings">Ajustes de privacidad</string>
     <string name="toast_copied">¡Copiado!</string>
     <string name="preferences_customization_summary">Icono de la aplicación, barra de herramientas, botón Borrar</string>
     <string name="toolbar_category">Opciones de la barra de herramientas</string>

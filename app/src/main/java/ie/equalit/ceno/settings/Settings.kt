@@ -42,6 +42,19 @@ object Settings {
             context.getString(R.string.pref_key_show_search_suggestions), false
         )
 
+    fun shouldUpdateSearchEngines(context: Context): Boolean =
+            PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                    context.getString(R.string.pref_key_update_search_engines), false
+            )
+
+    fun setUpdateSearchEngines(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_update_search_engines)
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(key, value)
+                .apply()
+    }
+
     fun setShowOnboarding(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_onboarding)
         PreferenceManager.getDefaultSharedPreferences(context)
