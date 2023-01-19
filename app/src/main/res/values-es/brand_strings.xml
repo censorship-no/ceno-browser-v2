@@ -5,6 +5,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -106,4 +108,5 @@
     <string name="changeIconDialogTitle">¿Aplicar el nuevo icono\?</string>
     <string name="changeIconDialogMessage">La aplicación puede cerrarse para aplicar los cambios. Vuelve después de que hayas admirado tu atractivo nuevo icono.</string>
     <string name="preferences_change_app_icon">Cambiar el icono de la aplicación</string>
+    <string name="preference_show_search_suggestions_summary">&brandShortName; enviará lo que escriba en la barra de direcciones a su motor de búsqueda</string>
 </resources>
