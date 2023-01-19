@@ -1,2 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="settings">הגדרות</string>
+    <string name="delete_from_history">הסר מההסטוריה</string>
+    <string name="shortcut_max_limit_title">הגעת למגבלת קיצורי הדרך</string>
+    <string name="top_sites_max_limit_confirmation_button">בסדר, הבנתי את זה</string>
+    <string name="top_sites_rename_dialog_title">שם</string>
+    <string name="browser_menu_stop">עצור</string>
+    <string name="browser_menu_forward">העבר אל</string>
+    <string name="browser_menu_refresh">רענן</string>
+    <string name="preferences_customization_summary">הגדרות סרגל הכלים</string>
+    <string name="toast_copied">הועתק!</string>
+    <string name="customize_addon_collection_hint">שם האוסף</string>
+    <string name="browser_menu_remove_from_shortcuts">הסר מקיצורי דרך</string>
+    <string name="toolbar_category">אפשרויות סרגל הכלים</string>
+    <string name="privacy_settings">הגדרות פרטיות</string>
+    <string name="customization_settings">התאמה אישית</string>
+    <string name="menu_share_with">שתף עם…</string>
+    <string name="customize_addon_collection_cancel">ביטול</string>
+    <string name="content_description_private_browsing_button">הפעל גלישה פרטית</string>
+    <string name="bookmark_menu_open_in_private_tab_button">פתח בכרטיסיה פרטית</string>
+    <string name="shortcut_max_limit_content">כדי להוסיף קיצור דרך חדש, הסר אחד קיים. גע והחזק את קיצור הדרך, ובחר הסר.</string>
+    <string name="browser_menu_settings">הגדרות כלליות</string>
+    <string name="browser_menu_add_to_homescreen">הוספה למסך הבית</string>
+    <string name="browser_menu_find_in_page">מצא בעמוד</string>
+    <string name="browser_menu_add_to_shortcuts">הוסף לקיצורי דרך</string>
+    <string name="menu_action_close_tabs_private">סגור את הכרטיסיות הפרטיות</string>
+    <string name="menu_action_close_tabs">סגור את כל הכרטיסיות</string>
+    <string name="preferences_remote_debugging">ניפוי באגים באמצעות USB</string>
+    <string name="preferences_tracking_protection_normal">הפעל במצב גלישה רגיל</string>
+    <string name="preferences_tracking_protection_private">הפעל במצב גלישה פרטית</string>
+    <string name="privacy">פרטיות</string>
+    <string name="open_links_in_apps">פתח קישורים באפליקציות</string>
+    <string name="tracker_category">הגנת מעקב</string>
+    <string name="developer_tools_category">כלים למפתחים</string>
+    <string name="private_browsing_title">גלישה פרטית</string>
+    <string name="remove_top_site">הסר</string>
+    <string name="top_sites_rename_dialog_cancel">ביטול</string>
+    <string name="top_sites_sponsored_label">ממומן</string>
+    <string name="rename_top_site">שנה שם</string>
+</resources>

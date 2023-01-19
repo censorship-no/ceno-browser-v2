@@ -93,7 +93,7 @@
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Общие настройки</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Запросить версию для ПК</string>
+    <string name="browser_menu_desktop_site">Версия для ПК</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">На домашний экран</string>
     <!-- Browser menu button that opens the find in page menu -->
@@ -108,7 +108,7 @@
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
-    <string name="button_content_readerview">Восприятие читателя</string>
+    <string name="button_content_readerview">Вид читателя</string>
     <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
     <string name="menu_share_with">Поделиться с …</string>
     <string name="toast_copied">Скопировано!</string>
@@ -131,7 +131,7 @@
         <item quantity="many">%d вкладок</item>
         <item quantity="other">%d вкладок</item>
     </plurals>
-    <string name="preferences_delete_browsing_data_snackbar">Извините. Мы упали</string>
+    <string name="preferences_delete_browsing_data_snackbar">Данные просмотра удалены</string>
     <string name="preferences_delete_browsing_data">Удаление данных браузера‥</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">История просмотров и данные сайта</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
@@ -143,9 +143,10 @@
     <string name="preferences_delete_browsing_data_cookies">Файлы cookie</string>
     <string name="preferences_delete_browsing_data_cached_files">Вы выйдете из большинства сайтов</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Освобождает место для хранения</string>
-    <string name="deleting_browsing_data_in_progress">Удаление данных просмотра веб-страниц‥</string>
+    <string name="deleting_browsing_data_in_progress">Удаление данных просмотра веб-страниц..</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Вы выйдете из большинства сайтов</string>
     <string name="preferences_delete_browsing_data_site_permissions">Разрешения веб-сайта</string>
     <string name="preferences_delete_browsing_data_button">Удаление данных просмотра</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Открыть вкладки</string>
+    <string name="preference_category_search">искать</string>
 </resources>

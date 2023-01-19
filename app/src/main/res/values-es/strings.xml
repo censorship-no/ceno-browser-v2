@@ -112,7 +112,7 @@
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Opinión del lector</string>
     <string name="toast_copied">¡Copiado!</string>
-    <string name="preferences_customization_summary">Configuración de la barra de herramientas</string>
+    <string name="preferences_customization_summary">Icono de la aplicación, barra de herramientas, botón Borrar</string>
     <string name="toolbar_category">Opciones de la barra de herramientas</string>
     <string name="customization_settings">Personalización</string>
     <string name="menu_share_with">Compartir con…</string>
@@ -148,4 +148,10 @@
     <string name="delete_browsing_data_prompt_message_3">%s borrará los datos de navegación seleccionados.</string>
     <string name="crash_report_non_fatal_message">Perdón. Estamos bloqueados</string>
     <string name="close_mode_item">Cerrar la notificación</string>
+    <string name="preference_category_search">Buscar</string>
+    <string name="preference_choose_search_engine">Elegir motor de búsqueda</string>
+    <string name="general_category">General</string>
+    <string name="preference_select_preferred_engine">Seleccione su motor preferido:</string>
+    <string name="preference_search_summary">Establecer predeterminado</string>
+    <string name="preference_show_search_suggestions">Obtener las sugerencias de búsqueda</string>
 </resources>
