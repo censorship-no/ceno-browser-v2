@@ -24,4 +24,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_search_suggestions"
         android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_update_search_engines"
+        android:defaultValue="true" />
 </PreferenceScreen>

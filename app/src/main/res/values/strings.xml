@@ -66,9 +66,6 @@
     <string name="settings">Settings</string>
 
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <string name="privacy_settings">Privacy Settings</string>
-
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <string name="customization_settings">Customization</string>
 
     <!-- Snackbar message when a non fatal crash happen-->
@@ -234,4 +231,8 @@
     <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
     <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
+    <string name="remove_search_engine_id_2" translatable="false">ebay</string>
+    <string name="default_search_engine_id" translatable="false">ddg</string>
 </resources>

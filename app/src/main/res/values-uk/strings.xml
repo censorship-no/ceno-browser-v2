@@ -114,7 +114,6 @@
     <string name="menu_share_with">Поділитися з…</string>
     <string name="toast_copied">Скопійовано!</string>
     <string name="preferences_customization_summary">Налаштування панелі інструментів</string>
-    <string name="privacy_settings">Налаштування приватності</string>
     <string name="preferences_autofill">Автозаповнення застосунків</string>
     <string name="preferences_autofill_summary">Автозаповнення логінів і паролів в інших застосунках</string>
     <string name="preferences_tracking_protection_normal">Увімкнути в звичайному режимі перегляду</string>

@@ -23,9 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
-import mozilla.components.browser.state.state.SessionState
-import mozilla.components.browser.state.state.TabSessionState
-import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.lib.crash.Crash
@@ -48,6 +45,7 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
 import mozilla.components.browser.state.selector.selectedTab
+import mozilla.components.browser.state.state.*
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -130,6 +128,8 @@ open class BrowserActivity : AppCompatActivity() {
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
+
+        initializeSearchEngines()
 
         if (isCrashReportActive) {
             crashIntegration = CrashIntegration(this, components.analytics.crashReporter) { crash ->
@@ -305,6 +305,26 @@ open class BrowserActivity : AppCompatActivity() {
                     components.cenoPreferences,
                     components.appStore)
             )
+        }
+    }
+
+    private fun initializeSearchEngines() {
+        if (Settings.shouldUpdateSearchEngines(this)) {
+            components.core.store.state.search.searchEngines.filter { searchEngine ->
+                searchEngine.id in listOf(
+                        getString(R.string.remove_search_engine_id_1),
+                        getString(R.string.remove_search_engine_id_2))
+            }.forEach { searchEngine ->
+                components.useCases.searchUseCases.removeSearchEngine(searchEngine)
+            }
+            components.core.store.state.search.searchEngines.forEach { searchEngine ->
+                if (searchEngine.id == getString(R.string.default_search_engine_id)) {
+                    components.useCases.searchUseCases.selectSearchEngine(searchEngine)
+                }
+            }
+            Logger.debug("${components.core.store.state.search.searchEngines}")
+            Logger.debug("${components.core.store.state.search.selectedOrDefaultSearchEngine}")
+            Settings.setUpdateSearchEngines(this, false)
         }
     }
 }
