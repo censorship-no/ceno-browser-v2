@@ -54,6 +54,9 @@
     <string name="tracker_category">Tracking Protection</string>
 
     <!-- Preference category for tracking protection -->
+    <string name="theme_category">Theme</string>
+
+    <!-- Preference category for tracking protection -->
     <string name="toolbar_category">Toolbar Options</string>
 
     <!-- Preference category for tracking protection -->

@@ -4,12 +4,15 @@
 
 package ie.equalit.ceno.settings
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.changeicon.ChangeIconFragment
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
@@ -21,13 +24,23 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         setupPreferences()
-        getActionBar().setTitle(R.string.customization_settings)
+        getActionBar().apply{
+            show()
+            setTitle(R.string.customization_settings)
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+        }
     }
 
     private fun setupPreferences() {
         val changeAppIconKey = requireContext().getPreferenceKey(R.string.pref_key_change_app_icon)
+        val themeKey = requireContext().getPreferenceKey(R.string.pref_key_theme)
+
         val preferenceChangeAppIcon = findPreference<Preference>(changeAppIconKey)
+        val preferenceTheme = findPreference<Preference>(themeKey)
+
         preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
+        preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()
     }
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {
@@ -37,6 +50,24 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
                 .addToBackStack(null)
                 .commit()
             getActionBar().setTitle(R.string.preferences_change_app_icon)
+            true
+        }
+    }
+
+    private fun getChangeListenerForTheme(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            val modeString = newValue as String
+            val mode = modeString.toInt()
+            if (AppCompatDelegate.getDefaultNightMode() != mode) {
+                AppCompatDelegate.setDefaultNightMode(mode)
+                activity?.recreate()
+                /* TODO: send colorScheme to gecko engine
+                with(requireComponents.core) {
+                    engine.settings.preferredColorScheme = getPreferredColorScheme()
+                }
+                 */
+                requireComponents.useCases.sessionUseCases.reload.invoke()
+            }
             true
         }
     }

@@ -30,7 +30,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/NormalTheme"
         android:name="ie.equalit.ceno.BrowserApplication"
         tools:ignore="UnusedAttribute">
 
@@ -201,7 +201,7 @@
         <activity
           android:name="ie.equalit.ceno.settings.SettingsActivity"
           android:label="@string/settings"
-          android:theme="@style/AppTheme"
+          android:theme="@style/NormalTheme"
           android:parentActivityName="ie.equalit.ceno.BrowserActivity" />
 
         <activity

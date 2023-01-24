@@ -6,6 +6,7 @@ package ie.equalit.ceno.settings
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
@@ -58,6 +59,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getActionBar().apply{
             show()
             setTitle(R.string.settings)
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
         }
     }
 

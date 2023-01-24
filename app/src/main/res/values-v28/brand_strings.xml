@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 9 (Pie) and later support following device theme
+         this is a cheap way of adding this feature -->
+    <string name="preferences_theme_summary">Dark, Light, Follow device</string>
+    <string-array name="preferences_theme_values" >
+        <item>2</item>
+        <item>1</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="preferences_theme_options" >
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Follow device theme</item>
+    </string-array>
+</resources>

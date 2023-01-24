@@ -8,9 +8,9 @@
         <gradient
             android:angle="135"
             android:centerY=".5"
-            android:startColor="@color/device_type_mobile_background"
+            android:startColor="@color/ceno_home_background_gradient_start"
             android:centerColor="@color/ceno_onboarding_gradient_middle"
-            android:endColor="@color/photonWhite"
+            android:endColor="@color/ceno_home_background_gradient_end"
             android:type="linear" />
     </shape>
 </item>

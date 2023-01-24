@@ -27,4 +27,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_update_search_engines"
         android:defaultValue="true" />
+    <ListPreference
+        android:key="@string/pref_key_theme"
+        android:defaultValue="@string/preferences_theme_default" />
 </PreferenceScreen>

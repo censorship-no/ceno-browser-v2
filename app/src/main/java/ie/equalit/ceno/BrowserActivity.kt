@@ -7,6 +7,7 @@ package ie.equalit.ceno
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
@@ -93,15 +95,20 @@ open class BrowserActivity : AppCompatActivity() {
         val intentFilter = IntentFilter()
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
-
-        /* CENO: Set default behavior for AppBar */
-        supportActionBar!!.apply {
-            hide()
-            setDisplayHomeAsUpEnabled(true)
-        }
-
         if (savedInstanceState == null) {
             PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
+
+            /* CENO: Set the default theme based on configured preference */
+            AppCompatDelegate.setDefaultNightMode(
+                    Settings.getAppTheme(this)
+            )
+
+            /* CENO: Set default behavior for AppBar */
+            supportActionBar!!.apply {
+                hide()
+                setDisplayHomeAsUpEnabled(true)
+                setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+            }
 
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
             if (Settings.shouldShowOnboarding(this)) {

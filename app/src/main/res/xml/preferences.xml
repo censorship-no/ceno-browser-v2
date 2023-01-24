@@ -3,42 +3,51 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/general_category">
+        android:title="@string/general_category"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_privacy"
             android:title="@string/tracker_category"
             android:summary="@string/preferences_privacy_summary"/>
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_search_engine"
             android:summary="@string/preference_search_summary"
             android:title="@string/preference_category_search" />
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_customization"
             android:title="@string/preferences_customization"
             android:summary="@string/preferences_customization_summary"
             />
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_launch_external_app"
             android:defaultValue="false"
             android:title="@string/open_links_in_apps" />
 
         <androidx.preference.Preference
-                android:key="@string/pref_key_make_default_browser"
-                android:title="@string/preferences_make_default_browser"/>
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_make_default_browser"
+            android:title="@string/preferences_make_default_browser"/>
 
         <ie.equalit.ceno.autofill.AutofillPreference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_autofill"
             android:title="@string/preferences_autofill"
             android:summary="@string/preferences_autofill_summary" />
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_delete_browsing_data"
             android:title="@string/preferences_delete_browsing_data"/>
 
@@ -50,33 +59,40 @@
             -->
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_disable_battery_opt"
             android:title="@string/preferences_disable_battery_opt" />
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_show_onboarding"
             android:defaultValue="true"
             android:title="@string/preferences_show_onboarding"/>
 
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/developer_tools_category">
+        android:title="@string/developer_tools_category"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_remote_debugging"
             android:defaultValue="false"
             android:title="@string/preferences_remote_debugging" />
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_override_amo_collection"
             android:title="@string/preferences_customize_amo_collection"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/vendor_category">
+        android:title="@string/vendor_category"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_about_page"
             android:title="@string/preferences_about_page" />
 

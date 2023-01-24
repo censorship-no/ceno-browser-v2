@@ -1,32 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-
-<resources>
-    <!--
-    <style name="AppThemeNotActionBar" parent="Theme.AppCompat.NoActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-
-        <item name="colorPrimary">@color/dark</item>
-        <item name="colorPrimaryDark">@color/evenDarker</item>
-        <item name="colorAccent">@color/accent</item>
-
-        <item name="android:navigationBarColor">@color/evenDarker</item>
-        <item name="android:windowBackground">@color/dark</item>
-    </style>
-    -->
-
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-
-        <item name="colorPrimary">@color/dark</item>
-        <item name="colorPrimaryDark">@color/evenDarker</item>
-        <item name="colorAccent">@color/accent</item>
-
-        <item name="android:navigationBarColor">@color/evenDarker</item>
-        <item name="android:windowBackground">@color/dark</item>
-    </style>
-
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="CenoMode.Card" parent="Mozac.Widgets.Favicon">
         <item name="cardBackgroundColor">@color/fx_mobile_layer_color_2</item>
         <item name="cardCornerRadius">@dimen/top_sites_card_radius</item>
@@ -34,8 +10,238 @@
     </style>
 
     <!-- CENO: COPIED FROM FENIX -->
+    <style name="NormalThemeBase" parent="Theme.MaterialComponents.DayNight.Bridge">
+        <!-- Android system styling -->
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewStyle</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!--
+        <item name="android:progressBarStyleHorizontal">@style/progressBarStyleHorizontal</item>
+        -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/fx_mobile_layer_color_1</item>
+        <item name="android:colorEdgeEffect">@color/accent_normal_theme</item>
+        <item name="android:colorAccent">@color/fx_mobile_text_color_primary</item>
+        <item name="android:textColorPrimary">@color/fx_mobile_text_color_primary</item>
+        <item name="android:textColorSecondary">@color/fx_mobile_text_color_secondary</item>
+        <item name="alertDialogStyle">@style/DialogStyleNormal</item>
+        <item name="alertDialogTheme">@style/DialogStyleNormal</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheet</item>
+        <item name="android:textColorLink">@color/fx_mobile_text_color_accent</item>
+
+        <item name="mozacInputLayoutErrorTextColor"
+            tools:ignore="UnusedResources">@color/fx_mobile_text_color_warning</item>
+        <item name="mozacInputLayoutErrorIconColor"
+            tools:ignore="UnusedResources">@color/fx_mobile_text_color_warning</item>
+        <item name="mozacLoginSelectHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
+        <item name="mozacSelectCreditCardHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
+        <item name="mozacSelectAddressHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
+
+        <!-- Design system color attributes -->
+
+        <!-- Layers -->
+        <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->
+        <item name="layer1">@color/fx_mobile_layer_color_1</item>
+        <!-- Card background, Menu background, Dialog, Banner -->
+        <item name="layer2">@color/fx_mobile_layer_color_2</item>
+        <!-- Search -->
+        <item name="layer3">@color/fx_mobile_layer_color_3</item>
+        <!-- Selected tab -->
+        <item name="layerNonOpaque">@color/fx_mobile_layer_color_accent_nonopaque</item>
+        <item name="scrim">@color/fx_mobile_layer_color_scrim</item>
+
+        <!-- Action -->
+        <!-- Primary button, Snackbar, Floating action button, Chip selected -->
+        <item name="actionPrimary">@color/fx_mobile_action_color_primary</item>
+
+        <!-- Text -->
+        <!-- Primary text -->
+        <item name="textPrimary">@color/fx_mobile_text_color_primary</item>
+        <!-- Secondary text -->
+        <item name="textSecondary">@color/fx_mobile_text_color_secondary</item>
+        <!-- Disabled text -->
+        <item name="textDisabled">@color/fx_mobile_text_color_disabled</item>
+        <!-- Warning text -->
+        <item name="textWarning">@color/fx_mobile_text_color_warning</item>
+        <!-- Small heading, Text link -->
+        <item name="textAccent">@color/fx_mobile_text_color_accent</item>
+        <!-- Text Inverted/On Color -->
+        <item name="textOnColorPrimary">@color/fx_mobile_text_color_oncolor_primary</item>
+        <!-- Action Primary text -->
+        <item name="textActionPrimary">@color/fx_mobile_text_color_action_primary</item>
+
+        <!-- Icon -->
+        <!-- Secondary icon -->
+        <item name="iconSecondary">@color/fx_mobile_icon_color_secondary</item>
+        <!-- Active tab -->
+        <item name="iconActive">@color/fx_mobile_icon_color_active</item>
+        <!-- Icon inverted (on color) -->
+        <item name="iconOnColor">@color/fx_mobile_icon_color_oncolor</item>
+
+        <!-- Border -->
+        <!-- Default, Divider, Dotted -->
+        <item name="borderPrimary">@color/fx_mobile_border_color_primary</item>
+
+        <!-- Active thumb color & Active track color (30% transparency) -->
+        <item name="colorControlActivated">@color/accent_high_contrast_normal_theme</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/toggle_off_knob_normal_theme</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/toggle_off_track_normal_theme</item>
+        <!-- sets the toolbar back button color, radio buttons / unselected checkboxes -->
+        <item name="colorControlNormal">@color/fx_mobile_text_color_primary</item>
+
+        <!-- Updated color attributes -->
+        <item name="accent">@color/accent_normal_theme</item>
+        <item name="accentBright">@color/photonViolet70</item>
+        <item name="accentHighContrast">@color/accent_high_contrast_normal_theme</item>
+        <item name="neutral">@color/neutral_normal_theme</item>
+        <item name="neutralFaded">@color/neutral_faded_normal_theme</item>
+        <item name="accentUsedOnDarkBackground">@color/fx_mobile_text_color_accent</item>
+        <item name="toolbarStartGradient">@color/fx_mobile_layer_color_1</item>
+        <item name="toolbarCenterGradient">@color/fx_mobile_layer_color_1</item>
+        <item name="toolbarEndGradient">@color/fx_mobile_layer_color_1</item>
+        <item name="fillLinkFromClipboard">@color/fill_link_from_clipboard_normal_theme</item>
+        <item name="syncDisconnected">@color/sync_disconnected_icon_fill_normal_theme</item>
+        <item name="syncDisconnectedBackground">@color/sync_disconnected_background_normal_theme</item>
+        <item name="onboardingDarkGradientStartBackground">@color/photonViolet70</item>
+        <item name="onboardingDarkGradientEndBackground">@color/photonViolet40</item>
+        <item name="onboardingSelected">@color/onboarding_illustration_selected_normal_theme</item>
+        <item name="onboardingDeselected">@color/onboarding_illustration_deselected_normal_theme</item>
+        <item name="addOnPrivateBrowsingExteriorCircleBackground">@color/add_on_private_browsing_exterior_circle_background_normal_theme</item>
+        <item name="mozacPromptLoginEditTextCursorColor">@color/prompt_login_edit_text_cursor_color_normal_theme</item>
+        <item name="awesomeBarIndicatorColor">@color/search_suggestion_indicator_icon_color_normal_theme</item>
+        <item name="awesomeBarIndicatorBookmarkColor">@color/search_suggestion_indicator_icon_bookmark_color_normal_theme</item>
+        <item name="preferenceSectionHeader">@color/fx_mobile_text_color_accent</item>
+        <item name="selectPromptHeaderTextColor">@color/fx_mobile_text_color_accent</item>
+        <item name="menuItemButtonTintColor">@color/fx_mobile_text_color_accent</item>
+
+        <!-- Shared widget colors -->
+        <item name="mozac_primary_text_color">@color/fx_mobile_text_color_primary</item>
+        <item name="mozac_caption_text_color">@color/fx_mobile_text_color_secondary</item>
+        <item name="mozac_widget_favicon_background_color">@color/fx_mobile_layer_color_2</item>
+        <item name="mozac_widget_favicon_border_color">@color/fx_mobile_border_color_primary</item>
+
+        <item name="tabCounterTintColor">?attr/textPrimary</item>
+    </style>
+
+    <style name="NormalTheme" parent="NormalThemeBase" />
+
+    <style name="BaseDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorControlNormal">?attr/textPrimary</item>
+        <item name="textColorAlertDialogListItem">?attr/textPrimary</item>
+        <item name="android:titleTextStyle">@style/HeaderTextStyle</item>
+        <item name="android:windowTitleStyle">@style/HeaderTextStyle</item>
+        <item name="dialogCornerRadius">@dimen/tab_corner_radius</item>
+        <item name="android:colorBackground">?attr/layer2</item>
+        <item name="colorAccent">?accent</item>
+        <item name="android:textColorPrimary">?attr/textPrimary</item>
+    </style>
+
+    <style name="DialogStyleLight" parent="BaseDialogStyle">
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyleLight</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyleLight</item>
+    </style>
+
+    <style name="SelectPromptHeaderTextStyle" parent="Header16TextStyle">
+        <item name="android:textColor">?selectPromptHeaderTextColor</item>
+        <item name="drawableTint">?accentHighContrast</item>
+    </style>
+
+    <style name="DialogStyleDark" parent="BaseDialogStyle">
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyleDark</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyleDark</item>
+    </style>
+
+    <style name="DialogButtonStyleLight" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:textColor">?accentBright</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
+
+    <style name="DialogButtonStyleDark" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:textColor">?accentHighContrast</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>    </style>
+
+    <style name="DialogStyleNormal" parent="DialogStyleLight"/>
+
+    <style name="Mozac.Browser.Menu" parent="" tools:ignore="UnusedResources">
+        <item name="cardBackgroundColor">?attr/layer2</item>
+    </style>
+    <style name="Mozac.Browser.Menu2" parent="" tools:ignore="UnusedResources">
+        <item name="cardBackgroundColor">?attr/layer2</item>
+    </style>
+
+    <!-- Fade animation for theme switching -->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="HeaderTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
+
+    <style name="Header20TextStyle" parent="TextAppearance.MaterialComponents.Body1" tools:ignore="UnusedResources">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
+
+    <style name="Header16TextStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
+
     <style name="Body16TextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/fx_mobile_text_color_primary</item>
+    </style>
+
+    <style name="Body12TextStyle" parent="TextAppearance.MaterialComponents.Body1" tools:ignore="UnusedResources">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Button14TextStyle" parent="TextAppearance.MaterialComponents.Button" tools:ignore="UnusedResources">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="ListItemTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">?attr/textPrimary</item>
+    </style>
+
+    <style name="PreferenceSectionHeader" parent="@android:style/Widget.ListView">
+        <item name="android:textColor">?preferenceSectionHeader</item>
+        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
+
+    <style name="AutoCompleteTextViewStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColorHint">@color/search_view_hint_color</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/BottomSheetBase" />
+
+    <style name="BottomSheetBase" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
     </style>
 
     <style name="TopSite.FaviconCard" parent="Mozac.Widgets.Favicon">
@@ -60,10 +266,5 @@
         <item name="elevation">@dimen/top_sites_favicon_elevation</item>
         <item name="cornerSize">@dimen/top_sites_favicon_corner_size</item>
     </style>
-
-    <style name="ListItemTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textColor">@color/photonWhite</item>
-    </style>
     <!-- CENO: END OF COPIED FROM FENIX -->
-
 </resources>

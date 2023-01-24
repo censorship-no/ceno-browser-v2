@@ -46,8 +46,7 @@ class ClearButtonFeature(
                 }
             }
         }
-        /* TODO: Add styling to purge dialog */
-        return AlertDialog.Builder(context) //, R.style.PurgeDialog)
+        return AlertDialog.Builder(context)
             .setTitle(R.string.ceno_clear_dialog_title)
             .setMessage(R.string.ceno_clear_dialog_description)
             .setPositiveButton(R.string.ceno_clear_dialog_clear_entire_app, dialogClickListener)

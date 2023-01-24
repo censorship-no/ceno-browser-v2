@@ -6,15 +6,7 @@
     <!-- TODO: A lot of these colors are unused, hence blanket ignore, 
             need to remove all unused colors -->
     <color name="placeholder_grey">#777777</color>
-
-    <color name="dark">#ff212121</color>
-    <color name="evenDarker">#ff1a1a1a</color>
     <color name="accent">#ff00BCD4</color>
-
-    <color name="toolbarBackgroundColor">@color/evenDarker</color>
-    <color name="toolbarUrlBoxColor">#333333</color>
-    <color name="toolbarSuggestionForeground">@color/dark</color>
-    <color name="toolbarSuggestionBackground">@color/accent</color>
 
     <color name="icons">#ffffffff</color>
 
@@ -22,6 +14,13 @@
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
 
     <color name="ceno_onboarding_gradient_middle">#4bb0bc</color>
+    <color name="ceno_home_background_gradient_start">#0391a1</color><!--#D4C1FA</color>-->
+    <color name="ceno_home_background_gradient_middle">#0391a1</color><!--#D4C1FA</color>-->
+    <color name="ceno_home_background_gradient_end">@color/photonWhite</color>
+    <color name="ceno_home_card_background_tint">@color/photonWhite</color>
+    <color name="ceno_home_card_text_color">@color/photonBlack</color>
+    <color name="ceno_onboarding_button_text_color">@color/photonBlack</color>
+    <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
@@ -35,7 +34,7 @@
     <!-- Search -->
     <color name="fx_mobile_layer_color_3">@color/photonLightGrey20</color>
     <!-- App Bar Top (edit), Text Cursor, Selected Tab Check -->
-    <color name="fx_mobile_layer_color_accent">@color/photonInk20</color>
+    <color name="fx_mobile_layer_color_accent">@color/accent</color>
     <!-- Selected tab -->
     <color name="fx_mobile_layer_color_accent_nonopaque">@color/photonViolet70A12</color>
     <!-- Selected tab -->
@@ -82,9 +81,9 @@
     <!-- Warning text -->
     <color name="fx_mobile_text_color_warning">@color/photonRed70</color>
     <!-- Warning text on Secondary button -->
-    <color name="fx_mobile_text_color_warning_button" tools:ignore="UnusedResources">@color/photonRed70</color>
+    <color name="fx_mobile_text_color_warning_button">@color/photonRed70</color>
     <!-- Small heading, Text link -->
-    <color name="fx_mobile_text_color_accent">@color/photonViolet70</color>
+    <color name="fx_mobile_text_color_accent">#ff00BCD4</color>
     <!-- Small heading, Text link -->
     <color name="fx_mobile_text_color_accent_disabled" tools:ignore="UnusedResources">@color/photonViolet70A80</color>
     <!-- Text Inverted/On Color -->
@@ -119,7 +118,7 @@
     <color name="fx_mobile_icon_color_button" tools:ignore="UnusedResources">@color/photonInk20</color>
     <color name="fx_mobile_icon_color_warning" tools:ignore="UnusedResources">@color/photonRed70</color>
     <!-- Warning icon on Secondary button -->
-    <color name="fx_mobile_icon_color_warning_button" tools:ignore="UnusedResources">@color/photonRed70</color>
+    <color name="fx_mobile_icon_color_warning_button">@color/photonRed70</color>
     <color name="fx_mobile_icon_color_accent_violet">@color/photonViolet60</color>
     <color name="fx_mobile_icon_color_accent_blue">@color/photonBlue60</color>
     <color name="fx_mobile_icon_color_accent_pink">@color/photonPink60</color>
@@ -297,12 +296,9 @@
     <color name="prompt_login_edit_text_cursor_color_private_theme">@color/photonViolet50</color>
 
     <!-- Normal theme colors for light mode -->
-    <color name="accent_normal_theme">@color/photonInk20</color>
-    <color name="accent_high_contrast_normal_theme">@color/photonInk20</color>
+    <color name="accent_normal_theme">@color/accent</color>
+    <color name="accent_high_contrast_normal_theme">@color/accent</color>
     <color name="neutral_normal_theme">@color/photonGrey30</color>
-    <!--
-    <color name="neutral_faded_normal_theme">@color/photonGrey20</color>
-    -->
     <color name="fill_link_from_clipboard_normal_theme">@color/photonInk20</color>
     <color name="sync_disconnected_icon_fill_normal_theme">@color/photonYellow70</color>
     <color name="sync_disconnected_background_normal_theme">#FFFDE2</color>
@@ -340,13 +336,14 @@
     <!-- Share UI -->
     <color name="default_share_background">#E3E2E3</color>
     <color name="device_type_desktop_background">#F091C3</color>
-    <color name="device_type_mobile_background">#0391a1</color><!--#D4C1FA</color>-->
+    <color name="device_type_mobile_background">#D4C1FA</color>
     <color name="device_foreground">@color/photonInk80</color>
 
     <!-- Launcher Icon colors -->
     <color name="ic_launcher_white_background">#FDFDFD</color>
     <color name="ic_launcher_blue_background">#0EA5E9</color>
     <color name="ic_launcher_red_background">#F0412F</color>
+
 
     <!-- Private Browsing Mode Persistent Notification -->
     <color name="pbm_notification_color">@color/photonViolet70</color>
@@ -364,9 +361,16 @@
     <color name="spinner_selected_item">#1415141A</color>
 
     <!-- Normal theme colors for dark mode -->
-    <color name="neutral_faded_normal_theme">#1FFBFBFE</color>
+    <color name="neutral_faded_normal_theme">@color/photonGrey20</color>
 
     <!-- CENO: END OF COPIED FROM FENIX -->
+
+    <color name="toolbarBackgroundColor">@color/fx_mobile_layer_color_1</color>
+    <color name="toolbarUrlBoxColor">@color/fx_mobile_layer_color_3</color>
+    <color name="toolbarSuggestionForeground">@color/fx_mobile_layer_color_1</color>
+    <color name="toolbarSuggestionBackground">@color/accent</color>
+
+    <color name="ceno_ui_icons_fill">@color/fx_mobile_text_color_primary</color>
 
     <!-- COPIED FROM DUCKDUCKGO -->
     <color name="grayishBrown">#494949</color>

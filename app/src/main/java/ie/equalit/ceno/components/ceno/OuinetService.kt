@@ -191,7 +191,7 @@ open class OuinetService : Service(){
             flags
         )
         val notifb: NotificationCompat.Builder = NotificationCompat.Builder(this, channel_id!!)
-            .setSmallIcon(R.drawable.ic_status_logo)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(getString(R.string.ceno_notification_title))
             .setContentText(getString(R.string.ceno_notification_description))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

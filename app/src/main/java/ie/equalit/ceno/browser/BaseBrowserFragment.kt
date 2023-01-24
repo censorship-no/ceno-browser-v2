@@ -51,6 +51,7 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.tabs.TabsTrayFragment
+import mozilla.components.browser.toolbar.display.DisplayToolbar
 import java.lang.Exception
 
 /**
@@ -368,19 +369,46 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          */
         requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
             binding.toolbar.private = private
-            /* TODO: this is messy, should create proper theme manager */
+
+            /* TODO: this is still a little messy, should create ThemeManager class */
+            var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+            var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+            var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+            var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+            var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+
             if (private) {
-                binding.toolbar.display.setUrlBackground(
-                    context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_private_background, ctx.theme) }
-                )
-                binding.toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_background, ctx.theme) }
+                textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
+                textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
+                urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_private_background)
+                toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
+                statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
             }
-            else {
-                binding.toolbar.display.setUrlBackground(
-                    context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.url_background, ctx.theme) }
-                )
-                binding.toolbar.background = context?.let { ctx -> ResourcesCompat.getDrawable(ctx.resources, R.drawable.toolbar_dark_background, ctx.theme) }
-            }
+
+            binding.toolbar.display.setUrlBackground(urlBackground)
+            binding.toolbar.background = toolbarBackground
+            binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
+                    text = textPrimary,
+                    hint = textSecondary
+            )
+            binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
+                    text = textPrimary,
+                    hint = textSecondary,
+                    securityIconSecure = textPrimary,
+                    securityIconInsecure = textPrimary,
+                    menu = textPrimary
+            )
+
+            /* CENO: this is replaces the shield icon in the address bar
+             * with the ceno logo, regardless of tracking protection state
+             */
+            binding.toolbar.display.icons = DisplayToolbar.Icons(
+                emptyIcon = null,
+                trackingProtectionTrackersBlocked = statusIcon,
+                trackingProtectionNothingBlocked = statusIcon,
+                trackingProtectionException = statusIcon,
+                highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
+            )
         }
     }
 

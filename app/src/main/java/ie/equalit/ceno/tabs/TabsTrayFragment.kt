@@ -116,7 +116,10 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private fun createAndSetupTabsTray(context: Context): TabsTray {
         val layoutManager = LinearLayoutManager(context)
         val thumbnailLoader = ThumbnailLoader(context.components.core.thumbnailStorage)
-        val trayStyling = TabsTrayStyling(itemBackgroundColor = Color.TRANSPARENT, itemTextColor = Color.WHITE)
+        val trayStyling = TabsTrayStyling(
+                itemBackgroundColor = Color.TRANSPARENT,
+                itemTextColor = resources.getColor(R.color.fx_mobile_text_color_primary)
+        )
         val viewHolderProvider: ViewHolderProvider = { viewGroup ->
             val view = LayoutInflater.from(context)
                 .inflate(R.layout.browser_tabstray_item, viewGroup, false)

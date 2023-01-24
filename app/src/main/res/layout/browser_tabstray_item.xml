@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/photonWhite">
+        app:cardBackgroundColor="?attr/layer2">
 
         <mozilla.components.browser.tabstray.thumbnail.TabThumbnailView
             android:id="@+id/mozac_browser_tabstray_thumbnail"
@@ -52,6 +52,7 @@
         android:lines="1"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:textColor="@color/fx_mobile_text_color_secondary"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
         app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_card"

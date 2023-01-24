@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/ceno_home_card_background_tint"
         android:padding="2dp">
 
         <LinearLayout
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ceno_home_mode_description"
-                android:textColor="@color/photonBlack"
+                android:textColor="@color/ceno_home_card_text_color"
                 android:textSize="@dimen/ceno_mode_text_size"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"

@@ -91,8 +91,7 @@ class ToolbarIntegration(
                 contentDescription = context.getString(R.string.browser_menu_forward),
                 icon = DrawableMenuIcon(
                     context,
-                    mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
-                    tint = tint
+                    R.drawable.mozac_ic_forward,
                 ),
                 containerStyle = ContainerStyle(
                     isEnabled = session.content.canGoForward
@@ -106,8 +105,7 @@ class ToolbarIntegration(
             contentDescription = context.getString(R.string.browser_menu_refresh),
             icon = DrawableMenuIcon(
                 context,
-                mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
-                tint = tint
+                R.drawable.mozac_ic_refresh,
             )
         ) {
             sessionUseCases.reload.invoke()
@@ -118,8 +116,7 @@ class ToolbarIntegration(
                 contentDescription = context.getString(R.string.browser_menu_stop),
                 icon = DrawableMenuIcon(
                     context,
-                    mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
-                    tint = tint
+                    R.drawable.mozac_ic_stop,
                 )
             ) {
                 sessionUseCases.stopLoading.invoke()
@@ -271,24 +268,6 @@ class ToolbarIntegration(
     private val menuController: MenuController = BrowserMenuController()
 
     init {
-        /* CENO: this is replaces the shield icon in the address bar
-         * with the ceno logo, regardless of tracking protection state
-         */
-        toolbar.display.icons = DisplayToolbar.Icons(
-            emptyIcon = null,
-            trackingProtectionTrackersBlocked = requireNotNull(
-                getDrawable(context, R.drawable.ic_status_logo),
-            ),
-            trackingProtectionNothingBlocked = requireNotNull(
-                getDrawable(context, R.drawable.ic_status_logo),
-            ),
-            trackingProtectionException = requireNotNull(
-                getDrawable(context, R.drawable.ic_status_logo),
-            ),
-            highlight = requireNotNull(
-                getDrawable(context, R.drawable.mozac_dot_notification),
-            )
-        )
         toolbar.display.indicators = listOf(
             DisplayToolbar.Indicators.SECURITY,
             DisplayToolbar.Indicators.TRACKING_PROTECTION

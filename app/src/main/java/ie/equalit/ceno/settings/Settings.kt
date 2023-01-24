@@ -106,6 +106,13 @@ object Settings {
         return componentName?.let { AppIcon.from(it) }
     }
 
+    fun getAppTheme(context: Context) : Int {
+        val themeString = PreferenceManager.getDefaultSharedPreferences(context).getString(
+                context.getString(R.string.pref_key_theme), context.getString(R.string.preferences_theme_default)
+        )
+        return themeString!!.toInt()
+    }
+
     fun deleteOpenTabs(context: Context) : Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_delete_open_tabs), false

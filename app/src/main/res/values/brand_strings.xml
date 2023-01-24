@@ -37,7 +37,7 @@
 
     <string name="ceno_private_browsing_body"><![CDATA[
 <h1>Private Browsing</h1>
-<p>eQnet will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
+<p>Ceno will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
 <p class="about-info"><a id="learnMore">Want to learn more?</p>
      ]]></string>
 
@@ -135,6 +135,20 @@
     </string-array>
 
     <string name="preferences_change_app_icon">Change app icon</string>
+
+    <string name="preferences_theme">Set app theme</string>
+    <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
+    <string name="preferences_theme_default">2</string>
+    <string-array name="preferences_theme_values" >
+        <item>2</item>
+        <item>1</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="preferences_theme_options" >
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Set by Battery Saver</item>
+    </string-array>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
