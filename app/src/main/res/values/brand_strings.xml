@@ -167,5 +167,7 @@
     <string name="clear_cache_success">Cache cleared successfully</string>
     <string name="clear_cache_fail">Cache clear failed, try again soon</string>
 
+    <string name="addon_placeholder">No Add-ons Available</string>
+
 </resources>
 
