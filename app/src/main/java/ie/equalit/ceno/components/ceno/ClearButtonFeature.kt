@@ -6,8 +6,12 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Process
 import android.widget.Toast
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
 
@@ -17,12 +21,33 @@ class ClearButtonFeature(
 {
 
     private fun clearCenoCache() {
-        context.components.core.client.fetch(Request("http://127.0.0.1:8078/?purge_cache=do")).use {
-            if (it.status == 200) {
-                Toast.makeText(context, "Cache purged successfully", Toast.LENGTH_SHORT).show()
+        MainScope().launch {
+            var tries = 0
+            var success = false
+            while (tries < 5 && !success) {
+                try {
+                    context.components.core.client.fetch(Request(CLEAR_REQUEST_URL)).use {
+                        if (it.status == 200) {
+                            Logger.debug("Clear cache succeeded try $tries")
+                            success = true
+                        } else {
+                            tries++
+                            Logger.debug("Clear cache failed on try $tries")
+                            delay(500)
+                        }
+                    }
+                } catch (ex: Exception) {
+                    tries++
+                    Logger.debug("Clear cache failed on try $tries")
+                    delay(500)
+                }
+            }
+            if (tries >= 5 && !success) {
+                Logger.debug("Clear cache failed, number of tries exceeded")
+                Toast.makeText(context, context.resources.getString(R.string.clear_cache_success), Toast.LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(context, "Cache purge failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.resources.getString(R.string.clear_cache_success), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -100,5 +125,6 @@ class ClearButtonFeature(
         const val CLEAR_PROMPT = 0
         const val CLEAR_CACHE = 1
         const val CLEAR_APP = 2
+        const val CLEAR_REQUEST_URL = "http://127.0.0.1:"+ BuildConfig.FRONTEND_PORT + "/?purge_cache=do"
     }
 }
