@@ -16,6 +16,10 @@
     <dimen name="preference_margin_start">62dp</dimen>
     <dimen name="radio_button_text_size">16sp</dimen>
 
+    <dimen name="addon_placeholder_padding_start">72dp</dimen>
+    <dimen name="addon_placeholder_height">54dp</dimen>
+    <dimen name="addon_placeholder_text_size">14sp</dimen>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <dimen name="crash_reporter_close_tab_button_horizontal_margin">26dp</dimen>

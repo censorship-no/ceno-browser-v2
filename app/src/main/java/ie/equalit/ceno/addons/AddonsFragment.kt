@@ -6,6 +6,7 @@ package ie.equalit.ceno.addons
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,26 +67,29 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private fun bindRecyclerView(rootView: View) {
         recyclerView = rootView.findViewById(R.id.add_ons_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val placeholderAdapter = AddonPlaceholderAdapter().apply {
+            submitList(listOf(AdapterItem.AddonPlaceholderItem))
+        }
+        recyclerView.adapter = placeholderAdapter
         scope.launch {
             try {
                 val addons = requireContext().components.core.addonManager.getAddons()
 
                 scope.launch(Dispatchers.Main) {
-                    val adapter = AddonsManagerAdapter(
-                        requireContext().components.core.addonCollectionProvider,
-                        this@AddonsFragment,
-                        addons
-                    )
-                    recyclerView.adapter = adapter
+                    try {
+                        val adapter = AddonsManagerAdapter(
+                                requireContext().components.core.addonCollectionProvider,
+                                this@AddonsFragment,
+                                addons
+                        )
+                        recyclerView.adapter = adapter
+                    }
+                    catch(e : AddonManagerException) {
+                        Log.d(TAG, "Failed to get AddonsManagerAdapter $e")
+                    }
                 }
             } catch (e: AddonManagerException) {
-                scope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        activity,
-                        R.string.mozac_feature_addons_failed_to_query_add_ons,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Log.d(TAG, "Failed to query addons: $e")
             }
         }
     }
@@ -190,6 +194,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private var isInstallationInProgress = false
 
     companion object {
+        private const val TAG = "AddonsFragment"
         private const val PERMISSIONS_DIALOG_FRAGMENT_TAG = "ADDONS_PERMISSIONS_DIALOG_FRAGMENT"
         private const val INSTALLATION_DIALOG_FRAGMENT_TAG = "ADDONS_INSTALLATION_DIALOG_FRAGMENT"
     }
