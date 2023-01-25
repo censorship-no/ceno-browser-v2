@@ -164,6 +164,8 @@
     <!-- Description of the preference that enables/disables search suggestions -->
     <string name="preference_show_search_suggestions_summary">&brandShortName; will send what you type in the address bar to your search engine</string>
 
+    <string name="clear_cache_success">Cache cleared successfully</string>
+    <string name="clear_cache_fail">Cache clear failed, try again soon</string>
 
 </resources>
 
