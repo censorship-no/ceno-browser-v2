@@ -5,14 +5,12 @@
 package ie.equalit.ceno
 
 import android.app.Application
-import android.content.Context
-import android.telephony.TelephonyManager
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
-import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
-//import ie.equalit.ceno.push.PushFxaIntegration
-//import ie.equalit.ceno.push.WebPushEngineIntegration
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.Config
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +18,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.SystemAction
 import mozilla.components.concept.engine.webextension.isUnsupported
-import mozilla.components.concept.push.PushProcessor
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.support.base.log.Log
-import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.base.log.sink.AndroidLogSink
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
@@ -38,6 +34,12 @@ open class BrowserApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        /* CENO: Read default preferences and set the default theme immediately at startup */
+        PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
+        AppCompatDelegate.setDefaultNightMode(
+                Settings.getAppTheme(this)
+        )
 
         setupCrashReporting(this)
 

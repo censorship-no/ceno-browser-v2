@@ -15,9 +15,7 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -96,13 +94,6 @@ open class BrowserActivity : AppCompatActivity() {
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
         if (savedInstanceState == null) {
-            PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
-
-            /* CENO: Set the default theme based on configured preference */
-            AppCompatDelegate.setDefaultNightMode(
-                    Settings.getAppTheme(this)
-            )
-
             /* CENO: Set default behavior for AppBar */
             supportActionBar!!.apply {
                 hide()
