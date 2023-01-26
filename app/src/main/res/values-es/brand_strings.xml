@@ -114,4 +114,5 @@
     <string name="clear_cache_fail">Error al limpiar la caché, inténtalo de nuevo pronto</string>
     <string name="preferences_theme_summary">Oscuro, Claro, Ahorro de batería</string>
     <string name="preferences_theme_default">2</string>
+    <string name="addon_placeholder">No hay complementos disponibles</string>
 </resources>
