@@ -13,7 +13,7 @@
     <string name="top_sites_rename_dialog_cancel">Άκυρο</string>
     <string name="close_mode_item">Κλείσιμο ειδοποίησης</string>
     <string name="preferences_tracking_protection_normal">Ενεργοποίηση σε κανονική λειτουργία περιήγησης</string>
-    <string name="preferences_privacy_summary">Παρακολούθηση, cookies, επιλογές δεδομένων</string>
+    <string name="preferences_privacy_summary">Ενεργοποίηση για ιδιωτική και δημόσια περιήγηση</string>
     <string name="preferences_customization_summary">Εικονίδιο εφαρμογής, Γραμμή εργαλείων, Κουμπί εκκαθάρισης</string>
     <string name="developer_tools_category">Εργαλεία προγραμματισμού</string>
     <string name="customization_settings">Προσαρμογή</string>
@@ -77,4 +77,11 @@
         <item quantity="other">%d διευθύνσεις</item>
     </plurals>
     <string name="preferences_delete_browsing_data_button">Διαγραφή δεδομένων περιήγησης</string>
+    <string name="theme_category">Θέμα</string>
+    <string name="preference_show_search_suggestions">Λάβετε προτάσεις αναζήτησης</string>
+    <string name="preference_choose_search_engine">Επιλογή μηχανής αναζήτησης</string>
+    <string name="general_category">Γενικά</string>
+    <string name="preference_category_search">Αναζήτηση</string>
+    <string name="preference_search_summary">Ορισμός προεπιλογής</string>
+    <string name="preference_select_preferred_engine">Επιλέξτε τη μηχανή που προτιμάτε:</string>
 </resources>
