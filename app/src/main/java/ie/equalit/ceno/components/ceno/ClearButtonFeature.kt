@@ -44,7 +44,7 @@ class ClearButtonFeature(
             }
             if (tries >= 5 && !success) {
                 Logger.debug("Clear cache failed, number of tries exceeded")
-                Toast.makeText(context, context.resources.getString(R.string.clear_cache_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.resources.getString(R.string.clear_cache_fail), Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(context, context.resources.getString(R.string.clear_cache_success), Toast.LENGTH_SHORT).show()
