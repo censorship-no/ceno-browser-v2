@@ -169,7 +169,7 @@
         <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
         <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>    </style>
 
-    <style name="DialogStyleNormal" parent="DialogStyleLight"/>
+    <style name="DialogStyleNormal" parent="DialogStyleDark"/>
 
     <style name="Mozac.Browser.Menu" parent="" tools:ignore="UnusedResources">
         <item name="cardBackgroundColor">?attr/layer2</item>
