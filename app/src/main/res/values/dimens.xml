@@ -20,6 +20,12 @@
     <dimen name="addon_placeholder_height">54dp</dimen>
     <dimen name="addon_placeholder_text_size">14sp</dimen>
 
+    <dimen name="panel_horizontal_margin">16dp</dimen>
+    <dimen name="panel_vertical_margin">16dp</dimen>
+    <dimen name="panel_item_margin_top">28dp</dimen>
+    <dimen name="panel_item_drawable_padding">20dp</dimen>
+    <dimen name="panel_engine_view_height">250dp</dimen>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <dimen name="crash_reporter_close_tab_button_horizontal_margin">26dp</dimen>

@@ -233,6 +233,11 @@
 
     <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
+
+    <!-- Label that indicates a site is using a secure connection -->
+    <string name="secure_connection">Connection is secure</string>
+    <!-- Label that indicates a site is using a insecure connection -->
+    <string name="insecure_connection">Connection is not secure</string>
     <!-- CENO: END OF COPIED FROM FOCUS -->
 
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>

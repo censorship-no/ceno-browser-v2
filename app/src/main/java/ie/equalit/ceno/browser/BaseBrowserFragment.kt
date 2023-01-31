@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import mozilla.components.browser.state.selector.selectedTab
@@ -45,13 +44,14 @@ import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.enableDynamicBehavior
-import ie.equalit.ceno.ext.disableDynamicBehavior
-import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.*
 import ie.equalit.ceno.pip.PictureInPictureIntegration
+import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
 import ie.equalit.ceno.tabs.TabsTrayFragment
+import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.toolbar.display.DisplayToolbar
+import mozilla.components.concept.engine.EngineSession
+import mozilla.components.lib.state.ext.consumeFrom
 import java.lang.Exception
 
 /**
@@ -78,6 +78,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
+    private var engineSession: EngineSession? = null
+    private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
+
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
         fullScreenFeature,
@@ -456,6 +459,42 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             }
         }
         /* TODO: Allowing for state loss probably isn't best solution, should figure out how to avoid exception */
+    }
+
+    fun showWebExtensionPopupPanel(webExtId : String) {
+        val session = requireContext().components.core.store.state.extensions[webExtId]?.popupSession
+        val tab = requireContext().components.core.store.state.selectedTab!!
+
+        webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
+                context = requireContext(),
+                lifecycleOwner = this,
+                tabUrl = tab.content.url,
+                isConnectionSecure = tab.content.securityInfo.secure,
+        ).also { currentEtp -> currentEtp.show() }
+
+        if (session != null) {
+            webExtensionActionPopupPanel?.renderSettingsView(session)
+            consumePopupSession(webExtId)
+        } else {
+            consumeFrom(requireContext().components.core.store) { state ->
+                state.extensions[webExtId]?.let { extState ->
+                    extState.popupSession?.let {
+                        if (engineSession == null) {
+                            webExtensionActionPopupPanel?.renderSettingsView(it)
+                            consumePopupSession(webExtId)
+                            engineSession = it
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun consumePopupSession(webExtId: String) {
+        requireContext().components.core.store.dispatch(
+                WebExtensionAction.UpdatePopupSessionAction(webExtId, popupSession = null)
+        )
     }
 
     private fun onTabUrlChanged(url : String) {

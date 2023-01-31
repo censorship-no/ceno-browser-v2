@@ -35,6 +35,7 @@ import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
 import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
@@ -255,11 +256,17 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     private fun openPopup(webExtensionState: WebExtensionState) {
-        val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
-        intent.putExtra("web_extension_id", webExtensionState.id)
-        intent.putExtra("web_extension_name", webExtensionState.name)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+        if (webExtensionState.id == CENO_EXTENSION_ID) {
+            val fragment = supportFragmentManager.findFragmentByTag(BrowserFragment.TAG) as BrowserFragment
+            fragment.showWebExtensionPopupPanel(webExtensionState.id)
+        }
+        else {
+            val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
+            intent.putExtra("web_extension_id", webExtensionState.id)
+            intent.putExtra("web_extension_name", webExtensionState.name)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */

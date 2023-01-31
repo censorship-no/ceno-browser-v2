@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/panel_horizontal_margin"
+        android:paddingTop="@dimen/panel_vertical_margin"
+        android:paddingEnd="@dimen/panel_horizontal_margin"
+        android:paddingBottom="@dimen/panel_vertical_margin"
+        android:background="@drawable/toolbar_dark_background"
+        >
+
+        <ImageView
+            android:id="@+id/site_favicon"
+            android:layout_width="@dimen/preference_icon_drawable_size"
+            android:layout_height="@dimen/preference_icon_drawable_size"
+            android:importantForAccessibility="no"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/mozac_ic_link" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/site_title"
+            style="@style/PanelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/panel_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="@id/site_favicon"
+            app:layout_constraintStart_toEndOf="@id/site_favicon"
+            app:layout_constraintTop_toTopOf="@id/site_favicon"
+            tools:text="url.com" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/security_info"
+            style="@style/PanelTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/panel_item_margin_top"
+            android:drawablePadding="@dimen/panel_item_drawable_padding"
+            android:gravity="center_vertical"
+            app:drawableEndCompat="@drawable/mozac_ic_arrowhead_right"
+            app:drawableStartCompat="@drawable/mozac_ic_lock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/site_title"
+            tools:text="@string/secure_connection" />
+
+        <mozilla.components.concept.engine.EngineView
+            tools:ignore="Instantiatable"
+            android:id="@+id/addonSettingsEngineView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/panel_engine_view_height"
+            android:layout_marginTop="@dimen/panel_item_margin_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/security_info"
+            android:background="@drawable/toolbar_dark_background"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
