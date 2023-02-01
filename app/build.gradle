@@ -77,6 +77,10 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
+        beta {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "IS_RELEASED", "true"
+        }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
             applicationIdSuffix ".raptor"
             manifestPlaceholders.isRaptorEnabled = "true"

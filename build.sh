@@ -5,7 +5,6 @@ set -e
 BUILD_DIR=$(pwd)
 SOURCE_DIR=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 GECKO_DIR=gecko-dev
-#AC_DIR=
 ANDROID_HOME=$HOME/Android/Sdk
 LOCAL_PROPERTIES=local.properties
 
@@ -21,6 +20,7 @@ VARIANT=
 
 ABIS=()
 VERSION_NUMBER=
+RELEASE_CHANNEL=release
 RELEASE_KEYSTORE_KEY_ALIAS=upload
 RELEASE_KEYSTORE_FILE=
 RELEASE_KEYSTORE_PASSWORDS_FILE=
@@ -50,8 +50,9 @@ function usage {
     echo "build.sh -- Builds APKs for CENO Browser"
     echo "Usage: build.sh [OPTION]..."
     echo "  -c                            Remove build files (keep downloaded dependencies)"
-    echo "  -r                            Build a release build. Requires -v, -k, and -p."
-    echo "  -d                            Build a debug build. Will optionally apply -x and -v. This is the default."
+    echo "  -r <channel>                  Build a release for specified channel, if no channel provided,"
+    echo "                                defaults to '$RELEASE_CHANNEL' channel. Requires -v, -k, and -p."
+    echo "  -d                            Build a debug build. Will optionally -v. This is the default."
     echo "  -a <abi>                      Build for android ABI <abi>. Can be specified multiple times."
     echo "                                Supported ABIs are [${SUPPORTED_ABIS[@]}]."
     echo "                                Default for debug builds is ${DEFAULT_ABI}."
@@ -64,6 +65,8 @@ function usage {
     echo "                                Must contain the password for the keystore, followed by the"
     echo "                                password for the signing key, on separate lines."
     echo "  -s <sdk-root>                 Root directory of Android SDK to be used for build"
+    echo "  -b <package-name>             Build a branded version of app for specified package name,"
+    echo "                                defaults to '${DEFAULT_PACKAGE}"
     exit 1
 }
 
@@ -74,6 +77,13 @@ while getopts crda:lv:k:p:s:b: option; do
             ;;
         r)
             BUILD_RELEASE=true
+            eval arg=\${$OPTIND}
+            if [[ -n $arg && $arg != -* ]] ; then
+                OPTIND=$((OPTIND + 1))
+                CHANNEL=$arg
+            else
+                CHANNEL=$RELEASE_CHANNEL
+            fi
             ;;
         d)
             BUILD_DEBUG=true
@@ -165,7 +175,7 @@ function check_variant {
             KEYSTORE_KEY_ALIAS="${RELEASE_KEYSTORE_KEY_ALIAS}"
             KEYSTORE_PASSWORDS_FILE="$(realpath ${RELEASE_KEYSTORE_PASSWORDS_FILE})"
             GECKO_VARIANT_FLAGS=-r
-            VARIANT=release
+            VARIANT=$CHANNEL
         fi
     done
 }
@@ -263,12 +273,6 @@ function get_set_branding {
     sed -i -e "s/${DEFAULT_FRONTEND_PORT}/${BRAND_FRONTEND_PORT}/g" ${APP_BRAND_DIR}/src/main/assets/addons/ceno/config.js
 }
 
-#function maybe_clone_fx_android {
-#    if [[ ! -d ${AC_DIR} ]]; then
-#        git clone https://github.com/censorship-no/firefox-android
-#    fi
-#}
-
 function write_local_properties {
     cp -n ${LOCAL_PROPERTIES}.sample ${LOCAL_PROPERTIES}
 
@@ -277,7 +281,6 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
-    #set_property autoPublish.android-components.dir ${AC_DIR}
     set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
     set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
     set_property RELEASE_KEY_ALIAS ${KEYSTORE_KEY_ALIAS}
@@ -320,11 +323,7 @@ function build_apk_for {
 
     CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/${BUILD_APP}/build/outputs/apk/${var}"
     "${SOURCE_DIR}"/gradlew :${BUILD_APP}:build
-    if [[ $var = debug ]]; then
-        "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assembleDebug
-    elif [[ $var = release ]]; then
-        "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assembleRelease
-    fi
+    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assemble${var^}
 
     for abi in ${list[@]}; do
         CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/${BUILD_APP}-${abi}-${var}.apk
@@ -336,6 +335,5 @@ function build_apk_for {
 check_variant
 get_set_abis
 get_set_branding
-#maybe_clone_fx_android
 write_local_properties
 build_apk_for ABIS $VARIANT
