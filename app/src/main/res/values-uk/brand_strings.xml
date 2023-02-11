@@ -34,7 +34,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/uk/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; не ділиться вмістом приватних вкладок з іншими користувачами. Ви можете безпечно відвідувати сайти, де необхідно авторизуватися. Але при цьому Вам знадобиться доступ до Інтернету.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватний перегляд&lt;/h1&gt; &lt;p&gt;eQnet не ділиться вмістом приватних вкладок з іншими користувачами. Ви можете безпечно відвідувати сайти, де необхідно авторизуватися. Але при цьому Вам знадобиться доступ до Інтернету.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хочете дізнатися більше\?&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватний перегляд&lt;/h1&gt; &lt;p&gt;Ceno не ділиться вмістом приватних вкладок з іншими користувачами. Ви можете безпечно відвідувати сайти, де необхідно авторизуватися. Але при цьому Вам знадобиться доступ до Інтернету.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хочете дізнатися більше\?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Робота браузера &brandShortName;</string>
     <string name="ceno_notification_description">Натисніть, щоб зупинити</string>
@@ -59,7 +59,6 @@
     <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_hromadske_url</string>
     <string name="default_top_site_5_title">BBC News Україна</string>
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_uk_url</string>
-
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Торкніться, щоб повідомити &vendorShortName;</string>
     <string name="onboarding_fragment">Ласкаво просимо до &brandShortName;</string>
@@ -100,4 +99,5 @@
     <string name="preferences_clear_behavior_summary">Налаштувати поведінку при натисканні кнопки очищення</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="ceno_home_mode_link_text">Натисніть, щоб дізнатися більше.</string>
+    <string name="preferences_theme_default">2</string>
 </resources>
