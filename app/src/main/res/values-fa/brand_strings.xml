@@ -34,7 +34,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/fa/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">«سنو» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;مرور خصوصی&lt;/h1&gt; &lt;p&gt;«ای‌ کیو‌ نت» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;مایلید بیشتر بدانید؟&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;مرور خصوصی&lt;/h1&gt; &lt;p&gt;«وceno‌» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;مایلید بیشتر بدانید؟&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">خدمات مرورگر &brandShortName;</string>
     <string name="ceno_notification_description">برای توقف ضربه بزنید</string>
