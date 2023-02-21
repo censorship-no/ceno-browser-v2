@@ -17,6 +17,9 @@ Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefo
 [<img src="https://censorship.no/img/paskoocheh_badge.png"
       alt="Get it on Paskoocheh" 
       height="80">](https://paskoocheh.com/tools/124/android.html?utm_source=UpdatePage)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/ie.equalit.ceno/)
 
 ## 🚀 Features
 
