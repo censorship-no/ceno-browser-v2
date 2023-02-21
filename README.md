@@ -72,7 +72,7 @@ By default, the latest versions of the Ouinet library and GeckoView (CENO fork) 
 
 # Test Channel on Google Play Store
 
-COMING SOON!
+Join our [beta testing channel](https://play.google.com/apps/testing/ie.equalit.ceno) on the Play Store to get the latest updates as soon as they are available.
 
 # Local Development
 
