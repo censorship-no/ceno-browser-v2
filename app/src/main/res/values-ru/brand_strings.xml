@@ -34,7 +34,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;eQnet не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше\?&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;Ceno не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше\?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Сервис браузера &brandShortName;</string>
     <string name="ceno_notification_description">Нажмите, чтобы остановить</string>
@@ -103,4 +103,5 @@
     <string name="preferences_clear_behavior_summary">Установить поведение при нажатии кнопки очистки</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="ceno_home_mode_link_text">Нажмите, чтобы узнать больше.</string>
+    <string name="preferences_theme_default">2</string>
 </resources>

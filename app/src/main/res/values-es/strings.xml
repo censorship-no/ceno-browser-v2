@@ -155,4 +155,6 @@
     <string name="preference_search_summary">Establecer predeterminado</string>
     <string name="preference_show_search_suggestions">Obtener las sugerencias de búsqueda</string>
     <string name="theme_category">Temática</string>
+    <string name="secure_connection">La conexión es segura</string>
+    <string name="insecure_connection">La conexión no es segura</string>
 </resources>

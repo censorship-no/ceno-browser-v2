@@ -32,7 +32,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/my/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; သည် သီးသန့်တပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း&lt;/h1&gt; &lt;p&gt;eQnet သည် သီးသန့်တပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;ပိုမိုသိရှိလိုပါသလား။&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း&lt;/h1&gt; &lt;p&gt;Ceno သည် သီးသန့်တပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;ပိုမိုသိရှိလိုပါသလား။&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; ဘရောက်ဇာ ဝန်ဆောင်မှု</string>
     <string name="ceno_notification_description">ရပ်ရန် နှိပ်ပါ</string>
@@ -57,7 +57,6 @@
     <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_justicemy_url</string>
     <string name="default_top_site_5_title">BBC မြန်မာ</string>
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_my_url</string>
-
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">&vendorShortName; အားသတင်းပို့ပေးရန် ထိပါ</string>
     <string name="ceno_home_mode_link_text">ပိုမိုလေ့လာရန် နှိပ်ပါ။</string>
