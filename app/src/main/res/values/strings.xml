@@ -131,7 +131,7 @@
 
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">Back</string> -->
+    <string name="browser_menu_back">Back</string>
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Forward</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
