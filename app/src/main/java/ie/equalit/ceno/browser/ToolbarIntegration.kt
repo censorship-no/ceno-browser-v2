@@ -35,8 +35,8 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
+import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.feature.top.sites.TopSite
-//import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
@@ -47,8 +47,6 @@ import ie.equalit.ceno.addons.AddonsActivity
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
-/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
-import ie.equalit.ceno.components.ceno.toolbar.ToolbarFeature
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
@@ -213,7 +211,7 @@ class ToolbarIntegration(
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
             /* CENO: Switch to SettingsFragment instead of starting a new activity */
-            activity.supportFragmentManager?.beginTransaction()?.apply {
+            activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
                 addToBackStack(null)
                 commit()
