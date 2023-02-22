@@ -82,36 +82,47 @@ class ToolbarIntegration(
     private var isCurrentUrlPinned = false
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
-        val tint = ContextCompat.getColor(context, R.color.icons)
+        val tintEnabled = ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary)
+        val tintDisabled = ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary_inactive)
+        val canGoBack = session?.content?.canGoBack!!
+        val canGoForward = session.content.canGoForward
 
-        /* CENO: Hide forward and stop row menu items when they are not relevant */
+        /* CENO: Disable forward and stop row menu items when they are not relevant */
         val rowMenuItems : MutableList<SmallMenuCandidate>  = emptyList<SmallMenuCandidate>().toMutableList()
-        if (session?.content?.canGoForward == true) {
-            rowMenuItems += SmallMenuCandidate(
-                contentDescription = context.getString(R.string.browser_menu_forward),
-                icon = DrawableMenuIcon(
-                    context,
-                    R.drawable.mozac_ic_forward,
-                ),
-                containerStyle = ContainerStyle(
-                    isEnabled = session.content.canGoForward
-                )
-            ) {
-                sessionUseCases.goForward.invoke()
+        rowMenuItems += SmallMenuCandidate(
+            contentDescription = context.getString(R.string.browser_menu_back),
+            icon = DrawableMenuIcon(
+                context,
+                R.drawable.mozac_ic_back,
+                tint = if (canGoBack) tintEnabled else tintDisabled
+            ),
+            containerStyle = ContainerStyle(
+                isEnabled = canGoBack
+            )
+        ) {
+            if (canGoBack) {
+                sessionUseCases.goBack.invoke()
             }
         }
 
         rowMenuItems += SmallMenuCandidate(
-            contentDescription = context.getString(R.string.browser_menu_refresh),
+            contentDescription = context.getString(R.string.browser_menu_forward),
             icon = DrawableMenuIcon(
                 context,
-                R.drawable.mozac_ic_refresh,
+                R.drawable.mozac_ic_forward,
+                tint = if (canGoForward) tintEnabled else tintDisabled
+            ),
+            containerStyle = ContainerStyle(
+                isEnabled = canGoForward
             )
         ) {
-            sessionUseCases.reload.invoke()
+            if (canGoForward) {
+                sessionUseCases.goForward.invoke()
+            }
         }
 
-        if (session?.content?.loading == true) {
+        /* CENO: Switch from cancel to refresh option when loading is finished */
+        if (session.content.loading) {
             rowMenuItems += SmallMenuCandidate(
                 contentDescription = context.getString(R.string.browser_menu_stop),
                 icon = DrawableMenuIcon(
@@ -120,6 +131,17 @@ class ToolbarIntegration(
                 )
             ) {
                 sessionUseCases.stopLoading.invoke()
+            }
+        }
+        else {
+            rowMenuItems += SmallMenuCandidate(
+                contentDescription = context.getString(R.string.browser_menu_refresh),
+                icon = DrawableMenuIcon(
+                    context,
+                    R.drawable.mozac_ic_refresh,
+                )
+            ) {
+                sessionUseCases.reload.invoke()
             }
         }
 
