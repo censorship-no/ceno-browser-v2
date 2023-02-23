@@ -18,7 +18,7 @@ import ie.equalit.cenoV2.BrowserActivity
  */
 class BrowserActivityTestRule(
     initialTouchMode: Boolean = false,
-    launchActivity: Boolean = true
+    launchActivity: Boolean = true,
 
 ) : ActivityTestRule<BrowserActivity>(BrowserActivity::class.java, initialTouchMode, launchActivity) {
 

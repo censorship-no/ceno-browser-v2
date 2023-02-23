@@ -46,7 +46,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         tabsFeature = TabsFeature(
             trayAdapter,
             requireComponents.core.store,
-            { closeTabsTray(toHome = true, withNewTab = true) }
+            { closeTabsTray(toHome = true, withNewTab = true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
             if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
@@ -146,7 +146,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
                     requireComponents.useCases.tabsUseCases.removeTab(tab.id)
                 }
-            }
+            },
         )
 
         val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)

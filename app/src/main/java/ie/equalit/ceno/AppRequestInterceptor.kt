@@ -29,7 +29,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
         isSameDomain: Boolean,
         isRedirect: Boolean,
         isDirectNavigation: Boolean,
-        isSubframeRequest: Boolean
+        isSubframeRequest: Boolean,
     ): RequestInterceptor.InterceptionResponse? {
         return when (uri) {
             "about:privatebrowsing" -> {
@@ -54,7 +54,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
                     isSameDomain,
                     isRedirect,
                     isDirectNavigation,
-                    isSubframeRequest
+                    isSubframeRequest,
                 ) ?: context.components.services.appLinksInterceptor.onLoadRequest(
                     engineSession,
                     uri,
@@ -63,7 +63,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
                     isSameDomain,
                     isRedirect,
                     isDirectNavigation,
-                    isSubframeRequest
+                    isSubframeRequest,
                 )
             }
         }
@@ -72,7 +72,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
     override fun onErrorRequest(
         session: EngineSession,
         errorType: ErrorType,
-        uri: String?
+        uri: String?,
     ): RequestInterceptor.ErrorResponse {
         /* CENO: Intercept the error page that is loaded for homepage
          * and instead load a blank html page that the home fragment will overlay */
