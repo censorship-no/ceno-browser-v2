@@ -19,7 +19,7 @@ import ie.equalit.ceno.R
 
 class TabsPanel @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null
+    attrs: AttributeSet? = null,
 ) : TabLayout(context, attrs), TabLayout.OnTabSelectedListener {
     private var normalTab: Tab
     private var privateTab: Tab

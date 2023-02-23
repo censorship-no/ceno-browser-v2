@@ -76,9 +76,7 @@ class Core(private val context: Context) {
             remoteDebuggingEnabled = prefs.getBoolean(context.getPreferenceKey(pref_key_remote_debugging), false),
             testingModeEnabled = prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_testing_mode), false),
             trackingProtectionPolicy = createTrackingProtectionPolicy(prefs),
-            historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage)
-            /* Don't use httpsOnlyMode because it doesn't support exceptions */
-            //httpsOnlyMode = Engine.HttpsOnlyMode.ENABLED
+            historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage),
         )
         EngineProvider.createEngine(context, defaultSettings)
     }
@@ -101,11 +99,11 @@ class Core(private val context: Context) {
                 ReaderViewMiddleware(),
                 RegionMiddleware(
                     context,
-                    LocationService.default()
+                    LocationService.default(),
                 ),
                 SearchMiddleware(context),
-                RecordingDevicesMiddleware(context)
-            ) + EngineMiddleware.create(engine)
+                RecordingDevicesMiddleware(context),
+            ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)
 
@@ -115,7 +113,7 @@ class Core(private val context: Context) {
                 icons,
                 R.drawable.ic_notification,
                 geckoSitePermissionsStorage,
-                BrowserActivity::class.java
+                BrowserActivity::class.java,
             )
 
             MediaSessionFeature(context, MediaSessionService::class.java, this).start()
@@ -253,7 +251,7 @@ class Core(private val context: Context) {
     val supportedAddonsChecker by lazy {
         DefaultSupportedAddonsChecker(
             context,
-            Frequency(12, TimeUnit.HOURS)
+            Frequency(12, TimeUnit.HOURS),
         )
     }
 
@@ -262,7 +260,7 @@ class Core(private val context: Context) {
             context = context,
             client = client,
             collectionName = "7dfae8669acc4312a65e8ba5553036",
-            maxCacheAgeInMinutes = DAY_IN_MINUTES
+            maxCacheAgeInMinutes = DAY_IN_MINUTES,
         )
     }
 
@@ -271,7 +269,7 @@ class Core(private val context: Context) {
             context,
             client,
             collectionUser = Settings.getOverrideAmoUser(context),
-            collectionName = Settings.getOverrideAmoCollection(context)
+            collectionName = Settings.getOverrideAmoCollection(context),
         )
     }
 
@@ -289,7 +287,7 @@ class Core(private val context: Context) {
     fun createTrackingProtectionPolicy(
         prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context),
         normalMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_normal), true),
-        privateMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_private), true)
+        privateMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_private), true),
     ): TrackingProtectionPolicy {
         val trackingPolicy = TrackingProtectionPolicy.recommended()
         return when {

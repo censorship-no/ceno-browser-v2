@@ -129,7 +129,7 @@ class SettingsViewRobot {
 private fun waitForSettingsRecyclerViewToExist() {
     mDevice.findObject(UiSelector().resourceId("$packageName:id/recycler_view"))
         .waitForExists(
-            waitingTime
+            waitingTime,
         )
 }
 
@@ -204,7 +204,7 @@ private fun assertCustomAddonCollectionPanel() {
     onView(
         allOf(
             withText(R.string.preferences_customize_amo_collection),
-            isDescendantOfA(withId(R.id.title_template))
-        )
+            isDescendantOfA(withId(R.id.title_template)),
+        ),
     ).check(matches(isCompletelyDisplayed()))
 }

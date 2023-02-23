@@ -50,7 +50,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
             getString(R.string.pref_key_compose_ui),
-            false
+            false,
         )
      */
 
@@ -67,17 +67,17 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
                     engine = requireComponents.core.engine,
                     limit = 5,
-                    filterExactMatch = true
+                    filterExactMatch = true,
                 )
             }
             it.addSessionProvider(
                 resources,
                 requireComponents.core.store,
-                requireComponents.useCases.tabsUseCases.selectTab
+                requireComponents.useCases.tabsUseCases.selectTab,
             )
             it.addHistoryProvider(
                 requireComponents.core.historyStorage,
-                requireComponents.useCases.sessionUseCases.loadUrl
+                requireComponents.useCases.sessionUseCases.loadUrl,
             )
             it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
         }
@@ -88,8 +88,8 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             SyncedTabsStorageSuggestionProvider(
                 requireComponents.backgroundServices.syncedTabsStorage,
                 requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
+                requireComponents.core.icons,
+            ),
         )
 
         TabsToolbarFeature(
@@ -97,17 +97,17 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             sessionId = sessionId,
             store = requireComponents.core.store,
             showTabs = ::showTabs,
-            lifecycleOwner = this
+            lifecycleOwner = this,
         )
 
         thumbnailsFeature.set(
             feature = BrowserThumbnails(
                 requireContext(),
                 engineView,
-                requireComponents.core.store
+                requireComponents.core.store,
             ),
             owner = this,
-            view = view
+            view = view,
         )
 
         readerViewFeature.set(
@@ -117,10 +117,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 requireComponents.core.store,
                 toolbar,
                 readerViewBar,
-                readerViewAppearanceButton
+                readerViewAppearanceButton,
             ),
             owner = this,
-            view = view
+            view = view,
         )
 
         /*
@@ -132,10 +132,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         webExtToolbarFeature.set(
             feature = WebExtensionToolbarFeature(
                 toolbar,
-                requireContext().components.core.store
+                requireContext().components.core.store,
             ),
             owner = this,
-            view = view
+            view = view,
         )
         */
         binding.homeAppBar.visibility = View.GONE

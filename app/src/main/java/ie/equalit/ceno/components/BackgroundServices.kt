@@ -37,7 +37,7 @@ class BackgroundServices(
     //push: Push,
     placesHistoryStorage: Lazy<PlacesHistoryStorage>,
     remoteTabsStorage: Lazy<RemoteTabsStorage>,
-    loginsStorage: Lazy<SyncableLoginsStorage>
+    loginsStorage: Lazy<SyncableLoginsStorage>,
 ) {
     companion object {
         const val CLIENT_ID = "3c49430b43dfba77"
@@ -56,11 +56,11 @@ class BackgroundServices(
     private val deviceConfig = DeviceConfig(
         name = "Reference Browser on " + Build.MANUFACTURER + " " + Build.MODEL,
         type = DeviceType.MOBILE,
-        capabilities = setOf(DeviceCapability.SEND_TAB)
+        capabilities = setOf(DeviceCapability.SEND_TAB),
     )
     private val syncConfig = SyncConfig(
         supportedEngines = SUPPORTED_SYNC_ENGINES,
-        periodicSyncConfig = PeriodicSyncConfig()
+        periodicSyncConfig = PeriodicSyncConfig(),
     ) // four hours
 
     val accountManager by lazy {
@@ -74,7 +74,7 @@ class BackgroundServices(
             // unless we explicitly specify it below.
             // This is a good example of an information leak at the API level.
             // See https://github.com/mozilla-mobile/android-components/issues/3732
-            setOf("https://identity.mozilla.com/apps/oldsync")
+            setOf("https://identity.mozilla.com/apps/oldsync"),
         ).also { accountManager ->
 
             /*
@@ -96,7 +96,7 @@ class BackgroundServices(
         SyncedTabsStorage(
             accountManager,
             context.components.core.store,
-            remoteTabsStorage.value
+            remoteTabsStorage.value,
         )
     }
 }

@@ -45,7 +45,7 @@ class CustomTabsIntegration(
     private val sessionUseCases: SessionUseCases,
     private val customTabsUseCases: CustomTabsUseCases,
     sessionId: String,
-    private val activity: Activity?
+    private val activity: Activity?,
 ) : LifecycleAwareFeature, UserInteractionHandler {
 
     private val session = store.state.findCustomTab(sessionId)
@@ -68,8 +68,8 @@ class CustomTabsIntegration(
             icon = DrawableMenuIcon(
                 context,
                 mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
-                tint = tint
-            )
+                tint = tint,
+            ),
         ) {
             sessionUseCases.goForward.invoke(tabId)
         }
@@ -79,8 +79,8 @@ class CustomTabsIntegration(
             icon = DrawableMenuIcon(
                 context,
                 mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
-                tint = tint
-            )
+                tint = tint,
+            ),
         ) {
             sessionUseCases.reload.invoke(tabId)
         }
@@ -90,8 +90,8 @@ class CustomTabsIntegration(
             icon = DrawableMenuIcon(
                 context,
                 mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
-                tint = tint
-            )
+                tint = tint,
+            ),
         ) {
             sessionUseCases.stopLoading.invoke(tabId)
         }
@@ -111,7 +111,7 @@ class CustomTabsIntegration(
             CompoundMenuCandidate(
                 text = "Request desktop site",
                 isChecked = sessionState?.content?.desktopMode == true,
-                end = CompoundMenuCandidate.ButtonType.SWITCH
+                end = CompoundMenuCandidate.ButtonType.SWITCH,
             ) { checked ->
                 sessionUseCases.requestDesktopSite.invoke(checked, sessionState?.id)
             },
@@ -135,7 +135,7 @@ class CustomTabsIntegration(
                 // Now switch to the actual browser which should now display our new selected session
                 val intent = Intent(context, BrowserActivity::class.java)
                 context.startActivity(intent)
-            }
+            },
         )
     }
 
@@ -147,7 +147,7 @@ class CustomTabsIntegration(
         sessionId,
         customTabsUseCases,
         window = activity?.window,
-        closeListener = { activity?.finish() }
+        closeListener = { activity?.finish() },
     )
 
     init {

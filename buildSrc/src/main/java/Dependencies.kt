@@ -10,7 +10,7 @@ object Versions {
     object AndroidX {
         const val activity_compose = "1.6.1"
         const val appcompat = "1.5.1"
-        const val compose = "1.3.0"
+        const val compose = "1.3.1"
         const val constraintlayout = "2.1.4"
         const val core = "1.9.0"
         const val lifecycle = "2.5.1"
@@ -36,17 +36,18 @@ object Versions {
 
     object Testing {
         const val androidx_core = "1.5.0"
-        const val androidx_espresso = "3.5.0"
-        const val androidx_ext_junit = "1.1.4"
+        const val androidx_espresso = "3.5.1"
+        const val androidx_ext_junit = "1.1.5"
         const val androidx_orchestrator = "1.4.2"
+        const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
         const val jacoco = "0.8.8"
-        const val ktlint = "0.47.1"
+        const val ktlint = "0.48.1"
         const val mockwebserver = "4.10.0"
     }
 
     object ThirdParty {
-        const val sentry = "6.6.0"
+        const val sentry = "6.11.0"
     }
 
     /* CENO: Versions for additional dependencies */
@@ -167,7 +168,7 @@ object Deps {
     const val mockwebserver = "com.squareup.okhttp3:mockwebserver:${Versions.Testing.mockwebserver}"
     const val orchestrator =  "androidx.test:orchestrator:${Versions.Testing.androidx_orchestrator}"
     const val tools_test_rules = "androidx.test:rules:${Versions.Testing.androidx_core}"
-    const val tools_test_runner = "androidx.test:runner:${Versions.Testing.androidx_core}"
+    const val tools_test_runner = "androidx.test:runner:${Versions.Testing.androidx_runner}"
     const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.Testing.androidx_uiautomator}"
     const val junit_ktx = "androidx.test.ext:junit-ktx:${Versions.Testing.androidx_ext_junit}"
 

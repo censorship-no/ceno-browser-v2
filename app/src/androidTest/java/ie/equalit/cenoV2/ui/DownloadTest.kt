@@ -3,6 +3,7 @@ package ie.equalit.cenoV2.ui
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import ie.equalit.cenoV2.helpers.AndroidAssetDispatcher
@@ -54,6 +55,7 @@ class DownloadTest {
         }.closeNotification {}
     }
 
+    @Ignore("Disabled - https://github.com/mozilla-mobile/reference-browser/issues/2130")
     @Test
     fun fileDownloadTest() {
         val downloadPage = TestAssetHelper.getDownloadAsset(mockWebServer)

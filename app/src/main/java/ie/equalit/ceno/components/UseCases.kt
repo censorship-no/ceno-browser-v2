@@ -29,7 +29,7 @@ class UseCases(
     private val store: BrowserStore,
     private val shortcutManager: WebAppShortcutManager,
     /* CENO: Copied from Fenix for CenoHomeFragment */
-    private val topSitesStorage: TopSitesStorage
+    private val topSitesStorage: TopSitesStorage,
 ) {
     /**
      * Use cases that provide engine interactions for a given browser session.
