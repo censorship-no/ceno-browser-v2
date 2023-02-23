@@ -140,14 +140,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view,
         )
 
-        (toolbar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            behavior = BrowserToolbarBehavior(
-                view.context,
-                null,
-                MozacToolbarBehaviorToolbarPosition.BOTTOM,
-            )
-        }
-
         /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
             feature = ToolbarIntegration(
