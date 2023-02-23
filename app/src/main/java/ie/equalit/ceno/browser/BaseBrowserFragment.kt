@@ -367,6 +367,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     override fun onStart() {
         super.onStart()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         /* CENO: Set toolbar appearance based on whether current tab is private or not
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
@@ -412,6 +413,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 trackingProtectionException = statusIcon,
                 highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
             )
+            val isToolbarPositionTop = prefs.getBoolean(
+                requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                false
+            )
+            binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+                DisplayToolbar.Gravity.BOTTOM
+            }
+            else {
+                DisplayToolbar.Gravity.TOP
+            }
         }
     }
 
