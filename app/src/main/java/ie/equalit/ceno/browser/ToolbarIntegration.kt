@@ -7,7 +7,6 @@ package ie.equalit.ceno.browser
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -51,8 +50,8 @@ import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSIO
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.SettingsFragment
-//import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -211,6 +210,7 @@ class ToolbarIntegration(
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
             /* CENO: Switch to SettingsFragment instead of starting a new activity */
+            CenoSettings.setStatusUpdateRequired(context, true)
             activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
                 addToBackStack(null)

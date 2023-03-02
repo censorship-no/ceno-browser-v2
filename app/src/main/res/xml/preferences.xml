@@ -70,6 +70,33 @@
             android:title="@string/preferences_show_onboarding"/>
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/ceno_sources_category"
+        android:layout="@layout/preference_category_style">
+
+        <androidx.preference.CheckBoxPreference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_sources_origin"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_sources_origin"
+            android:summary="@string/preferences_ceno_sources_origin_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/ceno_data_category"
+        android:layout="@layout/preference_category_style">
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_clear_ceno_cache"
+            android:defaultValue="false"
+            android:title="@string/preferences_clear_ceno_cache"
+            android:summary="@string/preferences_clear_ceno_cache_summary" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/developer_tools_category"
         android:layout="@layout/preference_category_style">

@@ -6,6 +6,7 @@ package ie.equalit.ceno.settings
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -21,23 +22,22 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
-//import ie.equalit.ceno.R.string.pref_key_firefox_account
-//import ie.equalit.ceno.R.string.pref_key_pair_sign_in
-//import ie.equalit.ceno.R.string.pref_key_sign_in
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
+import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.ktx.android.view.showKeyboard
 import kotlin.system.exitProcess
-
-private typealias RBSettings = ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.utils.CenoPreferences
 
 @Suppress("TooManyFunctions")
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var cenoPrefs : CenoPreferences
 
     interface ActionBarUpdater {
         fun updateTitle(titleResId: Int)
@@ -48,13 +48,34 @@ class SettingsFragment : PreferenceFragmentCompat() {
         true
     }
 
+    private val updateCompleteChangeListener = OnSharedPreferenceChangeListener {
+            sharedPrefs, key ->
+        if (key == getString(pref_key_shared_prefs_update_complete)) {
+            val  newValue = sharedPrefs.getBoolean(key, false)
+            Logger.debug("Got change listener for $key = $newValue")
+            if (newValue) {
+                Logger.debug("Reloading Settings fragment")
+                CenoSettings.setStatusUpdateRequired(requireContext(), false)
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.container,
+                        SettingsFragment(),
+                        TAG_RELOADED
+                    )
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+        }
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        cenoPrefs = requireComponents.cenoPreferences
         setPreferencesFromResource(R.xml.preferences, rootKey)
     }
 
     override fun onResume() {
         super.onResume()
-
+        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(updateCompleteChangeListener)
         setupPreferences()
         getActionBar().apply{
             show()
@@ -64,58 +85,39 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(updateCompleteChangeListener)
+        cenoPrefs.statusUpdateComplete = false
+    }
+
     @Suppress("LongMethod") // Yep, this should be refactored.
     private fun setupPreferences() {
-        /*
-        val signInKey = requireContext().getPreferenceKey(pref_key_sign_in)
-        val signInPairKey = requireContext().getPreferenceKey(pref_key_pair_sign_in)
-        val firefoxAccountKey = requireContext().getPreferenceKey(pref_key_firefox_account)
-         */
         val makeDefaultBrowserKey = requireContext().getPreferenceKey(pref_key_make_default_browser)
         val remoteDebuggingKey = requireContext().getPreferenceKey(pref_key_remote_debugging)
         val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
-        //val mobileDataKey = requireContext().getPreferenceKey(R.string.pref_key_mobile_data)
         val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
+        val clearCenoCacheKey = requireContext().getPreferenceKey(pref_key_clear_ceno_cache)
+        val cenoSourcesOriginKey = requireContext().getPreferenceKey(pref_key_ceno_sources_origin)
 
-        /*
-        val preferenceSignIn = findPreference<Preference>(signInKey)
-        val preferencePairSignIn = findPreference<Preference>(signInPairKey)
-        val preferenceFirefoxAccount = findPreference<Preference>(firefoxAccountKey)
-        */
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
         val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
         val preferenceAboutPage = findPreference<Preference>(aboutPageKey)
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
-        //val preferenceMobileData = findPreference<Preference>(mobileDataKey)
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
         val preferenceCustomization = findPreference<Preference>(customizationKey)
         val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
         val preferenceSearch = findPreference<Preference>(searchKey)
-
-        /*
-        val accountManager = requireComponents.backgroundServices.accountManager
-        if (accountManager.authenticatedAccount() != null) {
-            preferenceSignIn?.isVisible = false
-            preferencePairSignIn?.isVisible = false
-            preferenceFirefoxAccount?.summary = accountManager.accountProfile()?.email.orEmpty()
-            preferenceFirefoxAccount?.onPreferenceClickListener = getClickListenerForFirefoxAccount()
-        } else {
-            preferenceSignIn?.isVisible = true
-            preferenceFirefoxAccount?.isVisible = false
-            preferenceFirefoxAccount?.onPreferenceClickListener = null
-            preferenceSignIn?.onPreferenceClickListener = getClickListenerForSignIn()
-            preferencePairSignIn?.isVisible = true
-            preferencePairSignIn?.onPreferenceClickListener = getClickListenerForPairingSignIn()
-        }
-        */
+        val preferenceClearCenoCache = findPreference<Preference>(clearCenoCacheKey)
+        val preferenceCenoSourcesOrigin = findPreference<Preference>(cenoSourcesOriginKey)
 
         if (!AutofillPreference.isSupported(requireContext())) {
             preferenceAutofill?.isVisible = false
@@ -128,7 +130,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
-        //preferenceMobileData?.onPreferenceChangeListener = getChangeListenerForMobileData()
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
@@ -137,6 +138,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         else {
             preferenceDisableBatteryOpt?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
+        }
+
+        if (CenoSettings.isStatusUpdateRequired(requireContext())) {
+            /* Ouinet status not yet updated */
+            /* Grey out all Ceno related options */
+            preferenceCenoSourcesOrigin?.isEnabled = false
+            preferenceCenoSourcesOrigin?.shouldDisableView = false
+            preferenceCenoSourcesOrigin?.onPreferenceChangeListener = null
+
+            preferenceClearCenoCache?.isEnabled = false
+            preferenceClearCenoCache?.shouldDisableView = false
+            preferenceClearCenoCache?.onPreferenceClickListener = null
+
+            /* Fetch ouinet status */
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.STATUS)
+        }
+        else {
+            /* Enable Ceno related options */
+            preferenceCenoSourcesOrigin?.isEnabled = true
+            preferenceCenoSourcesOrigin?.shouldDisableView = true
+            preferenceCenoSourcesOrigin?.onPreferenceChangeListener = getChangeListenerForCenoSourcesOrigin()
+
+            preferenceClearCenoCache?.isEnabled = true
+            preferenceClearCenoCache?.shouldDisableView = true
+            preferenceClearCenoCache?.onPreferenceClickListener = getClickListenerForClearCenoCache()
         }
     }
 
@@ -153,42 +179,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             defaultClickListener
         }
     }
-
-    /*
-    private fun getClickListenerForSignIn(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            requireComponents.services.accountsAuthFeature.beginAuthentication(requireContext())
-            activity?.finish()
-            true
-        }
-    }
-
-    private fun getClickListenerForPairingSignIn(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(android.R.id.content, PairSettingsFragment())
-                .addToBackStack(null)
-                .commit()
-            getActionBarUpdater().apply {
-                updateTitle(R.string.pair_preferences)
-            }
-            true
-        }
-    }
-
-    private fun getClickListenerForFirefoxAccount(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(android.R.id.content, AccountSettingsFragment())
-                .addToBackStack(null)
-                .commit()
-            getActionBarUpdater().apply {
-                updateTitle(R.string.account_settings)
-            }
-            true
-        }
-    }
-     */
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
@@ -331,9 +321,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getChangeListenerForCenoSourcesOrigin(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, newValue ->
+            val value = if (newValue == true) {
+                OuinetValue.ENABLED
+            } else {
+                OuinetValue.DISABLED
+            }
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.ORIGIN_ACCESS, value)
+            true
+        }
+    }
+
+    private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE)
+            //ClearButtonFeature.createClearDialog(requireContext()).show()
+            true
+        }
+    }
+
     companion object {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "SETTINGS"
+        const val TAG_RELOADED = "SETTINGS_RELOADED"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }
 }

@@ -150,6 +150,14 @@
         <item>Set by Battery Saver</item>
     </string-array>
 
+    <string name="ceno_sources_category">Sources</string>
+    <string name="preferences_ceno_sources_origin">Website</string>
+    <string name="preferences_ceno_sources_origin_summary">Load content directly from website</string>
+
+    <string name="ceno_data_category">Data</string>
+    <string name="preferences_clear_ceno_cache">Clear Ceno cache</string>
+    <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>
+
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
 
@@ -166,6 +174,8 @@
 
     <string name="clear_cache_success">Cache cleared successfully</string>
     <string name="clear_cache_fail">Cache clear failed, try again soon</string>
+
+    <string name="ouinet_client_fetch_fail">Failed to change &brandShortName; setting</string>
 
     <string name="addon_placeholder">No Add-ons Available</string>
 

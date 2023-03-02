@@ -45,6 +45,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.SettingsFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 
@@ -166,6 +167,10 @@ open class BrowserActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
+            /* If the settings fragment was reloaded, an additional popBackStack is required */
+            if (it.tag == SettingsFragment.TAG_RELOADED) {
+                supportFragmentManager.popBackStackImmediate()
+            }
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
             }

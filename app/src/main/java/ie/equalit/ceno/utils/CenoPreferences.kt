@@ -100,5 +100,8 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         appContext.getPreferenceKey(R.string.pref_key_show_ceno_mode_item),
         default = true
     )
-
+    var statusUpdateComplete by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_shared_prefs_update_complete),
+        default = false
+    )
 }

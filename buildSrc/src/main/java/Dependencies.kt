@@ -20,7 +20,7 @@ object Versions {
     }
 
     object Google {
-        const val compose_compiler = "1.3.2"
+        const val compose_compiler = "1.4.2"
         const val material = "1.7.0"
     }
 
@@ -30,8 +30,9 @@ object Versions {
     }
 
     object Kotlin {
-        const val compiler = "1.7.20"
+        const val compiler = "1.8.10"
         const val coroutines = "1.6.4"
+        const val serialization = "1.5.0"
     }
 
     object Testing {
@@ -65,6 +66,7 @@ object Versions {
 // Synchronized dependencies used by (some) modules
 object Deps {
     const val kotlin_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}"
+    const val kotlin_serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}"
 
     const val mozilla_concept_awesomebar = "org.mozilla.components:concept-awesomebar:${AndroidComponents.VERSION}"
     const val mozilla_concept_engine = "org.mozilla.components:concept-engine:${AndroidComponents.VERSION}"
