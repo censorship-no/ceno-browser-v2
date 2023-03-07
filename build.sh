@@ -129,7 +129,7 @@ while getopts crda:lv:k:p:s:b: option; do
 done
 
 if $CLEAN; then
-    rm *.apk || true
+    rm output/*/*.apk || true
     exit
 fi
 
@@ -281,10 +281,10 @@ function write_local_properties {
 
     set_property sdk.dir ${ANDROID_HOME}
     set_property versionName ${VERSION_NUMBER}
-    set_property RELEASE_STORE_FILE ${KEYSTORE_FILE}
-    set_property RELEASE_STORE_PASSWORD ${STORE_PASSWORD}
-    set_property RELEASE_KEY_ALIAS ${KEYSTORE_KEY_ALIAS}
-    set_property RELEASE_KEY_PASSWORD ${KEY_PASSWORD}
+    set_property STORE_FILE ${KEYSTORE_FILE}
+    set_property STORE_PASSWORD ${STORE_PASSWORD}
+    set_property KEY_ALIAS ${KEYSTORE_KEY_ALIAS}
+    set_property KEY_PASSWORD ${KEY_PASSWORD}
 
     set_property PROXY_PORT \"${BRAND_PROXY_PORT}\"
     set_property FRONTEND_PORT \"${BRAND_FRONTEND_PORT}\"
@@ -314,26 +314,26 @@ function write_local_properties {
     fi
 }
 
-function build_apk_for {
-    local abis=$1[@]
-    local var="$2"
-    local list=("${!abis}")
-
-    local DATE="$(date  +'%Y-%m-%d_%H%m')"
-
-    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/${BUILD_APP}/build/outputs/apk/${var}"
-    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:build
-    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assemble${var^}
-
-    for abi in ${list[@]}; do
-        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/${BUILD_APP}-${abi}-${var}.apk
-        CENOBROWSER_APK="${SOURCE_DIR}"/${BRAND_NAME}-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
-        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
-    done
-}
+#function build_apk_for {
+#    local abis=$1[@]
+#    local var="$2"
+#    local list=("${!abis}")
+#
+#    local DATE="$(date  +'%Y-%m-%d_%H%m')"
+#
+#    CENOBROWSER_BUILD_DIR="${SOURCE_DIR}/${BUILD_APP}/build/outputs/apk/${var}"
+#    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:build
+#    "${SOURCE_DIR}"/gradlew :${BUILD_APP}:assemble${var^}
+#
+#    for abi in ${list[@]}; do
+#        CENOBROWSER_APK_BUILT="${CENOBROWSER_BUILD_DIR}"/${BUILD_APP}-${abi}-${var}.apk
+#        CENOBROWSER_APK="${SOURCE_DIR}"/${BRAND_NAME}-${abi}-${var}-${VERSION_NUMBER}-${DATE}.apk
+#        cp "${CENOBROWSER_APK_BUILT}" "${CENOBROWSER_APK}"
+#    done
+#}
 
 check_variant
 get_set_abis
 get_set_branding
 write_local_properties
-build_apk_for ABIS $VARIANT
+#build_apk_for ABIS $VARIANT
