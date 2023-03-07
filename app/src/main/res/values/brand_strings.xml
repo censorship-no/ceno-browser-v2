@@ -16,13 +16,11 @@
 
     <!-- About content -->
     <string name="about_content"><![CDATA[
-<p>%1$s puts you in control.</p>
-<p>Use it as a reference to:
-    <br>&bull; Learn how to build your own browser.
-    <br>&bull; Contribute to making it easier to build browsers.
-    <br>&bull; File bug reports!
+<p>%1$s - Share the Web!</p>
+<p>CENO (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.
 </p>
-<p>%1$s is produced by eQualitie. Our mission is to .<br/>
+<p>%1$s is a project of <a href="https//equalit.ie">eQualitie</a>, a Canadian organization whose mission is to promote and defend fundamental freedoms and human rights, including the free flow of information online. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.</p>
+<p> <a href="https://censorship.no/">Website</a> | <a href="https://gitlab.com/censorship-no/">Source Code</a> | <a href="https://censorship.no/en/donate">Donate</a></p><br/>
     ]]></string>
 
     <!-- Home page browsing mode reminder. -->
