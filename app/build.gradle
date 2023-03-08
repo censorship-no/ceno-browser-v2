@@ -25,7 +25,7 @@ android {
         compileSdkVersion Config.compileSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
-        versionName localProperties['versionName']
+        versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -41,10 +41,11 @@ android {
     /* CENO: Add signing config for release builds */
     signingConfigs {
         release {
-            storeFile file(localProperties['RELEASE_STORE_FILE'] ?: "./debug.keystore-passwords")
-            storePassword localProperties['RELEASE_STORE_PASSWORD']
-            keyAlias localProperties['RELEASE_KEY_ALIAS']
-            keyPassword localProperties['RELEASE_KEY_PASSWORD']
+            def releaseStoreFile = System.getenv('STORE_FILE') ?: localProperties['STORE_FILE']
+            storeFile file(releaseStoreFile ?: "$project.rootDir/debug.keystore-passwords")
+            storePassword System.getenv('STORE_PASSWORD') ?: localProperties['STORE_PASSWORD']
+            keyAlias System.getenv('KEY_ALIAS') ?: localProperties['KEY_ALIAS']
+            keyPassword System.getenv('KEY_PASSWORD') ?: localProperties['KEY_PASSWORD']
 
             enableV1Signing true
             enableV2Signing true
@@ -140,6 +141,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 def baseBuildDate = generatedBuildDate
+def apkDate = generatedApkDate
 
 android.applicationVariants.all { variant ->
 
@@ -185,8 +187,6 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 
         // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
         // with ARM compatibility mode.
-
-        def versionName = localProperties['versionName']
 
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
@@ -250,6 +250,22 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
     } else {
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
+    }
+
+// Set the name of the output apks and copy to project directory
+    variant.outputs.all { output ->
+        def appId = applicationId.tokenize('.')
+        def abi = output.getFilter(OutputFile.ABI)
+        outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+    }
+
+    variant.assembleProvider.configure { assemble ->
+        assemble.doLast {
+            copy {
+                from variant.outputs*.outputFile
+                into "$project.rootDir/output/${variant.name}/"
+            }
+        }
     }
 }
 
@@ -463,4 +479,8 @@ if (gradle.hasProperty('localProperties.autoPublish.android-components.dir')) {
 if (gradle.hasProperty('localProperties.autoPublish.application-services.dir')) {
     ext.appServicesSrcDir = gradle."localProperties.autoPublish.application-services.dir"
     apply from: "../${appServicesSrcDir}/build-scripts/substitute-local-appservices.gradle"
+}
+
+clean {
+  delete 'build', 'target', fileTree("$project.rootDir/output/") { include '**/*.apk' }
 }

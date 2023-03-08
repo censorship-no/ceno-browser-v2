@@ -15,23 +15,62 @@
         android:id="@+id/about_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/about_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        />
+
+    <TextView
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/about_content"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        />
+
+    <TextView
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/about_content"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
         android:id="@+id/version_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/about_content" />
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

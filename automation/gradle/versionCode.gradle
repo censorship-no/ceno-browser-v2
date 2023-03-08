@@ -39,8 +39,10 @@ ext {
 
     /* CENO: Use mozilla style build date for base of generating a unique buildID */
     def date = new SimpleDateFormat("yyyyMMddHHmmss").format(today)
+    def apkDate = new SimpleDateFormat("yyyy-MM-dd_HHmm").format(today)
 
     generatedBuildDate = date
+    generatedApkDate = apkDate
 
     println("Generated buildId: $generatedBuildDate")
     println()

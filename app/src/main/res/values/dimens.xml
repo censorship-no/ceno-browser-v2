@@ -13,6 +13,10 @@
     <dimen name="ceno_onboarding_title">32sp</dimen>
     <dimen name="ceno_onboarding_text">22sp</dimen>
 
+    <dimen name="ceno_about_fragment_text_size">16sp</dimen>
+    <dimen name="ceno_about_fragment_margin_top">16dp</dimen>
+    <dimen name="ceno_about_fragment_margin_horizontal">16dp</dimen>
+
     <dimen name="preference_margin_start">62dp</dimen>
     <dimen name="radio_button_text_size">16sp</dimen>
 

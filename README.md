@@ -59,14 +59,14 @@ We use Weblate for continuously-updated translations. To get started, create an 
 
 ## 🔧 Building
 ### Developer Build
-
-The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time.  You may customize a copy of the provided `local.properties.sample` with your values and put it in the root of the `CENO Browser` checkout as `local.properties`.
-
-After setting the configuration values correctly, you can build debug versions of the APKs with the following command:
-
+To build debug versions of Ceno Browser, enter the checkout directory and execute the following commands,
 ```
-./build.sh -a arm64-v8a -a armeabi-v7a
+cp local.propeties.sample local.properties
+ANDROID_HOME=/path/to/Android/Sdk ./gradlew assembleDebug
 ```
+The resulting apks will be copied to the `output/debug/` directory.
+
+The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time. You may customize the `local.properties` file with your values and rebuild as needed.
 
 By default, the latest versions of the Ouinet library and GeckoView (CENO fork) are automatically downloaded from Maven Central repository and used for building both the debug and release variants CENO Browser.
 
