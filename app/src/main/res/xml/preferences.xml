@@ -82,6 +82,27 @@
             android:title="@string/preferences_ceno_sources_origin"
             android:summary="@string/preferences_ceno_sources_origin_summary" />
 
+        <androidx.preference.CheckBoxPreference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_sources_private"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_sources_private"
+            android:summary="@string/preferences_ceno_sources_private_summary" />
+
+        <androidx.preference.CheckBoxPreference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_sources_public"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_sources_public"
+            android:summary="@string/preferences_ceno_sources_public_summary" />
+
+        <androidx.preference.CheckBoxPreference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_sources_shared"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_sources_peers"
+            android:summary="@string/preferences_ceno_sources_peers_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

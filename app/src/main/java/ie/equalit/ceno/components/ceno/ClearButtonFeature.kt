@@ -27,7 +27,7 @@ class ClearButtonFeature(
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
                     Logger.debug("Clear CENO cache only selected")
-                    CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE)
+                    CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE_CACHE)
                 }
             }
         }
@@ -43,7 +43,7 @@ class ClearButtonFeature(
     fun onClick() {
         return when (behavior){
             CLEAR_PROMPT -> createClearDialog().show()
-            CLEAR_CACHE -> CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE)
+            CLEAR_CACHE -> CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE_CACHE)
             CLEAR_APP -> OuinetBroadcastReceiver.stopService(
                 context,
                 doPurge = true,

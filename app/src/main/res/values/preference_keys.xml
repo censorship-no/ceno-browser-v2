@@ -45,7 +45,9 @@
     <string name="pref_key_ceno_status_update_required" translatable="false">pref_key_ceno_status_update_required</string>
 
     <string name="pref_key_ceno_sources_origin" translatable="false">pref_key_ceno_sources_origin</string>
-
+    <string name="pref_key_ceno_sources_public" translatable="false">pref_key_ceno_sources_public</string>
+    <string name="pref_key_ceno_sources_private" translatable="false">pref_key_ceno_sources_private</string>
+    <string name="pref_key_ceno_sources_shared" translatable="false">pref_key_ceno_sources_shared</string>
     <string name="pref_key_clear_ceno_cache" translatable="false">pref_key_clear_ceno_cache</string>
 
     <!-- CENO: COPIED FROM FENIX -->

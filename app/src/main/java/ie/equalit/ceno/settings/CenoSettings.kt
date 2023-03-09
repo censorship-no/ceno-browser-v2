@@ -1,14 +1,10 @@
 package ie.equalit.ceno.settings
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.OuinetBroadcastReceiver
-import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -17,7 +13,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
-import mozilla.components.concept.fetch.Response
 import mozilla.components.support.base.log.logger.Logger
 
 
@@ -43,9 +38,12 @@ data class OuinetStatus(val auto_refresh : Boolean,
 )
 
 enum class OuinetKey(val command : String) {
-    STATUS("api/status"),
-    PURGE("?purge_cache=do"),
+    API_STATUS("api/status"),
+    PURGE_CACHE("?purge_cache=do"),
     ORIGIN_ACCESS("?origin_access"),
+    PROXY_ACCESS("?proxy_access"),
+    INJECTOR_ACCESS("?injector_access"),
+    DISTRIBUTED_CACHE("?distributed_cache"),
 }
 
 enum class OuinetValue(val string: String) {
@@ -70,13 +68,32 @@ object CenoSettings {
             .apply()
     }
 
-    fun isOriginAccessEnabled(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_sources_origin), false
-        )
-
-    fun setOriginAccess(context: Context, value: Boolean) {
+    private fun setCenoSourcesOrigin(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_origin)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesPrivate(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_private)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesPublic(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_public)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesShared(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_shared)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putBoolean(key, value)
@@ -113,7 +130,10 @@ object CenoSettings {
     private fun updateOuinetStatus(context : Context, responseBody : String) {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
-        setOriginAccess(context, status.origin_access)
+        setCenoSourcesOrigin(context, status.origin_access)
+        setCenoSourcesPrivate(context, status.proxy_access)
+        setCenoSourcesPublic(context, status.injector_access)
+        setCenoSourcesShared(context, status.distributed_cache)
         context.components.cenoPreferences.statusUpdateComplete = true
     }
 
@@ -126,18 +146,22 @@ object CenoSettings {
 
             webClientRequest(context, Request(request)).let { response ->
                 when (key) {
-                    OuinetKey.STATUS -> {
+                    OuinetKey.API_STATUS -> {
                         if (response != null)
                             updateOuinetStatus(context, response)
                     }
-                    OuinetKey.PURGE -> {
+                    OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null)
                             context.resources.getString(R.string.clear_cache_success)
                         else
                             context.resources.getString(R.string.clear_cache_fail)
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
-                    OuinetKey.ORIGIN_ACCESS -> {
+                    OuinetKey.ORIGIN_ACCESS,
+                    OuinetKey.PROXY_ACCESS,
+                    OuinetKey.INJECTOR_ACCESS,
+                    OuinetKey.DISTRIBUTED_CACHE,
+                    -> {
                         if (response == null) {
                             Toast.makeText(
                                 context,

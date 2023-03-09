@@ -154,6 +154,15 @@
     <string name="preferences_ceno_sources_origin">Website</string>
     <string name="preferences_ceno_sources_origin_summary">Load content directly from website</string>
 
+    <string name="preferences_ceno_sources_private">Privately</string>
+    <string name="preferences_ceno_sources_private_summary">Load content via the private Ceno network</string>
+
+    <string name="preferences_ceno_sources_public">Publicly</string>
+    <string name="preferences_ceno_sources_public_summary">Load content via the public Ceno network</string>
+
+    <string name="preferences_ceno_sources_peers">Shared</string>
+    <string name="preferences_ceno_sources_peers_summary">Load content shared by other users</string>
+
     <string name="ceno_data_category">Data</string>
     <string name="preferences_clear_ceno_cache">Clear Ceno cache</string>
     <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>

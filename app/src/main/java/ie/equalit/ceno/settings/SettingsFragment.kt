@@ -77,6 +77,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onResume()
         cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(updateCompleteChangeListener)
         setupPreferences()
+        setupCenoSettings()
         getActionBar().apply{
             show()
             setTitle(R.string.settings)
@@ -103,8 +104,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
-        val clearCenoCacheKey = requireContext().getPreferenceKey(pref_key_clear_ceno_cache)
-        val cenoSourcesOriginKey = requireContext().getPreferenceKey(pref_key_ceno_sources_origin)
 
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
         val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
@@ -116,8 +115,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCustomization = findPreference<Preference>(customizationKey)
         val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
         val preferenceSearch = findPreference<Preference>(searchKey)
-        val preferenceClearCenoCache = findPreference<Preference>(clearCenoCacheKey)
-        val preferenceCenoSourcesOrigin = findPreference<Preference>(cenoSourcesOriginKey)
 
         if (!AutofillPreference.isSupported(requireContext())) {
             preferenceAutofill?.isVisible = false
@@ -139,32 +136,69 @@ class SettingsFragment : PreferenceFragmentCompat() {
         else {
             preferenceDisableBatteryOpt?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
         }
+    }
+
+    private fun getPreference(key : Int) : Preference? {
+        val prefKey = requireContext().getPreferenceKey(key)
+        return findPreference(prefKey)
+    }
+
+    private fun setPreference(
+        pref : Preference,
+        enabled : Boolean,
+        changeListener: OnPreferenceChangeListener? = null,
+        clickListener: OnPreferenceClickListener? = null
+    ) {
+        pref.isEnabled = enabled
+        pref.shouldDisableView = !enabled
+        pref.onPreferenceChangeListener = changeListener
+        pref.onPreferenceClickListener = clickListener
+    }
+
+    private fun setupCenoSettings() {
+        val preferenceCenoSourcesOrigin = getPreference(pref_key_ceno_sources_origin)
+        val preferenceCenoSourcesPrivate = getPreference(pref_key_ceno_sources_private)
+        val preferenceCenoSourcesPublic = getPreference(pref_key_ceno_sources_public)
+        val preferenceCenoSourcesShared = getPreference(pref_key_ceno_sources_shared)
+        val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
-            preferenceCenoSourcesOrigin?.isEnabled = false
-            preferenceCenoSourcesOrigin?.shouldDisableView = false
-            preferenceCenoSourcesOrigin?.onPreferenceChangeListener = null
-
-            preferenceClearCenoCache?.isEnabled = false
-            preferenceClearCenoCache?.shouldDisableView = false
-            preferenceClearCenoCache?.onPreferenceClickListener = null
-
+            setPreference(preferenceCenoSourcesOrigin!!, false)
+            setPreference(preferenceCenoSourcesPrivate!!, false)
+            setPreference(preferenceCenoSourcesPublic!!, false)
+            setPreference(preferenceCenoSourcesShared!!, false)
+            setPreference(preferenceClearCenoCache!!, false)
             /* Fetch ouinet status */
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.STATUS)
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         }
         else {
             /* Enable Ceno related options */
-            preferenceCenoSourcesOrigin?.isEnabled = true
-            preferenceCenoSourcesOrigin?.shouldDisableView = true
-            preferenceCenoSourcesOrigin?.onPreferenceChangeListener = getChangeListenerForCenoSourcesOrigin()
-
-            preferenceClearCenoCache?.isEnabled = true
-            preferenceClearCenoCache?.shouldDisableView = true
-            preferenceClearCenoCache?.onPreferenceClickListener = getClickListenerForClearCenoCache()
+            setPreference(
+                preferenceCenoSourcesOrigin!!,
+                true,
+                changeListener = getChangeListenerForCenoSources(OuinetKey.ORIGIN_ACCESS)
+            )
+            setPreference(
+                preferenceCenoSourcesPrivate!!,
+                true,
+                changeListener = getChangeListenerForCenoSources(OuinetKey.PROXY_ACCESS)
+            )
+            setPreference(
+                preferenceCenoSourcesPublic!!,
+                true,
+                changeListener = getChangeListenerForCenoSources(OuinetKey.INJECTOR_ACCESS)
+            )
+            setPreference(
+                preferenceCenoSourcesShared!!,
+                true,
+                changeListener = getChangeListenerForCenoSources(OuinetKey.DISTRIBUTED_CACHE)
+            )
+            setPreference(preferenceClearCenoCache!!, true, clickListener = getClickListenerForClearCenoCache())
         }
     }
+
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
         return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -321,21 +355,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getChangeListenerForCenoSourcesOrigin(): OnPreferenceChangeListener {
+    private fun getChangeListenerForCenoSources( key : OuinetKey): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
             val value = if (newValue == true) {
                 OuinetValue.ENABLED
             } else {
                 OuinetValue.DISABLED
             }
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.ORIGIN_ACCESS, value)
+            CenoSettings.ouinetClientRequest(requireContext(), key, value)
             true
         }
     }
 
     private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE)
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
             //ClearButtonFeature.createClearDialog(requireContext()).show()
             true
         }
