@@ -111,8 +111,15 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_ceno_cache"
+            android:key="@string/pref_key_ceno_cache_size"
             android:defaultValue="false"
+            android:enabled="false"
+            android:title="@string/preferences_ceno_cache_size" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_clear_ceno_cache"
+            android:defaultValue="0 B"
             android:title="@string/preferences_clear_ceno_cache"
             android:summary="@string/preferences_clear_ceno_cache_summary" />
 

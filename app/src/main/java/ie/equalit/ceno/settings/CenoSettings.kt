@@ -14,6 +14,9 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
+import kotlin.math.floor
+import kotlin.math.ln
+import kotlin.math.pow
 
 
 @Serializable
@@ -54,6 +57,22 @@ enum class OuinetValue(val string: String) {
 object CenoSettings {
 
     private const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
+
+    private fun log2(n: Int): Double {
+        return ln(n.toDouble()) / ln(2.0)
+    }
+
+    private fun bytesToString(b: Int): String {
+        // originally from <https://stackoverflow.com/a/42408230>
+        // ported from extension JS code to kotlin
+        if (b == 0) {
+            return "0 B"
+        }
+        val i = floor(log2(b) / 10).toInt()
+        val v = b / 1024.0.pow(i)
+        val u = "KMGTPEZY"[i - 1] + "iB";
+        return String.format("%.2f %s", v, u)
+    }
 
     fun isStatusUpdateRequired(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
@@ -100,6 +119,19 @@ object CenoSettings {
             .apply()
     }
 
+    fun getCenoCacheSize(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ceno_cache_size), null
+        )
+
+    fun setCenoCacheSize(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ceno_cache_size)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
     private suspend fun webClientRequest (context: Context, request: Request): String? {
         var responseBody : String? = null
         var tries = 0
@@ -134,7 +166,8 @@ object CenoSettings {
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)
         setCenoSourcesShared(context, status.distributed_cache)
-        context.components.cenoPreferences.statusUpdateComplete = true
+        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
+        context.components.cenoPreferences.sharedPrefsReload = true
     }
 
     fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null) {
@@ -151,10 +184,14 @@ object CenoSettings {
                             updateOuinetStatus(context, response)
                     }
                     OuinetKey.PURGE_CACHE -> {
-                        val text = if (response != null)
+                        val text = if (response != null) {
+                            setCenoCacheSize(context, bytesToString(0))
+                            context.components.cenoPreferences.sharedPrefsUpdate = true
                             context.resources.getString(R.string.clear_cache_success)
-                        else
+                        }
+                        else {
                             context.resources.getString(R.string.clear_cache_fail)
+                        }
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
                     OuinetKey.ORIGIN_ACCESS,

@@ -48,10 +48,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         true
     }
 
-    private val updateCompleteChangeListener = OnSharedPreferenceChangeListener {
+    private val sharedPreferencesChangeListener = OnSharedPreferenceChangeListener {
             sharedPrefs, key ->
-        if (key == getString(pref_key_shared_prefs_update_complete)) {
-            val  newValue = sharedPrefs.getBoolean(key, false)
+        val  newValue = sharedPrefs.getBoolean(key, false)
+        if (key == getString(pref_key_shared_prefs_reload)) {
             Logger.debug("Got change listener for $key = $newValue")
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
@@ -59,11 +59,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.container,
                         SettingsFragment(),
-                        TAG_RELOADED
+                        TAG
                     )
                     addToBackStack(null)
                     commit()
                 }
+            }
+        }
+        else if (key == getString(pref_key_shared_prefs_update)) {
+            if (newValue) {
+                /* toggle preferences to refresh value */
+                getPreference(pref_key_ceno_cache_size)?.let {
+                    it.isEnabled = true
+                    it.isEnabled = false
+                }
+                cenoPrefs.sharedPrefsUpdate = false
             }
         }
     }
@@ -75,7 +85,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
-        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(updateCompleteChangeListener)
+        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         setupPreferences()
         setupCenoSettings()
         getActionBar().apply{
@@ -88,8 +98,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onPause() {
         super.onPause()
-        cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(updateCompleteChangeListener)
-        cenoPrefs.statusUpdateComplete = false
+        cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
+        cenoPrefs.sharedPrefsReload = false
     }
 
     @Suppress("LongMethod") // Yep, this should be refactored.
@@ -144,15 +154,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setPreference(
-        pref : Preference,
+        pref : Preference?,
         enabled : Boolean,
         changeListener: OnPreferenceChangeListener? = null,
         clickListener: OnPreferenceClickListener? = null
     ) {
-        pref.isEnabled = enabled
-        pref.shouldDisableView = !enabled
-        pref.onPreferenceChangeListener = changeListener
-        pref.onPreferenceClickListener = clickListener
+        pref?.let{
+            it.isEnabled = enabled
+            it.shouldDisableView = !enabled
+            it.onPreferenceChangeListener = changeListener
+            it.onPreferenceClickListener = clickListener
+        }
     }
 
     private fun setupCenoSettings() {
@@ -161,41 +173,45 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCenoSourcesPublic = getPreference(pref_key_ceno_sources_public)
         val preferenceCenoSourcesShared = getPreference(pref_key_ceno_sources_shared)
         val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
+        val preferenceCenoCacheSize = getPreference(pref_key_ceno_cache_size)
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
-            setPreference(preferenceCenoSourcesOrigin!!, false)
-            setPreference(preferenceCenoSourcesPrivate!!, false)
-            setPreference(preferenceCenoSourcesPublic!!, false)
-            setPreference(preferenceCenoSourcesShared!!, false)
-            setPreference(preferenceClearCenoCache!!, false)
+            setPreference(preferenceCenoSourcesOrigin, false)
+            setPreference(preferenceCenoSourcesPrivate, false)
+            setPreference(preferenceCenoSourcesPublic, false)
+            setPreference(preferenceCenoSourcesShared, false)
+            setPreference(preferenceClearCenoCache, false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         }
         else {
             /* Enable Ceno related options */
             setPreference(
-                preferenceCenoSourcesOrigin!!,
+                preferenceCenoSourcesOrigin,
                 true,
                 changeListener = getChangeListenerForCenoSources(OuinetKey.ORIGIN_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesPrivate!!,
+                preferenceCenoSourcesPrivate,
                 true,
                 changeListener = getChangeListenerForCenoSources(OuinetKey.PROXY_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesPublic!!,
+                preferenceCenoSourcesPublic,
                 true,
                 changeListener = getChangeListenerForCenoSources(OuinetKey.INJECTOR_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesShared!!,
+                preferenceCenoSourcesShared,
                 true,
                 changeListener = getChangeListenerForCenoSources(OuinetKey.DISTRIBUTED_CACHE)
             )
-            setPreference(preferenceClearCenoCache!!, true, clickListener = getClickListenerForClearCenoCache())
+            preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
+                CenoSettings.getCenoCacheSize(requireContext())
+            }
+            setPreference(preferenceClearCenoCache, true, clickListener = getClickListenerForClearCenoCache())
         }
     }
 
@@ -378,7 +394,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     companion object {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "SETTINGS"
-        const val TAG_RELOADED = "SETTINGS_RELOADED"
+        //const val TAG_RELOADED = "SETTINGS_RELOADED"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }
 }

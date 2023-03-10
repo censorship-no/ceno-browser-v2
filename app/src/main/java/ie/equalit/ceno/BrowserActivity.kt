@@ -16,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -167,9 +168,15 @@ open class BrowserActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            /* If the settings fragment was reloaded, an additional popBackStack is required */
-            if (it.tag == SettingsFragment.TAG_RELOADED) {
-                supportFragmentManager.popBackStackImmediate()
+            /* If coming from settings fragment, always clear back stack and go back to root fragment */
+            if (it.tag == SettingsFragment.TAG) {
+                val entry: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(0)
+                supportFragmentManager.popBackStack(
+                    entry.id,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                supportFragmentManager.executePendingTransactions()
+                return
             }
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
