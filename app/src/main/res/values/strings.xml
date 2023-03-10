@@ -141,7 +141,7 @@
     <!-- Browser menu button that opens the addon manager -->
     <string name="browser_menu_add_ons">Add-ons</string>
     <!-- Browser menu button that opens the settings menu -->
-    <string name="browser_menu_settings">General Settings</string>
+    <string name="browser_menu_settings">Settings</string>
     <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Request desktop site</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->

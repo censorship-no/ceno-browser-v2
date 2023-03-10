@@ -166,16 +166,21 @@ open class BrowserActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    fun popToFragmentIndex(i : Int) {
+        val entry: FragmentManager.BackStackEntry =
+            supportFragmentManager.getBackStackEntryAt(i)
+        supportFragmentManager.popBackStack(
+            entry.id,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        supportFragmentManager.executePendingTransactions()
+    }
+
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
             /* If coming from settings fragment, always clear back stack and go back to root fragment */
             if (it.tag == SettingsFragment.TAG) {
-                val entry: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(0)
-                supportFragmentManager.popBackStack(
-                    entry.id,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE
-                )
-                supportFragmentManager.executePendingTransactions()
+                popToFragmentIndex(0)
                 return
             }
             if (it is UserInteractionHandler && it.onBackPressed()) {

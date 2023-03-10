@@ -9,10 +9,14 @@
     <string name="preferences_make_default_browser">Make &brandShortName; your default browser</string>
 
     <!-- Preference about page -->
-    <string name="preferences_about_page">About &brandShortName;</string>
+    <string name="preferences_about_ceno">&brandShortName; Browser</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_about_ouinet">Ouinet</string>
+    <string name="preferences_about_ouinet_protocol">Ouinet Protocol</string>
+    <string name="preferences_about_page">About &vendorShortName;</string>
 
     <!-- Preference category for Mozilla about/legal etc. -->
-    <string name="vendor_category" translatable="false">&vendorShortName;</string>
+    <string name="about_category">About</string>
 
     <!-- About content -->
     <string name="about_content"><![CDATA[
@@ -165,8 +169,14 @@
 
     <string name="ceno_data_category">Data</string>
     <string name="preferences_ceno_cache_size">Local cache</string>
-    <string name="preferences_clear_ceno_cache">Clear Ceno cache</string>
+    <string name="preferences_ceno_groups_count">Content shared by you</string>
+    <string name="preferences_clear_ceno_cache">Clear cached content</string>
     <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>
+
+    <string name="preferences_ceno_network_config">&brandShortName; Network Details</string>
+    <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_enable_log">Enable log file</string>
+    <string name="preferences_ceno_download_log">Download log file</string>
 
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>

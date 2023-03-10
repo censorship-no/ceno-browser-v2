@@ -7,6 +7,7 @@ package ie.equalit.ceno.settings
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -17,15 +18,20 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
+import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.PermissionHandler
+import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
@@ -33,11 +39,17 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import kotlin.system.exitProcess
 import ie.equalit.ceno.utils.CenoPreferences
+import mozilla.components.browser.state.action.ContentAction
+import mozilla.components.browser.state.state.content.DownloadState
+import org.mozilla.geckoview.BuildConfig
 
 @Suppress("TooManyFunctions")
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs : CenoPreferences
+
+    protected val sessionId: String?
+        get() = arguments?.getString(SESSION_ID)
 
     interface ActionBarUpdater {
         fun updateTitle(titleResId: Int)
@@ -58,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.container,
-                        SettingsFragment(),
+                        create(sessionId),
                         TAG
                     )
                     addToBackStack(null)
@@ -70,8 +82,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (newValue) {
                 /* toggle preferences to refresh value */
                 getPreference(pref_key_ceno_cache_size)?.let {
-                    it.isEnabled = true
-                    it.isEnabled = false
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
+                }
+                getPreference(pref_key_ceno_groups_count)?.let {
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
+                }
+                getPreference(pref_key_ceno_download_log)?.let {
+                    it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
                 }
                 cenoPrefs.sharedPrefsUpdate = false
             }
@@ -172,8 +193,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCenoSourcesPrivate = getPreference(pref_key_ceno_sources_private)
         val preferenceCenoSourcesPublic = getPreference(pref_key_ceno_sources_public)
         val preferenceCenoSourcesShared = getPreference(pref_key_ceno_sources_shared)
-        val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
         val preferenceCenoCacheSize = getPreference(pref_key_ceno_cache_size)
+        val preferenceCenoGroupsCount = getPreference(pref_key_ceno_groups_count)
+        val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
+        val preferenceCenoNetworkDetails = getPreference(pref_key_ceno_network_config)
+        val preferenceCenoEnableLog = getPreference(pref_key_ceno_enable_log)
+        val preferenceCenoDownloadLog = getPreference(pref_key_ceno_download_log)
+
+        val preferenceAboutCeno = getPreference(pref_key_about_ceno)
+        val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
+        val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
+        val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
+
+        preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+        preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
+        preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
@@ -182,7 +216,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(preferenceCenoSourcesPrivate, false)
             setPreference(preferenceCenoSourcesPublic, false)
             setPreference(preferenceCenoSourcesShared, false)
+            setPreference(preferenceCenoGroupsCount, false)
             setPreference(preferenceClearCenoCache, false)
+            setPreference(preferenceCenoNetworkDetails, false)
+            setPreference(preferenceCenoEnableLog, false)
+            setPreference(preferenceCenoDownloadLog, false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         }
@@ -191,27 +229,58 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(
                 preferenceCenoSourcesOrigin,
                 true,
-                changeListener = getChangeListenerForCenoSources(OuinetKey.ORIGIN_ACCESS)
+                changeListener = getChangeListenerForCenoSetting(OuinetKey.ORIGIN_ACCESS)
             )
             setPreference(
                 preferenceCenoSourcesPrivate,
                 true,
-                changeListener = getChangeListenerForCenoSources(OuinetKey.PROXY_ACCESS)
+                changeListener = getChangeListenerForCenoSetting(OuinetKey.PROXY_ACCESS)
             )
             setPreference(
                 preferenceCenoSourcesPublic,
                 true,
-                changeListener = getChangeListenerForCenoSources(OuinetKey.INJECTOR_ACCESS)
+                changeListener = getChangeListenerForCenoSetting(OuinetKey.INJECTOR_ACCESS)
             )
             setPreference(
                 preferenceCenoSourcesShared,
                 true,
-                changeListener = getChangeListenerForCenoSources(OuinetKey.DISTRIBUTED_CACHE)
+                changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
             )
             preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getCenoCacheSize(requireContext())
             }
-            setPreference(preferenceClearCenoCache, true, clickListener = getClickListenerForClearCenoCache())
+            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
+            preferenceCenoGroupsCount?.summaryProvider = Preference.SummaryProvider<Preference> {
+                String.format( "%d sites", CenoSettings.getCenoGroupsCount(requireContext()))
+            }
+            setPreference(
+                preferenceCenoGroupsCount,
+                true,
+                clickListener = getClickListenerForCenoGroupsCounts()
+            )
+            setPreference(
+                preferenceClearCenoCache,
+                true,
+                clickListener = getClickListenerForClearCenoCache()
+            )
+            setPreference(
+                preferenceCenoNetworkDetails,
+                true,
+                clickListener = getClickListenerForCenoNetworkDetails()
+            )
+            setPreference(
+                preferenceCenoEnableLog,
+                true,
+                changeListener = getChangeListenerForCenoSetting(OuinetKey.LOGFILE)
+            )
+            setPreference(
+                preferenceCenoDownloadLog,
+                true,
+                clickListener = getClickListenerForCenoDownloadLog()
+            )
+            preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
+                    CenoSettings.getOuinetBuildId(requireContext())
+            preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         }
     }
 
@@ -371,7 +440,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getChangeListenerForCenoSources( key : OuinetKey): OnPreferenceChangeListener {
+    private fun getChangeListenerForCenoSetting( key : OuinetKey): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
             val value = if (newValue == true) {
                 OuinetValue.ENABLED
@@ -391,10 +460,59 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getClickListenerForCenoGroupsCounts () : OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val browserActivity = activity as BrowserActivity
+            browserActivity.openToBrowser("${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}" , newTab = true)
+            val entry: FragmentManager.BackStackEntry =
+                browserActivity.supportFragmentManager.getBackStackEntryAt(0)
+            browserActivity.supportFragmentManager.popBackStack(
+                entry.id,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+            browserActivity.supportFragmentManager.executePendingTransactions()
+            true
+        }
+    }
+
+    private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val browserActivity = activity as BrowserActivity
+            WebExtensionToolbarFeature.getBrowserAction(
+                        requireContext(),
+                        CenoWebExt.CENO_EXTENSION_ID
+                    )?.invoke()
+            (activity as BrowserActivity).popToFragmentIndex(0)
+            true
+        }
+    }
+
+    private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val download = DownloadState(url = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
+            if (sessionId != null) {
+                requireContext().components.core.store.dispatch(ContentAction.UpdateDownloadAction(sessionId!!, download))
+                (activity as BrowserActivity).popToFragmentIndex(0)
+            }
+            //CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.CENO_LOGFILE_TXT)
+            true
+        }
+    }
+
     companion object {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "SETTINGS"
-        //const val TAG_RELOADED = "SETTINGS_RELOADED"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
+        private const val SESSION_ID = "session_id"
+
+        @JvmStatic
+        protected fun Bundle.putSessionId(sessionId: String?) {
+            putString(SESSION_ID, sessionId)
+        }
+        fun create(sessionId: String? = null) = SettingsFragment().apply {
+            arguments = Bundle().apply {
+                putSessionId(sessionId)
+            }
+        }
     }
 }

@@ -118,6 +118,13 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_groups_count"
+            android:defaultValue="false"
+            android:enabled="false"
+            android:title="@string/preferences_ceno_groups_count" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_clear_ceno_cache"
             android:defaultValue="0 B"
             android:title="@string/preferences_clear_ceno_cache"
@@ -140,11 +147,50 @@
             android:key="@string/pref_key_override_amo_collection"
             android:title="@string/preferences_customize_amo_collection"/>
 
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_network_config"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_network_config"
+            android:summary="@string/preferences_ceno_network_config_summary"/>
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_enable_log"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_enable_log" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_download_log"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_download_log" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/vendor_category"
+        android:title="@string/about_category"
         android:layout="@layout/preference_category_style">
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_about_ceno"
+            android:title="@string/preferences_about_ceno" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_about_geckoview"
+            android:title="@string/preferences_about_geckoview" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_about_ouinet"
+            android:title="@string/preferences_about_ouinet" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_about_ouinet_protocol"
+            android:title="@string/preferences_about_ouinet_protocol" />
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
