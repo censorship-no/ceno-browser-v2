@@ -7,7 +7,6 @@ package ie.equalit.ceno.settings
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +23,7 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
@@ -31,6 +31,7 @@ import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
+import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
@@ -41,12 +42,17 @@ import kotlin.system.exitProcess
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.state.content.DownloadState
+import mozilla.components.feature.downloads.DownloadsFeature
+import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.support.base.feature.PermissionsFeature
+import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import org.mozilla.geckoview.BuildConfig
 
 @Suppress("TooManyFunctions")
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs : CenoPreferences
+    private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
 
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
@@ -102,6 +108,44 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         cenoPrefs = requireComponents.cenoPreferences
         setPreferencesFromResource(R.xml.preferences, rootKey)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        /* TODO: The downloads feature is also used by the BaseBrowserFragment,
+            should move this to a BaseFragment that both Settings and BaseBrowserFragment can inherit */
+        downloadsFeature.set(
+            feature = DownloadsFeature(
+                requireContext(),
+                store = requireComponents.core.store,
+                useCases = requireComponents.useCases.downloadsUseCases,
+                fragmentManager = childFragmentManager,
+                downloadManager = FetchDownloadManager(
+                    requireContext().applicationContext,
+                    requireComponents.core.store,
+                    DownloadService::class,
+                ),
+                onNeedToRequestPermissions = { permissions ->
+                    // The Fragment class wants us to use registerForActivityResult
+                    @Suppress("DEPRECATION")
+                    requestPermissions(permissions, AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                },
+            ),
+            owner = this,
+            view = view,
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray,
+    ) {
+        val feature: PermissionsFeature? = when (requestCode) {
+            AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
+            else -> null
+        }
+        feature?.onPermissionsResult(permissions, grantResults)
     }
 
     override fun onResume() {
@@ -492,9 +536,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val download = DownloadState(url = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
             if (sessionId != null) {
                 requireContext().components.core.store.dispatch(ContentAction.UpdateDownloadAction(sessionId!!, download))
-                (activity as BrowserActivity).popToFragmentIndex(0)
             }
-            //CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.CENO_LOGFILE_TXT)
             true
         }
     }
