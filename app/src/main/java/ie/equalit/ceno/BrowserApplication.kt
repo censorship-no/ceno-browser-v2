@@ -51,6 +51,7 @@ open class BrowserApplication : Application() {
         // Ouinet
         //------------------------------------------------------------
 
+        /*
         var btBootstrapExtras: Set<String>? = null
 
         var countryIsoCode = ""
@@ -111,6 +112,7 @@ open class BrowserApplication : Application() {
                 confirmText = getString(R.string.ceno_notification_clear_do_description),
             )
             .build()
+         */
 
         //------------------------------------------------------------
 
@@ -124,7 +126,7 @@ open class BrowserApplication : Application() {
         }
 
         /* CENO: Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
-        components.core.setRootCertificate(mOuinetConfig!!.caRootCertPath)
+        components.core.setRootCertificate(components.ouinet.config.caRootCertPath)
 
         components.core.engine.warmUp()
 

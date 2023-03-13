@@ -42,7 +42,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import mozilla.components.browser.state.selector.selectedTab
@@ -64,8 +63,6 @@ open class BrowserActivity : AppCompatActivity() {
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.core.store, ::openPopup)
     }
-
-    private lateinit var ouinetBackground : OuinetBackground
 
     /**
      * CENO: Returns a new instance of [CenoHomeFragment] to display.
@@ -90,12 +87,8 @@ open class BrowserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Logger.info(" --------- Starting ouinet service")
-        ouinetBackground = OuinetBackground.Builder(this)
-            .setOuinetConfig(BrowserApplication.mOuinetConfig!!)
-            .setNotificationConfig(BrowserApplication.mNotificationConfig!!)
-            .build()
-
-        ouinetBackground.startup()
+        components.ouinet.setBackground(this)
+        components.ouinet.background.startup()
 
         if (savedInstanceState == null) {
             /* CENO: Set default behavior for AppBar */
@@ -155,7 +148,7 @@ open class BrowserActivity : AppCompatActivity() {
              * try sending an intent to restart the service
              */
             Logger.info(" --------- Starting ouinet service onResume")
-            ouinetBackground.start()
+            components.ouinet.background.start()
         }
     }
 

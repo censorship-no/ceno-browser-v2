@@ -9,12 +9,11 @@ import android.os.Build
 import mozilla.components.feature.autofill.AutofillConfiguration
 import ie.equalit.ceno.autofill.AutofillConfirmActivity
 import ie.equalit.ceno.autofill.AutofillSearchActivity
-import ie.equalit.ceno.R
 import ie.equalit.ceno.autofill.AutofillUnlockActivity
 import ie.equalit.ceno.components.Analytics
 import ie.equalit.ceno.components.BackgroundServices
 import ie.equalit.ceno.components.Core
-//import ie.equalit.ceno.components.Push
+import ie.equalit.ceno.components.Ouinet
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
 import ie.equalit.ceno.components.Utilities
@@ -92,4 +91,5 @@ class Components(private val context: Context) {
             )
         )
     }
+    val ouinet by lazy { Ouinet(context) }
 }

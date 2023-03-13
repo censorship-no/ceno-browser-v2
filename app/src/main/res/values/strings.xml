@@ -243,4 +243,7 @@
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
     <string name="default_search_engine_id" translatable="false">ddg</string>
+    <string name="cacert_file_path" translatable="false">file:///android_asset/cacert.pem</string>
+    <string name="cache_type" translatable="false">bep5-http</string>
+    <string name="loopback_ip" translatable="false">127.0.0.1</string>
 </resources>
