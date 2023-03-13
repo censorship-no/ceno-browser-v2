@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -43,6 +44,7 @@ import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification
+import ie.equalit.ceno.settings.SettingsFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 
@@ -165,8 +167,23 @@ open class BrowserActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    fun popToFragmentIndex(i : Int) {
+        val entry: FragmentManager.BackStackEntry =
+            supportFragmentManager.getBackStackEntryAt(i)
+        supportFragmentManager.popBackStack(
+            entry.id,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        supportFragmentManager.executePendingTransactions()
+    }
+
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
+            /* If coming from settings fragment, always clear back stack and go back to root fragment */
+            if (it.tag == SettingsFragment.TAG) {
+                popToFragmentIndex(0)
+                return
+            }
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
             }
