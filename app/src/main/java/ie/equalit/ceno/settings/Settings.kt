@@ -14,6 +14,12 @@ object Settings {
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_onboarding), false
         )
+
+    fun shouldShowHomeButton(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_home_button), false
+        )
+
     fun isMobileDataEnabled(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_mobile_data), false
