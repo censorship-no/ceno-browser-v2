@@ -6,7 +6,9 @@ package ie.equalit.ceno
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
@@ -35,6 +37,8 @@ import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.ConnectivityBroadcastReceiver
+import ie.equalit.ceno.components.ceno.OuinetService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
@@ -42,7 +46,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
@@ -87,9 +90,12 @@ open class BrowserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Logger.info(" --------- Starting ouinet service")
-        components.ouinet.setBackground(this)
-        components.ouinet.background.startup()
+        OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
 
+        /* CENO: Register receiver that receives intents on connectivity changes */
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        this.registerReceiver(ConnectivityBroadcastReceiver, intentFilter)
         if (savedInstanceState == null) {
             /* CENO: Set default behavior for AppBar */
             supportActionBar!!.apply {
@@ -148,7 +154,7 @@ open class BrowserActivity : AppCompatActivity() {
              * try sending an intent to restart the service
              */
             Logger.info(" --------- Starting ouinet service onResume")
-            components.ouinet.background.start()
+            OuinetService.startOuinetService(this, BrowserApplication.mOuinetConfig)
         }
     }
 
@@ -206,8 +212,13 @@ open class BrowserActivity : AppCompatActivity() {
     /* CENO: Handle intent sent to BrowserActivity to open tab if needed or close the app */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if(intent?.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA) == true){
-            components.useCases.tabsUseCases.selectOrAddTab(CenoHomeFragment.ABOUT_HOME)
+        val uri = intent?.getStringExtra(OuinetService.URI_EXTRA)
+        if (uri != null){
+            components.useCases.tabsUseCases.selectOrAddTab(uri)
+        }
+        val close = intent?.getBooleanExtra(OuinetService.CLOSE_EXTRA,false)
+        if (close == true){
+            this.finishAffinity()
         }
     }
 

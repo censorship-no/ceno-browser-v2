@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import mozilla.components.support.base.log.logger.Logger
@@ -21,7 +20,7 @@ class ClearButtonFeature(
                     Logger.debug("Clear CENO cache and app data selected")
                     /* TODO: Using Toast right before killing the process is bad form, use a different indication */
                     //Toast.makeText(context, "Application data cleared", Toast.LENGTH_SHORT).show()
-                    context.components.ouinet.background.shutdown(true)
+                    OuinetBroadcastReceiver.stopService(context, doPurge = true, doClose = true)
                 }
                 DialogInterface.BUTTON_NEUTRAL -> {
                     Logger.debug("Dismissing purge dialog")
@@ -45,7 +44,11 @@ class ClearButtonFeature(
         return when (behavior){
             CLEAR_PROMPT -> createClearDialog().show()
             CLEAR_CACHE -> CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE_CACHE)
-            CLEAR_APP -> context.components.ouinet.background.shutdown(true)
+            CLEAR_APP -> OuinetBroadcastReceiver.stopService(
+                context,
+                doPurge = true,
+                doClose = true
+            )
             else -> {}
         }
     }
