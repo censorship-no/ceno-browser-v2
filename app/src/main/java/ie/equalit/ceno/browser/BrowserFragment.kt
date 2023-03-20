@@ -92,6 +92,20 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             ),
         )
 
+        val homeAction = BrowserToolbar.Button(
+            imageDrawable = resources.getDrawable(
+                R.drawable.mozac_ic_home,
+            )!!,
+            contentDescription = requireContext().getString(R.string.browser_toolbar_home),
+            iconTintColorResource = R.color.fx_mobile_text_color_primary,
+            listener = ::onHomeButtonClicked,
+        )
+
+
+        if (Settings.shouldShowHomeButton(requireContext())) {
+            toolbar.addNavigationAction(homeAction)
+        }
+
         TabsToolbarFeature(
             toolbar = toolbar,
             sessionId = sessionId,
@@ -151,6 +165,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
             commit()
         }
+    }
+
+    private fun onHomeButtonClicked() {
+        /* Request home page url, toolbar listener will take care of the home fragment transaction */
+        requireComponents.useCases.sessionUseCases.loadUrl(CenoHomeFragment.ABOUT_HOME)
     }
 
     override fun onBackPressed(): Boolean =

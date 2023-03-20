@@ -246,4 +246,5 @@
     <string name="cacert_file_path" translatable="false">file:///android_asset/cacert.pem</string>
     <string name="cache_type" translatable="false">bep5-http</string>
     <string name="loopback_ip" translatable="false">127.0.0.1</string>
+    <string name="browser_toolbar_home">Home</string>
 </resources>
