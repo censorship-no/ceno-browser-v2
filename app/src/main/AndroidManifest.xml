@@ -225,12 +225,37 @@
         <service android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false" />
 
+        <!--
+        CENO F-Droid: Remove firebase */
         <service
-            android:name="ie.equalit.ouinet.OuinetService"
-            android:enabled="true"
+            android:name="ie.equalit.ceno.push.FirebasePush"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="true" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+            -->
+
+        <service
+            android:name="ie.equalit.ceno.components.ceno.OuinetService"
             android:exported="false"
             android:isolatedProcess="false"
             android:process=":ouinetService"/>
+
+        <receiver
+            android:name="ie.equalit.ceno.components.ceno.OuinetBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="ie.equalit.ceno.components.ceno.OuinetBroadcastReceiver.STOP" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
