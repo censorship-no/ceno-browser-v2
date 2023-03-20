@@ -133,4 +133,18 @@ class WebExtensionToolbarFeature(
         }
         */
     }
+
+    companion object {
+        /* CENO: function to retrieve an extension's browserAction from BrowserStore */
+        fun getBrowserAction(context: Context, id: String): (() -> Unit)? {
+            /* Check if extension has been loaded yet, then return onClick function */
+            context.components.core.store.state.extensions[id]?.let{ ext ->
+                ext.browserAction?.let { action ->
+                    return action.onClick
+                }
+            }
+            /* else */
+            return null
+        }
+    }
 }

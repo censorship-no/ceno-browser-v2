@@ -141,7 +141,7 @@
     <!-- Browser menu button that opens the addon manager -->
     <string name="browser_menu_add_ons">Add-ons</string>
     <!-- Browser menu button that opens the settings menu -->
-    <string name="browser_menu_settings">General Settings</string>
+    <string name="browser_menu_settings">Settings</string>
     <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Request desktop site</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
@@ -243,4 +243,7 @@
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
     <string name="default_search_engine_id" translatable="false">ddg</string>
+    <string name="cacert_file_path" translatable="false">file:///android_asset/cacert.pem</string>
+    <string name="cache_type" translatable="false">bep5-http</string>
+    <string name="loopback_ip" translatable="false">127.0.0.1</string>
 </resources>

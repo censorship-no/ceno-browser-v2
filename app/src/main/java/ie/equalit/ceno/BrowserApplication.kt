@@ -12,6 +12,7 @@ import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.Config
+import ie.equalit.ouinet.NotificationConfig
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -50,6 +51,7 @@ open class BrowserApplication : Application() {
         // Ouinet
         //------------------------------------------------------------
 
+        /*
         var btBootstrapExtras: Set<String>? = null
 
         var countryIsoCode = ""
@@ -94,6 +96,24 @@ open class BrowserApplication : Application() {
                 .setFrontEndEp("127.0.0.1:${BuildConfig.FRONTEND_PORT}")
                 .build()
 
+        mNotificationConfig = NotificationConfig.Builder(this)
+            .setHomeActivity("ie.equalit.ceno.BrowserActivity")
+            .setNotificationIcons(
+                statusIcon = R.drawable.ic_notification,
+                //homeIcon = R.drawable.ic_globe_pm,
+                //clearIcon = R.drawable.ic_cancel_pm
+            )
+            .setChannelName(getString(R.string.ceno_notification_channel_name))
+            .setNotificationText (
+                title = getString(R.string.ceno_notification_title),
+                description = getString(R.string.ceno_notification_description),
+                homeText = getString(R.string.ceno_notification_home_description),
+                clearText = getString(R.string.ceno_notification_clear_description),
+                confirmText = getString(R.string.ceno_notification_clear_do_description),
+            )
+            .build()
+         */
+
         //------------------------------------------------------------
 
 
@@ -106,7 +126,7 @@ open class BrowserApplication : Application() {
         }
 
         /* CENO: Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
-        components.core.setRootCertificate(mOuinetConfig!!.caRootCertPath)
+        components.core.setRootCertificate(components.ouinet.config.caRootCertPath)
 
         components.core.engine.warmUp()
 
@@ -193,6 +213,7 @@ open class BrowserApplication : Application() {
 
     companion object {
         var mOuinetConfig: Config? = null
+        var mNotificationConfig: NotificationConfig? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
         init {
             System.setProperty("http.proxyHost", "127.0.0.1")

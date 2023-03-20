@@ -4,6 +4,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlinx-serialization'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
@@ -360,6 +361,7 @@ dependencies {
     implementation Deps.thirdparty_sentry
 
     implementation Deps.kotlin_coroutines
+    implementation Deps.kotlin_serialization
 
     implementation Deps.androidx_appcompat
     implementation Deps.androidx_core_ktx

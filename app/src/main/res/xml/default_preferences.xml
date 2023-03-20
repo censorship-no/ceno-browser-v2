@@ -30,4 +30,7 @@
     <ListPreference
         android:key="@string/pref_key_theme"
         android:defaultValue="@string/preferences_theme_default" />
+    <androidx.preference.CheckBoxPreference
+        android:key="@string/pref_key_ceno_sources_origin"
+        android:defaultValue="true" />
 </PreferenceScreen>

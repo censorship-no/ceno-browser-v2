@@ -7,7 +7,6 @@ package ie.equalit.ceno.browser
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -51,8 +50,8 @@ import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSIO
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.SettingsFragment
-//import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -209,23 +208,6 @@ class ToolbarIntegration(
             }
         }
 
-        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-            /* CENO: Switch to SettingsFragment instead of starting a new activity */
-            activity.supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
-                addToBackStack(null)
-                commit()
-            }
-        }
-
-        /* CENO: Only add extension menu items to list if their browserActions are not null */
-        cenoToolbarFeature.getBrowserAction(CENO_EXTENSION_ID)?.let{
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_ceno_ext),
-                onClick = it
-            )
-        }
-
         val clearButtonFeature = ClearButtonFeature(
             context,
             prefs.getString(
@@ -282,7 +264,23 @@ class ToolbarIntegration(
             context.startActivity(intent)
         }
 
-        return menuItemsList //sessionMenuItems + staticMenuItems + cenoMenuItems
+        if (sessionState != null) {
+            menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
+                /* CENO: Switch to SettingsFragment instead of starting a new activity */
+                CenoSettings.setStatusUpdateRequired(context, true)
+                activity.supportFragmentManager.beginTransaction().apply {
+                    replace(
+                        R.id.container,
+                        SettingsFragment.create(sessionState.id),
+                        SettingsFragment.TAG
+                    )
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+        }
+
+        return menuItemsList
     }
 
     private val menuController: MenuController = BrowserMenuController()

@@ -101,4 +101,13 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         default = true
     )
 
+    var sharedPrefsReload by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_shared_prefs_reload),
+        default = false
+    )
+
+    var sharedPrefsUpdate by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_shared_prefs_update),
+        default = false
+    )
 }
