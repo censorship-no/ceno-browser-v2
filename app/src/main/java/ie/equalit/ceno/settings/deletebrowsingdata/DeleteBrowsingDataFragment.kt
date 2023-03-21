@@ -106,7 +106,7 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
         super.onResume()
         //showToolbar(getString(R.string.preferences_delete_browsing_data))
 
-        getCheckboxes().forEach {
+        getCheckboxes().iterator().forEach {
             it.visibility = View.VISIBLE
         }
 
