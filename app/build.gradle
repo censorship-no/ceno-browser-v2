@@ -88,7 +88,8 @@ android {
             manifestPlaceholders.isRaptorEnabled = "true"
             matchingFallbacks = ['release']
         }
-        nightly releaseTemplate >> {
+        nightly {
+            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
     }
@@ -216,7 +217,12 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 
             println("versionCode for $abi = $versionCodeOverride")
 
-            output.versionNameOverride = versionName
+            if (variant.name == "nightly") {
+                output.versionNameOverride  = versionName + "-" + baseBuildDate
+            }
+            else {
+                output.versionNameOverride = versionName
+            }
             output.versionCodeOverride = versionCodeOverride
         }
 
@@ -253,11 +259,14 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
     }
 
+// -------------------------------------------------------------------------------------------------
 // Set the name of the output apks and copy to project directory
+// -------------------------------------------------------------------------------------------------
     variant.outputs.all { output ->
         def appId = applicationId.tokenize('.')
         def abi = output.getFilter(OutputFile.ABI)
-        outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+        def version = output.versionNameOverride
+        outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
     }
 
     variant.assembleProvider.configure { assemble ->
