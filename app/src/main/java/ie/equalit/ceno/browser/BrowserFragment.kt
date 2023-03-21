@@ -6,6 +6,7 @@ package ie.equalit.ceno.browser
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
 import mozilla.components.browser.thumbnails.BrowserThumbnails
@@ -93,8 +94,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         )
 
         val homeAction = BrowserToolbar.Button(
-            imageDrawable = resources.getDrawable(
+            imageDrawable = ResourcesCompat.getDrawable(
+                resources,
                 R.drawable.mozac_ic_home,
+                null
             )!!,
             contentDescription = requireContext().getString(R.string.browser_toolbar_home),
             iconTintColorResource = R.color.fx_mobile_text_color_primary,

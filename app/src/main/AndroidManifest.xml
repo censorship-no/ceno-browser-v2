@@ -199,12 +199,6 @@
         <service android:name="ie.equalit.ceno.downloads.DownloadService" />
 
         <activity
-          android:name="ie.equalit.ceno.settings.SettingsActivity"
-          android:label="@string/settings"
-          android:theme="@style/NormalTheme"
-          android:parentActivityName="ie.equalit.ceno.BrowserActivity" />
-
-        <activity
             android:name="ie.equalit.ceno.CrashListActivity"
             android:exported="false" />
 

@@ -171,7 +171,7 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        supportFragmentManager.fragments.forEach {
+        supportFragmentManager.fragments.iterator().forEach {
             /* If coming from settings fragment, always clear back stack and go back to root fragment */
             if (it.tag == SettingsFragment.TAG) {
                 popToFragmentIndex(0)
@@ -194,7 +194,7 @@ open class BrowserActivity : AppCompatActivity() {
                 "requestCode: $requestCode, resultCode: $resultCode, data: $data"
         )
 
-        supportFragmentManager.fragments.forEach {
+        supportFragmentManager.fragments.iterator().forEach {
             if (it is ActivityResultHandler && it.onActivityResult(requestCode, data, resultCode)) {
                 return
             }
@@ -238,7 +238,7 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     override fun onUserLeaveHint() {
-        supportFragmentManager.fragments.forEach {
+        supportFragmentManager.fragments.iterator().forEach {
             if (it is UserInteractionHandler && it.onHomePressed()) {
                 return
             }

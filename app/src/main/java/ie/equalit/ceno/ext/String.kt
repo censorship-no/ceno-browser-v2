@@ -11,6 +11,6 @@ package ie.equalit.ceno.ext
  */
 fun String.replace(pairs: Map<String, String>): String {
     var result = this
-    pairs.forEach { (l, r) -> result = result.replace(l, r) }
+    pairs.iterator().forEach { (l, r) -> result = result.replace(l, r) }
     return result
 }

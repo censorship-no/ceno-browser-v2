@@ -75,7 +75,7 @@
     <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
-    <string name="browser_menu_ceno_ext">&brandShortName; Settings</string>
+    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&brandShortName; Settings</string>
 
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; Manual</string>
