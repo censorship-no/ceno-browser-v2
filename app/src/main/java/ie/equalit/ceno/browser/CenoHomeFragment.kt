@@ -12,14 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import mozilla.components.browser.thumbnails.BrowserThumbnails
-import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.storage.FrecencyThresholdOption
-import mozilla.components.feature.awesomebar.AwesomeBarFeature
-import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
 import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
@@ -39,9 +32,6 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.tabs.TabsTrayFragment
 import ie.equalit.ceno.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_THRESHOLD
 
 /**
@@ -52,15 +42,6 @@ import ie.equalit.ceno.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_TH
 class CenoHomeFragment : BaseBrowserFragment() {
 
     var adapter: SessionControlAdapter? = null
-
-    private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
-
-    private val awesomeBar: AwesomeBarWrapper
-        get() = requireView().findViewById(R.id.awesomeBar)
-    private val toolbar: BrowserToolbar
-        get() = requireView().findViewById(R.id.toolbar)
-    private val engineView: EngineView
-        get() = requireView().findViewById<View>(R.id.engineView) as EngineView
 
     private var _sessionControlInteractor: SessionControlInteractor? = null
     private val sessionControlInteractor: SessionControlInteractor
@@ -173,60 +154,6 @@ class CenoHomeFragment : BaseBrowserFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (Settings.shouldShowSearchSuggestions(requireContext())) {
-                it.addSearchProvider(
-                    requireContext(),
-                    requireComponents.core.store,
-                    requireComponents.useCases.searchUseCases.defaultSearch,
-                    fetchClient = requireComponents.core.client,
-                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                    engine = requireComponents.core.engine,
-                    limit = 5,
-                    filterExactMatch = true
-                )
-            }
-            it.addSessionProvider(
-                resources,
-                requireComponents.core.store,
-                requireComponents.useCases.tabsUseCases.selectTab
-            )
-            it.addHistoryProvider(
-                requireComponents.core.historyStorage,
-                requireComponents.useCases.sessionUseCases.loadUrl
-            )
-            it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
-        }
-
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
-        )
-
-        TabsToolbarFeature(
-            toolbar = toolbar,
-            sessionId = sessionId,
-            store = requireComponents.core.store,
-            showTabs = ::showTabs,
-            lifecycleOwner = this
-        )
-
-        thumbnailsFeature.set(
-            feature = BrowserThumbnails(
-                requireContext(),
-                engineView,
-                requireComponents.core.store
-            ),
-            owner = this,
-            view = view
-        )
-
         /*
          * Remove WebExtension toolbar feature because
          * we don't want the browserAction button in toolbar and
@@ -253,16 +180,6 @@ class CenoHomeFragment : BaseBrowserFragment() {
         binding.swipeRefresh.visibility = View.GONE
         binding.homeAppBar.visibility = View.VISIBLE
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
-    }
-
-    private fun showTabs() {
-        // For now we are performing manual fragment transactions here. Once we can use the new
-        // navigation support library we may want to pass navigation graphs around.
-        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
-            commit()
-        }
     }
 
     companion object {
