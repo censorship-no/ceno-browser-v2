@@ -110,6 +110,9 @@
     <string name="onboarding_thanks_text">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
     <string name="onboarding_thanks_button">Let\s go!</string>
 
+    <string name="shutdown_clear_title">Clearing app data and\nstopping Ceno Browser</string>
+    <string name="shutdown_stop_title">Stopping Ceno Browser</string>
+
     <string name="preferences_toolbar_position">Place at top of screen</string>
     <string name="preferences_toolbar_hide">Scroll to hide</string>
     <string name="preferences_show_home_button">Show home button</string>

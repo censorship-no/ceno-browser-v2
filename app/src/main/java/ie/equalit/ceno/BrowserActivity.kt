@@ -44,6 +44,7 @@ import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
+import ie.equalit.ceno.browser.ShutdownFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 
@@ -87,7 +88,15 @@ open class BrowserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Logger.info(" --------- Starting ouinet service")
-        components.ouinet.setBackground(this)
+        components.ouinet.let {
+            it.setOnNotificationTapped {
+                beginShutdown(false)
+            }
+            it.setOnConfirmTapped {
+                beginShutdown(true)
+            }
+            it.setBackground(this)
+        }
         components.ouinet.background.startup()
 
         if (savedInstanceState == null) {
@@ -290,6 +299,11 @@ open class BrowserActivity : AppCompatActivity() {
             )
         }
         /* No need to change fragments, this is handled by the toolbar observing the change of url */
+    }
+
+    fun beginShutdown(doClear : Boolean) {
+        components.ouinet.background.shutdown(doClear)
+        ShutdownFragment.transitionToFragment(this, doClear)
     }
 
     /* CENO: Function to initialize top site storage and observer */
