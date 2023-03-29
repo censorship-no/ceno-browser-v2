@@ -6,11 +6,11 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentShutdownBinding
-import ie.equalit.ceno.onboarding.OnboardingInfoFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -44,6 +44,7 @@ class ShutdownFragment : Fragment() {
         _binding = FragmentShutdownBinding.inflate(inflater, container,false);
         fadeInFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_fade_in_duration)
         timeoutFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_timeout_duration)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
 
