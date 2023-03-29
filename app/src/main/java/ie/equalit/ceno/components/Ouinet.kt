@@ -1,7 +1,6 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
-import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
@@ -34,8 +33,8 @@ class Ouinet (
             .setHomeActivity("ie.equalit.ceno.BrowserActivity")
             .setNotificationIcons(
                 statusIcon = R.drawable.ic_notification,
-                //homeIcon = R.drawable.ic_globe_pm,
-                //clearIcon = R.drawable.ic_cancel_pm
+                homeIcon = R.drawable.ic_globe_pm,
+                clearIcon = R.drawable.ic_cancel_pm
             )
             .setChannelName(context.resources.getString(R.string.ceno_notification_channel_name))
             .setNotificationText (
@@ -48,11 +47,23 @@ class Ouinet (
             .build()
     }
 
+    private lateinit var onNotificationTapped : () -> Unit
+    fun setOnNotificationTapped (listener : () -> Unit) {
+       onNotificationTapped = listener
+    }
+
+    private lateinit var onConfirmTapped : () -> Unit
+    fun setOnConfirmTapped (listener : () -> Unit) {
+        onConfirmTapped = listener
+    }
+
     lateinit var background : OuinetBackground
     fun setBackground (ctx: Context) {
         background = OuinetBackground.Builder(ctx)
             .setOuinetConfig(config)
             .setNotificationConfig(notificationConfig)
+            .setOnNotifiactionTappedListener { onNotificationTapped.invoke() }
+            .setOnConfirmTappedListener{ onConfirmTapped.invoke() }
             .build()
     }
 

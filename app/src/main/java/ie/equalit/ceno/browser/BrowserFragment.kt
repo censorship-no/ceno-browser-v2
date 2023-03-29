@@ -6,22 +6,16 @@ package ie.equalit.ceno.browser
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
-import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.awesomebar.AwesomeBarFeature
-import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 //import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 //import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabsTrayFragment
 
@@ -29,18 +23,13 @@ import ie.equalit.ceno.tabs.TabsTrayFragment
  * Fragment used for browsing the web within the main app.
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
-    private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
     private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
     /* Removing WebExtension toolbar feature, see below for more details
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
      */
 
-    private val awesomeBar: AwesomeBarWrapper
-        get() = requireView().findViewById(R.id.awesomeBar)
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
-    private val engineView: EngineView
-        get() = requireView().findViewById<View>(R.id.engineView) as EngineView
     private val readerViewBar: ReaderViewControlsBar
         get() = requireView().findViewById(R.id.readerViewBar)
     private val readerViewAppearanceButton: FloatingActionButton
@@ -56,45 +45,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (Settings.shouldShowSearchSuggestions(requireContext())) {
-                it.addSearchProvider(
-                    requireContext(),
-                    requireComponents.core.store,
-                    requireComponents.useCases.searchUseCases.defaultSearch,
-                    fetchClient = requireComponents.core.client,
-                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                    engine = requireComponents.core.engine,
-                    limit = 5,
-                    filterExactMatch = true,
-                )
-            }
-            it.addSessionProvider(
-                resources,
-                requireComponents.core.store,
-                requireComponents.useCases.tabsUseCases.selectTab,
-            )
-            it.addHistoryProvider(
-                requireComponents.core.historyStorage,
-                requireComponents.useCases.sessionUseCases.loadUrl,
-            )
-            it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
-        }
-
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons,
-            ),
-        )
-
         val homeAction = BrowserToolbar.Button(
-            imageDrawable = resources.getDrawable(
+            imageDrawable = ResourcesCompat.getDrawable(
+                resources,
                 R.drawable.mozac_ic_home,
+                null
             )!!,
             contentDescription = requireContext().getString(R.string.browser_toolbar_home),
             iconTintColorResource = R.color.fx_mobile_text_color_primary,
@@ -105,24 +60,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         if (Settings.shouldShowHomeButton(requireContext())) {
             toolbar.addNavigationAction(homeAction)
         }
-
-        TabsToolbarFeature(
-            toolbar = toolbar,
-            sessionId = sessionId,
-            store = requireComponents.core.store,
-            showTabs = ::showTabs,
-            lifecycleOwner = this,
-        )
-
-        thumbnailsFeature.set(
-            feature = BrowserThumbnails(
-                requireContext(),
-                engineView,
-                requireComponents.core.store,
-            ),
-            owner = this,
-            view = view,
-        )
 
         readerViewFeature.set(
             feature = ReaderViewIntegration(

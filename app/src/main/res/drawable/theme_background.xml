@@ -2,9 +2,11 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
-    <!-- Font weights -->
-    <integer name="font_weight_medium">500</integer>
-    <integer name="shutdown_fragment_fade_in_duration">2000</integer>
-    <integer name="shutdown_fragment_timeout_duration">5000</integer>
-</resources>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape android:shape="rectangle">
+        <solid
+            android:color="@color/fx_mobile_layer_color_1"/>
+    </shape>
+</item>
+</layer-list>

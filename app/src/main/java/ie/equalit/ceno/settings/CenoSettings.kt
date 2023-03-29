@@ -91,6 +91,19 @@ object CenoSettings {
             .apply()
     }
 
+    fun getOuinetState(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_state), null
+        )
+
+    fun setOuinetState(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ouinet_state)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
     private fun setCenoSourcesOrigin(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_origin)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -244,6 +257,7 @@ object CenoSettings {
     private fun updateOuinetStatus(context : Context, responseBody : String) {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
+        setOuinetState(context, status.state)
         setCenoSourcesOrigin(context, status.origin_access)
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)

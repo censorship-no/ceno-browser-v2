@@ -39,7 +39,6 @@
     <string name="pref_key_update_search_engines" translatable="false">pref_key_update_search_engines</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
 
-    <string name="pref_key_shared_prefs" translatable="false">pref_key_shared_prefs</string>
     <string name="pref_key_shared_prefs_reload" translatable="false">pref_key_shared_prefs_reload</string>
     <string name="pref_key_shared_prefs_update" translatable="false">pref_key_shared_prefs_update</string>
 
@@ -62,6 +61,7 @@
     <string name="pref_key_ouinet_build_id" translatable="false">pref_key_ouinet_build_id</string>
     <string name="pref_key_about_ouinet_protocol" translatable="false">pref_key_about_ouinet_protocol</string>
     <string name="pref_key_ouinet_protocol" translatable="false">pref_key_ouinet_protocol</string>
+    <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
 
     <!-- CENO: COPIED FROM FENIX -->
