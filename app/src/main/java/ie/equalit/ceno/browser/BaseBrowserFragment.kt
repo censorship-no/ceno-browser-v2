@@ -47,10 +47,19 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
+import ie.equalit.ceno.search.AwesomeBarWrapper
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabsTrayFragment
 import mozilla.components.browser.state.action.WebExtensionAction
+import mozilla.components.browser.thumbnails.BrowserThumbnails
+import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.EngineView
+import mozilla.components.feature.awesomebar.AwesomeBarFeature
+import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
+import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
+import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 import mozilla.components.lib.state.ext.consumeFrom
 import java.lang.Exception
 
@@ -93,6 +102,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         webAuthnFeature,
         promptsFeature,
     )
+
+    private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
+
+    private val awesomeBar: AwesomeBarWrapper
+        get() = requireView().findViewById(R.id.awesomeBar)
+    private val toolbar: BrowserToolbar
+        get() = requireView().findViewById(R.id.toolbar)
+    private val engineView: EngineView
+        get() = requireView().findViewById<View>(R.id.engineView) as EngineView
 
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
@@ -351,6 +369,61 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
 
+
+        AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
+            if (Settings.shouldShowSearchSuggestions(requireContext())) {
+                it.addSearchProvider(
+                    requireContext(),
+                    requireComponents.core.store,
+                    requireComponents.useCases.searchUseCases.defaultSearch,
+                    fetchClient = requireComponents.core.client,
+                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                    engine = requireComponents.core.engine,
+                    limit = 5,
+                    filterExactMatch = true
+                )
+            }
+            it.addSessionProvider(
+                resources,
+                requireComponents.core.store,
+                requireComponents.useCases.tabsUseCases.selectTab
+            )
+            it.addHistoryProvider(
+                requireComponents.core.historyStorage,
+                requireComponents.useCases.sessionUseCases.loadUrl
+            )
+            it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
+        }
+
+        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
+        // a dependency on feature-syncedtabs (which depends on Sync).
+        awesomeBar.addProviders(
+            SyncedTabsStorageSuggestionProvider(
+                requireComponents.backgroundServices.syncedTabsStorage,
+                requireComponents.useCases.tabsUseCases.addTab,
+                requireComponents.core.icons
+            )
+        )
+
+        TabsToolbarFeature(
+            toolbar = toolbar,
+            sessionId = sessionId,
+            store = requireComponents.core.store,
+            showTabs = ::showTabs,
+            lifecycleOwner = this
+        )
+
+        thumbnailsFeature.set(
+            feature = BrowserThumbnails(
+                requireContext(),
+                engineView,
+                requireComponents.core.store
+            ),
+            owner = this,
+            view = view
+        )
+
+
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
@@ -508,8 +581,25 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
     }
 
+    private fun showTabs() {
+        // For now we are performing manual fragment transactions here. Once we can use the new
+        // navigation support library we may want to pass navigation graphs around.
+        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            commit()
+        }
+    }
+
     private fun onTabUrlChanged(url : String) {
         activity?.supportFragmentManager?.findFragmentByTag(TabsTrayFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
+                *  TabsTray will handle fragment transactions on it's own */
+                return
+            }
+        }
+        activity?.supportFragmentManager?.findFragmentByTag(ShutdownFragment.TAG)?.let {
             if (it.isVisible) {
                 /* CENO: TabsTrayFragment is open, don't switch to home or browser,
                 *  TabsTray will handle fragment transactions on it's own */

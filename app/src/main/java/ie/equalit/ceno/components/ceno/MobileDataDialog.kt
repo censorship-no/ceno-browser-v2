@@ -1,5 +1,6 @@
 package ie.equalit.ceno.components.ceno
 
+/*
 import android.app.AlertDialog
 import android.content.*
 import android.net.ConnectivityManager
@@ -12,10 +13,12 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
+ */
 
 /* This class has been deprecated in favor of the simpler ConnectivityBroadcastReceiver,
 *  will reintroduce something like this mobile data dialog once we have a better UX for it
 */
+/*
 open class MobileDataDialog (
         private val context: Context,
         private val activity: BrowserActivity
@@ -160,3 +163,4 @@ open class MobileDataDialog (
         private const val TAG = "MDDService"
     }
 }
+ */
