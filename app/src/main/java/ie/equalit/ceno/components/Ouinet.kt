@@ -33,8 +33,8 @@ class Ouinet (
             .setHomeActivity("ie.equalit.ceno.BrowserActivity")
             .setNotificationIcons(
                 statusIcon = R.drawable.ic_notification,
-                //homeIcon = R.drawable.ic_globe_pm,
-                //clearIcon = R.drawable.ic_cancel_pm
+                homeIcon = R.drawable.ic_globe_pm,
+                clearIcon = R.drawable.ic_cancel_pm
             )
             .setChannelName(context.resources.getString(R.string.ceno_notification_channel_name))
             .setNotificationText (

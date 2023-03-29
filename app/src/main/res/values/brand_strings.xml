@@ -57,11 +57,11 @@
     -->
 
     <!-- "On mobile data" dialog -->
-    <string name="ceno_on_mobile_data_dialog_title">&brandShortName; Browser notice</string>
-    <string name="ceno_on_mobile_data_dialog_description">It is recommended to use &brandShortName; when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop &brandShortName; when using mobile data.</string>
-    <string name="ceno_on_mobile_data_dialog_stop_now">Stop &brandShortName; now</string>
-    <string name="ceno_on_mobile_data_dialog_continue">Continue</string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
+    <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; Browser notice</string>
+    <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">It is recommended to use &brandShortName; when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop &brandShortName; when using mobile data.</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Stop &brandShortName; now</string>
+    <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Continue</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Do not show again</string>
 
     <!-- "Purge button" dialog-->
     <string name="ceno_clear_dialog_clear_entire_app">Clear &brandShortName; cache and app data</string>

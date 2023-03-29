@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import ie.equalit.ceno.R
@@ -44,6 +45,7 @@ class ShutdownFragment : Fragment() {
         _binding = FragmentShutdownBinding.inflate(inflater, container,false);
         fadeInFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_fade_in_duration)
         timeoutFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_timeout_duration)
+        binding.shutdownLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.theme_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
