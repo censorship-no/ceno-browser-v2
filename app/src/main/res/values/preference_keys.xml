@@ -61,6 +61,7 @@
     <string name="pref_key_ouinet_build_id" translatable="false">pref_key_ouinet_build_id</string>
     <string name="pref_key_about_ouinet_protocol" translatable="false">pref_key_about_ouinet_protocol</string>
     <string name="pref_key_ouinet_protocol" translatable="false">pref_key_ouinet_protocol</string>
+    <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
 
     <!-- CENO: COPIED FROM FENIX -->

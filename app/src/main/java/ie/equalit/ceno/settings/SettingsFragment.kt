@@ -87,6 +87,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         else if (key == getString(pref_key_shared_prefs_update)) {
             if (newValue) {
                 /* toggle preferences to refresh value */
+                getPreference(pref_key_ouinet_state)?.let {
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
+                }
                 getPreference(pref_key_ceno_cache_size)?.let {
                     it.isEnabled = !(it.isEnabled)
                     it.isEnabled = !(it.isEnabled)
@@ -233,6 +237,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupCenoSettings() {
+        val preferenceOuinetState = getPreference(pref_key_ouinet_state)
         val preferenceCenoSourcesOrigin = getPreference(pref_key_ceno_sources_origin)
         val preferenceCenoSourcesPrivate = getPreference(pref_key_ceno_sources_private)
         val preferenceCenoSourcesPublic = getPreference(pref_key_ceno_sources_public)
@@ -290,6 +295,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
             )
+            preferenceOuinetState?.summaryProvider = Preference.SummaryProvider<Preference> {
+                CenoSettings.getOuinetState(requireContext())
+            }
             preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getCenoCacheSize(requireContext())
             }
