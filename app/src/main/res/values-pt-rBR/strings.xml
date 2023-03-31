@@ -37,13 +37,13 @@
     <string name="browser_menu_forward">Pŕoxima</string>
     <string name="browser_menu_refresh">Atualizar</string>
     <string name="toolbar_hint">Buscar ou inserir endereço</string>
-    <string name="menu_action_add_tab">Adicionar nova aba</string>
+    <string name="menu_action_add_tab">Adicionar Nova Aba</string>
     <string name="preferences_remote_debugging">Depurar remotamente via USB</string>
-    <string name="preferences_tracking_protection_normal">Ativar no Modo Navegação Normal</string>
-    <string name="menu_action_close_tabs">Fechar todas as abas</string>
+    <string name="preferences_tracking_protection_normal">Ativar no Modo de Navegação Normal</string>
+    <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
     <string name="menu_action_close_tabs_private">Fechar Abas Privativas</string>
     <string name="preferences_autofill">Apps para autocompletar</string>
     <string name="preferences_autofill_summary">Autocompletar logins e senhas em outros apps</string>
-    <string name="preferences_tracking_protection_private">Ativar no Modo Navegação Privativa</string>
+    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Privativa</string>
 </resources>
