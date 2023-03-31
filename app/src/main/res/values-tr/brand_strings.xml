@@ -1,2 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
+<!ENTITY brandShortName "CENO">
+<!ENTITY brandFullName "eQualitie CENO">
+<!ENTITY vendorShortName "eQualitie">
+]>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="onboarding_fragment">&brandShortName;\'ya hoş geldiniz</string>
+    <string name="ceno_notification_title">&brandShortName; Browser hizmeti</string>
+    <string name="ceno_notification_home_description">Ana sayfa</string>
+    <string name="ceno_notification_channel_name">&brandShortName; hizmeti</string>
+    <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">İlerle</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Bir daha gösterme</string>
+    <string name="onboarding_info_title">Bildiğiniz tarayıcılara benzemez</string>
+    <string name="onboarding_button">Başlayalım</string>
+    <string name="onboarding_skip_button">Geç</string>
+    <string name="preferences_toolbar_hide">Kaydırılınca gizlensin</string>
+    <string name="ceno_home_mode_link_text">Dahasını öğrenmek için dokunun.</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Şimdi &brandShortName; durdur</string>
+    <string name="ceno_clear_dialog_clear_entire_app">&brandShortName; ön belleği ve uygulama verilerini temizle</string>
+    <string name="ceno_clear_dialog_cancel">İptal</string>
+    <string name="ceno_clear_dialog_description">DİKKAT: Ön bellek ve uygulama verilerini temizlemek &brandShortName; uygulamasını hiç kullanılmamış gibi sıfırlayacaktır.</string>
+    <string name="ceno_clear_action_description">Temizle</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Yalnızca &brandShortName; ön belleğini temizle</string>
+    <string name="ceno_clear_dialog_title">&brandShortName; temizle</string>
+    <string name="onboarding_warning_button">Tamam</string>
+    <string name="onboarding_thanks_title">Ağın büyümesine yardımcı olduğunuz için teşekkürler!</string>
+    <string name="preferences_toolbar_position">Ekranın en üstüne yerleştir</string>
+    <string name="preferences_clear_in_toolbar">Araç çubuğunda göster</string>
+    <string name="preferences_theme">Uygulama temasını değiştir</string>
+    <string name="preferences_theme_default">2</string>
+    <string name="preferences_ceno_network_config">&brandShortName; ağ detayları</string>
+    <string name="preferences_ceno_enable_log">Günlük dosyasını aç</string>
+    <string name="preferences_ceno_download_log">Günlük dosyasını indir</string>
+    <string name="changeIconDialogTitle">Yeni simge uygulansın mı\?</string>
+    <string name="source_code_button_text">Kaynak kodu</string>
+    <string name="preferences_about_ouinet_protocol">Ouinet iletişim kuralı</string>
+    <string name="preferences_about_ouinet">Ouinet</string>
+    <string name="preferences_about_ceno">&brandShortName; Browser</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="about_category">Hakkında</string>
+    <string name="ceno_notification_clear_do_description">Evet</string>
+    <string name="ceno_notification_clear_description">Sil⚠</string>
+    <string name="preferences_change_app_icon">Uygulama simgesini değiştir</string>
+    <string name="ceno_notification_description">Durdurmak için dokunun</string>
+    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&brandShortName; Ayarları</string>
+    <string name="onboarding_warning_title">İzin reddedildi</string>
+    <string name="onboarding_battery_button">İlerle</string>
+    <string name="onboarding_thanks_button">Haydi başlayalım!</string>
+    <string name="preferences_show_onboarding">Bir sonraki açılışta tanıtımı göster</string>
+    <string name="preferences_customization">Özelleştirme</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Gizli gezinti&lt;/h1&gt; &lt;p&gt;CENO gizli sekmelerdeki içeriği diğer kullanıcılarla paylaşmaz. Oturum açmanızı gerektiren sitelere güvenle ziyaret edebilirsiniz. Fakat internet bağlantısı gereklidir.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Dahasını öğrenmek için tıklayın.&lt;/p&gt;</string>
+    <string name="preferences_about_page">&vendorShortName; hakkında</string>
+    <string name="ceno_home_mode_description">Diğer &brandShortName; kullanıcıları ile içerik paylaşmak için normal sekmeleri kullanın. Oturum açmayı gerektiren siteler veya paylaşmak istemediğinizde gizli sekmeleri kullanın.</string>
+    <string name="preferences_make_default_browser">&brandShortName; varsayılan tarayıcı olsun</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/tr/concepts/public-private.html</string>
+    <string name="preferences_show_home_button">Ana sayfa tuşunu göster</string>
+    <string name="preferences_clear_behavior">Varsayılan</string>
+    <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_clear_ceno_cache">Ön belleklenen içeriği temizle</string>
+    <string name="preferences_theme_summary">Karanlık, Aydınlık, Pil tasarrufu</string>
+    <string name="ceno_sources_category">Kaynaklar</string>
+    <string name="preferences_ceno_groups_count">Paylaştığınız içerikler</string>
+    <string name="preferences_ceno_sources_origin">Site</string>
+    <string name="preferences_ceno_sources_private_summary">İçeriği gizli CENO ağından indir</string>
+    <string name="preferences_ceno_sources_private">Gizlice</string>
+    <string name="preferences_ceno_cache_size">Yerel ön bellek</string>
+    <string name="changeIconCtaCancel">İptal</string>
+    <string name="changeIconCtaAccept">Uygula</string>
+    <string name="addon_placeholder">Hiç eklenti yok</string>
+    <string name="website_button_text">Site</string>
+    <string name="default_top_site_1_title">&brandShortName; Rehber</string>
+    <string name="preferences_disable_battery_opt">Pil iyileştirmelerini kapat</string>
+    <string name="preferences_ceno_sources_public">Herkese açık olarak</string>
+    <string name="ceno_data_category">Veri</string>
+    <string name="donate_button_text">Bağış yapın</string>
+    <string name="onboarding_info_button">Güzel!</string>
+    <string name="clear_cache_fail">Ön bellek temizlenemedi, lütfen daha sonra yeniden deneyin</string>
+    <string name="onboarding_battery_title">İzin gerekli</string>
+    <string name="preferences_clear_in_menu">Menüde göster</string>
+    <string name="preferences_ceno_sources_origin_summary">İçeriği siteden doğrudan yükle</string>
+    <string name="preferences_ceno_network_config_summary">Ouinet durumu, UDP uç noktaları, BitTorrent ön yükleyicileri</string>
+    <string name="clear_cache_success">Ön bellek temizlendi</string>
+    <string name="changeIconDialogMessage">Değişikliklerin ayarlanması için uygulamanın kapanması gerekebilir.</string>
+    <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; Browser bildirimi</string>
+    <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Beklediğinizden daha fazla veri kullanabileceği için &brandShortName; kullanırken kablosuz ağda olmanız önerilir. Mobil veri kullanırken &brandShortName; durdurmak isteyebilirsiniz.</string>
+    <string name="shutdown_stop_title">&brandShortName; Browser durduruluyor</string>
+    <string name="onboarding_battery_text">Biraz sonra işletim sisteminiz pil iyileştirmelerinin kapatılması için soru soracaktır.
+\n
+\nUygulama arka plandayken site paylaşımına devam etmek için gereklidir</string>
+    <string name="preferences_clear_ceno_cache_summary">Yerel olarak ön belleklenen internet içeriğini temizle</string>
+    <string name="ouinet_client_fetch_fail">&brandShortName; ayarı değiştirilemedi</string>
+    <string name="about_content"><p>%1$s - İnterneti paylaşın!</p> <p>CENO (censorship.no!\'nun kısaltması!), güncel İnternet sansür yöntemlerinin etrafından dolaşan dünyanın ilk mobil tarayıcısıdır. Uçtan uca omurgası, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde ve bölgeler arasında site bilgilerine erişmesini ve bunları paylaşmasını sağlar.</p> <p>%1$s bir eQualitie projesidir, çevrim içi özgür bilgi akışı, temel özgürlük ve insan haklarını koruyan ve müdafaa eden Kanadalı bir kuruluş. Hedefimiz dijital çağda insan hak ve özgürlüklerini korumak için gerekli olan tecrübeleri geliştirmek ve erişilebilir teknoloji oluşturmak.</p></string>
+    <string name="shutdown_clear_title">Uygulama verileri siliniyor ve
+\n&brandShortName; Browser durduruluyor</string>
+</resources>
