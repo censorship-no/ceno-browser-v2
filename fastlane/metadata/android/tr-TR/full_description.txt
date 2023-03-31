@@ -1,0 +1,27 @@
+CENO (Censorship.No!) merkezi olmayan bir mobil internet tarayıcısıdır. Uçtan uca teknolojiyi kullanarak siteleri telefonunuza getirir ve diğer eşler ile popüler içeriği ön belleğine alır. CENO internet sansürünü atlatmak ve diğerlerinin engellenen sayfalara erişmesini sağlamak için kullanılabilir. 
+
+Sansüre HAYIR deyin! Şimdi CENO Browser yükleyin ve gelecekte 🔌 fişiniz çekildiğinde hazırlıklı olun. 
+
+🚫🌴 <strong>Önce çevrim dışı.</strong>
+CENO internetin kapatıldığı durumlar göz önünde bulundurularak tasarlandı. Normal internet ağları engellendiğinde veya kapandığında kullanılabilmesi için siteler dünya çapındaki eşler ağı tarafından paylaşılır ve dağıtılmış bir ön bellekte depolanır.
+
+🔓👀 <strong>İnternetin kilitlerini açın.</strong>
+İstediğiniz siteye erişin. Sıkça ziyaret edilen sayfalar ağda ön belleklenir ve zorla kaldırılamaz. 
+
+💲🌐 <strong>Veri ücretlerini azaltın.</strong>
+Kullanıcı trafiğini uçtan uca ağlar üzerinden yönlendirerek hem daha az veri kullanır hem de kullanıcıların sansür atlatmasını sağlar.
+
+📖👐  <strong>Özgür ve açık kaynaklı.</strong>
+CENO Browser açık kaynaklı Ouinet kitaplığı ile çalışır, bu kitaplık geliştiricilere CENO ağını uygulamalarında uçtan uca bağlanılabilirlik sağlamak için kullanabilmesini sağlar.
+
+<strong>Unutmayın:</strong> CENO anonimlik aracı değildir: internet gezintiniz başka CENO kullanıcılarına sızmış olabilir, aynı şekilde tarayıcınız belirli internet içeriğini diğerlerine sağlıyor olabilir. Uygulama ile erişilen içerik bir süre depolamada düz metin olarak saklanabilir, fakat istediğiniz zaman tüm depolanan içeriği 'Şimdi temizle' özelliği ile kaldırabilirsiniz.
+
+<strong>eQualit.ie hakkında</strong>
+eQualit.ie gizlilik, çevrimiçi güvenlik ve bilgi yönetimine odaklı özgür ve yeniden kullanılabilir teknolojiler geliştirir. Hedefimiz dijital çağda insan hak ve özgürlüklerini korumak için gerekli olan tecrübeleri geliştirmek ve erişilebilir teknoloji oluşturmak.
+
+CENO Browser ve paylaşımlı kitaplığı Ouinet hakkında daha fazlasını öğrenmek için lütfen https://censorship.no adresini ziyaret edin
+
+<strong>Sorularınız mı var veya desteğe mi ihtiyacınız var?</strong>
+<a href="https://censorship.no/user-manual/en/">CENO Kullanıcı Rehberi</a>nden daha fazlasını okuyun, veya cenoers@equalitie.org adresinden bize ulaşın. CENO'yu kullanıcıları için sürekli geliştiriyor ve geri dönüt almayı seviyoruz!
+
+Bağlı kalarak internetin herkes için açık ve erişilebilir olmasına yardımcı olun!
