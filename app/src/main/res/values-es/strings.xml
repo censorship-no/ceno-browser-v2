@@ -157,4 +157,6 @@
     <string name="theme_category">Temática</string>
     <string name="secure_connection">La conexión es segura</string>
     <string name="insecure_connection">La conexión no es segura</string>
+    <string name="browser_menu_back">Atrás</string>
+    <string name="browser_toolbar_home">Inicio</string>
 </resources>
