@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="menu_share_with">Dela med…</string>
+    <string name="toast_copied">Kopierad!</string>
+    <string name="customize_addon_collection_ok">OK</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Öppna i privat flik</string>
+    <string name="delete_from_history">Ta bort från historiken</string>
+    <string name="shortcut_max_limit_title">Genvägsgränsen har nåtts</string>
+    <string name="preferences_customization_summary">App-ikon, Verktygsfält, Rensa-knapp</string>
+    <string name="toolbar_category">Alternativ för verktygsfält</string>
+    <string name="rename_top_site">Byt namn</string>
+    <string name="preferences_customize_amo_collection">Anpassad tilläggssamling</string>
+    <string name="toast_customize_addon_collection_done">Tilläggssamlingen har ändrats. Avsluta programmet för att tillämpa ändringar…</string>
+    <string name="content_description_private_browsing_button">Aktivera privat surfning</string>
+    <string name="menu_action_close_tabs_private">Stäng privata flikar</string>
+    <string name="preferences_autofill_summary">Autofyll inloggningar och lösenord i andra appar</string>
+    <string name="privacy">Sekretess</string>
+    <string name="developer_tools_category">Utvecklarverktyg</string>
+    <string name="preferences_remote_debugging">Fjärrfelsökning via USB</string>
+    <string name="preferences_privacy_summary">Aktivera för personlig och offentlig surfning</string>
+    <string name="open_links_in_apps">Öppna länkar i appar</string>
+    <string name="tracker_category">Spårningsskydd</string>
+    <string name="clear_button_category">Rensa-knapp</string>
+    <string name="customize_addon_collection_cancel">Avbryt</string>
+    <string name="customize_addon_collection_hint">Samlingens namn</string>
+    <string name="remove_top_site">Ta bort</string>
+    <string name="general_category">Allmänt</string>
+    <string name="settings">Inställningar</string>
+    <string name="customization_settings">Anpassning</string>
+    <string name="crash_report_non_fatal_message">Ursäkta. Vi kraschade</string>
+    <string name="menu_action_close_tabs">Stäng alla flikar</string>
+    <string name="toolbar_hint">Sök eller ange en adress</string>
+    <string name="menu_action_add_tab">Lägg till ny flik</string>
+    <string name="preferences_autofill">Autofyll appar</string>
+    <string name="preferences_tracking_protection_normal">Aktivera i normalt surfläge</string>
+    <string name="preferences_tracking_protection_private">Aktivera i privat surfläge</string>
+    <string name="theme_category">Tema</string>
+    <string name="private_browsing_title">Privat surfning</string>
+    <string name="customize_addon_collection_user_hint">Samlingsägare (användar-ID)</string>
+</resources>
