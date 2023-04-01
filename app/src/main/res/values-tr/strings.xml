@@ -5,7 +5,7 @@
     <string name="browser_menu_forward">İleri</string>
     <string name="insecure_connection">Bağlantınız güvenli değil</string>
     <string name="secure_connection">Bağlantınız güvenli</string>
-    <string name="toolbar_hint">Arama yapın veya adres girin</string>
+    <string name="toolbar_hint">Arama yapın ya da adresi yazın</string>
     <string name="browser_toolbar_home">Ana sayfa</string>
     <string name="remove_top_site">Kaldır</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
