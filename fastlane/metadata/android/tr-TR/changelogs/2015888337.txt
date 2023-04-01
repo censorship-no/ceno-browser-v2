@@ -1,8 +1,8 @@
 Bu sürümde:
 
-- Tema özelleştirme eklendi
-- Genel ayarlar ekranına küçük arayüz değişiklikleri yapıldı
+- Tema özelleştirme özelliği eklendi
+- Genel ayarlar ekranında küçük arayüz değişiklikleri yapıldı
 - İspanyolca çeviriler güncellendi
-- Tarayıcı hazır olmadan CENO ön belleği temizlendiğindeki çökme giderildi
-- İnternet yokken eklentiler açıldığındaki çökme giderildi
-- Yeni gizli gezinti sekmesi açıklamasındaki yazım yanlışı giderildi
+- Tarayıcı hazır olmadan CENO ön belleği temizlendiğinde yaşanan çökme düzeltildi
+- Ağ bağlantısı olmadan eklentiler açıldığında yaşanan çökme giderildi
+- Yeni gizli gezinme sekmesi açıklamasındaki yazım yanlışı giderildi
