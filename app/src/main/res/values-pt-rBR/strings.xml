@@ -46,4 +46,20 @@
     <string name="preferences_autofill">Apps para autocompletar</string>
     <string name="preferences_autofill_summary">Autocompletar logins e senhas em outros apps</string>
     <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Privativa</string>
+    <string name="delete_browsing_data_prompt_allow">Apagar</string>
+    <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="one">%d endereço</item>
+        <item quantity="many">%d endereços</item>
+        <item quantity="other">%d endereços</item>
+    </plurals>
+    <string name="preferences_privacy_summary">Ativar para Navegação Pessoal e Pública</string>
+    <string name="browser_menu_desktop_site">Solicitar versão desktop</string>
+    <string name="browser_menu_add_to_homescreen">Adicionar à tela de Início</string>
+    <string name="browser_menu_find_in_page">Buscar na página</string>
+    <string name="browser_menu_library">Biblioteca</string>
+    <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
+    <string name="preferences_delete_browsing_data_snackbar">Dados de navegação apagados</string>
+    <string name="deleting_browsing_data_in_progress">Apagando dados de navegação..</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Histórico de navegação e dados do website</string>
 </resources>
