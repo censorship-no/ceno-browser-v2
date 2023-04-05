@@ -10,6 +10,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /* CENO: Handles checking which permissions have been granted,
@@ -67,6 +70,14 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
             }
         }
         return result
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun requestPostNotificationPermission(activity: AppCompatActivity, callback : (Boolean) -> Unit) {
+        activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            callback.invoke(isGranted)
+        }.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {

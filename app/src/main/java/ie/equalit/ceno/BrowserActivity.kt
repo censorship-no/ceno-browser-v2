@@ -4,9 +4,11 @@
 
 package ie.equalit.ceno
 
+import android.Manifest
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +16,9 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
@@ -47,6 +51,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
+import ie.equalit.ceno.components.ceno.PermissionHandler
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
@@ -100,7 +105,11 @@ open class BrowserActivity : AppCompatActivity() {
             }
             it.setBackground(this)
         }
-        components.ouinet.background.startup()
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+            components.ouinet.background.startup()
+        /* else, this is Android 13 or later, wait to start ouinet
+         * until we are ready to ask for POST_NOTIFICATION permission*/
 
         if (savedInstanceState == null) {
             /* CENO: Set default behavior for AppBar */
@@ -118,6 +127,8 @@ open class BrowserActivity : AppCompatActivity() {
                 }
             }
             else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    checkPermissions()
                 if (components.core.store.state.selectedTab?.content?.url == CenoHomeFragment.ABOUT_HOME) {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
@@ -160,7 +171,18 @@ open class BrowserActivity : AppCompatActivity() {
              * try sending an intent to restart the service
              */
             Logger.info(" --------- Starting ouinet service onResume")
-            components.ouinet.background.start()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val notificationPermission = ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+                if (notificationPermission == PackageManager.PERMISSION_GRANTED) {
+                        components.ouinet.background.start()
+                }
+            }
+            else {
+                components.ouinet.background.start()
+            }
         }
     }
 
@@ -304,6 +326,32 @@ open class BrowserActivity : AppCompatActivity() {
         /* No need to change fragments, this is handled by the toolbar observing the change of url */
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun checkPermissions() {
+        when (ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        )) {
+            PackageManager.PERMISSION_GRANTED -> {
+                components.ouinet.background.startup()
+            }
+            PackageManager.PERMISSION_DENIED -> {
+                /* Permission not yet granted, try requesting now */
+                val pHandler = PermissionHandler(this)
+                pHandler.requestPostNotificationPermission(
+                    this
+                ) { isGranted ->
+                    if (isGranted) {
+                        /* If POST_NOTIFICATION permission is granted,
+                         * then ask to disable battery optimization as well */
+                        pHandler.requestBatteryOptimizationsOff(this)
+                    }
+                }
+                components.ouinet.background.startup()
+            }
+        }
+    }
+
     fun beginShutdown(doClear : Boolean) {
         components.ouinet.background.shutdown(doClear) {
             if (doClear) {
@@ -316,7 +364,7 @@ open class BrowserActivity : AppCompatActivity() {
         ShutdownFragment.transitionToFragment(this, doClear)
     }
 
-    private fun exitOuinetServiceProcess() {
+    fun exitOuinetServiceProcess() {
         getSystemService(Context.ACTIVITY_SERVICE).let { am ->
             (am as ActivityManager).runningAppProcesses?.let { processes ->
                 for (process in processes) {

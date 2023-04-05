@@ -1,6 +1,7 @@
 package ie.equalit.ceno.onboarding
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
@@ -78,6 +80,11 @@ class OnboardingFragment : Fragment() {
         fun transitionToHomeFragment(context: Context, activity: FragmentActivity, sessionId: String?) {
 
             Settings.setShowOnboarding(context , false)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Android 13 or later, check if notification permission were granted */
+                (context as BrowserActivity).checkPermissions()
+            }
 
             context.components.useCases.tabsUseCases.addTab(
                 CenoHomeFragment.ABOUT_HOME,
