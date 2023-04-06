@@ -73,7 +73,7 @@
         <item quantity="many">%d abas</item>
         <item quantity="other">%d abas</item>
     </plurals>
-    <string name="preferences_delete_browsing_data_cookies_subtitle">Você será desconectado de todos os websites</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Você será desconectado da maioria dos websites</string>
     <string name="preferences_delete_browsing_data_cached_files">Imagens e arquivos em cache</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Libera espaço de armazenamento</string>
     <string name="preferences_delete_browsing_data_site_permissions">Permissões do website</string>
@@ -84,5 +84,5 @@
     <string name="preference_show_search_suggestions">Obter sugestões de busca</string>
     <string name="preference_search_summary">Definir padrão</string>
     <string name="preference_choose_search_engine">Escolher buscador</string>
-    <string name="preference_select_preferred_engine">Selecionar seu buscador de preferência:</string>
+    <string name="preference_select_preferred_engine">Selecionar o buscador de sua preferência:</string>
 </resources>
