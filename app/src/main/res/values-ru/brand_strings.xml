@@ -3,6 +3,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -104,4 +106,6 @@
     <string name="preferences_clear_behavior_default">0</string>
     <string name="ceno_home_mode_link_text">Нажмите, чтобы узнать больше.</string>
     <string name="preferences_theme_default">2</string>
+    <string name="preferences_about_ceno">&brandShortName; Браузер</string>
+    <string name="preferences_about_geckoview">Геккон Вид</string>
 </resources>
