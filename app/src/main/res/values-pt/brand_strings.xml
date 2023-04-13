@@ -27,7 +27,7 @@
     <string name="preferences_clear_ceno_cache_summary">Limpar conteúdo armazenado em cache local</string>
     <string name="preferences_ceno_network_config">Detalhes da Rede &brandShortName;</string>
     <string name="preferences_ceno_network_config_summary">Estado do Ouinet, endpoints UDP, bootstraps do BitTorrent</string>
-    <string name="preferences_ceno_enable_log">Ativar ficheiro de log</string>
+    <string name="preferences_ceno_enable_log">Ativar arquivo de registro</string>
     <string name="preferences_show_home_button">Mostrar botão de início</string>
     <string name="preferences_theme_summary">Escuro, Claro, Economia de Pilha</string>
     <string name="preferences_theme_default">2</string>
@@ -67,8 +67,8 @@
     <string name="preferences_customization">Personalização</string>
     <string name="preferences_clear_in_toolbar">Mostrar na barra de ferramentas</string>
     <string name="preferences_clear_behavior">Comportamento Padrão</string>
-    <string name="ceno_sources_category">Sources</string>
-    <string name="preferences_ceno_sources_origin">Website</string>
+    <string name="ceno_sources_category">Fontes</string>
+    <string name="preferences_ceno_sources_origin">Site</string>
     <string name="preferences_ceno_sources_origin_summary">Carregar conteúdo diretamente do website</string>
     <string name="ceno_data_category">Dados</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Navegação Privativa&lt;/h1&gt; &lt;p&gt;Ceno não irá compartilhar conteúdo de guias privativas com outros utilizadores. Pode seguramente visitar websites que exijam login. No entanto, é necessário um caminho para a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Quer saber mais\?&lt;/p&gt;</string>
