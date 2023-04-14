@@ -9,4 +9,5 @@ object AppPermissionCodes {
     const val REQUEST_CODE_PROMPT_PERMISSIONS = 2
     const val REQUEST_CODE_APP_PERMISSIONS = 3
     const val REQUEST_CODE_CAMERA_PERMISSIONS = 4
+    const val REQUEST_CODE_NOTIFICATION_PERMISSIONS = 5
 }

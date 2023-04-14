@@ -1,4 +1,4 @@
-package ie.equalit.ceno.components.ceno
+package ie.equalit.ceno.components
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -10,9 +10,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import ie.equalit.ceno.AppPermissionCodes
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /* CENO: Handles checking which permissions have been granted,
@@ -44,6 +45,18 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun isAllowingPostNotifications() : Boolean {
+        return when (ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS
+        )) {
+            PackageManager.PERMISSION_GRANTED -> true
+            PackageManager.PERMISSION_DENIED -> false
+            else -> false
+        }
+    }
+
     @SuppressLint("BatteryLife")
     fun requestBatteryOptimizationsOff(activity: Activity) : Boolean {
         var result = false
@@ -72,17 +85,28 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         return result
     }
 
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun requestPostNotificationPermission(activity: AppCompatActivity, callback : (Boolean) -> Unit) {
-        activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            callback.invoke(isGranted)
-        }.launch(Manifest.permission.POST_NOTIFICATIONS)
+    fun requestPostNotificationsPermission(fragment : Fragment) : Boolean {
+        return if (isAllowingPostNotifications()) {
+                false
+            } else {
+                // Only return true if intent was sent to request permission
+                @Suppress("DEPRECATION")
+                fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
+                )
+                true
+            }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         if (requestCode == PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
-            return this.isIgnoringBatteryOptimizations()
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.isAllowingPostNotifications() && this.isIgnoringBatteryOptimizations()
+            }
+            else {
+                this.isIgnoringBatteryOptimizations()
+            }
         }
         return false
     }

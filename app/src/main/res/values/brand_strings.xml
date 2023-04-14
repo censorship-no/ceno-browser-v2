@@ -99,11 +99,14 @@
     <string name="onboarding_info_button">Cool!</string>
 
     <string name="onboarding_battery_title">Permission needed</string>
-    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text_1">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text_2">Shortly the OS will ask you for permission to allow notifications and disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
     <string name="onboarding_battery_button">Continue</string>
 
     <string name="onboarding_warning_title">Permission denied</string>
-    <string name="onboarding_warning_text">Battery optimization is still enabled.\n\nGo to \"General Settings > Disable Battery Optimization\" to give permission later</string>
+    <string name="onboarding_warning_text_1">Battery optimization is still enabled.\n\nGo to \"Settings > Disable Battery Optimization\" to give permission later</string>
+    <string name="onboarding_warning_text_2">Notifications are not allowed.\n\nGo to \"Settings > Allow Notifications\" to give permission later</string>
+    <string name="onboarding_warning_text_3">Notifications are not allowed and battery optimization is still enabled.\n\nGo to \"Settings\" to give permission later</string>
     <string name="onboarding_warning_button">Okay</string>
 
     <string name="onboarding_thanks_title">Thanks for growing the network!</string>
@@ -118,6 +121,7 @@
     <string name="preferences_show_home_button">Show home button</string>
 
     <string name="preferences_show_onboarding">Show onboarding on next launch</string>
+    <string name="preferences_allow_notifications">Allow Notifications</string>
     <string name="preferences_disable_battery_opt">Disable Battery Optimization</string>
 
     <string name="preferences_customization">Customization</string>

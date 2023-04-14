@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
@@ -26,7 +25,6 @@ class OnboardingFragment : Fragment() {
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
 
-    //@SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,8 +55,14 @@ class OnboardingFragment : Fragment() {
             }
         }
         binding.button2.setOnClickListener {
-            binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
-            transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Android 13 or later, always ask for permissions */
+                OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
+            }
+            else {
+                binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+                transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+            }
         }
     }
 
@@ -80,11 +84,6 @@ class OnboardingFragment : Fragment() {
         fun transitionToHomeFragment(context: Context, activity: FragmentActivity, sessionId: String?) {
 
             Settings.setShowOnboarding(context , false)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                /* Android 13 or later, check if notification permission were granted */
-                (context as BrowserActivity).checkPermissions()
-            }
 
             context.components.useCases.tabsUseCases.addTab(
                 CenoHomeFragment.ABOUT_HOME,
