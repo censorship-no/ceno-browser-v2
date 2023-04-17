@@ -71,7 +71,7 @@
     <string name="changeIconDialogMessage">O app pode fechar para aplicar as mudanças. Volte depois de admirar seus belos ícones novos.</string>
     <string name="ceno_home_mode_description">Use abas normais para compartilhar conteúdo com outros &brandShortName; usuários. Use abas privativas para evitar o compartilhamento ou para páginas que exigem login.</string>
     <string name="preferences_theme_summary">Escuro, Claro, Economia de Bateria</string>
-    <string name="ouinet_client_fetch_fail">Falha em mudar a configuração &brandShortName;</string>
+    <string name="ouinet_client_fetch_fail">Falha em modificar a configuração &brandShortName;</string>
     <string name="onboarding_battery_title">Autorização necessária</string>
     <string name="onboarding_warning_text">A otimização de bateria ainda está habilitada.
 \n
