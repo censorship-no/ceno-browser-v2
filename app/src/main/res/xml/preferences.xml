@@ -60,6 +60,13 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            android:key="@string/pref_key_allow_notifications"
+            android:title="@string/preferences_allow_notifications" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
             android:key="@string/pref_key_disable_battery_opt"
             android:title="@string/preferences_disable_battery_opt" />
 

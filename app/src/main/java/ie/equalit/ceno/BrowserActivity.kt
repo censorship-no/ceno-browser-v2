@@ -4,11 +4,13 @@
 
 package ie.equalit.ceno
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
@@ -47,6 +49,7 @@ import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
+import kotlin.system.exitProcess
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -97,6 +100,7 @@ open class BrowserActivity : AppCompatActivity() {
             }
             it.setBackground(this)
         }
+
         components.ouinet.background.startup()
 
         if (savedInstanceState == null) {
@@ -302,8 +306,27 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     fun beginShutdown(doClear : Boolean) {
-        components.ouinet.background.shutdown(doClear)
+        components.ouinet.background.shutdown(doClear) {
+            if (doClear) {
+                val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                am.clearApplicationUserData()
+            }
+            exitOuinetServiceProcess()
+            exitProcess(0)
+        }
         ShutdownFragment.transitionToFragment(this, doClear)
+    }
+
+    fun exitOuinetServiceProcess() {
+        getSystemService(Context.ACTIVITY_SERVICE).let { am ->
+            (am as ActivityManager).runningAppProcesses?.let { processes ->
+                for (process in processes) {
+                    if (process.processName.contains("ouinetService")){
+                        Process.killProcess(process.pid)
+                    }
+                }
+            }
+        }
     }
 
     /* CENO: Function to initialize top site storage and observer */

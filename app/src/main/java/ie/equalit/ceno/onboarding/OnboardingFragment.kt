@@ -1,6 +1,7 @@
 package ie.equalit.ceno.onboarding
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,7 +25,6 @@ class OnboardingFragment : Fragment() {
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
 
-    //@SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,8 +55,14 @@ class OnboardingFragment : Fragment() {
             }
         }
         binding.button2.setOnClickListener {
-            binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
-            transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Android 13 or later, always ask for permissions */
+                OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
+            }
+            else {
+                binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+                transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+            }
         }
     }
 

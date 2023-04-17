@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="54dp"
         android:layout_marginRight="54dp"
-        android:text="@string/onboarding_warning_text"
         android:textSize='@dimen/ceno_onboarding_text'
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
