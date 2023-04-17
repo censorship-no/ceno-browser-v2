@@ -8,6 +8,7 @@ import ie.equalit.ceno.ext.application
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
+import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import java.util.HashSet
 
 class Ouinet (
@@ -44,6 +45,7 @@ class Ouinet (
                 clearText = context.resources.getString(R.string.ceno_notification_clear_description),
                 confirmText = context.resources.getString(R.string.ceno_notification_clear_do_description),
             )
+            .setUpdateInterval(1 * MILLISECOND)
             .build()
     }
 
