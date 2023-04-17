@@ -1,5 +1,6 @@
 package ie.equalit.ceno.onboarding
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingWarningBinding
+import ie.equalit.ceno.ext.requireComponents
 
 /**
  * A simple [Fragment] subclass.
@@ -33,6 +35,22 @@ class OnboardingWarningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.text.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Choose which text is displayed based on permissions allowed */
+                if (!requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                    !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
+                    getString(R.string.onboarding_warning_text_v33_2)
+                }
+                else if(!requireComponents.permissionHandler.isAllowingPostNotifications()) {
+                    getString(R.string.onboarding_warning_text_v33_1)
+                }
+                else {
+                    getString(R.string.onboarding_warning_text)
+                }
+            }
+            else {
+                getString(R.string.onboarding_warning_text)
+            }
         binding.button.setOnClickListener {
             OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
         }

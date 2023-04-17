@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
@@ -29,16 +30,12 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
-import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.ktx.android.view.showKeyboard
-import kotlin.system.exitProcess
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -46,7 +43,10 @@ import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
+import kotlin.system.exitProcess
 
 @Suppress("TooManyFunctions")
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -179,6 +179,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
+        val allowNotificationsKey = requireContext().getPreferenceKey(R.string.pref_key_allow_notifications)
         val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
@@ -190,6 +191,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
+        val preferenceAllowNotifications = findPreference<Preference>(allowNotificationsKey)
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
         val preferenceCustomization = findPreference<Preference>(customizationKey)
         val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
@@ -209,10 +211,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
-        if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!requireComponents.permissionHandler.isAllowingPostNotifications()) {
+                preferenceAllowNotifications?.isVisible = true
+                preferenceAllowNotifications?.onPreferenceClickListener =
+                    getClickListenerForAllowNotifications()
+            }
+            else {
+                preferenceAllowNotifications?.isVisible = false
+            }
+        }
+        else {
+            preferenceAllowNotifications?.isVisible = false
+        }
+        if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
                 preferenceDisableBatteryOpt?.isVisible = false
         }
         else {
+            preferenceDisableBatteryOpt?.isVisible = true
             preferenceDisableBatteryOpt?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
         }
     }
@@ -481,10 +497,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
      */
 
-    private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             OnPreferenceClickListener {
-                PermissionHandler(requireContext()).requestBatteryOptimizationsOff(requireActivity())
+                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
+                    requireActivity().startActivity(this)
+                }
+                true
+            }
+        } else {
+            defaultClickListener
+        }
+    }
+
+    private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            OnPreferenceClickListener {
+                requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
                 true
             }
         } else {

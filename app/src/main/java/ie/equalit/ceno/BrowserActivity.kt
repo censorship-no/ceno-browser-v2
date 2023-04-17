@@ -100,6 +100,7 @@ open class BrowserActivity : AppCompatActivity() {
             }
             it.setBackground(this)
         }
+
         components.ouinet.background.startup()
 
         if (savedInstanceState == null) {
@@ -316,7 +317,7 @@ open class BrowserActivity : AppCompatActivity() {
         ShutdownFragment.transitionToFragment(this, doClear)
     }
 
-    private fun exitOuinetServiceProcess() {
+    fun exitOuinetServiceProcess() {
         getSystemService(Context.ACTIVITY_SERVICE).let { am ->
             (am as ActivityManager).runningAppProcesses?.let { processes ->
                 for (process in processes) {
