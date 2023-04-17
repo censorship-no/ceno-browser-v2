@@ -1,6 +1,6 @@
 # CENO Browser
 
-[![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/master/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/master)
+[![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/main/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/main)
 [![Gitlab release (latest by date)](https://img.shields.io/gitlab/v/release/censorship-no/ceno-browser)](https://gitlab.com/censorship-no/ceno-browser/-/releases)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](./LICENSE)
 [![Weblate](https://hosted.weblate.org/widgets/censorship-no/-/android-strings/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/)
