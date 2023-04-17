@@ -52,7 +52,7 @@ object Versions {
     }
 
     /* CENO: Versions for additional dependencies */
-    const val ouinet_version = "0.21.9"
+    const val ouinet_version = "0.21.10"
     const val relinker_version = "1.4.4"
 
     // Workaround for a Gradle parsing bug that prevents using nested objects directly in Gradle files.

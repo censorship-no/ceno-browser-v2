@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="54dp"
         android:layout_marginRight="54dp"
-        android:text="@string/onboarding_battery_text"
         android:textSize='@dimen/ceno_onboarding_text'
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,18 +46,5 @@
         app:layout_constraintTop_toBottomOf="@+id/text"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.25" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@android:color/transparent"
-        android:text="@string/onboarding_skip_button"
-        android:textStyle="italic"
-        android:textColor="@color/ceno_onboarding_button_text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package ie.equalit.ceno.onboarding
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
+import ie.equalit.ceno.ext.requireComponents
 
 /**
  * A simple [Fragment] subclass.
@@ -35,27 +36,34 @@ class OnboardingInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            if (PermissionHandler(requireContext()).isIgnoringBatteryOptimizations()) {
-                OnboardingThanksFragment.transitionToFragment(
-                    requireActivity(),
-                    sessionId
-                )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                    requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+                ) {
+                    OnboardingThanksFragment.transitionToFragment(
+                        requireActivity(),
+                        sessionId
+                    )
+                }
+                else {
+                    OnboardingBatteryFragment.transitionToFragment(
+                        requireActivity(),
+                        sessionId
+                    )
+                }
             }
             else {
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_in,
-                        R.anim.slide_out,
-                        R.anim.slide_back_in,
-                        R.anim.slide_back_out
+                if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
+                    OnboardingThanksFragment.transitionToFragment(
+                        requireActivity(),
+                        sessionId
                     )
-                    replace(
-                        R.id.container,
-                        OnboardingBatteryFragment.create(sessionId),
-                        OnboardingBatteryFragment.TAG
+                }
+                else {
+                    OnboardingBatteryFragment.transitionToFragment(
+                        requireActivity(),
+                        sessionId
                     )
-                    addToBackStack(null)
-                    commit()
                 }
             }
         }
