@@ -39,17 +39,17 @@ class OnboardingWarningFragment : Fragment() {
                 /* Choose which text is displayed based on permissions allowed */
                 if (!requireComponents.permissionHandler.isAllowingPostNotifications() &&
                     !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
-                    getString(R.string.onboarding_warning_text_3)
+                    getString(R.string.onboarding_warning_text_v33_2)
                 }
                 else if(!requireComponents.permissionHandler.isAllowingPostNotifications()) {
-                    getString(R.string.onboarding_warning_text_2)
+                    getString(R.string.onboarding_warning_text_v33_1)
                 }
                 else {
-                    getString(R.string.onboarding_warning_text_1)
+                    getString(R.string.onboarding_warning_text)
                 }
             }
             else {
-                getString(R.string.onboarding_warning_text_1)
+                getString(R.string.onboarding_warning_text)
             }
         binding.button.setOnClickListener {
             OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
