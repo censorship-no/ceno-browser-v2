@@ -33,6 +33,8 @@ import ie.equalit.ceno.helpers.click
  */
 class AddonsManagerRobot {
 
+    val defaultAddOnName = "Dark Reader"
+    val defaultAddOnDescription = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing."
     fun verifyAddonsRecommendedView() = assertAddonsRecommendedView()
     fun verifyAddonsEnabledView() = assertAddonsEnabledView()
     fun verifyInstallAddonPrompt(addonName: String) = assertAddonPrompt(addonName)
@@ -57,7 +59,7 @@ class AddonsManagerRobot {
 
     fun dismissAddonDownloadCompletedPrompt(addonName: String) {
         mDevice.waitForWindowUpdate(packageName, waitingTime)
-        mDevice.findObject(UiSelector().text("$addonName has been added to Reference Browser"))
+        mDevice.findObject(UiSelector().text("$addonName has been added to CENO"))
             .waitForExists(waitingTime)
         mDevice.waitAndInteract(Until.findObject(By.text("Okay, Got it"))) {}
         val gotItButton = mDevice.findObject(UiSelector().text("Okay, Got it"))
@@ -82,8 +84,8 @@ class AddonsManagerRobot {
         onView(
             allOf(
                 withId(R.id.add_on_item),
-                hasDescendant(withText("uBlock Origin")),
-                hasDescendant(withText("Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.")),
+                hasDescendant(withText(defaultAddOnName)),
+                hasDescendant(withText(defaultAddOnDescription)),
                 hasDescendant(withId(R.id.rating)),
                 hasDescendant(withId(R.id.users_count)),
                 hasDescendant(withId(R.id.add_button)),
@@ -97,8 +99,8 @@ class AddonsManagerRobot {
         onView(
             allOf(
                 withId(R.id.add_on_item),
-                hasDescendant(withText("uBlock Origin")),
-                hasDescendant(withText("Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.")),
+                hasDescendant(withText(defaultAddOnName)),
+                hasDescendant(withText(defaultAddOnDescription)),
                 hasDescendant(withId(R.id.rating)),
                 hasDescendant(withId(R.id.users_count)),
                 hasDescendant(withId(R.id.add_button)),
@@ -191,7 +193,7 @@ class AddonsManagerRobot {
         assertTrue(
             mDevice.findObject(
                 UiSelector()
-                    .textContains("$addonName has been added to Reference Browser"),
+                    .textContains("$addonName has been added to CENO"),
             )
                 .waitForExists(waitingTime),
         )

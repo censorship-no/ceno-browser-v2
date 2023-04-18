@@ -9,6 +9,7 @@ import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.ui.robots.navigationToolbar
+import ie.equalit.ceno.ui.robots.onboarding
 
 class AddonsTest {
 
@@ -27,6 +28,8 @@ class AddonsTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After
@@ -45,13 +48,11 @@ class AddonsTest {
 
     @Test
     fun cancelAddonInstallTest() {
-        val addonName = "uBlock Origin"
-
         navigationToolbar {
         }.openThreeDotMenu {
         }.openAddonsManager {
-            clickInstallAddonButton(addonName)
-            verifyInstallAddonPrompt(addonName)
+            clickInstallAddonButton(defaultAddOnName)
+            verifyInstallAddonPrompt(defaultAddOnName)
             clickCancelInstallButton()
             verifyAddonsRecommendedView()
         }
@@ -59,49 +60,43 @@ class AddonsTest {
 
     @Test
     fun installAddonTest() {
-        val addonName = "uBlock Origin"
-
         navigationToolbar {
         }.openThreeDotMenu {
         }.openAddonsManager {
-            clickInstallAddonButton(addonName)
-            verifyInstallAddonPrompt(addonName)
+            clickInstallAddonButton(defaultAddOnName)
+            verifyInstallAddonPrompt(defaultAddOnName)
             clickAllowInstallAddonButton()
             waitForAddonDownloadComplete()
-            verifyAddonDownloadCompletedPrompt(addonName)
+            verifyAddonDownloadCompletedPrompt(defaultAddOnName)
         }
     }
 
     @Test
     fun verifyAddonElementsTest() {
-        val addonName = "uBlock Origin"
-
         navigationToolbar {
         }.openThreeDotMenu {
         }.openAddonsManager {
             verifyAddonsRecommendedView()
-            clickInstallAddonButton(addonName)
+            clickInstallAddonButton(defaultAddOnName)
             clickAllowInstallAddonButton()
             waitForAddonDownloadComplete()
-            dismissAddonDownloadCompletedPrompt(addonName)
-            openAddon(addonName)
-            verifyAddonElementsView(addonName)
+            dismissAddonDownloadCompletedPrompt(defaultAddOnName)
+            openAddon(defaultAddOnName)
+            verifyAddonElementsView(defaultAddOnName)
         }
     }
 
     @Test
     fun removeAddonTest() {
-        val addonName = "uBlock Origin"
-
         navigationToolbar {
         }.openThreeDotMenu {
         }.openAddonsManager {
             verifyAddonsRecommendedView()
-            clickInstallAddonButton(addonName)
+            clickInstallAddonButton(defaultAddOnName)
             clickAllowInstallAddonButton()
             waitForAddonDownloadComplete()
-            dismissAddonDownloadCompletedPrompt(addonName)
-            openAddon(addonName)
+            dismissAddonDownloadCompletedPrompt(defaultAddOnName)
+            openAddon(defaultAddOnName)
             clickRemoveAddonButton()
             verifyAddonsRecommendedView()
         }
