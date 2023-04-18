@@ -28,6 +28,7 @@ class ThreeDotMenuRobot {
 
     fun verifyThreeDotMenuExists() = threeDotMenuRecyclerViewExists()
 
+    fun verifyBackButtonExists() = assertBackButton()
     fun verifyForwardButtonExists() = assertForwardButton()
     fun verifyReloadButtonExists() = assertRefreshButton()
     fun verifyStopButtonExists() = assertStopButton()
@@ -50,6 +51,12 @@ class ThreeDotMenuRobot {
 
     fun verifyRequestDesktopSiteIsTurnedOff() = assertRequestDesktopSiteIsTurnedOff()
     fun verifyRequestDesktopSiteIsTurnedOn() = assertRequestDesktopSiteIsTurnedOn()
+
+    fun verifyClearCenoButtonExists() = assertClearCenoButton()
+    fun verifyAddToShortcutsButtonExists() = assertAddToShortcutsButton()
+    fun verifyRemoveFromShortcutsButtonExists() = assertRemoveFromShortcutsButton()
+    fun verifyHttpsByDefaultButtonExists() = assertHttpsByDefaultButton()
+    fun verifyUblockOriginButtonExists() = assertUblockOriginButton()
 
     class Transition {
 
@@ -178,17 +185,23 @@ private fun threeDotMenuRecyclerViewExists() {
 }
 
 private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
+private fun backButton() = onView(ViewMatchers.withContentDescription("Back"))
 private fun forwardButton() = onView(ViewMatchers.withContentDescription("Forward"))
 private fun refreshButton() = onView(ViewMatchers.withContentDescription("Refresh"))
 private fun stopButton() = onView(ViewMatchers.withContentDescription("Stop"))
 private fun shareButton() = onView(ViewMatchers.withText("Share"))
 private fun requestDesktopSiteToggle() = onView(ViewMatchers.withText("Request desktop site"))
-private fun findInPageButton() = onView(ViewMatchers.withText("Find in Page"))
+private fun findInPageButton() = onView(ViewMatchers.withText("Find in page"))
 private fun reportIssueButton() = onView(ViewMatchers.withText("Report issue"))
 private fun settingsButton() = onView(ViewMatchers.withText("Settings"))
-private fun addToHomescreenButton() = onView(ViewMatchers.withText("Add to homescreen"))
+private fun addToHomescreenButton() = onView(ViewMatchers.withText("Add to Home screen"))
 private fun addOnsButton() = onView(ViewMatchers.withText("Add-ons"))
 private fun syncedTabsButton() = onView(ViewMatchers.withText("Synced Tabs"))
+private fun clearCenoButton() = onView(ViewMatchers.withText("Clear CENO"))
+private fun addToShortcutsButton() = onView(ViewMatchers.withText("Add to shortcuts"))
+private fun removeFromShortcutsButton() = onView(ViewMatchers.withText("Remove from shortcuts"))
+private fun httpsByDefaultButton() = onView(ViewMatchers.withText("HTTPS by default"))
+private fun ublockOriginButton() = onView(ViewMatchers.withText("uBlock Origin"))
 
 private fun assertShareButtonDoesntExist() = shareButton().check(ViewAssertions.doesNotExist())
 private fun assertRequestDesktopSiteToggleDoesntExist() =
@@ -200,6 +213,8 @@ private fun assertStopButtonDoesntExist() = stopButton().check(ViewAssertions.do
 private fun assertAddToHomescreenButtonDoesntExist() = addToHomescreenButton()
     .check(ViewAssertions.doesNotExist())
 
+private fun assertBackButton() = backButton()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertForwardButton() = forwardButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertRefreshButton() = refreshButton()
@@ -232,3 +247,13 @@ private fun assertRequestDesktopSiteIsTurnedOn() {
         mDevice.findObject(UiSelector().textContains("Request desktop site")).isChecked,
     )
 }
+private fun assertClearCenoButton() = clearCenoButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAddToShortcutsButton() = addToShortcutsButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertRemoveFromShortcutsButton() = removeFromShortcutsButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertHttpsByDefaultButton() = httpsByDefaultButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertUblockOriginButton() = ublockOriginButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

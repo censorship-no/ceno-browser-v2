@@ -6,6 +6,7 @@ package ie.equalit.ceno.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiSelector
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -16,6 +17,8 @@ import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
+import ie.equalit.ceno.helpers.TestHelper
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.robots.navigationToolbar
 
 /**
@@ -48,11 +51,19 @@ class ThreeDotMenuTest {
     @JvmField
     val retryTestRule = RetryTestRule(3)
 
+    private val skipOnboardingButton = mDevice.findObject(
+        UiSelector().resourceId("${TestHelper.packageName}:id/button2"),
+    )
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer().apply {
             dispatcher = AndroidAssetDispatcher()
             start()
+        }
+        if (Settings.shouldShowOnboarding(InstrumentationRegistry.getInstrumentation().targetContext)) {
+            skipOnboardingButton.waitForExists(TestAssetHelper.waitingTime)
+            skipOnboardingButton.click()
         }
     }
 
@@ -62,6 +73,7 @@ class ThreeDotMenuTest {
     }
 
     /* ktlint-disable no-blank-line-before-rbrace */ // This imposes unreadable grouping.
+    /* CENO: homepage menu is identical to browser tab menu
     @Test
     fun homeScreenMenuTest() {
         navigationToolbar {
@@ -82,6 +94,7 @@ class ThreeDotMenuTest {
             verifyOpenSettingsExists()
         }
     }
+    */
 
     @Test
     fun threeDotMenuItemsTest() {
@@ -94,16 +107,23 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyThreeDotMenuExists()
+            verifyBackButtonExists()
             verifyForwardButtonExists()
             verifyReloadButtonExists()
-            verifyStopButtonExists()
-            verifyShareButtonExists()
+            //TODO: stop button only appears during load, needs special test case
+            //verifyStopButtonExists()
+            //verifyShareButtonExists()
             verifyRequestDesktopSiteToggleExists()
+            verifyClearCenoButtonExists()
             verifyAddToHomescreenButtonExists()
+            verifyAddToShortcutsButtonExists()
             verifyFindInPageButtonExists()
+            verifyHttpsByDefaultButtonExists()
+            //TODO: uBlock Origin takes some time to install, needs special test case
+            //verifyUblockOriginButtonExists()
             verifyAddOnsButtonExists()
-            verifySyncedTabsButtonExists()
-            verifyReportIssueExists()
+            //verifySyncedTabsButtonExists()
+            //verifyReportIssueExists()
             verifyOpenSettingsExists()
         }
     }
@@ -177,6 +197,7 @@ class ThreeDotMenuTest {
         }
     }
 
+    /* TODO: Implement "share" button in Ceno
     @Test
     fun doShareTest() {
         val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -190,6 +211,7 @@ class ThreeDotMenuTest {
             verifyShareContentPanel()
         }
     }
+    */
 
     @Test
     fun findInPageTest() {
@@ -216,6 +238,7 @@ class ThreeDotMenuTest {
 
     // so less flaky, we only test redirect to github login
     // (redirect happens with / without WIFI enabled)
+    /* TODO: implement report issue in Ceno
     @Test
     fun reportIssueTest() {
         val loremIpsumWebPage = TestAssetHelper.getLoremIpsumAsset(mockWebServer)
@@ -231,6 +254,7 @@ class ThreeDotMenuTest {
             verifyGithubUrl()
         }
     }
+    */
 
     @Test
     fun openSettingsTest() {
@@ -258,7 +282,8 @@ class ThreeDotMenuTest {
     }
     */
 
-    @Ignore("Failing with frequent ANR: https://bugzilla.mozilla.org/show_bug.cgi?id=1764605")
+    // CENO: requestDesktopSiteTest seems to work for us
+    //@Ignore("Failing with frequent ANR: https://bugzilla.mozilla.org/show_bug.cgi?id=1764605")
     @Test
     fun requestDesktopSiteTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)

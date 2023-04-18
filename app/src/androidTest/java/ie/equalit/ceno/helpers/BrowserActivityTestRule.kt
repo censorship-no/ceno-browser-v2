@@ -9,6 +9,7 @@ package ie.equalit.ceno.helpers
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.rule.ActivityTestRule
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A [org.junit.Rule] to handle shared test set up for tests on [BrowserActivity].
