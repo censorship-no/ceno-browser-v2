@@ -11,10 +11,9 @@ class OnboardingRobot {
 
     class Transition {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
 
         fun skipOnboardingIfNeeded() {
-            if (Settings.shouldShowOnboarding(targetContext)) {
+            if (Settings.shouldShowOnboarding(TestHelper.appContext)) {
                 skipOnboardingButton().waitForExists(TestAssetHelper.waitingTime)
                 skipOnboardingButton().click()
             }
