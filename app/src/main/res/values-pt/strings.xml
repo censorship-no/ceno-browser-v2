@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="settings">Configurações</string>
+    <string name="private_browsing_title">Navegação Privativa</string>
+    <string name="toast_copied">Copiado!</string>
+    <string name="preferences_customize_amo_collection">Coleção de Extensões personalizadas</string>
+    <string name="customize_addon_collection_cancel">Cancelar</string>
+    <string name="customize_addon_collection_hint">Nome da coleção</string>
+    <string name="customize_addon_collection_user_hint">Proprietário da coleção (ID de utilizador)</string>
+    <string name="browser_menu_forward">Pŕoxima</string>
+    <string name="preferences_tracking_protection_normal">Ativar no Modo de Navegação Normal</string>
+    <string name="preferences_customization_summary">Ícone do App, Barra de Ferramentas, botão Limpar</string>
+    <string name="open_links_in_apps">Abrir ligações em apps</string>
+    <string name="developer_tools_category">Ferramentas de desenvolvimento</string>
+    <string name="customize_addon_collection_ok">OK</string>
+    <string name="toast_customize_addon_collection_done">Coleção de extensões modificada. Saindo da aplicação para aplicar mudanças…</string>
+    <string name="preferences_autofill">Apps para autocompletar</string>
+    <string name="preferences_autofill_summary">Autocompletar logins e palavras-passe em outros apps</string>
+    <string name="preferences_remote_debugging">Depurar remotamente via USB</string>
+    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Privativa</string>
+    <string name="privacy">Privacidade</string>
+    <string name="browser_menu_back">Anterior</string>
+    <string name="browser_menu_stop">Interromper</string>
+    <string name="theme_category">Tema</string>
+    <string name="toolbar_category">Opções da Barra de Ferramentas</string>
+    <string name="browser_menu_settings">Configurações</string>
+    <string name="general_category">Geral</string>
+    <string name="tracker_category">Proteção Contra Rastreamento</string>
+    <string name="customization_settings">Personalização</string>
+    <string name="crash_report_non_fatal_message">Desculpe. Travamos</string>
+    <string name="menu_share_with">Compartilhar com…</string>
+    <string name="content_description_private_browsing_button">Ativar navegação privativa</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Abrir em guia privativa</string>
+    <string name="toolbar_hint">Buscar ou inserir endereço</string>
+    <string name="menu_action_add_tab">Adicionar Nova Guia</string>
+    <string name="menu_action_close_tabs">Fechar Todas as Guias</string>
+    <string name="menu_action_close_tabs_private">Fechar Guias Privativas</string>
+    <string name="clear_button_category">Botão Limpar</string>
+    <string name="rename_top_site">Renomear</string>
+    <string name="remove_top_site">Remover</string>
+    <string name="delete_from_history">Apagar do histórico</string>
+    <string name="top_sites_max_limit_confirmation_button">OK, Entendi</string>
+    <string name="top_sites_rename_dialog_title">Nome</string>
+    <string name="top_sites_rename_dialog_ok">OK</string>
+    <string name="top_sites_rename_dialog_cancel">Cancelar</string>
+    <string name="top_sites_sponsored_label">Patrocinado</string>
+    <string name="browser_menu_refresh">Atualizar</string>
+    <string name="browser_menu_add_ons">Extensões</string>
+</resources>

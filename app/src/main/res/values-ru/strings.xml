@@ -91,7 +91,7 @@
     <!-- Browser menu button that opens the addon manager -->
     <string name="browser_menu_add_ons">Дополнения</string>
     <!-- Browser menu button that opens the settings menu -->
-    <string name="browser_menu_settings">Общие настройки</string>
+    <string name="browser_menu_settings">Настройки</string>
     <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Версия для ПК</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
@@ -149,4 +149,13 @@
     <string name="preferences_delete_browsing_data_button">Удаление данных просмотра</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Открыть вкладки</string>
     <string name="preference_category_search">искать</string>
+    <string name="secure_connection">Соединение зашифровано</string>
+    <string name="browser_toolbar_home">Главная</string>
+    <string name="browser_menu_back">Назад</string>
+    <string name="preference_show_search_suggestions">Получать поисковые подсказки</string>
+    <string name="preference_search_summary">По умолчанию</string>
+    <string name="insecure_connection">Соединение не зашифровано</string>
+    <string name="preference_choose_search_engine">Выбрать поисковую систему</string>
+    <string name="theme_category">Тема</string>
+    <string name="general_category">Общие</string>
 </resources>
