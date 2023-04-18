@@ -20,7 +20,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.Constants.LONG_CLICK_DURATION
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
-import ie.equalit.ceno.helpers.click
 
 /**
  * Implementation of Robot Pattern for awesomebar.
@@ -36,11 +35,11 @@ class AwesomeBarRobot {
         awesomeBar().perform(ViewActions.typeText(searchTerm))
     }
 
-    fun clickClearToolbarButton() {
-        mDevice.findObject(UiSelector().resourceId("$packageName:id/toolbar"))
-            .waitForExists(waitingTime)
-        clearToolbarButton().click()
-    }
+    fun clickClearToolbarButton() =
+        clearToolbarButton().also {
+            it.waitForExists(waitingTime)
+            it.click()
+        }
 
     fun longClickToolbar() {
         mDevice.waitForWindowUpdate(packageName, waitingTime)
@@ -59,6 +58,7 @@ class AwesomeBarRobot {
     }
 
     fun pasteAndLoadCopiedLink() {
+        clickClearToolbarButton()
         longClickToolbar()
         clickPasteText()
         mDevice.pressEnter()
@@ -96,12 +96,7 @@ private fun awesomeBar() =
     )
 
 private fun clearToolbarButton() =
-    onView(
-        allOf(
-            withId(R.id.mozac_browser_toolbar_clear_view),
-            isDescendantOfA(withId(R.id.mozac_browser_toolbar_container)),
-        ),
-    )
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_clear_view"))
 
 private fun assertSearchSuggestion(searchSuggestionTitle: String) {
     mDevice.waitForIdle()

@@ -179,6 +179,7 @@ class SettingsViewTest {
             clickOpenLinksInApps()
         }.goBack {
         }.enterUrlAndEnterToBrowser(url.toUri()) {
+            clickOpenInAppPromptButton()
         }.checkExternalApps {
             verifyYouTubeApp()
         }

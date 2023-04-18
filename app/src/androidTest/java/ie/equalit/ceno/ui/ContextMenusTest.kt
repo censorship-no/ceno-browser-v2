@@ -15,6 +15,7 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.browser
 import ie.equalit.ceno.ui.robots.navigationToolbar
+import ie.equalit.ceno.ui.robots.onboarding
 
 class ContextMenusTest {
 
@@ -33,6 +34,8 @@ class ContextMenusTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After
@@ -60,6 +63,7 @@ class ContextMenusTest {
         }.enterUrlAndEnterToBrowser(pageLinks.url) {
             longClickMatchingText("Link 1")
             clickContextOpenLinkInNewTab()
+            clickSnackbarSwitchButton()
         }
         navigationToolbar {
         }.openTabTrayMenu {
@@ -78,6 +82,7 @@ class ContextMenusTest {
         }.enterUrlAndEnterToBrowser(pageLinks.url) {
             longClickMatchingText("Link 1")
             clickContextOpenLinkInPrivateTab()
+            clickSnackbarSwitchButton()
         }
         navigationToolbar {
         }.openTabTrayMenu {
@@ -96,6 +101,7 @@ class ContextMenusTest {
         }.enterUrlAndEnterToBrowser(pageLinks.url) {
             longClickMatchingText("Link 1")
             clickContextCopyLink()
+            waitUntilCopyLinkSnackbarIsGone()
         }
         navigationToolbar {
         }.clickToolbar {

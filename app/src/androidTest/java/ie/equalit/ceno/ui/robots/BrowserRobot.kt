@@ -221,6 +221,13 @@ class BrowserRobot {
         contextCopyLink.click()
     }
 
+    fun waitUntilCopyLinkSnackbarIsGone() =
+        mDevice.findObject(
+            UiSelector()
+                .resourceId("$packageName:id/snackbar_text")
+                .textContains("Link copied to clipboard"),
+        ).waitUntilGone(waitingTime)
+
     fun verifyMediaPlayerControlButtonState(state: String) {
         mDevice.findObject(UiSelector().textContains("Audio_Test_Page")).waitForExists(waitingTime)
         mDevice.findObject(UiSelector().textContains("audio player")).waitForExists(waitingTime)
@@ -232,6 +239,26 @@ class BrowserRobot {
         mediaPlayerPlayButton(state).click()
         mDevice.waitForIdle()
     }
+
+    fun clickOpenInAppPromptButton() =
+        mDevice.findObject(
+            UiSelector()
+                .resourceId("android:id/button1")
+                .textContains("OPEN"),
+        ).also {
+            it.waitForExists(waitingTime)
+            it.click()
+        }
+
+    fun clickSnackbarSwitchButton() =
+        mDevice.findObject(
+            UiSelector()
+                .resourceId("$packageName:id/snackbar_action")
+                .textContains("SWITCH"),
+        ).also {
+            it.waitForExists(waitingTime)
+            it.click()
+        }
 
     class Transition {
         private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
