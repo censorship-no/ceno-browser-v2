@@ -17,9 +17,8 @@ import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
-import ie.equalit.ceno.helpers.TestHelper
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.robots.navigationToolbar
+import ie.equalit.ceno.ui.robots.onboarding
 
 /**
  *  Tests for verifying the main three dot menu options
@@ -51,20 +50,14 @@ class ThreeDotMenuTest {
     @JvmField
     val retryTestRule = RetryTestRule(3)
 
-    private val skipOnboardingButton = mDevice.findObject(
-        UiSelector().resourceId("${TestHelper.packageName}:id/button2"),
-    )
-
     @Before
     fun setUp() {
         mockWebServer = MockWebServer().apply {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
-        if (Settings.shouldShowOnboarding(InstrumentationRegistry.getInstrumentation().targetContext)) {
-            skipOnboardingButton.waitForExists(TestAssetHelper.waitingTime)
-            skipOnboardingButton.click()
-        }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After
