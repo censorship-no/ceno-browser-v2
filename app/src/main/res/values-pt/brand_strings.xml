@@ -86,7 +86,7 @@
     <string name="onboarding_info_title">Não é o seu navegador típico</string>
     <string name="onboarding_warning_text">A otimização de pilha ainda está ativada.
 \n
-\nVá em \"Configurações Gerais &gt; Desativar Otimização de Pilha\" para dar autorização mais tarde</string>
+\nVá em \"Configurações &gt; Desativar Otimização de Pilha\" para dar autorização mais tarde</string>
     <string name="onboarding_thanks_button">Vamos!</string>
     <string name="preferences_show_onboarding">Mostrar a integração no próximo lançamento</string>
     <string name="preferences_disable_battery_opt">Desativar Otimização de Pilha</string>
