@@ -111,7 +111,7 @@
 
     <string name="onboarding_thanks_title">Thanks for growing the network!</string>
     <string name="onboarding_thanks_text">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
-    <string name="onboarding_thanks_button">Let\s go!</string>
+    <string name="onboarding_thanks_button">Let\'s go!</string>
 
     <string name="shutdown_clear_title">Clearing app data and\nstopping &brandShortName; Browser</string>
     <string name="shutdown_stop_title">Stopping &brandShortName; Browser</string>
