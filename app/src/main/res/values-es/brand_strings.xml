@@ -75,7 +75,7 @@
     <string name="onboarding_battery_button">Continuar</string>
     <string name="onboarding_warning_text">La optimización de la batería sigue activada.
 \n
-\nVe a \"Ajustes &gt; Desactivar optimización de batería\" para dar el permiso más tarde</string>
+\nVe a \"Ajustes &gt; Desactivar Optimización de Batería\" para dar permiso más tarde</string>
     <string name="onboarding_warning_button">De acuerdo</string>
     <string name="onboarding_button">Comenzar</string>
     <string name="onboarding_thanks_button">¡Vamos!</string>
@@ -150,12 +150,12 @@
     <string name="ouinet_client_fetch_fail">No se puede cambiar la configuración de &brandShortName;</string>
     <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas.
 \n
-\nVe a \"Ajustes &gt; Permitir notificaciones\" para dar el permiso más tarde</string>
-    <string name="onboarding_warning_text_v33_2">Las notificaciones no están permitidas y la optimización de la batería sigue activada.
+\nVe a \"Ajustes &gt; Permitir Notificaciones\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_text_v33_2">Notificaciones no están permitidas y la optimización de la batería sigue activada.
 \n
-\nVe a la \"Configuración\" para dar el permiso más tarde</string>
+\nVe a la \"Configuración\" para dar permiso más tarde</string>
     <string name="preferences_allow_notifications">Permitir las notificaciones</string>
-    <string name="onboarding_battery_text_v33">En breve, el sistema operativo te pedirá permiso para permitir las notificaciones y desactivar la optimización de la batería.
+    <string name="onboarding_battery_text_v33">En breve el SO te pedirá autorización para permitir notificaciones y desactivar la optimización de la batería.
 \n
-\nEsto es necesario para seguir compartiendo las páginas web mientras la aplicación está en segundo plano</string>
+\nEsto es necesario para seguir compartiendo las páginas web mientras la aap está en segundo plano</string>
 </resources>
