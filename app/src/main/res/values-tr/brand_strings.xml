@@ -108,4 +108,7 @@
     <string name="preferences_clear_behavior_summary">Temizle tuşuna dokunma davranışını ayarlayın</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; adres çubuğuna yazdıklarınızı arama hizmetinize gönderir</string>
     <string name="crash_report_non_fatal_action">&vendorShortName; bildirimi için dokunun</string>
+    <string name="onboarding_battery_text_v33">Birazdan işletim sisteminiz sizden pil iyileştirmelerinin kapatılması için izin isteyecek.
+\n
+\nBu izin uygulama arka planda çalışırken sitelerin paylaşılması için gereklidir</string>
 </resources>
