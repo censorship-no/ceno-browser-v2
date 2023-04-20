@@ -32,7 +32,7 @@
     <string name="customize_addon_collection_user_hint">Derleme sahibi (kullanıcı kodu)</string>
     <string name="preferences_delete_browsing_data_site_permissions">Site izinleri</string>
     <string name="browser_menu_desktop_site">Masaüstü siteye geç</string>
-    <string name="deleting_browsing_data_in_progress">Gezinme verileri siliniyor‥.</string>
+    <string name="deleting_browsing_data_in_progress">Gezinme verileri siliniyor‥</string>
     <string name="preferences_delete_browsing_data_cached_files">Ön bellekteki görsel ve dosyalar</string>
     <string name="preferences_delete_browsing_data_button">Gezinme verilerini sil</string>
     <string name="preferences_privacy_summary">Gizli ve herkese açık gezinme kiplerinde aç</string>

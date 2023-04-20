@@ -16,7 +16,7 @@
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Preference for settings related to changing the default browser -->
-    <string name="preferences_make_default_browser">Convierte a &brandShortName; en tu navegador predeterminado</string>
+    <string name="preferences_make_default_browser">Haz &brandShortName; tu navegador predeterminado</string>
     <!-- Preference about page -->
     <string name="preferences_about_page">Acerca de &vendorShortName;</string>
     <!-- About content -->
@@ -35,12 +35,12 @@
     <string name="toast_copied">Copied!</string>
     -->
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">Usa pestañas normales para compartir contenido con otros usuarios de &brandShortName;, y privadas para no compartir o para páginas que requieren inicio de sesión.</string>
+    <string name="ceno_home_mode_description">Usa pestañas normales para compartir contenido con otra(o)s usuaria(o)s de &brandShortName;. Usa privadas para evitar compartir, o para páginas que requieren inicio de sesión.</string>
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación privada&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas privadas con otros usuarios. Puedes visitar con seguridad sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta de acceso a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más\?&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación privada&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas privadas con otra(o)s usuaria(o)s. Puedes visitar con seguridad sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta de acceso a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más\?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Servicio del Navegador &brandShortName;</string>
     <string name="ceno_notification_description">Toca para detener</string>
@@ -50,7 +50,7 @@
     <string name="ceno_notification_channel_name">Servicio &brandShortName;</string>
     <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">Aviso del Navegador &brandShortName;</string>
-    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar &brandShortName; con Wi-Fi, ya que puede consumir más datos de los esperados. Tal vez prefiera detener &brandShortName; cuando use datos móviles.</string>
+    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar &brandShortName; cuando tengas una conexión de Wi-Fi, ya que puedes consumir más datos de los que esperas. Tal vez prefiera detener &brandShortName; cuando use datos móviles.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Detener &brandShortName; ahora</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuar</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
@@ -67,31 +67,31 @@
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_es_url</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
-    <string name="onboarding_fragment">Bienvenido a &brandShortName;</string>
+    <string name="onboarding_fragment">Bienvenida(o) a &brandShortName;</string>
     <string name="onboarding_battery_title">Permiso necesario</string>
-    <string name="onboarding_battery_text">En breve, el sistema operativo te pedirá permiso para desactivar la optimización de la batería.
+    <string name="onboarding_battery_text">En breve el SO te pedirá permiso para desactivar la optimización de la batería.
 \n
-\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano</string>
+\nEsto es necesario para seguir compartiendo sitios web mientras la app está en segundo plano</string>
     <string name="onboarding_battery_button">Continuar</string>
     <string name="onboarding_warning_text">La optimización de la batería sigue activada.
 \n
-\nVe a \"Ajustes generales &gt; Desactivar optimización de batería\" para dar permiso más tarde</string>
-    <string name="onboarding_warning_button">De acuerdo</string>
+\nVe a \"Ajustes &gt; Desactivar Optimización de Batería\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_button">Ok</string>
     <string name="onboarding_button">Comenzar</string>
     <string name="onboarding_thanks_button">¡Vamos!</string>
     <string name="onboarding_skip_button">Saltar</string>
-    <string name="onboarding_info_title">No es tu navegador más usado</string>
+    <string name="onboarding_info_title">No es tu navegador normal</string>
     <string name="onboarding_info_button">¡Genial!</string>
     <string name="onboarding_warning_title">Permiso denegado</string>
     <string name="onboarding_thanks_title">¡Gracias por hacer crecer la red!</string>
     <string name="preferences_toolbar_position">Colocar en la parte superior de la pantalla</string>
     <string name="preferences_toolbar_hide">Desplácese para ocultar</string>
     <string name="preferences_show_onboarding">Mostrar la incorporación en el próximo lanzamiento</string>
-    <string name="preferences_disable_battery_opt">Desactivar la optimización de la batería</string>
+    <string name="preferences_disable_battery_opt">Desactivar la Optimización de Batería</string>
     <string name="preferences_customization">Personalización</string>
     <string name="about_content"><p>%1$s - ¡Comparte la Red!</p> <p>CENO (abreviatura de Censorship.no!) es el primer navegador móvil del mundo que evade los actuales métodos de censura en Internet. Su red troncal peer-to-peer (red de pares o P2P) permite a la gente acceder y compartir información en la web y a través de regiones donde la conectividad ha sido interrumpida o comprometida. </p> <p>%1$s Es un proyecto de eQualitie, una organización canadiense cuya misión es promover y defender las libertades fundamentales y los derechos humanos, incluida la libre circulación de información en línea. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesarias para defender los derechos humanos y las libertades en la era digital.</p></string>
-    <string name="onboarding_info_text">&brandShortName; utiliza tecnología peer-to-peer para compartir contenido web al que pueden acceder otros &brandShortName; usuarios</string>
-    <string name="onboarding_thanks_text">Como usuario de &brandShortName;, estás ayudando a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
+    <string name="onboarding_info_text">&brandShortName; utiliza tecnología punto a punto para compartir contenido web que puede ser accedido por otra(o)s &brandShortName; usuaria(o)s</string>
+    <string name="onboarding_thanks_text">Como usuaria(o) de &brandShortName;, ayudas a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Ajustes</string>
     <string name="ceno_clear_dialog_cancel">Cancelar</string>
     <string name="ceno_clear_dialog_clear_cache_only">Borrar sólo caché &brandShortName;</string>
@@ -99,24 +99,24 @@
     <string name="ceno_clear_action_description">Limpiar</string>
     <string name="preferences_clear_in_toolbar">Mostrar en la barra de herramientas</string>
     <string name="preferences_clear_in_menu">Ver en el menú</string>
-    <string name="preferences_clear_behavior">Comportamiento predeterminado</string>
-    <string name="preferences_clear_behavior_summary">Establecer el comportamiento al pulsar el botón de borrar</string>
+    <string name="preferences_clear_behavior">Comportamiento Predeterminado</string>
+    <string name="preferences_clear_behavior_summary">Establecer comportamiento al pulsar el botón de borrar</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="ceno_clear_dialog_clear_entire_app">Borrar caché y datos de la aplicación &brandShortName;</string>
-    <string name="ceno_clear_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la aplicación restablecerá la aplicación &brandShortName; como si nunca se hubiera utilizado.</string>
-    <string name="ceno_home_mode_link_text">Toca para saber más.</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Borrar caché y datos de app &brandShortName;</string>
+    <string name="ceno_clear_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la app restablecerá la aplicación &brandShortName; como si nunca se hubiera utilizado.</string>
+    <string name="ceno_home_mode_link_text">Toca para aprender más.</string>
     <string name="changeIconCtaCancel">Cancelar</string>
     <string name="changeIconCtaAccept">Aceptar</string>
     <string name="changeIconDialogTitle">¿Aplicar el nuevo icono\?</string>
-    <string name="changeIconDialogMessage">La aplicación puede cerrarse para aplicar los cambios. Vuelve después de que hayas admirado tu atractivo nuevo icono.</string>
-    <string name="preferences_change_app_icon">Cambiar el icono de la aplicación</string>
-    <string name="preference_show_search_suggestions_summary">&brandShortName; enviará lo que escriba en la barra de direcciones a su motor de búsqueda</string>
-    <string name="preferences_theme">Establecer el tema de la aplicación</string>
-    <string name="clear_cache_success">Caché borrada correctamente</string>
-    <string name="clear_cache_fail">Error al limpiar la caché, inténtalo de nuevo pronto</string>
-    <string name="preferences_theme_summary">Oscuro, Claro, Ahorro de batería</string>
+    <string name="changeIconDialogMessage">La app puede cerrarse para aplicar los cambios. Vuelve después de que hayas admirado tu atractivo nuevo icono.</string>
+    <string name="preferences_change_app_icon">Cambiar el icono de la app</string>
+    <string name="preference_show_search_suggestions_summary">&brandShortName; enviará lo que escribas en la barra de direcciones a su motor de búsqueda</string>
+    <string name="preferences_theme">Establecer el tema de la app</string>
+    <string name="clear_cache_success">Caché borrada exitosamente</string>
+    <string name="clear_cache_fail">Limpieza de cache fallida, inténtalo de nuevo pronto</string>
+    <string name="preferences_theme_summary">Oscuro, Claro, Ahorro de Batería</string>
     <string name="preferences_theme_default">2</string>
-    <string name="addon_placeholder">No hay complementos disponibles</string>
+    <string name="addon_placeholder">No hay Complementos Disponibles</string>
     <string name="preferences_about_ceno">Navegador &brandShortName;</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_ceno_sources_origin">Sitio web</string>
@@ -127,7 +127,7 @@
     <string name="preferences_ceno_enable_log">Habilitar el archivo del registro</string>
     <string name="preferences_ceno_network_config_summary">Estado de Ouinet, puntos finales de UDP, arranque de BitTorrent</string>
     <string name="website_button_text">Sitio web</string>
-    <string name="source_code_button_text">Código fuente</string>
+    <string name="source_code_button_text">Código Fuente</string>
     <string name="donate_button_text">Donar</string>
     <string name="preferences_ceno_download_log">Descargar el archivo del registro</string>
     <string name="ceno_sources_category">Fuentes</string>
@@ -138,14 +138,24 @@
     <string name="preferences_ceno_sources_public">Públicamente</string>
     <string name="preferences_clear_ceno_cache">Borrar el contenido en caché</string>
     <string name="preferences_about_ouinet">Ouinet</string>
-    <string name="shutdown_clear_title">Borrar datos de la aplicación y
+    <string name="shutdown_clear_title">Borrar datos de la app y
 \ndetener Navegador &brandShortName;</string>
     <string name="shutdown_stop_title">Deteniendo Navegador &brandShortName;</string>
     <string name="preferences_ceno_sources_origin_summary">Cargar contenidos directamente desde el sitio web</string>
     <string name="preferences_ceno_sources_public_summary">Carga los contenidos a través de la red pública Ceno</string>
-    <string name="preferences_ceno_sources_peers_summary">Cargar los contenido compartido por otros usuarios</string>
+    <string name="preferences_ceno_sources_peers_summary">Cargar contenido compartido por otra(o)s usuaria(o)s</string>
     <string name="preferences_clear_ceno_cache_summary">Borrar el contenido web almacenado en la caché local</string>
     <string name="preferences_show_home_button">Mostrar el botón de inicio</string>
-    <string name="preferences_ceno_network_config">&brandShortName; Detalles de la red</string>
-    <string name="ouinet_client_fetch_fail">No se puede cambiar la configuración de &brandShortName;</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Detalles de la Red</string>
+    <string name="ouinet_client_fetch_fail">Falló al cambiar la configuración de &brandShortName;</string>
+    <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas.
+\n
+\nVe a \"Ajustes &gt; Permitir Notificaciones\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_text_v33_2">Notificaciones no están permitidas y la optimización de la batería sigue activada.
+\n
+\nVe a la \"Configuración\" para dar permiso más tarde</string>
+    <string name="preferences_allow_notifications">Permitir Notificaciones</string>
+    <string name="onboarding_battery_text_v33">En breve el SO te pedirá autorización para permitir notificaciones y desactivar la optimización de la batería.
+\n
+\nEsto es necesario para seguir compartiendo las páginas web mientras la aap está en segundo plano</string>
 </resources>

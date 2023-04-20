@@ -86,4 +86,6 @@
     <string name="preference_select_preferred_engine">Επιλέξτε τη μηχανή που προτιμάτε:</string>
     <string name="insecure_connection">Η σύνδεση δεν είναι ασφαλής</string>
     <string name="secure_connection">Η σύνδεση είναι ασφαλής</string>
+    <string name="browser_toolbar_home">Αρχική</string>
+    <string name="browser_menu_back">Πίσω</string>
 </resources>
