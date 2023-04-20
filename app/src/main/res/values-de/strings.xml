@@ -77,4 +77,14 @@
     <string name="preferences_delete_browsing_data_cached_files">Zwischengespeicherte Bilder und Dateien</string>
     <string name="preferences_delete_browsing_data_button">Browsing-Daten löschen</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Offene Tabs</string>
+    <string name="insecure_connection">Verbindung ist nicht sicher</string>
+    <string name="secure_connection">Verbindung ist sicher</string>
+    <string name="preference_category_search">Suchen</string>
+    <string name="general_category">Allgemein</string>
+    <string name="preference_show_search_suggestions">Suchvorschläge erhalten</string>
+    <string name="preference_choose_search_engine">Suchmaschine auswählen</string>
+    <string name="preference_select_preferred_engine">Wählen Sie Ihre bevorzugte Suchmaschine aus:</string>
+    <string name="browser_menu_back">Zurück</string>
+    <string name="theme_category">Thema</string>
+    <string name="preference_search_summary">Standard festlegen</string>
 </resources>
