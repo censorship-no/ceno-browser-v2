@@ -128,4 +128,5 @@
     <string name="shutdown_stop_title">Arrêter &brandShortName; Navigateur</string>
     <string name="preferences_ceno_sources_public">En publique</string>
     <string name="preferences_theme">Définir le thème de l\'application</string>
+    <string name="changeIconDialogMessage">L\'application risque de se fermer pour appliquer les changements. Revenez quand vous pourrez admirer la jolie nouvelle icône.</string>
 </resources>
