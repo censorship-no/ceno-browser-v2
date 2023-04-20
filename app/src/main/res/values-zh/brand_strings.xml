@@ -40,17 +40,12 @@
      ]]></string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; Browser Service</string>
-    <string name="ceno_notification_description"></string>
     <string name="ceno_notification_home_description">Home</string>
-    <string name="ceno_notification_clear_description"></string>
-    <string name="ceno_notification_clear_do_description"></string>
-    <string name="ceno_notification_channel_name"></string>
+    <string name="ceno_notification_clear_do_description"/>
     <!-- "On mobile data" dialog -->
-    <string name="ceno_on_mobile_data_dialog_title"></string>
-    <string name="ceno_on_mobile_data_dialog_description"></string>
-    <string name="ceno_on_mobile_data_dialog_stop_now"></string>
-    <string name="ceno_on_mobile_data_dialog_continue"></string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing"></string>
+    <string name="ceno_on_mobile_data_dialog_title"/>
+    <string name="ceno_on_mobile_data_dialog_stop_now"/>
+    <string name="ceno_on_mobile_data_dialog_stop_showing"/>
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">CENO Manual</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
