@@ -136,4 +136,7 @@
     <string name="ceno_sources_category">Источники</string>
     <string name="preferences_ceno_sources_private">Приватно</string>
     <string name="changeIconDialogMessage">Для применения изменений может потребоваться закрытие приложения. Возвращайтесь, как налюбуетесь на новый красивый значок.</string>
+    <string name="changeIconCtaAccept">Применить</string>
+    <string name="changeIconCtaCancel">Отмена</string>
+    <string name="addon_placeholder">Нет доступных дополнений</string>
 </resources>
