@@ -5,6 +5,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -129,4 +131,25 @@
     <string name="preferences_ceno_sources_public">En publique</string>
     <string name="preferences_theme">Définir le thème de l\'application</string>
     <string name="changeIconDialogMessage">L\'application risque de se fermer pour appliquer les changements. Revenez quand vous pourrez admirer la jolie nouvelle icône.</string>
+    <string name="website_button_text">Site web</string>
+    <string name="changeIconCtaAccept">Appliquer</string>
+    <string name="changeIconCtaCancel">Annuler</string>
+    <string name="changeIconDialogTitle">Applique la nouvelle icône \?</string>
+    <string name="preference_show_search_suggestions_summary">&brandShortName; va vous envoyer ce que vous devez entrer dans la barre d\'adresse de votre moteur de recherche</string>
+    <string name="preferences_ceno_sources_peers">Partagé</string>
+    <string name="preferences_ceno_sources_peers_summary">Charger le contenu partagé par les autres utilisateurs</string>
+    <string name="ceno_data_category">Données</string>
+    <string name="preferences_ceno_cache_size">Cache local</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Détails du réseau</string>
+    <string name="preferences_ceno_download_log">Télécharger le fichier journal</string>
+    <string name="donate_button_text">Faire un don</string>
+    <string name="preferences_ceno_network_config_summary">État de Ouinet, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_enable_log">Activer le fichier journal</string>
+    <string name="source_code_button_text">Code source</string>
+    <string name="preferences_ceno_groups_count">Contenu partagé par vous</string>
+    <string name="preferences_clear_ceno_cache">Vider le cache</string>
+    <string name="addon_placeholder">Aucun module disponible</string>
+    <string name="preferences_clear_ceno_cache_summary">Vider les données web de cache local</string>
+    <string name="clear_cache_success">Le cache a été vidé avec succès</string>
+    <string name="clear_cache_fail">Le cache n\'a pas pu être vidé, réessayez plus tard</string>
 </resources>
