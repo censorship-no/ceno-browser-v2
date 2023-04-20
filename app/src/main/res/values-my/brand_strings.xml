@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -64,4 +66,21 @@
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_theme_default">2</string>
     <string name="preferences_clear_behavior_default">0</string>
+    <string name="onboarding_warning_button">ဟုတ်ပြီ</string>
+    <string name="onboarding_thanks_button">သွားကြရအောင်!</string>
+    <string name="preferences_about_ceno">&brandShortName; ဘရောက်ဇာ</string>
+    <string name="about_category">အကြောင်းအရာ</string>
+    <string name="onboarding_info_title">သင်၏ သာမန် အသုံးပြုနေကျ ဘရောက်ဇာ မဟုတ်ပါ</string>
+    <string name="onboarding_info_button">အေးပါ!</string>
+    <string name="onboarding_battery_title">ခွင့်ပြုချက်များ လိုအပ်သည်</string>
+    <string name="onboarding_battery_button">ဆက်သွားရန်</string>
+    <string name="preferences_customization">စိတ်ကြိုက်လုပ်ပါ</string>
+    <string name="ceno_clear_dialog_title">&brandShortName; ဖျက်ပါ</string>
+    <string name="ceno_clear_dialog_cancel">ပယ်ဖျက်မည်</string>
+    <string name="ceno_clear_dialog_clear_cache_only">&brandShortName; ယာယီသိမ်းဆည်းထားသော မှတ်ဉာဏ်များကိုသာ ဖျက်ပါ</string>
+    <string name="ceno_clear_dialog_clear_entire_app">&brandShortName; ယာယီသိမ်းဆည်းထားသော မှတ်ဉာဏ်နှင့် အက်ပ် ‌‌ဒေတာများကို ဖျက်ပါ</string>
+    <string name="onboarding_info_text">&brandShortName; သည် ဝဘ်အကြောင်းအရာများကို မျှဝေရန် အသုံးပြုသူမှ အသုံးပြုသူ နည်းပညာကို အသုံးပြုထားပြီး အခြား &brandShortName; အသုံးပြုသူများမှလည်း ၎င်းအကြောင်းအရာများကို ရယူကြည့်ရှုနိုင်သည်။</string>
+    <string name="onboarding_battery_text">အကျဉ်းချုပ်ပြောရလျှင် OS က battery optimization ကို ပိတ်ထားဖို့ ခွင့်ပြုချက်တောင်းပါလိမ့်မည်။
+\n
+\n၎င်းသည် အက်ပ်ကို နောက်ကွယ်မှ အလုပ်လုပ်စေနိုင်ပြီး ဝဘ်ဆိုက်များကို ဆက်တိုက် မျှဝေနိုင်ရန်အတွက် လိုအပ်သောကြောင့် ဖြစ်ပါသည်။</string>
 </resources>
