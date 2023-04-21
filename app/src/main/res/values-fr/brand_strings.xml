@@ -3,6 +3,10 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
 <!ENTITY brandShortName "CENO">
 <!ENTITY brandFullName "eQualitie CENO">
@@ -65,8 +69,6 @@
     -->
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Appuyez pour le signaler à &vendorShortName;</string>
-    <!-- Snackbar message when a non fatal crash happen-->
-    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <string name="onboarding_fragment">Bienvenue dans &brandShortName;</string>
     <string name="ceno_clear_dialog_clear_entire_app">Effacer &brandShortName; cache et données d\'application</string>
     <string name="ceno_clear_dialog_cancel">Annuler</string>
@@ -82,7 +84,7 @@
     <string name="onboarding_info_text">&brandShortName; utilise la technologie pair-à-pair pour partager du contenu Web accessible par d\'autres &brandShortName; utilisateurs</string>
     <string name="onboarding_warning_text">L\'optimisation de la batterie est toujours activée.
 \n
-\nAllez dans \"Paramètres généraux&gt; Désactiver l\'optimisation de la batterie\" pour donner l\'autorisation plus tard</string>
+\nAllez dans \"Paramètres &gt; Désactiver l\'optimisation de la batterie\" pour donner l\'autorisation plus tard</string>
     <string name="about_content">&lt;p&gt;%1$s vous donne le contrôle.&lt;/p&gt; &lt;p&gt;Utilisez-le comme référence pour : &lt;br&gt;&amp;bull; Apprenez à créer votre propre navigateur. &lt;br&gt;&amp;bull; Contribuez à faciliter la création de navigateurs. &lt;br&gt;&amp;bull; Déposez des rapports de bug ! &lt;/p&gt; &lt;p&gt;%1$s est produit par eQualitie. Notre mission est de .&lt;br/&gt;</string>
     <string name="ceno_clear_dialog_description">AVERTISSEMENT : Effacer le cache et les données de l\'application réinitialisera le &brandShortName; l\'application comme si elle n\'avait jamais été utilisée.</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Paramètre</string>
@@ -106,4 +108,46 @@
     <string name="preferences_clear_behavior_summary">Définir le comportement en appuyant sur le bouton Effacer</string>
     <string name="ceno_home_mode_link_text">Appuyez ici pour en savoir plus.</string>
     <string name="preferences_theme_default">2</string>
+    <string name="preferences_about_ceno">&brandShortName; Navigateur</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_about_ouinet">Ouinet</string>
+    <string name="preferences_ceno_sources_origin">Site web</string>
+    <string name="preferences_ceno_sources_public_summary">Charger le contenu via le réseau public CENO</string>
+    <string name="preferences_theme_summary">Sombre, clair, économie de batterie</string>
+    <string name="ouinet_client_fetch_fail">Impossible de modifier les paramètres &brandShortName;</string>
+    <string name="preferences_about_ouinet_protocol">Protocole Ouinet</string>
+    <string name="about_category">À propos</string>
+    <string name="preferences_change_app_icon">Changer l\'icône de l\'application</string>
+    <string name="preferences_ceno_sources_private">En privé</string>
+    <string name="preferences_ceno_sources_private_summary">Charger le contenu via le reséau privé CENO</string>
+    <string name="preferences_show_home_button">Afficher le boutton d\'accueil</string>
+    <string name="ceno_sources_category">Sources</string>
+    <string name="preferences_ceno_sources_origin_summary">Charger le contenu directement depuis le site web</string>
+    <string name="shutdown_clear_title">Effacer les données de l\'application et
+\narrêter &amp;brandShortName ; Navigateur</string>
+    <string name="shutdown_stop_title">Arrêter &brandShortName; Navigateur</string>
+    <string name="preferences_ceno_sources_public">En publique</string>
+    <string name="preferences_theme">Définir le thème de l\'application</string>
+    <string name="changeIconDialogMessage">L\'application risque de se fermer pour appliquer les changements. Revenez quand vous pourrez admirer la jolie nouvelle icône.</string>
+    <string name="website_button_text">Site web</string>
+    <string name="changeIconCtaAccept">Appliquer</string>
+    <string name="changeIconCtaCancel">Annuler</string>
+    <string name="changeIconDialogTitle">Applique la nouvelle icône \?</string>
+    <string name="preference_show_search_suggestions_summary">&brandShortName; va vous envoyer ce que vous devez entrer dans la barre d\'adresse de votre moteur de recherche</string>
+    <string name="preferences_ceno_sources_peers">Partagé</string>
+    <string name="preferences_ceno_sources_peers_summary">Charger le contenu partagé par les autres utilisateurs</string>
+    <string name="ceno_data_category">Données</string>
+    <string name="preferences_ceno_cache_size">Cache local</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Détails du réseau</string>
+    <string name="preferences_ceno_download_log">Télécharger le fichier journal</string>
+    <string name="donate_button_text">Faire un don</string>
+    <string name="preferences_ceno_network_config_summary">État de Ouinet, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_enable_log">Activer le fichier journal</string>
+    <string name="source_code_button_text">Code source</string>
+    <string name="preferences_ceno_groups_count">Contenu partagé par vous</string>
+    <string name="preferences_clear_ceno_cache">Vider le cache</string>
+    <string name="addon_placeholder">Aucun module disponible</string>
+    <string name="preferences_clear_ceno_cache_summary">Vider les données web de cache local</string>
+    <string name="clear_cache_success">Le cache a été vidé avec succès</string>
+    <string name="clear_cache_fail">Le cache n\'a pas pu être vidé, réessayez plus tard</string>
 </resources>
