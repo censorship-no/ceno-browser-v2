@@ -3,6 +3,6 @@ Esta versión:
 - Añade personalización de temas
 - Aplica cambios menores en la interfaz de usuario a la configuración general
 - Actualizaciones menores de las traducciones
-- Corrige el bloqueo al borrar la caché de Ceno antes de que el navegador esté listo.
-- Se corrige el bloqueo al abrir los complementos sin conexión de red.
+- Corrige el fallo al borrar la caché de Ceno antes de que el navegador esté listo.
+- Se corrige el fallo al abrir los complementos sin conexión de red.
 - Se corrige un error tipográfico en la descripción de la nueva pestaña de navegación privada

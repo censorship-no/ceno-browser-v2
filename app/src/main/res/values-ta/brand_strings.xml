@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
+<!ENTITY brandShortName "CENO">
+<!ENTITY brandFullName "eQualitie CENO">
+<!ENTITY vendorShortName "eQualitie">
+]>
+<resources>
+    <string name="preferences_about_ouinet_protocol">Ouinet நெறிமுறை</string>
+    <string name="about_category">பற்றி</string>
+    <string name="preferences_make_default_browser">உங்கள் இயல்புநிலை உலாவலாக &brandShortName; அமைக்கவும்</string>
+    <string name="preferences_about_page">&vendorShortName; பற்றி</string>
+</resources>

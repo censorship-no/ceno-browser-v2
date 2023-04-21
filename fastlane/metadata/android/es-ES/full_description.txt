@@ -1,29 +1,28 @@
-CENO (Censorship.No!) es un navegador web móvil. Usa tecnología par-a-par para descargar sitios web a tu teléfono, y cachea contenido popular con pares cooperativos. CENO puede ser usado para evitar la censura de Internet y ayudar a otros a descargar páginas bloqueadas. 
+CENO (Censorship.No!) es un navegador web móvil descentralizado. Usa tecnología par-a-par para descargar sitios web a tu teléfono, y cachea contenido popular con pares cooperativos. CENO puede ser usado para evadir la censura de Internet y ayudar a otros a descargar páginas bloqueadas. 
 
 ¡Dile NO a la censura! Instala el Navegador CENO hoy para estar preparado para la próxima vez que te 🔌 desconecten. 
 
-🚫🌴 Primero fuera de línea.
-CENO está diseñado con escenarios de apagones de internet en mente. Los sitios web son compartidos por una red global de pares, y almacenados en una caché distribuída para su disponibilidad cuando las redes tradicionales están bloqueadas o caídas.
+🚫🌴<strong> Primero fuera de línea.</strong>
+CENO está diseñado con escenarios de apagones de internet en mente. Los sitios web son compartidos por una red global de pares, y almacenados en una caché distribuida para su disponibilidad cuando las redes tradicionales están bloqueadas o caídas.
 
-🔓👀 Destraba la web.
+🔓👀<strong> Desbloquea la web.</strong>
 Accede a cualquier sitio web. El contenido solicitado frecuentemente es cacheado en la red y no puede ser removido a la fuerza. 
 
-💲🌐 Reduce el costo de datos.
+💲🌐<strong> Reduce el costo de datos.</strong>
 Al enrutar el tráfico de usuario a través de redes par-a-par, el Navegador CENO incurre en menores costos de datos, mientras que aún les da a sus usuarios la capacidad de evasión.
 
-📖👐 Código libre y abierto.
-El Navegador CENO está potenciado por Ouinet, una biblioteca de código abierto que habilita a desarrolladores externos a incorporar la red CENO dentro de sus aplicaciones para conectividad par-a-par.
+📖👐 <strong> Código libre y abierto.</strong>
+El Navegador CENO está potenciado por Ouinet, una biblioteca de código abierto que habilita a desarrolladores de terceros a incorporar la red CENO dentro de sus aplicaciones para conectividad par-a-par.
 
-Por favor ten en cuenta: el Navegador CENO es software experimental. Lo ofrecemos con la mejor intención de que te sea útil, pero debido a su naturaleza altamente innovativa y estado de desarrollo, deberías esperar algunas dificultades mientras lo usas. 
+<strong> Por favor ten en cuenta:</strong> CENO no es una herramienta de anonimización: la información acerca de tu navegación podría ser filtrada a otros usuarios de CENO, como así también el hecho de que tu aplicación está proveyendo contenido web particular a otros. El contenido accedido con la aplicación puede permanecer almacenado en forma descifrada por algún tiempo, de todas formas, puedes purgar todo el contenido almacenado en cualquier momento usando la opción 'Purgar Ahora'.
 
-CENO no es una herramienta de anonimato: la información acerca de tu navegación podría ser filtrada a otros usuarios de CENO, como así también el hecho de que tu aplicación está proveyendo contenido web particular a otros. El contenido accedido con la aplicación puede permanecer almacenado en forma descifrada por algún tiempo. Otras cuestiones de seguridad o que afecten a la privacidad podrían existir.
 
-Acerca de eQualit.ie
-eQualit.ie desarrolla sistemas abiertos y reutilizables con foco en la privacidad, seguridad en línea, y gestión de la información. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesario para defender los derechos y libertades humanas en la era digital.
+<strong>Acerca de eQualit.ie</strong>
+eQualit.ie desarrolla sistemas abiertos y reutilizables con enfoque en la privacidad, seguridad en línea, y gestión de la información. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesario para defender los derechos y libertades humanas en la era digital.
 
 Para aprender más acerca del Navegador CENO y su biblioteca distribuída, Ouinet, por favor visita https://censorship.no
 
-Preguntas / ¿Neceitas ayuda?
-Lee más en el Manual de usuario de CENO, o contáctanos a cenoers@equalit.ie. ¡Nos encanta recibir comentarios, y estamos mejorando continuamente a CENO para sus usuarios!
+<strong>Preguntas / ¿Neceitas ayuda?</strong>
+Lee más en el  <a href="https://censorship.no/user-manual/en/">Manual de usuario de CENO</a>, o contáctanos a cenoers@equalitie.org. ¡Nos encanta recibir comentarios, y estamos mejorando continuamente a CENO para sus usuarios!
 
 ¡Permanece conectado, y ayuda a mantener la web abierta y accesible para todos!

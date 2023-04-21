@@ -109,4 +109,5 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Vue lecteur</string>
+    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
 </resources>

@@ -123,4 +123,12 @@
     <string name="theme_category">အပြင်အဆင်</string>
     <string name="toast_copied">ကူးယူခဲ့ပြီး!</string>
     <string name="crash_report_non_fatal_message">တောင်းပန်ပါတယ်၊ လက်ရှိမှာ ဝန်ဆောင်မှုမပေးနိုင်သေးပါ။</string>
+    <string name="browser_menu_back">နောက်သို့</string>
+    <string name="insecure_connection">ဆက်သွယ်ချိတ်ဆက်ခြင်း စိတ်မချရပါ</string>
+    <string name="browser_toolbar_home">ပင်မစာမျက်နှာ</string>
+    <string name="preferences_delete_browsing_data_snackbar">ရှာဖွေခြင်းမှတ်တမ်း ဖျက်ပြီးပါပြီ</string>
+    <string name="delete_browsing_data_prompt_allow">ဖျက်မည်</string>
+    <string name="delete_browsing_data_prompt_cancel">မလုပ်ဆောင်ပါ</string>
+    <string name="browser_menu_library">Library</string>
+    <string name="secure_connection">ဆက်သွယ်ချိတ်ဆက်ခြင်း စိတ်ချရသည်</string>
 </resources>

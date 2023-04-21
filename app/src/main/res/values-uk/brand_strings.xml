@@ -88,7 +88,7 @@
     <string name="ceno_clear_action_description">Очистити</string>
     <string name="onboarding_warning_text">Оптимізація акумулятора все ще увімкнена.
 \n
-\nПерейдіть до «Загальні налаштування &gt; Вимкнути оптимізацію акумулятора», щоб надати дозвіл пізніше</string>
+\nПерейдіть до «Hалаштування &gt; Вимкнути оптимізацію акумулятора», щоб надати дозвіл пізніше</string>
     <string name="onboarding_thanks_text">Як користувач &brandShortName;, ви допомагаєте розширити мережу доступних мостів, що забезпечують доступ до цензурованого контенту.</string>
     <string name="preferences_disable_battery_opt">Вимкнути оптимізацію батареї</string>
     <string name="about_content">&lt;p&gt;%1$s дає вам контроль.&lt;/p&gt; &lt;p&gt;Використовуйте це як посилання на: &lt;br&gt;&amp;bull; Дізнайтеся, як створити власний браузер. &lt;br&gt;&amp;bull; Сприяти полегшенню створення браузерів. &lt;br&gt;&amp;bull; Надсилайте звіти про помилки! &lt;/p&gt; &lt;p&gt;%1$s створено eQualitie. Наша місія — .&lt;br/&gt;</string>
