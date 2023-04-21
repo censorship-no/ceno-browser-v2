@@ -14,7 +14,7 @@
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
     <!-- Preference enabling remote debugging -->
-    <string name="preferences_remote_debugging">Depuración remota via USB</string>
+    <string name="preferences_remote_debugging">Depuración remota vía USB</string>
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
