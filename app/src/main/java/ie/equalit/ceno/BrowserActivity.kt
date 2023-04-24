@@ -8,9 +8,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.os.Bundle
-import android.os.Process
+import android.os.*
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
@@ -67,6 +65,9 @@ open class BrowserActivity : AppCompatActivity() {
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.core.store, ::openPopup)
     }
+
+    private var isActivityResumed = false
+    private var lastCall: (() -> Unit)? = null
 
     /**
      * CENO: Returns a new instance of [CenoHomeFragment] to display.
@@ -153,6 +154,11 @@ open class BrowserActivity : AppCompatActivity() {
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
+    override fun onPause() {
+        super.onPause()
+        isActivityResumed = false
+    }
+
     override fun onResume() {
         super.onResume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -162,6 +168,12 @@ open class BrowserActivity : AppCompatActivity() {
              */
             Logger.info(" --------- Starting ouinet service onResume")
             components.ouinet.background.start()
+        }
+        isActivityResumed = true
+        //If we have some fragment to show do it now then clear the queue
+        if(lastCall != null){
+            updateView(lastCall!!)
+            lastCall = null
         }
     }
 
@@ -305,8 +317,18 @@ open class BrowserActivity : AppCompatActivity() {
         /* No need to change fragments, this is handled by the toolbar observing the change of url */
     }
 
-    fun beginShutdown(doClear : Boolean) {
-        components.ouinet.background.shutdown(doClear) {
+    fun updateView(action: () -> Unit){
+        //If the activity is in background we register the transaction
+        if(!isActivityResumed){
+            lastCall = action
+        } else {
+            //Else we just invoke it
+            action.invoke()
+        }
+    }
+
+    private fun shutdownCallback(doClear: Boolean) : Runnable {
+        return Runnable {
             if (doClear) {
                 val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                 am.clearApplicationUserData()
@@ -314,7 +336,22 @@ open class BrowserActivity : AppCompatActivity() {
             exitOuinetServiceProcess()
             exitProcess(0)
         }
-        ShutdownFragment.transitionToFragment(this, doClear)
+    }
+
+    fun beginShutdown(doClear : Boolean) {
+        val handler = Handler(Looper.myLooper()!!)
+        val callback = shutdownCallback(doClear)
+        handler.postDelayed(
+            callback,
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+        )
+        components.ouinet.background.shutdown(doClear) {
+            handler.removeCallbacks(callback)
+            callback.run()
+        }
+        updateView {
+            ShutdownFragment.transitionToFragment(this, doClear)
+        }
     }
 
     fun exitOuinetServiceProcess() {
