@@ -8,7 +8,11 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
