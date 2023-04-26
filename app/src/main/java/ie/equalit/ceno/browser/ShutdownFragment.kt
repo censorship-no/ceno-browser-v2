@@ -1,7 +1,5 @@
 package ie.equalit.ceno.browser
 
-import android.app.ActivityManager
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentShutdownBinding
-import kotlin.system.exitProcess
 
 /**
  * A simple [Fragment] subclass.
@@ -32,7 +28,6 @@ class ShutdownFragment : Fragment() {
 
     private var fadeInFragmentDuration: Int = 0
     private var timeoutFragmentDuration: Int = 0
-    private var stalledFragmentDuration: Int = 0
     private var isTaskInBack = false
     private val mHandler = Handler(Looper.myLooper()!!)
 
@@ -40,15 +35,6 @@ class ShutdownFragment : Fragment() {
         if (!isTaskInBack) {
             isTaskInBack = requireActivity().moveTaskToBack(false)
         }
-    }
-
-    private val stalledCallback = Runnable {
-        if (doClear == true) {
-            val am = requireActivity().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            am.clearApplicationUserData()
-        }
-        (requireActivity() as BrowserActivity).exitOuinetServiceProcess()
-        exitProcess(0)
     }
 
     override fun onCreateView(
@@ -59,7 +45,6 @@ class ShutdownFragment : Fragment() {
         _binding = FragmentShutdownBinding.inflate(inflater, container,false);
         fadeInFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_fade_in_duration)
         timeoutFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_timeout_duration)
-        stalledFragmentDuration = resources.getInteger(R.integer.shutdown_fragment_stalled_duration)
         binding.shutdownLayout.background = ContextCompat.getDrawable(requireContext(), R.drawable.theme_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -75,10 +60,6 @@ class ShutdownFragment : Fragment() {
             timeoutCallback,
             timeoutFragmentDuration.toLong()
         )
-        mHandler.postDelayed(
-            stalledCallback,
-            stalledFragmentDuration.toLong()
-        )
         binding.shutdownLayout.let {
             it.alpha = 0f
             it.visibility = View.VISIBLE
@@ -91,7 +72,6 @@ class ShutdownFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mHandler.removeCallbacks(timeoutCallback)
-        mHandler.removeCallbacks(stalledCallback)
     }
 
     companion object {
