@@ -11,6 +11,7 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.notificationShade
+import ie.equalit.ceno.ui.robots.onboarding
 
 class MediaPlaybackTest {
 
@@ -21,7 +22,7 @@ class MediaPlaybackTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
 
     @Before
     fun setUp() {
@@ -29,6 +30,8 @@ class MediaPlaybackTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After

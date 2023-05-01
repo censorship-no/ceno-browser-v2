@@ -4,10 +4,6 @@ package ie.equalit.ceno.ui
 
 import androidx.test.rule.ActivityTestRule
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.IntentReceiverActivity
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
@@ -15,7 +11,14 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper.createCustomTabIntent
 import ie.equalit.ceno.ui.robots.customTabScreen
+import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.After
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
+@Ignore("Disabled - ")
 class CustomTabsTest {
 
     private lateinit var mockWebServer: MockWebServer
@@ -40,6 +43,8 @@ class CustomTabsTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After

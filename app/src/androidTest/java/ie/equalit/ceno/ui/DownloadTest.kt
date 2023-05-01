@@ -13,6 +13,7 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.downloadRobot
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.notificationShade
+import ie.equalit.ceno.ui.robots.onboarding
 
 class DownloadTest {
 
@@ -31,6 +32,8 @@ class DownloadTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After
