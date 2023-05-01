@@ -6,16 +6,17 @@
 
 package ie.equalit.ceno.ui
 
+import android.os.Build
 import androidx.core.net.toUri
 import androidx.test.rule.GrantPermissionRule
-import org.junit.Ignore
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
-import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
+import ie.equalit.ceno.ui.robots.onboarding
 
 /**
  *   Tests for verifying the settings view options exist as expected:
@@ -34,7 +35,13 @@ class SettingsViewTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
+
+    @Before
+    fun setUp() {
+        onboarding {
+        }.skipOnboardingIfNeeded()
+    }
 
     // This test verifies settings view items are all in place
     @Test
@@ -44,55 +51,63 @@ class SettingsViewTest {
         }.openSettings {
             verifySettingsRecyclerViewToExist()
             verifyNavigateUp()
-            //verifySyncSigninButton()
-            //verifySyncHistorySummary()
-            //verifySyncQrCodeButton()
-            //verifySyncQrSummary()
-            verifyPrivacyButton()
-            verifyPrivacySummary()
+            verifyGeneralHeading()
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
+            verifySearchButton()
+            verifySearchSummary()
+            verifyCustomizationButton()
+            verifyCustomizationSummary()
             verifyOpenLinksInApps()
             verifyMakeDefaultBrowserButton()
             verifyAutofillAppsButton()
-            varifyAutofillAppsSummary()
-            verifyJetpackComposeButton()
+            verifyAutofillAppsSummary()
+            verifyDeleteBrowsingData()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                verifyDisableBatteryOptimization()
+            }
+            verifyShowOnboarding()
+            // TODO: should make this smarter and click down list until matches some text
+            clickDownRecyclerView(13)
+            verifySourcesHeading()
+            verifyWebsiteCheckbox()
+            verifyWebsiteSummary()
+            verifyPrivatelyCheckbox()
+            verifyPrivatelySummary()
+            verifyPubliclyCheckbox()
+            verifyPubliclySummary()
+            verifySharedCheckbox()
+            verifySharedSummary()
+            clickDownRecyclerView(3)
+            Thread.sleep(5000)
+            verifyDataHeading()
+            verifyLocalCacheDisplay()
+            verifyLocalCacheDefaultValue()
+            verifyContentsSharedButton()
+            verifyContentsSharedDefaultValue()
+            verifyClearCachedContentButton()
+            verifyClearCachedContentSummary()
+            clickDownRecyclerView(4)
+            Thread.sleep(5000)
             verifyDeveloperToolsHeading()
             verifyRemoteDebugging()
             verifyCustomAddonCollectionButton()
-            verifyMozillaHeading()
-            verifyAboutReferenceBrowserButton()
+            verifyCenoNetworkDetailsButton()
+            verifyCenoNetworkDetailsSummary()
+            verifyEnableLogFile()
+            clickDownRecyclerView(6)
+            Thread.sleep(5000)
+            verifyAboutHeading()
+            verifyCenoBrowserServiceDisplay()
+            verifyGeckoviewVersionDisplay()
+            verifyOuinetVersionDisplay()
+            verifyOuinetProtocolDisplay()
+            verifyAboutEqualitieButton()
+            // TODO: check if that the displayed values match some patterns
         }
     }
 
     /*
-    @Test
-    fun openFXATest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-        }.openFXASignin {
-            verifyFXAUrl()
-        }
-    }
-     */
-
-    // openFXAQrCodeTest tests that we get to the camera
-    // Additional tests are needed to verify that the QR code reader works
-    /*
-    @Ignore("Test instrumentation process is crashing, see: https://github.com/mozilla-mobile/reference-browser/issues/1502")
-    @Test
-    fun openFXAQrCodeTest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-        }.openFXAQrCode {
-            mDevice.waitForIdle()
-            verifyFxAQrCode()
-            mDevice.pressBack()
-        }
-
-    }
-     */
-
     @Test
     fun privacySettingsItemsTest() {
         navigationToolbar {
@@ -109,6 +124,7 @@ class SettingsViewTest {
             verifyTelemetrySummary()
         }
     }
+     */
 
     @Test
     fun setDefaultBrowserTest() {
@@ -135,6 +151,7 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
+            scrollToElementByText("Remote debugging")
             toggleRemoteDebuggingOn()
             toggleRemoteDebuggingOff()
             toggleRemoteDebuggingOn()
@@ -146,7 +163,7 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About Reference Browser")
+            scrollToElementByText("About eQualitie")
         }.openAboutReferenceBrowser {
             verifyAboutBrowser()
         }
