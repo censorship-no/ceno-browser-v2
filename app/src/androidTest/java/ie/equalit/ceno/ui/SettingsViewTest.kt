@@ -15,6 +15,7 @@ import org.junit.Test
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
+import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 
@@ -200,5 +201,6 @@ class SettingsViewTest {
         }.checkExternalApps {
             verifyYouTubeApp()
         }
+        mDevice.pressHome()
     }
 }

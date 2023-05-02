@@ -39,6 +39,10 @@ class NavigationToolbarRobot {
 
         fun enterUrlAndEnterToBrowser(url: Uri, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
             urlBar().click()
+            mDevice.findObject(
+                UiSelector()
+                    .textContains("Search or enter address"),
+            ).waitForExists(waitingTime)
             awesomeBar().setText(url.toString())
             mDevice.pressEnter()
 
