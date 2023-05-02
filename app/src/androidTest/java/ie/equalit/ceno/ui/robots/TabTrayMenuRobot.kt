@@ -9,11 +9,10 @@ package ie.equalit.ceno.ui.robots
 import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -29,6 +28,7 @@ import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.helpers.assertIsSelected
 import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.helpers.matchers.TabMatcher
+import org.hamcrest.Matchers.allOf
 
 /**
  * Implementation of Robot Pattern for the tab tray menu.
@@ -86,8 +86,8 @@ class TabTrayMenuRobot {
             return NavigationToolbarRobot()
         }
 
-        fun closeTabXButton(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            closeTabButtonTabTray().click()
+        fun closeTabXButton(title: String, interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
+            closeTabButtonTabTray(title).click()
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
@@ -105,8 +105,10 @@ private fun regularTabs() = onView(ViewMatchers.withContentDescription("Tabs"))
 private fun privateTabs() = onView(ViewMatchers.withContentDescription("Private tabs"))
 private fun goBackButton() = onView(ViewMatchers.withContentDescription("back"))
 private fun newTabButton() = onView(ViewMatchers.withContentDescription("Add New Tab"))
-private fun closeTabButtonTabTray() = onView(withId(R.id.mozac_browser_tabstray_close))
-private fun tab() = onView(TabMatcher.withText("about:blank"))
+private fun closeTabButtonTabTray(text : String): ViewInteraction {
+    return onView(allOf(withId(R.id.mozac_browser_tabstray_close), hasSibling(withText(text))))
+}
+private fun tab() = onView(TabMatcher.withText("CENO Homepage"))
 
 private fun assertRegularBrowsingTabs() = regularTabs()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
