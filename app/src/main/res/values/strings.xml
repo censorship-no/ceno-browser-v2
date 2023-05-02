@@ -29,7 +29,7 @@
     <string name="preferences_tracking_protection_private">Enable in Private Browsing Mode</string>
 
     <!-- Preference for privacy -->
-    <string name="privacy">Privacy</string>
+    <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
 
     <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
