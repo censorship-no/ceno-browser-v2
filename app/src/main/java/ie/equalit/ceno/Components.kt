@@ -22,6 +22,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
+import org.cleaninsights.sdk.CleanInsights
 
 /**
  * Provides access to all components.
@@ -94,4 +95,9 @@ class Components(private val context: Context) {
     }
     val ouinet by lazy { Ouinet(context) }
     val permissionHandler by lazy { PermissionHandler(context) }
+    val insights: CleanInsights by lazy {
+        CleanInsights(
+            context.assets.open("cleaninsights.json").reader().readText(),
+            context.filesDir)
+    }
 }

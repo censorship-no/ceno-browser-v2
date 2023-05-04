@@ -1,0 +1,17 @@
+{
+  "server": "http://example.org/ci/cleaninsights.php",
+  "siteId": 1,
+  "timeout": 5,
+  "debug": true,
+  "campaigns": {
+    "test": {
+      "start": "2022-01-01T00:00:00Z",
+      "end": "2029-12-31T23:59:59Z",
+      "aggregationPeriodLength": 1,
+      "numberOfPeriods": 90,
+      "onlyRecordOnce": false,
+      "eventAggregationRule": "avg",
+      "strengthenAnonymity": false
+    }
+  }
+}

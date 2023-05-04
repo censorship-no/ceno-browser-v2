@@ -54,6 +54,7 @@ object Versions {
     /* CENO: Versions for additional dependencies */
     const val ouinet_version = "0.21.10"
     const val relinker_version = "1.4.4"
+    const val clean_insights = "2.7.0"
 
     // Workaround for a Gradle parsing bug that prevents using nested objects directly in Gradle files.
     // These might be removable if we switch to kts files instead.
@@ -182,4 +183,5 @@ object Deps {
     const val ouinet_x86_64 = "ie.equalit.ouinet:ouinet-x86_64:${Versions.ouinet_version}"
     const val ouinet_omni = "ie.equalit.ouinet:ouinet-omni:${Versions.ouinet_version}"
     const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
+    const val clean_insights = "org.cleaninsights.sdk:clean-insights-sdk:${Versions.clean_insights}"
 }

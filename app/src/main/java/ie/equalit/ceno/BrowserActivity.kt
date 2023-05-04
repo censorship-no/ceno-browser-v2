@@ -14,6 +14,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,8 @@ import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
+import org.cleaninsights.sdk.ConsentRequestUi
+import org.cleaninsights.sdk.Feature
 import kotlin.system.exitProcess
 
 /**
@@ -72,6 +75,8 @@ open class BrowserActivity : AppCompatActivity() {
 
     private var isActivityResumed = false
     private var lastCall: (() -> Unit)? = null
+    private val start = System.currentTimeMillis()
+    private var firstTime = true
 
     /**
      * CENO: Returns a new instance of [CenoHomeFragment] to display.
@@ -165,6 +170,37 @@ open class BrowserActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (firstTime) {
+            val ui = ConsentRequestUi(this)
+
+            components.insights.requestConsent("test", ui) { granted ->
+                if (!granted) return@requestConsent
+
+                components.insights.requestConsent(Feature.Lang, ui) {
+                    components.insights.requestConsent(Feature.Ua, ui)
+                }
+
+                val time = (System.currentTimeMillis() - start) / 1000.0
+
+                components.insights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
+                components.insights.measureVisit(listOf("Main"), "test")
+            }
+
+            firstTime = false
+        }
+        else {
+            components.insights.measureVisit(listOf("Main"), "test")
+        }
+
+        components.insights.testServer {
+            if (it != null) {
+                Log.e("Server Test", "Exception!")
+                it.printStackTrace()
+            } else {
+                Log.i("Server Test", "No exception - works!")
+            }
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background

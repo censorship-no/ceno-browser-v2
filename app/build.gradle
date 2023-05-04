@@ -415,6 +415,7 @@ dependencies {
          */
     }
     implementation Deps.relinker
+    implementation Deps.clean_insights
     /* CENO: End implement additional dependencies */
 
     androidTestImplementation Deps.uiautomator

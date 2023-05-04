@@ -174,4 +174,19 @@
     <string name="source_code_button_link" translatable="false">https://gitlab.com/censorship-no/</string>
     <string name="donate_button_text">Donate</string>
     <string name="donate_button_link" translatable="false">https://censorship.no/en/donate</string>
+
+    <!-- ConsentRequestUi -->
+    <string name="Your_Consent">Your Consent</string>
+    <string name="_measurement_consent_explanation_">We would like to run a measurement between %1$s and %2$s to understand some problems we noticed recently.\n\nYour help would be highly appreciated.</string>
+    <string name="_feature_consent_explanation_">In case you allow us to run measurements, are you OK that we record the following?\n\n%1$s</string>
+    <string name="No__sorry_">No, sorry.</string>
+    <string name="Your_locale">Your locale</string>
+    <string name="Your_device_type">Your device type</string>
+    <string name="Consents">Consents</string>
+    <string name="General_Infos">General Infos</string>
+    <string name="Since_">Since:</string>
+    <string name="Campaigns">Campaigns</string>
+    <string name="Start_">Start:</string>
+    <string name="End_">End:</string>
+
 </resources>
