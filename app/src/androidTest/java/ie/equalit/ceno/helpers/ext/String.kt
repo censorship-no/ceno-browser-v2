@@ -2,6 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-object AndroidComponents {
-    const val VERSION = "112.2.0"
+package ie.equalit.ceno.helpers.ext
+
+import android.net.Uri
+
+// Extension functions for the String class
+
+fun String?.toUri(): Uri? = if (this == null) {
+    null
+} else {
+    Uri.parse(this)
 }

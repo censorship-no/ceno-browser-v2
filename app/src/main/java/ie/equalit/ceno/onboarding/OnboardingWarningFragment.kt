@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingWarningBinding
 import ie.equalit.ceno.ext.requireComponents
@@ -71,6 +72,22 @@ class OnboardingWarningFragment : Fragment() {
             }
         }
 
+        fun transitionToFragment(activity: FragmentActivity, sessionId: String?) {
+            activity.supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.slide_out,
+                    R.anim.slide_back_in,
+                    R.anim.slide_back_out
+                )
+                replace(
+                    R.id.container,
+                    create(sessionId),
+                    TAG
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
-
 }
