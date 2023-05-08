@@ -111,6 +111,21 @@
             </intent-filter>
         </activity-alias>
 
+        <activity-alias
+            android:name="ie.equalit.ceno.LauncherCamo2"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_camo_2"
+            android:roundIcon="@mipmap/ic_launcher_camo_2_round"
+            android:targetActivity="ie.equalit.ceno.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
+
         <activity android:name="ie.equalit.ceno.BrowserTestActivity"
             android:exported="true">
             <intent-filter>
