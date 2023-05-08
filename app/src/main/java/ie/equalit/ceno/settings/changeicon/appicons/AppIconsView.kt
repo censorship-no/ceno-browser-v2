@@ -38,7 +38,8 @@ class AppIconsView (
             AppIcon.WHITE,
             AppIcon.RED,
             AppIcon.CAMO_1,
-            AppIcon.CAMO_2
+            AppIcon.CAMO_2,
+            AppIcon.CAMO_3,
         ), selectedIconName)
     }
 }
