@@ -54,6 +54,10 @@ enum class AppIcon(
         componentName = "$QUALIFIER.LauncherRed",
         icon = R.drawable.ic_app_icon_red_round,
     ),
+    CAMO_1(
+        componentName = "$QUALIFIER.LauncherCamo1",
+        icon = R.drawable.ic_app_icon_camo_1_round,
+    ),
     ;
 
     companion object {

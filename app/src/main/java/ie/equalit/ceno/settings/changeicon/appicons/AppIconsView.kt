@@ -29,6 +29,6 @@ class AppIconsView (
 
     fun update(context: Context) {
         val selectedIconName = Settings.appIcon(context)?.componentName
-        appIconAdapter.notifyChanges(listOf(AppIcon.DEFAULT, AppIcon.WHITE, AppIcon.RED), selectedIconName)
+        appIconAdapter.notifyChanges(listOf(AppIcon.DEFAULT, AppIcon.WHITE, AppIcon.RED, AppIcon.CAMO_1), selectedIconName)
     }
 }
