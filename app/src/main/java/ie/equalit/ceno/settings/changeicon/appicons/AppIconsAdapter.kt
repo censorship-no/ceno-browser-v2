@@ -28,7 +28,7 @@ class AppIconsAdapter(private val interactor: AppIconsInteractor) : ListAdapter<
     AppIconsDiffCallback
 ) {
 
-    private var iconViewData: MutableList<AppIcon> = mutableListOf()
+    private val iconViewData: MutableList<AppIcon> = enumValues<AppIcon>().toMutableList()
     private var selectedIcon: String? = null
 
     class IconViewHolder(
@@ -57,8 +57,7 @@ class AppIconsAdapter(private val interactor: AppIconsInteractor) : ListAdapter<
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun notifyChanges(newList: List<AppIcon>, selected : String?) {
-        iconViewData = newList.toMutableList()
+    fun notifyChanges(selected: String?) {
         selectedIcon = selected
         notifyDataSetChanged()
     }

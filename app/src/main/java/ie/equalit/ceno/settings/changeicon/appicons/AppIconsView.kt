@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 
 class AppIconsView (
@@ -24,11 +25,14 @@ class AppIconsView (
                     super.onLayoutCompleted(state)
                 }
             }
+            this.addItemDecoration(
+                ItemOffsetDecoration(context, R.dimen.changeAppIconListPadding)
+            )
         }
     }
 
     fun update(context: Context) {
         val selectedIconName = Settings.appIcon(context)?.componentName
-        appIconAdapter.notifyChanges(listOf(AppIcon.DEFAULT, AppIcon.WHITE, AppIcon.RED), selectedIconName)
+        appIconAdapter.notifyChanges(selectedIconName)
     }
 }
