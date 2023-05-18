@@ -8,6 +8,7 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.media.service.AbstractMediaSessionService
 import ie.equalit.ceno.ext.components
 import mozilla.components.concept.base.crash.CrashReporting
+import mozilla.components.support.base.android.NotificationsDelegate
 
 /**
  * [AbstractMediaSessionService] implementation for injecting [BrowserStore] singleton.
@@ -15,4 +16,5 @@ import mozilla.components.concept.base.crash.CrashReporting
 class MediaSessionService : AbstractMediaSessionService() {
     override val store: BrowserStore by lazy { components.core.store }
     override val crashReporter: CrashReporting by lazy { components.analytics.crashReporter }
+    override val notificationsDelegate: NotificationsDelegate by lazy { components.notificationsDelegate }
 }
