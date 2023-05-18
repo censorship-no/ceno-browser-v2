@@ -1,6 +1,6 @@
 {
-  "server": "http://example.org/ci/cleaninsights.php",
-  "siteId": 1,
+  "server": "https://metrics.cleaninsights.org/",
+  "siteId": 30,
   "timeout": 5,
   "debug": true,
   "campaigns": {
