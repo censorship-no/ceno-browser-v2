@@ -53,6 +53,7 @@ import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.settings.Settings
 import java.util.concurrent.TimeUnit
@@ -102,7 +103,7 @@ class Core(private val context: Context) {
                     LocationService.default(),
                 ),
                 SearchMiddleware(context),
-                RecordingDevicesMiddleware(context),
+                RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
             ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)
@@ -114,6 +115,7 @@ class Core(private val context: Context) {
                 R.drawable.ic_notification,
                 geckoSitePermissionsStorage,
                 BrowserActivity::class.java,
+                notificationsDelegate = context.components.notificationsDelegate,
             )
 
             MediaSessionFeature(context, MediaSessionService::class.java, this).start()
@@ -188,7 +190,11 @@ class Core(private val context: Context) {
     }
 
     val addonUpdater by lazy {
-        DefaultAddonUpdater(context, Frequency(1, TimeUnit.DAYS))
+        DefaultAddonUpdater(
+            context,
+            Frequency(1, TimeUnit.DAYS),
+            notificationsDelegate = context.components.notificationsDelegate,
+        )
     }
 
     val addonCollectionProvider by lazy {

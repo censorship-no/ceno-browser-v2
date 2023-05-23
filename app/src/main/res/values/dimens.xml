@@ -222,6 +222,7 @@
     <!-- COPIED FROM DUCKDUCKGO -->
     <dimen name="changeAppIconPadding">16dp</dimen>
     <dimen name="changeAppIconSize">75dp</dimen>
+    <dimen name="changeAppIconListPadding">4dp</dimen>
     <!-- END COPIED FROM DUCKDUCKGO -->
 
     <!-- COPIED FROM FOCUS -->
