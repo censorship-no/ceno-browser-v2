@@ -14,6 +14,7 @@ object Versions {
         const val constraintlayout = "2.1.4"
         const val core = "1.9.0"
         const val lifecycle = "2.5.1"
+        const val navigation = "2.5.3"
         const val preference = "1.2.0"
         const val swiperefreshlayout = "1.1.0"
         const val work = "2.7.1"
@@ -106,7 +107,7 @@ object Deps {
     const val mozilla_feature_intent = "org.mozilla.components:feature-intent:${AndroidComponents.VERSION}"
     const val mozilla_feature_search = "org.mozilla.components:feature-search:${AndroidComponents.VERSION}"
     const val mozilla_feature_session = "org.mozilla.components:feature-session:${AndroidComponents.VERSION}"
-    const val mozilla_feature_toolbar = "ie.equalit.ouinet:feature-toolbar-ceno:${AndroidComponents.VERSION}"
+    const val mozilla_feature_toolbar = "org.mozilla.components:feature-toolbar:${AndroidComponents.VERSION}"
     const val mozilla_feature_tabs = "org.mozilla.components:feature-tabs:${AndroidComponents.VERSION}"
     const val mozilla_feature_downloads = "org.mozilla.components:feature-downloads:${AndroidComponents.VERSION}"
     const val mozilla_feature_storage = "org.mozilla.components:feature-storage:${AndroidComponents.VERSION}"
@@ -157,6 +158,9 @@ object Deps {
     const val androidx_compose_material = "androidx.compose.material:material:${Versions.AndroidX.compose}"
     const val androidx_activity_compose = "androidx.activity:activity-compose:${Versions.AndroidX.activity_compose}"
     const val androidx_swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swiperefreshlayout}"
+    const val androidx_safeargs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_ui = "androidx.navigation:navigation-ui:${Versions.AndroidX.navigation}"
 
     const val google_material = "com.google.android.material:material:${Versions.Google.material}"
 

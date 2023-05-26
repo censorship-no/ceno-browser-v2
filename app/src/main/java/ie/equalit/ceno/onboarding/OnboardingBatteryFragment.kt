@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.NavHostFragment
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -23,7 +24,7 @@ import mozilla.components.support.base.feature.ActivityResultHandler
  * Use the [OnboardingBatteryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
+class OnboardingBatteryFragment : Fragment() {
     private var _binding: FragmentOnboardingBatteryBinding? = null
     private val binding get() = _binding!!
 
@@ -72,26 +73,13 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
-        }
-        else {
-            (activity as BrowserActivity).updateView {
-                OnboardingWarningFragment.transitionToFragment(requireActivity(), sessionId)
-            }
-        }
-        return true
-    }
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun allowPostNotifications() {
         if (!requireComponents.permissionHandler.requestPostNotificationsPermission(this)) {
-            OnboardingThanksFragment.transitionToFragment(
-                requireActivity(),
-                sessionId
-            )
+            val navHost = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            val action = OnboardingBatteryFragmentDirections
+                .actionOnboardingBatteryFragmentToOnboardingThanksFragment()
+            navHost.navController.navigate(action)
         }
     }
 
@@ -103,7 +91,10 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         }
         else {
             Log.e(TAG, "Unknown request code received: $requestCode")
-            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
+            val navHost = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            val action = OnboardingBatteryFragmentDirections
+                .actionOnboardingBatteryFragmentToOnboardingThanksFragment()
+            navHost.navController.navigate(action)
         }
     }
 

@@ -91,8 +91,8 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
                 replace(R.id.container, CenoHomeFragment.create(), CenoHomeFragment.TAG)
                 commit()
             }
-            if (withNewTab)
-                requireComponents.useCases.tabsUseCases.addTab(CenoHomeFragment.ABOUT_HOME)
+            //if (withNewTab)
+            //    requireComponents.useCases.tabsUseCases.addTab(CenoHomeFragment.ABOUT_HOME)
         }
         else {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
@@ -134,13 +134,13 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
                     requireComponents.useCases.tabsUseCases.selectTab(tab.id)
                     /* CENO: Check if tab should open HomeFragment or BrowserFragment after closing */
-                    if(tab.content.url == CenoHomeFragment.ABOUT_HOME){
+                    //if(tab.content.url == CenoHomeFragment.ABOUT_HOME){
                         /* A home page "tab" was selected, close the tab tray and open the HomeFragment,
                          * but do not create a new tab to associate with the Fragment, since selectedTab is homepage */
-                        closeTabsTray(toHome = true, withNewTab = false)
-                    }else{
+                    //    closeTabsTray(toHome = true, withNewTab = false)
+                    //}else{
                         closeTabsTray()
-                    }
+                    //}
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {

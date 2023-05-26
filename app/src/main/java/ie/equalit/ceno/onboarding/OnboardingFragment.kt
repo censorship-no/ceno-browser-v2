@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.CenoHomeFragment
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
@@ -38,6 +40,9 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
+            val action = OnboardingFragmentDirections.actionOnboardingFragmentToOnboardingInfoFragment()
+            view.findNavController().navigate(action)
+            /*
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.slide_in,
@@ -53,6 +58,7 @@ class OnboardingFragment : Fragment() {
                 addToBackStack(null)
                 commit()
             }
+             */
         }
         binding.button2.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -85,10 +91,12 @@ class OnboardingFragment : Fragment() {
 
             Settings.setShowOnboarding(context , false)
 
+            /*
             context.components.useCases.tabsUseCases.addTab(
                 CenoHomeFragment.ABOUT_HOME,
                 selectTab = true
             )
+            */
 
             activity.supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             activity.supportFragmentManager.beginTransaction().apply {

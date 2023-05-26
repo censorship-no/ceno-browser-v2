@@ -65,7 +65,7 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
-    private val onTabUrlChange: (String) -> Unit,
+    //private val onTabUrlChange: (String) -> Unit,
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -326,9 +326,11 @@ class ToolbarIntegration(
                     isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
                         .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
                         .find { it.url == newUrl } != null
+                    /*
                     if (newUrl != null) {
                         onTabUrlChange.invoke(newUrl)
                     }
+                    */
                 }
         }
 
@@ -360,7 +362,7 @@ class ToolbarIntegration(
             )
         },
         sessionId,
-        hiddenAddressList = listOf(CenoHomeFragment.ABOUT_HOME)
+        //hiddenAddressList = listOf(CenoHomeFragment.ABOUT_HOME)
     )
 
     override fun start() {

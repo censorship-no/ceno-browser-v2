@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
 import ie.equalit.ceno.ext.requireComponents
@@ -35,35 +36,32 @@ class OnboardingInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController = view.findNavController()
         binding.button.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
                     requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
                 ) {
-                    OnboardingThanksFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+                    val action = OnboardingInfoFragmentDirections
+                        .actionOnboardingInfoFragmentToOnboardingThanksFragment()
+                    navController.navigate(action)
                 }
                 else {
-                    OnboardingBatteryFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+                    val action = OnboardingInfoFragmentDirections
+                        .actionOnboardingInfoFragmentToOnboardingBatteryFragment()
+                    navController.navigate(action)
                 }
             }
             else {
                 if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
-                    OnboardingThanksFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+                    val action = OnboardingInfoFragmentDirections
+                        .actionOnboardingInfoFragmentToOnboardingThanksFragment()
+                    navController.navigate(action)
                 }
                 else {
-                    OnboardingBatteryFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+                    val action = OnboardingInfoFragmentDirections
+                        .actionOnboardingInfoFragmentToOnboardingBatteryFragment()
+                    navController.navigate(action)
                 }
             }
         }

@@ -140,12 +140,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         /* If all tabs were removed (e.g. browsing data was cleared),
          * auto-create new home tab
          */
+        /*
         if (requireComponents.core.store.state.tabs.isEmpty()) {
             requireComponents.useCases.tabsUseCases.addTab(
                 url=CenoHomeFragment.ABOUT_HOME,
                 selectTab = true
             )
         }
+        */
 
         sessionFeature.set(
             feature = SessionFeature(
@@ -170,7 +172,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                ::onTabUrlChanged
+                //::onTabUrlChanged
             ),
             owner = this,
             view = view,

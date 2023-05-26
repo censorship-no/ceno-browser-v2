@@ -19,6 +19,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -49,6 +51,9 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
+import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.onboarding.OnboardingBatteryFragmentDirections
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
@@ -68,6 +73,10 @@ open class BrowserActivity : AppCompatActivity() {
 
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.core.store, ::openPopup)
+    }
+
+    private val navHost by lazy {
+        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     }
 
     private var isActivityResumed = false
@@ -118,12 +127,16 @@ open class BrowserActivity : AppCompatActivity() {
 
             /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
             if (Settings.shouldShowOnboarding(this)) {
+                /*
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
                     commit()
                 }
+                 */
+                navHost.navController.navigate(NavGraphDirections.actionGlobalStartupOnboarding())
             }
             else {
+                /*
                 if (components.core.store.state.selectedTab?.content?.url == CenoHomeFragment.ABOUT_HOME) {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
@@ -131,11 +144,13 @@ open class BrowserActivity : AppCompatActivity() {
                     }
                 }
                 else {
+
+                 */
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container, createBrowserFragment(sessionId), BrowserFragment.TAG)
                         commit()
                     }
-                }
+                //}
             }
         }
 
@@ -226,6 +241,20 @@ open class BrowserActivity : AppCompatActivity() {
         supportFragmentManager.fragments.iterator().forEach {
             if (it is ActivityResultHandler && it.onActivityResult(requestCode, data, resultCode)) {
                 return
+            }
+        }
+
+        if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
+            if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
+                val action = OnboardingBatteryFragmentDirections
+                    .actionOnboardingBatteryFragmentToOnboardingThanksFragment()
+                navHost.navController.navigate(action)
+            } else {
+                updateView {
+                    val action = OnboardingBatteryFragmentDirections
+                        .actionOnboardingBatteryFragmentToOnboardingWarningFragment()
+                    navHost.navController.navigate(action)
+                }
             }
         }
 

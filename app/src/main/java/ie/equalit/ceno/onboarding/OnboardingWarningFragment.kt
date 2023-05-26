@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingWarningBinding
 import ie.equalit.ceno.ext.requireComponents
@@ -54,6 +55,9 @@ class OnboardingWarningFragment : Fragment() {
             }
         binding.button.setOnClickListener {
             OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
+            val action = OnboardingWarningFragmentDirections
+                .actionOnboardingWarningFragmentToOnboardingThanksFragment()
+            view.findNavController().navigate(action)
         }
     }
 
