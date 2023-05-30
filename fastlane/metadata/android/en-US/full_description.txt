@@ -22,6 +22,6 @@ eQualit.ie develops open and reusable systems with a focus on privacy, online se
 To learn more about Ceno Browser and its distributed library, Ouinet, please visit https://censorship.no
 
 <strong>Questions / Need support?</strong>
-Read more in the <a href="https://censorship.no/user-manual/en/">Ceno User Manual</a>,  or contact us at cenoers@equalitie.org. We love receiving feedback and are continuously improving Ceno for its users!
+Read more in the <a href="https://censorship.no/user-manual/en/">Ceno User Manual</a>,  or contact us at support@censorship.no. We love receiving feedback and are continuously improving Ceno for its users!
 
 Stay connected, and help keep the web open and accessible to all!
