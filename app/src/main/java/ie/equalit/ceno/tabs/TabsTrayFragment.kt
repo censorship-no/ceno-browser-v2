@@ -25,7 +25,7 @@ import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 
@@ -34,6 +34,9 @@ import ie.equalit.ceno.ext.requireComponents
  */
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
+
+    protected val sessionId: String?
+        get() = arguments?.getString(SESSION_ID)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_tabstray, container, false)
@@ -46,7 +49,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         tabsFeature = TabsFeature(
             trayAdapter,
             requireComponents.core.store,
-            { closeTabsTray(toHome = true, withNewTab = true) },
+            { closeTabsTray(true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
             if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
@@ -78,25 +81,24 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     }
 
     override fun onBackPressed(): Boolean {
-        closeTabsTray()
+        val newTab = requireComponents.core.store.state.selectedTabId == ""
+        closeTabsTray(newTab)
         return true
     }
 
     /* CENO: Modify closeTabsTray function to take booleans for determining
      * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
      * with or without a new blank tab? */
-    private fun closeTabsTray(toHome: Boolean = false, withNewTab: Boolean = false) {
-        if(toHome) {
+    private fun closeTabsTray(newTab: Boolean = false) {
+        if(newTab) {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(), CenoHomeFragment.TAG)
+                replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
                 commit()
             }
-            if (withNewTab)
-                requireComponents.useCases.tabsUseCases.addTab(CenoHomeFragment.ABOUT_HOME)
         }
         else {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(), BrowserFragment.TAG)
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
                 commit()
             }
         }
@@ -133,14 +135,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
                     requireComponents.useCases.tabsUseCases.selectTab(tab.id)
-                    /* CENO: Check if tab should open HomeFragment or BrowserFragment after closing */
-                    if(tab.content.url == CenoHomeFragment.ABOUT_HOME){
-                        /* A home page "tab" was selected, close the tab tray and open the HomeFragment,
-                         * but do not create a new tab to associate with the Fragment, since selectedTab is homepage */
-                        closeTabsTray(toHome = true, withNewTab = false)
-                    }else{
-                        closeTabsTray()
-                    }
+                    closeTabsTray(false)
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
@@ -163,5 +158,16 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     companion object {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "TABS_TRAY"
+        private const val SESSION_ID = "session_id"
+
+        @JvmStatic
+        protected fun Bundle.putSessionId(sessionId: String?) {
+            putString(SESSION_ID, sessionId)
+        }
+        fun create(sessionId: String? = null) = TabsTrayFragment().apply {
+            arguments = Bundle().apply {
+                putSessionId(sessionId)
+            }
+        }
     }
 }

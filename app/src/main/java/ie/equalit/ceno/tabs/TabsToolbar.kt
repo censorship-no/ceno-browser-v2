@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.requireComponents
 
 /* CENO: Modify closeTabsTray function to take booleans for determining
  * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
@@ -19,13 +20,14 @@ class TabsToolbar @JvmOverloads constructor(
 ) : androidx.appcompat.widget.Toolbar(context, attrs) {
     private var tabsFeature: TabsFeature? = null
     private var isPrivateTray = false
-    private var closeTabsTray: ((Boolean, Boolean) -> Unit)? = null
+    private var closeTabsTray: ((Boolean) -> Unit)? = null
 
     init {
         navigationContentDescription = "back"
         setNavigationIcon(R.drawable.mozac_ic_back)
         setNavigationOnClickListener {
-            closeTabsTray?.invoke(false, false)
+            val newTab = components.core.store.state.selectedTabId == ""
+            closeTabsTray?.invoke(newTab)
         }
         inflateMenu(R.menu.tabstray_menu)
         setOnMenuItemClickListener {
@@ -34,10 +36,12 @@ class TabsToolbar @JvmOverloads constructor(
                 R.id.newTab -> {
                     when (isPrivateTray) {
                         true -> {
-                                tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
-                                closeTabsTray?.invoke(false, false)
+                            tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
+                            closeTabsTray?.invoke(false)
                         }
-                        false -> closeTabsTray?.invoke(true, true)
+                        false -> {
+                            closeTabsTray?.invoke(true)
+                        }
                     }
                 }
                 R.id.closeTab -> {
@@ -51,7 +55,7 @@ class TabsToolbar @JvmOverloads constructor(
         }
     }
 
-    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: (Boolean, Boolean) -> Unit) {
+    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: (Boolean) -> Unit) {
         this.tabsFeature = tabsFeature
         this.closeTabsTray = closeTabsTray
     }
