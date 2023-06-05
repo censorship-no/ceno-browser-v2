@@ -12,7 +12,7 @@
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="menu_action_close_tabs_private">Close Private Tabs</string>
 
-    <!-- CENO: Telemetry is disabled by default, not possible to enable -->
+    <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
     <!-- Preference summary for settings related to send telemetry data -->
     <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
 
@@ -46,7 +46,7 @@
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>
 
-    <!-- CENO: Telemetry is disabled by default, not possible to enable -->
+    <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
     <!-- Preference for settings related turn on telemetry data-->
     <!-- <string name="use_telemetry">Use Telemetry</string> -->
 
@@ -96,7 +96,7 @@
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 
-    <!-- CENO: COPIED FROM FENIX -->
+    <!-- Ceno: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Enable private browsing</string>
 
@@ -212,13 +212,13 @@
     <!-- Dialog message to the user asking to delete browsing data. Parameter will be replaced by app name. -->
     <string name="delete_browsing_data_prompt_message_3">%s will delete the selected browsing data.</string>
 
-    <!-- CENO: END OF COPIED FROM FENIX -->
+    <!-- Ceno: END OF COPIED FROM FENIX -->
 
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
     <string name="close_mode_item">Close notification</string>
 
-    <!-- CENO: COPIED FROM FOCUS -->
+    <!-- Ceno: COPIED FROM FOCUS -->
     <string name="preference_category_search">Search</string>
 
     <!-- Title of "switch" preference that enables/disables search suggestions -->
@@ -238,7 +238,7 @@
     <string name="secure_connection">Connection is secure</string>
     <!-- Label that indicates a site is using a insecure connection -->
     <string name="insecure_connection">Connection is not secure</string>
-    <!-- CENO: END OF COPIED FROM FOCUS -->
+    <!-- Ceno: END OF COPIED FROM FOCUS -->
 
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>

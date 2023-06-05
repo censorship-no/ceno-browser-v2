@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
+import ie.equalit.ceno.home.HomeFragment
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
 //import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
@@ -17,7 +18,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 //import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.tabs.TabsTrayFragment
 
 /**
  * Fragment used for browsing the web within the main app.
@@ -89,24 +89,15 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             view = view,
         )
         */
-        binding.homeAppBar.visibility = View.GONE
         binding.sessionControlRecyclerView.visibility = View.GONE
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 
-    private fun showTabs() {
-        // For now we are performing manual fragment transactions here. Once we can use the new
-        // navigation support library we may want to pass navigation graphs around.
-        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
+    private fun onHomeButtonClicked() {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
             commit()
         }
-    }
-
-    private fun onHomeButtonClicked() {
-        /* Request home page url, toolbar listener will take care of the home fragment transaction */
-        requireComponents.useCases.sessionUseCases.loadUrl(CenoHomeFragment.ABOUT_HOME)
     }
 
     override fun onBackPressed(): Boolean =

@@ -1,4 +1,4 @@
-package ie.equalit.ceno.browser
+package ie.equalit.ceno.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,21 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BaseBrowserFragment
+import ie.equalit.ceno.components.ceno.appstate.AppAction
+import ie.equalit.ceno.databinding.FragmentHomeBinding
+import ie.equalit.ceno.ext.ceno.sort
+import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
+import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
+import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
+import ie.equalit.ceno.home.sessioncontrol.SessionControlView
+import ie.equalit.ceno.home.topsites.DefaultTopSitesView
+import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.storage.FrecencyThresholdOption
@@ -19,27 +34,13 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.databinding.FragmentBrowserBinding
-import ie.equalit.ceno.ext.ceno.sort
-import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.ext.cenoPreferences
-import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
-import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
-import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
-import ie.equalit.ceno.home.sessioncontrol.SessionControlView
-import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.utils.CenoPreferences.Companion.TOP_SITES_PROVIDER_MAX_THRESHOLD
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
- * Use the [CenoHomeFragment.create] factory method to
+ * Use the [HomeFragment.create] factory method to
  * create an instance of this fragment.
  */
-class CenoHomeFragment : BaseBrowserFragment() {
+class HomeFragment : BaseHomeFragment() {
 
     var adapter: SessionControlAdapter? = null
 
@@ -58,11 +59,13 @@ class CenoHomeFragment : BaseBrowserFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentBrowserBinding.inflate(inflater, container,false);
+        _binding = FragmentHomeBinding.inflate(inflater, container, false);
         val activity = activity as BrowserActivity
         val components = requireComponents
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        components.useCases.tabsUseCases.selectTab("")
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -113,7 +116,8 @@ class CenoHomeFragment : BaseBrowserFragment() {
                 }
         }
 
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
+        container?.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
         return binding.root
@@ -129,11 +133,11 @@ class CenoHomeFragment : BaseBrowserFragment() {
         return TopSitesConfig(
             totalSites = settings.topSitesMaxLimit,
             frecencyConfig = TopSitesFrecencyConfig(
-                    FrecencyThresholdOption.SKIP_ONE_TIME_PAGES,
+                FrecencyThresholdOption.SKIP_ONE_TIME_PAGES,
             ),
             providerConfig = TopSitesProviderConfig(
                 showProviderTopSites = false,//settings.showContileFeature,
-                maxThreshold = TOP_SITES_PROVIDER_MAX_THRESHOLD,
+                maxThreshold = CenoPreferences.TOP_SITES_PROVIDER_MAX_THRESHOLD,
             )
         )
     }
@@ -154,30 +158,13 @@ class CenoHomeFragment : BaseBrowserFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-         * Remove WebExtension toolbar feature because
-         * we don't want the browserAction button in toolbar and
-         * the pageAction button created by it didn't work anyway
-         */
-        /*
-        webExtToolbarFeature.set(
-            feature = WebExtensionToolbarFeature(
-                toolbar,
-                requireContext().components.core.store
-            ),
-            owner = this,
-            view = view
-        )
-        */
         binding.privateBrowsingButton.setOnClickListener {
-            requireComponents.useCases.tabsUseCases.addTab(
+            (activity as BrowserActivity).openToBrowser(
                 "about:privatebrowsing",
-                selectTab = true,
+                newTab = true,
                 private = true
             )
         }
-
-        binding.swipeRefresh.visibility = View.GONE
         binding.homeAppBar.visibility = View.VISIBLE
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
@@ -188,7 +175,7 @@ class CenoHomeFragment : BaseBrowserFragment() {
         const val TAG = "HOME"
 
         @JvmStatic
-        fun create(sessionId: String? = null) = CenoHomeFragment().apply {
+        fun create(sessionId: String? = null) = HomeFragment().apply {
             arguments = Bundle().apply {
                 putSessionId(sessionId)
             }

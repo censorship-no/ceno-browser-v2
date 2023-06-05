@@ -165,7 +165,7 @@ class DefaultSessionControlController(
             activity.handleRequestDesktopMode(tabId)
         }
          */
-        activity.openToBrowser(topSite.url)
+        activity.openToBrowser(topSite.url, newTab = true)
     }
 
     override fun handleOpenInPrivateTabClicked(topSite: TopSite) {
@@ -189,7 +189,7 @@ class DefaultSessionControlController(
 
     override fun handleCenoModeClicked() {
         activity.apply{
-            openToBrowser(getString(R.string.ceno_mode_manual_link))
+            openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
         }
     }
 
