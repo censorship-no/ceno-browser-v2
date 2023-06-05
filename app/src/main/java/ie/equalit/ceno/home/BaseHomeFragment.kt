@@ -341,7 +341,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.container, TabsTrayFragment.create(sessionId), TabsTrayFragment.TAG)
-            addToBackStack(null)
             commit()
         }
     }

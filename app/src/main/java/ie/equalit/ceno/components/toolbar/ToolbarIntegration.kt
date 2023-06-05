@@ -275,7 +275,6 @@ class ToolbarIntegration(
                     SettingsFragment(),
                     SettingsFragment.TAG
                 )
-                addToBackStack(null)
                 commit()
             }
         }
@@ -347,21 +346,19 @@ class ToolbarIntegration(
     private fun showBrowser(sessionId : String?) {
         activity.supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
             if (it.isVisible) {
-                /* CENO: HomeFragment is already being displayed, don't do another transaction */
+                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
                 return
             }
         }
         try {
             activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commit()
             }
         } catch (ex: Exception) {
             /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
             activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commitAllowingStateLoss()
             }
         }
