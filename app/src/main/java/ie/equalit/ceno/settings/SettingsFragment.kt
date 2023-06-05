@@ -18,7 +18,6 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -32,7 +31,6 @@ import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
@@ -54,13 +52,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var cenoPrefs : CenoPreferences
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
-    interface ActionBarUpdater {
-        fun updateTitle(titleResId: Int)
-    }
-
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
         true
@@ -76,7 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.container,
-                        create(sessionId),
+                        SettingsFragment(),
                         TAG
                     )
                     addToBackStack(null)
@@ -546,36 +537,37 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoGroupsCounts () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val browserActivity = activity as BrowserActivity
-            browserActivity.openToBrowser("${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}" , newTab = true)
-            val entry: FragmentManager.BackStackEntry =
-                browserActivity.supportFragmentManager.getBackStackEntryAt(0)
-            browserActivity.supportFragmentManager.popBackStack(
-                entry.id,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            (activity as BrowserActivity).openToBrowser(
+                "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
+                newTab = true
             )
-            browserActivity.supportFragmentManager.executePendingTransactions()
             true
         }
     }
 
     private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val browserActivity = activity as BrowserActivity
             WebExtensionToolbarFeature.getBrowserAction(
                         requireContext(),
                         CenoWebExt.CENO_EXTENSION_ID
                     )?.invoke()
-            (activity as BrowserActivity).popToFragmentIndex(0)
+            (activity as BrowserActivity).openToBrowser("")
             true
         }
     }
 
     private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val download = DownloadState(url = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
-            if (sessionId != null) {
-                requireContext().components.core.store.dispatch(ContentAction.UpdateDownloadAction(sessionId!!, download))
+            val store = requireComponents.core.store
+            val tabsUseCases = requireComponents.useCases.tabsUseCases
+            val download = DownloadState("${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
+            /* Adding and removing the blank tab is a workaround since
+             * Mozilla's download action requires a tab to be selected to start a download
+             */
+            tabsUseCases.addTab("about:blank")
+            store.state.selectedTabId?.let {
+                store.dispatch(ContentAction.UpdateDownloadAction(it, download))
+                tabsUseCases.removeTab(it)
             }
             true
         }
@@ -585,16 +577,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "SETTINGS"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-        fun create(sessionId: String? = null) = SettingsFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }
