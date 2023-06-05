@@ -174,21 +174,24 @@ open class BrowserActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    fun popToFragmentIndex(i : Int) {
-        val entry: FragmentManager.BackStackEntry =
-            supportFragmentManager.getBackStackEntryAt(i)
-        supportFragmentManager.popBackStack(
-            entry.id,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        supportFragmentManager.executePendingTransactions()
-    }
-
     override fun onBackPressed() {
         supportFragmentManager.fragments.iterator().forEach {
             /* If coming from settings fragment, always clear back stack and go back to root fragment */
             if (it.tag == SettingsFragment.TAG) {
-                popToFragmentIndex(0)
+                if (components.core.store.state.selectedTabId == "" ||
+                    components.core.store.state.selectedTabId == null
+                        ) {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
+                        commit()
+                    }
+                }
+                else {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                        commit()
+                    }
+                }
                 return
             }
             if (it is UserInteractionHandler && it.onBackPressed()) {

@@ -54,6 +54,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.SettingsFragment
+import mozilla.components.support.ktx.util.URLStringUtils
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -274,7 +275,6 @@ class ToolbarIntegration(
                     SettingsFragment(),
                     SettingsFragment.TAG
                 )
-                addToBackStack(null)
                 commit()
             }
         }
@@ -346,21 +346,19 @@ class ToolbarIntegration(
     private fun showBrowser(sessionId : String?) {
         activity.supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
             if (it.isVisible) {
-                /* CENO: HomeFragment is already being displayed, don't do another transaction */
+                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
                 return
             }
         }
         try {
             activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commit()
             }
         } catch (ex: Exception) {
             /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
             activity.supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                addToBackStack(null)
                 commitAllowingStateLoss()
             }
         }
@@ -373,7 +371,11 @@ class ToolbarIntegration(
         context.components.core.store,
         { url ->
             if (store.state.selectedTab == null) {
-                tabsUseCases.addTab(url, selectTab = true)
+                /* TODO: rewriting URL is workaround for a narrow problem, it was not possible to
+                *  open a website via p2p mechanism from the home page without forcing HTTPS
+                *  should find better solution that doesn't rewrite url or force HTTPS */
+                val httpsUrl = "https://${URLStringUtils.toDisplayUrl(url)}"
+                tabsUseCases.addTab(httpsUrl, selectTab = true)
             }
             else {
                 sessionUseCases.loadUrl.invoke(url)
