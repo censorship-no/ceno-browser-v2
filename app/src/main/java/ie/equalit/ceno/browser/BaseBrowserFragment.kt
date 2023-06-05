@@ -47,6 +47,7 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
+import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabsTrayFragment
@@ -61,7 +62,6 @@ import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 import mozilla.components.lib.state.ext.consumeFrom
-import java.lang.Exception
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -137,16 +137,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        /* If all tabs were removed (e.g. browsing data was cleared),
-         * auto-create new home tab
-         */
-        if (requireComponents.core.store.state.tabs.isEmpty()) {
-            requireComponents.useCases.tabsUseCases.addTab(
-                url=CenoHomeFragment.ABOUT_HOME,
-                selectTab = true
-            )
-        }
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -170,7 +160,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                ::onTabUrlChanged
             ),
             owner = this,
             view = view,
@@ -500,52 +489,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
     }
 
-    /* CENO: Functions to handle hiding/showing the CenoHomeFragment when "about:home" url is requested */
-    private fun showHome() {
-        activity?.supportFragmentManager?.findFragmentByTag(CenoHomeFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
-                return
-            }
-        }
-
-        try {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                commit()
-            }
-        } catch (ex : Exception) {
-            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                commitAllowingStateLoss()
-            }
-        }
-    }
-
-    private fun showBrowser() {
-        activity?.supportFragmentManager?.findFragmentByTag(BrowserFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: HomeFragment is already being displayed, don't do another transaction */
-                return
-            }
-        }
-        try {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
-            }
-        }
-        catch (ex: Exception){
-            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commitAllowingStateLoss()
-            }
-        }
-        /* TODO: Allowing for state loss probably isn't best solution, should figure out how to avoid exception */
-    }
-
     fun showWebExtensionPopupPanel(webExtId : String) {
         val session = requireContext().components.core.store.state.extensions[webExtId]?.popupSession
         val tab = requireContext().components.core.store.state.selectedTab!!
@@ -587,31 +530,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         // navigation support library we may want to pass navigation graphs around.
         /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            replace(R.id.container, TabsTrayFragment.create(sessionId), TabsTrayFragment.TAG)
+            addToBackStack(null)
             commit()
-        }
-    }
-
-    private fun onTabUrlChanged(url : String) {
-        activity?.supportFragmentManager?.findFragmentByTag(TabsTrayFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
-                *  TabsTray will handle fragment transactions on it's own */
-                return
-            }
-        }
-        activity?.supportFragmentManager?.findFragmentByTag(ShutdownFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
-                *  TabsTray will handle fragment transactions on it's own */
-                return
-            }
-        }
-        if(url == CenoHomeFragment.ABOUT_HOME) {
-            showHome()
-        }
-        else {
-            showBrowser()
         }
     }
 
