@@ -94,7 +94,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     }
 
     private fun onHomeButtonClicked() {
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
             commit()
         }
