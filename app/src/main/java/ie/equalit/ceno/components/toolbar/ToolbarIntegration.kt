@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -43,7 +44,6 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.addons.AddonsActivity
-import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.FindInPageIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
@@ -54,7 +54,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.SettingsFragment
-import mozilla.components.support.ktx.util.URLStringUtils
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -343,52 +342,19 @@ class ToolbarIntegration(
         }
     }
 
-    private fun showBrowser(sessionId : String?) {
-        activity.supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
-                return
-            }
-        }
-        try {
-            activity.supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
-            }
-        } catch (ex: Exception) {
-            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
-            activity.supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commitAllowingStateLoss()
-            }
-        }
-    }
-
     /* CENO: Requires feature-toolbar-ceno fork which modifies ToolbarFeature
      * to accept an arbitrary callback function for the loadUrlUseCase */
     private val toolbarFeature: ToolbarFeature = ToolbarFeature(
         toolbar,
         context.components.core.store,
-        { url ->
-            if (store.state.selectedTab == null) {
-                /* TODO: rewriting URL is workaround for a narrow problem, it was not possible to
-                *  open a website via p2p mechanism from the home page without forcing HTTPS
-                *  should find better solution that doesn't rewrite url or force HTTPS */
-                val httpsUrl = "https://${URLStringUtils.toDisplayUrl(url)}"
-                tabsUseCases.addTab(httpsUrl, selectTab = true)
-            }
-            else {
-                sessionUseCases.loadUrl.invoke(url)
-            }
-            showBrowser(sessionId)
-        },
+        context.components.useCases.customLoadUrlUseCase,
         { searchTerms ->
             context.components.useCases.searchUseCases.defaultSearch.invoke(
                 searchTerms = searchTerms,
                 searchEngine = null,
                 parentSessionId = null
             )
-            showBrowser(sessionId)
+            (context as BrowserActivity).openToBrowser()
         },
         sessionId,
     )

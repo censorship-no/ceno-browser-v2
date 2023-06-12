@@ -411,8 +411,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AboutFragment())
-                .addToBackStack(null)
+                .replace(R.id.container, AboutFragment(), AboutFragment.TAG)
                 .commit()
             getActionBar().setTitle(R.string.preferences_about_page)
             true
@@ -550,7 +549,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         requireContext(),
                         CenoWebExt.CENO_EXTENSION_ID
                     )?.invoke()
-            (activity as BrowserActivity).openToBrowser("")
+            (activity as BrowserActivity).openToBrowser()
             true
         }
     }

@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -40,7 +39,7 @@ class WebExtensionActionPopupPanel(
 
     private fun initWindow() {
         this.window?.decorView?.let {
-            ViewTreeLifecycleOwner.set(it, lifecycleOwner)
+            it.setViewTreeLifecycleOwner(lifecycleOwner)
             it.setViewTreeSavedStateRegistryOwner(
                     lifecycleOwner as SavedStateRegistryOwner,
             )
