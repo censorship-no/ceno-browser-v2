@@ -14,7 +14,7 @@ class CustomLoadUrlUseCase internal constructor(
     private val onNoTab: (String) -> TabSessionState,
 ) : SessionUseCases.LoadUrlUseCase {
 
-    var onCommitListener : (String?) -> Unit = {}
+    var onNoSelectedTab : (String) -> Unit = {}
 
     /**
      * Loads the provided URL using the currently selected session. If
@@ -30,17 +30,17 @@ class CustomLoadUrlUseCase internal constructor(
         flags: LoadUrlFlags,
         additionalHeaders: Map<String, String>?,
     ) {
-        var sessionId = store.state.selectedTabId
-        var httpsUrl = url
+        val sessionId = store.state.selectedTabId
         if (store.state.selectedTab == null) {
-            sessionId = null
             /* TODO: rewriting URL is workaround for a narrow problem, it was not possible to
             *  open a website via p2p mechanism from the home page without forcing HTTPS
             *  should find better solution that doesn't rewrite url or force HTTPS */
-            httpsUrl = "https://${URLStringUtils.toDisplayUrl(url)}"
+            val httpsUrl = "https://${URLStringUtils.toDisplayUrl(url)}"
+            onNoSelectedTab.invoke(httpsUrl)
         }
-        this.invoke(httpsUrl, sessionId, flags, additionalHeaders)
-        onCommitListener.invoke(sessionId)
+        else {
+            this.invoke(url, sessionId, flags, additionalHeaders)
+        }
     }
 
     /**
@@ -60,7 +60,7 @@ class CustomLoadUrlUseCase internal constructor(
         additionalHeaders: Map<String, String>? = null,
     ) {
         val loadSessionId = sessionId
-            //?: store.state.selectedTabId
+            ?: store.state.selectedTabId
             ?: onNoTab.invoke(url).id
 
 

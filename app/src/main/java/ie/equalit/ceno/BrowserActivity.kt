@@ -49,6 +49,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
+import ie.equalit.ceno.settings.AboutFragment
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
 
@@ -82,7 +83,9 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        components.useCases.customLoadUrlUseCase.onCommitListener = ::showBrowser
+        components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
+            openToBrowser(url, newTab = true)
+        }
 
         Logger.info(" --------- Starting ouinet service")
         components.ouinet.let {
@@ -203,6 +206,13 @@ open class BrowserActivity : AppCompatActivity() {
                 }
                 return
             }
+            if (it.tag == AboutFragment.TAG) {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
+                    commit()
+                }
+                return
+            }
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
             }
@@ -314,8 +324,8 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String, newTab : Boolean = false, private: Boolean = false){
-        if (url != "") {
+    fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
+        if (url != null) {
             if (newTab) {
                 components.useCases.tabsUseCases.addTab(
                     url = url,
@@ -328,13 +338,10 @@ open class BrowserActivity : AppCompatActivity() {
                 )
             }
         }
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-            commit()
-        }
+        showBrowser()
     }
 
-    fun showBrowser(sessionId : String?) {
+    private fun showBrowser() {
         supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
             if (it.isVisible) {
                 /* CENO: BrowserFragment is already being displayed, don't do another transaction */

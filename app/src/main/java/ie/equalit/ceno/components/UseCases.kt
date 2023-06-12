@@ -83,9 +83,7 @@ class UseCases(
     val cenoTopSitesUseCase by lazy { TopSitesUseCases(topSitesStorage) }
 
     val customLoadUrlUseCase by lazy { CustomLoadUrlUseCase(store) { url ->
-            createTab(url).apply {
-                store.dispatch(TabListAction.AddTabAction(this, select = true))
-            }
+            createTab(url).apply { store.dispatch(TabListAction.AddTabAction(this)) }
         }
     }
 }

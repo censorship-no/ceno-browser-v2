@@ -220,7 +220,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         }
 
         awesomeBar.setOnSuggestionClickedListener {
-            (activity as BrowserActivity).openToBrowser("")
+            (activity as BrowserActivity).openToBrowser()
         }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {

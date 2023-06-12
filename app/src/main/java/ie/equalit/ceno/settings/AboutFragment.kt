@@ -143,6 +143,7 @@ class AboutFragment : Fragment() {
         return View.OnClickListener {
             val browserActivity = activity as BrowserActivity
             browserActivity.openToBrowser(url, newTab = true)
+            /*
             val entry: BackStackEntry =
                 browserActivity.supportFragmentManager.getBackStackEntryAt(0)
             browserActivity.supportFragmentManager.popBackStack(
@@ -150,6 +151,11 @@ class AboutFragment : Fragment() {
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
             browserActivity.supportFragmentManager.executePendingTransactions()
+             */
         }
+    }
+
+    companion object {
+        const val TAG = "ABOUT"
     }
 }
