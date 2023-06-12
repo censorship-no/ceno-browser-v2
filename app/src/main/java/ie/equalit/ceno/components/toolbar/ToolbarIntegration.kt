@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -369,6 +370,8 @@ class ToolbarIntegration(
     private val toolbarFeature: ToolbarFeature = ToolbarFeature(
         toolbar,
         context.components.core.store,
+        context.components.useCases.customLoadUrlUseCase,
+        /*
         { url ->
             if (store.state.selectedTab == null) {
                 /* TODO: rewriting URL is workaround for a narrow problem, it was not possible to
@@ -380,15 +383,16 @@ class ToolbarIntegration(
             else {
                 sessionUseCases.loadUrl.invoke(url)
             }
-            showBrowser(sessionId)
+            //showBrowser(sessionId)
         },
+         */
         { searchTerms ->
             context.components.useCases.searchUseCases.defaultSearch.invoke(
                 searchTerms = searchTerms,
                 searchEngine = null,
                 parentSessionId = null
             )
-            showBrowser(sessionId)
+            (context as BrowserActivity).showBrowser(sessionId)
         },
         sessionId,
     )

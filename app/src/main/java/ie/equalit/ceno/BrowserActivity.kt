@@ -82,6 +82,8 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        components.useCases.customLoadUrlUseCase.onCommitListener = ::showBrowser
+
         Logger.info(" --------- Starting ouinet service")
         components.ouinet.let {
             it.setOnNotificationTapped {
@@ -329,6 +331,27 @@ open class BrowserActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
             commit()
+        }
+    }
+
+    fun showBrowser(sessionId : String?) {
+        supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
+                return
+            }
+        }
+        try {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                commit()
+            }
+        } catch (ex: Exception) {
+            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                commitAllowingStateLoss()
+            }
         }
     }
 
