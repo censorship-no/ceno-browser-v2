@@ -49,6 +49,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
+import ie.equalit.ceno.settings.AboutFragment
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
 
@@ -82,6 +83,10 @@ open class BrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
+            openToBrowser(url, newTab = true)
+        }
+
         Logger.info(" --------- Starting ouinet service")
         components.ouinet.let {
             it.setOnNotificationTapped {
@@ -95,32 +100,39 @@ open class BrowserActivity : AppCompatActivity() {
 
         components.ouinet.background.startup()
 
-        if (savedInstanceState == null) {
-            /* CENO: Set default behavior for AppBar */
-            supportActionBar!!.apply {
-                hide()
-                setDisplayHomeAsUpEnabled(true)
-                setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
-            }
+        /* CENO: Set default behavior for AppBar */
+        supportActionBar!!.apply {
+            hide()
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+        }
 
-            /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
-            if (Settings.shouldShowOnboarding(this)) {
+        val safeIntent = SafeIntent(intent)
+
+        if (Settings.shouldShowOnboarding(this)) {
+            if (savedInstanceState == null) {
+                /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, OnboardingFragment.create(sessionId), OnboardingFragment.TAG)
                     commit()
                 }
             }
-            else {
+        }
+        else {
+            if(savedInstanceState == null &&
+                safeIntent.action != Intent.ACTION_VIEW) {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
                     commit()
                 }
             }
-        }
-        else {
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
+            if (savedInstanceState != null ||
+                safeIntent.action == Intent.ACTION_VIEW) {
+                /* either there is a savedInstanceState or opened from a link */
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                    commit()
+                }
             }
         }
 
@@ -194,6 +206,13 @@ open class BrowserActivity : AppCompatActivity() {
                 }
                 return
             }
+            if (it.tag == AboutFragment.TAG) {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container, SettingsFragment(), SettingsFragment.TAG)
+                    commit()
+                }
+                return
+            }
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
             }
@@ -220,12 +239,21 @@ open class BrowserActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    /* CENO: Handle intent sent to BrowserActivity to open tab if needed or close the app */
+    /* CENO: Handle intent sent to BrowserActivity to open to Homepage or open a homescreen shortcut link */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if(intent?.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA) == true){
+        val safeIntent = intent?.let { SafeIntent(it) }
+        if(safeIntent?.action == Intent.ACTION_MAIN &&
+            safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
+        ){
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
+                commit()
+            }
+        }
+        if(safeIntent?.action == Intent.ACTION_VIEW) {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
                 commit()
             }
         }
@@ -296,8 +324,8 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String, newTab : Boolean = false, private: Boolean = false){
-        if (url != "") {
+    fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
+        if (url != null) {
             if (newTab) {
                 components.useCases.tabsUseCases.addTab(
                     url = url,
@@ -310,9 +338,27 @@ open class BrowserActivity : AppCompatActivity() {
                 )
             }
         }
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-            commit()
+        showBrowser()
+    }
+
+    private fun showBrowser() {
+        supportFragmentManager.findFragmentByTag(BrowserFragment.TAG)?.let {
+            if (it.isVisible) {
+                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
+                return
+            }
+        }
+        try {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                commit()
+            }
+        } catch (ex: Exception) {
+            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
+                commitAllowingStateLoss()
+            }
         }
     }
 

@@ -91,13 +91,13 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
      * with or without a new blank tab? */
     private fun closeTabsTray(newTab: Boolean = false) {
         if(newTab) {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
+            requireActivity().supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
                 commit()
             }
         }
         else {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
+            requireActivity().supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
                 commit()
             }
