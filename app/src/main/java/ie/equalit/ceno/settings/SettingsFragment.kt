@@ -36,7 +36,9 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
+import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
+import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.feature.PermissionsFeature
@@ -411,8 +413,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AboutFragment())
-                .addToBackStack(null)
+                .replace(R.id.container, AboutFragment(), AboutFragment.TAG)
                 .commit()
             getActionBar().setTitle(R.string.preferences_about_page)
             true
@@ -550,7 +551,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         requireContext(),
                         CenoWebExt.CENO_EXTENSION_ID
                     )?.invoke()
-            (activity as BrowserActivity).openToBrowser("")
+            (activity as BrowserActivity).openToBrowser()
             true
         }
     }
@@ -558,16 +559,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             val store = requireComponents.core.store
-            val tabsUseCases = requireComponents.useCases.tabsUseCases
-            val download = DownloadState("${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
-            /* Adding and removing the blank tab is a workaround since
-             * Mozilla's download action requires a tab to be selected to start a download
-             */
-            tabsUseCases.addTab("about:blank")
-            store.state.selectedTabId?.let {
-                store.dispatch(ContentAction.UpdateDownloadAction(it, download))
-                tabsUseCases.removeTab(it)
+            val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
+            val download = DownloadState(logUrl)
+            createTab(logUrl).apply {
+                store.dispatch(TabListAction.AddTabAction(this, select = true))
+                store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
             }
+            (activity as BrowserActivity).openToBrowser()
             true
         }
     }

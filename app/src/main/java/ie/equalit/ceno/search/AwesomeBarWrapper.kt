@@ -30,6 +30,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
     private val providers = mutableStateOf(emptyList<AwesomeBar.SuggestionProvider>())
     private val text = mutableStateOf("")
     private var onEditSuggestionListener: ((String) -> Unit)? = null
+    private var onSuggestionClickedListener: (() -> Unit)? = null
     private var onStopListener: (() -> Unit)? = null
 
     @Composable
@@ -52,6 +53,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
             onSuggestionClicked = { suggestion ->
                 suggestion.onSuggestionClicked?.invoke()
                 onStopListener?.invoke()
+                onSuggestionClickedListener?.invoke()
             },
             onAutoComplete = { suggestion ->
                 onEditSuggestionListener?.invoke(suggestion.editSuggestion!!)
@@ -87,6 +89,10 @@ class AwesomeBarWrapper @JvmOverloads constructor(
 
     override fun setOnEditSuggestionListener(listener: (String) -> Unit) {
         onEditSuggestionListener = listener
+    }
+
+    fun setOnSuggestionClickedListener(listener: () -> Unit) {
+        onSuggestionClickedListener = listener
     }
 
     override fun setOnStopListener(listener: () -> Unit) {
