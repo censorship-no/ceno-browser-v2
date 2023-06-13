@@ -5,7 +5,7 @@
     <string name="remove_top_site">Remover</string>
     <string name="delete_from_history">Apagar do histórico</string>
     <string name="browser_menu_add_ons">Extensões</string>
-    <string name="preferences_customization_summary">Ícone do App, Barra de Ferramentas, botão Limpar</string>
+    <string name="preferences_customization_summary">Ícone do Aplicativo, Barra de Ferramentas, botão Limpar</string>
     <string name="toast_copied">Copiado!</string>
     <string name="browser_menu_back">Anterior</string>
     <string name="browser_menu_stop">Interromper</string>
@@ -13,7 +13,7 @@
     <string name="customization_settings">Personalização</string>
     <string name="tracker_category">Proteção Contra Rastreamento</string>
     <string name="top_sites_max_limit_confirmation_button">OK, Entendi</string>
-    <string name="open_links_in_apps">Abrir links em apps</string>
+    <string name="open_links_in_apps">Abrir links em aplicativos</string>
     <string name="developer_tools_category">Ferramentas de desenvolvimento</string>
     <string name="crash_report_non_fatal_message">Desculpe. Nós travamos</string>
     <string name="private_browsing_title">Navegação Privativa</string>
@@ -43,8 +43,8 @@
     <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
     <string name="menu_action_close_tabs_private">Fechar Abas Privativas</string>
-    <string name="preferences_autofill">Apps para autocompletar</string>
-    <string name="preferences_autofill_summary">Autocompletar logins e senhas em outros apps</string>
+    <string name="preferences_autofill">Aplicativos de preenchimento automático</string>
+    <string name="preferences_autofill_summary">Preencher automaticamente logins e senhas em outros aplicativos</string>
     <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Privativa</string>
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
@@ -85,4 +85,9 @@
     <string name="preference_search_summary">Definir padrão</string>
     <string name="preference_choose_search_engine">Escolher buscador</string>
     <string name="preference_select_preferred_engine">Selecionar o buscador de sua preferência:</string>
+    <string name="shortcut_max_limit_title">Número máximo de atalhos atingido</string>
+    <string name="shortcut_max_limit_content">Para adicionar um novo atalho, remova um. Toque e segure o website e selecione remover.</string>
+    <string name="browser_menu_add_to_shortcuts">Adicionar aos atalhos</string>
+    <string name="browser_menu_remove_from_shortcuts">Remover dos atalhos</string>
+    <string name="shortcut_name_hint">Nome do atalho</string>
 </resources>

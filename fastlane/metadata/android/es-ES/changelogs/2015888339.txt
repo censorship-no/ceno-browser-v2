@@ -1,8 +1,8 @@
 Esta versión:
 
 - Añade personalización de temas
-- Aplica cambios menores en la interfaz de usuario a la configuración general
-- Actualizaciones menores de las traducciones
+- Aplica cambios menores en la IU a la Configuración General
+- Realiza actualizaciones menores a las traducciones
 - Corrige el fallo al borrar la caché de Ceno antes de que el navegador esté listo.
-- Se corrige el fallo al abrir los complementos sin conexión de red.
-- Se corrige un error tipográfico en la descripción de la nueva pestaña de navegación privada
+- Corrige el fallo al abrir los Complementos sin conexión de red.
+- Corrige un error tipográfico en la descripción de la nueva pestaña de navegación privada

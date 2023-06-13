@@ -111,4 +111,27 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
+    <string name="menu_share_with">分享给…</string>
+    <string name="toast_copied">已复制！</string>
+    <string name="preferences_autofill">自动填充应用</string>
+    <string name="customization_settings">个性化</string>
+    <string name="toolbar_category">工具栏选项</string>
+    <string name="preferences_autofill_summary">在其他应用程序中自动填写登录名和密码</string>
+    <string name="preferences_tracking_protection_normal">在正常浏览模式下启用</string>
+    <string name="browser_menu_back">返回</string>
+    <string name="browser_menu_library">库</string>
+    <string name="delete_browsing_data_prompt_cancel">取消</string>
+    <string name="delete_browsing_data_prompt_allow">删除</string>
+    <string name="preferences_delete_browsing_data_snackbar">浏览数据已删除</string>
+    <string name="deleting_browsing_data_in_progress">删除浏览数据中…</string>
+    <string name="preferences_delete_browsing_data">删除浏览数据</string>
+    <string name="clear_button_category">清除按钮</string>
+    <string name="preferences_privacy_summary">启用个人和公共浏览</string>
+    <string name="general_category">常规设置</string>
+    <string name="crash_report_non_fatal_message">抱歉，我们崩溃了</string>
+    <string name="preferences_customization_summary">应用图标、工具栏、清除按钮</string>
+    <string name="theme_category">主题</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="other">%d 标签</item>
+    </plurals>
 </resources>
