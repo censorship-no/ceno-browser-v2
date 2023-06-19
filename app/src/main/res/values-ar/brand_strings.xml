@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<!DOCTYPE resources [
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
+<resources>
+    <string name="preferences_about_ceno">https://youtu.be/5dlX7HWL2PY</string>
+    <string name="preferences_make_default_browser">https://youtu.be/5dlX7HWL2PY</string>
+</resources>

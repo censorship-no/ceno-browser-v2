@@ -96,17 +96,30 @@ class TabTrayMenuTest {
     // This test verifies that close all tabs option works as expected
     @Test
     fun closeAllTabsTest() {
+        val genericOneURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+        val genericFourURL = TestAssetHelper.getGenericAsset(mockWebServer, 4)
+
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser(genericOneURL.url) {
+            verifyUrl(genericOneURL.url.toString())
+        }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
+        }.enterUrlAndEnterToBrowser(genericFourURL.url) {
+            verifyUrl(genericFourURL.url.toString())
+        }
+        navigationToolbar {
+            checkNumberOfTabsTabCounter("2")
         }.openTabTrayMenu {
-            verifyThereIsOneTabOpen()
+            verifyExistingOpenTabs(genericOneURL.title)
+            verifyExistingOpenTabs(genericFourURL.title)
         }.openMoreOptionsMenu(activityTestRule.activity) {
             mDevice.waitForIdle()
             verifyCloseAllTabsButton()
         }.closeAllTabs {
             verifyNoTabAddressView()
-            checkNumberOfTabsTabCounter("1")
+            checkNumberOfTabsTabCounter("0")
         }
     }
 
@@ -141,30 +154,39 @@ class TabTrayMenuTest {
             verifyUrl(genericURL.url.toString())
         }
         navigationToolbar {
+            checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
+            verifyExistingOpenTabs(genericURL.title)
         }.closeTabXButton(genericURL.title) {
         }
         navigationToolbar {
-            checkNumberOfTabsTabCounter("1")
+            checkNumberOfTabsTabCounter("0")
             verifyNewTabAddressView("Search or enter address")
         }
     }
 
     @Test
-    fun openTabCloseTabXButtonTest() {
-        val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+    fun openTwoTabsCloseOneTabXButtonTest() {
+        val genericOneURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+        val genericFourURL = TestAssetHelper.getGenericAsset(mockWebServer, 4)
         fun goBackButton() = onView(ViewMatchers.withContentDescription("back"))
 
         navigationToolbar {
+        }.enterUrlAndEnterToBrowser(genericOneURL.url) {
+            verifyUrl(genericOneURL.url.toString())
+        }
+        navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
-        }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.url.toString())
+        }.enterUrlAndEnterToBrowser(genericFourURL.url) {
+            verifyUrl(genericFourURL.url.toString())
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
         }.openTabTrayMenu {
-        }.closeTabXButton(genericURL.title) {
+            verifyExistingOpenTabs(genericOneURL.title)
+            verifyExistingOpenTabs(genericFourURL.title)
+        }.closeTabXButton(genericOneURL.title) {
         }
         goBackButton().click()
         navigationToolbar {
@@ -196,21 +218,18 @@ class TabTrayMenuTest {
         }.openTabTrayMenu {
         }.openNewTab {
             verifyNewTabAddressView("Search or enter address")
-            checkNumberOfTabsTabCounter("2")
+            checkNumberOfTabsTabCounter("0")
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
             verifyUrl(genericURL.url.toString())
         }
         navigationToolbar {
-            checkNumberOfTabsTabCounter("3")
+            checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
-            verifyExistingOpenTabs("CENO Homepage")
             verifyExistingOpenTabs(genericURL.title)
-        }.clickOpenTab("CENO Homepage") {
-        }
-        navigationToolbar {
-            verifyNewTabAddressView("Search or enter address")
+        }.clickOpenTab(genericURL.title) {
+            verifyUrl(genericURL.url.toString())
         }
     }
 
