@@ -83,7 +83,8 @@ class ThreeDotMenuTest {
             verifyFindInPageButtonDoesntExist()
             // Only these items should exist in the home screen menu
             verifyClearCenoButtonExists()
-            verifyHttpsByDefaultButtonExists()
+            //TODO: Https-by-default currently disabled on homepage, add back when needed
+            //verifyHttpsByDefaultButtonExists()
             //TODO: uBlock Origin takes some time to install, needs special test case
             //verifyUblockOriginButtonExists()
             verifyAddOnsButtonExists()
