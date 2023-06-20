@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="preferences_autofill_summary">Automatycznie uzupełniaj loginy i hasła w innych aplikacjach</string>
+    <string name="privacy" tools:ignore="UnusedResources">Prywatność</string>
+    <string name="private_browsing_title">Prywatne przeglądanie</string>
+    <string name="theme_category">Kompozycja</string>
+    <string name="toolbar_category">Opcje paska narzędzi</string>
+    <string name="settings">Ustawienia</string>
+    <string name="toast_copied">Skopiowane!</string>
+    <string name="crash_report_non_fatal_message">Przepraszam. Rozbiliśmy się</string>
+    <string name="customization_settings">Dostosowywanie</string>
+    <string name="toolbar_hint">Wyszukaj lub wprowadź adres</string>
+    <string name="menu_action_add_tab">Dodaj nową kartę</string>
+    <string name="menu_action_close_tabs">Zamknij wszystkie karty</string>
+    <string name="menu_action_close_tabs_private">Zamknij prywatne karty</string>
+    <string name="preferences_remote_debugging">Zdalne debugowanie przez USB</string>
+    <string name="preferences_tracking_protection_normal">Zezwalaj w normalnym trybie przeglądania</string>
+</resources>

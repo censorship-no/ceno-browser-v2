@@ -242,21 +242,21 @@ class ToolbarIntegration(
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
-        }
 
-        /* CENO: Only add extension menu items to list if their browserActions are not null */
-        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_https_by_default),
-                onClick = it
-            )
-        }
+            /* CENO: Only add extension menu items to list if there is a session and browserActions are not null */
+            cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
+                menuItemsList += TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_https_by_default),
+                    onClick = it
+                )
+            }
 
-        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_ublock_origin),
-                onClick = it
-            )
+            cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
+                menuItemsList += TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_ublock_origin),
+                    onClick = it
+                )
+            }
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {

@@ -49,6 +49,8 @@ class ThreeDotMenuRobot {
     fun verifyStopButtonDoesntExist() = assertStopButtonDoesntExist()
     fun verifyAddToHomescreenButtonDoesntExist() = assertAddToHomescreenButtonDoesntExist()
 
+    fun verifyAddToShortcutsButtonDoesntExist() = assertAddToShortcutsButtonDoesntExist()
+
     fun verifyRequestDesktopSiteIsTurnedOff() = assertRequestDesktopSiteIsTurnedOff()
     fun verifyRequestDesktopSiteIsTurnedOn() = assertRequestDesktopSiteIsTurnedOn()
 
@@ -197,7 +199,7 @@ private fun settingsButton() = onView(ViewMatchers.withText("Settings"))
 private fun addToHomescreenButton() = onView(ViewMatchers.withText("Add to Home screen"))
 private fun addOnsButton() = onView(ViewMatchers.withText("Add-ons"))
 private fun syncedTabsButton() = onView(ViewMatchers.withText("Synced Tabs"))
-private fun clearCenoButton() = onView(ViewMatchers.withText("Clear CENO"))
+private fun clearCenoButton() = onView(ViewMatchers.withText("Clear Ceno"))
 private fun addToShortcutsButton() = onView(ViewMatchers.withText("Add to shortcuts"))
 private fun removeFromShortcutsButton() = onView(ViewMatchers.withText("Remove from shortcuts"))
 private fun httpsByDefaultButton() = onView(ViewMatchers.withText("HTTPS by default"))
@@ -211,6 +213,9 @@ private fun assertForwardButtonDoesntExist() = forwardButton().check(ViewAsserti
 private fun assertRefreshButtonDoesntExist() = refreshButton().check(ViewAssertions.doesNotExist())
 private fun assertStopButtonDoesntExist() = stopButton().check(ViewAssertions.doesNotExist())
 private fun assertAddToHomescreenButtonDoesntExist() = addToHomescreenButton()
+    .check(ViewAssertions.doesNotExist())
+
+private fun assertAddToShortcutsButtonDoesntExist() = addToShortcutsButton()
     .check(ViewAssertions.doesNotExist())
 
 private fun assertBackButton() = backButton()

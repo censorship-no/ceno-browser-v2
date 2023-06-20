@@ -37,6 +37,7 @@ import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
@@ -266,6 +267,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
+        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */

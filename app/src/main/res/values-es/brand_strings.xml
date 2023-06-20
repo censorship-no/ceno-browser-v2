@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
-<!ENTITY brandShortName "CENO">
-<!ENTITY brandFullName "eQualitie CENO">
+<!DOCTYPE resources [
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -89,7 +79,7 @@
     <string name="preferences_show_onboarding">Mostrar la incorporación en el próximo lanzamiento</string>
     <string name="preferences_disable_battery_opt">Desactivar la Optimización de Batería</string>
     <string name="preferences_customization">Personalización</string>
-    <string name="about_content"><p>%1$s - ¡Comparte la Red!</p> <p>CENO (abreviatura de Censorship.no!) es el primer navegador móvil del mundo que evade los actuales métodos de censura en Internet. Su red troncal peer-to-peer (red de pares o P2P) permite a la gente acceder y compartir información en la web y a través de regiones donde la conectividad ha sido interrumpida o comprometida. </p> <p>%1$s Es un proyecto de eQualitie, una organización canadiense cuya misión es promover y defender las libertades fundamentales y los derechos humanos, incluida la libre circulación de información en línea. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesarias para defender los derechos humanos y las libertades en la era digital.</p></string>
+    <string name="about_content"><p>%1$s - ¡Comparte la Red!</p> <p>Ceno (abreviatura de Censorship.no!) es el primer navegador móvil del mundo que evade los actuales métodos de censura en Internet. Su red troncal peer-to-peer (red de pares o P2P) permite a la gente acceder y compartir información en la web y a través de regiones donde la conectividad ha sido interrumpida o comprometida. </p> <p>%1$s Es un proyecto de eQualitie, una organización canadiense cuya misión es promover y defender las libertades fundamentales y los derechos humanos, incluida la libre circulación de información en línea. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesarias para defender los derechos humanos y las libertades en la era digital.</p></string>
     <string name="onboarding_info_text">&brandShortName; utiliza tecnología punto a punto para compartir contenido web que puede ser accedido por otra(o)s &brandShortName; usuaria(o)s</string>
     <string name="onboarding_thanks_text">Como usuaria(o) de &brandShortName;, ayudas a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
     <string name="browser_menu_ceno_ext">&brandShortName; Ajustes</string>

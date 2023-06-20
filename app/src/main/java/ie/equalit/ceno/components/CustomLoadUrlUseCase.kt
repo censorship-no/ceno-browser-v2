@@ -35,7 +35,11 @@ class CustomLoadUrlUseCase internal constructor(
             /* TODO: rewriting URL is workaround for a narrow problem, it was not possible to
             *  open a website via p2p mechanism from the home page without forcing HTTPS
             *  should find better solution that doesn't rewrite url or force HTTPS */
-            val httpsUrl = "https://${URLStringUtils.toDisplayUrl(url)}"
+            val httpsUrl = if (url.contains("localhost"))
+                /* Don't rewrite if fetching local resource */
+                url
+            else
+                "https://${URLStringUtils.toDisplayUrl(url)}"
             onNoSelectedTab.invoke(httpsUrl)
         }
         else {

@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
@@ -219,10 +218,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         }
 
-        awesomeBar.setOnSuggestionClickedListener {
-            (activity as BrowserActivity).openToBrowser()
-        }
-
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
@@ -243,9 +238,15 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
             it.addHistoryProvider(
                 requireComponents.core.historyStorage,
-                requireComponents.useCases.sessionUseCases.loadUrl
+                requireComponents.useCases.customLoadUrlUseCase
             )
             it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
+        }
+
+        /* Redefine onStopListener to open browser fragment in addition to closing toolbar */
+        awesomeBar.setOnStopListener {
+            toolbar.displayMode()
+            (activity as BrowserActivity).openToBrowser()
         }
 
         // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
