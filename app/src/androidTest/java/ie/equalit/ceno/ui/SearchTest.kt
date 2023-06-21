@@ -51,6 +51,7 @@ class SearchTest {
         }
         navigationToolbar {
         }.openTabTrayMenu {
+            verifyExistingOpenTabs(defaultWebPage.title)
         }.openNewTab {
         }.clickToolbar {
             typeText("generic1.html")

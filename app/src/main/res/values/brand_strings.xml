@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
-<!ENTITY brandShortName "CENO">
-<!ENTITY brandFullName "eQualitie CENO">
+<!DOCTYPE resources [
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -21,7 +19,7 @@
     <!-- About content -->
     <string name="about_content"><![CDATA[
 <p>%1$s - Share the Web!</p>
-<p>CENO (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.
+<p>Ceno (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.
 </p>
 <p>%1$s is a project of eQualitie, a Canadian organization whose mission is to promote and defend fundamental freedoms and human rights, including the free flow of information online. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.</p>
     ]]></string>
@@ -118,8 +116,8 @@
     </string-array>
     <string-array name="preferences_clear_behavior_options">
         <item>Prompt</item>
-        <item>Clear CENO cache only</item>
-        <item>Clear app data and CENO cache</item>
+        <item>Clear Ceno cache only</item>
+        <item>Clear app data and Ceno cache</item>
     </string-array>
     <string name="preferences_change_app_icon">Change app icon</string>
     <string name="preferences_theme">Set app theme</string>

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
-<!ENTITY brandShortName "CENO">
-<!ENTITY brandFullName "eQualitie CENO">
+<!DOCTYPE resources [
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -66,7 +62,7 @@
     <string name="ceno_sources_category">Kaynaklar</string>
     <string name="preferences_ceno_groups_count">Paylaştığınız içerikler</string>
     <string name="preferences_ceno_sources_origin">Site</string>
-    <string name="preferences_ceno_sources_private_summary">İçerik gizli CENO ağı kullanılarak yüklenir</string>
+    <string name="preferences_ceno_sources_private_summary">İçerik gizli Ceno ağı kullanılarak yüklenir</string>
     <string name="preferences_ceno_sources_private">Gizlice</string>
     <string name="preferences_ceno_cache_size">Yerel ön bellek</string>
     <string name="changeIconCtaCancel">İptal</string>
@@ -94,7 +90,7 @@
 \nBu izin uygulama arka planda çalışırken sitelerin paylaşılması için gereklidir</string>
     <string name="preferences_clear_ceno_cache_summary">Yerel ön bellekteki internet içeriğini temizle</string>
     <string name="ouinet_client_fetch_fail">&brandShortName; ayarı değiştirilemedi</string>
-    <string name="about_content"><p>%1$s - İnterneti paylaşın!</p> <p>CENO (censorship.no\'nun kısaltması!), güncel İnternet sansür yöntemlerinin etrafından dolaşan dünyanın ilk mobil tarayıcısıdır. Uçtan uca omurgası, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde ve bölgeler arasında site bilgilerine erişmesini ve bunları paylaşmasını sağlar. </p> <p>%1$s, hedefi çevrimiçi serbest bilgi akışı ile birlikte temel özgürlükleri ve insan haklarını desteklemek ve savunmak olan Kanadalı eQualitie kuruluşunun bir projesidir. Erişilebilir teknolojiler oluşturmayı ve dijital çağda insan hakları ve özgürlüklerini savunmak için gereken becerileri geliştirmeyi hedefliyoruz.</p></string>
+    <string name="about_content"><p>%1$s - İnterneti paylaşın!</p> <p>Ceno (censorship.no!\'nun kısaltması), güncel İnternet sansür yöntemlerinin etrafından dolaşan dünyanın ilk mobil tarayıcısıdır. Eşler arası omurgası, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde ve bölgeler arasında site bilgilerine erişmesini ve bunları paylaşmasını sağlar. </p> <p>%1$s, hedefi çevrimiçi serbest bilgi akışı ile birlikte temel özgürlükleri ve insan haklarını desteklemek ve savunmak olan Kanadalı eQualitie kuruluşunun bir projesidir. Erişilebilir teknolojiler oluşturmayı ve dijital çağda insan hakları ve özgürlüklerini savunmak için gereken becerileri geliştirmeyi hedefliyoruz.</p></string>
     <string name="shutdown_clear_title">Uygulama verileri siliniyor ve
 \n&brandShortName; Browser durduruluyor</string>
     <string name="onboarding_warning_text">Pil iyileştirmesi hala açık.
@@ -102,13 +98,20 @@
 \nİzni daha sonra \"Ayarlar &gt; Pil iyileştirmesini kapat\" bölümünden verebilirsiniz</string>
     <string name="preferences_ceno_sources_peers_summary">İçerik paylaşan diğer kullanıcılardan yüklenir</string>
     <string name="preferences_ceno_sources_peers">Paylaşılmış</string>
-    <string name="onboarding_info_text">&brandShortName; uçtan uca teknolojisini kullanarak internet içeriğini diğer &brandShortName; kullanıcıları ile paylaşır</string>
+    <string name="onboarding_info_text">&brandShortName; eşler arası ağ teknolojisini kullanarak internet içeriğini diğer &brandShortName; kullanıcıları ile paylaşır</string>
     <string name="onboarding_thanks_text">&brandShortName; kullanıcısı olarak, sansürlenmiş içeriğe erişimin sağlayan köprüler ağının büyümesini sağlıyorsunuz.</string>
-    <string name="preferences_ceno_sources_public_summary">İçerik herkese açık CENO ağından yüklenir</string>
+    <string name="preferences_ceno_sources_public_summary">İçerik herkese açık Ceno ağından yüklenir</string>
     <string name="preferences_clear_behavior_summary">Temizle tuşuna dokunma davranışını ayarlayın</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; adres çubuğuna yazdıklarınızı arama hizmetinize gönderir</string>
     <string name="crash_report_non_fatal_action">&vendorShortName; bildirimi için dokunun</string>
     <string name="onboarding_battery_text_v33">Birazdan işletim sisteminiz sizden pil iyileştirmelerinin kapatılması için izin isteyecek.
 \n
 \nBu izin uygulama arka planda çalışırken sitelerin paylaşılması için gereklidir</string>
+    <string name="onboarding_warning_text_v33_1">Bildirimlere izin verilmiyor.
+\n
+\nDaha sonra izin vermek için \"Ayarlar &gt; Bildirimlere izin ver\" bölümüne gidin</string>
+    <string name="onboarding_warning_text_v33_2">Bildirimlere izin verilmiyor ve hala pil optimizasyonu uygulanıyor.
+\n
+\nDaha sonra izin vermek için \"Ayarlar \" bölümüne gidin</string>
+    <string name="preferences_allow_notifications">Bildirimlere izin ver</string>
 </resources>

@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package ie.equalit.ceno.browser
+package ie.equalit.ceno.components.toolbar
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.map
@@ -43,6 +44,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.addons.AddonsActivity
+import ie.equalit.ceno.browser.FindInPageIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
@@ -65,7 +67,6 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
-    //private val onTabUrlChange: (String) -> Unit,
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -241,21 +242,21 @@ class ToolbarIntegration(
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
-        }
 
-        /* CENO: Only add extension menu items to list if their browserActions are not null */
-        cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_https_by_default),
-                onClick = it
-            )
-        }
+            /* CENO: Only add extension menu items to list if there is a session and browserActions are not null */
+            cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
+                menuItemsList += TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_https_by_default),
+                    onClick = it
+                )
+            }
 
-        cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
-            menuItemsList += TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_ublock_origin),
-                onClick = it
-            )
+            cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
+                menuItemsList += TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_ublock_origin),
+                    onClick = it
+                )
+            }
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
@@ -264,19 +265,16 @@ class ToolbarIntegration(
             context.startActivity(intent)
         }
 
-        if (sessionState != null) {
-            menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-                /* CENO: Switch to SettingsFragment instead of starting a new activity */
-                CenoSettings.setStatusUpdateRequired(context, true)
-                activity.supportFragmentManager.beginTransaction().apply {
-                    replace(
-                        R.id.container,
-                        SettingsFragment.create(sessionState.id),
-                        SettingsFragment.TAG
-                    )
-                    addToBackStack(null)
-                    commit()
-                }
+        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
+            /* CENO: Switch to SettingsFragment instead of starting a new activity */
+            CenoSettings.setStatusUpdateRequired(context, true)
+            activity.supportFragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.container,
+                    SettingsFragment(),
+                    SettingsFragment.TAG
+                )
+                commit()
             }
         }
 
@@ -295,6 +293,7 @@ class ToolbarIntegration(
 
         toolbar.display.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.hint = context.getString(R.string.toolbar_hint)
+        toolbar.edit.setOnEditFocusChangeListener {  }
 
         ToolbarAutocompleteFeature(toolbar).apply {
             updateAutocompleteProviders(
@@ -326,11 +325,6 @@ class ToolbarIntegration(
                     isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
                         .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
                         .find { it.url == newUrl } != null
-                    /*
-                    if (newUrl != null) {
-                        onTabUrlChange.invoke(newUrl)
-                    }
-                    */
                 }
         }
 
@@ -348,21 +342,21 @@ class ToolbarIntegration(
         }
     }
 
-    /* CENO: Requires components.ceno.toolbar which add hiddenAddressList
-     * enabling specified urls to be hidden in the address bar */
+    /* CENO: Requires feature-toolbar-ceno fork which modifies ToolbarFeature
+     * to accept an arbitrary callback function for the loadUrlUseCase */
     private val toolbarFeature: ToolbarFeature = ToolbarFeature(
         toolbar,
         context.components.core.store,
-        context.components.useCases.sessionUseCases.loadUrl,
+        context.components.useCases.customLoadUrlUseCase,
         { searchTerms ->
             context.components.useCases.searchUseCases.defaultSearch.invoke(
                 searchTerms = searchTerms,
                 searchEngine = null,
                 parentSessionId = null
             )
+            (context as BrowserActivity).openToBrowser()
         },
         sessionId,
-        //hiddenAddressList = listOf(CenoHomeFragment.ABOUT_HOME)
     )
 
     override fun start() {

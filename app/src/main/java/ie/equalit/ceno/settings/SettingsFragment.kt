@@ -18,7 +18,6 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -32,13 +31,15 @@ import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
+import mozilla.components.browser.state.action.TabListAction
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
+import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.feature.PermissionsFeature
@@ -53,13 +54,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs : CenoPreferences
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
-    interface ActionBarUpdater {
-        fun updateTitle(titleResId: Int)
-    }
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -76,10 +70,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.container,
-                        create(sessionId),
+                        SettingsFragment(),
                         TAG
                     )
-                    addToBackStack(null)
                     commit()
                 }
             }
@@ -274,6 +267,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
+        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
@@ -421,8 +415,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AboutFragment())
-                .addToBackStack(null)
+                .replace(R.id.container, AboutFragment(), AboutFragment.TAG)
                 .commit()
             getActionBar().setTitle(R.string.preferences_about_page)
             true
@@ -546,37 +539,35 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoGroupsCounts () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val browserActivity = activity as BrowserActivity
-            browserActivity.openToBrowser("${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}" , newTab = true)
-            val entry: FragmentManager.BackStackEntry =
-                browserActivity.supportFragmentManager.getBackStackEntryAt(0)
-            browserActivity.supportFragmentManager.popBackStack(
-                entry.id,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            (activity as BrowserActivity).openToBrowser(
+                "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
+                newTab = true
             )
-            browserActivity.supportFragmentManager.executePendingTransactions()
             true
         }
     }
 
     private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val browserActivity = activity as BrowserActivity
             WebExtensionToolbarFeature.getBrowserAction(
                         requireContext(),
                         CenoWebExt.CENO_EXTENSION_ID
                     )?.invoke()
-            (activity as BrowserActivity).popToFragmentIndex(0)
+            (activity as BrowserActivity).openToBrowser()
             true
         }
     }
 
     private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val download = DownloadState(url = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}")
-            if (sessionId != null) {
-                requireContext().components.core.store.dispatch(ContentAction.UpdateDownloadAction(sessionId!!, download))
+            val store = requireComponents.core.store
+            val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
+            val download = DownloadState(logUrl)
+            createTab(logUrl).apply {
+                store.dispatch(TabListAction.AddTabAction(this, select = true))
+                store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
             }
+            (activity as BrowserActivity).openToBrowser()
             true
         }
     }
@@ -585,16 +576,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "SETTINGS"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-        fun create(sessionId: String? = null) = SettingsFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }

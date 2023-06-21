@@ -66,9 +66,9 @@ class ThreeDotMenuTest {
     }
 
     /* ktlint-disable no-blank-line-before-rbrace */ // This imposes unreadable grouping.
-    /* CENO: homepage menu is identical to browser tab menu
     @Test
     fun homeScreenMenuTest() {
+        mDevice.waitForIdle()
         navigationToolbar {
         }.openThreeDotMenu {
             verifyThreeDotMenuExists()
@@ -79,15 +79,18 @@ class ThreeDotMenuTest {
             verifyShareButtonDoesntExist()
             verifyRequestDesktopSiteToggleDoesntExist()
             verifyAddToHomescreenButtonDoesntExist()
+            verifyAddToShortcutsButtonDoesntExist()
             verifyFindInPageButtonDoesntExist()
             // Only these items should exist in the home screen menu
+            verifyClearCenoButtonExists()
+            //TODO: Https-by-default currently disabled on homepage, add back when needed
+            //verifyHttpsByDefaultButtonExists()
+            //TODO: uBlock Origin takes some time to install, needs special test case
+            //verifyUblockOriginButtonExists()
             verifyAddOnsButtonExists()
-            verifySyncedTabsButtonExists()
-            verifyReportIssueExists()
             verifyOpenSettingsExists()
         }
     }
-    */
 
     @Test
     fun threeDotMenuItemsTest() {

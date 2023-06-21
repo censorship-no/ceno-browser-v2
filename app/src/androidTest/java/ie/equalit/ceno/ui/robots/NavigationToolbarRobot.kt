@@ -56,6 +56,8 @@ class NavigationToolbarRobot {
         }
 
         fun openThreeDotMenu(interact: ThreeDotMenuRobot.() -> Unit): ThreeDotMenuRobot.Transition {
+            /* TODO: A short wait is required in case HTTPS-by-default is not finished installing yet */
+            Thread.sleep(2000)
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_menu"),

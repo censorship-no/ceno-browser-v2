@@ -47,6 +47,7 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
+import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabsTrayFragment
@@ -61,7 +62,6 @@ import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 import mozilla.components.lib.state.ext.consumeFrom
-import java.lang.Exception
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -137,18 +137,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        /* If all tabs were removed (e.g. browsing data was cleared),
-         * auto-create new home tab
-         */
-        /*
-        if (requireComponents.core.store.state.tabs.isEmpty()) {
-            requireComponents.useCases.tabsUseCases.addTab(
-                url=CenoHomeFragment.ABOUT_HOME,
-                selectTab = true
-            )
-        }
-        */
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -172,7 +160,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                //::onTabUrlChanged
             ),
             owner = this,
             view = view,
@@ -447,16 +434,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         /* CENO: Set toolbar appearance based on whether current tab is private or not
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
-        requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
+
+        /* TODO: this is still a little messy, should create ThemeManager class */
+        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+
+        requireComponents.core.store.state.selectedTab?.content?.private?.let { private ->
             binding.toolbar.private = private
-
-            /* TODO: this is still a little messy, should create ThemeManager class */
-            var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-            var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-            var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-            var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-            var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
-
             if (private) {
                 textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
                 textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
@@ -464,88 +451,42 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
                 statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
             }
-
-            binding.toolbar.display.setUrlBackground(urlBackground)
-            binding.toolbar.background = toolbarBackground
-            binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                    text = textPrimary,
-                    hint = textSecondary
-            )
-            binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                    text = textPrimary,
-                    hint = textSecondary,
-                    securityIconSecure = textPrimary,
-                    securityIconInsecure = textPrimary,
-                    menu = textPrimary
-            )
-
-            /* CENO: this is replaces the shield icon in the address bar
-             * with the ceno logo, regardless of tracking protection state
-             */
-            binding.toolbar.display.icons = DisplayToolbar.Icons(
-                emptyIcon = null,
-                trackingProtectionTrackersBlocked = statusIcon,
-                trackingProtectionNothingBlocked = statusIcon,
-                trackingProtectionException = statusIcon,
-                highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
-            )
-            val isToolbarPositionTop = prefs.getBoolean(
-                requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                false
-            )
-            binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
-                DisplayToolbar.Gravity.BOTTOM
-            }
-            else {
-                DisplayToolbar.Gravity.TOP
-            }
-        }
-    }
-
-    /* CENO: Functions to handle hiding/showing the CenoHomeFragment when "about:home" url is requested */
-    private fun showHome() {
-        activity?.supportFragmentManager?.findFragmentByTag(CenoHomeFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: BrowserFragment is already being displayed, don't do another transaction */
-                return
-            }
         }
 
-        try {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                commit()
-            }
-        } catch (ex : Exception) {
-            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(sessionId), CenoHomeFragment.TAG)
-                commitAllowingStateLoss()
-            }
-        }
-    }
+        binding.toolbar.display.setUrlBackground(urlBackground)
+        binding.toolbar.background = toolbarBackground
+        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
+                text = textPrimary,
+                hint = textSecondary
+        )
+        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
+                text = textPrimary,
+                hint = textSecondary,
+                securityIconSecure = textPrimary,
+                securityIconInsecure = textPrimary,
+                menu = textPrimary
+        )
 
-    private fun showBrowser() {
-        activity?.supportFragmentManager?.findFragmentByTag(BrowserFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: HomeFragment is already being displayed, don't do another transaction */
-                return
-            }
+        /* CENO: this is replaces the shield icon in the address bar
+         * with the ceno logo, regardless of tracking protection state
+         */
+        binding.toolbar.display.icons = DisplayToolbar.Icons(
+            emptyIcon = null,
+            trackingProtectionTrackersBlocked = statusIcon,
+            trackingProtectionNothingBlocked = statusIcon,
+            trackingProtectionException = statusIcon,
+            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
+        )
+        val isToolbarPositionTop = prefs.getBoolean(
+            requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+            false
+        )
+        binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+            DisplayToolbar.Gravity.BOTTOM
         }
-        try {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
-            }
+        else {
+            DisplayToolbar.Gravity.TOP
         }
-        catch (ex: Exception){
-            /* Workaround for opening shortcut from homescreen, try again allowing for state loss */
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commitAllowingStateLoss()
-            }
-        }
-        /* TODO: Allowing for state loss probably isn't best solution, should figure out how to avoid exception */
     }
 
     fun showWebExtensionPopupPanel(webExtId : String) {
@@ -589,31 +530,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         // navigation support library we may want to pass navigation graphs around.
         /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
+            replace(R.id.container, TabsTrayFragment.create(sessionId), TabsTrayFragment.TAG)
             commit()
-        }
-    }
-
-    private fun onTabUrlChanged(url : String) {
-        activity?.supportFragmentManager?.findFragmentByTag(TabsTrayFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
-                *  TabsTray will handle fragment transactions on it's own */
-                return
-            }
-        }
-        activity?.supportFragmentManager?.findFragmentByTag(ShutdownFragment.TAG)?.let {
-            if (it.isVisible) {
-                /* CENO: TabsTrayFragment is open, don't switch to home or browser,
-                *  TabsTray will handle fragment transactions on it's own */
-                return
-            }
-        }
-        if(url == CenoHomeFragment.ABOUT_HOME) {
-            showHome()
-        }
-        else {
-            showBrowser()
         }
     }
 

@@ -14,9 +14,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.Settings
 
 class OnboardingFragment : Fragment() {
@@ -91,13 +90,6 @@ class OnboardingFragment : Fragment() {
 
             Settings.setShowOnboarding(context , false)
 
-            /*
-            context.components.useCases.tabsUseCases.addTab(
-                CenoHomeFragment.ABOUT_HOME,
-                selectTab = true
-            )
-            */
-
             activity.supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             activity.supportFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
@@ -108,8 +100,8 @@ class OnboardingFragment : Fragment() {
                 )
                 replace(
                     R.id.container,
-                    CenoHomeFragment.create(sessionId),
-                    CenoHomeFragment.TAG
+                    HomeFragment.create(sessionId),
+                    HomeFragment.TAG
                 )
                 commit()
             }
