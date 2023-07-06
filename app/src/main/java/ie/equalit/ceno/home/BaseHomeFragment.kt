@@ -4,11 +4,15 @@
 
 package ie.equalit.ceno.home
 
+import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,6 +21,8 @@ import androidx.preference.PreferenceManager
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
+import mozilla.components.feature.downloads.SimpleDownloadDialogFragment
+import mozilla.components.feature.downloads.DownloadDialogFragment
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
@@ -25,6 +31,7 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
+import androidx.core.content.FileProvider
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
@@ -158,6 +165,20 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                     @Suppress("DEPRECATION")
                     requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
                 },
+                customFirstPartyDownloadDialog = { filename, contentSize, positiveActionCallback, negativeActionCallback ->
+                    // Create and show the default dialog from SimpleDownloadDialogFragment
+                    val dialog = SimpleDownloadDialogFragment.newInstance()
+                    val arguments = Bundle()
+                    arguments?.putString(SimpleDownloadDialogFragment.KEY_DOWNLOAD_TEXT, filename.value)
+                    arguments?.putLong(SimpleDownloadDialogFragment.KEY_THEME_ID, contentSize.value)
+                    dialog.arguments = arguments
+                    // Sst the positive and negative button callbacks
+                    dialog.onStartDownload = positiveActionCallback.value
+                    dialog.onCancelDownload = negativeActionCallback.value
+
+                    // Show the dialog using the child fragment manager
+                    dialog.show(childFragmentManager, "download_dialog")
+                }
             ),
             owner = this,
             view = view,
@@ -278,6 +299,20 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         )
     }
 
+    private fun openFile(context: Context, fileUri: Uri){
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(fileUri, "text/plain") // Update the MIME type if necessary
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException){
+            // Handle case when no app is available to open the file
+            Toast.makeText(context, "No Application installed to open the downloaded file", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -306,15 +341,15 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         binding.toolbar.display.setUrlBackground(urlBackground)
         binding.toolbar.background = toolbarBackground
         binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                text = textPrimary,
-                hint = textSecondary
+            text = textPrimary,
+            hint = textSecondary
         )
         binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                text = textPrimary,
-                hint = textSecondary,
-                securityIconSecure = textPrimary,
-                securityIconInsecure = textPrimary,
-                menu = textPrimary
+            text = textPrimary,
+            hint = textSecondary,
+            securityIconSecure = textPrimary,
+            securityIconInsecure = textPrimary,
+            menu = textPrimary
         )
 
         /* CENO: this is replaces the shield icon in the address bar
@@ -379,7 +414,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         Logger.info(
             "Fragment onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data",
+                    "requestCode: $requestCode, resultCode: $resultCode, data: $data",
         )
 
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }

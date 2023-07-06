@@ -11,10 +11,10 @@ import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
 
 Properties localProperties = new Properties()
-localProperties.load(rootProject.file('local.properties').newDataInputStream())
+localProperties.load(rootProject.file('local.properties.sample').newDataInputStream())
 
 android {
-    compileSdkVersion Config.compileSdkVersion
+    compileSdk 33
 
     aaptOptions {
         ignoreAssetsPattern '!._'
@@ -379,6 +379,9 @@ dependencies {
     implementation Deps.androidx_preference_ktx
     implementation Deps.androidx_swiperefreshlayout
     implementation Deps.androidx_work_runtime_ktx
+
+    implementation "com.google.android.play:app-update:2.1.0"
+    implementation "com.google.android.play:app-update-ktx:2.1.0"
 
     implementation Deps.androidx_activity_compose
     implementation Deps.androidx_compose_ui
