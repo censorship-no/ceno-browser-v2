@@ -122,6 +122,7 @@ open class BrowserActivity : AppCompatActivity() {
         if (Settings.shouldShowOnboarding(this)) {
             if (savedInstanceState == null) {
                 /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
+                /*
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.container, OnboardingFragment.create(sessionId), OnboardingFragment.TAG)
                     commit()
