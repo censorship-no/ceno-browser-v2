@@ -1,4 +1,4 @@
-Ceno (Censorship.No!) es un navegador web móvil descentralizado. Usa tecnología punto a punto para enviar sitios web a tu teléfono y cachea contenido popular con pares cooperativos. Ceno puede ser usado para evadir la censura de Internet y ayudar a otra(o)s a descargar páginas bloqueadas.
+Ceno (Censorship.No!) es un navegador web móvil descentralizado. Usa tecnología punto a punto para enviar sitios web a tu dispositivo móvil y cachea contenido popular con pares cooperativos. Ceno puede ser usado para evadir la censura de Internet y ayudar a otra(o)s a descargar páginas bloqueadas.
 
 ¡Dile NO a la censura! Instala el Navegador Ceno hoy para estar preparada(o) para la próxima vez que te 🔌 desconecten. 
 

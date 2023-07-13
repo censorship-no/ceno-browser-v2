@@ -1,4 +1,4 @@
-Ceno (Censorship.No!) is a decentralized mobile web browser. It uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages. 
+Ceno (Censorship.No!) is a decentralized mobile web browser. It uses peer-to-peer technology to deliver websites to your mobile device and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages. 
 
 Say NO to censorship! Install Ceno Browser today and be prepared for the next time you get 🔌 unplugged. 
 
@@ -17,7 +17,7 @@ Ceno Browser is powered by Ouinet, an open source library enabling third party d
 <strong>Please note:</strong> Ceno is not an anonymity tool: information about your browsing might be leaked to other Ceno users, as well as the fact that your application is providing particular web content to others. Content accessed with the application may stay in storage in clear text for some time, however you can purge all stored content at any time using the 'Purge Now' feature.
 
 <strong>About eQualit.ie</strong>
-eQualit.ie develops open and reusable systems with a focus on privacy, online security, and information management. Our goal is to create accessible technology and improve the skill-set needed for defending human rights and freedoms in the digital age.
+eQualit.ie develops open and reusable systems with a focus on privacy, online security, and information management. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.
 
 To learn more about Ceno Browser and its distributed library, Ouinet, please visit https://censorship.no
 
