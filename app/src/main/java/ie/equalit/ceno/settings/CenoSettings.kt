@@ -74,7 +74,11 @@ object CenoSettings {
         }
         val i = floor(log2(b) / 10).toInt()
         val v = b / 1024.0.pow(i)
-        val u = "KMGTPEZY"[i - 1] + "iB";
+        val u =
+            if (i > 0)
+                "KMGTPEZY"[i - 1] + "iB"
+            else
+                "B"
         return String.format("%.2f %s", v, u)
     }
 
