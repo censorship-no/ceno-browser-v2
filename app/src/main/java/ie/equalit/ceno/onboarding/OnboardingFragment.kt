@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import ie.equalit.ceno.R
@@ -29,14 +28,13 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container,false)
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener {
+        binding.btnOnboardingStart.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.slide_in,
@@ -53,13 +51,12 @@ class OnboardingFragment : Fragment() {
                 commit()
             }
         }
-        binding.button2.setOnClickListener {
+        binding.btnOnboardingStartSkip.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 /* Android 13 or later, always ask for permissions */
                 OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
             }
             else {
-                binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
                 transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
             }
         }
