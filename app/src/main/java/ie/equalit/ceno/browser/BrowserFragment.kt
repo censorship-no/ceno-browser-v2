@@ -7,9 +7,9 @@ package ie.equalit.ceno.browser
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
-import ie.equalit.ceno.home.HomeFragment
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
 //import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
@@ -94,10 +94,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     }
 
     private fun onHomeButtonClicked() {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
-            commit()
-        }
+        findNavController().navigate(R.id.action_global_home)
     }
 
     override fun onBackPressed(): Boolean =
@@ -106,10 +103,5 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     companion object {
         /* CENO: Add a tag to keep track of whether this fragment is open */
         const val TAG = "BROWSER"
-        fun create(sessionId: String? = null) = BrowserFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }

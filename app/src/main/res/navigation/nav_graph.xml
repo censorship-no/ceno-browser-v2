@@ -2,25 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/startupFragment">
+    android:id="@+id/nav_graph">
 
     <action
-        android:id="@+id/action_global_startup_onboarding"
-        app:destination="@id/onboardingFragment"
-        app:popUpTo="@id/startupFragment"
-        app:popUpToInclusive="true" />
-
-    <action
-        android:id="@+id/action_global_homa"
+        android:id="@+id/action_global_home"
         app:destination="@id/homeFragment"
         app:popUpTo="@id/homeFragment"
         app:popUpToInclusive="true" />
 
-    <fragment
-        android:id="@+id/startupFragment"
-        android:name="ie.equalit.ceno.StartupFragment">
-    </fragment>
+    <action
+        android:id="@+id/action_global_browser"
+        app:destination="@id/browserFragment"
+        app:popUpTo="@id/browserFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_settings"
+        app:destination="@id/settingsFragment"
+        app:popUpTo="@id/settingsFragment"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/onboardingFragment"
@@ -28,8 +28,16 @@
         android:label="@string/onboarding_fragment"
         tools:layout="@layout/fragment_onboarding" >
         <action
-            android:id="@+id/action_onboarding_fragment_to_onboarding_info_fragment"
+            android:id="@+id/action_onboardingFragment_to_onboardingInfoFragment"
             app:destination="@id/onboardingInfoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+        <action
+            android:id="@+id/action_onboardingFragment_to_onboardingBatteryFragment"
+            app:destination="@id/onboardingBatteryFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
@@ -43,7 +51,7 @@
         android:label="@string/onboarding_info_title"
         tools:layout="@layout/fragment_onboarding_info" >
         <action
-            android:id="@+id/action_onboarding_info_fragment_to_onboarding_battery_fragment"
+            android:id="@+id/action_onboardingInfoFragment_to_onboardingBatteryFragment"
             app:destination="@id/onboardingBatteryFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
@@ -51,7 +59,7 @@
             app:popExitAnim="@anim/slide_back_out"
             />
         <action
-            android:id="@+id/action_onboarding_info_fragment_to_onboarding_thanks_fragment"
+            android:id="@+id/action_onboardingInfoFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
@@ -66,7 +74,7 @@
         android:label="@string/onboarding_battery_title"
         tools:layout="@layout/fragment_onboarding_battery" >
         <action
-            android:id="@+id/action_onboarding_battery_fragment_to_onboarding_warning_fragment"
+            android:id="@+id/action_onboardingBatteryFragment_to_onboardingWarningFragment"
             app:destination="@id/onboardingWarningFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
@@ -74,7 +82,7 @@
             app:popExitAnim="@anim/slide_back_out"
             />
         <action
-            android:id="@+id/action_onboarding_battery_fragment_to_onboarding_thanks_fragment"
+            android:id="@+id/action_onboardingBatteryFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
@@ -89,7 +97,7 @@
         android:label="@string/onboarding_warning_title"
         tools:layout="@layout/fragment_onboarding_warning" >
         <action
-            android:id="@+id/action_onboarding_warning_fragment_to_onboarding_thanks_fragment"
+            android:id="@+id/action_onboardingWarningFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
@@ -108,9 +116,23 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ie.equalit.ceno.browser.CenoHomeFragment"
+        android:name="ie.equalit.ceno.home.HomeFragment"
+        android:label="@string/ceno_notification_home_description"
+        tools:layout="@layout/fragment_home" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="ie.equalit.ceno.browser.BrowserFragment"
         android:label="@string/ceno_notification_home_description"
         tools:layout="@layout/fragment_browser" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ie.equalit.ceno.settings.SettingsFragment"
+        android:label="@string/ceno_notification_home_description"
+        tools:layout="@layout/fragment_add_on_settings" >
     </fragment>
 
 </navigation>

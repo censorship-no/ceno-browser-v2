@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.browser.state.selector.selectedTab
@@ -24,8 +25,6 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 
@@ -91,16 +90,10 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
      * with or without a new blank tab? */
     private fun closeTabsTray(newTab: Boolean = false) {
         if(newTab) {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
-                commit()
-            }
+            findNavController().navigate(R.id.action_global_home)
         }
         else {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
-            }
+            findNavController().navigate(R.id.action_global_browser)
         }
     }
 
