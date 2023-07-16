@@ -69,13 +69,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
-//                parentFragmentManager.beginTransaction().apply {
-//                    replace(R.id.container,
-//                        SettingsFragment(),
-//                        TAG
-//                    )
-//                    commit()
-//                }
                 findNavController().popBackStack()
                 findNavController().navigate(R.id.action_global_settings)
             }

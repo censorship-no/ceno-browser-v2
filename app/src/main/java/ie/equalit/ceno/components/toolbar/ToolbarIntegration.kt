@@ -261,7 +261,7 @@ class ToolbarIntegration(
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
             (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).apply {
                 navController.navigate(
-                    R.id.action_global_addson
+                    R.id.action_global_addons
                 )
             }
         }

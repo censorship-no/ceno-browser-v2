@@ -26,18 +26,18 @@
     <action
         android:id="@+id/action_global_settings"
         app:destination="@id/settingsFragment"
-        app:enterAnim="@anim/slide_in"
-        app:exitAnim="@anim/slide_out"
-        app:popEnterAnim="@anim/slide_back_in"
-        app:popExitAnim="@anim/slide_back_out" />
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
 
     <action
-        android:id="@+id/action_global_addson"
+        android:id="@+id/action_global_addons"
         app:destination="@id/addonsFragment"
-        app:enterAnim="@anim/slide_in"
-        app:exitAnim="@anim/slide_out"
-        app:popEnterAnim="@anim/slide_back_in"
-        app:popExitAnim="@anim/slide_back_out" />
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
 
     <fragment
         android:id="@+id/startupFragment"
@@ -162,7 +162,8 @@
     <fragment
         android:id="@+id/addonsFragment"
         android:name="ie.equalit.ceno.addons.AddonsFragment"
-        android:label="@string/browser_menu_add_ons" >
+        android:label="@string/browser_menu_add_ons"
+        tools:layout="@layout/fragment_add_ons">
     </fragment>
 
 </navigation>

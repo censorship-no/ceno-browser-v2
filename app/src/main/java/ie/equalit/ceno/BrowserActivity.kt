@@ -16,7 +16,8 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -120,6 +121,14 @@ open class BrowserActivity : BaseActivity() {
                 else -> R.id.browserFragment
             }
         )
+
+//        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when(destination) {
+//                R.id.settingsFragment -> {
+//                    setTheme(R.id.Lig)
+//                }
+//            }
+//        }
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
