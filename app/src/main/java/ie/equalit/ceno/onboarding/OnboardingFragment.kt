@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
+import ie.equalit.ceno.settings.Settings
 
 class OnboardingFragment : Fragment() {
 
@@ -39,6 +40,8 @@ class OnboardingFragment : Fragment() {
             }
             else {
                 binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+                Settings.setShowOnboarding(requireContext() , false)
+                findNavController().popBackStack(R.id.onboardingFragment, true)
                 findNavController().navigate(R.id.action_global_home)
             }
         }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingThanksBinding
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -33,6 +34,8 @@ class OnboardingThanksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
             binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+            Settings.setShowOnboarding(requireContext() , false)
+            findNavController().popBackStack(R.id.onboardingFragment, true)
             findNavController().navigate(R.id.action_global_home)
         }
     }

@@ -14,6 +14,7 @@ import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -58,6 +59,8 @@ class OnboardingBatteryFragment : Fragment() {
                 requireContext(),
                 R.drawable.onboarding_splash_background
             )
+            Settings.setShowOnboarding(requireContext() , false)
+            findNavController().popBackStack(R.id.onboardingFragment, true)
             findNavController().navigate(R.id.action_global_home)
         }
     }
