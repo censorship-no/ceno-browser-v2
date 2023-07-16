@@ -189,20 +189,13 @@
 
         <activity
             android:theme="@style/Theme.AppCompat.Light"
-            android:name="ie.equalit.ceno.addons.AddonsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:parentActivityName="ie.equalit.ceno.BrowserActivity" />
-
-        <activity
-            android:theme="@style/Theme.AppCompat.Light"
             android:name="ie.equalit.ceno.addons.AddonDetailsActivity"
             android:exported="false"
             android:label="@string/mozac_feature_addons_addons" />
 
         <activity android:name="ie.equalit.ceno.addons.InstalledAddonDetailsActivity"
             android:label="@string/mozac_feature_addons_addons"
-            android:parentActivityName="ie.equalit.ceno.addons.AddonsActivity"
+            android:parentActivityName=".BrowserActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
 

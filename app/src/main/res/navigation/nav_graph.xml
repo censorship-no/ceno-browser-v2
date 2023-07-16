@@ -2,7 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startupFragment">
+
+    <action
+        android:id="@+id/action_global_startup_onboarding"
+        app:destination="@id/onboardingFragment"
+        app:popUpTo="@id/startupFragment"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_global_home"
@@ -19,8 +26,26 @@
     <action
         android:id="@+id/action_global_settings"
         app:destination="@id/settingsFragment"
-        app:popUpTo="@id/settingsFragment"
-        app:popUpToInclusive="true" />
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/slide_out"
+        app:popEnterAnim="@anim/slide_back_in"
+        app:popExitAnim="@anim/slide_back_out" />
+
+    <action
+        android:id="@+id/action_global_addson"
+        app:destination="@id/addonsFragment"
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/slide_out"
+        app:popEnterAnim="@anim/slide_back_in"
+        app:popExitAnim="@anim/slide_back_out" />
+
+    <fragment
+        android:id="@+id/startupFragment"
+        android:name="ie.equalit.ceno.StartupFragment"
+        app:popUpTo="@id/startupFragment"
+        app:popUpToInclusive="true">
+    </fragment>
+
 
     <fragment
         android:id="@+id/onboardingFragment"
@@ -131,8 +156,13 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ie.equalit.ceno.settings.SettingsFragment"
-        android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_add_on_settings" >
+        android:label="@string/settings" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/addonsFragment"
+        android:name="ie.equalit.ceno.addons.AddonsFragment"
+        android:label="@string/browser_menu_add_ons" >
     </fragment>
 
 </navigation>

@@ -34,6 +34,7 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
+import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
@@ -54,7 +55,7 @@ import kotlin.system.exitProcess
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : AppCompatActivity() {
+open class BrowserActivity : BaseActivity() {
 
     private lateinit var crashIntegration: CrashIntegration
 
@@ -112,16 +113,13 @@ open class BrowserActivity : AppCompatActivity() {
 
         val safeIntent = SafeIntent(intent)
 
-        val graph = navHost.navController.navInflater.inflate(R.navigation.nav_graph)
-        graph.setStartDestination(
+        navHost.navController.navigate(
             when {
                 Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.onboardingFragment
                 savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.homeFragment
                 else -> R.id.browserFragment
             }
         )
-
-        navHost.navController.graph = graph
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()

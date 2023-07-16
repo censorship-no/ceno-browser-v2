@@ -18,6 +18,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -68,13 +69,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
-                parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.container,
-                        SettingsFragment(),
-                        TAG
-                    )
-                    commit()
-                }
+//                parentFragmentManager.beginTransaction().apply {
+//                    replace(R.id.container,
+//                        SettingsFragment(),
+//                        TAG
+//                    )
+//                    commit()
+//                }
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_global_settings)
             }
         }
         else if (key == getString(pref_key_shared_prefs_update)) {
