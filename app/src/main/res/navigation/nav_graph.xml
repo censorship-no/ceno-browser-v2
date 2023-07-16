@@ -39,12 +39,19 @@
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out" />
 
+    <action
+        android:id="@+id/action_global_tabsTray"
+        app:destination="@id/tabsTrayFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
     <fragment
         android:id="@+id/startupFragment"
         android:name="ie.equalit.ceno.StartupFragment"
         app:popUpTo="@id/startupFragment"
-        app:popUpToInclusive="true">
-    </fragment>
+        app:popUpToInclusive="true" />
 
 
     <fragment
@@ -164,6 +171,12 @@
         android:name="ie.equalit.ceno.addons.AddonsFragment"
         android:label="@string/browser_menu_add_ons"
         tools:layout="@layout/fragment_add_ons">
+    </fragment>
+
+    <fragment
+        android:id="@+id/tabsTrayFragment"
+        android:name="ie.equalit.ceno.tabs.TabsTrayFragment"
+        tools:layout="@layout/fragment_tabstray">
     </fragment>
 
 </navigation>
