@@ -174,4 +174,6 @@
     <string name="donate_button_link" translatable="false">https://censorship.no/en/donate</string>
     <string name="ceno_onboarding_start_title">Share the web,\npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">Ceno’s peer-to-peer backbone allows people to access and share website content in and across regions where connectivity has been interrupted or compromised.</string>
+    <string name="onboarding_public_or_personal_title">Public or Personal?</string>
+    <string name="onboarding_public_personal_text">With Public tabs you can access public pages such as news, videos, or articles.\n\nNeed to log into an account with access credentials? Personal tabs are just right for that.</string>
 </resources>

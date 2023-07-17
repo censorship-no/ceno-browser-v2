@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ceno_onboarding_background"
+    android:clipToPadding="false"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_onboarding_help_outline"
+        android:contentDescription="@null"/>
+
+    <ImageView
+        android:id="@+id/img_public_pvt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_weight="4"
+        android:contentDescription="@null"
+        android:src="@drawable/onboarding_graphic_public_pvt" />
+
+    <TextView
+        android:id="@+id/tv_onboarding_start_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:lineSpacingMultiplier="0.8"
+        android:text="@string/onboarding_public_or_personal_title"
+        android:textAlignment="textStart"
+        android:textColor="@color/photonBlack"
+        android:textSize='@dimen/ceno_onboarding_title' />
+
+    <TextView
+        android:id="@+id/tv_onboarding_start_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:text="@string/onboarding_public_personal_text"
+        android:textAlignment="textStart"
+        android:textColor="@color/ceno_onboarding_text"
+        android:textSize="@dimen/ceno_onboarding_text" />
+
+    <Button
+        android:id="@+id/btn_onboarding_public_pvt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/ceno_onboarding_button"
+        android:text="@string/onboarding_battery_button"
+        android:textAllCaps="false"
+        android:textColor="@color/photonWhite" />
+
+    <Button
+        android:id="@+id/btn_onboarding_start_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="@string/onboarding_skip_button"
+        android:textAllCaps="false"
+        android:textColor="@color/ceno_onboarding_button"
+        android:textStyle="italic" />
+
+</LinearLayout>

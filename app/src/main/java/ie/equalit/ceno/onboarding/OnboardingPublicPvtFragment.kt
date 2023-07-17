@@ -1,23 +1,21 @@
 package ie.equalit.ceno.onboarding
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
-import ie.equalit.ceno.home.HomeFragment
-import ie.equalit.ceno.databinding.FragmentOnboardingBinding
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
 
-class OnboardingFragment : Fragment() {
-
-    private var _binding: FragmentOnboardingBinding? = null
+/**
+ * A simple [Fragment] subclass.
+ * Use the [OnboardingPublicPvtFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class OnboardingPublicPvtFragment : Fragment() {
+    private var _binding: FragmentOnboardingPublicPvtBinding? = null
     private val binding get() = _binding!!
 
     protected val sessionId: String?
@@ -26,15 +24,15 @@ class OnboardingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentOnboardingBinding.inflate(inflater, container,false)
-        (activity as AppCompatActivity).supportActionBar!!.hide()
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentOnboardingPublicPvtBinding.inflate(inflater, container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnOnboardingStart.setOnClickListener {
+        binding.btnOnboardingPublicPvt.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.slide_in,
@@ -44,8 +42,8 @@ class OnboardingFragment : Fragment() {
                 )
                 replace(
                     R.id.container,
-                    OnboardingPublicPvtFragment.create(sessionId),
-                    OnboardingPublicPvtFragment.TAG
+                    OnboardingInfoFragment.create(sessionId),
+                    OnboardingInfoFragment.TAG
                 )
                 addToBackStack(null)
                 commit()
@@ -57,7 +55,7 @@ class OnboardingFragment : Fragment() {
                 OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
             }
             else {
-                transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+                OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
             }
         }
     }
@@ -70,33 +68,11 @@ class OnboardingFragment : Fragment() {
             putString(SESSION_ID, sessionId)
         }
 
-        const val TAG = "ONBOARD"
-        fun create(sessionId: String? = null) = OnboardingFragment().apply {
+        const val TAG = "ONBOARD_PUBLIC_PVT"
+        fun create(sessionId: String? = null) = OnboardingPublicPvtFragment().apply {
             arguments = Bundle().apply {
                 putSessionId(sessionId)
             }
         }
-
-        fun transitionToHomeFragment(context: Context, activity: FragmentActivity, sessionId: String?) {
-
-            Settings.setShowOnboarding(context , false)
-
-            activity.supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            activity.supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.slide_out,
-                    R.anim.slide_back_in,
-                    R.anim.fade_out
-                )
-                replace(
-                    R.id.container,
-                    HomeFragment.create(sessionId),
-                    HomeFragment.TAG
-                )
-                commit()
-            }
-        }
-
     }
 }
