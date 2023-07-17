@@ -16,8 +16,6 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -36,6 +34,7 @@ import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
+import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
@@ -121,14 +120,6 @@ open class BrowserActivity : BaseActivity() {
                 else -> R.id.browserFragment
             }
         )
-
-//        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
-//            when(destination) {
-//                R.id.settingsFragment -> {
-//                    setTheme(R.id.Lig)
-//                }
-//            }
-//        }
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
@@ -299,9 +290,9 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun openPopup(webExtensionState: WebExtensionState) {
-        if (webExtensionState.id == CENO_EXTENSION_ID) {
-            val fragment = supportFragmentManager.findFragmentByTag(BrowserFragment.TAG) as BrowserFragment
-            fragment.showWebExtensionPopupPanel(webExtensionState.id)
+        if (webExtensionState.id == CENO_EXTENSION_ID && navHost.navController.currentDestination?.id == R.id.browserFragment) {
+            val fragment = navHost.childFragmentManager.findFragmentByTag(getString(R.string.preferences_about_ceno)) as BaseBrowserFragment?
+            fragment?.showWebExtensionPopupPanel(webExtensionState.id)
         }
         else {
             val intent = Intent(this, WebExtensionActionPopupActivity::class.java)

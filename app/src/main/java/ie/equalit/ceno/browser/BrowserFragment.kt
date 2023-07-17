@@ -99,9 +99,4 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     override fun onBackPressed(): Boolean =
         readerViewFeature.onBackPressed() || super.onBackPressed()
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "BROWSER"
-    }
 }
