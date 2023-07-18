@@ -47,12 +47,19 @@
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out" />
 
+    <action
+        android:id="@+id/action_global_external_browser"
+        app:destination="@id/externalAppBrowserFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
     <fragment
         android:id="@+id/startupFragment"
         android:name="ie.equalit.ceno.StartupFragment"
         app:popUpTo="@id/startupFragment"
         app:popUpToInclusive="true" />
-
 
     <fragment
         android:id="@+id/onboardingFragment"
@@ -145,7 +152,6 @@
         tools:layout="@layout/fragment_onboarding_thanks" >
     </fragment>
 
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="ie.equalit.ceno.home.HomeFragment"
@@ -171,12 +177,59 @@
         android:name="ie.equalit.ceno.addons.AddonsFragment"
         android:label="@string/browser_menu_add_ons"
         tools:layout="@layout/fragment_add_ons">
+
+        <action
+            android:id="@+id/action_addonsFragment_to_addonDetailsFragment"
+            app:destination="@id/addonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
+        <action
+            android:id="@+id/action_addonsFragment_to_installedAddonDetailsFragment"
+            app:destination="@id/installedAddonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
     </fragment>
 
     <fragment
         android:id="@+id/tabsTrayFragment"
         android:name="ie.equalit.ceno.tabs.TabsTrayFragment"
         tools:layout="@layout/fragment_tabstray">
+    </fragment>
+
+    <fragment
+        android:id="@+id/externalAppBrowserFragment"
+        android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/addonDetailsFragment"
+        android:name="ie.equalit.ceno.addons.AddonDetailsFragment"
+        android:label="@string/mozac_feature_addons_details"
+        tools:layout="@layout/fragment_addon_details" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/installedAddonDetailsFragment"
+        android:name="ie.equalit.ceno.addons.InstalledAddOnDetailsFragment"
+        android:label="@string/mozac_feature_addons_details"
+        tools:layout="@layout/fragment_installed_add_on_details" >
+
+        <action
+            android:id="@+id/installedAddonDetailsFragment_to_addonDetailsFragment"
+            app:destination="@id/addonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
     </fragment>
 
 </navigation>

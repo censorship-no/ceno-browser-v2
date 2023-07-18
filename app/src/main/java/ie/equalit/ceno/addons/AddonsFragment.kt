@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.addons
 
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -98,13 +99,19 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     override fun onAddonItemClicked(addon: Addon) {
         if (addon.isInstalled()) {
-            val intent = Intent(context, InstalledAddonDetailsActivity::class.java)
-            intent.putExtra("add_on", addon)
-            startActivity(intent)
+            findNavController().navigate(
+                R.id.action_addonsFragment_to_installedAddonDetailsFragment,
+                bundleOf(
+                    "add_on" to addon
+                )
+            )
         } else {
-            val intent = Intent(context, AddonDetailsActivity::class.java)
-            intent.putExtra("add_on", addon)
-            startActivity(intent)
+            findNavController().navigate(
+                R.id.action_addonsFragment_to_addonDetailsFragment,
+                bundleOf(
+                    "add_on" to addon
+                )
+            )
         }
     }
 

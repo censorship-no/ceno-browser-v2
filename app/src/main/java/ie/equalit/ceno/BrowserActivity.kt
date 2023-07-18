@@ -80,7 +80,14 @@ open class BrowserActivity : BaseActivity() {
      * Returns a new instance of [BrowserFragment] to display.
      */
     open fun createBrowserFragment(sessionId: String?) {
-        navHost.navController.navigate(R.id.browserFragment)
+        navHost.navController.navigate(R.id.action_global_browser)
+    }
+
+    /**
+     * Returns a new instance of [ExternalAppBrowserFragment] to display.
+     */
+    open fun createExternalAppBrowserFragment(sessionId: String) {
+        navHost.navController.navigate(R.id.action_global_external_browser)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
