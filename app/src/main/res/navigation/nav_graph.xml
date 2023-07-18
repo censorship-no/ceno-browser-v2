@@ -65,106 +65,96 @@
         android:id="@+id/onboardingFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingFragment"
         android:label="@string/onboarding_fragment"
-        tools:layout="@layout/fragment_onboarding" >
+        tools:layout="@layout/fragment_onboarding">
         <action
             android:id="@+id/action_onboardingFragment_to_onboardingInfoFragment"
             app:destination="@id/onboardingInfoFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
         <action
             android:id="@+id/action_onboardingFragment_to_onboardingBatteryFragment"
             app:destination="@id/onboardingBatteryFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/onboardingInfoFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingInfoFragment"
         android:label="@string/onboarding_info_title"
-        tools:layout="@layout/fragment_onboarding_info" >
+        tools:layout="@layout/fragment_onboarding_info">
         <action
             android:id="@+id/action_onboardingInfoFragment_to_onboardingBatteryFragment"
             app:destination="@id/onboardingBatteryFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
         <action
             android:id="@+id/action_onboardingInfoFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/onboardingBatteryFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingBatteryFragment"
         android:label="@string/onboarding_battery_title"
-        tools:layout="@layout/fragment_onboarding_battery" >
+        tools:layout="@layout/fragment_onboarding_battery">
         <action
             android:id="@+id/action_onboardingBatteryFragment_to_onboardingWarningFragment"
             app:destination="@id/onboardingWarningFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
         <action
             android:id="@+id/action_onboardingBatteryFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/onboardingWarningFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingWarningFragment"
         android:label="@string/onboarding_warning_title"
-        tools:layout="@layout/fragment_onboarding_warning" >
+        tools:layout="@layout/fragment_onboarding_warning">
         <action
             android:id="@+id/action_onboardingWarningFragment_to_onboardingThanksFragment"
             app:destination="@id/onboardingThanksFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/onboardingThanksFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingThanksFragment"
         android:label="@string/onboarding_thanks_title"
-        tools:layout="@layout/fragment_onboarding_thanks" >
-    </fragment>
+        tools:layout="@layout/fragment_onboarding_thanks" />
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="ie.equalit.ceno.home.HomeFragment"
         android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_home" >
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/browserFragment"
         android:name="ie.equalit.ceno.browser.BrowserFragment"
         android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_browser" >
-    </fragment>
+        tools:layout="@layout/fragment_browser" />
 
     <fragment
         android:id="@+id/settingsFragment"
@@ -172,49 +162,44 @@
         android:label="@string/settings">
 
         <action
-            android:id="@+id/settingsFragment_to_privacySettingsFragment"
+            android:id="@+id/action_settingsFragment_to_privacySettingsFragment"
             app:destination="@id/privacySettingsFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/settingsFragment_to_customizationSettingsFragment"
+            android:id="@+id/action_settingsFragment_to_customizationSettingsFragment"
             app:destination="@id/customizationSettingsFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/settingsFragment_to_installedSearchEnginesSettingsFragment"
+            android:id="@+id/action_settingsFragment_to_installedSearchEnginesSettingsFragment"
             app:destination="@id/installedSearchEnginesSettingsFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/settingsFragment_to_deleteBrowsingDataFragment"
+            android:id="@+id/action_settingsFragment_to_deleteBrowsingDataFragment"
             app:destination="@id/deleteBrowsingDataFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/settingsFragment_to_aboutFragment"
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
     </fragment>
 
@@ -230,8 +215,7 @@
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
         <action
             android:id="@+id/action_addonsFragment_to_installedAddonDetailsFragment"
@@ -239,75 +223,81 @@
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
 
     </fragment>
 
     <fragment
         android:id="@+id/tabsTrayFragment"
         android:name="ie.equalit.ceno.tabs.TabsTrayFragment"
-        tools:layout="@layout/fragment_tabstray">
-    </fragment>
+        tools:layout="@layout/fragment_tabstray" />
 
     <fragment
         android:id="@+id/externalAppBrowserFragment"
-        android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment">
-    </fragment>
+        android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment" />
 
     <fragment
         android:id="@+id/addonDetailsFragment"
         android:name="ie.equalit.ceno.addons.AddonDetailsFragment"
         android:label="@string/mozac_feature_addons_details"
-        tools:layout="@layout/fragment_addon_details" >
-    </fragment>
+        tools:layout="@layout/fragment_addon_details" />
 
     <fragment
         android:id="@+id/installedAddonDetailsFragment"
         android:name="ie.equalit.ceno.addons.InstalledAddOnDetailsFragment"
         android:label="@string/mozac_feature_addons_details"
-        tools:layout="@layout/fragment_installed_add_on_details" >
+        tools:layout="@layout/fragment_installed_add_on_details">
 
         <action
-            android:id="@+id/installedAddonDetailsFragment_to_addonDetailsFragment"
+            android:id="@+id/action_installedAddonDetailsFragment_to_addonDetailsFragment"
             app:destination="@id/addonDetailsFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out"
-            />
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/privacySettingsFragment"
         android:name="ie.equalit.ceno.settings.PrivacySettingsFragment"
-        android:label="@string/tracker_category" >
-    </fragment>
+        android:label="@string/tracker_category" />
 
     <fragment
         android:id="@+id/customizationSettingsFragment"
         android:name="ie.equalit.ceno.settings.CustomizationSettingsFragment"
-        android:label="@string/customization_settings" >
+        android:label="@string/customization_settings">
+
+        <action
+            android:id="@+id/action_customizationSettingsFragment_to_changeIconFragment"
+            app:destination="@id/changeIconFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
         android:id="@+id/installedSearchEnginesSettingsFragment"
         android:name="ie.equalit.ceno.settings.InstalledSearchEnginesSettingsFragment"
-        android:label="@string/preference_choose_search_engine" >
-    </fragment>
+        android:label="@string/preference_choose_search_engine" />
 
     <fragment
         android:id="@+id/deleteBrowsingDataFragment"
         android:name="ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment"
         android:label="@string/preferences_delete_browsing_data"
-        tools:layout="@layout/fragment_delete_browsing_data">
-    </fragment>
+        tools:layout="@layout/fragment_delete_browsing_data" />
 
     <fragment
         android:id="@+id/aboutFragment"
         android:name="ie.equalit.ceno.settings.AboutFragment"
         android:label="@string/preferences_about_page"
-        tools:layout="@layout/fragment_about">
-    </fragment>
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/changeIconFragment"
+        android:name="ie.equalit.ceno.settings.changeicon.ChangeIconFragment"
+        android:label="@string/preferences_change_app_icon"
+        tools:layout="@layout/fragment_change_icon" />
 
 </navigation>

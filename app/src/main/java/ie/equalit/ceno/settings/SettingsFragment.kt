@@ -360,7 +360,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.settingsFragment_to_privacySettingsFragment
+                R.id.action_settingsFragment_to_privacySettingsFragment
             )
             getActionBar().setTitle(R.string.tracker_category)
             true
@@ -370,7 +370,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForCustomization(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.settingsFragment_to_customizationSettingsFragment
+                R.id.action_settingsFragment_to_customizationSettingsFragment
             )
             true
         }
@@ -379,7 +379,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForSearch(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.settingsFragment_to_installedSearchEnginesSettingsFragment
+                R.id.action_settingsFragment_to_installedSearchEnginesSettingsFragment
             )
             getActionBar().setTitle(R.string.preference_choose_search_engine)
             true
@@ -389,7 +389,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.settingsFragment_to_deleteBrowsingDataFragment
+                R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(R.string.preferences_delete_browsing_data)
             true
@@ -406,7 +406,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.settingsFragment_to_aboutFragment
+                R.id.action_settingsFragment_to_aboutFragment
             )
             getActionBar().setTitle(R.string.preferences_about_page)
             true

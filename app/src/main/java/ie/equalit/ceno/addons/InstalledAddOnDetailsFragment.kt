@@ -160,7 +160,7 @@ class InstalledAddOnDetailsFragment : Fragment() {
     private fun bindDetails(addon: Addon, rootView: View) {
         rootView.findViewById<View>(R.id.details).setOnClickListener {
             findNavController().navigate(
-                R.id.installedAddonDetailsFragment_to_addonDetailsFragment,
+                R.id.action_installedAddonDetailsFragment_to_addonDetailsFragment,
                 bundleOf(
                     "add_on" to addon
                 )
