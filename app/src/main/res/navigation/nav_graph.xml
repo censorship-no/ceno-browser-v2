@@ -169,7 +169,53 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ie.equalit.ceno.settings.SettingsFragment"
-        android:label="@string/settings" >
+        android:label="@string/settings">
+
+        <action
+            android:id="@+id/settingsFragment_to_privacySettingsFragment"
+            app:destination="@id/privacySettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
+        <action
+            android:id="@+id/settingsFragment_to_customizationSettingsFragment"
+            app:destination="@id/customizationSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
+        <action
+            android:id="@+id/settingsFragment_to_installedSearchEnginesSettingsFragment"
+            app:destination="@id/installedSearchEnginesSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
+        <action
+            android:id="@+id/settingsFragment_to_deleteBrowsingDataFragment"
+            app:destination="@id/deleteBrowsingDataFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
+        <action
+            android:id="@+id/settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out"
+            />
+
     </fragment>
 
     <fragment
@@ -230,6 +276,38 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out"
             />
+    </fragment>
+
+    <fragment
+        android:id="@+id/privacySettingsFragment"
+        android:name="ie.equalit.ceno.settings.PrivacySettingsFragment"
+        android:label="@string/tracker_category" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/customizationSettingsFragment"
+        android:name="ie.equalit.ceno.settings.CustomizationSettingsFragment"
+        android:label="@string/customization_settings" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/installedSearchEnginesSettingsFragment"
+        android:name="ie.equalit.ceno.settings.InstalledSearchEnginesSettingsFragment"
+        android:label="@string/preference_choose_search_engine" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/deleteBrowsingDataFragment"
+        android:name="ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment"
+        android:label="@string/preferences_delete_browsing_data"
+        tools:layout="@layout/fragment_delete_browsing_data">
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ie.equalit.ceno.settings.AboutFragment"
+        android:label="@string/preferences_about_page"
+        tools:layout="@layout/fragment_about">
     </fragment>
 
 </navigation>

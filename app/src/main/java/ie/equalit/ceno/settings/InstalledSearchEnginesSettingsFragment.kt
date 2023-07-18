@@ -26,7 +26,6 @@ class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        fun newInstance() = InstalledSearchEnginesSettingsFragment()
         var languageChanged: Boolean = false
     }
 

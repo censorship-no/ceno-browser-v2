@@ -34,7 +34,6 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
@@ -360,10 +359,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, PrivacySettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.settingsFragment_to_privacySettingsFragment
+            )
             getActionBar().setTitle(R.string.tracker_category)
             true
         }
@@ -371,20 +369,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCustomization(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, CustomizationSettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.settingsFragment_to_customizationSettingsFragment
+            )
             true
         }
     }
 
     private fun getClickListenerForSearch(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, InstalledSearchEnginesSettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.settingsFragment_to_installedSearchEnginesSettingsFragment
+            )
             getActionBar().setTitle(R.string.preference_choose_search_engine)
             true
         }
@@ -392,10 +388,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, DeleteBrowsingDataFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.settingsFragment_to_deleteBrowsingDataFragment
+            )
             getActionBar().setTitle(R.string.preferences_delete_browsing_data)
             true
         }
@@ -410,9 +405,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AboutFragment(), AboutFragment.TAG)
-                .commit()
+            findNavController().navigate(
+                R.id.settingsFragment_to_aboutFragment
+            )
             getActionBar().setTitle(R.string.preferences_about_page)
             true
         }

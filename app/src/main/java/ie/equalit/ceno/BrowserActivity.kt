@@ -45,10 +45,8 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
-import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.components.PermissionHandler
-import ie.equalit.ceno.settings.AboutFragment
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
 
@@ -181,7 +179,7 @@ open class BrowserActivity : BaseActivity() {
     override fun onBackPressed() {
         supportFragmentManager.fragments.iterator().forEach {
             /* If coming from settings fragment, always clear back stack and go back to root fragment */
-            if (it.tag == SettingsFragment.TAG) {
+            if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
                 if (components.core.store.state.selectedTabId == "" ||
                     components.core.store.state.selectedTabId == null
                         ) {
@@ -192,7 +190,7 @@ open class BrowserActivity : BaseActivity() {
                 }
                 return
             }
-            if (it.tag == AboutFragment.TAG) {
+            if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
                 navHost.navController.navigate(R.id.action_global_settings)
                 return
             }
