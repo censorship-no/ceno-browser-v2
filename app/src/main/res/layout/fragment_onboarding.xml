@@ -13,73 +13,68 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="36dp"
+        android:contentDescription="@null"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/onboarding_circles_graphic"
-        android:contentDescription="@null"/>
+        app:srcCompat="@drawable/onboarding_circles_graphic" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_start_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/ceno_logo"
-        android:contentDescription="@null"/>
+        app:srcCompat="@drawable/ceno_logo" />
 
     <TextView
         android:id="@+id/tv_onboarding_start_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="48dp"
         android:lineSpacingMultiplier="0.8"
         android:text="@string/ceno_onboarding_start_title"
         android:textAlignment="textStart"
         android:textColor="@color/photonBlack"
         android:textSize='@dimen/ceno_onboarding_title'
-        app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_start_text"
-        app:layout_constraintStart_toStartOf="@+id/tv_onboarding_start_text"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.60" />
 
     <TextView
         android:id="@+id/tv_onboarding_start_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="49dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/ceno_onboarding_start_text"
         android:textAlignment="textStart"
         android:textColor="@color/ceno_onboarding_text"
         android:textSize="@dimen/ceno_onboarding_text"
-        app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_start"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_onboarding_start_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_start_title" />
 
     <Button
         android:id="@+id/btn_onboarding_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="49dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
         android:background="@color/ceno_onboarding_button"
         android:text="@string/onboarding_button"
         android:textAllCaps="false"
         android:textColor="@color/photonWhite"
         app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_start_skip"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_start_text" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_onboarding_start_skip"
@@ -93,7 +88,6 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_onboarding_start" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
