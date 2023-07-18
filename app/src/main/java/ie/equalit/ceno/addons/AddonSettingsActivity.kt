@@ -7,78 +7,49 @@ package ie.equalit.ceno.addons
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.translateName
-import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 
 /**
  * An activity to show the settings of an add-on.
  */
 class AddonSettingsActivity : AppCompatActivity() {
 
+    private lateinit var optionsPageUrl: String
+    private lateinit var engineSession: EngineSession
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_on_settings)
 
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
+        optionsPageUrl = requireNotNull(addon.installedState?.optionsPageUrl)
+
         title = addon.translateName(this)
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.addonSettingsContainer, AddonSettingsFragment.create(addon))
-            .commit()
+        val addonSettingsEngineView = findViewById<View>(R.id.addonSettingsEngineView) as EngineView
+        addonSettingsEngineView.render(engineSession)
+        engineSession.loadUrl(optionsPageUrl)
     }
 
-    override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? =
-        when (name) {
+    override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
+
+        engineSession = components.core.engine.createSession()
+
+        return when (name) {
             EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
             else -> super.onCreateView(parent, name, context, attrs)
         }
+    }
 
-    /**
-     * A fragment to show the settings of an add-on with [EngineView].
-     */
-    class AddonSettingsFragment : Fragment() {
-        private lateinit var optionsPageUrl: String
-        private lateinit var engineSession: EngineSession
-
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            optionsPageUrl = requireNotNull(arguments?.getParcelable<Addon>("add_on")?.installedState?.optionsPageUrl)
-            engineSession = requireContext().components.core.engine.createSession()
-
-            return inflater.inflate(R.layout.fragment_add_on_settings, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            val addonSettingsEngineView = view.findViewById<View>(R.id.addonSettingsEngineView) as EngineView
-            addonSettingsEngineView.render(engineSession)
-            engineSession.loadUrl(optionsPageUrl)
-        }
-
-        override fun onDestroyView() {
-            engineSession.close()
-            super.onDestroyView()
-        }
-
-        companion object {
-            /**
-             * Create an [AddonSettingsFragment] with add_on as a required parameter.
-             */
-            fun create(addon: Addon) = AddonSettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable("add_on", addon)
-                }
-            }
-        }
+    override fun onDestroy() {
+        engineSession.close()
+        super.onDestroy()
     }
 }
