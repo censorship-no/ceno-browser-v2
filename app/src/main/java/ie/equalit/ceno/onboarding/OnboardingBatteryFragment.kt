@@ -36,7 +36,6 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
         return binding.root
     }
 
@@ -44,14 +43,14 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         super.onViewCreated(view, savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            binding.text.text = getString(R.string.onboarding_battery_text_v33)
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text_v33)
             binding.button.setOnClickListener {
                 allowPostNotifications()
             }
         }
         else {
             /* This is NOT Android 13, just ask to disable battery optimization */
-            binding.text.text = getString(R.string.onboarding_battery_text)
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text)
             binding.button.setOnClickListener {
                 disableBatteryOptimization()
             }
@@ -60,10 +59,6 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
-            binding.root.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.onboarding_splash_background
-            )
             OnboardingFragment.transitionToHomeFragment(
                 requireContext(),
                 requireActivity(),
