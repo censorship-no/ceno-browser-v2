@@ -30,11 +30,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/ceno_onboarding_text"
         android:textSize='@dimen/ceno_onboarding_text'
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_onboarding_permission_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_permission_title"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_permission_title" />
 
     <Button
         android:id="@+id/button"

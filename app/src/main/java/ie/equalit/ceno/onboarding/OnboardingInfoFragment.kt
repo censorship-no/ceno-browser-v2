@@ -29,7 +29,6 @@ class OnboardingInfoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingInfoBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
         return binding.root
     }
 
