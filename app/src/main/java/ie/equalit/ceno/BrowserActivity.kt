@@ -17,7 +17,7 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
-import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -190,26 +190,27 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        supportFragmentManager.fragments.iterator().forEach {
-            /* If coming from settings fragment, always clear back stack and go back to root fragment */
-            if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
-                if (components.core.store.state.selectedTabId == "" ||
-                    components.core.store.state.selectedTabId == null
-                        ) {
-                    navHost.navController.navigate(R.id.action_global_home)
-                }
-                else {
-                    navHost.navController.navigate(R.id.action_global_browser)
-                }
-                return
+        /* If coming from settings fragment, always clear back stack and go back to root fragment */
+        if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
+            if (components.core.store.state.selectedTabId == "" ||
+                components.core.store.state.selectedTabId == null
+            ) {
+                navHost.navController.popBackStack(R.id.homeFragment, true)
+                navHost.navController.navigate(R.id.action_global_home)
             }
-            if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
-                navHost.navController.navigate(R.id.action_global_settings)
-                return
+            else {
+                navHost.navController.navigate(R.id.action_global_browser)
             }
-            if (it is UserInteractionHandler && it.onBackPressed()) {
-                return
-            }
+            return
+        }
+        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
+            navHost.navController.navigate(R.id.action_global_settings)
+            return
+        }
+
+        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
+            return
         }
 
         super.onBackPressed()
@@ -340,6 +341,11 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun showBrowser() {
+
+        if(navHost.navController.currentDestination?.id == R.id.browserFragment) {
+            return
+        }
+
         navHost.navController.navigate(R.id.action_global_browser)
     }
 
