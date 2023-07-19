@@ -296,7 +296,7 @@ open class BrowserActivity : BaseActivity() {
 
     private fun openPopup(webExtensionState: WebExtensionState) {
         if (webExtensionState.id == CENO_EXTENSION_ID && navHost.navController.currentDestination?.id == R.id.browserFragment) {
-            val fragment = navHost.childFragmentManager.findFragmentByTag(getString(R.string.preferences_about_ceno)) as BaseBrowserFragment?
+            val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
             fragment?.showWebExtensionPopupPanel(webExtensionState.id)
         }
         else {
