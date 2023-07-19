@@ -8,6 +8,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,7 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -37,6 +39,7 @@ import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.browser.ExternalAppBrowserFragment
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
@@ -48,6 +51,8 @@ import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.components.PermissionHandler
 import mozilla.components.browser.state.state.*
+import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.pwa.ext.putWebAppManifest
 import kotlin.system.exitProcess
 
 /**
@@ -84,8 +89,16 @@ open class BrowserActivity : BaseActivity() {
     /**
      * Returns a new instance of [ExternalAppBrowserFragment] to display.
      */
-    open fun createExternalAppBrowserFragment(sessionId: String) {
-        navHost.navController.navigate(R.id.action_global_external_browser)
+    open fun createExternalAppBrowserFragment(
+        sessionId: String,
+        manifest: WebAppManifest?,
+        trustedScopes: List<Uri>
+    ) {
+        navHost.navController.navigate(R.id.action_global_external_browser, Bundle().apply {
+            "session_id" to sessionId
+            putWebAppManifest(manifest)
+            putParcelableArrayList("org.mozilla.samples.browser.TRUSTED_SCOPES", ArrayList(trustedScopes))
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

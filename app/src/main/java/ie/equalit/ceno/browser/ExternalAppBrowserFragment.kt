@@ -14,7 +14,6 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.customtabs.CustomTabWindowFeature
 import mozilla.components.feature.pwa.ext.getWebAppManifest
-import mozilla.components.feature.pwa.ext.putWebAppManifest
 import mozilla.components.feature.pwa.feature.WebAppActivityFeature
 import mozilla.components.feature.pwa.feature.WebAppHideToolbarFeature
 import mozilla.components.feature.pwa.feature.WebAppSiteControlsFeature
@@ -121,17 +120,5 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
 
     companion object {
         private const val ARG_TRUSTED_SCOPES = "org.mozilla.samples.browser.TRUSTED_SCOPES"
-
-        fun create(
-            sessionId: String,
-            manifest: WebAppManifest?,
-            trustedScopes: List<Uri>,
-        ) = ExternalAppBrowserFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-                putWebAppManifest(manifest)
-                putParcelableArrayList(ARG_TRUSTED_SCOPES, ArrayList(trustedScopes))
-            }
-        }
     }
 }
