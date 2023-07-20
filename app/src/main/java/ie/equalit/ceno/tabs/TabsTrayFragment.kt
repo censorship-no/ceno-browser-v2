@@ -86,7 +86,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
      * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
      * with or without a new blank tab? */
     private fun closeTabsTray(newTab: Boolean = false) {
-        findNavController().popBackStack() //This way clicking back on the next fragment would not lead back to this fragment
+        findNavController().popBackStack() //This way, clicking back-button on the next fragment would not lead back here
         if(newTab) {
             findNavController().navigate(R.id.action_global_home)
         }

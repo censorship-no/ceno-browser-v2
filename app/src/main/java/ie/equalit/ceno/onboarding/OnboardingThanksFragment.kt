@@ -35,7 +35,7 @@ class OnboardingThanksFragment : Fragment() {
         binding.button.setOnClickListener {
             binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
             Settings.setShowOnboarding(requireContext() , false)
-            findNavController().popBackStack(R.id.onboardingFragment, true)
+            findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
             findNavController().navigate(R.id.action_global_home)
         }
     }

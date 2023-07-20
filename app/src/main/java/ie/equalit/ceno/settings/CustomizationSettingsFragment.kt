@@ -14,7 +14,6 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.changeicon.ChangeIconFragment
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
