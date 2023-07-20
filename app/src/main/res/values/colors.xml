@@ -23,7 +23,7 @@
     <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
     <color name="ceno_onboarding_background">#F0F9FF</color>
     <color name="ceno_onboarding_text">#5F5F5F</color>
-    <color name="ceno_onboarding_button">#0284C7</color>
+    <color name="ceno_onboarding_button">#027DBD</color>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->

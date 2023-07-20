@@ -1,12 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="214dp"
-    android:height="214dp"
+    android:width="200dp"
+    android:height="200dp"
     android:viewportWidth="214"
     android:viewportHeight="214">
   <group>
-    <clip-path
-        android:pathData="M0,0h214v214h-214z"/>
     <path
         android:pathData="M151.02,127.66L92.15,93.67C76.1,110.99 57.43,118.64 32.68,122.71L57.79,138.43C65.23,138.43 74.74,137.24 81.51,135.22C79.51,138.15 73.12,142.3 70.24,143.33L85.06,152.15C97.83,150.28 105.19,147.91 118.61,141.49C112.9,150.92 109.15,155.24 101.88,161.9L122.29,173.74C133.18,162.79 140.75,151.83 151.02,127.66Z">
       <aapt:attr name="android:fillColor">

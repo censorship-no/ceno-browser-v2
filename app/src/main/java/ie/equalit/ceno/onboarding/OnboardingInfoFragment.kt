@@ -66,6 +66,20 @@ class OnboardingInfoFragment : Fragment() {
                 }
             }
         }
+
+        binding.btnOnboardingCleanupSkip.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Android 13 or later, always ask for permissions */
+                OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
+            }
+            else {
+                OnboardingFragment.transitionToHomeFragment(
+                    requireContext(),
+                    requireActivity(),
+                    sessionId
+                )
+            }
+        }
     }
 
     companion object {
