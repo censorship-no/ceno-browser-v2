@@ -131,6 +131,7 @@ open class BrowserActivity : BaseActivity() {
 
         val safeIntent = SafeIntent(intent)
 
+        navHost.navController.popBackStack() // Remove startupFragment from backstack
         navHost.navController.navigate(
             when {
                 Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_startup_onboarding
