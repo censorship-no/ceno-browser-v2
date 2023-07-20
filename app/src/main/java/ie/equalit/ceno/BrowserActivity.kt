@@ -134,9 +134,9 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.popBackStack() // Remove startupFragment from backstack
         navHost.navController.navigate(
             when {
-                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_startup_onboarding
-                savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.homeFragment
-                else -> R.id.browserFragment
+                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
+                savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.action_global_home
+                else -> R.id.action_global_browser
             }
         )
 

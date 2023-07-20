@@ -6,7 +6,7 @@
     app:startDestination="@id/startupFragment">
 
     <action
-        android:id="@+id/action_global_startup_onboarding"
+        android:id="@+id/action_global_onboarding"
         app:destination="@id/onboardingFragment"
         app:popUpTo="@id/startupFragment"
         app:popUpToInclusive="true" />

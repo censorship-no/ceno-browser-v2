@@ -21,7 +21,7 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
                 super.onFragmentCreated(fm, f, savedInstanceState)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " Created")
+                    Log.d(TAG,"${f.javaClass.simpleName} Created")
 
                 }
             }
@@ -29,7 +29,7 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
                 super.onFragmentStarted(fm, f)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " Started")
+                    Log.d(TAG,"${f.javaClass.simpleName} Started")
 
                 }
 
@@ -38,7 +38,7 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
                 super.onFragmentResumed(fm, f)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " Resumed")
+                    Log.d(TAG,"${f.javaClass.simpleName} Resumed")
                 }
             }
 
@@ -46,7 +46,7 @@ open class BaseActivity : AppCompatActivity() {
                 super.onFragmentPaused(fm, f)
 
                 f.apply {
-                    Log.d(f.javaClass.simpleName," Paused")
+                    Log.d(TAG,"${f.javaClass.simpleName} Paused")
 
                 }
             }
@@ -54,7 +54,7 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
                 super.onFragmentStopped(fm, f)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " Stopped")
+                    Log.d(TAG,"${f.javaClass.simpleName} Stopped")
 
                 }
             }
@@ -62,7 +62,7 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
                 super.onFragmentViewCreated(fm, f, v, savedInstanceState)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " View Created")
+                    Log.d(TAG,"${f.javaClass.simpleName} View Created")
                 }
             }
 
@@ -70,10 +70,14 @@ open class BaseActivity : AppCompatActivity() {
             override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
                 super.onFragmentAttached(fm, f, context)
                 f.apply {
-                    Log.d(f.javaClass.simpleName, " Attached")
+                    Log.d(TAG,"${f.javaClass.simpleName} Attached")
                 }
             }
 
         }, true)
+    }
+
+    companion object {
+        const val TAG = "BASE_ACTIVITY_REPORTER"
     }
 }
