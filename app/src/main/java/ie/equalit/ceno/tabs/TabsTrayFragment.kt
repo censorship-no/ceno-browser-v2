@@ -34,9 +34,6 @@ import ie.equalit.ceno.ext.requireComponents
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_tabstray, container, false)
 
@@ -147,21 +144,5 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         }.attachToRecyclerView(tabsTray)
 
         return tabsAdapter
-    }
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "TABS_TRAY"
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-        fun create(sessionId: String? = null) = TabsTrayFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }

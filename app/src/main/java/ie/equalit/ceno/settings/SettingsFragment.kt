@@ -564,8 +564,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "SETTINGS"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }
 }

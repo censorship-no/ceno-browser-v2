@@ -75,30 +75,6 @@ class ShutdownFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "SHUTDOWN"
         private const val DO_CLEAR = "do_clear"
-
-        @JvmStatic
-        protected fun Bundle.putDoClear(doClear: Boolean?) {
-            if (doClear != null) {
-                putBoolean(DO_CLEAR, doClear)
-            }
-            else {
-                putBoolean(DO_CLEAR, false)
-            }
-        }
-
-        fun create(doClear: Boolean? = null) = ShutdownFragment().apply {
-            arguments = Bundle().apply {
-                putDoClear(doClear)
-            }
-        }
-
-        fun transitionToFragment(activity: FragmentActivity, doClear: Boolean?) {
-            activity.supportFragmentManager.beginTransaction().apply {
-                add(R.id.container, create(doClear), TAG)
-                commit()
-            }
-        }
     }
 }

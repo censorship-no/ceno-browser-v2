@@ -152,8 +152,4 @@ class AboutFragment : Fragment() {
              */
         }
     }
-
-    companion object {
-        const val TAG = "ABOUT"
-    }
 }

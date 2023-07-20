@@ -170,9 +170,6 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     companion object {
-        /* CENO: Add default home url and a tag to keep track of whether this fragment is open */
-        const val ABOUT_HOME = "about:home"
-        const val TAG = "HOME"
 
         @JvmStatic
         fun create(sessionId: String? = null) = HomeFragment().apply {

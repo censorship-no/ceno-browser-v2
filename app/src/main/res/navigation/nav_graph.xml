@@ -48,6 +48,14 @@
         app:popExitAnim="@anim/fade_out" />
 
     <action
+        android:id="@+id/action_global_shutDown"
+        app:destination="@id/shutdownFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    <action
         android:id="@+id/action_global_external_browser"
         app:destination="@id/externalAppBrowserFragment"
         app:enterAnim="@anim/fade_in"
@@ -299,5 +307,10 @@
         android:name="ie.equalit.ceno.settings.changeicon.ChangeIconFragment"
         android:label="@string/preferences_change_app_icon"
         tools:layout="@layout/fragment_change_icon" />
+
+    <fragment
+        android:id="@+id/shutdownFragment"
+        android:name="ie.equalit.ceno.browser.ShutdownFragment"
+        tools:layout="@layout/fragment_shutdown" />
 
 </navigation>

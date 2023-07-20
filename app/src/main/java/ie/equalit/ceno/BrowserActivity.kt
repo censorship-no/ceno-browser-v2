@@ -17,6 +17,7 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
@@ -48,7 +49,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
-import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.components.PermissionHandler
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
@@ -133,7 +133,7 @@ open class BrowserActivity : BaseActivity() {
 
         navHost.navController.navigate(
             when {
-                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.onboardingFragment
+                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_startup_onboarding
                 savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.homeFragment
                 else -> R.id.browserFragment
             }
@@ -225,10 +225,9 @@ open class BrowserActivity : BaseActivity() {
                 "requestCode: $requestCode, resultCode: $resultCode, data: $data"
         )
 
-        supportFragmentManager.fragments.iterator().forEach {
-            if (it is ActivityResultHandler && it.onActivityResult(requestCode, data, resultCode)) {
-                return
-            }
+        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if (fragment is ActivityResultHandler && fragment.onActivityResult(requestCode, data, resultCode)) {
+            return
         }
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
@@ -285,10 +284,9 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onUserLeaveHint() {
-        supportFragmentManager.fragments.iterator().forEach {
-            if (it is UserInteractionHandler && it.onHomePressed()) {
-                return
-            }
+        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if (fragment is UserInteractionHandler && fragment.onHomePressed()) {
+            return
         }
 
         super.onUserLeaveHint()
@@ -382,7 +380,9 @@ open class BrowserActivity : BaseActivity() {
             callback.run()
         }
         updateView {
-            ShutdownFragment.transitionToFragment(this, doClear)
+            navHost.navController.navigate(R.id.action_global_shutDown, bundleOf(
+                "do_clear" to doClear
+            ))
         }
     }
 
