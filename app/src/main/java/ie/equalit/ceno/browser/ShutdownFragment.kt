@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 package ie.equalit.ceno.browser
 
 import android.os.Bundle
@@ -9,15 +13,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentShutdownBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ShutdownFragment.transistionToFragment] factory method to
- * create an instance of this fragment.
- */
 class ShutdownFragment : Fragment() {
 
     var _binding: FragmentShutdownBinding? = null

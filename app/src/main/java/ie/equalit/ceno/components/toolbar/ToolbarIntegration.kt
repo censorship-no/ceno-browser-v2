@@ -5,7 +5,6 @@
 package ie.equalit.ceno.components.toolbar
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -195,6 +194,11 @@ class ToolbarIntegration(
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
+
+        // navController for fragment navigation
+        // Nullable just in case - the library behaviour is still a bit quirky as at July, 2023
+        val navController = (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)?.navController
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         if (sessionState != null) {
@@ -259,21 +263,12 @@ class ToolbarIntegration(
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
-            (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).apply {
-                navController.navigate(
-                    R.id.action_global_addons
-                )
-            }
+            navController?.navigate(R.id.action_global_addons)
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-            /* CENO: Switch to SettingsFragment instead of starting a new activity */
             CenoSettings.setStatusUpdateRequired(context, true)
-            (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).apply {
-                navController.navigate(
-                    R.id.action_global_settings
-                )
-            }
+            navController?.navigate(R.id.action_global_settings)
         }
 
         return menuItemsList

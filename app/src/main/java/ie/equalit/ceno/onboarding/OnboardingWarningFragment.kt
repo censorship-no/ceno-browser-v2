@@ -12,11 +12,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingWarningBinding
 import ie.equalit.ceno.ext.requireComponents
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OnboardingWarningFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OnboardingWarningFragment : Fragment() {
     private var _binding: FragmentOnboardingWarningBinding? = null
     private val binding get() = _binding!!

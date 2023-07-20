@@ -11,11 +11,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingThanksBinding
 import ie.equalit.ceno.settings.Settings
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OnboardingThanksFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OnboardingThanksFragment : Fragment() {
     private var _binding: FragmentOnboardingThanksBinding? = null
     private val binding get() = _binding!!

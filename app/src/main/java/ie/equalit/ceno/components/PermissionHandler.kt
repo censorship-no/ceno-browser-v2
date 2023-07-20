@@ -100,11 +100,14 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.isAllowingPostNotifications() && this.isIgnoringBatteryOptimizations()
+        if (requestCode == PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.isAllowingPostNotifications() && this.isIgnoringBatteryOptimizations()
+            }
+            else {
+                this.isIgnoringBatteryOptimizations()
+            }
         }
-        else {
-            this.isIgnoringBatteryOptimizations()
-        }
+        return false
     }
 }

@@ -19,11 +19,6 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import mozilla.components.support.base.feature.ActivityResultHandler
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OnboardingBatteryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     private var _binding: FragmentOnboardingBatteryBinding? = null
     private val binding get() = _binding!!
