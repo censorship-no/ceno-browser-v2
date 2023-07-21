@@ -2,7 +2,6 @@
     android:viewportWidth="214" android:width="200dp"
     xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-        <clip-path android:pathData="M0,0h214v214h-214z"/>
         <path android:pathData="M109.56,50.47L209.18,50.47A4.82,4.82 0,0 0,214 45.65L214,45.65A4.82,4.82 0,0 0,209.18 40.83L109.56,40.83A4.82,4.82 0,0 0,104.75 45.65L104.75,45.65A4.82,4.82 0,0 0,109.56 50.47z">
             <aapt:attr name="android:fillColor">
                 <gradient android:endX="236.02" android:endY="37.52"
