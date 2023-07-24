@@ -107,7 +107,7 @@ object Deps {
     const val mozilla_feature_intent = "org.mozilla.components:feature-intent:${AndroidComponents.VERSION}"
     const val mozilla_feature_search = "org.mozilla.components:feature-search:${AndroidComponents.VERSION}"
     const val mozilla_feature_session = "org.mozilla.components:feature-session:${AndroidComponents.VERSION}"
-    const val mozilla_feature_toolbar = "org.mozilla.components:feature-toolbar:${AndroidComponents.VERSION}"
+    const val mozilla_feature_toolbar = "ie.equalit.ouinet:feature-toolbar-ceno:${AndroidComponents.VERSION}"
     const val mozilla_feature_tabs = "org.mozilla.components:feature-tabs:${AndroidComponents.VERSION}"
     const val mozilla_feature_downloads = "org.mozilla.components:feature-downloads:${AndroidComponents.VERSION}"
     const val mozilla_feature_storage = "org.mozilla.components:feature-storage:${AndroidComponents.VERSION}"
