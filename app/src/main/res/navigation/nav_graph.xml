@@ -28,11 +28,7 @@
 
     <action
         android:id="@+id/action_global_settings"
-        app:destination="@id/settingsFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
+        app:destination="@id/settingsFragment" />
 
     <action
         android:id="@+id/action_global_addons"
@@ -44,19 +40,11 @@
 
     <action
         android:id="@+id/action_global_tabsTray"
-        app:destination="@id/tabsTrayFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
+        app:destination="@id/tabsTrayFragment" />
 
     <action
         android:id="@+id/action_global_shutDown"
-        app:destination="@id/shutdownFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
+        app:destination="@id/shutdownFragment" />
 
     <action
         android:id="@+id/action_global_external_browser"
