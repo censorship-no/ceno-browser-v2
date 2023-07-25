@@ -36,6 +36,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 

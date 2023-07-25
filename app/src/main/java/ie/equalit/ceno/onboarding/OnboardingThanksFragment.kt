@@ -28,12 +28,14 @@ class OnboardingThanksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingThanksBinding.inflate(inflater, container,false);
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
+            binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
             OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
         }
     }

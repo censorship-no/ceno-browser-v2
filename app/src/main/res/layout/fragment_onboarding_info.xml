@@ -5,7 +5,6 @@
     android:id="@+id/onboarding_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ceno_onboarding_background"
     android:clipToPadding="false"
     android:gravity="bottom">
 

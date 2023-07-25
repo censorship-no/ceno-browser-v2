@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_warning"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/ceno_onboarding_background">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/title"
@@ -57,6 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/onboarding_permission" />
+        app:srcCompat="@drawable/onboarding_permission"
+        android:contentDescription="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

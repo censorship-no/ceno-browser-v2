@@ -4,7 +4,8 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
     <string name="app_name" translatable="false">&brandShortName;</string>
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Make &brandShortName; your default browser</string>

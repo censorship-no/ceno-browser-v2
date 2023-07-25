@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
@@ -27,6 +28,7 @@ class OnboardingPublicPvtFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingPublicPvtBinding.inflate(inflater, container,false)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
@@ -55,6 +57,7 @@ class OnboardingPublicPvtFragment : Fragment() {
                 OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
             }
             else {
+                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
                 OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
             }
         }

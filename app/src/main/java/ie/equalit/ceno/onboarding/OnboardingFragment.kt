@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import ie.equalit.ceno.R
@@ -28,6 +29,7 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container,false)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
@@ -57,6 +59,7 @@ class OnboardingFragment : Fragment() {
                 OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
             }
             else {
+                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
                 transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
             }
         }
