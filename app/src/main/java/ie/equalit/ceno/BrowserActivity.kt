@@ -16,21 +16,11 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.InstallStateUpdatedListener
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
-import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -60,10 +50,8 @@ import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.settings.AboutFragment
-import kotlinx.coroutines.delay
 import mozilla.components.browser.state.state.*
 import kotlin.system.exitProcess
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -71,8 +59,6 @@ import kotlin.time.Duration.Companion.seconds
 open class BrowserActivity : AppCompatActivity() {
 
     private lateinit var crashIntegration: CrashIntegration
-    private lateinit var appUpdateManager: AppUpdateManager
-    private val updateType = AppUpdateType.FLEXIBLE
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -96,16 +82,10 @@ open class BrowserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
-        if(updateType == AppUpdateType.FLEXIBLE){
-            appUpdateManager.registerListener(installStateUpdatedListener)
-        }
-        checkForAppUpdates()
+
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
             openToBrowser(url, newTab = true)
         }
-
-
 
         Logger.info(" --------- Starting ouinet service")
         components.ouinet.let {
@@ -175,67 +155,13 @@ open class BrowserActivity : AppCompatActivity() {
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
-    private val installStateUpdatedListener = InstallStateUpdatedListener { state ->
-        if(state.installStatus() == InstallStatus.DOWNLOADED){
-            Toast.makeText(
-                applicationContext,
-                "Download successful. Restarting app in 5 seconds",
-                Toast.LENGTH_LONG
-            ).show()
-            lifecycleScope.launch {
-                delay(5.seconds)
-                appUpdateManager.completeUpdate()
-            }
-        }
-    }
-    private fun checkForAppUpdates(){
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
-            val isUpdateAvailable = info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-            val isUpdateAllowed = when(updateType) {
-                AppUpdateType.FLEXIBLE -> info.isFlexibleUpdateAllowed
-                AppUpdateType.IMMEDIATE -> info.isImmediateUpdateAllowed
-                else -> false
-            }
-            if(isUpdateAvailable && isUpdateAllowed){
-                appUpdateManager.startUpdateFlowForResult(
-                    info,
-                    updateType,
-                    this,
-                    123
-                )
-            }
-        }
-    }
-
-
-
     override fun onPause() {
         super.onPause()
         isActivityResumed = false
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if(updateType == AppUpdateType.FLEXIBLE){
-            appUpdateManager.unregisterListener(installStateUpdatedListener)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-        if(updateType == AppUpdateType.IMMEDIATE) {
-            appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
-                if (info.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
-                    appUpdateManager.startUpdateFlowForResult(
-                        info,
-                        updateType,
-                        this,
-                        123
-                    )
-                }
-            }
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background
@@ -266,7 +192,7 @@ open class BrowserActivity : AppCompatActivity() {
             if (it.tag == SettingsFragment.TAG) {
                 if (components.core.store.state.selectedTabId == "" ||
                     components.core.store.state.selectedTabId == null
-                ) {
+                        ) {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
                         commit()
@@ -301,18 +227,12 @@ open class BrowserActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Logger.info(
             "Activity onActivityResult received with " +
-                    "requestCode: $requestCode, resultCode: $resultCode, data: $data"
+                "requestCode: $requestCode, resultCode: $resultCode, data: $data"
         )
 
         supportFragmentManager.fragments.iterator().forEach {
             if (it is ActivityResultHandler && it.onActivityResult(requestCode, data, resultCode)) {
                 return
-            }
-
-            if(requestCode == 123){
-                if(resultCode != RESULT_OK){
-                    Logger.info("Something went wrong updating...")
-                }
             }
         }
 
@@ -522,8 +442,8 @@ open class BrowserActivity : AppCompatActivity() {
         if (Settings.shouldUpdateSearchEngines(this)) {
             components.core.store.state.search.searchEngines.filter { searchEngine ->
                 searchEngine.id in listOf(
-                    getString(R.string.remove_search_engine_id_1),
-                    getString(R.string.remove_search_engine_id_2))
+                        getString(R.string.remove_search_engine_id_1),
+                        getString(R.string.remove_search_engine_id_2))
             }.forEach { searchEngine ->
                 components.useCases.searchUseCases.removeSearchEngine(searchEngine)
             }
