@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.DialogInterface
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import mozilla.components.support.base.log.logger.Logger

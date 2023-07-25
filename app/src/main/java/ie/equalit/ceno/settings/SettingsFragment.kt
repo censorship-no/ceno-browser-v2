@@ -18,6 +18,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -33,7 +34,6 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
@@ -68,13 +68,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
-                parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.container,
-                        SettingsFragment(),
-                        TAG
-                    )
-                    commit()
-                }
+                findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
+                findNavController().navigate(R.id.action_global_settings)
             }
         }
         else if (key == getString(pref_key_shared_prefs_update)) {
@@ -364,10 +359,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, PrivacySettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_privacySettingsFragment
+            )
             getActionBar().setTitle(R.string.tracker_category)
             true
         }
@@ -375,20 +369,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCustomization(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, CustomizationSettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_customizationSettingsFragment
+            )
             true
         }
     }
 
     private fun getClickListenerForSearch(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, InstalledSearchEnginesSettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_installedSearchEnginesSettingsFragment
+            )
             getActionBar().setTitle(R.string.preference_choose_search_engine)
             true
         }
@@ -396,10 +388,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, DeleteBrowsingDataFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_deleteBrowsingDataFragment
+            )
             getActionBar().setTitle(R.string.preferences_delete_browsing_data)
             true
         }
@@ -414,9 +405,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AboutFragment(), AboutFragment.TAG)
-                .commit()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_aboutFragment
+            )
             getActionBar().setTitle(R.string.preferences_about_page)
             true
         }
@@ -573,8 +564,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "SETTINGS"
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
     }
 }

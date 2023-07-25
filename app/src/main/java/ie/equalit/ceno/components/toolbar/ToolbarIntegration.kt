@@ -5,10 +5,10 @@
 package ie.equalit.ceno.components.toolbar
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -43,7 +43,6 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 /* CENO: ifAnyChanged used for observing changes to extensions in addition to selectedTab*/
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
-import ie.equalit.ceno.addons.AddonsActivity
 import ie.equalit.ceno.browser.FindInPageIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
@@ -53,7 +52,6 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.settings.CenoSettings
-import ie.equalit.ceno.settings.SettingsFragment
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -196,6 +194,11 @@ class ToolbarIntegration(
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
+
+        // navController for fragment navigation
+        // Nullable just in case - the library behaviour is still a bit quirky as at July, 2023
+        val navController = (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)?.navController
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         if (sessionState != null) {
@@ -260,22 +263,12 @@ class ToolbarIntegration(
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
-            val intent = Intent(context, AddonsActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            context.startActivity(intent)
+            navController?.navigate(R.id.action_global_addons)
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-            /* CENO: Switch to SettingsFragment instead of starting a new activity */
             CenoSettings.setStatusUpdateRequired(context, true)
-            activity.supportFragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.container,
-                    SettingsFragment(),
-                    SettingsFragment.TAG
-                )
-                commit()
-            }
+            navController?.navigate(R.id.action_global_settings)
         }
 
         return menuItemsList
