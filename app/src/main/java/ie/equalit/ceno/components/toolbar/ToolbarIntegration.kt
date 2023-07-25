@@ -284,6 +284,14 @@ class ToolbarIntegration(
         toolbar.display.displayIndicatorSeparator = true
         toolbar.display.menuController = menuController
 
+        toolbar.display.urlFormatter = { url ->
+            // Remove https:// and www .from the URL on the toolbar
+            var formattedUrl = url.toString()
+            formattedUrl = formattedUrl.replaceFirst("^https?://(www\\.)?".toRegex(), "")
+            formattedUrl = formattedUrl.replaceFirst("^www\\.".toRegex(), "")
+            formattedUrl
+        }
+
         toolbar.display.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.setOnEditFocusChangeListener {  }
