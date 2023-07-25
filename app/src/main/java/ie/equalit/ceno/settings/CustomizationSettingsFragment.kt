@@ -8,12 +8,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.changeicon.ChangeIconFragment
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -45,10 +45,9 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {
         return Preference.OnPreferenceClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, ChangeIconFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(
+                R.id.action_customizationSettingsFragment_to_changeIconFragment
+            )
             getActionBar().setTitle(R.string.preferences_change_app_icon)
             true
         }

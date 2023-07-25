@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -35,30 +37,18 @@ class OnboardingPublicPvtFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnOnboardingPublicPvt.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.slide_out,
-                    R.anim.slide_back_in,
-                    R.anim.slide_back_out
-                )
-                replace(
-                    R.id.container,
-                    OnboardingInfoFragment.create(sessionId),
-                    OnboardingInfoFragment.TAG
-                )
-                addToBackStack(null)
-                commit()
-            }
+            findNavController().navigate(R.id.action_onboardingPublicPvtFragment_to_onboardingInfoFragment)
         }
         binding.btnOnboardingStartSkip.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 /* Android 13 or later, always ask for permissions */
-                OnboardingBatteryFragment.transitionToFragment(requireActivity(), sessionId)
+                findNavController().navigate(R.id.action_onboardingPublicPvtFragment_to_onboardingBatteryFragment)
             }
             else {
                 binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-                OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+                Settings.setShowOnboarding(requireContext(), false)
+                findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
+                findNavController().navigate(R.id.action_global_home)
             }
         }
     }

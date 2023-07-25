@@ -37,8 +37,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
- * Use the [HomeFragment.create] factory method to
- * create an instance of this fragment.
  */
 class HomeFragment : BaseHomeFragment() {
 
@@ -167,18 +165,5 @@ class HomeFragment : BaseHomeFragment() {
         }
         binding.homeAppBar.visibility = View.VISIBLE
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
-    }
-
-    companion object {
-        /* CENO: Add default home url and a tag to keep track of whether this fragment is open */
-        const val ABOUT_HOME = "about:home"
-        const val TAG = "HOME"
-
-        @JvmStatic
-        fun create(sessionId: String? = null) = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }
