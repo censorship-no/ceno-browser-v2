@@ -2,31 +2,39 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/onboarding_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:gravity="bottom">
+    android:clipToPadding="false">
 
     <ImageView
-        android:id="@+id/img_cleanup"
+        android:id="@+id/imageView4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_onboarding_help_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_public_pvt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:contentDescription="@null"
-        android:src="@drawable/onboarding_cleanup"
-        app:layout_constraintBottom_toTopOf="@+id/onboarding_cleanup_title"
+        android:src="@drawable/onboarding_graphic_public_pvt"
+        app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_start_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/onboarding_cleanup_title"
+        android:id="@+id/tv_onboarding_start_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:lineSpacingMultiplier="0.8"
-        android:text="@string/onboarding_cleanup_title"
+        android:text="@string/onboarding_public_or_personal_title"
         android:textAlignment="textStart"
         android:textColor="@color/photonBlack"
         android:textSize='@dimen/ceno_onboarding_title'
@@ -36,23 +44,23 @@
         app:layout_constraintVertical_bias="0.6" />
 
     <TextView
-        android:id="@+id/onboarding_cleanup_text"
+        android:id="@+id/tv_onboarding_start_text"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/onboarding_cleanup_text"
+        android:text="@string/onboarding_public_personal_text"
         android:textAlignment="textStart"
         android:textColor="@color/ceno_onboarding_text"
         android:textSize="@dimen/ceno_onboarding_text"
-        app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_cleanup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/onboarding_cleanup_title"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_cleanup_title" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_start_title" />
 
     <Button
-        android:id="@+id/btn_onboarding_cleanup"
+        android:id="@+id/btn_onboarding_public_pvt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -61,14 +69,14 @@
         android:text="@string/onboarding_battery_button"
         android:textAllCaps="false"
         android:textColor="@color/photonWhite"
-        app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_cleanup_skip"
+        app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_start_skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_onboarding_cleanup_skip"
+        android:id="@+id/btn_onboarding_start_skip"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:background="@android:color/transparent"
         android:text="@string/onboarding_skip_button"

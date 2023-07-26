@@ -22,7 +22,7 @@ class OnboardingWarningFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingWarningBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 

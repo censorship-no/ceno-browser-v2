@@ -11,6 +11,11 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingThanksBinding
 import ie.equalit.ceno.settings.Settings
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [OnboardingThanksFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class OnboardingThanksFragment : Fragment() {
     private var _binding: FragmentOnboardingThanksBinding? = null
     private val binding get() = _binding!!
@@ -21,14 +26,14 @@ class OnboardingThanksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingThanksBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+            binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
             Settings.setShowOnboarding(requireContext() , false)
             findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
             findNavController().navigate(R.id.action_global_home)

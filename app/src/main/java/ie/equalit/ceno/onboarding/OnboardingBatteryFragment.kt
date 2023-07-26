@@ -19,6 +19,9 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import mozilla.components.support.base.feature.ActivityResultHandler
 
+/**
+ * A simple [Fragment] subclass.
+ */
 class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     private var _binding: FragmentOnboardingBatteryBinding? = null
     private val binding get() = _binding!!
@@ -28,8 +31,8 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false)
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
@@ -37,14 +40,14 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         super.onViewCreated(view, savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            binding.text.text = getString(R.string.onboarding_battery_text_v33)
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text_v33)
             binding.button.setOnClickListener {
                 allowPostNotifications()
             }
         }
         else {
             /* This is NOT Android 13, just ask to disable battery optimization */
-            binding.text.text = getString(R.string.onboarding_battery_text)
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text)
             binding.button.setOnClickListener {
                 disableBatteryOptimization()
             }
@@ -53,10 +56,6 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
-            binding.root.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.onboarding_splash_background
-            )
             Settings.setShowOnboarding(requireContext() , false)
             findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
             findNavController().navigate(R.id.action_global_home)

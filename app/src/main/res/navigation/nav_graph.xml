@@ -79,6 +79,13 @@
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_onboardingPublicPvtFragment"
+            app:destination="@id/onboardingPublicPvtFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
@@ -142,6 +149,29 @@
         android:name="ie.equalit.ceno.onboarding.OnboardingThanksFragment"
         android:label="@string/onboarding_thanks_title"
         tools:layout="@layout/fragment_onboarding_thanks" />
+
+    <fragment
+        android:id="@+id/onboardingPublicPvtFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingPublicPvtFragment"
+        tools:layout="@layout/fragment_onboarding_public_pvt">
+
+        <action
+            android:id="@+id/action_onboardingPublicPvtFragment_to_onboardingInfoFragment"
+            app:destination="@id/onboardingInfoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_onboardingPublicPvtFragment_to_onboardingBatteryFragment"
+            app:destination="@id/onboardingBatteryFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
