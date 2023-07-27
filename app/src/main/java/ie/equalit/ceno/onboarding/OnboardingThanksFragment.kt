@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingThanksBinding
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -19,54 +20,23 @@ class OnboardingThanksFragment : Fragment() {
     private var _binding: FragmentOnboardingThanksBinding? = null
     private val binding get() = _binding!!
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingThanksBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
-            OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
-        }
-    }
-
-    companion object {
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-
-        const val TAG = "ONBOARD_BATTERY"
-        fun create(sessionId: String? = null) = OnboardingThanksFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
-
-        fun transitionToFragment(activity: FragmentActivity, sessionId: String?) {
-            activity.supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.slide_out,
-                    R.anim.slide_back_in,
-                    R.anim.slide_back_out
-                )
-                replace(R.id.container, create(sessionId), TAG)
-                addToBackStack(null)
-                commit()
-            }
+            binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
+            Settings.setShowOnboarding(requireContext() , false)
+            findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
+            findNavController().navigate(R.id.action_global_home)
         }
     }
 }

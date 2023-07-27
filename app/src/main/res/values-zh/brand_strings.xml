@@ -49,4 +49,7 @@
     <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_zh_url</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">点此反馈给 &vendorShortName;</string>
+    <string name="preferences_about_ceno">&brandShortName; 浏览器</string>
+    <string name="preferences_about_ouinet_protocol">Ouinet 协议</string>
+    <string name="about_category">关于</string>
 </resources>

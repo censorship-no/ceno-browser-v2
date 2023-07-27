@@ -10,8 +10,10 @@
     <dimen name="ceno_mode_margin_horizontal">24dp</dimen>
     <dimen name="ceno_mode_margin_top">8dp</dimen>
     <dimen name="ceno_mode_margin_bottom">12dp</dimen>
-    <dimen name="ceno_onboarding_title">32sp</dimen>
-    <dimen name="ceno_onboarding_text">22sp</dimen>
+    <dimen name="ceno_onboarding_title">28sp</dimen>
+    <dimen name="ceno_onboarding_text">16sp</dimen>
+    <dimen name="ceno_onboarding_text_margin_end">50dp</dimen>
+    <dimen name="ceno_onboarding_text_margin_start">50dp</dimen>
 
     <dimen name="ceno_about_fragment_text_size">16sp</dimen>
     <dimen name="ceno_about_fragment_margin_top">16dp</dimen>

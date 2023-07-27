@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startupFragment">
+
+    <action
+        android:id="@+id/action_global_onboarding"
+        app:destination="@id/onboardingFragment"
+        app:popUpTo="@id/startupFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_home"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_browser"
+        app:destination="@id/browserFragment"
+        app:popUpTo="@id/browserFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_settings"
+        app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/action_global_addons"
+        app:destination="@id/addonsFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    <action
+        android:id="@+id/action_global_tabsTray"
+        app:destination="@id/tabsTrayFragment" />
+
+    <action
+        android:id="@+id/action_global_shutDown"
+        app:destination="@id/shutdownFragment" />
+
+    <action
+        android:id="@+id/action_global_external_browser"
+        app:destination="@id/externalAppBrowserFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    <fragment
+        android:id="@+id/startupFragment"
+        android:name="ie.equalit.ceno.StartupFragment"
+        app:popUpTo="@id/startupFragment"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingFragment"
+        android:label="@string/onboarding_fragment"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboardingFragment_to_onboardingInfoFragment"
+            app:destination="@id/onboardingInfoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_onboardingBatteryFragment"
+            app:destination="@id/onboardingBatteryFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_onboardingPublicPvtFragment"
+            app:destination="@id/onboardingPublicPvtFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingInfoFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingInfoFragment"
+        android:label="@string/onboarding_info_title"
+        tools:layout="@layout/fragment_onboarding_info">
+        <action
+            android:id="@+id/action_onboardingInfoFragment_to_onboardingBatteryFragment"
+            app:destination="@id/onboardingBatteryFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+        <action
+            android:id="@+id/action_onboardingInfoFragment_to_onboardingThanksFragment"
+            app:destination="@id/onboardingThanksFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingBatteryFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingBatteryFragment"
+        android:label="@string/onboarding_battery_title"
+        tools:layout="@layout/fragment_onboarding_battery">
+        <action
+            android:id="@+id/action_onboardingBatteryFragment_to_onboardingWarningFragment"
+            app:destination="@id/onboardingWarningFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+        <action
+            android:id="@+id/action_onboardingBatteryFragment_to_onboardingThanksFragment"
+            app:destination="@id/onboardingThanksFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingWarningFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingWarningFragment"
+        android:label="@string/onboarding_warning_title"
+        tools:layout="@layout/fragment_onboarding_warning">
+        <action
+            android:id="@+id/action_onboardingWarningFragment_to_onboardingThanksFragment"
+            app:destination="@id/onboardingThanksFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingThanksFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingThanksFragment"
+        android:label="@string/onboarding_thanks_title"
+        tools:layout="@layout/fragment_onboarding_thanks" />
+
+    <fragment
+        android:id="@+id/onboardingPublicPvtFragment"
+        android:name="ie.equalit.ceno.onboarding.OnboardingPublicPvtFragment"
+        tools:layout="@layout/fragment_onboarding_public_pvt">
+
+        <action
+            android:id="@+id/action_onboardingPublicPvtFragment_to_onboardingInfoFragment"
+            app:destination="@id/onboardingInfoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_onboardingPublicPvtFragment_to_onboardingBatteryFragment"
+            app:destination="@id/onboardingBatteryFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ie.equalit.ceno.home.HomeFragment"
+        android:label="@string/ceno_notification_home_description"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="ie.equalit.ceno.browser.BrowserFragment"
+        android:label="@string/ceno_notification_home_description"
+        tools:layout="@layout/fragment_browser" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ie.equalit.ceno.settings.SettingsFragment"
+        android:label="@string/settings">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_privacySettingsFragment"
+            app:destination="@id/privacySettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_customizationSettingsFragment"
+            app:destination="@id/customizationSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_installedSearchEnginesSettingsFragment"
+            app:destination="@id/installedSearchEnginesSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_deleteBrowsingDataFragment"
+            app:destination="@id/deleteBrowsingDataFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addonsFragment"
+        android:name="ie.equalit.ceno.addons.AddonsFragment"
+        android:label="@string/browser_menu_add_ons"
+        tools:layout="@layout/fragment_add_ons">
+
+        <action
+            android:id="@+id/action_addonsFragment_to_addonDetailsFragment"
+            app:destination="@id/addonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_addonsFragment_to_installedAddonDetailsFragment"
+            app:destination="@id/installedAddonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tabsTrayFragment"
+        android:name="ie.equalit.ceno.tabs.TabsTrayFragment"
+        tools:layout="@layout/fragment_tabstray" />
+
+    <fragment
+        android:id="@+id/externalAppBrowserFragment"
+        android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment" />
+
+    <fragment
+        android:id="@+id/addonDetailsFragment"
+        android:name="ie.equalit.ceno.addons.AddonDetailsFragment"
+        android:label="@string/mozac_feature_addons_details"
+        tools:layout="@layout/fragment_addon_details" />
+
+    <fragment
+        android:id="@+id/installedAddonDetailsFragment"
+        android:name="ie.equalit.ceno.addons.InstalledAddOnDetailsFragment"
+        android:label="@string/mozac_feature_addons_details"
+        tools:layout="@layout/fragment_installed_add_on_details">
+
+        <action
+            android:id="@+id/action_installedAddonDetailsFragment_to_addonDetailsFragment"
+            app:destination="@id/addonDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/privacySettingsFragment"
+        android:name="ie.equalit.ceno.settings.PrivacySettingsFragment"
+        android:label="@string/tracker_category" />
+
+    <fragment
+        android:id="@+id/customizationSettingsFragment"
+        android:name="ie.equalit.ceno.settings.CustomizationSettingsFragment"
+        android:label="@string/customization_settings">
+
+        <action
+            android:id="@+id/action_customizationSettingsFragment_to_changeIconFragment"
+            app:destination="@id/changeIconFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/installedSearchEnginesSettingsFragment"
+        android:name="ie.equalit.ceno.settings.InstalledSearchEnginesSettingsFragment"
+        android:label="@string/preference_choose_search_engine" />
+
+    <fragment
+        android:id="@+id/deleteBrowsingDataFragment"
+        android:name="ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment"
+        android:label="@string/preferences_delete_browsing_data"
+        tools:layout="@layout/fragment_delete_browsing_data" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ie.equalit.ceno.settings.AboutFragment"
+        android:label="@string/preferences_about_page"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/changeIconFragment"
+        android:name="ie.equalit.ceno.settings.changeicon.ChangeIconFragment"
+        android:label="@string/preferences_change_app_icon"
+        tools:layout="@layout/fragment_change_icon" />
+
+    <fragment
+        android:id="@+id/shutdownFragment"
+        android:name="ie.equalit.ceno.browser.ShutdownFragment"
+        tools:layout="@layout/fragment_shutdown" />
+
+</navigation>

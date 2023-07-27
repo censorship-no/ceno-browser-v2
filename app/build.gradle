@@ -5,6 +5,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
@@ -385,6 +386,8 @@ dependencies {
     implementation Deps.androidx_compose_ui_tooling
     implementation Deps.androidx_compose_foundation
     implementation Deps.androidx_compose_material
+    implementation Deps.androidx_navigation_fragment
+    implementation Deps.androidx_navigation_ui
 
     implementation Deps.google_material
 
