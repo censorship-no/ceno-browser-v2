@@ -131,4 +131,28 @@
     <string name="delete_browsing_data_prompt_cancel">မလုပ်ဆောင်ပါ</string>
     <string name="browser_menu_library">Library</string>
     <string name="secure_connection">ဆက်သွယ်ချိတ်ဆက်ခြင်း စိတ်ချရသည်</string>
+    <string name="browser_menu_desktop_site">Desktop ပုံစံကြည့်ရန် တောင်းဆိုမည်</string>
+    <string name="deleting_browsing_data_in_progress">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်ရန်</string>
+    <string name="preferences_delete_browsing_data">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်ရန်</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="other">Singular
+\n%d တပ်ဗ်
+\nPlural
+\n%d တပ်ဗ်များ</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_browsing_data_title">ရှာဖွေထားသည့် မှတ်တမ်းနှင့် ဆိုက် အချက်အလက်</string>
+    <string name="preferences_delete_browsing_data_button">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်မည်</string>
+    <string name="preferences_delete_browsing_data_cached_files">ယာယီသိမ်းဆည်းထားသည့် ပုံများနှင့် ဖိုင်များ</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">သိမ်းဆည်းရန် နေရာများကို ရှင်းလင်းပေးသည်</string>
+    <string name="preferences_delete_browsing_data_site_permissions">ဆိုက် ခွင့်ပြုချက်များ</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">ဖွင့်ထားသည့် တပ်ဗ်များ</string>
+    <string name="delete_browsing_data_prompt_message_3">ရွေးချယ်ထားသည့် ရှာဖွေထားသည့် အချက်အလက်များကို %s က ဖျက်ပစ်ပါမည်။</string>
+    <string name="close_mode_item">အသိပေးချက်ကို ပိတ်မည်</string>
+    <string name="preference_show_search_suggestions">ရှာဖွေရာ၌ အကြံပြုချက်များကို ရယူမည်</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">ဆိုက်အများစုမှ သင် ထွက်သွားလိမ့်မည်</string>
+    <string name="preference_select_preferred_engine">သင်ကြိုက်နှစ်သက်ရာ အင်ဂျင်ကို ရွေးချယ်ပါ</string>
+    <string name="preferences_delete_browsing_data_cookies">ကွတ်ကီးများ</string>
+    <string name="preference_category_search">ရှာဖွေမည်</string>
+    <string name="preference_search_summary">ပုံသေ သတ်မှတ်မည်</string>
+    <string name="preference_choose_search_engine">ရှာဖွေရေးအင်ဂျင်ကို ရွေးချယ်ပါ</string>
 </resources>
