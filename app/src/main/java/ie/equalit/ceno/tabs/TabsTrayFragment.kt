@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.browser.state.selector.selectedTab
@@ -24,8 +25,6 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 
@@ -34,9 +33,6 @@ import ie.equalit.ceno.ext.requireComponents
  */
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
-
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_tabstray, container, false)
@@ -90,17 +86,12 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
      * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
      * with or without a new blank tab? */
     private fun closeTabsTray(newTab: Boolean = false) {
+        findNavController().popBackStack() //This way, clicking back-button on the next fragment would not lead back here
         if(newTab) {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, HomeFragment.create(sessionId), HomeFragment.TAG)
-                commit()
-            }
+            findNavController().navigate(R.id.action_global_home)
         }
         else {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, BrowserFragment.create(sessionId), BrowserFragment.TAG)
-                commit()
-            }
+            findNavController().navigate(R.id.action_global_browser)
         }
     }
 
@@ -153,21 +144,5 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         }.attachToRecyclerView(tabsTray)
 
         return tabsAdapter
-    }
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "TABS_TRAY"
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-        fun create(sessionId: String? = null) = TabsTrayFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
     }
 }

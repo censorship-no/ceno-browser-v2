@@ -27,8 +27,6 @@ import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentManager.BackStackEntry
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import mozilla.components.Build
@@ -153,9 +151,5 @@ class AboutFragment : Fragment() {
             browserActivity.supportFragmentManager.executePendingTransactions()
              */
         }
-    }
-
-    companion object {
-        const val TAG = "ABOUT"
     }
 }

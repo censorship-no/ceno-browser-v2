@@ -7,11 +7,8 @@ package ie.equalit.ceno.addons
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
@@ -19,13 +16,14 @@ import mozilla.components.concept.engine.window.WindowRequest
 import mozilla.components.lib.state.ext.consumeFrom
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.requireComponents
 
 /**
  * An activity to show the pop up action of a web extension.
  */
-class WebExtensionActionPopupActivity : AppCompatActivity() {
+class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Observer {
     private lateinit var webExtensionId: String
+    private var engineSession: EngineSession? = null
+    private var addonSettingsEngineView: EngineView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,95 +34,61 @@ class WebExtensionActionPopupActivity : AppCompatActivity() {
             title = it
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.addonSettingsContainer,
-                WebExtensionActionPopupFragment.create(webExtensionId)
-            )
-            .commit()
-    }
+        addonSettingsEngineView = findViewById<View>(R.id.addonSettingsEngineView) as EngineView
 
-    override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? =
-        when (name) {
-            EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
-            else -> super.onCreateView(parent, name, context, attrs)
-        }
-
-    /**
-     * A fragment to show the web extension action popup with [EngineView].
-     */
-    class WebExtensionActionPopupFragment : Fragment(), EngineSession.Observer {
-        private var engineSession: EngineSession? = null
-        private lateinit var webExtensionId: String
-
-        private val addonSettingsEngineView: EngineView
-            get() = requireView().findViewById<View>(R.id.addonSettingsEngineView) as EngineView
-
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            webExtensionId = requireNotNull(arguments?.getString("web_extension_id"))
-            engineSession = requireContext().components.core.store.state.extensions[webExtensionId]?.popupSession
-
-            return inflater.inflate(R.layout.fragment_add_on_settings, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            val session = engineSession
-            if (session != null) {
-                addonSettingsEngineView.render(session)
-                consumePopupSession()
-            } else {
-                consumeFrom(requireContext().components.core.store) { state ->
-                    state.extensions[webExtensionId]?.let { extState ->
-                        extState.popupSession?.let {
-                            if (engineSession == null) {
-                                addonSettingsEngineView.render(it)
-                                consumePopupSession()
-                                engineSession = it
-                            }
+        val session = engineSession
+        if (session != null) {
+            addonSettingsEngineView?.render(session)
+            consumePopupSession()
+        } else {
+            (findViewById<View>(R.id.addonSettingsEngineView).consumeFrom(components.core.store, this) { state ->
+                state.extensions[webExtensionId]?.let { extState ->
+                    extState.popupSession?.let {
+                        if (engineSession == null) {
+                            addonSettingsEngineView?.render(it)
+                            consumePopupSession()
+                            engineSession = it
                         }
                     }
                 }
-            }
+            })
         }
+    }
 
-        override fun onStart() {
-            super.onStart()
-            engineSession?.register(this)
-        }
+    override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
 
-        override fun onStop() {
-            super.onStop()
-            engineSession?.unregister(this)
-        }
+        engineSession = components.core.store.state.extensions[webExtensionId]?.popupSession
 
-        override fun onWindowRequest(windowRequest: WindowRequest) {
-            if (windowRequest.type == WindowRequest.Type.CLOSE) {
-                activity?.onBackPressed()
-            }
-            else {
-                /* CENO: Handle links in popups by loading the requested url in a new tab and closing the popup */
-                requireComponents.useCases.tabsUseCases.selectOrAddTab(windowRequest.url)
-                activity?.onBackPressed()
-            }
+        return when (name) {
+            EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
+            else -> super.onCreateView(parent, name, context, attrs)
         }
+    }
 
-        private fun consumePopupSession() {
-            requireContext().components.core.store.dispatch(
-                WebExtensionAction.UpdatePopupSessionAction(webExtensionId, popupSession = null),
-            )
-        }
+    override fun onStart() {
+        super.onStart()
+        engineSession?.register(this)
+    }
 
-        companion object {
-            /**
-             * Create an [WebExtensionActionPopupFragment] with webExtensionId as a required parameter.
-             */
-            fun create(webExtensionId: String) = WebExtensionActionPopupFragment().apply {
-                arguments = Bundle().apply {
-                    putString("web_extension_id", webExtensionId)
-                }
-            }
+    override fun onStop() {
+        super.onStop()
+        engineSession?.unregister(this)
+    }
+
+    override fun onWindowRequest(windowRequest: WindowRequest) {
+        if (windowRequest.type == WindowRequest.Type.CLOSE) {
+            onBackPressed()
         }
+        else {
+            /* CENO: Handle links in popups by loading the requested url in a new tab and closing the popup */
+            components.useCases.tabsUseCases.selectOrAddTab(windowRequest.url)
+            onBackPressed()
+        }
+    }
+
+    private fun consumePopupSession() {
+        components.core.store.dispatch(
+            WebExtensionAction.UpdatePopupSessionAction(webExtensionId, popupSession = null),
+        )
     }
 }
