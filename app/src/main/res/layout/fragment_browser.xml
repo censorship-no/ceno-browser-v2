@@ -43,7 +43,7 @@
         android:overScrollMode="never"
         tools:listitem="@layout/collection_home_list_row"
         tools:itemCount="3"
-        android:background="@drawable/home_background"
+        android:background="@color/ceno_home_background"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <ie.equalit.ceno.search.AwesomeBarWrapper
