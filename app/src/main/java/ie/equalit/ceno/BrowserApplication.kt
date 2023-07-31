@@ -40,7 +40,7 @@ open class BrowserApplication : Application() {
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
         AppCompatDelegate.setDefaultNightMode(
-            Settings.getAppTheme(this)
+                Settings.getAppTheme(this)
         )
 
         setupCrashReporting(this)
@@ -48,19 +48,23 @@ open class BrowserApplication : Application() {
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
 
+        // Initialize Sentry-Android
+        SentryAndroid.init(this)
+
         //------------------------------------------------------------
         // Ouinet
         //------------------------------------------------------------
 
-
+        /*
         var btBootstrapExtras: Set<String>? = null
 
+        var countryIsoCode = ""
         val locationUtils = CenoLocationUtils(application)
-        val countryIsoCode = locationUtils.currentCountry
+        countryIsoCode = locationUtils.currentCountry
 
         // Attempt getting country-specific `BT_BOOTSTRAP_EXTRAS` entry from BuildConfig,
         // fall back to empty BT bootstrap extras otherwise.
-        var btbsxsStr = ""
+        var btbsxsStr= ""
         if (countryIsoCode.isNotEmpty()) {
             // Country code found, try getting bootstrap extras resource for this country
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
@@ -85,16 +89,16 @@ open class BrowserApplication : Application() {
         // else no bootstrap extras included, leave null
 
         mOuinetConfig = Config.ConfigBuilder(this)
-            .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
-            .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
-            .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
-            .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
-            .setCacheType("bep5-http")
-            .setLogLevel(Config.LogLevel.DEBUG)
-            .setBtBootstrapExtras(btBootstrapExtras)
-            .setListenOnTcp("127.0.0.1:${BuildConfig.PROXY_PORT}")
-            .setFrontEndEp("127.0.0.1:${BuildConfig.FRONTEND_PORT}")
-            .build()
+                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
+                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
+                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
+                .setCacheType("bep5-http")
+                .setLogLevel(Config.LogLevel.DEBUG)
+                .setBtBootstrapExtras(btBootstrapExtras)
+                .setListenOnTcp("127.0.0.1:${BuildConfig.PROXY_PORT}")
+                .setFrontEndEp("127.0.0.1:${BuildConfig.FRONTEND_PORT}")
+                .build()
 
         mNotificationConfig = NotificationConfig.Builder(this)
             .setHomeActivity("ie.equalit.ceno.BrowserActivity")
@@ -104,7 +108,7 @@ open class BrowserApplication : Application() {
                 //clearIcon = R.drawable.ic_cancel_pm
             )
             .setChannelName(getString(R.string.ceno_notification_channel_name))
-            .setNotificationText(
+            .setNotificationText (
                 title = getString(R.string.ceno_notification_title),
                 description = getString(R.string.ceno_notification_description),
                 homeText = getString(R.string.ceno_notification_home_description),
@@ -112,8 +116,7 @@ open class BrowserApplication : Application() {
                 confirmText = getString(R.string.ceno_notification_clear_do_description),
             )
             .build()
-
-        SentryAndroid.init(this)
+         */
 
         //------------------------------------------------------------
 
@@ -216,7 +219,6 @@ open class BrowserApplication : Application() {
         var mOuinetConfig: Config? = null
         var mNotificationConfig: NotificationConfig? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
-
         init {
             System.setProperty("http.proxyHost", "127.0.0.1")
             System.setProperty("http.proxyPort", BuildConfig.PROXY_PORT)
