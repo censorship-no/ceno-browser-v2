@@ -35,6 +35,15 @@
         android:name="ie.equalit.ceno.BrowserApplication"
         tools:ignore="UnusedAttribute">
 
+        <!-- Sentry configuration -->
+        <meta-data android:name="io.sentry.dsn" android:value="http://606634f4458e4a2a9c1559b519325ad3@ouinet-runner-0.0x271.eu:9000/2" />
+        <meta-data android:name="io.sentry.traces.user-interaction.enable" android:value="true" />
+        <meta-data android:name="io.sentry.attach-screenshot" android:value="true" />
+        <meta-data android:name="io.sentry.attach-view-hierarchy" android:value="true" />
+        <meta-data android:name="io.sentry.traces.sample-rate" android:value="1.0" />
+        <meta-data android:name="io.sentry.traces.profiling.sample-rate" android:value="1.0" />
+
+
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
             android:icon="@mipmap/ic_launcher_blue"
