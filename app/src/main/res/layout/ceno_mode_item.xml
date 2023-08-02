@@ -24,6 +24,7 @@
         android:padding="2dp">
 
         <LinearLayout
+            android:id="@+id/card_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -39,8 +40,8 @@
                     android:id="@+id/iv_home_card_public"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ceno_home_card_public_icon"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ceno_home_card_public_icon" />
 
                 <TextView
                     android:id="@+id/tv_home_card_public_title"
@@ -71,8 +72,8 @@
                     android:id="@+id/iv_home_card_personal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ceno_home_card_personal_icon"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ceno_home_card_personal_icon" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -97,12 +98,12 @@
 
         <ImageView
             android:id="@+id/closeButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
 
-            android:layout_margin="8dp"
             android:contentDescription="@string/close_mode_item"
+            android:padding="8dp"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </com.google.android.material.card.MaterialCardView>

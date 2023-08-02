@@ -249,5 +249,5 @@
     <string name="browser_toolbar_home">Home</string>
 
     <!-- Ceno: For context menu text-->
-    <string name="mozac_feature_contextmenu_open_link_in_private_tab">Open link in personal tab</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
 </resources>

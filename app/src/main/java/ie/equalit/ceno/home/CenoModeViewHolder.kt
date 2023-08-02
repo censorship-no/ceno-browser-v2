@@ -22,9 +22,9 @@ class CenoModeViewHolder(
     private val binding = CenoModeItemBinding.bind(view)
 
     init {
-//        binding.cardLink.setOnClickListener {
-//            interactor.onCenoModeClicked()
-//        }
+        binding.cardLink.setOnClickListener {
+            interactor.onCenoModeClicked()
+        }
 
         binding.closeButton.setOnClickListener {
             interactor.onRemoveCenoModeCard(binding.root)
