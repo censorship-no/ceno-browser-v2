@@ -10,7 +10,7 @@
 
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Close All Tabs</string>
-    <string name="menu_action_close_tabs_private">Close Private Tabs</string>
+    <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
 
     <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
     <!-- Preference summary for settings related to send telemetry data -->
@@ -26,7 +26,7 @@
     <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
 
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Enable in Private Browsing Mode</string>
+    <string name="preferences_tracking_protection_private">Enable in Personal Browsing Mode</string>
 
     <!-- Preference for privacy -->
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
@@ -75,7 +75,7 @@
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
 
     <!-- Private Browsing -->
-    <string name="private_browsing_title">Private Browsing</string>
+    <string name="private_browsing_title">Personal Browsing</string>
 
     <!-- <string name="default_notification_channel">Browser</string> -->
 
@@ -98,10 +98,10 @@
 
     <!-- Ceno: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Enable private browsing</string>
+    <string name="content_description_private_browsing_button">Enable Personal browsing</string>
 
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Open in private tab</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
 
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
@@ -247,4 +247,7 @@
     <string name="cache_type" translatable="false">bep5-http</string>
     <string name="loopback_ip" translatable="false">127.0.0.1</string>
     <string name="browser_toolbar_home">Home</string>
+
+    <!-- Ceno: For context menu text-->
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab">Open link in personal tab</string>
 </resources>
