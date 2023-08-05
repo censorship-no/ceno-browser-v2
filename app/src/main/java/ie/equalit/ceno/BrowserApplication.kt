@@ -7,13 +7,13 @@ package ie.equalit.ceno
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.components.ceno.CenoLocationUtils
-import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
+import io.sentry.Sentry
 import io.sentry.android.core.SentryAndroid
+import io.sentry.android.core.SentryAndroidOptions
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -49,7 +49,17 @@ open class BrowserApplication : Application() {
         setupLogging()
 
         // Initialize Sentry-Android
-        SentryAndroid.init(this)
+        SentryAndroid.init(
+            this
+        ) {
+            it.dsn = "http://606634f4458e4a2a9c1559b519325ad3@ouinet-runner-0.0x271.eu:9000/2"
+            it.isEnableUserInteractionTracing = true
+            it.isAttachScreenshot = true
+            it.isAttachViewHierarchy = true
+            it.sampleRate = 1.0
+            it.profilesSampleRate = 1.0
+            it.isAnrEnabled = true
+        }
 
         //------------------------------------------------------------
         // Ouinet

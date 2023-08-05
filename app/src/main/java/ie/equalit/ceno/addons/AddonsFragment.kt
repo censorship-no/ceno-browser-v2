@@ -51,6 +51,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     override fun onViewCreated(rootView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(rootView, savedInstanceState)
         bindRecyclerView(rootView)
+        var ui = 7
+        Log.d("PPP", ui.div(0).toString())
     }
 
     override fun onStart() {

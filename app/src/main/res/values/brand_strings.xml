@@ -102,6 +102,7 @@
     <string name="preferences_toolbar_hide">Scroll to hide</string>
     <string name="preferences_show_home_button">Show home button</string>
     <string name="preferences_show_onboarding">Show onboarding on next launch</string>
+    <string name="preferences_allow_error_reporting">Allow error reporting</string>
     <string name="preferences_allow_notifications">Allow Notifications</string>
     <string name="preferences_disable_battery_opt">Disable Battery Optimization</string>
     <string name="preferences_customization">Customization</string>
