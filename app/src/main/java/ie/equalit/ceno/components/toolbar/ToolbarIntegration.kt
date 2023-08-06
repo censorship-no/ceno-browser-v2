@@ -52,6 +52,7 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -267,7 +268,7 @@ class ToolbarIntegration(
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-            CenoSettings.setStatusUpdateRequired(context, true)
+            CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_status_update_required, true)
             navController?.navigate(R.id.action_global_settings)
         }
 

@@ -11,7 +11,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
@@ -82,19 +81,6 @@ object CenoSettings {
         return String.format("%.2f %s", v, u)
     }
 
-    fun isStatusUpdateRequired(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_status_update_required), false
-        )
-
-    fun setStatusUpdateRequired(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_status_update_required)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
     fun getOuinetState(context: Context) : String? =
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_state), null
@@ -105,38 +91,6 @@ object CenoSettings {
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putString(key, text)
-            .apply()
-    }
-
-    private fun setCenoSourcesOrigin(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_sources_origin)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
-    private fun setCenoSourcesPrivate(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_sources_private)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
-    private fun setCenoSourcesPublic(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_sources_public)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
-    private fun setCenoSourcesShared(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_sources_shared)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
             .apply()
     }
 
@@ -205,19 +159,6 @@ object CenoSettings {
             .apply()
     }
 
-    fun isCenoLogEnabled(context: Context) : Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_enable_log), false
-        )
-
-    private fun setCenoEnableLog(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_ceno_enable_log)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
     fun getCenoVersionString(context: Context) : String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -262,15 +203,15 @@ object CenoSettings {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
-        setCenoSourcesOrigin(context, status.origin_access)
-        setCenoSourcesPrivate(context, status.proxy_access)
-        setCenoSourcesPublic(context, status.injector_access)
-        setCenoSourcesShared(context, status.distributed_cache)
+        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_origin, status.origin_access)
+        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_private, status.proxy_access)
+        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_public, status.injector_access)
+        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_shared, status.distributed_cache)
         setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
         setOuinetVersion(context, status.ouinet_version)
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
-        setCenoEnableLog(context, status.logfile)
+        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_enable_log, status.logfile)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
 

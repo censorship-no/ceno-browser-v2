@@ -20,4 +20,15 @@ object CustomPreferenceManager {
             .putBoolean(context.getString(key), value)
             .apply()
 
+    fun getString(context: Context, key: Int, defaultValue: String? = null): String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(key), defaultValue
+        )
+
+    fun setString(context: Context, key: Int, value: String) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(context.getString(key), value)
+            .apply()
+
 }

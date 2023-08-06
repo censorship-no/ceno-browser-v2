@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 class OnboardingFragment : Fragment() {
 
@@ -40,7 +40,7 @@ class OnboardingFragment : Fragment() {
                 findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
             } else {
                 binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-                Settings.setShowOnboarding(requireContext(), false)
+                CustomPreferenceManager.setBoolean(requireContext() , R.string.pref_key_show_onboarding, false)
                 findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
                 findNavController().navigate(R.id.action_global_home)
             }

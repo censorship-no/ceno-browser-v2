@@ -3,9 +3,10 @@ package ie.equalit.ceno.ui.robots
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
+import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 class OnboardingRobot {
 
@@ -13,7 +14,7 @@ class OnboardingRobot {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         fun skipOnboardingIfNeeded() {
-            if (Settings.shouldShowOnboarding(TestHelper.appContext)) {
+            if (CustomPreferenceManager.getBoolean(TestHelper.appContext, R.string.pref_key_show_onboarding)) {
                 skipOnboardingButton().waitForExists(TestAssetHelper.waitingTime)
                 skipOnboardingButton().click()
             }

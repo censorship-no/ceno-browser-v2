@@ -12,12 +12,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
-//import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-//import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 /**
  * Fragment used for browsing the web within the main app.
@@ -57,7 +55,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         )
 
 
-        if (Settings.shouldShowHomeButton(requireContext())) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_home_button)) {
             toolbar.addNavigationAction(homeAction)
         }
 

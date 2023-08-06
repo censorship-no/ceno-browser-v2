@@ -35,10 +35,9 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
@@ -49,7 +48,7 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 
 /**
- * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
+ * Base fragment extended by [HomeFragment].
  * This class only contains shared code focused on the main browsing content.
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
@@ -219,7 +218,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (Settings.shouldShowSearchSuggestions(requireContext())) {
+            if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_search_suggestions)) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,
@@ -287,11 +286,11 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
         //    binding.toolbar.private = private
         /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        val textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+        val textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+        val urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+        val toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+        val statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
         /*
         if (private) {

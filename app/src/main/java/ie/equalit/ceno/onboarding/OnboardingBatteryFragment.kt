@@ -16,7 +16,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /**
@@ -56,7 +56,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
-            Settings.setShowOnboarding(requireContext() , false)
+            CustomPreferenceManager.setBoolean(requireContext() , R.string.pref_key_show_onboarding, false)
             findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
             findNavController().navigate(R.id.action_global_home)
         }

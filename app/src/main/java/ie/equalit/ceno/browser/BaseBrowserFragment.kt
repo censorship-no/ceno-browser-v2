@@ -50,7 +50,7 @@ import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -361,7 +361,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (Settings.shouldShowSearchSuggestions(requireContext())) {
+            if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_search_suggestions)) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,

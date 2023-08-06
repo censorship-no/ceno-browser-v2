@@ -47,9 +47,9 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
@@ -134,7 +134,7 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.popBackStack() // Remove startupFragment from backstack
         navHost.navController.navigate(
             when {
-                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
+                CustomPreferenceManager.getBoolean(this, R.string.pref_key_show_onboarding) && savedInstanceState == null -> R.id.action_global_onboarding
                 savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
@@ -427,7 +427,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun initializeSearchEngines() {
-        if (Settings.shouldUpdateSearchEngines(this)) {
+        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_update_search_engines)) {
             components.core.store.state.search.searchEngines.filter { searchEngine ->
                 searchEngine.id in listOf(
                         getString(R.string.remove_search_engine_id_1),
@@ -442,7 +442,7 @@ open class BrowserActivity : BaseActivity() {
             }
             Logger.debug("${components.core.store.state.search.searchEngines}")
             Logger.debug("${components.core.store.state.search.selectedOrDefaultSearchEngine}")
-            Settings.setUpdateSearchEngines(this, false)
+            CustomPreferenceManager.setBoolean(this, R.string.pref_key_update_search_engines, false)
         }
     }
 }

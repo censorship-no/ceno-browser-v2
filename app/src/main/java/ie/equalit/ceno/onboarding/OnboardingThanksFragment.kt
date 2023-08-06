@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingThanksBinding
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 /**
  * A simple [Fragment] subclass.
- * Use the [OnboardingThanksFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class OnboardingThanksFragment : Fragment() {
     private var _binding: FragmentOnboardingThanksBinding? = null
@@ -23,9 +21,9 @@ class OnboardingThanksFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentOnboardingThanksBinding.inflate(inflater, container,false);
+        _binding = FragmentOnboardingThanksBinding.inflate(inflater, container,false)
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
@@ -34,7 +32,7 @@ class OnboardingThanksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
             binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-            Settings.setShowOnboarding(requireContext() , false)
+            CustomPreferenceManager.setBoolean(requireContext() , R.string.pref_key_show_onboarding, false)
             findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
             findNavController().navigate(R.id.action_global_home)
         }

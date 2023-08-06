@@ -70,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             Logger.debug("Got change listener for $key = $newValue")
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
-                CenoSettings.setStatusUpdateRequired(requireContext(), false)
+                CustomPreferenceManager.setBoolean(requireContext(), pref_key_ceno_status_update_required, false)
                 findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
                 findNavController().navigate(R.id.action_global_settings)
             }
@@ -91,7 +91,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     it.isEnabled = !(it.isEnabled)
                 }
                 getPreference(pref_key_ceno_download_log)?.let {
-                    it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+                    it.isVisible = CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_enable_log)
                     it.isEnabled = !(it.isEnabled)
                     it.isEnabled = !(it.isEnabled)
                 }
@@ -265,12 +265,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
         val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
 
-        preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+        preferenceCenoDownloadLog?.isVisible = CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_enable_log)
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
         preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
-        if (CenoSettings.isStatusUpdateRequired(requireContext())) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_status_update_required)) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
             setPreference(preferenceCenoSourcesOrigin, false)
