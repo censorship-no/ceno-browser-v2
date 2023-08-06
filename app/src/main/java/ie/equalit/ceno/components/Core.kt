@@ -55,6 +55,7 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.settings.Settings
 import java.util.concurrent.TimeUnit
 
@@ -198,7 +199,8 @@ class Core(private val context: Context) {
     }
 
     val addonCollectionProvider by lazy {
-        if (Settings.isAmoCollectionOverrideConfigured(context)) {
+        if (!CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_user).isNullOrEmpty()
+            && !CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_collection).isNullOrEmpty()) {
             provideCustomAddonCollectionProvider()
         } else {
             provideDefaultAddonCollectionProvider()
@@ -274,8 +276,8 @@ class Core(private val context: Context) {
         return AddonCollectionProvider(
             context,
             client,
-            collectionUser = Settings.getOverrideAmoUser(context),
-            collectionName = Settings.getOverrideAmoCollection(context),
+            collectionUser = CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_user, "")!!,
+            collectionName = CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_collection, "")!!,
         )
     }
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.settings.Settings
 
 class AppIconsView (
@@ -32,7 +33,10 @@ class AppIconsView (
     }
 
     fun update(context: Context) {
-        val selectedIconName = Settings.appIcon(context)?.componentName
+        val iconName = CustomPreferenceManager.getString(context, R.string.pref_key_selected_app_icon, AppIcon.DEFAULT.componentName)
+        val icon = iconName?.let { AppIcon.from(it) }
+
+        val selectedIconName = icon?.componentName
         appIconAdapter.notifyChanges(selectedIconName)
     }
 }

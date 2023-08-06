@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AlertDialog
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.settings.Settings
 
 interface AppIconsController {
@@ -18,10 +19,13 @@ class DefaultAppIconsController(
 
     private fun onIconConfirmed(icon: AppIcon) {
         val context = activity
-        val previousIcon = Settings.appIcon(context)
+
+        val prevIconName = CustomPreferenceManager.getString(context, R.string.pref_key_selected_app_icon, AppIcon.DEFAULT.componentName)
+        val previousIcon = AppIcon.from(prevIconName!!)
+
         val newIcon = AppIcon.from(icon.componentName)
-        Settings.setAppIcon(context, icon.componentName)
-        appIconModifier.changeIcon(previousIcon!!, newIcon)
+        CustomPreferenceManager.setString(context, R.string.pref_key_selected_app_icon, icon.componentName)
+        appIconModifier.changeIcon(previousIcon, newIcon)
     }
 
     @SuppressLint("InflateParams")

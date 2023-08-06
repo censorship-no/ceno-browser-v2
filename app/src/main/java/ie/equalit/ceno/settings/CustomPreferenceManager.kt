@@ -20,10 +20,10 @@ object CustomPreferenceManager {
             .putBoolean(context.getString(key), value)
             .apply()
 
-    fun getString(context: Context, key: Int, defaultValue: String? = null): String? =
+    fun getString(context: Context, key: Int, defaultValue: String? = ""): String? =
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(key), defaultValue
-        )
+        ) ?: defaultValue
 
     fun setString(context: Context, key: Int, value: String) =
         PreferenceManager.getDefaultSharedPreferences(context)

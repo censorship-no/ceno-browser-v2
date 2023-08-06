@@ -308,14 +308,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
             )
             preferenceOuinetState?.summaryProvider = Preference.SummaryProvider<Preference> {
-                CenoSettings.getOuinetState(requireContext())
+                CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_state)
             }
             preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
-                CenoSettings.getCenoCacheSize(requireContext())
+                CustomPreferenceManager.getString(requireContext(), pref_key_ceno_cache_size)
             }
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
             preferenceCenoGroupsCount?.summaryProvider = Preference.SummaryProvider<Preference> {
-                String.format( "%d sites", CenoSettings.getCenoGroupsCount(requireContext()))
+                String.format( "%d sites", CustomPreferenceManager.getString(requireContext(), pref_key_ceno_groups_count))
             }
             setPreference(
                 preferenceCenoGroupsCount,
@@ -342,8 +342,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true,
                 clickListener = getClickListenerForCenoDownloadLog()
             )
-            preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
-                    CenoSettings.getOuinetBuildId(requireContext())
+            preferenceAboutOuinet?.summary = CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_version) + " " +
+                    CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_build_id)
             preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         }
     }
@@ -450,12 +450,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
                 setPositiveButton(R.string.customize_addon_collection_ok) { _, _ ->
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoUser(
+                    CustomPreferenceManager.setString(
                         context,
+                        pref_key_override_amo_user,
                         userView.text.toString()
                     )
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoCollection(
+                    CustomPreferenceManager.setString(
                         context,
+                        pref_key_override_amo_collection,
                         collectionView.text.toString()
                     )
 
@@ -474,11 +476,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
                 collectionView.setText(
-                    ie.equalit.ceno.settings.Settings.getOverrideAmoCollection(
-                        context
+                    CustomPreferenceManager.getString(
+                        context,
+                        pref_key_override_amo_collection
                     )
                 )
-                userView.setText(ie.equalit.ceno.settings.Settings.getOverrideAmoUser(context))
+                userView.setText(CustomPreferenceManager.getString(context, pref_key_override_amo_user))
                 userView.requestFocus()
                 userView.showKeyboard()
                 create()
