@@ -49,7 +49,7 @@ open class BrowserApplication : Application() {
         setupLogging()
 
         // Initialize Sentry-Android based on a SharedPreference value
-        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_allow_error_reporting)) {
+        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_allow_error_reporting, true)) {
             SentryAndroid.init(
                 this,
                 SentryOptionsConfiguration.getConfig()
