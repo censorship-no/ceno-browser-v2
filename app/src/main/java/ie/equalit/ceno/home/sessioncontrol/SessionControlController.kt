@@ -25,9 +25,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**

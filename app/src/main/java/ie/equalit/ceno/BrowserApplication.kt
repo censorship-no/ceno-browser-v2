@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.CustomPreferenceManager
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
@@ -39,9 +38,11 @@ open class BrowserApplication : Application() {
 
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
-        AppCompatDelegate.setDefaultNightMode(
-                Settings.getAppTheme(this)
-        )
+        CustomPreferenceManager.getString(this, R.string.pref_key_theme)?.toInt()?.let {
+            AppCompatDelegate.setDefaultNightMode(
+                it
+            )
+        }
 
         setupCrashReporting(this)
 

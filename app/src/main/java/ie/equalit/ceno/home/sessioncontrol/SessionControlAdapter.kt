@@ -11,7 +11,6 @@ import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
-import ie.equalit.ceno.settings.Settings
 
 sealed class AdapterItem(@LayoutRes val viewType: Int) {
 
