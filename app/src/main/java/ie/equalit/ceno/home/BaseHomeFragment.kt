@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.preference.PreferenceManager
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
@@ -99,8 +98,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -180,11 +177,13 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         }
 
         /* CENO: Add purge button to toolbar */
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_clear_in_toolbar, true)) {
             val clearButtonFeature = ClearButtonFeature(
                 requireContext(),
-                prefs.getString(
-                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                CustomPreferenceManager.getString(
+                    requireContext(),
+                    R.string.pref_key_clear_behavior,
+                    "0")!!
                     .toInt()
             )
             binding.toolbar.addBrowserAction(
@@ -196,23 +195,23 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         }
 
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_toolbar_hide)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
                 binding.swipeRefresh,
                 binding.engineView,
-                prefs.getBoolean(
-                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                    false
+                CustomPreferenceManager.getBoolean(
+                    requireContext(),
+                    R.string.pref_key_toolbar_position
                 )
             )
         }
         else {
             binding.toolbar.disableDynamicBehavior(
                 binding.engineView,
-                prefs.getBoolean(
-                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                    false
+                CustomPreferenceManager.getBoolean(
+                    requireContext(),
+                    R.string.pref_key_toolbar_position
                 )
             )
         }
@@ -279,7 +278,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     override fun onStart() {
         super.onStart()
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         /* TODO: HomeFragment isn't used in for private mode yet,
          *   need to implement a private theme for the HomeFragment
          */
@@ -326,9 +324,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             trackingProtectionException = statusIcon,
             highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
         )
-        val isToolbarPositionTop = prefs.getBoolean(
-            requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-            false
+        val isToolbarPositionTop = CustomPreferenceManager.getBoolean(
+            requireContext(),
+            R.string.pref_key_toolbar_position
         )
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
             DisplayToolbar.Gravity.BOTTOM

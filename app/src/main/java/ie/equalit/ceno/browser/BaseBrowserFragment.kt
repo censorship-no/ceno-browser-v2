@@ -135,7 +135,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         sessionFeature.set(
             feature = SessionFeature(
@@ -220,7 +219,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 sessionId = sessionId,
                 fragmentManager = parentFragmentManager,
                 launchInApp = {
-                    prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_launch_external_app), false)
+                    CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_launch_external_app)
                 },
             ),
             owner = this,
@@ -322,11 +321,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
 
         /* CENO: Add purge button to toolbar */
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_clear_in_toolbar, true)) {
             val clearButtonFeature = ClearButtonFeature(
                 requireContext(),
-                prefs.getString(
-                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                CustomPreferenceManager.getString(
+                    requireContext(),
+                    R.string.pref_key_clear_behavior,
+                    "0")!!
                     .toInt()
             )
             binding.toolbar.addBrowserAction(
@@ -338,23 +339,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
 
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
+        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_toolbar_hide)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
                 binding.swipeRefresh,
                 binding.engineView,
-                prefs.getBoolean(
-                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                    false
+                CustomPreferenceManager.getBoolean(
+                    requireContext(),
+                    R.string.pref_key_toolbar_position
                 )
             )
         }
         else {
             binding.toolbar.disableDynamicBehavior(
                 binding.engineView,
-                prefs.getBoolean(
-                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                    false
+                CustomPreferenceManager.getBoolean(
+                    requireContext(),
+                    R.string.pref_key_toolbar_position
                 )
             )
         }
@@ -430,7 +431,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     override fun onStart() {
         super.onStart()
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         /* CENO: Set toolbar appearance based on whether current tab is private or not
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
@@ -477,9 +477,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             trackingProtectionException = statusIcon,
             highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
         )
-        val isToolbarPositionTop = prefs.getBoolean(
-            requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-            false
+        val isToolbarPositionTop = CustomPreferenceManager.getBoolean(
+            requireContext(),
+            R.string.pref_key_toolbar_position
         )
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
             DisplayToolbar.Gravity.BOTTOM

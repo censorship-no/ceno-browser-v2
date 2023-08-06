@@ -34,6 +34,8 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
     /*
+    If you have to enable this, remember to use CustomPreferenceManager in place of calling the PreferenceManager directly.
+
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
             getString(R.string.pref_key_compose_ui),

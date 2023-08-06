@@ -107,6 +107,8 @@ fun showReceivedTabs(context: Context, device: Device?, tabs: List<TabData>) {
 }
 
 fun checkAndNotifyPolicy(context: Context) {
+    !!! If you have to enable this, remember to use CustomPreferenceManager in place of calling the PreferenceManager directly.
+
     val preferences = PreferenceManager.getDefaultSharedPreferences(context)
     val currentVersion = preferences.getInt(PREFS_POLICY_VERSION, -1)
 

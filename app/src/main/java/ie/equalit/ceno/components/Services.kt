@@ -5,7 +5,6 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.feature.accounts.FirefoxAccountsAuthFeature
@@ -13,7 +12,7 @@ import mozilla.components.feature.app.links.AppLinksInterceptor
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.service.fxa.manager.FxaAccountManager
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.settings.CustomPreferenceManager
 
 /**
  * Component group which encapsulates foreground-friendly services.
@@ -23,7 +22,6 @@ class Services(
     private val accountManager: FxaAccountManager,
     private val tabsUseCases: TabsUseCases,
 ) {
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     val accountsAuthFeature by lazy {
         FirefoxAccountsAuthFeature(
             accountManager,
@@ -41,7 +39,7 @@ class Services(
             context,
             interceptLinkClicks = true,
             launchInApp = {
-                prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_launch_external_app), false)
+                CustomPreferenceManager.getBoolean(context, R.string.pref_key_launch_external_app)
             },
         )
     }
