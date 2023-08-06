@@ -31,4 +31,15 @@ object CustomPreferenceManager {
             .putString(context.getString(key), value)
             .apply()
 
+    fun getInt(context: Context, key: Int, defaultValue: Int = 0): Int =
+        PreferenceManager.getDefaultSharedPreferences(context).getInt(
+            context.getString(key), defaultValue
+        )
+
+    fun setInt(context: Context, key: Int, value: Int) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putInt(context.getString(key), value)
+            .apply()
+
 }

@@ -344,7 +344,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
             preferenceAboutOuinet?.summary = CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_version) + " " +
                     CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_build_id)
-            preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
+            preferenceAboutOuinetProtocol?.summary = "${CustomPreferenceManager.getInt(requireContext(), pref_key_ouinet_protocol)}"
         }
     }
 

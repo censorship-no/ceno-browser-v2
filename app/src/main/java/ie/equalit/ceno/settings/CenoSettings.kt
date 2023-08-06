@@ -3,7 +3,6 @@ package ie.equalit.ceno.settings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
-import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -81,27 +80,6 @@ object CenoSettings {
         return String.format("%.2f %s", v, u)
     }
 
-    fun setCenoGroupsCount(context: Context, i : Int) {
-        val key = context.getString(R.string.pref_key_ceno_groups_count)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putInt(key, i)
-            .apply()
-    }
-
-    fun getOuinetProtocol(context: Context) : Int =
-        PreferenceManager.getDefaultSharedPreferences(context).getInt(
-            context.getString(R.string.pref_key_ouinet_protocol), 0
-        )
-
-    fun setOuinetProtocol(context: Context, i : Int) {
-        val key = context.getString(R.string.pref_key_ouinet_protocol)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putInt(key, i)
-            .apply()
-    }
-
     fun getCenoVersionString(context: Context) : String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -153,7 +131,7 @@ object CenoSettings {
         CustomPreferenceManager.setString(context, R.string.pref_key_ceno_cache_size, bytesToString(status.local_cache_size!!))
         CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_version, status.ouinet_version)
         CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_build_id, status.ouinet_build_id)
-        setOuinetProtocol(context, status.ouinet_protocol)
+        CustomPreferenceManager.setInt(context, R.string.pref_key_ouinet_protocol, status.ouinet_protocol)
         CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_enable_log, status.logfile)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
@@ -161,7 +139,7 @@ object CenoSettings {
     private fun updateCenoGroups(context : Context, responseBody : String) {
         Logger.debug("Response body: $responseBody")
         val groups = responseBody.reader().readLines()
-        setCenoGroupsCount(context, groups.count())
+        CustomPreferenceManager.setInt(context, R.string.pref_key_ceno_groups_count, groups.count())
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
@@ -181,7 +159,7 @@ object CenoSettings {
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
                             CustomPreferenceManager.setString(context, R.string.pref_key_ceno_cache_size, bytesToString(0))
-                            setCenoGroupsCount(context, 0)
+                            CustomPreferenceManager.setInt(context, R.string.pref_key_ceno_groups_count, 0)
                             context.components.cenoPreferences.sharedPrefsUpdate = true
                             context.resources.getString(R.string.clear_cache_success)
                         }
