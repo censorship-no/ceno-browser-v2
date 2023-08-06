@@ -9,7 +9,6 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentChangeIconBinding
 import ie.equalit.ceno.settings.CustomPreferenceManager
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.changeicon.appicons.*
 
 class ChangeIconFragment : Fragment() {

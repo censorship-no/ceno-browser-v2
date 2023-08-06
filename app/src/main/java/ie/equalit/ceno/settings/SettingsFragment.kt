@@ -151,7 +151,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setupCenoSettings()
         getActionBar().apply{
             show()
-            setTitle(R.string.settings)
+            setTitle(settings)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
         }
@@ -170,9 +170,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
-        val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
-        val allowNotificationsKey = requireContext().getPreferenceKey(R.string.pref_key_allow_notifications)
-        val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
+        val autofillPreferenceKey = requireContext().getPreferenceKey(pref_key_autofill)
+        val allowNotificationsKey = requireContext().getPreferenceKey(pref_key_allow_notifications)
+        val disableBatteryOptKey = requireContext().getPreferenceKey(pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
         val allowErrorReportingDataKey = requireContext().getPreferenceKey(pref_key_allow_error_reporting)
@@ -350,7 +350,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             OnPreferenceClickListener {
                 val intent = Intent(
                     Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS,
@@ -368,7 +368,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_privacySettingsFragment
             )
-            getActionBar().setTitle(R.string.tracker_category)
+            getActionBar().setTitle(tracker_category)
             true
         }
     }
@@ -387,7 +387,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_installedSearchEnginesSettingsFragment
             )
-            getActionBar().setTitle(R.string.preference_choose_search_engine)
+            getActionBar().setTitle(preference_choose_search_engine)
             true
         }
     }
@@ -397,7 +397,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
-            getActionBar().setTitle(R.string.preferences_delete_browsing_data)
+            getActionBar().setTitle(preferences_delete_browsing_data)
             true
         }
     }
@@ -428,7 +428,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_aboutFragment
             )
-            getActionBar().setTitle(R.string.preferences_about_page)
+            getActionBar().setTitle(preferences_about_page)
             true
         }
     }
@@ -443,13 +443,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val collectionView = dialogView.findViewById<EditText>(R.id.custom_amo_collection)
 
             AlertDialog.Builder(context).apply {
-                setTitle(context.getString(R.string.preferences_customize_amo_collection))
+                setTitle(context.getString(preferences_customize_amo_collection))
                 setView(dialogView)
-                setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
+                setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
                     dialog.cancel()
                 }
 
-                setPositiveButton(R.string.customize_addon_collection_ok) { _, _ ->
+                setPositiveButton(customize_addon_collection_ok) { _, _ ->
                     CustomPreferenceManager.setString(
                         context,
                         pref_key_override_amo_user,
@@ -463,7 +463,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                     Toast.makeText(
                         context,
-                        getString(R.string.toast_customize_addon_collection_done),
+                        getString(toast_customize_addon_collection_done),
                         Toast.LENGTH_LONG,
                     ).show()
 

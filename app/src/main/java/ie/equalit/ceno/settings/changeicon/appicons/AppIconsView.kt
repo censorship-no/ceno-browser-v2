@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.CustomPreferenceManager
-import ie.equalit.ceno.settings.Settings
 
 class AppIconsView (
     val containerView: View,

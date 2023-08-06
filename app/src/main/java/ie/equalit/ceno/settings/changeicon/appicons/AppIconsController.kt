@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.CustomPreferenceManager
-import ie.equalit.ceno.settings.Settings
 
 interface AppIconsController {
     fun handleAppIconClicked(icon : AppIcon)
