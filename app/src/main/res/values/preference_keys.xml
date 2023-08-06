@@ -4,7 +4,6 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources>
     <string name="pref_key_autofill" translatable="false">pref_key_autofill</string>
-    <string name="pref_key_telemetry" translatable="false">pref_key_telemetry</string>
     <string name="pref_key_make_default_browser" translatable="false">pref_key_make_default_browser</string>
     <string name="pref_key_remote_debugging" translatable="false">pref_key_remote_debugging</string>
     <string name="pref_key_testing_mode" translatable="false">pref_key_testing_mode</string>
@@ -15,7 +14,6 @@
     <string name="pref_key_launch_external_app" translatable="false">pref_key_launch_external_app</string>
     <string name="pref_key_override_amo_collection" translatable="false">pref_key_override_amo_collection</string>
     <string name="pref_key_override_amo_user" translatable="false">pref_key_override_amo_user</string>
-    <string name="pref_key_mobile_data" translatable="false">pref_key_mobile_data</string>
     <string name="pref_key_toolbar_position" translatable="false">pref_key_toolbar_position</string>
     <string name="pref_key_toolbar_hide" translatable="false">pref_key_toolbar_hide</string>
     <string name="pref_key_show_onboarding" translatable="false">pref_key_show_onboarding</string>
