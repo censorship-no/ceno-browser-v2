@@ -315,7 +315,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
             preferenceCenoGroupsCount?.summaryProvider = Preference.SummaryProvider<Preference> {
-                String.format( "%d sites", CustomPreferenceManager.getString(requireContext(), pref_key_ceno_groups_count))
+                String.format( "%d sites", CustomPreferenceManager.getInt(requireContext(), pref_key_ceno_groups_count))
             }
             setPreference(
                 preferenceCenoGroupsCount,
