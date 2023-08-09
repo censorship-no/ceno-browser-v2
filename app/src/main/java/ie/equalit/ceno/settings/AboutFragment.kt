@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
@@ -118,7 +119,7 @@ class AboutFragment : Fragment() {
         textView.setText(notClickedString, TextView.BufferType.SPANNABLE)
         val clickedString = SpannableString(notClickedString)
         clickedString.setSpan(
-            BackgroundColorSpan(resources.getColor(R.color.fx_mobile_text_color_secondary)), 0, notClickedString.length,
+            BackgroundColorSpan(ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)), 0, notClickedString.length,
             Spanned.SPAN_INCLUSIVE_EXCLUSIVE
         )
         textView.setOnTouchListener { v, event ->
