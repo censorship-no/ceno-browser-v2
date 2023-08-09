@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
@@ -48,7 +47,7 @@ class AddonDetailsFragment : Fragment() {
             show()
             title = addon.translateName(requireContext())
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
         }
 
         bindDetails(addon, rootView)

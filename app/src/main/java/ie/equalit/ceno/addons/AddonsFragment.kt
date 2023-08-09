@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -205,7 +204,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
             show()
             setTitle(R.string.browser_menu_add_ons)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
         }
     }
 
