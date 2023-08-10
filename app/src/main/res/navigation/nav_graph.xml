@@ -65,13 +65,7 @@
         android:name="ie.equalit.ceno.onboarding.OnboardingFragment"
         android:label="@string/onboarding_fragment"
         tools:layout="@layout/fragment_onboarding">
-        <action
-            android:id="@+id/action_onboardingFragment_to_onboardingInfoFragment"
-            app:destination="@id/onboardingInfoFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
+
         <action
             android:id="@+id/action_onboardingFragment_to_onboardingBatteryFragment"
             app:destination="@id/onboardingBatteryFragment"
@@ -100,13 +94,6 @@
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
-        <action
-            android:id="@+id/action_onboardingInfoFragment_to_onboardingThanksFragment"
-            app:destination="@id/onboardingThanksFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
@@ -121,34 +108,13 @@
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
-        <action
-            android:id="@+id/action_onboardingBatteryFragment_to_onboardingThanksFragment"
-            app:destination="@id/onboardingThanksFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
     </fragment>
 
     <fragment
         android:id="@+id/onboardingWarningFragment"
         android:name="ie.equalit.ceno.onboarding.OnboardingWarningFragment"
         android:label="@string/onboarding_warning_title"
-        tools:layout="@layout/fragment_onboarding_warning">
-        <action
-            android:id="@+id/action_onboardingWarningFragment_to_onboardingThanksFragment"
-            app:destination="@id/onboardingThanksFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/onboardingThanksFragment"
-        android:name="ie.equalit.ceno.onboarding.OnboardingThanksFragment"
-        android:label="@string/onboarding_thanks_title"
-        tools:layout="@layout/fragment_onboarding_thanks" />
+        tools:layout="@layout/fragment_onboarding_warning"/>
 
     <fragment
         android:id="@+id/onboardingPublicPvtFragment"

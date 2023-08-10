@@ -234,7 +234,9 @@ open class BrowserActivity : BaseActivity() {
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-                navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+                Settings.setShowOnboarding(applicationContext, false)
+                navHost.navController.popBackStack(R.id.onboardingFragment, true)
+                navHost.navController.navigate(R.id.action_global_home)
             } else {
                 updateView {
                     navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)

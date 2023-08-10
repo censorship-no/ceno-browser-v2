@@ -21,8 +21,6 @@ class OnboardingPublicPvtFragment : Fragment() {
     private var _binding: FragmentOnboardingPublicPvtBinding? = null
     private val binding get() = _binding!!
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,26 +43,7 @@ class OnboardingPublicPvtFragment : Fragment() {
                 findNavController().navigate(R.id.action_onboardingPublicPvtFragment_to_onboardingBatteryFragment)
             }
             else {
-                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-                Settings.setShowOnboarding(requireContext(), false)
-                findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-                findNavController().navigate(R.id.action_global_home)
-            }
-        }
-    }
-
-    companion object {
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-
-        const val TAG = "ONBOARD_PUBLIC_PVT"
-        fun create(sessionId: String? = null) = OnboardingPublicPvtFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
+                OnboardingFragment.navigateToHome(requireContext(), findNavController())
             }
         }
     }

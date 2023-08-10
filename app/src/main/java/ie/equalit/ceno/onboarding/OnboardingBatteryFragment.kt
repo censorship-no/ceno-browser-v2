@@ -56,16 +56,14 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
-            Settings.setShowOnboarding(requireContext() , false)
-            findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-            findNavController().navigate(R.id.action_global_home)
+            OnboardingFragment.navigateToHome(requireContext(), findNavController())
         }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         super.onActivityResult(requestCode, resultCode, data)
         if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            OnboardingFragment.navigateToHome(requireContext(), findNavController())
         } else {
             (activity as BrowserActivity).updateView {
                 findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
@@ -77,7 +75,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun allowPostNotifications() {
         if (!requireComponents.permissionHandler.requestPostNotificationsPermission(this)) {
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            OnboardingFragment.navigateToHome(requireContext(), findNavController())
         }
     }
 
@@ -89,7 +87,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         }
         else {
             Log.e(TAG, "Unknown request code received: $requestCode")
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            OnboardingFragment.navigateToHome(requireContext(), findNavController())
         }
     }
 
