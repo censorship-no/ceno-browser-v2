@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingWarningBinding
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 
 class OnboardingWarningFragment : Fragment() {
     private var _binding: FragmentOnboardingWarningBinding? = null
@@ -45,7 +46,7 @@ class OnboardingWarningFragment : Fragment() {
                 getString(R.string.onboarding_warning_text)
             }
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_onboardingWarningFragment_to_onboardingThanksFragment)
+            OnboardingFragment.navigateToHome(requireContext(), findNavController())
         }
     }
 }
