@@ -1,5 +1,6 @@
 package ie.equalit.ceno.onboarding
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
@@ -39,11 +41,17 @@ class OnboardingFragment : Fragment() {
                 /* Android 13 or later, always ask for permissions */
                 findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
             } else {
-                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-                Settings.setShowOnboarding(requireContext(), false)
-                findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-                findNavController().navigate(R.id.action_global_home)
+                navigateToHome(requireContext(), findNavController())
             }
+        }
+    }
+
+
+    companion object {
+        fun navigateToHome(context: Context, navController: NavController) {
+            Settings.setShowOnboarding(context, false)
+            navController.popBackStack(R.id.onboardingFragment, true) // Pop backstack list
+            navController.navigate(R.id.action_global_home)
         }
     }
 }
