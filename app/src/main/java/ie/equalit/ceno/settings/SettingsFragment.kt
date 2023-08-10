@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.widget.EditText
@@ -18,6 +19,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
@@ -148,9 +150,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setupCenoSettings()
         getActionBar().apply{
             show()
-            setTitle(R.string.settings)
+            setTitle(settings)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
     }
 
@@ -167,9 +169,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
-        val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
-        val allowNotificationsKey = requireContext().getPreferenceKey(R.string.pref_key_allow_notifications)
-        val disableBatteryOptKey = requireContext().getPreferenceKey(R.string.pref_key_disable_battery_opt)
+        val autofillPreferenceKey = requireContext().getPreferenceKey(pref_key_autofill)
+        val allowNotificationsKey = requireContext().getPreferenceKey(pref_key_allow_notifications)
+        val disableBatteryOptKey = requireContext().getPreferenceKey(pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
@@ -344,7 +346,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             OnPreferenceClickListener {
                 val intent = Intent(
                     Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS,
@@ -362,7 +364,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_privacySettingsFragment
             )
-            getActionBar().setTitle(R.string.tracker_category)
+            getActionBar().setTitle(tracker_category)
             true
         }
     }
@@ -381,7 +383,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_installedSearchEnginesSettingsFragment
             )
-            getActionBar().setTitle(R.string.preference_choose_search_engine)
+            getActionBar().setTitle(preference_choose_search_engine)
             true
         }
     }
@@ -391,7 +393,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
-            getActionBar().setTitle(R.string.preferences_delete_browsing_data)
+            getActionBar().setTitle(preferences_delete_browsing_data)
             true
         }
     }
@@ -408,7 +410,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(
                 R.id.action_settingsFragment_to_aboutFragment
             )
-            getActionBar().setTitle(R.string.preferences_about_page)
+            getActionBar().setTitle(preferences_about_page)
             true
         }
     }
@@ -423,13 +425,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val collectionView = dialogView.findViewById<EditText>(R.id.custom_amo_collection)
 
             AlertDialog.Builder(context).apply {
-                setTitle(context.getString(R.string.preferences_customize_amo_collection))
+                setTitle(context.getString(preferences_customize_amo_collection))
                 setView(dialogView)
-                setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
+                setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
                     dialog.cancel()
                 }
 
-                setPositiveButton(R.string.customize_addon_collection_ok) { _, _ ->
+                setPositiveButton(customize_addon_collection_ok) { _, _ ->
                     ie.equalit.ceno.settings.Settings.setOverrideAmoUser(
                         context,
                         userView.text.toString()
@@ -441,11 +443,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                     Toast.makeText(
                         context,
-                        getString(R.string.toast_customize_addon_collection_done),
+                        getString(toast_customize_addon_collection_done),
                         Toast.LENGTH_LONG,
                     ).show()
 
-                    Handler().postDelayed(
+                    Handler(Looper.getMainLooper()).postDelayed(
                         {
                             exitProcess(0)
                         },
@@ -472,10 +474,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceChangeListener { _, newValue ->
             if (newValue == true) {
                 /* this should pop-up the mobile data dialog to provide warning and allow user to select option*/
-                Toast.makeText(context, R.string.preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
+                Toast.makeText(context, preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(context, R.string.preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
+                Toast.makeText(context, preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
             }
             true
         }
