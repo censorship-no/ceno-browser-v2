@@ -69,8 +69,6 @@ cache:
 lintDebug:
   interruptible: true
   stage: build
-  tags:
-  - docker
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   artifacts:
@@ -83,8 +81,6 @@ lintDebug:
 assembleDebug:
   interruptible: true
   stage: build
-  tags:
-  - docker
   script:
     - ./gradlew assembleDebug
   artifacts:
@@ -96,7 +92,5 @@ debugTests:
   needs: [lintDebug, assembleDebug]
   interruptible: true
   stage: test
-  tags:
-  - docker
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
