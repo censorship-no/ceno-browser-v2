@@ -16,10 +16,6 @@
     <color name="ceno_home_background">#F9F9FA</color>
     <color name="ceno_home_card_public_text">#0EA5E9</color>
     <color name="ceno_home_card_personal_text">#9C27B0</color>
-    <color name="ceno_onboarding_gradient_middle">#4bb0bc</color>
-    <color name="ceno_home_background_gradient_start">#0391a1</color><!--#D4C1FA</color>-->
-    <color name="ceno_home_background_gradient_middle">#0391a1</color><!--#D4C1FA</color>-->
-    <color name="ceno_home_background_gradient_end">@color/photonWhite</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
     <color name="ceno_home_card_text_color">@color/photonBlack</color>
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
@@ -27,6 +23,7 @@
     <color name="ceno_onboarding_background">#F0F9FF</color>
     <color name="ceno_onboarding_text">#5F5F5F</color>
     <color name="ceno_onboarding_button">#027DBD</color>
+    <color name="home_card_close_button">@color/photonDarkGrey70</color>
 
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
