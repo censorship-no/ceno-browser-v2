@@ -150,6 +150,7 @@
     <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>
     <string name="preferences_ceno_network_config">&brandShortName; Network Details</string>
     <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_sources_reachability">Reachability status</string>
     <string name="preferences_ceno_enable_log">Enable log file</string>
     <string name="preferences_ceno_download_log">Download log file</string>
     <!-- Snackbar action button when a non fatal crash happen-->

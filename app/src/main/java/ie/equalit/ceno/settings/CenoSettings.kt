@@ -11,7 +11,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
@@ -153,6 +152,19 @@ object CenoSettings {
             .apply()
     }
 
+    fun getReachabilityStatus(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_reachability_status), null
+        )
+
+    fun setReachabilityStatus(context: Context, text : String?) {
+        val key = context.getString(R.string.pref_key_ouinet_reachability_status)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
     fun getCenoGroupsCount(context: Context) : Int =
         PreferenceManager.getDefaultSharedPreferences(context).getInt(
             context.getString(R.string.pref_key_ceno_groups_count), 0
@@ -271,6 +283,7 @@ object CenoSettings {
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
         setCenoEnableLog(context, status.logfile)
+        setReachabilityStatus(context, status.udp_world_reachable)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
 
