@@ -45,7 +45,6 @@
     <string name="changeIconCtaAccept">اطلاق کریں</string>
     <string name="website_button_text">ویب سائٹ</string>
     <string name="ouinet_client_fetch_fail">&brandShortName; کی ترتیب کو تبدیل کرنے میں ناکام</string>
-    <string name="preferences_ceno_network_config">&brandShortName; نیٹ ورک کی تفصیلات</string>
     <string name="preferences_clear_ceno_cache_summary">مقامی طور پر کیش کردہ ویب مواد کو صاف کریں</string>
     <string name="preferences_clear_ceno_cache">کیش شدہ مواد کو صاف کریں</string>
     <string name="preferences_ceno_sources_private">نجی طور پر</string>

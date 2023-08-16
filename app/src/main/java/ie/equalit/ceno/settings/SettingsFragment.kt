@@ -31,15 +31,12 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
-import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
@@ -255,7 +252,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCenoCacheSize = getPreference(pref_key_ceno_cache_size)
         val preferenceCenoGroupsCount = getPreference(pref_key_ceno_groups_count)
         val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
-        val preferenceCenoNetworkDetails = getPreference(pref_key_ceno_network_config)
         val preferenceCenoEnableLog = getPreference(pref_key_ceno_enable_log)
         val preferenceCenoDownloadLog = getPreference(pref_key_ceno_download_log)
 
@@ -279,7 +275,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext())
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext())
         preferenceExtraBittorrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
-        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         preferenceLocalUdpEndpoint?.isVisible = CenoSettings.getLocalUdpEndpoint(requireContext()) != null
         preferenceExternalUdpEndpoint?.isVisible = CenoSettings.getExternalUdpEndpoint(requireContext()) != null
@@ -294,7 +289,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(preferenceCenoSourcesShared, false)
             setPreference(preferenceCenoGroupsCount, false)
             setPreference(preferenceClearCenoCache, false)
-            setPreference(preferenceCenoNetworkDetails, false)
             setPreference(preferenceCenoEnableLog, false)
             setPreference(preferenceCenoDownloadLog, false)
             /* Fetch ouinet status */
@@ -341,11 +335,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 preferenceClearCenoCache,
                 true,
                 clickListener = getClickListenerForClearCenoCache()
-            )
-            setPreference(
-                preferenceCenoNetworkDetails,
-                true,
-                clickListener = getClickListenerForCenoNetworkDetails()
             )
             setPreference(
                 preferenceCenoEnableLog,
@@ -598,17 +587,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
                 newTab = true
             )
-            true
-        }
-    }
-
-    private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            WebExtensionToolbarFeature.getBrowserAction(
-                        requireContext(),
-                        CenoWebExt.CENO_EXTENSION_ID
-                    )?.invoke()
-            (activity as BrowserActivity).openToBrowser()
             true
         }
     }

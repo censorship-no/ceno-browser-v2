@@ -52,7 +52,6 @@
     <string name="pref_key_clear_ceno_cache" translatable="false">pref_key_clear_ceno_cache</string>
     <string name="pref_key_ceno_groups_count" translatable="false">pref_key_ceno_groups_count</string>
     <string name="pref_key_ceno_cache_size" translatable="false">pref_key_ceno_cache_size</string>
-    <string name="pref_key_ceno_network_config" translatable="false">pref_key_ceno_network_config</string>
     <string name="pref_key_ceno_enable_log" translatable="false">pref_key_ceno_enable_log</string>
     <string name="pref_key_ceno_download_log" translatable="false">pref_key_ceno_download_log</string>
     <string name="pref_key_about_ceno" translatable="false">pref_key_about_ceno</string>
