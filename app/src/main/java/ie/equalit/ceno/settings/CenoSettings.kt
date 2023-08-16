@@ -229,6 +229,23 @@ object CenoSettings {
             .apply()
     }
 
+    fun getExtraBitTorrentBootstrap(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
+        )
+
+    private fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
+        val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
+
+        var formattedText = ""
+        texts?.forEach { formattedText += "${it.trim()} " }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, formattedText.ifEmpty { null })
+            .apply()
+    }
+
     fun getCenoGroupsCount(context: Context) : Int =
         PreferenceManager.getDefaultSharedPreferences(context).getInt(
             context.getString(R.string.pref_key_ceno_groups_count), 0
@@ -351,6 +368,7 @@ object CenoSettings {
         setLocalUdpEndpoint(context, status.local_udp_endpoints)
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
+        setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
     }

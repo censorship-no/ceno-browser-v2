@@ -155,6 +155,7 @@
     <string name="preferences_ceno_sources_local_udp">Local UDP endpoints</string>
     <string name="preferences_ceno_sources_external_udp">External UDP endpoints</string>
     <string name="preferences_ceno_sources_public_udp">Public UDP endpoints</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Extra BitTorrent Bootstraps</string>
     <string name="preferences_ceno_enable_log">Enable log file</string>
     <string name="preferences_ceno_download_log">Download log file</string>
     <!-- Snackbar action button when a non fatal crash happen-->
