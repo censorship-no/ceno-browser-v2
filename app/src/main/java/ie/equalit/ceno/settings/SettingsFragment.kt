@@ -502,17 +502,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
                 setPositiveButton(customize_add_bootstrap_save) { _, _ ->
+
+                    CenoSettings.ouinetClientRequest(
+                        requireContext(),
+                        OuinetKey.EXTRA_BOOTSTRAPS,
+                        OuinetValue.OTHER,
+                        bootstrapView.text.toString().trim()
+                    )
+
                     CenoSettings.setExtraBitTorrentBootstrap(
                         context,
                         arrayOf(bootstrapView.text.toString())
                     )
-
-                    Toast.makeText(
-                        context,
-                        getString(toast_update_extra_bittorrent_done),
-                        LENGTH_SHORT,
-                    ).show()
-
 
                     getPreference(pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
                 }

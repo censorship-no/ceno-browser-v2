@@ -49,11 +49,13 @@ enum class OuinetKey(val command : String) {
     DISTRIBUTED_CACHE("?distributed_cache"),
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
+    EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
 }
 
 enum class OuinetValue(val string: String) {
     DISABLED("disabled"),
-    ENABLED("enabled")
+    ENABLED("enabled"),
+    OTHER("")
 }
 
 object CenoSettings {
@@ -380,10 +382,10 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null) {
+    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
-                "${SET_VALUE_ENDPOINT}/${key.command}=${newValue.string}"
+                "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
             else
                 "${SET_VALUE_ENDPOINT}/${key.command}"
 
@@ -410,6 +412,7 @@ object CenoSettings {
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
                     OuinetKey.LOGFILE,
+                    OuinetKey.EXTRA_BOOTSTRAPS
                     -> {
                         if (response == null) {
                             Toast.makeText(
