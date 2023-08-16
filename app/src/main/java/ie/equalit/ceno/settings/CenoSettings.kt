@@ -165,6 +165,19 @@ object CenoSettings {
             .apply()
     }
 
+    fun getUpnpStatus(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_UPnP_status), null
+        )
+
+    fun setUpnpStatus(context: Context, text : String?) {
+        val key = context.getString(R.string.pref_key_ouinet_UPnP_status)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
     fun getCenoGroupsCount(context: Context) : Int =
         PreferenceManager.getDefaultSharedPreferences(context).getInt(
             context.getString(R.string.pref_key_ceno_groups_count), 0
@@ -284,6 +297,7 @@ object CenoSettings {
         setOuinetProtocol(context, status.ouinet_protocol)
         setCenoEnableLog(context, status.logfile)
         setReachabilityStatus(context, status.udp_world_reachable)
+        setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
 

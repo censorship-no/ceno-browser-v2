@@ -261,11 +261,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
         val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
         val preferenceReachabilityStatus = getPreference(pref_key_ouinet_reachability_status)
+        val preferenceUpnpStatus = getPreference(pref_key_ouinet_UPnP_status)
 
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
+        preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
