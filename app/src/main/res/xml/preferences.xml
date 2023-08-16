@@ -170,6 +170,27 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_local_udp_endpoints"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_local_udp" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_external_udp_endpoints"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_external_udp" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_public_udp_endpoints"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_public_udp" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_ceno_network_config"
             android:defaultValue="false"
             android:title="@string/preferences_ceno_network_config"

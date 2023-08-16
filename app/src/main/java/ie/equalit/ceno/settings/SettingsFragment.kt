@@ -262,13 +262,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
         val preferenceReachabilityStatus = getPreference(pref_key_ouinet_reachability_status)
         val preferenceUpnpStatus = getPreference(pref_key_ouinet_UPnP_status)
+        val preferenceLocalUdpEndpoint = getPreference(pref_key_ouinet_local_udp_endpoints)
+        val preferenceExternalUdpEndpoint = getPreference(pref_key_ouinet_external_udp_endpoints)
+        val preferencePublicUdpEndpoint = getPreference(pref_key_ouinet_public_udp_endpoints)
 
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
+        preferenceLocalUdpEndpoint?.summary = CenoSettings.getLocalUdpEndpoint(requireContext())
+        preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext())
+        preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext())
         preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
+
+        preferenceLocalUdpEndpoint?.isVisible = CenoSettings.getLocalUdpEndpoint(requireContext()) != null
+        preferenceExternalUdpEndpoint?.isVisible = CenoSettings.getExternalUdpEndpoint(requireContext()) != null
+        preferencePublicUdpEndpoint?.isVisible = CenoSettings.getPublicUdpEndpoint(requireContext()) != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */

@@ -64,6 +64,9 @@
     <string name="pref_key_ouinet_protocol" translatable="false">pref_key_ouinet_protocol</string>
     <string name="pref_key_ouinet_reachability_status" translatable="false">pref_key_ouinet_reachability_status</string>
     <string name="pref_key_ouinet_UPnP_status" translatable="false">pref_key_ouinet_upnp_status</string>
+    <string name="pref_key_ouinet_local_udp_endpoints" translatable="false">pref_key_ouinet_local_udp_endpoint</string>
+    <string name="pref_key_ouinet_external_udp_endpoints" translatable="false">pref_key_ouinet_external_udp_endpoint</string>
+    <string name="pref_key_ouinet_public_udp_endpoints" translatable="false">pref_key_ouinet_public_udp_endpoint</string>
     <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
 
