@@ -93,7 +93,6 @@ class SettingsViewTest {
             verifyDeveloperToolsHeading()
             verifyRemoteDebugging()
             verifyCustomAddonCollectionButton()
-            verifyCenoNetworkDetailsButton()
             verifyCenoNetworkDetailsSummary()
             verifyEnableLogFile()
             clickDownRecyclerView(6)
