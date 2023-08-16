@@ -521,7 +521,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 bootstrapView.setText(
                     CenoSettings.getExtraBitTorrentBootstrap(
                         context
-                    )
+                    )?.trim()
                 )
                 bootstrapView.requestFocus()
                 bootstrapView.showKeyboard()
