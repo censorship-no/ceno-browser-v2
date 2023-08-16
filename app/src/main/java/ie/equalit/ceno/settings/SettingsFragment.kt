@@ -264,7 +264,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
         val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
         val preferenceReachabilityStatus = getPreference(pref_key_ouinet_reachability_status)
-        val preferenceUpnpStatus = getPreference(pref_key_ouinet_UPnP_status)
+        val preferenceUpnpStatus = getPreference(pref_key_ouinet_upnp_status)
         val preferenceLocalUdpEndpoint = getPreference(pref_key_ouinet_local_udp_endpoints)
         val preferenceExternalUdpEndpoint = getPreference(pref_key_ouinet_external_udp_endpoints)
         val preferencePublicUdpEndpoint = getPreference(pref_key_ouinet_public_udp_endpoints)

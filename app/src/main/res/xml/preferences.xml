@@ -163,7 +163,7 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_UPnP_status"
+            android:key="@string/pref_key_ouinet_upnp_status"
             android:defaultValue="false"
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_upnp" />

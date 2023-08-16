@@ -55,7 +55,7 @@ enum class OuinetKey(val command : String) {
 enum class OuinetValue(val string: String) {
     DISABLED("disabled"),
     ENABLED("enabled"),
-    OTHER("")
+    OTHER("other")
 }
 
 object CenoSettings {
@@ -169,11 +169,11 @@ object CenoSettings {
 
     fun getUpnpStatus(context: Context) : String? =
         PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_UPnP_status), null
+            context.getString(R.string.pref_key_ouinet_upnp_status), null
         )
 
     private fun setUpnpStatus(context: Context, text : String?) {
-        val key = context.getString(R.string.pref_key_ouinet_UPnP_status)
+        val key = context.getString(R.string.pref_key_ouinet_upnp_status)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putString(key, text)
