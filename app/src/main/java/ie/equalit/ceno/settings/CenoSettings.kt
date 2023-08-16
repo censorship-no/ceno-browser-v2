@@ -234,7 +234,7 @@ object CenoSettings {
             context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
         )
 
-    private fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
+    fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
