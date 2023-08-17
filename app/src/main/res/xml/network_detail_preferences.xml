@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/theme_category"
+        android:title="@string/general_category"
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.Preference
@@ -21,6 +21,13 @@
             android:defaultValue="false"
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_reachability" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_upnp_status"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_upnp" />
 
     </PreferenceCategory>
 
@@ -49,32 +56,12 @@
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_public_udp" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/clear_button_category"
-        android:layout="@layout/preference_category_style">
-
-        <androidx.preference.SwitchPreferenceCompat
+        <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_in_toolbar"
-            android:defaultValue="true"
-            android:title="@string/preferences_clear_in_toolbar"/>
-
-        <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_in_menu"
-            android:defaultValue="true"
-            android:title="@string/preferences_clear_in_menu"/>
-
-        <ListPreference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_behavior"
-            android:title="@string/preferences_clear_behavior"
-            android:summary="@string/preferences_clear_behavior_summary"
-            android:defaultValue="@string/preferences_clear_behavior_default"
-            android:entryValues="@array/preferences_clear_behavior_values"
-            android:entries="@array/preferences_clear_behavior_options"/>
+            android:key="@string/pref_key_ouinet_extra_bittorrent_bootstraps"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_extra_bitTorrent_bootstraps" />
 
     </PreferenceCategory>
 

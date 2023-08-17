@@ -175,14 +175,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
-        val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(pref_key_ouinet_extra_bittorrent_bootstraps)
 
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
         val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
         val preferenceAboutPage = findPreference<Preference>(aboutPageKey)
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
-        val preferenceExtraBitTorrrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
         val preferenceAllowNotifications = findPreference<Preference>(allowNotificationsKey)
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
@@ -201,7 +199,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
-        preferenceExtraBitTorrrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
@@ -262,15 +259,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutCeno = getPreference(pref_key_about_ceno)
         val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
-        val preferenceUpnpStatus = getPreference(pref_key_ouinet_upnp_status)
         val preferenceExtraBittorrentBootstrap = getPreference(pref_key_ouinet_extra_bittorrent_bootstraps)
 
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
-        preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceExtraBittorrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
-        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
@@ -474,49 +468,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForExtraBitTorrentBootstraps(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            val context = requireContext()
-            val dialogView = View.inflate(context, R.layout.extra_bittorrent_bootstrap_override_dialog, null)
-            val bootstrapView = dialogView.findViewById<EditText>(R.id.bootstrap)
-
-            AlertDialog.Builder(context).apply {
-                setTitle(context.getString(customize_extra_bittorrent_bootstrap))
-                setView(dialogView)
-                setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
-                    dialog.cancel()
-                }
-
-                setPositiveButton(customize_add_bootstrap_save) { _, _ ->
-
-                    CenoSettings.ouinetClientRequest(
-                        requireContext(),
-                        OuinetKey.EXTRA_BOOTSTRAPS,
-                        OuinetValue.OTHER,
-                        bootstrapView.text.toString().trim()
-                    )
-
-                    CenoSettings.setExtraBitTorrentBootstrap(
-                        context,
-                        arrayOf(bootstrapView.text.toString())
-                    )
-
-                    getPreference(pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
-                }
-
-                bootstrapView.setText(
-                    CenoSettings.getExtraBitTorrentBootstrap(
-                        context
-                    )?.trim()
-                )
-                bootstrapView.requestFocus()
-                bootstrapView.showKeyboard()
-                create()
-            }.show()
-            true
-        }
-    }
-
     /*
     private fun getChangeListenerForMobileData(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
@@ -590,11 +541,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            WebExtensionToolbarFeature.getBrowserAction(
-                        requireContext(),
-                        CenoWebExt.CENO_EXTENSION_ID
-                    )?.invoke()
-            (activity as BrowserActivity).openToBrowser()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_networkSettingsFragment
+            )
             true
         }
     }

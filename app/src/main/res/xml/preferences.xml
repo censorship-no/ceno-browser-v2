@@ -156,20 +156,6 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_upnp_status"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_upnp" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_extra_bittorrent_bootstraps"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_extra_bitTorrent_bootstraps" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
             android:key="@string/pref_key_ceno_network_config"
             android:defaultValue="false"
             android:title="@string/preferences_ceno_network_config"
