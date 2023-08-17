@@ -59,6 +59,9 @@
     <!-- Preference category for tracking protection -->
     <string name="toolbar_category">Toolbar Options</string>
 
+    <!-- Preference category for UDP -->
+    <string name="udp_category">UDP</string>
+
     <!-- Preference category for tracking protection -->
     <string name="clear_button_category">Clear Button</string>
 

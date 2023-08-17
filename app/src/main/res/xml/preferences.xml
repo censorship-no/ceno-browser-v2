@@ -156,38 +156,10 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_reachability_status"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_reachability" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
             android:key="@string/pref_key_ouinet_upnp_status"
             android:defaultValue="false"
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_upnp" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_local_udp_endpoints"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_local_udp" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_external_udp_endpoints"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_external_udp" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_ouinet_public_udp_endpoints"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_public_udp" />
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
@@ -242,11 +214,6 @@
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_about_ouinet"
             android:title="@string/preferences_about_ouinet" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_about_ouinet_protocol"
-            android:title="@string/preferences_about_ouinet_protocol" />
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
