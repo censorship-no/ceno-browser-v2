@@ -5,7 +5,6 @@
 package ie.equalit.ceno.home
 
 import android.view.View
-import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.home.sessioncontrol.CenoModeInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
@@ -34,6 +33,6 @@ class CenoModeViewHolder(
     fun bind() = Unit
 
     companion object {
-        const val LAYOUT_ID = R.layout.ceno_mode_item
+        val homepageCardType = HomepageCardType.MODE_MESSAGE_CARD
     }
 }

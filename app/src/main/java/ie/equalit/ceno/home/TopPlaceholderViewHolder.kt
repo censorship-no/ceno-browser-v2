@@ -5,7 +5,6 @@
 package ie.equalit.ceno.home
 
 import android.view.View
-import ie.equalit.ceno.R
 import ie.equalit.ceno.utils.view.CenoViewHolder
 
 /**
@@ -19,6 +18,6 @@ class TopPlaceholderViewHolder(
     fun bind() = Unit
 
     companion object {
-        const val LAYOUT_ID = R.layout.top_placeholder_item
+        val homepageCardType = HomepageCardType.TOP_PLACE_CARD
     }
 }
