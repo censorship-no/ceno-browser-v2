@@ -196,6 +196,13 @@
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_extra_bitTorrent_bootstraps" />
 
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ceno_network_config"
+            android:defaultValue="false"
+            android:title="@string/preferences_ceno_network_config"
+            android:summary="@string/preferences_ceno_network_config_summary"/>
+
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_ceno_enable_log"

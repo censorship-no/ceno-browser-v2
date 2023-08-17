@@ -111,6 +111,7 @@
     <string name="preferences_ceno_sources_origin">Вебсайт</string>
     <string name="preferences_ceno_sources_private">Приватно</string>
     <string name="preferences_clear_ceno_cache">Очистити контент з кешу</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Деталі мережі</string>
     <string name="preferences_change_app_icon">Змінити іконку застосунку</string>
     <string name="preferences_theme">Встановити тему застосунку</string>
     <string name="clear_cache_success">Кеш успішно очищений</string>

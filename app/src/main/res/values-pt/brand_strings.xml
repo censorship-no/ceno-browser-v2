@@ -23,6 +23,7 @@
     <string name="onboarding_info_button">Fixe!</string>
     <string name="preferences_clear_ceno_cache">Limpar conteúdo em cache</string>
     <string name="preferences_clear_ceno_cache_summary">Limpar conteúdo armazenado em cache local</string>
+    <string name="preferences_ceno_network_config">Detalhes da Rede &brandShortName;</string>
     <string name="preferences_ceno_network_config_summary">Estado do Ouinet, endpoints UDP, bootstraps do BitTorrent</string>
     <string name="preferences_ceno_enable_log">Ativar arquivo de registro</string>
     <string name="preferences_show_home_button">Mostrar botão de início</string>

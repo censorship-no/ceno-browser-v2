@@ -132,6 +132,7 @@
     <string name="changeIconCtaCancel">Отмена</string>
     <string name="addon_placeholder">Нет доступных дополнений</string>
     <string name="preferences_clear_ceno_cache_summary">Очистка локально кэшированного веб-содержимого</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Сведения о сети</string>
     <string name="preferences_allow_notifications">Разрешить уведомления</string>
     <string name="onboarding_warning_text_v33_2">Уведомления не разрешены, и оптимизация батареи все еще включена.
 \n

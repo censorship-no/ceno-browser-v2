@@ -136,6 +136,7 @@
     <string name="preferences_ceno_sources_peers_summary">Cargar contenido compartido por otra(o)s usuaria(o)s</string>
     <string name="preferences_clear_ceno_cache_summary">Borrar el contenido web almacenado en la caché local</string>
     <string name="preferences_show_home_button">Mostrar el botón de inicio</string>
+    <string name="preferences_ceno_network_config">&brandShortName; Detalles de la Red</string>
     <string name="ouinet_client_fetch_fail">Falló al cambiar la configuración de &brandShortName;</string>
     <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas.
 \n
