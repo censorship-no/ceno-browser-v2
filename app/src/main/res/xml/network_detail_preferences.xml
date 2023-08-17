@@ -56,6 +56,12 @@
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_public_udp" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/bit_torrent_bootstraps_category"
+        android:layout="@layout/preference_category_style">
+
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_ouinet_extra_bittorrent_bootstraps"

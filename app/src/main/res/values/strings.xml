@@ -44,6 +44,9 @@
     <string name="general_category">General</string>
 
     <!-- Preference category for developer tools -->
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
+
+    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>
 
     <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
