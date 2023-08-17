@@ -54,6 +54,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext())
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext())
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
+        preferenceExtraBitTorrrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
 
         preferenceLocalUdpEndpoint?.isVisible = CenoSettings.getLocalUdpEndpoint(requireContext()) != null
         preferenceExternalUdpEndpoint?.isVisible = CenoSettings.getExternalUdpEndpoint(requireContext()) != null
