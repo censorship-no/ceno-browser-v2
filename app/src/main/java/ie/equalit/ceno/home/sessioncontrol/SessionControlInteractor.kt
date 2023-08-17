@@ -74,6 +74,14 @@ interface CenoModeInteractor {
     fun onRemoveCenoModeCard(view : ViewGroup)
 }
 
+interface HomePageInteractor {
+    fun onRemoveCard(view : ViewGroup)
+
+    fun onCardClicked()
+
+    fun onCardSwipe()
+}
+
 /**
  * Interface for top site related actions in the [SessionControlInteractor].
  */

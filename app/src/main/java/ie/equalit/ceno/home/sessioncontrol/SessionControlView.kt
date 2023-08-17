@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
@@ -28,6 +29,12 @@ internal fun normalModeAdapterItems(
     if (settings.showCenoModeItem) {
         items.add(AdapterItem.CenoModeItem)
     }
+    items.add(AdapterItem.CenoMessageItem(
+        CenoMessageCard(
+            text = "As a Ceno user, you are helping grow the network.",
+            title = "Thanks!"
+        )
+    ))
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
