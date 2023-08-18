@@ -3,13 +3,14 @@ package ie.equalit.ceno.home.sessioncontrol
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.home.HomeCardSwipeCallback
 import ie.equalit.ceno.utils.CenoPreferences
 
 // This method got a little complex with the addition of the tab tray feature flag
@@ -29,12 +30,14 @@ internal fun normalModeAdapterItems(
     if (settings.showCenoModeItem) {
         items.add(AdapterItem.CenoModeItem)
     }
-    items.add(AdapterItem.CenoMessageItem(
-        CenoMessageCard(
-            text = "As a Ceno user, you are helping grow the network.",
-            title = "Thanks!"
-        )
-    ))
+    if (settings.showThanksCard) {
+        items.add(AdapterItem.CenoMessageItem(
+            CenoMessageCard(
+                text = "As a Ceno user, you are helping grow the network.",
+                title = "Thanks!"
+            )
+        ))
+    }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
@@ -71,6 +74,13 @@ class SessionControlView(
                 }
             }
         }
+
+        val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(HomeCardSwipeCallback(
+            swipeDirs = ItemTouchHelper.LEFT,
+            dragDirs = 0,
+            interactor = interactor
+        ))
+        itemTouchHelper.attachToRecyclerView(view)
     }
 
     fun update(state: AppState) {

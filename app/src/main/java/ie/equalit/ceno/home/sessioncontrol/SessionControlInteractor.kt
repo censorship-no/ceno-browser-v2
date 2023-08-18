@@ -4,8 +4,7 @@ package ie.equalit.ceno.home.sessioncontrol
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import ie.equalit.ceno.databinding.CenoModeItemBinding
+import ie.equalit.ceno.home.HomepageCardType
 import mozilla.components.feature.top.sites.TopSite
 
 /**
@@ -75,11 +74,11 @@ interface CenoModeInteractor {
 }
 
 interface HomePageInteractor {
-    fun onRemoveCard(view : ViewGroup)
+    fun onRemoveCard(view: ViewGroup, homepageCardType: HomepageCardType)
 
-    fun onCardClicked()
+    fun onCardSwipe(homepageCardType: HomepageCardType)
 
-    fun onCardSwipe()
+    fun onClicked(homepageCardType: HomepageCardType)
 }
 
 /**
@@ -145,9 +144,8 @@ class SessionControlInteractor(
     private val controller: SessionControlController,
 ) :
     //OnboardingInteractor,
-    CenoModeInteractor,
-    TopSiteInteractor
-    //CustomizeHomeIteractor,
+    TopSiteInteractor,
+    HomePageInteractor
     {
         override fun onOpenInPrivateTabClicked(topSite: TopSite) {
             controller.handleOpenInPrivateTabClicked(topSite)
@@ -177,11 +175,15 @@ class SessionControlInteractor(
             controller.handleMenuOpened()
         }
 
-        override fun onCenoModeClicked() {
-            controller.handleCenoModeClicked()
+        override fun onRemoveCard(view: ViewGroup, homepageCardType: HomepageCardType) {
+            controller.handleRemoveCard(homepageCardType)
         }
 
-        override fun onRemoveCenoModeCard(view: ViewGroup) {
-            controller.handleRemoveCenoModeCard(view)
+        override fun onCardSwipe(homepageCardType: HomepageCardType) {
+            controller.handleRemoveCard(homepageCardType)
+        }
+
+        override fun onClicked(homepageCardType: HomepageCardType) {
+            controller.handleCardClicked(homepageCardType)
         }
     }

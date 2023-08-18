@@ -128,7 +128,7 @@ class SessionControlAdapter internal constructor(
         return when (viewType) {
             TopPlaceholderViewHolder.homepageCardType.value -> TopPlaceholderViewHolder(view)
             CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
-            CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view)
+            CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view, interactor)
             TopSitePagerViewHolder.homepageCardType.value -> TopSitePagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
@@ -139,25 +139,6 @@ class SessionControlAdapter internal constructor(
     }
 
     override fun getItemViewType(position: Int) = getItem(position).type.value
-
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isNullOrEmpty()) {
-            onBindViewHolder(holder, position)
-        } else {
-            when (holder) {
-                is TopSitePagerViewHolder -> {
-                    if (payloads[0] is AdapterItem.TopSitePagerPayload) {
-                        val payload = payloads[0] as AdapterItem.TopSitePagerPayload
-                        holder.update(payload)
-                    }
-                }
-            }
-        }
-    }
 
     @SuppressWarnings("ComplexMethod")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
