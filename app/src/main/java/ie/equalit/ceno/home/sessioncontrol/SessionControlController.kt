@@ -27,6 +27,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
@@ -66,8 +67,9 @@ interface SessionControlController {
      */
     fun handleMenuOpened()
 
-    fun handleCenoModeClicked()
-    fun handleRemoveCenoModeCard(view: ViewGroup)
+    fun handleCardClicked(homepageCardType: HomepageCardType)
+
+    fun handleRemoveCard(homepageCardType: HomepageCardType)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -187,13 +189,22 @@ class DefaultSessionControlController(
          */
     }
 
-    override fun handleCenoModeClicked() {
-        activity.apply{
-            openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
+    override fun handleCardClicked(homepageCardType: HomepageCardType) {
+        if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
+            activity.apply{
+                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
+            }
         }
     }
 
-    override fun handleRemoveCenoModeCard(view : ViewGroup) {
-        preferences.showCenoModeItem = false
-        appStore.dispatch(AppAction.RemoveCenoModeItem)    }
+    override fun handleRemoveCard(homepageCardType: HomepageCardType) {
+        if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
+            preferences.showCenoModeItem = false
+            appStore.dispatch(AppAction.RemoveCenoModeItem)
+        }
+        if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
+            preferences.showThanksCard = false
+            appStore.dispatch(AppAction.RemoveThanksCard(false))
+        }
+    }
 }
