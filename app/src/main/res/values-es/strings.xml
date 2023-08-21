@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Buscar o introducir dirección</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Agregar Nueva Pestaña</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
-    <string name="menu_action_close_tabs_private">Cerrar Pestañas Privadas</string>
+    <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Activar en Modo de Navegación Privada</string>
+    <string name="preferences_tracking_protection_private">Activar en modo de navegación personal</string>
     <!-- Preference for privacy -->
     <string name="privacy">Privacidad</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
     <!-- Navegación privada -->
-    <string name="private_browsing_title">Navegación Privada</string>
+    <string name="private_browsing_title">Navegación personal</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Colección de Complementos personalizada</string>
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">Colección de complementos modificada. Cerrando la aplicación para aplicar los cambios…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Habilitar la navegación privada</string>
+    <string name="content_description_private_browsing_button">Activar la navegación personal</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña privada</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña personal</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renombrar</string>
@@ -159,4 +159,5 @@
     <string name="insecure_connection">La conexión no es segura</string>
     <string name="browser_menu_back">Atrás</string>
     <string name="browser_toolbar_home">Inicio</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir el enlace en una pestaña personal</string>
 </resources>
