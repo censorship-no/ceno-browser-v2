@@ -9,6 +9,7 @@ import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
+import mozilla.components.support.base.log.logger.Logger
 import java.util.HashSet
 
 class Ouinet (
@@ -95,11 +96,12 @@ class Ouinet (
                 }
             }
             if (btbsxs.size > 0) {
-                println(btbsxs.toString())
+                Logger.debug("Extra BT bootstraps: $btbsxs")
                 return btbsxs
             }
         }
         // else no bootstrap extras included, leave null
+        Logger.debug("No extra BT bootstraps required")
         return null
     }
 }
