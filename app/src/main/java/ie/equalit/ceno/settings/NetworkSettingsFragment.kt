@@ -46,8 +46,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val preferenceUpnpStatus = getPreference(R.string.pref_key_ouinet_upnp_status)
         val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
-        val preferenceExtraBitTorrrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
-        preferenceExtraBitTorrrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
+        val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
+        preferenceExtraBitTorrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
 
         preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
@@ -55,7 +55,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
-        preferenceExtraBitTorrrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
+        preferenceExtraBitTorrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
 
     }
 
