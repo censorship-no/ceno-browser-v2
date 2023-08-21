@@ -256,12 +256,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutCeno = getPreference(pref_key_about_ceno)
         val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
-        val preferenceExtraBittorrentBootstrap = getPreference(pref_key_ouinet_extra_bittorrent_bootstraps)
 
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
-        preferenceExtraBittorrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */

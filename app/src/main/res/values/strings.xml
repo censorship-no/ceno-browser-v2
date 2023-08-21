@@ -43,7 +43,7 @@
     <!-- Preference category for developer tools -->
     <string name="general_category">General</string>
 
-    <!-- Preference category for developer tools -->
+    <!-- Preference category for Bit Torrent bootstraps -->
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
 
     <!-- Preference category for developer tools -->
