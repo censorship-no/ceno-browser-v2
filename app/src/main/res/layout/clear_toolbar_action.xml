@@ -11,7 +11,7 @@ android:layout_height="32dp">
 
 <ImageView
     android:id="@+id/action_image"
-    android:src="@drawable/mozac_ic_delete"
+    android:src="@drawable/ic_clear_ceno"
     android:contentDescription="@string/ceno_clear_action_description"
     android:layout_width="24dp"
     android:layout_height="24dp"
