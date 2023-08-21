@@ -114,4 +114,14 @@
 \n
 \nDaha sonra izin vermek için \"Ayarlar \" bölümüne gidin</string>
     <string name="preferences_allow_notifications">Bildirimlere izin ver</string>
+    <string name="onboarding_public_personal_text">Herkese açık sekmeler ile haberler, videolar ya da makaleler gibi herkese açık sayfalara erişebilirsiniz.
+\n
+\nKimlik bilgilerinizi yazarak hesabınızda oturum açmanız mı gerekiyor\? Kişisel sekmeler bunun için var.</string>
+    <string name="onboarding_cleanup_text">Tarayıcı geçmişinizi, kimlik doğrulama bilgilerinizi ve &brandShortName; üzerinde bıraktığınız izleri tek bir düğme ile temizleyin.</string>
+    <string name="onboarding_public_or_personal_title">Herkese açık ya da kişisel\?</string>
+    <string name="ceno_onboarding_start_title">İnterneti paylaşın,
+\neşler arasında</string>
+    <string name="ceno_onboarding_start_text">&brandShortName;’s eşler arası bağlantısı, insanların site içeriklerine erişmesini ve bağlantıların engellendiği ya da denetlendiği yerlerle paylaşmasını sağlar.</string>
+    <string name="onboarding_cleanup_title">Her şeyi temizleyin,
+\nher yerde ve bir kerede</string>
 </resources>
