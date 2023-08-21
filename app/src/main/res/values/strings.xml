@@ -43,6 +43,9 @@
     <!-- Preference category for developer tools -->
     <string name="general_category">General</string>
 
+    <!-- Preference category for Bit Torrent bootstraps -->
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
+
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>
 
@@ -58,6 +61,9 @@
 
     <!-- Preference category for tracking protection -->
     <string name="toolbar_category">Toolbar Options</string>
+
+    <!-- Preference category for UDP -->
+    <string name="udp_category">UDP</string>
 
     <!-- Preference category for tracking protection -->
     <string name="clear_button_category">Clear Button</string>
@@ -87,12 +93,18 @@
     <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
     <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
+    <!-- Button caption to save BitTorrent bootstrap -->
+    <string name="customize_add_bootstrap_save">Save</string>
     <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">Cancel</string>
     <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Collection name</string>
     <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
+
+    <!-- Hint displayed on input field for Extra-BitTorrent-Bootstraps -->
+    <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
+
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 
@@ -239,6 +251,9 @@
     <!-- Label that indicates a site is using a insecure connection -->
     <string name="insecure_connection">Connection is not secure</string>
     <!-- Ceno: END OF COPIED FROM FOCUS -->
+
+    <!-- Label that indicates that an item doesn't have a relevant value -->
+    <string name="not_applicable">N/A</string>
 
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>

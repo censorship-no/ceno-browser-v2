@@ -148,8 +148,14 @@
     <string name="preferences_ceno_groups_count">Content shared by you</string>
     <string name="preferences_clear_ceno_cache">Clear cached content</string>
     <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>
-    <string name="preferences_ceno_network_config">&brandShortName; Network Details</string>
+    <string name="preferences_ceno_network_config">Network Details</string>
     <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_sources_reachability">Reachability status</string>
+    <string name="preferences_ceno_sources_upnp">UPnP status</string>
+    <string name="preferences_ceno_sources_local_udp">Local UDP endpoints</string>
+    <string name="preferences_ceno_sources_external_udp">External UDP endpoints</string>
+    <string name="preferences_ceno_sources_public_udp">Public UDP endpoints</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Extra BitTorrent Bootstraps</string>
     <string name="preferences_ceno_enable_log">Enable log file</string>
     <string name="preferences_ceno_download_log">Download log file</string>
     <!-- Snackbar action button when a non fatal crash happen-->

@@ -31,15 +31,12 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
-import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
@@ -259,12 +256,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutCeno = getPreference(pref_key_about_ceno)
         val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
-        val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
 
         preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
-        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
@@ -340,7 +335,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
             preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                     CenoSettings.getOuinetBuildId(requireContext())
-            preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         }
     }
 
@@ -542,11 +536,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            WebExtensionToolbarFeature.getBrowserAction(
-                        requireContext(),
-                        CenoWebExt.CENO_EXTENSION_ID
-                    )?.invoke()
-            (activity as BrowserActivity).openToBrowser()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_networkSettingsFragment
+            )
             true
         }
     }
