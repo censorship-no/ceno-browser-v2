@@ -17,6 +17,7 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import mozilla.components.support.ktx.android.view.showKeyboard
+import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
@@ -50,15 +51,11 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
         preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
-        preferenceLocalUdpEndpoint?.summary = CenoSettings.getLocalUdpEndpoint(requireContext())
-        preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext())
-        preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext())
+        preferenceLocalUdpEndpoint?.summary = CenoSettings.getLocalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
+        preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
+        preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceExtraBitTorrrentBootstrap?.summary = CenoSettings.getExtraBitTorrentBootstrap(requireContext())
-
-        preferenceLocalUdpEndpoint?.isVisible = CenoSettings.getLocalUdpEndpoint(requireContext()) != null
-        preferenceExternalUdpEndpoint?.isVisible = CenoSettings.getExternalUdpEndpoint(requireContext()) != null
-        preferencePublicUdpEndpoint?.isVisible = CenoSettings.getPublicUdpEndpoint(requireContext()) != null
 
     }
 

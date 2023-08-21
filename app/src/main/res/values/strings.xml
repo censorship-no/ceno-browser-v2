@@ -252,6 +252,9 @@
     <string name="insecure_connection">Connection is not secure</string>
     <!-- Ceno: END OF COPIED FROM FOCUS -->
 
+    <!-- Label that indicates that an item doesn't have a relevant value -->
+    <string name="not_applicable">N/A</string>
+
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
     <string name="default_search_engine_id" translatable="false">ddg</string>
