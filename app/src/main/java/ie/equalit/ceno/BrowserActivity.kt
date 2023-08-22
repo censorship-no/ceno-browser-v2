@@ -51,6 +51,7 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
@@ -136,7 +137,7 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.navigate(
             when {
                 Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
-                savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.action_global_home
+                components.core.store.state.selectedTab == null -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
         )
