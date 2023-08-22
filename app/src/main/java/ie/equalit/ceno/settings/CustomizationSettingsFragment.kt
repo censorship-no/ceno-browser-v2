@@ -15,6 +15,7 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import mozilla.components.browser.state.selector.selectedTab
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -61,12 +62,15 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
             if (AppCompatDelegate.getDefaultNightMode() != mode) {
                 AppCompatDelegate.setDefaultNightMode(mode)
                 activity?.recreate()
+                requireComponents.core.store.state.selectedTab?.let {
+                    requireComponents.useCases.tabsUseCases.selectTab(requireComponents.core.store.state.selectedTab!!.id)
+                    requireComponents.useCases.sessionUseCases.reload.invoke()
+                }
                 /* TODO: send colorScheme to gecko engine
                 with(requireComponents.core) {
                     engine.settings.preferredColorScheme = getPreferredColorScheme()
                 }
                  */
-                requireComponents.useCases.sessionUseCases.reload.invoke()
             }
             true
         }
