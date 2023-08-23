@@ -29,11 +29,11 @@ internal fun normalModeAdapterItems(
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
 
-    if (settings.showCenoModeItem) {
-        items.add(AdapterItem.CenoModeItem)
-    }
     if (settings.showThanksCard) {
         items.add(AdapterItem.CenoMessageItem(messageCard))
+    }
+    if (settings.showCenoModeItem) {
+        items.add(AdapterItem.CenoModeItem)
     }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
