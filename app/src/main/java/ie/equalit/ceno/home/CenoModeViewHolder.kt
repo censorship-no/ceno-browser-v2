@@ -15,18 +15,15 @@ import ie.equalit.ceno.utils.view.CenoViewHolder
  */
 class CenoModeViewHolder(
     view: View,
-    private val interactor: HomePageInteractor
-) : CenoViewHolder(view) {
+    interactor: HomePageInteractor
+) : BaseHomeCardViewHolder(view, interactor) {
 
     private val binding = CenoModeItemBinding.bind(view)
 
     init {
-        binding.cardLink.setOnClickListener {
-            interactor.onClicked(homepageCardType)
-        }
-
+        cardType = homepageCardType
         binding.closeButton.setOnClickListener {
-            interactor.onRemoveCard(binding.root, homepageCardType)
+            interactor.onRemoveCard(cardType)
         }
     }
 

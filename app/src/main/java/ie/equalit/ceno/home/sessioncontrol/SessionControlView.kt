@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
@@ -20,6 +21,7 @@ import ie.equalit.ceno.utils.CenoPreferences
 internal fun normalModeAdapterItems(
     settings: CenoPreferences,
     topSites: List<TopSite>,
+    messageCard: CenoMessageCard,
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
@@ -31,12 +33,7 @@ internal fun normalModeAdapterItems(
         items.add(AdapterItem.CenoModeItem)
     }
     if (settings.showThanksCard) {
-        items.add(AdapterItem.CenoMessageItem(
-            CenoMessageCard(
-                text = "As a Ceno user, you are helping grow the network.",
-                title = "Thanks!"
-            )
-        ))
+        items.add(AdapterItem.CenoMessageItem(messageCard))
     }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
@@ -45,10 +42,11 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-private fun AppState.toAdapterList(prefs: CenoPreferences): List<AdapterItem> =
+private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard): List<AdapterItem> =
     normalModeAdapterItems(
         prefs,
-        topSites
+        topSites,
+        messageCard
     )
 
 class SessionControlView(
@@ -69,13 +67,11 @@ class SessionControlView(
             layoutManager = object : LinearLayoutManager(containerView.context) {
                 override fun onLayoutCompleted(state: RecyclerView.State?) {
                     super.onLayoutCompleted(state)
-
-                    //JumpBackInCFRDialog(view).showIfNeeded()
                 }
             }
         }
 
-        val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(HomeCardSwipeCallback(
+        val itemTouchHelper = ItemTouchHelper(HomeCardSwipeCallback(
             swipeDirs = ItemTouchHelper.LEFT,
             dragDirs = 0,
             interactor = interactor
@@ -89,6 +85,11 @@ class SessionControlView(
             interactor.showOnboardingDialog()
         }
          */
-        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences()))
+        val messageCard = CenoMessageCard(
+            text = view.context.getString(R.string.onboarding_thanks_text),
+            title = view.context.getString(R.string.onboarding_thanks_title)
+        )
+        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard))
+
     }
 }
