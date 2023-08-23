@@ -1,21 +1,25 @@
 package ie.equalit.ceno.home
 
 import android.util.Log
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
-import ie.equalit.ceno.databinding.HomepageCardItemBinding
+import ie.equalit.ceno.databinding.HomeMessageCardItemBinding
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
 
 class CenoMessageViewHolder (
     itemView: View,
-    val interactor: HomePageInteractor
-) : CenoViewHolder(itemView) {
+    interactor: HomePageInteractor
+) : BaseHomeCardViewHolder(itemView, interactor){
 
-    private val binding = HomepageCardItemBinding.bind(itemView)
+    private val binding = HomeMessageCardItemBinding.bind(itemView)
 
     init {
+        cardType = homepageCardType
         binding.closeButton.setOnClickListener {
-            interactor.onRemoveCard(binding.root, homepageCardType)
+            interactor.onRemoveCard(cardType)
         }
     }
 

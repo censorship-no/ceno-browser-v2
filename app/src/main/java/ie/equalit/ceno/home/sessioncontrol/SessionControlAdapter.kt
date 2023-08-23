@@ -119,7 +119,7 @@ class SessionControlAdapter internal constructor(
         val layout = when (viewType) {
             HomepageCardType.TOP_PLACE_CARD.value -> R.layout.top_placeholder_item
             HomepageCardType.MODE_MESSAGE_CARD.value -> R.layout.ceno_mode_item
-            HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.homepage_card_item
+            HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.home_message_card_item
             HomepageCardType.TOPSITES_CARD.value -> R.layout.component_top_sites_pager
             else -> throw IllegalArgumentException("Invalid view type")
         }
