@@ -78,14 +78,6 @@ interface HomePageInteractor {
     fun onMenuItemClicked(homepageCardType: HomepageCardType)
 }
 
-interface HomePageInteractor {
-    fun onRemoveCard(view : ViewGroup)
-
-    fun onCardClicked()
-
-    fun onCardSwipe()
-}
-
 /**
  * Interface for top site related actions in the [SessionControlInteractor].
  */
