@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
+import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 
 /**
@@ -40,10 +42,16 @@ class OnboardingPublicPvtFragment : Fragment() {
         binding.btnOnboardingStartSkip.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 /* Android 13 or later, always ask for permissions */
-                findNavController().navigate(R.id.action_onboardingPublicPvtFragment_to_onboardingBatteryFragment)
+                if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                    requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+                ){
+                    findNavController().onboardingToHome()
+                } else {
+                    findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
+                }
             }
             else {
-                OnboardingFragment.navigateToHome(requireContext(), findNavController())
+                findNavController().onboardingToHome()
             }
         }
     }

@@ -51,6 +51,7 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
@@ -235,9 +236,7 @@ open class BrowserActivity : BaseActivity() {
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-                Settings.setShowOnboarding(applicationContext, false)
-                navHost.navController.popBackStack(R.id.onboardingFragment, true)
-                navHost.navController.navigate(R.id.action_global_home)
+                navHost.navController.onboardingToHome()
             } else {
                 updateView {
                     navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
