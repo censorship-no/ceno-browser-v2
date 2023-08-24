@@ -190,6 +190,7 @@ class DefaultSessionControlController(
     }
 
     override fun handleCardClicked(homepageCardType: HomepageCardType) {
+        /*
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.apply{
                 openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
@@ -200,6 +201,7 @@ class DefaultSessionControlController(
                 openToBrowser(getString(R.string.website_button_link), newTab = true)
             }
         }
+        */
     }
 
     override fun handleRemoveCard(homepageCardType: HomepageCardType) {
