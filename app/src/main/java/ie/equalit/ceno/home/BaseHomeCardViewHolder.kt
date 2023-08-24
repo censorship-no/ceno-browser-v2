@@ -36,7 +36,7 @@ open class BaseHomeCardViewHolder(
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             LEARN_MORE -> {
-                interactor.onClicked(cardType)
+                interactor.onMenuItemClicked(cardType)
             }
             CLOSE -> {
                 interactor.onRemoveCard(cardType)
