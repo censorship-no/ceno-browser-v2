@@ -99,7 +99,8 @@ class Components(private val context: Context) {
         AppStore(
             initialState = AppState(
                 topSites = core.cenoTopSitesStorage.cachedTopSites.sort(),
-                showCenoModeItem = cenoPreferences.showCenoModeItem
+                showCenoModeItem = cenoPreferences.showCenoModeItem,
+                showThanksCard = cenoPreferences.showThanksCard
             )
         )
     }

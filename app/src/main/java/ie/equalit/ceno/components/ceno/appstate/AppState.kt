@@ -17,5 +17,6 @@ import mozilla.components.lib.state.State
  */
 data class AppState(
     val topSites: List<TopSite> = emptyList(),
-    val showCenoModeItem: Boolean = false,
+    val showCenoModeItem: Boolean = true,
+    val showThanksCard: Boolean = false
 ) : State

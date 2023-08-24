@@ -24,7 +24,8 @@ class TopSitesStorageObserver(
             store.dispatch(
                 AppAction.Change(
                     topSites = storage.cachedTopSites.sort(),
-                    showCenoModeItem = preferences.showCenoModeItem
+                    showCenoModeItem = preferences.showCenoModeItem,
+                    showThanksCard = preferences.showThanksCard
                 )
             )
         }

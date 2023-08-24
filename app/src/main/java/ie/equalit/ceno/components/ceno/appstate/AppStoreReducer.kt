@@ -15,7 +15,7 @@ internal object AppStoreReducer {
     fun reduce(state: AppState, action: AppAction): AppState = when (action) {
 
         is AppAction.Change -> state.copy(
-            topSites = action.topSites,
+            topSites = action.topSites
         )
 
         is AppAction.TopSitesChange -> state.copy(topSites = action.topSites)
@@ -23,5 +23,7 @@ internal object AppStoreReducer {
         is AppAction.RemoveCenoModeItem -> {
             state.copy(showCenoModeItem = false)
         }
+
+        is AppAction.RemoveThanksCard -> state.copy(showThanksCard = action.showThanksCard)
     }
 }

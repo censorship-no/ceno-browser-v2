@@ -15,6 +15,7 @@ import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import mozilla.components.support.base.feature.ActivityResultHandler
@@ -56,16 +57,14 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
-            Settings.setShowOnboarding(requireContext() , false)
-            findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-            findNavController().navigate(R.id.action_global_home)
+            findNavController().onboardingToHome()
         }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         super.onActivityResult(requestCode, resultCode, data)
         if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            findNavController().onboardingToHome()
         } else {
             (activity as BrowserActivity).updateView {
                 findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
@@ -77,7 +76,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun allowPostNotifications() {
         if (!requireComponents.permissionHandler.requestPostNotificationsPermission(this)) {
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            findNavController().onboardingToHome()
         }
     }
 
@@ -89,7 +88,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         }
         else {
             Log.e(TAG, "Unknown request code received: $requestCode")
-            findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+            findNavController().onboardingToHome()
         }
     }
 
