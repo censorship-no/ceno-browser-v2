@@ -5,7 +5,7 @@
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Buscar o introducir dirección</string>
     <!-- Menu option on the toolbar to open a new tab-->
-    <string name="menu_action_add_tab">Agregar una Nueva Pestaña</string>
+    <string name="menu_action_add_tab">Agregar Nueva Pestaña</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
     <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
