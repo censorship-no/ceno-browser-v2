@@ -58,7 +58,7 @@
     <string name="preferences_about_page">Sobre &vendorShortName;</string>
     <string name="shutdown_stop_title">Interrompendo Navegador &brandShortName;</string>
     <string name="preferences_theme_default">2</string>
-    <string name="preferences_ceno_network_config">Detalhes da Rede &brandShortName;</string>
+    <string name="preferences_ceno_network_config">Detalhes da Rede</string>
     <string name="preferences_ceno_download_log">Baixar arquivo de log</string>
     <string name="website_button_text">Website</string>
     <string name="source_code_button_text">Código-fonte</string>
