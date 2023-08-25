@@ -160,4 +160,9 @@
     <string name="browser_menu_back">Atrás</string>
     <string name="browser_toolbar_home">Inicio</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir el enlace en una pestaña personal</string>
+    <string name="bit_torrent_bootstraps_category">Arranque de BitTorrent</string>
+    <string name="customize_add_bootstrap_save">Guardar</string>
+    <string name="udp_category">UDP</string>
+    <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
+    <string name="not_applicable">n/a</string>
 </resources>
