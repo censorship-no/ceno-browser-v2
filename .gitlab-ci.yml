@@ -64,6 +64,14 @@ cache:
     - .gradle/wrapper
     - .gradle/caches
 
+workflows:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: always
+    - if: $CI_COMMIT_BRANCH	!~ /^weblate-censorship-no/
+      when: never
+    - when: always
+
 # Basic android and gradle stuff
 # Check linting
 lintDebug:
