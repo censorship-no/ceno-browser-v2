@@ -68,7 +68,7 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
       when: always
-    - if: $CI_COMMIT_BRANCH	!~ /^weblate-censorship-no/
+    - if: $CI_COMMIT_BRANCH	=~ /^weblate-censorship-no/
       when: never
     - when: always
 
