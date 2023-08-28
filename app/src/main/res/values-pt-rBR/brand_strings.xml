@@ -121,4 +121,5 @@
     <string name="onboarding_cleanup_title">Limpe tudo,
 \nem todos os lugares, todos ao mesmo tempo</string>
     <string name="onboarding_cleanup_text">Limpar seu histórico do navegador, credenciais e qualquer vestígio que você deixou no &amp;brand ShortName; com um único botão.</string>
+    <string name="preferences_ceno_sources_upnp">Status UPnP</string>
 </resources>
