@@ -71,7 +71,8 @@ class HomeFragment : BaseHomeFragment() {
             components.appStore.dispatch(
                 AppAction.Change(
                     topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
+                    showThanksCard = components.cenoPreferences.showThanksCard
                 )
             )
         }

@@ -43,6 +43,7 @@
     <string name="pref_key_shared_prefs_reload" translatable="false">pref_key_shared_prefs_reload</string>
     <string name="pref_key_shared_prefs_update" translatable="false">pref_key_shared_prefs_update</string>
 
+
     <string name="pref_key_ceno_status_update_required" translatable="false">pref_key_ceno_status_update_required</string>
 
     <string name="pref_key_ceno_sources_origin" translatable="false">pref_key_ceno_sources_origin</string>
@@ -70,6 +71,7 @@
     <string name="pref_key_ouinet_extra_bittorrent_bootstraps" translatable="false">pref_key_ouinet_extra_buttorrent_bootstraps</string>
     <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
+    <string name="pref_key_show_thanks_card" translatable="false">pref_key_show_thanks_card</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

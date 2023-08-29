@@ -5,9 +5,8 @@
 package ie.equalit.ceno.home
 
 import android.view.View
-import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.CenoModeItemBinding
-import ie.equalit.ceno.home.sessioncontrol.CenoModeInteractor
+import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
 
 
@@ -16,24 +15,21 @@ import ie.equalit.ceno.utils.view.CenoViewHolder
  */
 class CenoModeViewHolder(
     view: View,
-    private val interactor: CenoModeInteractor
-) : CenoViewHolder(view) {
+    interactor: HomePageInteractor
+) : BaseHomeCardViewHolder(view, interactor) {
 
     private val binding = CenoModeItemBinding.bind(view)
 
     init {
-        binding.cardLink.setOnClickListener {
-            interactor.onCenoModeClicked()
-        }
-
+        cardType = homepageCardType
         binding.closeButton.setOnClickListener {
-            interactor.onRemoveCenoModeCard(binding.root)
+            interactor.onRemoveCard(cardType)
         }
     }
 
     fun bind() = Unit
 
     companion object {
-        const val LAYOUT_ID = R.layout.ceno_mode_item
+        val homepageCardType = HomepageCardType.MODE_MESSAGE_CARD
     }
 }

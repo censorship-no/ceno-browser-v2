@@ -20,6 +20,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -51,6 +52,7 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
@@ -235,7 +237,7 @@ open class BrowserActivity : BaseActivity() {
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-                navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+                navHost.navController.onboardingToHome()
             } else {
                 updateView {
                     navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
@@ -412,7 +414,8 @@ open class BrowserActivity : BaseActivity() {
             components.appStore.dispatch(
                 AppAction.Change(
                     topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
+                    showThanksCard = components.cenoPreferences.showThanksCard
                 )
             )
         }
