@@ -89,4 +89,9 @@
     <string name="browser_menu_find_in_page">Sayfada bul</string>
     <string name="preference_select_preferred_engine">Kullanmak istediğiniz arama hizmetini seçin:</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Bağlantıyı kişisel sekmede aç</string>
+    <string name="customize_add_bootstrap_save">Kaydet</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent ön yüklemeleri</string>
+    <string name="customize_extra_bittorrent_bootstrap">Ek BitTorrent ön yüklemeleri</string>
+    <string name="not_applicable">Kullanılamaz</string>
+    <string name="udp_category">UDP</string>
 </resources>
