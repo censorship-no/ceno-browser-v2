@@ -85,8 +85,8 @@
     <string name="onboarding_info_text">&brandShortName; uses peer-to-peer technology to share web content that can be accessed by other &brandShortName; users</string>
     <string name="onboarding_info_button">Cool!</string>
     <string name="onboarding_battery_title">Permission needed</string>
-    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
-    <string name="onboarding_battery_text_v33">Shortly the OS will ask you for permission to allow notifications and disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to\n\n\u2022 Disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text_v33">Shortly the OS will ask you for permission to\n\n\u2022 Allow notifications\n\u2022 Disable battery optimization\n\nThis is required to keep sharing websites while the app is in the background</string>
     <string name="onboarding_battery_button">Continue</string>
     <string name="onboarding_warning_title">Permission denied</string>
     <string name="onboarding_warning_text">Battery optimization is still enabled.\n\nGo to \"Settings &gt; Disable Battery Optimization\" to give permission later</string>
@@ -189,4 +189,5 @@
     <string name="ceno_home_card_public_text">For accessing public pages such as news, videos or articles.</string>
     <string name="ceno_home_card_personal_title">PERSONAL TABS</string>
     <string name="ceno_home_card_personal_text">For logging into an account or accessing credentials.</string>
+    <string name="onboarding_finish_button">Finish</string>
 </resources>
