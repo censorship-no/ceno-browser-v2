@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,11 +23,9 @@ import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
@@ -35,7 +34,6 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
@@ -49,7 +47,7 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 
 /**
- * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
+ * Base fragment extended by [HomeFragment].
  * This class only contains shared code focused on the main browsing content.
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
@@ -154,9 +152,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                     notificationsDelegate = requireComponents.notificationsDelegate,
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                    multipleDownloadPermissions.launch(permissions)
                 },
             ),
             owner = this,
@@ -287,11 +283,11 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
         //    binding.toolbar.private = private
         /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        val textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+        val textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+        val urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+        val toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+        val statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
         /*
         if (private) {
@@ -353,17 +349,10 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         return backButtonHandler.any { it.onBackPressed() }
     }
 
-    final override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        val feature: PermissionsFeature? = when (requestCode) {
-            REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            else -> null
+    private val multipleDownloadPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            downloadsFeature.get()?.onPermissionsResult(it.keys.toList().toTypedArray(), it.values.map { b -> if (b) 1 else 0 }.toIntArray())
         }
-        feature?.onPermissionsResult(permissions, grantResults)
-    }
 
     companion object {
         private const val SESSION_ID = "session_id"

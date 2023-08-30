@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -26,7 +27,6 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
@@ -41,7 +41,6 @@ import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
-import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
@@ -118,9 +117,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     notificationsDelegate = requireComponents.notificationsDelegate
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                    multipleDownloadPermissions.launch(permissions)
                 },
             ),
             owner = this,
@@ -128,17 +125,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        val feature: PermissionsFeature? = when (requestCode) {
-            AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            else -> null
+    private val multipleDownloadPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            downloadsFeature.get()?.onPermissionsResult(it.keys.toList().toTypedArray(), it.values.map { b -> if (b) 1 else 0 }.toIntArray())
         }
-        feature?.onPermissionsResult(permissions, grantResults)
-    }
 
     override fun onResume() {
         super.onResume()

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,15 +31,11 @@ import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.enterToImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
@@ -204,9 +201,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     notificationsDelegate = requireComponents.notificationsDelegate,
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                    multipleDownloadPermissions.launch(permissions)
                 },
             ),
             owner = this,
@@ -235,9 +230,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 customTabId = sessionId,
                 fragmentManager = parentFragmentManager,
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                    multiplePromptPermissions.launch(permissions)
                 },
             ),
             owner = this,
@@ -280,9 +273,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 sessionId = sessionId,
                 storage = requireComponents.core.geckoSitePermissionsStorage,
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_APP_PERMISSIONS)
+                    multipleAppPermissions.launch(permissions)
                 },
                 onShouldShowRequestPermissionRationale = { shouldShowRequestPermissionRationale(it) },
                 store = requireComponents.core.store,
@@ -571,19 +562,21 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
     }
 
-    final override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        val feature: PermissionsFeature? = when (requestCode) {
-            REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            REQUEST_CODE_PROMPT_PERMISSIONS -> promptsFeature.get()
-            REQUEST_CODE_APP_PERMISSIONS -> sitePermissionFeature.get()
-            else -> null
+
+    private val multipleAppPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            sitePermissionFeature.get()?.onPermissionsResult(it.keys.toList().toTypedArray(), it.values.map { b -> if (b) 1 else 0 }.toIntArray())
         }
-        feature?.onPermissionsResult(permissions, grantResults)
-    }
+
+    private val multipleDownloadPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            downloadsFeature.get()?.onPermissionsResult(it.keys.toList().toTypedArray(), it.values.map { b -> if (b) 1 else 0 }.toIntArray())
+        }
+
+    private val multiplePromptPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            promptsFeature.get()?.onPermissionsResult(it.keys.toList().toTypedArray(), it.values.map { b -> if (b) 1 else 0 }.toIntArray())
+        }
 
     companion object {
         private const val SESSION_ID = "session_id"

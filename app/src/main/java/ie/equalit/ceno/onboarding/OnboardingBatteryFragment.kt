@@ -1,23 +1,22 @@
 package ie.equalit.ceno.onboarding
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /**
@@ -32,7 +31,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
+        _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false)
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
@@ -43,7 +42,12 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
             binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text_v33)
             binding.button.setOnClickListener {
-                allowPostNotifications()
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } else {
+                    findNavController().onboardingToHome()
+                }
             }
         }
         else {
@@ -54,6 +58,12 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
             }
         }
     }
+
+    private val notificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            requireComponents.ouinet.background.start()
+            disableBatteryOptimization()
+        }
 
     private fun disableBatteryOptimization() {
         if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
@@ -71,28 +81,5 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
             }
         }
         return true
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun allowPostNotifications() {
-        if (!requireComponents.permissionHandler.requestPostNotificationsPermission(this)) {
-            findNavController().onboardingToHome()
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CODE_NOTIFICATION_PERMISSIONS) {
-            requireComponents.ouinet.background.start()
-            disableBatteryOptimization()
-        }
-        else {
-            Log.e(TAG, "Unknown request code received: $requestCode")
-            findNavController().onboardingToHome()
-        }
-    }
-
-    companion object {
-        const val TAG = "ONBOARD_BATTERY"
     }
 }

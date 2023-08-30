@@ -12,8 +12,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import ie.equalit.ceno.AppPermissionCodes
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /* CENO: Handles checking which permissions have been granted,
@@ -83,20 +81,6 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
             }
         }
         return result
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun requestPostNotificationsPermission(fragment : Fragment) : Boolean {
-        return if (isAllowingPostNotifications()) {
-                false
-            } else {
-                // Only return true if intent was sent to request permission
-                @Suppress("DEPRECATION")
-                fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
-                )
-                true
-            }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
