@@ -42,8 +42,7 @@ class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
             binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text_v33)
             binding.button.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-                ) {
+                if (!requireComponents.permissionHandler.isAllowingPostNotifications()) {
                     notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
                 } else {
                     findNavController().onboardingToHome()
