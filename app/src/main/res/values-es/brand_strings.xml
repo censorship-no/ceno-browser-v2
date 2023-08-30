@@ -59,9 +59,11 @@
     <string name="crash_report_non_fatal_action">Selecciona para informar a &vendorShortName;</string>
     <string name="onboarding_fragment">Bienvenida(o) a &brandShortName;</string>
     <string name="onboarding_battery_title">Permiso necesario</string>
-    <string name="onboarding_battery_text">En breve el SO te pedirá permiso para desactivar la optimización de la batería.
+    <string name="onboarding_battery_text">En breve el sistema operativo te pedirá permiso para
 \n
-\nEsto es necesario para seguir compartiendo sitios web mientras la app está en segundo plano</string>
+\n• Desactivar la optimización de la batería.
+\n
+\nEsto es necesario para seguir compartiendo las páginas web mientras la aplicación está en segundo plano</string>
     <string name="onboarding_battery_button">Continuar</string>
     <string name="onboarding_warning_text">La optimización de la batería sigue activada.
 \n
@@ -145,9 +147,12 @@
 \n
 \nVe a la \"Configuración\" para dar permiso más tarde</string>
     <string name="preferences_allow_notifications">Permitir Notificaciones</string>
-    <string name="onboarding_battery_text_v33">En breve el SO te pedirá autorización para permitir notificaciones y desactivar la optimización de la batería.
+    <string name="onboarding_battery_text_v33">En breve, el sistema operativo te pedirá permiso para
 \n
-\nEsto es necesario para seguir compartiendo las páginas web mientras la aap está en segundo plano</string>
+\n• Permitir las notificaciones
+\n• Desactivar la optimización de la batería
+\n
+\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano.</string>
     <string name="ceno_onboarding_start_title">Comparte la web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
@@ -168,4 +173,5 @@
     <string name="preferences_ceno_sources_public_udp">Terminales UDP públicos</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>
+    <string name="onboarding_finish_button">Terminar</string>
 </resources>
