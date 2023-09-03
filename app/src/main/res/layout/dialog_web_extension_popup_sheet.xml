@@ -52,15 +52,5 @@
             app:layout_constraintTop_toBottomOf="@id/site_title"
             tools:text="@string/secure_connection" />
 
-        <mozilla.components.concept.engine.EngineView
-            tools:ignore="Instantiatable"
-            android:id="@+id/addonSettingsEngineView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/panel_engine_view_height"
-            android:layout_marginTop="@dimen/panel_item_margin_top"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/security_info"
-            android:background="@drawable/toolbar_dark_background"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
