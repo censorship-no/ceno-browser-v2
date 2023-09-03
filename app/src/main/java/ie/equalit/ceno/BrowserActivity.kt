@@ -17,6 +17,7 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -50,6 +51,8 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.ext.ceno.onboardingToHome
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
@@ -126,7 +129,7 @@ open class BrowserActivity : BaseActivity() {
         supportActionBar!!.apply {
             hide()
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
 
         val safeIntent = SafeIntent(intent)
@@ -135,7 +138,7 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.navigate(
             when {
                 CustomPreferenceManager.getBoolean(this, R.string.pref_key_show_onboarding) && savedInstanceState == null -> R.id.action_global_onboarding
-                savedInstanceState == null && safeIntent.action != Intent.ACTION_VIEW -> R.id.action_global_home
+                components.core.store.state.selectedTab == null -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
         )
@@ -233,7 +236,7 @@ open class BrowserActivity : BaseActivity() {
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-                navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingThanksFragment)
+                navHost.navController.onboardingToHome()
             } else {
                 updateView {
                     navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
@@ -410,7 +413,8 @@ open class BrowserActivity : BaseActivity() {
             components.appStore.dispatch(
                 AppAction.Change(
                     topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
+                    showThanksCard = components.cenoPreferences.showThanksCard
                 )
             )
         }

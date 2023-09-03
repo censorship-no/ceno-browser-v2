@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.CustomPreferenceManager
 
 class OnboardingInfoFragment : Fragment() {
     private var _binding: FragmentOnboardingInfoBinding? = null
@@ -29,22 +29,34 @@ class OnboardingInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnOnboardingCleanup.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
-                    requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
-                ) {
-                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingThanksFragment)
-                }
-                else {
-                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+            ) {
+                //set button text as Finish
+                binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
+                binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().onboardingToHome()
                 }
             }
             else {
-                if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
-                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingThanksFragment)
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
                 }
-                else {
+            }
+        }
+        else {
+            if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
+                //set button text as Finish
+                binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
+                binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().onboardingToHome()
+                }
+            } else {
+                binding.btnOnboardingCleanup.setOnClickListener {
                     findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
                 }
             }
@@ -56,10 +68,9 @@ class OnboardingInfoFragment : Fragment() {
                 findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
             }
             else {
-                CustomPreferenceManager.setBoolean(requireContext() , R.string.pref_key_show_onboarding, false)
-                findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-                findNavController().navigate(R.id.action_global_home)
+                findNavController().onboardingToHome()
             }
         }
     }
+
 }

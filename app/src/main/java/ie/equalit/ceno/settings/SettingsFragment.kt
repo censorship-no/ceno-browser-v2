@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.widget.EditText
@@ -18,6 +19,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
@@ -29,8 +31,6 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
-import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
@@ -40,7 +40,6 @@ import io.sentry.Sentry
 import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.DownloadsFeature
@@ -153,7 +152,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             show()
             setTitle(settings)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
     }
 
@@ -263,12 +262,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutCeno = getPreference(pref_key_about_ceno)
         val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
-        val preferenceAboutOuinetProtocol = getPreference(pref_key_about_ouinet_protocol)
 
         preferenceCenoDownloadLog?.isVisible = CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_enable_log)
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
-        preferenceCenoNetworkDetails?.isVisible = requireComponents.core.store.state.selectedTab != null
 
         if (CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_status_update_required)) {
             /* Ouinet status not yet updated */
@@ -342,9 +339,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true,
                 clickListener = getClickListenerForCenoDownloadLog()
             )
-            preferenceAboutOuinet?.summary = CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_version) + " " +
-                    CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_build_id)
-            preferenceAboutOuinetProtocol?.summary = "${CustomPreferenceManager.getInt(requireContext(), pref_key_ouinet_protocol)}"
+            preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
+                CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_build_id)
         }
     }
 
@@ -467,7 +463,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         Toast.LENGTH_LONG,
                     ).show()
 
-                    Handler().postDelayed(
+                    Handler(Looper.getMainLooper()).postDelayed(
                         {
                             exitProcess(0)
                         },
@@ -495,10 +491,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceChangeListener { _, newValue ->
             if (newValue == true) {
                 /* this should pop-up the mobile data dialog to provide warning and allow user to select option*/
-                Toast.makeText(context, R.string.preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
+                Toast.makeText(context, preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(context, R.string.preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
+                Toast.makeText(context, preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
             }
             true
         }
@@ -563,11 +559,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoNetworkDetails () : OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            WebExtensionToolbarFeature.getBrowserAction(
-                        requireContext(),
-                        CenoWebExt.CENO_EXTENSION_ID
-                    )?.invoke()
-            (activity as BrowserActivity).openToBrowser()
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_networkSettingsFragment
+            )
             true
         }
     }

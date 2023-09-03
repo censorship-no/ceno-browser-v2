@@ -3,6 +3,7 @@ package ie.equalit.ceno.settings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -48,11 +49,13 @@ enum class OuinetKey(val command : String) {
     DISTRIBUTED_CACHE("?distributed_cache"),
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
+    EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
 }
 
 enum class OuinetValue(val string: String) {
     DISABLED("disabled"),
-    ENABLED("enabled")
+    ENABLED("enabled"),
+    OTHER("other")
 }
 
 object CenoSettings {
@@ -78,6 +81,236 @@ object CenoSettings {
             else
                 "B"
         return String.format("%.2f %s", v, u)
+    }
+
+    fun isStatusUpdateRequired(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_ceno_status_update_required), false
+        )
+
+    fun setStatusUpdateRequired(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_status_update_required)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun getOuinetState(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_state), null
+        )
+
+    fun setOuinetState(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ouinet_state)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    private fun setCenoSourcesOrigin(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_origin)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesPrivate(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_private)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesPublic(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_public)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    private fun setCenoSourcesShared(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_sources_shared)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun getCenoCacheSize(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ceno_cache_size), null
+        )
+
+    fun setCenoCacheSize(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ceno_cache_size)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    fun getReachabilityStatus(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_reachability_status), null
+        )
+
+    private fun setReachabilityStatus(context: Context, text : String?) {
+        val key = context.getString(R.string.pref_key_ouinet_reachability_status)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    fun getUpnpStatus(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_upnp_status), null
+        )
+
+    private fun setUpnpStatus(context: Context, text : String?) {
+        val key = context.getString(R.string.pref_key_ouinet_upnp_status)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    fun getLocalUdpEndpoint(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_local_udp_endpoints), null
+        )
+
+    private fun setLocalUdpEndpoint(context: Context, texts : Array<String>?) {
+        val key = context.getString(R.string.pref_key_ouinet_local_udp_endpoints)
+
+        var formattedText = ""
+        texts?.forEach { formattedText += "${it.trim()} " }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, formattedText.ifEmpty { null })
+            .apply()
+    }
+
+    fun getExternalUdpEndpoint(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_external_udp_endpoints), null
+        )
+
+    private fun setExternalUdpEndpoint(context: Context, texts : Array<String>?) {
+        val key = context.getString(R.string.pref_key_ouinet_external_udp_endpoints)
+
+        var formattedText = ""
+        texts?.forEach { formattedText += "${it.trim()} " }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, formattedText.ifEmpty { null })
+            .apply()
+    }
+
+    fun getPublicUdpEndpoint(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_public_udp_endpoints), null
+        )
+
+    private fun setPublicUdpEndpoint(context: Context, texts : Array<String>?) {
+        val key = context.getString(R.string.pref_key_ouinet_public_udp_endpoints)
+
+        var formattedText = ""
+        texts?.forEach { formattedText += "${it.trim()} " }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, formattedText.ifEmpty { null })
+            .apply()
+    }
+
+    fun getExtraBitTorrentBootstrap(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
+        )
+
+    fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
+        val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
+
+        var formattedText = ""
+        texts?.forEach { formattedText += "${it.trim()} " }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, formattedText.ifEmpty { null })
+            .apply()
+    }
+
+    fun getCenoGroupsCount(context: Context) : Int =
+        PreferenceManager.getDefaultSharedPreferences(context).getInt(
+            context.getString(R.string.pref_key_ceno_groups_count), 0
+        )
+
+    private fun setCenoGroupsCount(context: Context, i : Int) {
+        val key = context.getString(R.string.pref_key_ceno_groups_count)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putInt(key, i)
+            .apply()
+    }
+
+    fun getOuinetVersion(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_version), null
+        )
+
+    private fun setOuinetVersion(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ouinet_version)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    fun getOuinetBuildId(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_build_id), null
+        )
+
+    private fun setOuinetBuildId(context: Context, text : String) {
+        val key = context.getString(R.string.pref_key_ouinet_build_id)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, text)
+            .apply()
+    }
+
+    fun getOuinetProtocol(context: Context) : Int =
+        PreferenceManager.getDefaultSharedPreferences(context).getInt(
+            context.getString(R.string.pref_key_ouinet_protocol), 0
+        )
+
+    private fun setOuinetProtocol(context: Context, i : Int) {
+        val key = context.getString(R.string.pref_key_ouinet_protocol)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putInt(key, i)
+            .apply()
+    }
+
+    fun isCenoLogEnabled(context: Context) : Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_ceno_enable_log), false
+        )
+
+    private fun setCenoEnableLog(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ceno_enable_log)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
     }
 
     fun getCenoVersionString(context: Context) : String {
@@ -133,6 +366,12 @@ object CenoSettings {
         CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_build_id, status.ouinet_build_id)
         CustomPreferenceManager.setInt(context, R.string.pref_key_ouinet_protocol, status.ouinet_protocol)
         CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_enable_log, status.logfile)
+        setReachabilityStatus(context, status.udp_world_reachable)
+        setLocalUdpEndpoint(context, status.local_udp_endpoints)
+        setExternalUdpEndpoint(context, status.external_udp_endpoints)
+        setPublicUdpEndpoint(context, status.public_udp_endpoints)
+        setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
+        setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
 
@@ -143,10 +382,10 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null) {
+    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
-                "${SET_VALUE_ENDPOINT}/${key.command}=${newValue.string}"
+                "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
             else
                 "${SET_VALUE_ENDPOINT}/${key.command}"
 
@@ -173,6 +412,7 @@ object CenoSettings {
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
                     OuinetKey.LOGFILE,
+                    OuinetKey.EXTRA_BOOTSTRAPS
                     -> {
                         if (response == null) {
                             Toast.makeText(

@@ -100,6 +100,10 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         appContext.getPreferenceKey(R.string.pref_key_show_ceno_mode_item),
         default = true
     )
+    var showThanksCard by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_show_thanks_card),
+        default = true
+    )
 
     var sharedPrefsReload by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_shared_prefs_reload),

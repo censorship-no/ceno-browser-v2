@@ -230,6 +230,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = PromptFeature(
                 fragment = this,
                 store = requireComponents.core.store,
+                tabsUseCases = requireComponents.useCases.tabsUseCases,
                 customTabId = sessionId,
                 fragmentManager = parentFragmentManager,
                 onNeedToRequestPermissions = { permissions ->

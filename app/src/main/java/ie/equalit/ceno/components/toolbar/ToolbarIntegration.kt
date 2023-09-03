@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
@@ -41,7 +42,6 @@ import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 /* CENO: ifAnyChanged used for observing changes to extensions in addition to selectedTab*/
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.browser.FindInPageIntegration
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
@@ -306,7 +306,7 @@ class ToolbarIntegration(
         scope.launch {
             context.components.appStore.flow()
                 .map { state -> state.topSites }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect(){ topSites ->
                     isCurrentUrlPinned = topSites
                         .find { it.url == store.state.selectedTab?.content?.url } != null
@@ -320,7 +320,7 @@ class ToolbarIntegration(
         scope.launch {
             store.flow()
                 .map { state -> state.selectedTab?.content?.url }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect { newUrl ->
                     isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
                         .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)

@@ -30,7 +30,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación privada&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas privadas con otra(o)s usuaria(o)s. Puedes visitar con seguridad sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta de acceso a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más\?&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puedes visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más\?&lt;/p&gt; &lt;p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Servicio del Navegador &brandShortName;</string>
     <string name="ceno_notification_description">Toca para detener</string>
@@ -148,4 +148,24 @@
     <string name="onboarding_battery_text_v33">En breve el SO te pedirá autorización para permitir notificaciones y desactivar la optimización de la batería.
 \n
 \nEsto es necesario para seguir compartiendo las páginas web mientras la aap está en segundo plano</string>
+    <string name="ceno_onboarding_start_title">Comparte la web,
+\npeer-to-peer</string>
+    <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
+    <string name="onboarding_public_or_personal_title">¿Pública o personal\?</string>
+    <string name="onboarding_public_personal_text">Con las pestañas públicas puede acceder a páginas públicas como noticias, vídeos o artículos.
+\n
+\n¿Necesitas entrar en una cuenta con credenciales de acceso\? Las pestañas personales son perfectas para ello.</string>
+    <string name="onboarding_cleanup_title">Limpiar todo,
+\nen todas partes, todo a la vez</string>
+    <string name="onboarding_cleanup_text">Borra el historial del navegador, las credenciales y cualquier rastro que hayas dejado en &brandShortName; con un solo botón.</string>
+    <string name="ceno_home_card_public_text">Para acceder a páginas públicas como noticias, vídeos o artículos.</string>
+    <string name="ceno_home_card_personal_title">PESTAÑAS PERSONALES</string>
+    <string name="ceno_home_card_public_title">PESTAÑAS PÚBLICAS</string>
+    <string name="ceno_home_card_personal_text">Para iniciar sesión en una cuenta o acceder a las credenciales.</string>
+    <string name="preferences_ceno_sources_upnp">Estado del UPnP</string>
+    <string name="preferences_ceno_sources_local_udp">Terminales UDP locales</string>
+    <string name="preferences_ceno_sources_external_udp">Terminales UDP externos</string>
+    <string name="preferences_ceno_sources_public_udp">Terminales UDP públicos</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
+    <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>
 </resources>

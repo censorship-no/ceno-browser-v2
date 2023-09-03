@@ -209,11 +209,6 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_about_ouinet_protocol"
-            android:title="@string/preferences_about_ouinet_protocol" />
-
-        <androidx.preference.Preference
-            app:iconSpaceReserved="false"
             android:key="@string/pref_key_about_page"
             android:title="@string/preferences_about_page" />
 

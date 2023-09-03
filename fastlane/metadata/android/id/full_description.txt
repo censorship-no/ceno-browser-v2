@@ -1,4 +1,4 @@
-Ceno (Censorship.No!) adalah peramban web seluler terdesentralisasi. Ceno menggunakan teknologi peer-to-peer untuk mengirimkan situs web ke perangkat seluler Anda dan menyimpan konten populer dengan peer yang bekerja sama. Ceno dapat digunakan untuk melewati sensor internet dan membantu orang lain mengakses halaman yang diblokir.
+Ceno (Censorship.No!) adalah peramban web seluler terdesentralisasi. Ceno menggunakan teknologi klien ke klien untuk mengirimkan situs web ke perangkat seluler Anda dan menyimpan konten populer dengan peer yang bekerja sama. Ceno dapat digunakan untuk melewati sensor internet dan membantu orang lain mengakses halaman yang diblokir.
 
 Katakan TIDAK pada sensor! Instal Peramban Ceno hari ini dan bersiaplah ketika tiba waktu berikutnya Anda 🔌 kehilangan akses internet.
 
@@ -9,10 +9,10 @@ Ceno dirancang dengan mempertimbangkan skenario penghentian internet. Situs web 
 Akses situs web apa pun. Konten yang sering diminta di-cache di jaringan dan tidak dapat dihapus secara paksa.
 
 💲🌐 <strong>Kurangi Biaya Data.</strong>
-Dengan merutekan lalu lintas pengguna melalui jaringan peer-to-peer, Peramban Ceno mengeluarkan lebih sedikit biaya data sambil tetap memberikan kemampuan pengelakan kepada pengguna.
+Dengan merutekan lalu lintas pengguna melalui jaringan klien ke klien, Peramban Ceno mengeluarkan lebih sedikit biaya data sambil tetap memberikan kemampuan pengelakan kepada pengguna.
 
 📖👐 <strong>Gratis dan sumber terbuka.</strong>
-Peramban Ceno didukung oleh Ouinet, pustaka sumber terbuka yang memungkinkan pengembang pihak ketiga untuk memasukkan jaringan Ceno ke dalam aplikasi mereka untuk konektivitas peer-to-peer.
+Peramban Ceno didukung oleh Ouinet, pustaka sumber terbuka yang memungkinkan pengembang pihak ketiga untuk memasukkan jaringan Ceno ke dalam aplikasi mereka untuk konektivitas klien ke klien.
 
 <strong>Perhatikan:</strong> Ceno bukan alat anonimitas: informasi tentang penjelajahan Anda mungkin bocor ke pengguna Ceno lainnya, serta fakta bahwa aplikasi Anda menyediakan konten web tertentu kepada orang lain. Konten yang diakses dengan aplikasi mungkin tetap berada dalam penyimpanan dalam teks biasa untuk beberapa waktu, namun Anda dapat menghapus semua konten yang disimpan kapan saja menggunakan fitur 'Bersihkan Sekarang'.
 

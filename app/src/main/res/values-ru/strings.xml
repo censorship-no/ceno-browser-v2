@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Выполните поиск или введите адрес</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Новая вкладка</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Закрыть все вкладки</string>
-    <string name="menu_action_close_tabs_private">Закрыть приватные вкладки</string>
+    <string name="menu_action_close_tabs_private">Закрыть личные вкладки</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Включить в режиме приватного просмотра</string>
+    <string name="preferences_tracking_protection_private">Включить в режиме личного просмотра</string>
     <!-- Preference for privacy -->
     <string name="privacy">Приватности</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Приватность Параметры</string> -->
     <!-- Приватный просмотр -->
-    <string name="private_browsing_title">Приватный просмотр</string>
+    <string name="private_browsing_title">Личный просмотр</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Настраиваемая коллекция дополнений</string>
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">Коллекция дополнений была изменена. Закрываем приложение, чтобы применить изменения…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Включить приватный просмотр</string>
+    <string name="content_description_private_browsing_button">Включить личный просмотр</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Открыть в приватной вкладке</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Открыть в личной вкладке</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Переименовать</string>
@@ -159,4 +159,5 @@
     <string name="theme_category">Тема</string>
     <string name="general_category">Общие</string>
     <string name="preference_select_preferred_engine">Выберите предпочитаемую поисковую систему:</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Открыть ссылку в личной вкладке</string>
 </resources>

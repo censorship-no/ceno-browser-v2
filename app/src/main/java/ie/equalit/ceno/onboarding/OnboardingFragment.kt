@@ -11,7 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.requireComponents
 
 class OnboardingFragment : Fragment() {
 
@@ -36,13 +37,17 @@ class OnboardingFragment : Fragment() {
 
         binding.btnOnboardingStartSkip.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                /* Android 13 or later, always ask for permissions */
-                findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
+                /* Android 13 or later, always ask for permissions
+                * go to home is permissions are granted */
+                if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                    requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+                ){
+                    findNavController().onboardingToHome()
+                } else {
+                    findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
+                }
             } else {
-                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
-                CustomPreferenceManager.setBoolean(requireContext() , R.string.pref_key_show_onboarding, false)
-                findNavController().popBackStack(R.id.onboardingFragment, true) // Pop backstack list
-                findNavController().navigate(R.id.action_global_home)
+                findNavController().onboardingToHome()
             }
         }
     }
