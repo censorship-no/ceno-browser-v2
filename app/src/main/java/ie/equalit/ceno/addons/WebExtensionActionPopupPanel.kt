@@ -1,7 +1,6 @@
 package ie.equalit.ceno.addons
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -14,10 +13,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.CenoSources
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.fetch.Request
+import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
+import org.json.JSONObject
 
 @SuppressWarnings("LongParameterList")
 class WebExtensionActionPopupPanel(
@@ -95,8 +101,58 @@ class WebExtensionActionPopupPanel(
     }
 
     private fun getSources(url: String) {
-        // make network request
+        MainScope().launch {
+            webClientRequest(Request(url)).let { response ->
+                if(response != null) {
+                    // load UI state
+                }
+            }
+        }
+    }
 
+    private suspend fun webClientRequest (request: Request): CenoSources? {
+        var responseBody : CenoSources? = null
+        var tries = 0
+        var success = false
+        while (tries < 5 && !success) {
+            try {
+                context.components.core.client.fetch(request).use { response ->
+                    if (response.status == 200) {
+                        Logger.debug("webClientRequest succeeded try $tries")
+                        Logger.debug("Response header: ${response.headers}")
+                        responseBody = parseJson(response.body.string())
+                        success = true
+                    } else {
+                        tries++
+                        Logger.debug("Clear cache failed on try $tries")
+                        delay(500)
+                    }
+                }
+            } catch (ex: Exception) {
+                tries++
+                Logger.debug("Clear cache failed on try $tries")
+                delay(500)
+            }
+        }
+        return responseBody
+    }
+
+
+    private fun parseJson(jsonString: String): CenoSources? {
+        return try {
+            val jsonObject = JSONObject(jsonString)
+
+            CenoSources(
+                origin = jsonObject.getString("origin"),
+                injector = jsonObject.getString("injector"),
+                proxy = jsonObject.getString("proxy"),
+                distCache = jsonObject.getString("dist-cache"),
+                localCache = jsonObject.getString("local-cache")
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
