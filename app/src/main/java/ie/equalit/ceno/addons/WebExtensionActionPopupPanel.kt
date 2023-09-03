@@ -1,6 +1,7 @@
 package ie.equalit.ceno.addons
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -10,24 +11,26 @@ import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import mozilla.components.browser.icons.IconRequest
-import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
+import mozilla.components.browser.icons.IconRequest
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
+import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 @SuppressWarnings("LongParameterList")
 class WebExtensionActionPopupPanel(
-        context: Context,
-        private val lifecycleOwner: LifecycleOwner,
-        private val tabUrl: String,
-        private val isConnectionSecure: Boolean,
-) : BottomSheetDialog(context) {
+    context: Context,
+    private val lifecycleOwner: LifecycleOwner,
+    private val tabUrl: String,
+    private val isConnectionSecure: Boolean,
+) : BottomSheetDialog(context), EngineSession.Observer {
 
     private var binding: DialogWebExtensionPopupSheetBinding =
-            DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
+        DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
+
+    private var session: EngineSession? = null
 
     init {
         initWindow()
@@ -41,14 +44,14 @@ class WebExtensionActionPopupPanel(
         this.window?.decorView?.let {
             it.setViewTreeLifecycleOwner(lifecycleOwner)
             it.setViewTreeSavedStateRegistryOwner(
-                    lifecycleOwner as SavedStateRegistryOwner,
+                lifecycleOwner as SavedStateRegistryOwner,
             )
         }
     }
 
     private fun expand() {
         val bottomSheet =
-                findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+            findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
         //bottomSheet.setBackgroundColor(ContextCompat.getColor(context, R.color.fx_mobile_layer_color_1))
         //bottomSheet.background = ContextCompat.getDrawable(context, R.drawable.home_background)
         BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
@@ -57,8 +60,8 @@ class WebExtensionActionPopupPanel(
     private fun updateTitle() {
         binding.siteTitle.text = tabUrl.tryGetHostFromUrl()
         context.components.core.icons.loadIntoView(
-                binding.siteFavicon,
-                IconRequest(tabUrl, isPrivate = true),
+            binding.siteFavicon,
+            IconRequest(tabUrl, isPrivate = true),
         )
     }
 
@@ -79,14 +82,26 @@ class WebExtensionActionPopupPanel(
         }
 
         binding.securityInfo.putCompoundDrawablesRelativeWithIntrinsicBounds(
-                start = securityIcon,
-                end = null,
-                top = null,
-                bottom = null,
+            start = securityIcon,
+            end = null,
+            top = null,
+            bottom = null,
         )
     }
 
-    fun renderSettingsView(session: EngineSession) {
-        binding.addonSettingsEngineView.render(session)
+    fun renderSettingsView(engineSession: EngineSession) {
+        session = engineSession
+        session?.register(this)
+    }
+
+    private fun getSources(url: String) {
+        // make network request
+
+    }
+
+    override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
+        super.onLoadRequest(url, triggeredByRedirect, triggeredByWebContent)
+        session?.unregister(this)
+        getSources(url.replace("popup.html", "sources.html"))
     }
 }
