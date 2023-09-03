@@ -132,4 +132,5 @@
     <string name="ceno_home_card_public_text">للوصول إلى الصفحات العامة مثل الأخبار أو مقاطع الفيديو أو المقالات.</string>
     <string name="ceno_home_card_personal_title">علامات التبويب الشخصية</string>
     <string name="ceno_home_card_personal_text">لتسجيل الدخول إلى حساب أو الوصول إلى بيانات الاعتماد.</string>
+    <string name="onboarding_finish_button">إنهاء</string>
 </resources>
