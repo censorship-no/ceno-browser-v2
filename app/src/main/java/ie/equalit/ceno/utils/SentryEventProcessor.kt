@@ -1,36 +1,28 @@
 package ie.equalit.ceno.utils
 
+import android.content.Context
+import ie.equalit.ceno.R
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import io.sentry.EventProcessor
 import io.sentry.Hint
 import io.sentry.SentryEvent
 
-class SentryEventProcessor : EventProcessor {
+class SentryEventProcessor(val context: Context) : EventProcessor {
     override fun process(event: SentryEvent, hint: Hint): SentryEvent? {
 
+        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_error_reporting, true)
+        val isCrash = event.exceptions?.isNotEmpty() == true
 
-        /* TODO: The plan here is to do the following:
-
-        If permissions are allowed and a crash happens, log and return the event
-        If permissions are allowed and a non-crash happens (i.e ANR), log and return the event
-        If permissions are NOT allowed and a crash happens, save a variable in SharedPreferences for next-launch nudge action and return null
-        If permissions are NOT allowed and a non-crash event happens (i.e ANR), return null
-
-        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_allow_error_reporting, true)) {
-
+        return when {
+            isPermissionGranted -> {
+                event
+            }
+            isCrash -> {
+                // save a variable to SharedPreferences for next launch
+                CustomPreferenceManager.setBoolean(context, R.string.pref_key_crash_happened, true)
+                null
+            }
+            else -> null
         }
-
-        */
-
-        // Check if the event represents a crash (unhandled exception)
-        if (event.exceptions?.isNotEmpty() == true) {
-            // You can add custom logic here to decide whether to report the crash or not.
-            // For example, you can use event data to filter based on specific conditions.
-
-            // To prevent reporting, return null
-            return null
-        }
-
-        // For non-crash events, return the event for reporting
-        return event
     }
 }

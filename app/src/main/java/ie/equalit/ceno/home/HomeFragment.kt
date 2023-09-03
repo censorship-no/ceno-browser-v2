@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -115,6 +116,11 @@ class HomeFragment : BaseHomeFragment() {
         container?.background =
             ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
+
+        // temp code
+        if(CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_crash_happened, false)) {
+            Toast.makeText(requireContext(), "Crash happened the last time!", Toast.LENGTH_SHORT).show()
+        }
 
         return binding.root
     }
