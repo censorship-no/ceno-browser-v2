@@ -105,6 +105,8 @@ class WebExtensionActionPopupPanel(
             webClientRequest(Request(url)).let { response ->
                 if(response != null) {
                     // load UI state
+                } else {
+                    // display error view that can trigger a retry of the API call
                 }
             }
         }
