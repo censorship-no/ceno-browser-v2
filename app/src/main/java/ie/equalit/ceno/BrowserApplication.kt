@@ -51,7 +51,7 @@ open class BrowserApplication : Application() {
         // Initialize Sentry-Android
         SentryAndroid.init(
             this,
-            SentryOptionsConfiguration.getConfig()
+            SentryOptionsConfiguration.getConfig(this)
         )
 
 
