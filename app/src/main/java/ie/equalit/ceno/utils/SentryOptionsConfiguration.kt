@@ -17,6 +17,7 @@ object SentryOptionsConfiguration {
         it.sampleRate = 1.0
         it.profilesSampleRate = 1.0
         it.isAnrEnabled = true
+        it.addEventProcessor(SentryEventProcessor())
     }
 
 }

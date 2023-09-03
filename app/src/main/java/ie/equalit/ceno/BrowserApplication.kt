@@ -27,7 +27,6 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 open class BrowserApplication : Application() {
@@ -49,13 +48,13 @@ open class BrowserApplication : Application() {
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
 
-        // Initialize Sentry-Android based on a SharedPreference value
-        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_allow_error_reporting, true)) {
-            SentryAndroid.init(
-                this,
-                SentryOptionsConfiguration.getConfig()
-            )
-        }
+        // Initialize Sentry-Android
+        SentryAndroid.init(
+            this,
+            SentryOptionsConfiguration.getConfig()
+        )
+
+
 
         //------------------------------------------------------------
         // Ouinet

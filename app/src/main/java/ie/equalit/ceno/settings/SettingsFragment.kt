@@ -35,9 +35,6 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
-import ie.equalit.ceno.utils.SentryOptionsConfiguration
-import io.sentry.Sentry
-import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -399,15 +396,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun getClickListenerForErrorReporting():  OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, newValue ->
-            if(newValue as Boolean) {
-                SentryAndroid.init(
-                    requireContext(),
-                    SentryOptionsConfiguration.getConfig()
-                )
-            } else {
-                Sentry.close()
-            }
+        return OnPreferenceChangeListener { _, _ ->
             true
         }
     }
