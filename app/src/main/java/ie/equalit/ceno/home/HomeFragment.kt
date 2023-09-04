@@ -1,6 +1,7 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -119,7 +120,7 @@ class HomeFragment : BaseHomeFragment() {
 
         // temp code
         if(CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_crash_happened, false)) {
-            Toast.makeText(requireContext(), "Crash happened the last time!", Toast.LENGTH_SHORT).show()
+            Log.d("PPPPPP", "Crash happened the last time!")
         }
 
         return binding.root
