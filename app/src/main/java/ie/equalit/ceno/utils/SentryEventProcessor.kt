@@ -10,7 +10,7 @@ import io.sentry.SentryEvent
 class SentryEventProcessor(val context: Context) : EventProcessor {
     override fun process(event: SentryEvent, hint: Hint): SentryEvent? {
 
-        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_error_reporting, true)
+        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_crash_reporting, true)
         val isCrash = event.exceptions?.isNotEmpty() == true
 
         return when {

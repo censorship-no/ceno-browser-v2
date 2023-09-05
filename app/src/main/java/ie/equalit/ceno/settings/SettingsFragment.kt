@@ -171,7 +171,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val disableBatteryOptKey = requireContext().getPreferenceKey(pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
-        val allowErrorReportingDataKey = requireContext().getPreferenceKey(pref_key_allow_error_reporting)
+        val allowErrorReportingDataKey = requireContext().getPreferenceKey(pref_key_allow_crash_reporting)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
 
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)

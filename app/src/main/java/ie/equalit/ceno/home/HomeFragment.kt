@@ -1,9 +1,15 @@
 package ie.equalit.ceno.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -116,9 +122,52 @@ class HomeFragment : BaseHomeFragment() {
             ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
-        // temp code
+
         if(CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_crash_happened, false)) {
+            // reset the value
+            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_crash_happened, false)
+
             // launch Sentry activation dialog
+
+            val dialogView = View.inflate(requireContext(), R.layout.crash_reporting_nudge_dialog, null)
+            val doNotAskAgainCheck = dialogView.findViewById<CheckBox>(R.id.cb_dont_ask_again)
+            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+            val radio2 = dialogView.findViewById<RadioButton>(R.id.radio2)
+
+            val dialog by lazy { AlertDialog.Builder(requireContext()).apply {
+                setPositiveButton("OK") { _, _ -> }
+            } }
+
+            AlertDialog.Builder(requireContext()).apply {
+                setView(dialogView)
+                setPositiveButton("Proceed") { _, _ ->
+                    when {
+                        doNotAskAgainCheck.isChecked && radio1.isChecked -> {
+                            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_allow_crash_reporting, true)
+                            dialog.setMessage("Thanks for opting in to sharing crash reports to help improve Ceno! You can always disable this by going to Settings > Crash reporting.")
+                            dialog.show()
+                        }
+                        doNotAskAgainCheck.isChecked && radio2.isChecked -> {
+                            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_show_crash_reporting_permission, false)
+                            dialog.setMessage("You've opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.")
+                            dialog.show()
+                        }
+                        !doNotAskAgainCheck.isChecked && radio1.isChecked -> {
+                            // TODO: Send once logic
+                        }
+                        else -> {
+                            // Close the dialog
+                        }
+                    }
+                }
+
+                doNotAskAgainCheck.setOnCheckedChangeListener { _, b ->
+                    radio1.text = if(b) "Always send" else "Send once"
+                    radio2.text = if(b) "Never send" else "Don't send this time"
+                }
+
+                create()
+            }.show()
         }
 
         return binding.root
