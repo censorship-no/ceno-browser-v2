@@ -10,7 +10,7 @@ import io.sentry.SentryEvent
 class SentryEventProcessor(val context: Context) : EventProcessor {
     override fun process(event: SentryEvent, hint: Hint): SentryEvent? {
 
-        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_crash_reporting, true)
+        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_crash_reporting, false)
         val isCrash = event.exceptions?.isNotEmpty() == true
 
         return when {
@@ -18,11 +18,14 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
                 event
             }
             isCrash -> {
-                // save a variable to SharedPreferences for next launch
+                // save a variable to nudge users to activate crash recording on next launch
                 CustomPreferenceManager.setBoolean(context, R.string.pref_key_crash_happened, true)
                 null
             }
-            else -> null
+            else -> {
+                // There's no need to nudge the user when there's a non-crash (e.g ANR)
+                null
+            }
         }
     }
 }
