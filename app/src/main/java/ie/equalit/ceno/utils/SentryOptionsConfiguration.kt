@@ -11,7 +11,7 @@ object SentryOptionsConfiguration {
      */
 
     fun getConfig(context: Context): Sentry.OptionsConfiguration<SentryAndroidOptions> = Sentry.OptionsConfiguration<SentryAndroidOptions> {
-        it.dsn = "http://606634f4458e4a2a9c1559b519325ad3@ouinet-runner-0.0x271.eu:9000/2"
+        it.dsn = "https://313d457370cee4729e88117e6096c042@sentry.ouinet.work/5"
         it.isEnableUserInteractionTracing = true
         it.isAttachScreenshot = true
         it.isAttachViewHierarchy = true
