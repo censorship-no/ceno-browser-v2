@@ -65,7 +65,11 @@
     <string name="crash_reporting_dialog_description">Sorry, looks like &brandShortName; crashed! Help us make &brandShortName; better by sending us the crash report.</string>
     <string name="crash_reporting_send_once">Send once</string>
     <string name="crash_reporting_dont_send_this_time">Don\'t send this time</string>
+    <string name="crash_reporting_always_send">Always send</string>
+    <string name="crash_reporting_never_send">Never send</string>
     <string name="crash_reporting_dont_ask_again">Don\'t ask again</string>
+    <string name="crash_reporting_opt_in">Thanks for opting in to sharing crash reports to help improve &brandShortName;! You can always disable this by going to Settings > Crash reporting.</string>
+    <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.</string>
     <!-- Menu options -->
     <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>

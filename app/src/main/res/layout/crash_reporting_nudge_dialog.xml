@@ -16,7 +16,7 @@
         android:layout_marginTop="12dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="Sorry, looks like Ceno crashed! Help us make Ceno better by sending us the crash report."
+        android:text="@string/crash_reporting_dialog_description"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,18 +35,18 @@
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send once" />
+            android:text="@string/crash_reporting_send_once" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't send this time" />
+            android:text="@string/crash_reporting_dont_send_this_time" />
 
     </RadioGroup>
 
     <CheckBox
-        android:id="@+id/cb_dont_ask_again"
+        android:id="@+id/cb_do_not_ask_again"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -54,7 +54,7 @@
         android:layout_marginBottom="24dp"
         android:gravity="start|center"
         android:importantForAutofill="no"
-        android:text="Don't ask again"
+        android:text="@string/crash_reporting_dont_ask_again"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
