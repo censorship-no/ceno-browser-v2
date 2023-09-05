@@ -1,18 +1,15 @@
 package ie.equalit.ceno.home
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.RadioButton
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.gson.Gson
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -20,16 +17,14 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.utils.CenoPreferences
-import io.sentry.Sentry
-import io.sentry.SentryEvent
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.storage.FrecencyThresholdOption
@@ -65,6 +60,8 @@ class HomeFragment : BaseHomeFragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val activity = activity as BrowserActivity
         val components = requireComponents
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         components.useCases.tabsUseCases.selectTab("")
 
@@ -110,7 +107,7 @@ class HomeFragment : BaseHomeFragment() {
         updateSessionControlView()
 
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            topMargin = if(CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_toolbar_position)) {
+            topMargin = if(prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
                     resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
                 }
                 else {

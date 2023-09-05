@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import kotlinx.coroutines.MainScope
@@ -49,7 +50,8 @@ import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXT
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.settings.CenoSettings
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -197,6 +199,7 @@ class ToolbarIntegration(
         // Nullable just in case - the library behaviour is still a bit quirky as at July, 2023
         val navController = (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)?.navController
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         if (sessionState != null) {
             menuItemsList += menuToolbar(sessionState)
@@ -211,14 +214,12 @@ class ToolbarIntegration(
 
         val clearButtonFeature = ClearButtonFeature(
             context,
-            CustomPreferenceManager.getString(
-                context,
-                R.string.pref_key_clear_behavior,
-                "0")!!
+            prefs.getString(
+                context.getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                 .toInt()
         )
 
-        if (CustomPreferenceManager.getBoolean(context, R.string.pref_key_clear_in_menu, true)) {
+        if (prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_clear_in_menu), true)) {
             menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.ceno_clear_dialog_title),
                 onClick = {
@@ -266,7 +267,7 @@ class ToolbarIntegration(
         }
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
-            CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_status_update_required, true)
+            CenoSettings.setStatusUpdateRequired(context, true)
             navController?.navigate(R.id.action_global_settings)
         }
 

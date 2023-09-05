@@ -5,6 +5,8 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
 import mozilla.components.browser.session.storage.SessionStorage
@@ -46,14 +48,14 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.EngineProvider
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.pref_key_remote_debugging
-import ie.equalit.ceno.R.string.pref_key_testing_mode
 import ie.equalit.ceno.R.string.pref_key_tracking_protection_normal
 import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
 import ie.equalit.ceno.downloads.DownloadService
+import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.settings.Settings
 import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -68,12 +70,13 @@ class Core(private val context: Context) {
      * configuration (see build variants).
      */
     val engine: Engine by lazy {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         val defaultSettings = DefaultSettings(
             requestInterceptor = AppRequestInterceptor(context),
-            remoteDebuggingEnabled = CustomPreferenceManager.getBoolean(context, pref_key_remote_debugging),
-            testingModeEnabled = CustomPreferenceManager.getBoolean(context, pref_key_testing_mode),
-            trackingProtectionPolicy = createTrackingProtectionPolicy(),
+            remoteDebuggingEnabled = prefs.getBoolean(context.getPreferenceKey(pref_key_remote_debugging), false),
+            testingModeEnabled = prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_testing_mode), false),
+            trackingProtectionPolicy = createTrackingProtectionPolicy(prefs),
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage),
         )
         EngineProvider.createEngine(context, defaultSettings)
@@ -195,8 +198,7 @@ class Core(private val context: Context) {
     }
 
     val addonCollectionProvider by lazy {
-        if (!CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_user).isNullOrEmpty()
-            && !CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_collection).isNullOrEmpty()) {
+        if (Settings.isAmoCollectionOverrideConfigured(context)) {
             provideCustomAddonCollectionProvider()
         } else {
             provideDefaultAddonCollectionProvider()
@@ -272,14 +274,16 @@ class Core(private val context: Context) {
         return AddonCollectionProvider(
             context,
             client,
-            collectionUser = CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_user, "")!!,
-            collectionName = CustomPreferenceManager.getString(context, R.string.pref_key_override_amo_collection, "")!!,
+            collectionUser = Settings.getOverrideAmoUser(context),
+            collectionName = Settings.getOverrideAmoCollection(context),
         )
     }
 
     /**
      * Constructs a [TrackingProtectionPolicy] based on current preferences.
      *
+     * @param prefs the shared preferences to use when reading tracking
+     * protection settings.
      * @param normalMode whether or not tracking protection should be enabled
      * in normal browsing mode, defaults to the current preference value.
      * @param privateMode whether or not tracking protection should be enabled
@@ -287,8 +291,9 @@ class Core(private val context: Context) {
      * @return the constructed tracking protection policy based on preferences.
      */
     fun createTrackingProtectionPolicy(
-        normalMode: Boolean = CustomPreferenceManager.getBoolean(context, pref_key_tracking_protection_normal, true),
-        privateMode: Boolean = CustomPreferenceManager.getBoolean(context, pref_key_tracking_protection_private, true),
+        prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context),
+        normalMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_normal), true),
+        privateMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_private), true),
     ): TrackingProtectionPolicy {
         val trackingPolicy = TrackingProtectionPolicy.recommended()
         return when {
