@@ -12,28 +12,35 @@
         android:id="@+id/img_cleanup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@null"
         android:src="@drawable/onboarding_cleanup"
-        app:layout_constraintBottom_toTopOf="@+id/onboarding_cleanup_title"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:id="@+id/onboarding_cleanup_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
         android:lineSpacingMultiplier="0.8"
+        android:maxLines="2"
         android:text="@string/onboarding_cleanup_title"
         android:textAlignment="textStart"
         android:textColor="@color/photonBlack"
         android:textSize='@dimen/ceno_onboarding_title'
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:autoSizeMaxTextSize="32sp"
+        app:autoSizeMinTextSize="18sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/onboarding_cleanup_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_weight="2" />
 
     <TextView
         android:id="@+id/onboarding_cleanup_text"
@@ -41,15 +48,22 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:lines="3"
+        android:maxLines="6"
+        android:minLines="4"
         android:text="@string/onboarding_cleanup_text"
         android:textAlignment="textStart"
         android:textColor="@color/ceno_onboarding_text"
         android:textSize="@dimen/ceno_onboarding_text"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_cleanup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/onboarding_cleanup_title"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_cleanup_title" />
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_cleanup_title"
+        app:layout_constraintVertical_weight="3" />
 
     <Button
         android:id="@+id/btn_onboarding_cleanup"
@@ -68,14 +82,22 @@
     <Button
         android:id="@+id/btn_onboarding_cleanup_skip"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:text="@string/onboarding_skip_button"
         android:textAllCaps="false"
         android:textColor="@color/ceno_onboarding_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.56" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
