@@ -48,9 +48,11 @@
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">É recomendado usar &brandShortName; quando você tem uma conexão Wi-Fi, pois ele pode usar mais dados que o esperado. Você pode querer interromper &brandShortName; quando estiver usando dados móveis.</string>
     <string name="onboarding_info_button">Legal!</string>
     <string name="onboarding_button">Começar</string>
-    <string name="onboarding_battery_text">Em breve, o sistema operacional irá pedir a você autorização para desabilitar a otimização de bateria.
+    <string name="onboarding_battery_text">"Em breve, o sistema operacional irá pedir a você autorização para 
 \n
-\nEssa ação é necessária para continuar compartilhando websites enquanto o aplicativo está em segundo plano</string>
+\n•  Desabilitar a otimização de bateria.
+\n
+\nEssa ação é necessária para continuar compartilhando websites enquanto o aplicativo está em segundo plano"</string>
     <string name="onboarding_thanks_title">Agradecemos por ajudar a rede a crescer!</string>
     <string name="preferences_show_onboarding">Mostrar a integração no próximo lançamento</string>
     <string name="preferences_customization">Personalização</string>
@@ -104,9 +106,12 @@
     <string name="ceno_clear_dialog_clear_cache_only">Limpar &brandShortName; apenas cache</string>
     <string name="preferences_ceno_network_config_summary">Estado da Ouinet, endpoints UDP, bootstraps do BitTorrent</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/pt_BR/concepts/public-private.html</string>
-    <string name="onboarding_battery_text_v33">Em breve o SO irá pedir sua permissão para permitir notificações e desativar a otimização de bateria.
+    <string name="onboarding_battery_text_v33">"Em breve o SO irá pedir sua permissão para 
 \n
-\nEssa ação é necessária para manter o compartilhamento de websites enquanto o aplicativo está em segundo plano</string>
+\n•  Permitir notificações
+\n•  Desativar a otimização de bateria
+\n
+\nEssa ação é necessária para manter o compartilhamento de websites enquanto o aplicativo está em segundo plano"</string>
     <string name="onboarding_warning_text_v33_1">Notificações não estão permitidas.
 \n
 \nVá para \"Configurações &gt; Notificações\" para dar permissão mais tarde</string>
@@ -120,10 +125,14 @@
 \nPrecisa fazer login em uma conta com credenciais de acesso\? As abas Pessoais são certas para isso.</string>
     <string name="onboarding_cleanup_title">Limpe tudo,
 \nem todos os lugares, todos ao mesmo tempo</string>
-    <string name="onboarding_cleanup_text">Limpar seu histórico do navegador, credenciais e qualquer vestígio que você deixou no &amp;brand ShortName; com um único botão.</string>
+    <string name="onboarding_cleanup_text">Limpar seu histórico do navegador, credenciais e qualquer vestígio que você deixou no &brandShortName; com um único botão.</string>
     <string name="preferences_ceno_sources_upnp">Status UPnP</string>
     <string name="preferences_ceno_sources_reachability">Status de acessibilidade</string>
     <string name="preferences_ceno_sources_local_udp">Endpoints locais UDP</string>
     <string name="preferences_ceno_sources_external_udp">Endpoints externos UDP</string>
     <string name="preferences_ceno_sources_public_udp">Endpoints Públicos UDP</string>
+    <string name="ceno_home_card_public_text">Para acessar páginas públicas como notícias, vídeos ou artigos.</string>
+    <string name="ceno_onboarding_start_title">Compartilhe a web,
+\npessoa para pessoa</string>
+    <string name="onboarding_finish_button">Terminar</string>
 </resources>
