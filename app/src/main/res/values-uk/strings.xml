@@ -160,4 +160,5 @@
     <string name="preference_select_preferred_engine">Оберіть бажаний пошуковик:</string>
     <string name="theme_category">Тема</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Відкрити посилання у персональній вкладці</string>
+    <string name="udp_category">UDP</string>
 </resources>
