@@ -52,8 +52,6 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     override fun onViewCreated(rootView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(rootView, savedInstanceState)
         bindRecyclerView(rootView)
-
-        null as Int
     }
 
     override fun onStart() {
