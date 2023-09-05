@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -30,6 +28,8 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
 import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.utils.CenoPreferences
+import io.sentry.Sentry
+import io.sentry.SentryEvent
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.storage.FrecencyThresholdOption
@@ -145,16 +145,19 @@ class HomeFragment : BaseHomeFragment() {
                     when {
                         doNotAskAgainCheck.isChecked && radio1.isChecked -> {
                             CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_allow_crash_reporting, true)
-                            dialog.setMessage(getString(R.string.crash_reporting_opt_in))
-                            dialog.show()
+                            dialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
                         doNotAskAgainCheck.isChecked && radio2.isChecked -> {
                             CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_show_crash_reporting_permission, false)
-                            dialog.setMessage(getString(R.string.crash_reporting_opt_out))
-                            dialog.show()
+                            dialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
                         }
                         !doNotAskAgainCheck.isChecked && radio1.isChecked -> {
-                            // TODO: Send once logic
+                            val lastCrash = CustomPreferenceManager.getString(requireContext(), R.string.pref_key_last_crash)
+                            if(!lastCrash.isNullOrEmpty()) {
+                                val gson = Gson()
+                                val sentryEvent = gson.fromJson(lastCrash, SentryEvent::class.java)
+                                Sentry.captureEvent(sentryEvent)
+                            }
                         }
                         else -> {
                             // Close the dialog
