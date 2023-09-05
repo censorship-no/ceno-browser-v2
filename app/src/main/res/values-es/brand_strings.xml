@@ -138,7 +138,7 @@
     <string name="preferences_ceno_sources_peers_summary">Cargar contenido compartido por otra(o)s usuaria(o)s</string>
     <string name="preferences_clear_ceno_cache_summary">Borrar el contenido web almacenado en la caché local</string>
     <string name="preferences_show_home_button">Mostrar el botón de inicio</string>
-    <string name="preferences_ceno_network_config">&brandShortName; Detalles de la Red</string>
+    <string name="preferences_ceno_network_config">Detalles de la Red</string>
     <string name="ouinet_client_fetch_fail">Falló al cambiar la configuración de &brandShortName;</string>
     <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas.
 \n
@@ -152,7 +152,7 @@
 \n• Permitir las notificaciones
 \n• Desactivar la optimización de la batería
 \n
-\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano.</string>
+\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano</string>
     <string name="ceno_onboarding_start_title">Comparte la web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
