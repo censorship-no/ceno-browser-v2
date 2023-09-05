@@ -122,58 +122,6 @@ class HomeFragment : BaseHomeFragment() {
             ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
-
-        if(CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_crash_happened, false) &&
-            CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_crash_reporting_permission, true)) {
-            // reset the value
-            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_crash_happened, false)
-
-            // launch Sentry activation dialog
-
-            val dialogView = View.inflate(requireContext(), R.layout.crash_reporting_nudge_dialog, null)
-            val doNotAskAgainCheck = dialogView.findViewById<CheckBox>(R.id.cb_do_not_ask_again)
-            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
-            val radio2 = dialogView.findViewById<RadioButton>(R.id.radio2)
-
-            val dialog by lazy { AlertDialog.Builder(requireContext()).apply {
-                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
-            } }
-
-            AlertDialog.Builder(requireContext()).apply {
-                setView(dialogView)
-                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    when {
-                        doNotAskAgainCheck.isChecked && radio1.isChecked -> {
-                            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_allow_crash_reporting, true)
-                            dialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
-                        }
-                        doNotAskAgainCheck.isChecked && radio2.isChecked -> {
-                            CustomPreferenceManager.setBoolean(requireContext(), R.string.pref_key_show_crash_reporting_permission, false)
-                            dialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
-                        }
-                        !doNotAskAgainCheck.isChecked && radio1.isChecked -> {
-                            val lastCrash = CustomPreferenceManager.getString(requireContext(), R.string.pref_key_last_crash)
-                            if(!lastCrash.isNullOrEmpty()) {
-                                val gson = Gson()
-                                val sentryEvent = gson.fromJson(lastCrash, SentryEvent::class.java)
-                                Sentry.captureEvent(sentryEvent)
-                            }
-                        }
-                        else -> {
-                            // Close the dialog
-                        }
-                    }
-                }
-
-                doNotAskAgainCheck.setOnCheckedChangeListener { _, b ->
-                    radio1.text = if(b) getString(R.string.crash_reporting_always_send) else getString(R.string.crash_reporting_send_once)
-                    radio2.text = if(b) getString(R.string.crash_reporting_never_send) else getString(R.string.crash_reporting_dont_send_this_time)
-                }
-
-                create()
-            }.show()
-        }
-
         return binding.root
     }
 
