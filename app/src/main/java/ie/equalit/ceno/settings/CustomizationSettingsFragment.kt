@@ -8,12 +8,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import mozilla.components.browser.state.selector.selectedTab
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -28,7 +30,7 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
             show()
             setTitle(R.string.customization_settings)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
     }
 
@@ -60,12 +62,15 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
             if (AppCompatDelegate.getDefaultNightMode() != mode) {
                 AppCompatDelegate.setDefaultNightMode(mode)
                 activity?.recreate()
+                requireComponents.core.store.state.selectedTab?.let {
+                    requireComponents.useCases.tabsUseCases.selectTab(requireComponents.core.store.state.selectedTab!!.id)
+                    requireComponents.useCases.sessionUseCases.reload.invoke()
+                }
                 /* TODO: send colorScheme to gecko engine
                 with(requireComponents.core) {
                     engine.settings.preferredColorScheme = getPreferredColorScheme()
                 }
                  */
-                requireComponents.useCases.sessionUseCases.reload.invoke()
             }
             true
         }

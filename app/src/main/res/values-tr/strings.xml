@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="delete_from_history">Geçmişten sil</string>
     <string name="shortcut_name_hint">Kısayol adı</string>
     <string name="browser_menu_forward">İleri</string>
@@ -17,9 +17,9 @@
     <string name="toast_copied">Kopyalandı!</string>
     <string name="preferences_autofill">Uygulamalar otomatik doldurulsun</string>
     <string name="customize_addon_collection_cancel">İptal</string>
-    <string name="menu_action_close_tabs_private">Gizli sekmeleri kapat</string>
+    <string name="menu_action_close_tabs_private">Kişisel sekmeleri kapat</string>
     <string name="preferences_remote_debugging">USB ile uzaktan hata ayıklama</string>
-    <string name="preferences_tracking_protection_private">Gizli gezinme kipinde aç</string>
+    <string name="preferences_tracking_protection_private">Kişisel gezinme kipinde aç</string>
     <string name="browser_menu_settings">Ayarlar</string>
     <string name="browser_menu_remove_from_shortcuts">Kısayollardan kaldır</string>
     <string name="customize_addon_collection_ok">Tamam</string>
@@ -35,7 +35,7 @@
     <string name="deleting_browsing_data_in_progress">Gezinme verileri siliniyor‥</string>
     <string name="preferences_delete_browsing_data_cached_files">Ön bellekteki görsel ve dosyalar</string>
     <string name="preferences_delete_browsing_data_button">Gezinme verilerini sil</string>
-    <string name="preferences_privacy_summary">Gizli ve herkese açık gezinme kiplerinde aç</string>
+    <string name="preferences_privacy_summary">Kişisel ve herkese açık gezinme kiplerinde aç</string>
     <string name="preferences_tracking_protection_normal">Normal gezinme kipinde aç</string>
     <string name="browser_menu_refresh">Yenile</string>
     <string name="browser_menu_back">Geri</string>
@@ -60,10 +60,10 @@
     <string name="privacy">Gizlilik</string>
     <string name="theme_category">Tema</string>
     <string name="customization_settings">Özelleştirme</string>
-    <string name="private_browsing_title">Gizli gezinme</string>
+    <string name="private_browsing_title">Kişisel gezinme</string>
     <string name="preferences_customize_amo_collection">Özel eklenti derlemesi</string>
     <string name="customize_addon_collection_hint">Derleme adı</string>
-    <string name="content_description_private_browsing_button">Gizli gezinmeyi etkinleştir</string>
+    <string name="content_description_private_browsing_button">Kişisel gezinmeyi etkinleştir</string>
     <string name="browser_menu_add_to_homescreen">Giriş ekranına ekle</string>
     <string name="preferences_delete_browsing_data">Gezinme verilerini sil</string>
     <string name="close_mode_item">Bildirimi kapat</string>
@@ -74,7 +74,7 @@
     <string name="clear_button_category">Temizle düğmesi</string>
     <string name="settings">Ayarlar</string>
     <string name="toast_customize_addon_collection_done">Eklenti derlemesi değiştirildi. Değişikliklerin uygulanması için uygulama kapatılıyor…</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Gizli sekmede aç</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Kişisel sekmede aç</string>
     <string name="rename_top_site">Yeniden adlandır</string>
     <string name="browser_menu_add_to_shortcuts">Kısayollara ekle</string>
     <string name="browser_menu_library">Kitaplık</string>
@@ -88,4 +88,10 @@
     <string name="preferences_delete_browsing_data_tabs_title_2">Açık sekmeler</string>
     <string name="browser_menu_find_in_page">Sayfada bul</string>
     <string name="preference_select_preferred_engine">Kullanmak istediğiniz arama hizmetini seçin:</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Bağlantıyı kişisel sekmede aç</string>
+    <string name="customize_add_bootstrap_save">Kaydet</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent ön yüklemeleri</string>
+    <string name="customize_extra_bittorrent_bootstrap">Ek BitTorrent ön yüklemeleri</string>
+    <string name="not_applicable">Kullanılamaz</string>
+    <string name="udp_category">UDP</string>
 </resources>

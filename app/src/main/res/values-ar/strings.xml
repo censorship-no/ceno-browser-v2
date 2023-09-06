@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="customize_addon_collection_user_hint">مالك المجموعة (معرًف المستخدم)</string>
-    <string name="bookmark_menu_open_in_private_tab_button">فتح في علامة تبويب خاصة</string>
+    <string name="bookmark_menu_open_in_private_tab_button">فتح في علامة تبويب شخصية</string>
     <string name="remove_top_site">ازالة</string>
     <string name="top_sites_rename_dialog_title">اسم</string>
     <string name="secure_connection">الاتصال آمن</string>
@@ -37,7 +37,7 @@
     <string name="preferences_remote_debugging">تصحيح الأخطاء عن بعد باستخدام USB</string>
     <string name="preferences_autofill_summary">الملء التلقائي لعمليات تسجيل الدخول وكلمات المرور في التطبيقات الأخرى</string>
     <string name="preferences_tracking_protection_normal">التمكين في وضع التصفح العادي</string>
-    <string name="preferences_tracking_protection_private">تمكين في وضع التصفح الخاص</string>
+    <string name="preferences_tracking_protection_private">تمكين في وضع التصفح الشخصي</string>
     <string name="general_category">عام</string>
     <string name="settings">الإعدادات</string>
     <string name="customization_settings">التخصيص</string>
@@ -60,13 +60,13 @@
     <string name="preferences_delete_browsing_data">احذف بيانات التصفح</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">تصفح سجل تاريخ الموقع والبيانات</string>
     <string name="toolbar_hint">ابحث عن العنوان أو أدخله</string>
-    <string name="menu_action_close_tabs_private">إغلاق علامات التبويب الخاصة</string>
+    <string name="menu_action_close_tabs_private">إغلاق علامات التبويب الشخصية</string>
     <string name="preferences_autofill">الملء التلقائي للتطبيقات</string>
     <string name="privacy" tools:ignore="UnusedResources">الخصوصية</string>
     <string name="developer_tools_category">أدوات المطور</string>
     <string name="open_links_in_apps">فتح الروابط في التطبيقات</string>
     <string name="tracker_category">الحماية من التعقب</string>
-    <string name="private_browsing_title">التصفح الخاص</string>
+    <string name="private_browsing_title">التصفح الشخصي</string>
     <string name="browser_menu_back">إلى الوراء</string>
     <string name="delete_browsing_data_prompt_cancel">إلغاء الأمر</string>
     <string name="preferences_delete_browsing_data_cookies">ملفات تعريف الارتباط</string>
@@ -81,7 +81,7 @@
     <string name="menu_share_with">شارك مع…</string>
     <string name="toast_copied">نُسخ!</string>
     <string name="customize_addon_collection_cancel">إلغاء</string>
-    <string name="content_description_private_browsing_button">تمكين التصفح الخاص</string>
+    <string name="content_description_private_browsing_button">تمكين التصفح الشخصي</string>
     <string name="rename_top_site">اعادة التسمية</string>
     <string name="delete_from_history">حذف من سجل التاريخ</string>
     <string name="shortcut_max_limit_title">تم الوصول إلى الحد الأقصى لعدد الاختصارات</string>
@@ -96,4 +96,5 @@
     <string name="preferences_delete_browsing_data_cookies_subtitle">سيتم تسجيل خروجك من معظم المواقع</string>
     <string name="toolbar_category">خيارات شريط الأدوات</string>
     <string name="preferences_customize_amo_collection">مجموعة الوظائف الإضافية المخصصة</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
 </resources>

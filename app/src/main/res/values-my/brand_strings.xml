@@ -90,4 +90,11 @@
 \n၎င်းသည် အက်ပ်ကို နောက်ကွယ်မှ အလုပ်လုပ်စေနိုင်ပြီး ဝဘ်ဆိုက်များကို ဆက်တိုက် မျှဝေနိုင်ရန်အတွက် လိုအပ်သောကြောင့် ဖြစ်ပါသည်။</string>
     <string name="onboarding_warning_title">ခွင့်တောင်းမှုကို ငြင်းပယ်သည်</string>
     <string name="preferences_about_ouinet_protocol">Ouinet ပရိုတိုကောလ်</string>
+    <string name="onboarding_thanks_text">&brandShortName; သုံးစွဲသူတစ်ယောက်အနေဖြင့် သင်သည် ဆင်ဆာဖြတ်တောက်ခံရသည့် အကြောင်းအရာများကို ရယူကြည့်ရှုနိုင်ခွင့်ကို ခွင့်ပြုပေးသည့် တံတားများကွန်ရက်ကို တိုးတက်အောင် ကူညီနေခြင်းဖြစ်ပါသည်။</string>
+    <string name="preferences_toolbar_position">မျက်နှာပြင်၏ အပေါ်ပိုင်းတွင် ထားမည်</string>
+    <string name="preferences_toolbar_hide">ဖျောက်ထားရန် စာမျက်နှာကို ဆွဲပါ</string>
+    <string name="preferences_allow_notifications">အသိပေးချက်များကို ခွင့်ပြုမည်</string>
+    <string name="shutdown_clear_title">အက်ပ် အချက်အလက်များကို ဖျက်ပစ်ခြင်းနှင့်
+\n&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
+    <string name="shutdown_stop_title">&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
 </resources>

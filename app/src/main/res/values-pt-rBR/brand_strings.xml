@@ -58,7 +58,7 @@
     <string name="preferences_about_page">Sobre &vendorShortName;</string>
     <string name="shutdown_stop_title">Interrompendo Navegador &brandShortName;</string>
     <string name="preferences_theme_default">2</string>
-    <string name="preferences_ceno_network_config">Detalhes da Rede &brandShortName;</string>
+    <string name="preferences_ceno_network_config">Detalhes da Rede</string>
     <string name="preferences_ceno_download_log">Baixar arquivo de log</string>
     <string name="website_button_text">Website</string>
     <string name="source_code_button_text">Código-fonte</string>
@@ -114,4 +114,12 @@
     <string name="onboarding_warning_text_v33_2">Notificações não estão permitidas e a otimização de bateria ainda está ativada.
 \n
 \nVá em \"Configurações\" para dar permissão mais tarde</string>
+    <string name="onboarding_public_or_personal_title">Público ou Pessoal\?</string>
+    <string name="onboarding_public_personal_text">Com abas Públicas você pode acessar páginas públicas como notícias, vídeos ou artigos.
+\n
+\nPrecisa fazer login em uma conta com credenciais de acesso\? As abas Pessoais são certas para isso.</string>
+    <string name="onboarding_cleanup_title">Limpe tudo,
+\nem todos os lugares, todos ao mesmo tempo</string>
+    <string name="onboarding_cleanup_text">Limpar seu histórico do navegador, credenciais e qualquer vestígio que você deixou no &amp;brand ShortName; com um único botão.</string>
+    <string name="preferences_ceno_sources_upnp">Status UPnP</string>
 </resources>

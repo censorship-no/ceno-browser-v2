@@ -154,4 +154,18 @@
     <string name="preference_show_search_suggestions_summary">&brandShortName; надішле те, що ви введете в адресний рядок вашої пошукової системи</string>
     <string name="ouinet_client_fetch_fail">Не вдалося змінити &brandShortName; налаштування</string>
     <string name="addon_placeholder">Доповнення (Add-ons) недоступні</string>
+    <string name="ceno_home_card_public_title">ПУБЛІЧНІ ВКЛАДКИ</string>
+    <string name="ceno_onboarding_start_title">Поширюйте веб
+\nвід користувача до користувача</string>
+    <string name="onboarding_public_or_personal_title">Публічний чи персональний\?</string>
+    <string name="onboarding_public_personal_text">За допомогою публічних вкладок ви можете отримати доступ до загальнодоступних сторінок, таких як новини, відео чи статті.
+\n
+\nПотрібно ввійти в обліковий запис за допомогою облікових даних\? Персональні вкладки якраз підходять для цього.</string>
+    <string name="onboarding_cleanup_title">Очистити все,
+\nусюди, все й відразу</string>
+    <string name="onboarding_cleanup_text">Очистіть історію браузера, облікові дані та будь-які сліди, які ви залишили в &brandShortName; за допомогою однієї кнопки.</string>
+    <string name="ceno_onboarding_start_text">&brandShortName;’s одноранговий (піринговий) протокол дозволяє людям отримувати доступ до вмісту веб-сайту та обмінюватися ним у регіонах, де з’єднання було перервано або порушено.</string>
+    <string name="ceno_home_card_personal_text">Для входу в обліковий запис або доступу до облікових даних.</string>
+    <string name="ceno_home_card_public_text">Для доступу до публічних сторінок, таких як новини, відео чи статті.</string>
+    <string name="ceno_home_card_personal_title">ПЕРСОНАЛЬНІ ВКЛАДКИ</string>
 </resources>

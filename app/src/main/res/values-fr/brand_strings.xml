@@ -152,4 +152,6 @@
     <string name="onboarding_warning_text_v33_1">Les notifications ne sont pas autorisées.
 \n
 \nAccédez à « Paramètres &gt; Autoriser les notifications » pour les autoriser</string>
+    <string name="onboarding_public_or_personal_title">Public ou Personnel \?</string>
+    <string name="onboarding_cleanup_text">Effacez l\'historique de votre navigateur, vos identifiants et toute trace que vous avez laissée sur &amp;brand ShortName; avec un seul bouton.</string>
 </resources>
