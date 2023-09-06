@@ -7,7 +7,6 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.settings.Settings
 
-
 class OnboardingRobot {
 
     class Transition {

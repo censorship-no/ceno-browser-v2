@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.preference.PreferenceManager
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
@@ -34,9 +35,10 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.settings.Settings
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
@@ -47,7 +49,7 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 
 /**
- * Base fragment extended by [HomeFragment].
+ * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
  * This class only contains shared code focused on the main browsing content.
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
@@ -98,6 +100,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -177,13 +181,11 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         }
 
         /* CENO: Add purge button to toolbar */
-        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_clear_in_toolbar, true)) {
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
             val clearButtonFeature = ClearButtonFeature(
                 requireContext(),
-                CustomPreferenceManager.getString(
-                    requireContext(),
-                    R.string.pref_key_clear_behavior,
-                    "0")!!
+                prefs.getString(
+                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                     .toInt()
             )
             binding.toolbar.addBrowserAction(
@@ -195,29 +197,29 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         }
 
-        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_toolbar_hide)) {
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
                 binding.swipeRefresh,
                 binding.engineView,
-                CustomPreferenceManager.getBoolean(
-                    requireContext(),
-                    R.string.pref_key_toolbar_position
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
                 )
             )
         }
         else {
             binding.toolbar.disableDynamicBehavior(
                 binding.engineView,
-                CustomPreferenceManager.getBoolean(
-                    requireContext(),
-                    R.string.pref_key_toolbar_position
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
                 )
             )
         }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_search_suggestions)) {
+            if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,
@@ -278,17 +280,18 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     override fun onStart() {
         super.onStart()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         /* TODO: HomeFragment isn't used in for private mode yet,
          *   need to implement a private theme for the HomeFragment
          */
         //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
         //    binding.toolbar.private = private
         /* TODO: this is still a little messy, should create ThemeManager class */
-        val textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        val textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        val urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        val toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-        val statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
         /*
         if (private) {
@@ -324,9 +327,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             trackingProtectionException = statusIcon,
             highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
         )
-        val isToolbarPositionTop = CustomPreferenceManager.getBoolean(
-            requireContext(),
-            R.string.pref_key_toolbar_position
+        val isToolbarPositionTop = prefs.getBoolean(
+            requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+            false
         )
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
             DisplayToolbar.Gravity.BOTTOM

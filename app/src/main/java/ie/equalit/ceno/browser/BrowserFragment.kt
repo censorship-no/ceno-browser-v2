@@ -12,10 +12,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
+//import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+//import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.settings.Settings
 
 /**
  * Fragment used for browsing the web within the main app.
@@ -34,8 +36,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
     /*
-    If you have to enable this, remember to use CustomPreferenceManager in place of calling the PreferenceManager directly.
-
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
             getString(R.string.pref_key_compose_ui),
@@ -57,7 +57,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         )
 
 
-        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_home_button)) {
+        if (Settings.shouldShowHomeButton(requireContext())) {
             toolbar.addNavigationAction(homeAction)
         }
 

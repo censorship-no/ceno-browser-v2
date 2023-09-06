@@ -50,7 +50,7 @@ import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.CustomPreferenceManager
+import ie.equalit.ceno.settings.Settings
 import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -135,6 +135,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         sessionFeature.set(
             feature = SessionFeature(
@@ -219,7 +220,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 sessionId = sessionId,
                 fragmentManager = parentFragmentManager,
                 launchInApp = {
-                    CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_launch_external_app)
+                    prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_launch_external_app), false)
                 },
             ),
             owner = this,
@@ -322,13 +323,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
 
         /* CENO: Add purge button to toolbar */
-        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_clear_in_toolbar, true)) {
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
             val clearButtonFeature = ClearButtonFeature(
                 requireContext(),
-                CustomPreferenceManager.getString(
-                    requireContext(),
-                    R.string.pref_key_clear_behavior,
-                    "0")!!
+                prefs.getString(
+                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                     .toInt()
             )
             binding.toolbar.addBrowserAction(
@@ -340,30 +339,30 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
 
-        if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_toolbar_hide)) {
+        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
                 binding.swipeRefresh,
                 binding.engineView,
-                CustomPreferenceManager.getBoolean(
-                    requireContext(),
-                    R.string.pref_key_toolbar_position
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
                 )
             )
         }
         else {
             binding.toolbar.disableDynamicBehavior(
                 binding.engineView,
-                CustomPreferenceManager.getBoolean(
-                    requireContext(),
-                    R.string.pref_key_toolbar_position
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
                 )
             )
         }
 
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
-            if (CustomPreferenceManager.getBoolean(requireContext(), R.string.pref_key_show_search_suggestions)) {
+            if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,
@@ -432,6 +431,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     override fun onStart() {
         super.onStart()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         /* CENO: Set toolbar appearance based on whether current tab is private or not
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
@@ -478,9 +478,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             trackingProtectionException = statusIcon,
             highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
         )
-        val isToolbarPositionTop = CustomPreferenceManager.getBoolean(
-            requireContext(),
-            R.string.pref_key_toolbar_position
+        val isToolbarPositionTop = prefs.getBoolean(
+            requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+            false
         )
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
             DisplayToolbar.Gravity.BOTTOM

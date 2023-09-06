@@ -356,16 +356,16 @@ object CenoSettings {
     private fun updateOuinetStatus(context : Context, responseBody : String) {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
-        CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_state, status.state)
-        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_origin, status.origin_access)
-        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_private, status.proxy_access)
-        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_public, status.injector_access)
-        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_sources_shared, status.distributed_cache)
-        CustomPreferenceManager.setString(context, R.string.pref_key_ceno_cache_size, bytesToString(status.local_cache_size!!))
-        CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_version, status.ouinet_version)
-        CustomPreferenceManager.setString(context, R.string.pref_key_ouinet_build_id, status.ouinet_build_id)
-        CustomPreferenceManager.setInt(context, R.string.pref_key_ouinet_protocol, status.ouinet_protocol)
-        CustomPreferenceManager.setBoolean(context, R.string.pref_key_ceno_enable_log, status.logfile)
+        setOuinetState(context, status.state)
+        setCenoSourcesOrigin(context, status.origin_access)
+        setCenoSourcesPrivate(context, status.proxy_access)
+        setCenoSourcesPublic(context, status.injector_access)
+        setCenoSourcesShared(context, status.distributed_cache)
+        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
+        setOuinetVersion(context, status.ouinet_version)
+        setOuinetBuildId(context, status.ouinet_build_id)
+        setOuinetProtocol(context, status.ouinet_protocol)
+        setCenoEnableLog(context, status.logfile)
         setReachabilityStatus(context, status.udp_world_reachable)
         setLocalUdpEndpoint(context, status.local_udp_endpoints)
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
@@ -378,7 +378,7 @@ object CenoSettings {
     private fun updateCenoGroups(context : Context, responseBody : String) {
         Logger.debug("Response body: $responseBody")
         val groups = responseBody.reader().readLines()
-        CustomPreferenceManager.setInt(context, R.string.pref_key_ceno_groups_count, groups.count())
+        setCenoGroupsCount(context, groups.count())
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
@@ -397,8 +397,8 @@ object CenoSettings {
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
-                            CustomPreferenceManager.setString(context, R.string.pref_key_ceno_cache_size, bytesToString(0))
-                            CustomPreferenceManager.setInt(context, R.string.pref_key_ceno_groups_count, 0)
+                            setCenoCacheSize(context, bytesToString(0))
+                            setCenoGroupsCount(context, 0)
                             context.components.cenoPreferences.sharedPrefsUpdate = true
                             context.resources.getString(R.string.clear_cache_success)
                         }
