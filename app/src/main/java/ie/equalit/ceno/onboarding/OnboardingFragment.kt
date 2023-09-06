@@ -1,5 +1,6 @@
 package ie.equalit.ceno.onboarding
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingBinding
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
 

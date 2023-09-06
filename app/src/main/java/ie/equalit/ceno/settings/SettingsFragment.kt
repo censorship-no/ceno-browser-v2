@@ -68,7 +68,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             Logger.debug("Got change listener for $key = $newValue")
             if (newValue) {
                 Logger.debug("Reloading Settings fragment")
-                CustomPreferenceManager.setBoolean(requireContext(), pref_key_ceno_status_update_required, false)
+                CenoSettings.setStatusUpdateRequired(requireContext(), false)
                 findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
                 findNavController().navigate(R.id.action_global_settings)
             }
@@ -89,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     it.isEnabled = !(it.isEnabled)
                 }
                 getPreference(pref_key_ceno_download_log)?.let {
-                    it.isVisible = CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_enable_log)
+                    it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
                     it.isEnabled = !(it.isEnabled)
                     it.isEnabled = !(it.isEnabled)
                 }
@@ -262,11 +262,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
         val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
 
-        preferenceCenoDownloadLog?.isVisible = CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_enable_log)
+        preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
         preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
 
-        if (CustomPreferenceManager.getBoolean(requireContext(), pref_key_ceno_status_update_required)) {
+        if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
             setPreference(preferenceCenoSourcesOrigin, false)
@@ -304,14 +304,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
             )
             preferenceOuinetState?.summaryProvider = Preference.SummaryProvider<Preference> {
-                CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_state)
+                CenoSettings.getOuinetState(requireContext())
             }
             preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
-                CustomPreferenceManager.getString(requireContext(), pref_key_ceno_cache_size)
+                CenoSettings.getCenoCacheSize(requireContext())
             }
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
             preferenceCenoGroupsCount?.summaryProvider = Preference.SummaryProvider<Preference> {
-                String.format( "%d sites", CustomPreferenceManager.getInt(requireContext(), pref_key_ceno_groups_count))
+                String.format( "%d sites", CenoSettings.getCenoGroupsCount(requireContext()))
             }
             setPreference(
                 preferenceCenoGroupsCount,
@@ -339,7 +339,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 clickListener = getClickListenerForCenoDownloadLog()
             )
             preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
-                CustomPreferenceManager.getString(requireContext(), pref_key_ouinet_build_id)
+                    CenoSettings.getOuinetBuildId(requireContext())
         }
     }
 
@@ -442,14 +442,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
                 setPositiveButton(customize_addon_collection_ok) { _, _ ->
-                    CustomPreferenceManager.setString(
+                    ie.equalit.ceno.settings.Settings.setOverrideAmoUser(
                         context,
-                        pref_key_override_amo_user,
                         userView.text.toString()
                     )
-                    CustomPreferenceManager.setString(
+                    ie.equalit.ceno.settings.Settings.setOverrideAmoCollection(
                         context,
-                        pref_key_override_amo_collection,
                         collectionView.text.toString()
                     )
 
@@ -468,12 +466,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
                 collectionView.setText(
-                    CustomPreferenceManager.getString(
-                        context,
-                        pref_key_override_amo_collection
+                    ie.equalit.ceno.settings.Settings.getOverrideAmoCollection(
+                        context
                     )
                 )
-                userView.setText(CustomPreferenceManager.getString(context, pref_key_override_amo_user))
+                userView.setText(ie.equalit.ceno.settings.Settings.getOverrideAmoUser(context))
                 userView.requestFocus()
                 userView.showKeyboard()
                 create()

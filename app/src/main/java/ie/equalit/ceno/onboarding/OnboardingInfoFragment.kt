@@ -12,6 +12,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 
 class OnboardingInfoFragment : Fragment() {
     private var _binding: FragmentOnboardingInfoBinding? = null
@@ -22,7 +23,7 @@ class OnboardingInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentOnboardingInfoBinding.inflate(inflater, container,false)
+        _binding = FragmentOnboardingInfoBinding.inflate(inflater, container,false);
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }

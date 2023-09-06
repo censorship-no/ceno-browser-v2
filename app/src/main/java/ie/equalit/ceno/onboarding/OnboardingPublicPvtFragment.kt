@@ -12,6 +12,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +27,7 @@ class OnboardingPublicPvtFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingPublicPvtBinding.inflate(inflater, container,false)
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))

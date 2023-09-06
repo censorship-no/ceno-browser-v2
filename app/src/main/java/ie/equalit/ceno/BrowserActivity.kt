@@ -5,7 +5,6 @@
 package ie.equalit.ceno
 
 import android.app.ActivityManager
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -20,9 +19,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.RadioButton
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -52,10 +53,11 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
-import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.Sentry
 import io.sentry.SentryEvent
@@ -145,7 +147,7 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.popBackStack() // Remove startupFragment from backstack
         navHost.navController.navigate(
             when {
-                CustomPreferenceManager.getBoolean(this, R.string.pref_key_show_onboarding) && savedInstanceState == null -> R.id.action_global_onboarding
+                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
                 components.core.store.state.selectedTab == null -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
@@ -492,7 +494,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun initializeSearchEngines() {
-        if (CustomPreferenceManager.getBoolean(this, R.string.pref_key_update_search_engines)) {
+        if (Settings.shouldUpdateSearchEngines(this)) {
             components.core.store.state.search.searchEngines.filter { searchEngine ->
                 searchEngine.id in listOf(
                         getString(R.string.remove_search_engine_id_1),
@@ -507,7 +509,7 @@ open class BrowserActivity : BaseActivity() {
             }
             Logger.debug("${components.core.store.state.search.searchEngines}")
             Logger.debug("${components.core.store.state.search.selectedOrDefaultSearchEngine}")
-            CustomPreferenceManager.setBoolean(this, R.string.pref_key_update_search_engines, false)
+            Settings.setUpdateSearchEngines(this, false)
         }
     }
 }

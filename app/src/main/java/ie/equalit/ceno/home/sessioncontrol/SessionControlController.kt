@@ -6,8 +6,11 @@ package ie.equalit.ceno.home.sessioncontrol
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,8 +25,10 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
+import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**

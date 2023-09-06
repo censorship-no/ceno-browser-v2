@@ -57,7 +57,7 @@ class HomeFragment : BaseHomeFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false);
         val activity = activity as BrowserActivity
         val components = requireComponents
 

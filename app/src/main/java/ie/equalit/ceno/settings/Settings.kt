@@ -49,16 +49,16 @@ object Settings {
         )
 
     fun shouldUpdateSearchEngines(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_update_search_engines), false
-        )
+            PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                    context.getString(R.string.pref_key_update_search_engines), false
+            )
 
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
+                .edit()
+                .putBoolean(key, value)
+                .apply()
     }
 
     fun setShowOnboarding(context: Context, value: Boolean) {
@@ -72,9 +72,9 @@ object Settings {
     fun setMobileData(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_mobile_data)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
+                .edit()
+                .putBoolean(key, value)
+                .apply()
     }
 
     fun setOverrideAmoUser(context: Context, value: String) {
@@ -114,7 +114,7 @@ object Settings {
 
     fun getAppTheme(context: Context) : Int {
         val themeString = PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_theme), context.getString(R.string.preferences_theme_default)
+                context.getString(R.string.pref_key_theme), context.getString(R.string.preferences_theme_default)
         )
         return themeString!!.toInt()
     }
