@@ -87,9 +87,9 @@
     <string name="shutdown_stop_title">&brandShortName; Browser durduruluyor</string>
     <string name="onboarding_battery_text">Birazdan, işletim sisteminiz sizden şu izinleri isteyecek:
 \n
-\n• Pil iyileştirmelerini devre dışı bırakma
+\n• Pil iyileştirmelerini kapatma
 \n
-\nBu izin, uygulama arka planda çalışırken sitelerin paylaşımını devam ettirmek için gereklidir.</string>
+\nBu izin, uygulama arka planda çalışırken siteleri paylaşmayı sürdürmek için gereklidir.</string>
     <string name="preferences_clear_ceno_cache_summary">Yerel ön bellekteki internet içeriğini temizle</string>
     <string name="ouinet_client_fetch_fail">&brandShortName; ayarı değiştirilemedi</string>
     <string name="about_content"><p>%1$s - İnterneti paylaşın!</p> <p>Ceno (censorship.no!\'nun kısaltması), güncel İnternet sansür yöntemlerinin etrafından dolaşan dünyanın ilk mobil tarayıcısıdır. Eşler arası omurgası, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde ve bölgeler arasında site bilgilerine erişmesini ve bunları paylaşmasını sağlar. </p> <p>%1$s, hedefi çevrim içi serbest bilgi akışı ile birlikte temel özgürlükleri ve insan haklarını desteklemek ve savunmak olan Kanadalı eQualitie kuruluşunun bir projesidir. Erişilebilir teknolojiler oluşturmayı ve dijital çağda insan hakları ve özgürlüklerini savunmak için gereken becerileri geliştirmeyi hedefliyoruz.</p></string>
@@ -109,9 +109,9 @@
     <string name="onboarding_battery_text_v33">Birazdan işletim sisteminiz sizden şu izinleri isteyecek:
 \n
 \n• Bildirim izni
-\n• Pil iyileştirmelerini devre dışı bırakma
+\n• Pil iyileştirmelerini kapatma
 \n
-\nBu izin uygulama arka planda çalışırken sitelerin paylaşımını devam ettirmek için gereklidir</string>
+\nBu izin uygulama arka planda çalışırken siteleri paylaşmayı sürdürmek için gereklidir</string>
     <string name="onboarding_warning_text_v33_1">Bildirimlere izin verilmiyor.
 \n
 \nDaha sonra izin vermek için \"Ayarlar &gt; Bildirimlere izin ver\" bölümüne gidin</string>
