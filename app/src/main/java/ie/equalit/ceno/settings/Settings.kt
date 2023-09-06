@@ -187,4 +187,57 @@ object Settings {
             .putBoolean(key, value)
             .apply()
     }
+
+    fun showCrashReportingPermissionNudge(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_crash_happened), false
+        ) && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_crash_reporting_permission), true
+        )
+    }
+
+    fun setCrashHappenedValue(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_crash_happened)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun blockCrashReportingPermissionNudge(context: Context) {
+        val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, false)
+            .apply()
+    }
+
+    fun allowCrashReportingPermission(context: Context) {
+        val key = context.getString(R.string.pref_key_allow_crash_reporting)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, true)
+            .apply()
+    }
+
+    fun getLastCrash(context: Context): String =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_last_crash),
+            ""
+        ) ?: ""
+
+    fun setLastCrash(context: Context, value: String) {
+        val key = context.getString(R.string.pref_key_last_crash)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, value)
+            .apply()
+    }
+
+    fun isCrashReportingPermissionGranted(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_allow_crash_reporting), false
+        )
+    }
+
 }

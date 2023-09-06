@@ -23,7 +23,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -57,7 +56,6 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
-import ie.equalit.ceno.settings.CustomPreferenceManager
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.Sentry
 import io.sentry.SentryEvent
@@ -172,13 +170,12 @@ open class BrowserActivity : BaseActivity() {
         lifecycle.addObserver(webExtensionPopupFeature)
 
         // Check for previous crashes
-        if(CustomPreferenceManager.getBoolean(this, R.string.pref_key_crash_happened, false) &&
-            CustomPreferenceManager.getBoolean(this, R.string.pref_key_show_crash_reporting_permission, true)) {
+        if(Settings.showCrashReportingPermissionNudge(this)) {
+
             // reset the value
-            CustomPreferenceManager.setBoolean(this, R.string.pref_key_crash_happened, false)
+            Settings.setCrashHappenedValue(this, false)
 
             // launch Sentry activation dialog
-
             val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
             val doNotAskAgainCheck = dialogView.findViewById<CheckBox>(R.id.cb_do_not_ask_again)
             val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
@@ -193,17 +190,17 @@ open class BrowserActivity : BaseActivity() {
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
                     when {
                         doNotAskAgainCheck.isChecked && radio1.isChecked -> {
-                            CustomPreferenceManager.setBoolean(this@BrowserActivity, R.string.pref_key_allow_crash_reporting, true)
+                            Settings.allowCrashReportingPermission(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity)) // Re-initialize Sentry-Android
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
                         doNotAskAgainCheck.isChecked && radio2.isChecked -> {
-                            CustomPreferenceManager.setBoolean(this@BrowserActivity, R.string.pref_key_show_crash_reporting_permission, false)
+                            Settings.blockCrashReportingPermissionNudge(this@BrowserActivity)
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
                         }
                         !doNotAskAgainCheck.isChecked && radio1.isChecked -> {
-                            val lastCrash = CustomPreferenceManager.getString(this@BrowserActivity, R.string.pref_key_last_crash)
-                            if(!lastCrash.isNullOrEmpty()) {
+                            val lastCrash = Settings.getLastCrash(this@BrowserActivity)
+                            if(lastCrash.isNotEmpty()) {
                                 val gson = Gson()
                                 val sentryEvent = gson.fromJson(lastCrash, SentryEvent::class.java)
                                 Sentry.captureEvent(sentryEvent)

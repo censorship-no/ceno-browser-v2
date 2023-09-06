@@ -1,18 +1,17 @@
 package ie.equalit.ceno.utils
 
 import android.content.Context
-import ie.equalit.ceno.R
-import ie.equalit.ceno.settings.CustomPreferenceManager
 import io.sentry.EventProcessor
 import io.sentry.Hint
 import io.sentry.SentryEvent
 import org.json.JSONObject
 import com.google.gson.Gson
+import ie.equalit.ceno.settings.Settings
 
 class SentryEventProcessor(val context: Context) : EventProcessor {
     override fun process(event: SentryEvent, hint: Hint): SentryEvent? {
 
-        val isPermissionGranted = CustomPreferenceManager.getBoolean(context, R.string.pref_key_allow_crash_reporting, false)
+        val isPermissionGranted = Settings.isCrashReportingPermissionGranted(context)
         val isCrash = event.exceptions?.isNotEmpty() == true
 
         return when {
@@ -25,10 +24,10 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
                 val sentryEventJson = gson.toJson(event)
 
                 // Save crash event as a String to local
-                CustomPreferenceManager.setString(context, R.string.pref_key_last_crash, JSONObject(sentryEventJson).toString())
+                Settings.setLastCrash(context, JSONObject(sentryEventJson).toString())
 
                 // save a variable to nudge users to activate crash recording on next launch
-                CustomPreferenceManager.setBoolean(context, R.string.pref_key_crash_happened, true)
+                Settings.setCrashHappenedValue(context, true)
                 null
             }
             else -> {
