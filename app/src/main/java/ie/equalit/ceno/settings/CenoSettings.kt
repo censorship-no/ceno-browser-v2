@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
@@ -371,7 +370,6 @@ object CenoSettings {
         setLocalUdpEndpoint(context, status.local_udp_endpoints)
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
-        Log.d("PPPPPP", status.public_udp_endpoints.toString())
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
