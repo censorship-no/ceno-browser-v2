@@ -177,7 +177,7 @@ open class BrowserActivity : BaseActivity() {
 
             // launch Sentry activation dialog
             val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
-            val doNotAskAgainCheck = dialogView.findViewById<CheckBox>(R.id.cb_do_not_ask_again)
+            val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
             val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
             val radio2 = dialogView.findViewById<RadioButton>(R.id.radio2)
 
@@ -189,16 +189,12 @@ open class BrowserActivity : BaseActivity() {
                 setView(dialogView)
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
                     when {
-                        doNotAskAgainCheck.isChecked && radio1.isChecked -> {
+                        radio0.isChecked -> {
                             Settings.allowCrashReportingPermission(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity)) // Re-initialize Sentry-Android
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
-                        doNotAskAgainCheck.isChecked && radio2.isChecked -> {
-                            Settings.blockCrashReportingPermissionNudge(this@BrowserActivity)
-                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
-                        }
-                        !doNotAskAgainCheck.isChecked && radio1.isChecked -> {
+                        radio1.isChecked -> {
                             val lastCrash = Settings.getLastCrash(this@BrowserActivity)
                             if(lastCrash.isNotEmpty()) {
                                 val gson = Gson()
@@ -206,15 +202,14 @@ open class BrowserActivity : BaseActivity() {
                                 Sentry.captureEvent(sentryEvent)
                             }
                         }
+                        radio2.isChecked -> {
+                            Settings.blockCrashReportingPermissionNudge(this@BrowserActivity)
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                        }
                         else -> {
                             // Close the dialog
                         }
                     }
-                }
-
-                doNotAskAgainCheck.setOnCheckedChangeListener { _, b ->
-                    radio1.text = if(b) getString(R.string.crash_reporting_always_send) else getString(R.string.crash_reporting_send_once)
-                    radio2.text = if(b) getString(R.string.crash_reporting_never_send) else getString(R.string.crash_reporting_dont_send_this_time)
                 }
 
                 create()
