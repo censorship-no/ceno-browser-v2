@@ -103,7 +103,7 @@ class WebExtensionActionPopupPanel(
     private fun getSources(url: String) {
         MainScope().launch {
             webClientRequest(Request(url)).let { response ->
-                if(response != null) {
+                if (response != null) {
                     // load UI state
                 } else {
                     // display error view that can trigger a retry of the API call
@@ -112,8 +112,8 @@ class WebExtensionActionPopupPanel(
         }
     }
 
-    private suspend fun webClientRequest (request: Request): CenoSources? {
-        var responseBody : CenoSources? = null
+    private suspend fun webClientRequest(request: Request): CenoSources? {
+        var responseBody: CenoSources? = null
         var tries = 0
         var success = false
         while (tries < 5 && !success) {
