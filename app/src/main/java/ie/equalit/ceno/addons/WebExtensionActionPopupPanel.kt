@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isGone
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -38,12 +39,15 @@ class WebExtensionActionPopupPanel(
 
     private var session: EngineSession? = null
 
+    private var sourceUrl: String? = null // for retrying in case network call fails
+
     init {
         initWindow()
         setContentView(binding.root)
         expand()
         updateTitle()
         updateConnectionState()
+        setOnClickListener()
     }
 
     private fun initWindow() {
@@ -101,12 +105,24 @@ class WebExtensionActionPopupPanel(
     }
 
     private fun getSources(url: String) {
+        binding.progressBar.isGone = false
+        binding.failureGroup.isGone = true
+        binding.successGroup.isGone = false
+
         MainScope().launch {
             webClientRequest(Request(url)).let { response ->
                 if (response != null) {
-                    // load UI state
+                    binding.progressBar.isGone = true
+                    binding.tvDirectFromWebsiteCount.text = response.origin ?: "0"
+                    binding.tvPersonalNetworkCount.text = response.proxy ?: "0"
+                    binding.tvPublicNetworkCount.text = response.injector ?: "0"
+                    binding.tvSharedByOthersCount.text = response.distCache ?: "0"
+                    binding.tvSharedByYouCount.text = response.localCache ?: "0"
                 } else {
                     // display error view that can trigger a retry of the API call
+                    binding.progressBar.isGone = true
+                    binding.failureGroup.isGone = false
+                    binding.successGroup.isGone = true
                 }
             }
         }
@@ -157,9 +173,16 @@ class WebExtensionActionPopupPanel(
         }
     }
 
+    private fun setOnClickListener() {
+        binding.btnRetry.setOnClickListener {
+            sourceUrl?.let { getSources(it) }
+        }
+    }
+
     override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
         super.onLoadRequest(url, triggeredByRedirect, triggeredByWebContent)
         session?.unregister(this)
-        getSources(url.replace("popup.html", "sources.html"))
+        sourceUrl = url.replace("popup.html", "sources.html")
+        sourceUrl?.let { getSources(it) }
     }
 }
