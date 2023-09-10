@@ -28,6 +28,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         setupPreferences()
+        print(1/0)
         getActionBar().apply{
             show()
             setTitle(R.string.preferences_ceno_network_config)
