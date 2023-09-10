@@ -211,6 +211,7 @@ open class BrowserActivity : BaseActivity() {
                         }
                     }
                 }
+                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->  }
 
                 create()
             }.show()
