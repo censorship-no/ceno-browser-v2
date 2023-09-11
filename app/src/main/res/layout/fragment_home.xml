@@ -109,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/browser_toolbar_height"
         android:layout_gravity="bottom"
-        android:background="@color/toolbarBackgroundColor"
+        android:background="?toolbarBackground"
         mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
         mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
         mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />

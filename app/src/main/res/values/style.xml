@@ -101,9 +101,10 @@
         <item name="neutral">@color/neutral_normal_theme</item>
         <item name="neutralFaded">@color/neutral_faded_normal_theme</item>
         <item name="accentUsedOnDarkBackground">@color/fx_mobile_text_color_accent</item>
-        <item name="toolbarStartGradient">@color/fx_mobile_layer_color_1</item>
-        <item name="toolbarCenterGradient">@color/fx_mobile_layer_color_1</item>
-        <item name="toolbarEndGradient">@color/fx_mobile_layer_color_1</item>
+
+        <item name="toolbarBackground">@color/fx_mobile_layer_color_1</item>
+        <item name="toolbarUrlBackground">@color/fx_mobile_layer_color_3</item>
+
         <item name="fillLinkFromClipboard">@color/fill_link_from_clipboard_normal_theme</item>
         <item name="syncDisconnected">@color/sync_disconnected_icon_fill_normal_theme</item>
         <item name="syncDisconnectedBackground">@color/sync_disconnected_background_normal_theme</item>
@@ -274,5 +275,12 @@
         <item name="android:textColor">@color/fx_mobile_text_color_primary</item>
     </style>
     <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <style name="PersonalThemeOverlayBase" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="toolbarBackground">@color/fx_mobile_private_layer_color_1</item>
+        <item name="toolbarUrlBackground">@color/fx_mobile_private_layer_color_3</item>
+    </style>
+
+    <style name="PersonalTheme" parent="PersonalThemeOverlayBase" />
 
 </resources>

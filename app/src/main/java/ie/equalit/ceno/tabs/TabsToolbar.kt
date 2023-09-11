@@ -8,8 +8,9 @@ import android.content.Context
 import android.util.AttributeSet
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.requireComponents
 
 /* CENO: Modify closeTabsTray function to take booleans for determining
  * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
@@ -21,6 +22,7 @@ class TabsToolbar @JvmOverloads constructor(
     private var tabsFeature: TabsFeature? = null
     private var isPrivateTray = false
     private var closeTabsTray: ((Boolean) -> Unit)? = null
+    private lateinit var browsingModeManager: BrowsingModeManager
 
     init {
         navigationContentDescription = "back"
@@ -34,6 +36,8 @@ class TabsToolbar @JvmOverloads constructor(
             val tabsUseCases = components.useCases.tabsUseCases
             when (it.itemId) {
                 R.id.newTab -> {
+                    //set browsing mode
+                    browsingModeManager.mode = BrowsingMode.fromBoolean(isPrivateTray)
                     when (isPrivateTray) {
                         true -> {
                             tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
@@ -55,9 +59,14 @@ class TabsToolbar @JvmOverloads constructor(
         }
     }
 
-    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: (Boolean) -> Unit) {
+    fun initialize(
+        tabsFeature: TabsFeature?,
+        browsingModeManager: BrowsingModeManager,
+        closeTabsTray: (Boolean) -> Unit
+    ) {
         this.tabsFeature = tabsFeature
         this.closeTabsTray = closeTabsTray
+        this.browsingModeManager = browsingModeManager
     }
 
     fun updateToolbar(isPrivate: Boolean) {

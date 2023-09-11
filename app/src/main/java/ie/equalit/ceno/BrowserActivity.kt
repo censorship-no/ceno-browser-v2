@@ -43,7 +43,10 @@ import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
@@ -55,12 +58,16 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ui.theme.DefaultThemeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
+import mozilla.components.support.utils.toSafeIntent
 import kotlin.system.exitProcess
 
 /**
@@ -69,6 +76,8 @@ import kotlin.system.exitProcess
 open class BrowserActivity : BaseActivity() {
 
     private lateinit var crashIntegration: CrashIntegration
+    lateinit var themeManager: ThemeManager
+    lateinit var browsingModeManager: BrowsingModeManager
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -110,6 +119,8 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -211,6 +222,16 @@ open class BrowserActivity : BaseActivity() {
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
+    }
+
+    private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {
+        cenoPreferences().lastKnownBrowsingMode = mode
+        browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
+            themeManager.currentTheme = newMode
+        }
+        themeManager = DefaultThemeManager(mode, this)
+        themeManager.setActivityTheme(this)
+        themeManager.applyStatusBarTheme(this)
     }
 
     override fun onPause() {
@@ -379,6 +400,8 @@ open class BrowserActivity : BaseActivity() {
     fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
         if (url != null) {
             if (newTab) {
+                //set browsingMode
+                browsingModeManager.mode = BrowsingMode.fromBoolean(private)
                 components.useCases.tabsUseCases.addTab(
                     url = url,
                     selectTab = true,

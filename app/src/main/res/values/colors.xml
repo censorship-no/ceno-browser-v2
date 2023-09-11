@@ -161,7 +161,7 @@
     <!-- Card background, Menu background, Dialog, Banner -->
     <color name="fx_mobile_private_layer_color_2">@color/photonInk50</color>
     <!-- Search -->
-    <color name="fx_mobile_private_layer_color_3">@color/photonInk50</color>
+    <color name="fx_mobile_private_layer_color_3">@color/photonInk70</color>
     <!-- Homescreen background, Toolbar -->
     <color name="fx_mobile_private_layer_color_4_start">@color/photonPurple70</color>
     <!-- Homescreen background, Toolbar -->
@@ -370,8 +370,6 @@
 
     <!-- CENO: END OF COPIED FROM FENIX -->
 
-    <color name="toolbarBackgroundColor">@color/fx_mobile_layer_color_1</color>
-    <color name="toolbarUrlBoxColor">@color/fx_mobile_layer_color_3</color>
     <color name="toolbarSuggestionForeground">@color/fx_mobile_layer_color_2</color>
     <color name="toolbarSuggestionBackground">@color/accent</color>
 

@@ -4,9 +4,11 @@
 
 package ie.equalit.ceno.browser
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +41,7 @@ import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
@@ -51,6 +54,7 @@ import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.ui.theme.ThemeManager
 import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -117,6 +121,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     protected var webAppToolbarShouldBeVisible = true
 
+    private lateinit var browsingMode: BrowsingMode
+    private lateinit var themeManager: ThemeManager
+
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -136,7 +143,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -437,36 +443,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          */
 
         /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
+
+        var urlBackground = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.url_background)
         var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
-        requireComponents.core.store.state.selectedTab?.content?.private?.let { private ->
-            binding.toolbar.private = private
-            if (private) {
-                textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
-                textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
-                urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_private_background)
-                toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
-                statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
-            }
-        }
-
         binding.toolbar.display.setUrlBackground(urlBackground)
-        binding.toolbar.background = toolbarBackground
-        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                text = textPrimary,
-                hint = textSecondary
-        )
-        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                text = textPrimary,
-                hint = textSecondary,
-                securityIconSecure = textPrimary,
-                securityIconInsecure = textPrimary,
-                menu = textPrimary
-        )
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
@@ -583,6 +564,24 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             else -> null
         }
         feature?.onPermissionsResult(permissions, grantResults)
+    }
+
+    /**
+     *  Returns inflater with theme wrapped context for personal browsing mode [PersonalTheme]
+    * */
+    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+        if (themeManager.currentTheme.isPersonal) {
+            return LayoutInflater.from(themeManager.getContext())
+        }
+        return super.onGetLayoutInflater(savedInstanceState)
+    }
+
+    /**
+     * Initializes themeManager to be used in [onGetLayoutInflater]
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        themeManager = (activity as BrowserActivity).themeManager
     }
 
     companion object {

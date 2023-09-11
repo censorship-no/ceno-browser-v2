@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.BrowserActivity
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
@@ -26,6 +27,7 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 
@@ -35,8 +37,13 @@ import ie.equalit.ceno.ext.requireComponents
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.fragment_tabstray, container, false)
+    lateinit var browsingModeManager: BrowsingModeManager
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
+        return inflater.inflate(R.layout.fragment_tabstray, container, false)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,8 +68,9 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         val tabsPanel: TabsPanel = view.findViewById(R.id.tabsPanel)
         val tabsToolbar: TabsToolbar = view.findViewById(R.id.tabsToolbar)
 
-        tabsPanel.initialize(tabsFeature, updateTabsToolbar = ::updateTabsToolbar)
-        tabsToolbar.initialize(tabsFeature, ::closeTabsTray)
+        tabsPanel.initialize(tabsFeature, browsingModeManager, updateTabsToolbar = ::updateTabsToolbar)
+        tabsToolbar.initialize(tabsFeature, browsingModeManager, ::closeTabsTray)
+
     }
 
     override fun onStart() {

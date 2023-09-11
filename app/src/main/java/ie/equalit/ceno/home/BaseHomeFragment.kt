@@ -286,36 +286,12 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
          */
         //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
         //    binding.toolbar.private = private
-        /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+//        /* TODO: this is still a little messy, should create ThemeManager class */
+
         var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
         var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
-        /*
-        if (private) {
-            textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
-            textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
-            urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_private_background)
-            toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
-            statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
-        }
-        */
-
         binding.toolbar.display.setUrlBackground(urlBackground)
-        binding.toolbar.background = toolbarBackground
-        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                text = textPrimary,
-                hint = textSecondary
-        )
-        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                text = textPrimary,
-                hint = textSecondary,
-                securityIconSecure = textPrimary,
-                securityIconInsecure = textPrimary,
-                menu = textPrimary
-        )
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
