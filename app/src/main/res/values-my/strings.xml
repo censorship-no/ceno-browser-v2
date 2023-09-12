@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">သီးသန့် ရှာဖွေကြည့်ရှုခြင်းတွင် ဖွင့်ထားသည်</string>
+    <string name="preferences_tracking_protection_private">တစ်ကိုယ်ရည်သုံးရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
     <!-- Preference for privacy -->
     <string name="privacy">ကိုယ်ပိုင်လွတ်လပ်ခွင့်</string>
     <!-- Preference summary for privacy -->
@@ -118,7 +118,7 @@
     <string name="general_category">အထွေထွေ</string>
     <string name="toolbar_category">Toolbar ရွေးစရာများ</string>
     <string name="preferences_autofill">အလိုအလျောက်ဖြည့်ခြင်း အက်ပလီကေးရှင်းများ</string>
-    <string name="preferences_tracking_protection_normal">ပုံမှန် ရှာဖွေခြင်းမုဒ်၌ ဖွင့်ထားသည်</string>
+    <string name="preferences_tracking_protection_normal">ပုံမှန် ရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
     <string name="preferences_privacy_summary">တစ်ကိုယ်ရည်သုံးနှင့် အများသုံး ရှာဖွေခြင်းကို ဖွင့်ထားသည်</string>
     <string name="theme_category">အပြင်အဆင်</string>
     <string name="toast_copied">ကူးယူခဲ့ပြီး!</string>
@@ -155,4 +155,6 @@
     <string name="preference_category_search">ရှာဖွေမည်</string>
     <string name="preference_search_summary">ပုံသေ သတ်မှတ်မည်</string>
     <string name="preference_choose_search_engine">ရှာဖွေရေးအင်ဂျင်ကို ရွေးချယ်ပါ</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
 </resources>
