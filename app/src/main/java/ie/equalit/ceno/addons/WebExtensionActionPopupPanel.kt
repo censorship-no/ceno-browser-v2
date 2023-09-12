@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -36,8 +37,6 @@ class WebExtensionActionPopupPanel(
 
     private var binding: DialogWebExtensionPopupSheetBinding =
         DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
-
-    private var session: EngineSession? = null
 
     private var sourceUrl: String? = null // for retrying in case network call fails
 
@@ -100,15 +99,20 @@ class WebExtensionActionPopupPanel(
     }
 
     fun renderSettingsView(engineSession: EngineSession) {
-        session = engineSession
-        session?.register(this)
+        engineSession.register(object : EngineSession.Observer {
+            override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
+                super.onLoadRequest(url, triggeredByRedirect, triggeredByWebContent)
+                sourceUrl = url.replace("popup.html", "sources.html")
+                Logger.debug(sourceUrl)
+                sourceUrl?.let { getSources(it) }
+            }
+        })
     }
 
     private fun getSources(url: String) {
         binding.progressBar.isGone = false
         binding.failureGroup.isGone = true
-        binding.successGroup.isGone = false
-
+        binding.successGroup.isInvisible = false // isInvisible toggle between View.INVISIBLE and View.VISIBLE
         MainScope().launch {
             webClientRequest(Request(url)).let { response ->
                 if (response != null) {
@@ -122,7 +126,7 @@ class WebExtensionActionPopupPanel(
                     // display error view that can trigger a retry of the API call
                     binding.progressBar.isGone = true
                     binding.failureGroup.isGone = false
-                    binding.successGroup.isGone = true
+                    binding.successGroup.isInvisible = true
                 }
             }
         }
@@ -149,6 +153,7 @@ class WebExtensionActionPopupPanel(
             } catch (ex: Exception) {
                 tries++
                 Logger.debug("Clear cache failed on try $tries")
+                Logger.debug(ex.toString())
                 delay(500)
             }
         }
@@ -177,12 +182,5 @@ class WebExtensionActionPopupPanel(
         binding.btnRetry.setOnClickListener {
             sourceUrl?.let { getSources(it) }
         }
-    }
-
-    override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
-        super.onLoadRequest(url, triggeredByRedirect, triggeredByWebContent)
-        session?.unregister(this)
-        sourceUrl = url.replace("popup.html", "sources.html")
-        sourceUrl?.let { getSources(it) }
     }
 }
