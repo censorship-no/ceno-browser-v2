@@ -195,11 +195,11 @@ object Settings {
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
 
-    fun blockCrashReportingPermissionNudge(context: Context) {
+    fun toggleCrashReportingPermissionNudge(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putBoolean(key, false)
+            .putBoolean(key, value)
             .apply()
     }
 

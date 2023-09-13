@@ -206,7 +206,7 @@ open class BrowserActivity : BaseActivity() {
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                         }
                         radio2.isChecked -> {
-                            Settings.blockCrashReportingPermissionNudge(this@BrowserActivity)
+                            Settings.toggleCrashReportingPermissionNudge(this@BrowserActivity, false)
                             Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
