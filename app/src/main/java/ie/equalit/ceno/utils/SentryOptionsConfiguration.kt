@@ -13,6 +13,7 @@ object SentryOptionsConfiguration {
 
     fun getConfig(context: Context): Sentry.OptionsConfiguration<SentryAndroidOptions> {
 
+        // The snippet below makes sure the DEFAULT value of the crash report permission is never true
         if(!Settings.isCrashReportingPermissionGranted(context)) {
             Settings.setCrashReportingPermissionValue(context, false)
         }
