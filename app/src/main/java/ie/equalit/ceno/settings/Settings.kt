@@ -273,4 +273,15 @@ object Settings {
             .apply()
     }
 
+    // duplicate function that uses commit() instead of apply()
+    // This is necessary for the purpose of immediately saving crash logs locally when a crash happens
+    @SuppressLint("ApplySharedPref")
+    fun logSuccessfulCrashEventCommit(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_crash_was_logged)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .commit()
+    }
+
 }

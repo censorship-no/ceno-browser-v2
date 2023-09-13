@@ -16,7 +16,7 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
 
         return when {
             isPermissionGranted -> {
-                Settings.logSuccessfulCrashEvent(context, true)
+                Settings.logSuccessfulCrashEventCommit(context, true)
                 event
             }
             isCrash -> {
