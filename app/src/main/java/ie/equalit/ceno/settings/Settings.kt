@@ -242,9 +242,9 @@ object Settings {
     }
 
     fun neverAllowCrashReporting(context: Context) {
+        setLastCrash(context, "") // reset the value of lastCrash
         toggleCrashReportingPermissionNudge(context, false)
         setCrashReportingPermissionValue(context, false)
-        setLastCrash(context, "") // reset the value of lastCrash
     }
 
 }

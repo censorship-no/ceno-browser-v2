@@ -1,6 +1,7 @@
 package ie.equalit.ceno.utils
 
 import android.content.Context
+import android.util.Log
 import io.sentry.EventProcessor
 import io.sentry.Hint
 import io.sentry.SentryEvent

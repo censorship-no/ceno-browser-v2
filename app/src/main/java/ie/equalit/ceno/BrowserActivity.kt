@@ -219,6 +219,9 @@ open class BrowserActivity : BaseActivity() {
                 }
                 create()
             }.show()
+        } else {
+            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
         }
     }
 
