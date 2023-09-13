@@ -404,7 +404,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 requireContext(),
                 SentryOptionsConfiguration.getConfig(requireContext())
             )
-            // Re-allow permissions nudge
+            // Re-allow post-crash permissions nudge
             ie.equalit.ceno.settings.Settings.toggleCrashReportingPermissionNudge(requireContext(), true)
             true
         }

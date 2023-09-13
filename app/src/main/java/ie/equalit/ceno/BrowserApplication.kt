@@ -55,8 +55,6 @@ open class BrowserApplication : Application() {
             SentryOptionsConfiguration.getConfig(this)
         )
 
-
-
         //------------------------------------------------------------
         // Ouinet
         //------------------------------------------------------------

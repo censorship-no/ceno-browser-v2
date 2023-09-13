@@ -25,7 +25,7 @@ object SentryOptionsConfiguration {
             it.isAttachViewHierarchy = true
             it.sampleRate = 1.0
             it.profilesSampleRate = 1.0
-            it.isAnrEnabled = true
+            it.isAnrEnabled = false
             it.addEventProcessor(SentryEventProcessor(context))
         }
     }
