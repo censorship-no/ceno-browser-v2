@@ -259,4 +259,18 @@ object Settings {
         setCrashReportingPermissionValue(context, false)
     }
 
+    fun wasCrashSuccessfullyLogged(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_crash_was_logged), false
+        )
+    }
+
+    fun logSuccessfulCrashEvent(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_crash_was_logged)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
 }

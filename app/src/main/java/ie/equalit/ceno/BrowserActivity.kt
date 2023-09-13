@@ -18,6 +18,7 @@ import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -62,6 +63,7 @@ import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.pwa.ext.putWebAppManifest
 import kotlin.system.exitProcess
 
@@ -168,6 +170,12 @@ open class BrowserActivity : BaseActivity() {
          */
         lifecycle.addObserver(webExtensionPopupFeature)
 
+        // check if a crash happened in the last session
+        if(Settings.wasCrashSuccessfullyLogged(this@BrowserActivity)) {
+            Settings.logSuccessfulCrashEvent(this@BrowserActivity, false)
+            Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
+        }
+
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
 
@@ -200,6 +208,7 @@ open class BrowserActivity : BaseActivity() {
 
                             Settings.allowCrashReportingJustOnce(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+                            Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
                         }
                         radio2.isChecked -> {
                             Settings.neverAllowCrashReporting(this@BrowserActivity)
