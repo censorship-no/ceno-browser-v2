@@ -27,7 +27,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
-        print(7/0)
         setupPreferences()
         getActionBar().apply{
             show()
