@@ -19,7 +19,7 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
                 event
             }
             isCrash -> {
-                Settings.setLastCrash(context, JSONObject(Gson().toJson(event)).toString())
+                Settings.setLastCrashCommit(context, JSONObject(Gson().toJson(event)).toString())
                 null
             }
             else -> {

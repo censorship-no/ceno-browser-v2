@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.settings
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
@@ -223,6 +224,17 @@ object Settings {
             .edit()
             .putString(key, value)
             .apply()
+    }
+
+    // duplicate function that uses commit() instead of apply()
+    // This is necessary for the purpose of immediately saving crash logs locally when a crash happens
+    @SuppressLint("ApplySharedPref")
+    fun setLastCrashCommit(context: Context, value: String) {
+        val key = context.getString(R.string.pref_key_last_crash)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, value)
+            .commit()
     }
 
     fun isCrashReportingPermissionGranted(context: Context) : Boolean {
