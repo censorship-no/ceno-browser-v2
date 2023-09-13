@@ -56,7 +56,10 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.utils.SentryEventSendOnceProcessor
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import io.sentry.EventProcessor
+import io.sentry.ScopeCallback
 import io.sentry.Sentry
 import io.sentry.SentryEvent
 import io.sentry.android.core.SentryAndroid
@@ -172,10 +175,7 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
 
-            Log.d("PPPPPP1", Settings.showCrashReportingPermissionNudge(this).toString())
-
-            // reset the value of lastCrash
-            Settings.setLastCrash(this, "")
+            val lastCrash = Gson().fromJson(Settings.getLastCrash(this@BrowserActivity), SentryEvent::class.java)
 
             // launch Sentry activation dialog
             val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
@@ -192,29 +192,35 @@ open class BrowserActivity : BaseActivity() {
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
                     when {
                         radio0.isChecked -> {
+                            Sentry.captureEvent(lastCrash)
+
+                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
                             Settings.setCrashReportingPermissionValue(this@BrowserActivity, true)
-                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity)) // Re-initialize Sentry-Android
+
+                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
                         radio1.isChecked -> {
-                            val lastCrash = Settings.getLastCrash(this@BrowserActivity)
-                            if(lastCrash.isNotEmpty()) {
-                                val gson = Gson()
-                                val sentryEvent = gson.fromJson(lastCrash, SentryEvent::class.java)
-                                Sentry.captureEvent(sentryEvent)
-                            }
+                            Sentry.captureEvent(lastCrash)
+                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                         }
                         radio2.isChecked -> {
                             Settings.blockCrashReportingPermissionNudge(this@BrowserActivity)
+                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
-                        }
-                        else -> {
-                            // Close the dialog
                         }
                     }
                 }
-                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->  }
-
+                setOnDismissListener {
+                    Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                    SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+                }
+                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                    Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                    SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+                }
                 create()
             }.show()
         }

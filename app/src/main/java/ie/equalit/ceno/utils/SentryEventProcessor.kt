@@ -1,7 +1,6 @@
 package ie.equalit.ceno.utils
 
 import android.content.Context
-import android.util.Log
 import io.sentry.EventProcessor
 import io.sentry.Hint
 import io.sentry.SentryEvent
@@ -12,7 +11,7 @@ import ie.equalit.ceno.settings.Settings
 class SentryEventProcessor(val context: Context) : EventProcessor {
     override fun process(event: SentryEvent, hint: Hint): SentryEvent? {
 
-        val isPermissionGranted = Settings.isCrashReportingPermissionGranted(context)
+        val isPermissionGranted = Settings.isCrashReportingPermissionGranted(context) || Settings.getLastCrash(context).isNotEmpty()
         val isCrash = event.exceptions?.isNotEmpty() == true
 
         return when {
@@ -21,7 +20,6 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
             }
             isCrash -> {
                 Settings.setLastCrash(context, JSONObject(Gson().toJson(event)).toString())
-                Log.d("PPPPPP", "crash")
                 null
             }
             else -> {

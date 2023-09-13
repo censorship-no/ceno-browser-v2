@@ -5,7 +5,6 @@
 package ie.equalit.ceno.settings
 
 import android.content.Context
-import android.util.Log
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
@@ -189,19 +188,12 @@ object Settings {
             .apply()
     }
 
-    fun showCrashReportingPermissionNudge(context: Context): Boolean {
-        Log.d("PPPPPP2", (!PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_last_crash), ""
-        ).isNullOrEmpty()).toString())
-        Log.d("PPPPPP3", PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_crash_reporting_permission), true
-        ).toString())
-        return !PreferenceManager.getDefaultSharedPreferences(context).getString(
+    fun showCrashReportingPermissionNudge(context: Context): Boolean =
+        !PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_last_crash), ""
         ).isNullOrEmpty() && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
-    }
 
     fun blockCrashReportingPermissionNudge(context: Context) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
