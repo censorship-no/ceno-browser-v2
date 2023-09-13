@@ -15,7 +15,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -56,10 +55,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
-import ie.equalit.ceno.utils.SentryEventSendOnceProcessor
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
-import io.sentry.EventProcessor
-import io.sentry.ScopeCallback
 import io.sentry.Sentry
 import io.sentry.SentryEvent
 import io.sentry.android.core.SentryAndroid
@@ -194,20 +190,20 @@ open class BrowserActivity : BaseActivity() {
                         radio0.isChecked -> {
                             Sentry.captureEvent(lastCrash)
 
-                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
-                            Settings.setCrashReportingPermissionValue(this@BrowserActivity, true)
-
+                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
                         radio1.isChecked -> {
                             Sentry.captureEvent(lastCrash)
-                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+
+                            Settings.allowCrashReportingJustOnce(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                         }
                         radio2.isChecked -> {
-                            Settings.toggleCrashReportingPermissionNudge(this@BrowserActivity, false)
-                            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                            Settings.neverAllowCrashReporting(this@BrowserActivity)
+
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
                         }

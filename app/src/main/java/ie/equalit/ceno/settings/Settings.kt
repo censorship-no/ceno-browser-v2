@@ -231,4 +231,20 @@ object Settings {
         )
     }
 
+    fun alwaysAllowCrashReporting(context: Context) {
+        setLastCrash(context, "") // reset the value of lastCrash
+        setCrashReportingPermissionValue(context, true)
+    }
+
+    fun allowCrashReportingJustOnce(context: Context) {
+        setLastCrash(context, "") // reset the value of lastCrash
+        setCrashReportingPermissionValue(context, false)
+    }
+
+    fun neverAllowCrashReporting(context: Context) {
+        toggleCrashReportingPermissionNudge(context, false)
+        setCrashReportingPermissionValue(context, false)
+        setLastCrash(context, "") // reset the value of lastCrash
+    }
+
 }
