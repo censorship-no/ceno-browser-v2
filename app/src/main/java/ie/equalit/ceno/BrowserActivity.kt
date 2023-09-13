@@ -15,9 +15,9 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
 import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -172,8 +172,10 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
 
-            // reset the value
-            Settings.setCrashHappenedValue(this, false)
+            Log.d("PPPPPP1", Settings.showCrashReportingPermissionNudge(this).toString())
+
+            // reset the value of lastCrash
+            Settings.setLastCrash(this, "")
 
             // launch Sentry activation dialog
             val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
@@ -185,12 +187,12 @@ open class BrowserActivity : BaseActivity() {
                 setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
             } }
 
-            AlertDialog.Builder(this).apply {
+            AlertDialog.Builder(this@BrowserActivity).apply {
                 setView(dialogView)
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
                     when {
                         radio0.isChecked -> {
-                            Settings.allowCrashReportingPermission(this@BrowserActivity)
+                            Settings.setCrashReportingPermissionValue(this@BrowserActivity, true)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity)) // Re-initialize Sentry-Android
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }

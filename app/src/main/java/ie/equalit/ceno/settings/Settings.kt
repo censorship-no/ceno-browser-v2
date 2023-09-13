@@ -5,6 +5,7 @@
 package ie.equalit.ceno.settings
 
 import android.content.Context
+import android.util.Log
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
@@ -189,19 +190,17 @@ object Settings {
     }
 
     fun showCrashReportingPermissionNudge(context: Context): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_crash_happened), false
-        ) && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+        Log.d("PPPPPP2", (!PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_last_crash), ""
+        ).isNullOrEmpty()).toString())
+        Log.d("PPPPPP3", PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_crash_reporting_permission), true
+        ).toString())
+        return !PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_last_crash), ""
+        ).isNullOrEmpty() && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
-    }
-
-    fun setCrashHappenedValue(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_crash_happened)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
     }
 
     fun blockCrashReportingPermissionNudge(context: Context) {
@@ -212,11 +211,11 @@ object Settings {
             .apply()
     }
 
-    fun allowCrashReportingPermission(context: Context) {
+    fun setCrashReportingPermissionValue(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_crash_reporting)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putBoolean(key, true)
+            .putBoolean(key, value)
             .apply()
     }
 

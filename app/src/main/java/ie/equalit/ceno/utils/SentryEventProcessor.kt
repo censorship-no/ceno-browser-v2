@@ -1,6 +1,7 @@
 package ie.equalit.ceno.utils
 
 import android.content.Context
+import android.util.Log
 import io.sentry.EventProcessor
 import io.sentry.Hint
 import io.sentry.SentryEvent
@@ -19,15 +20,8 @@ class SentryEventProcessor(val context: Context) : EventProcessor {
                 event
             }
             isCrash -> {
-
-                val gson = Gson()
-                val sentryEventJson = gson.toJson(event)
-
-                // Save crash event as a String to local
-                Settings.setLastCrash(context, JSONObject(sentryEventJson).toString())
-
-                // save a variable to nudge users to activate crash recording on next launch
-                Settings.setCrashHappenedValue(context, true)
+                Settings.setLastCrash(context, JSONObject(Gson().toJson(event)).toString())
+                Log.d("PPPPPP", "crash")
                 null
             }
             else -> {
