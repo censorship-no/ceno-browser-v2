@@ -35,6 +35,8 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -171,6 +173,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val disableBatteryOptKey = requireContext().getPreferenceKey(pref_key_disable_battery_opt)
         val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
         val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
+        val allowCrashReportingDataKey = requireContext().getPreferenceKey(pref_key_allow_crash_reporting)
         val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
 
         val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
@@ -183,6 +186,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
         val preferenceCustomization = findPreference<Preference>(customizationKey)
         val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
+        val preferenceAllowCrashReporting = findPreference<SwitchPreferenceCompat>(allowCrashReportingDataKey)
         val preferenceSearch = findPreference<Preference>(searchKey)
 
         if (!AutofillPreference.isSupported(requireContext())) {
@@ -198,6 +202,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
         preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
         preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
+        preferenceAllowCrashReporting?.onPreferenceChangeListener = getClickListenerForCrashReporting()
         preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (!requireComponents.permissionHandler.isAllowingPostNotifications()) {
@@ -388,6 +393,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
+            true
+        }
+    }
+
+    private fun getClickListenerForCrashReporting():  OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, _ ->
+            // Re-initialize Sentry-Android
+            SentryAndroid.init(
+                requireContext(),
+                SentryOptionsConfiguration.getConfig(requireContext())
+            )
+            // Re-allow post-crash permissions nudge
+            ie.equalit.ceno.settings.Settings.toggleCrashReportingPermissionNudge(requireContext(), true)
             true
         }
     }

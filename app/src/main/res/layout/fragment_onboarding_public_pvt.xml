@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false">
 
+    <!--
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="32dp"
@@ -16,6 +17,7 @@
         android:src="@drawable/ic_onboarding_help_outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+        -->
 
     <ImageView
         android:id="@+id/img_public_pvt"
