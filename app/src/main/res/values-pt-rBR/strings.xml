@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_customize_amo_collection">Coleção de Extensões personalizadas</string>
-    <string name="content_description_private_browsing_button">Ativar navegação privativa</string>
+    <string name="content_description_private_browsing_button">Ativar Navegação Pessoal</string>
     <string name="remove_top_site">Remover</string>
     <string name="delete_from_history">Apagar do histórico</string>
     <string name="browser_menu_add_ons">Extensões</string>
@@ -18,7 +18,7 @@
     <string name="crash_report_non_fatal_message">Desculpe. Nós travamos</string>
     <string name="private_browsing_title">Navegação Pessoais</string>
     <string name="customize_addon_collection_user_hint">Proprietário da coleção (ID de usuário)</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Abrir em aba privativa</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Abrir em aba pessoal</string>
     <string name="customize_addon_collection_ok">OK</string>
     <string name="customize_addon_collection_cancel">Cancelar</string>
     <string name="customize_addon_collection_hint">Nome da coleção</string>
@@ -92,4 +92,6 @@
     <string name="shortcut_name_hint">Nome do atalho</string>
     <string name="udp_category">UDP</string>
     <string name="not_applicable">N/A</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
+    <string name="customize_add_bootstrap_save">Salvar</string>
 </resources>
