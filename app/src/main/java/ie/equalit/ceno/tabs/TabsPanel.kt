@@ -36,7 +36,7 @@ class TabsPanel @JvmOverloads constructor(
         }
 
         privateTab = newTab().apply {
-            contentDescription = "Private tabs"
+            contentDescription = "Personal tabs"
             icon = resources.getThemedDrawable(R.drawable.ceno_home_card_personal_icon)
         }
 
@@ -54,20 +54,12 @@ class TabsPanel @JvmOverloads constructor(
         this.tabsFeature = tabsFeature
         this.browsingModeManager = browsingModeManager
         this.updateTabsToolbar = updateTabsToolbar
-
+        selectTab(browsingModeManager.mode.isPersonal)
     }
 
     override fun onTabSelected(tab: Tab?) {
         // Tint the selected tab's icon.
         tab?.icon?.colorTint(R.color.photonPurple50)
-        //set browsing mode
-        if(tab == normalTab)  {
-            browsingModeManager?.mode = BrowsingMode.Normal
-        }
-        else {
-            browsingModeManager?.mode = BrowsingMode.Personal
-        }
-
         tabsFeature?.filterTabs { tabSessionState ->
             if (tab == normalTab) {
                 !tabSessionState.content.private

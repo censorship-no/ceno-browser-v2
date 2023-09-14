@@ -230,8 +230,6 @@ open class BrowserActivity : BaseActivity() {
             themeManager.currentTheme = newMode
         }
         themeManager = DefaultThemeManager(mode, this)
-        themeManager.setActivityTheme(this)
-        themeManager.applyStatusBarTheme(this)
     }
 
     override fun onPause() {

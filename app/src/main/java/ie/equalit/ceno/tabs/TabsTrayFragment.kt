@@ -7,6 +7,7 @@ package ie.equalit.ceno.tabs
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
@@ -56,11 +58,10 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             { closeTabsTray(true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
+            Log.d("TABS", it.id)
             if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
-                selectTabInPanel(isPrivate = true)
                 it.content.private
             } else {
-                selectTabInPanel(isPrivate = false)
                 !it.content.private
             }
         }
@@ -134,6 +135,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             styling = trayStyling,
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
+                    browsingModeManager.mode = BrowsingMode.fromBoolean(tab.content.private)
                     requireComponents.useCases.tabsUseCases.selectTab(tab.id)
                     closeTabsTray(false)
                 }
