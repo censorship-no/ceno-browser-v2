@@ -369,6 +369,7 @@ dependencies {
     implementation Deps.mozilla_lib_dataprotect
 
     implementation Deps.thirdparty_sentry
+    implementation Deps.thirdparty_gson
 
     implementation Deps.kotlin_coroutines
     implementation Deps.kotlin_serialization
