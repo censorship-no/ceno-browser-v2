@@ -114,4 +114,10 @@
     <string name="onboarding_warning_text_v33_2">اطلاعات کی اجازت نہیں ہے اور بیٹری کی اصلاح ابھی بھی فعال ہے۔
 \n
 \nبعد میں اجازت دینے کے لیے \"ترتیبات\" پر جائیں</string>
+    <string name="crash_reporting_dialog_description">معاف کریں، لگتا ہے کہ &brandShortName; کریش کر گیا ہے! &brandShortName; کو بہتر بنانے میں ہماری مدد کریں، کریش رپورٹ ہمیں بھیج دیں۔</string>
+    <string name="crash_reporting_never_send">نہیں بھیجیں</string>
+    <string name="crash_reporting_dont_send_this_time">اس بار نہیں بھیجیں</string>
+    <string name="crash_reporting_always_send">ہمیشہ بھیجیں</string>
+    <string name="crash_reporting_send_once">ایک مرتبہ بھیجیں</string>
+    <string name="crash_reporting_dont_ask_again">دوبارہ مت پوچھے</string>
 </resources>
