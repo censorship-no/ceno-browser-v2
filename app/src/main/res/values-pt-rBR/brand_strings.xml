@@ -135,4 +135,18 @@
     <string name="ceno_onboarding_start_title">Compartilhe a web,
 \npessoa para pessoa</string>
     <string name="onboarding_finish_button">Terminar</string>
+    <string name="crash_reporting_dialog_description">Desculpe, parece que &amp;brand ShortName; travou!
+\nAjude-nos a fazer &amp;brand ShortName; melhor enviando-nos o relatório de travamento.</string>
+    <string name="crash_reporting_never_send">Nunca enviar</string>
+    <string name="ceno_home_card_personal_title">ABAS PESSOAIS</string>
+    <string name="crash_reporting_dont_send_this_time">Não enviar desta vez</string>
+    <string name="ceno_home_card_public_title">ABAS PÚBLICAS</string>
+    <string name="crash_reporting_always_send">Nunca enviar</string>
+    <string name="preferences_allow_crash_reporting">Relatório de travamento</string>
+    <string name="crash_reporting_opt_out">Você optou por compartilhar relatórios de travamento. Você sempre pode optar por acessar Configurações &gt; Relatório de travamento.</string>
+    <string name="ceno_onboarding_start_text">O backbone ponto-a-ponto do &brandShortName;’s permite que as pessoas acessem e compartilhem o conteúdo do site em regiões onde a conectividade foi interrompida ou comprometida.</string>
+    <string name="crash_reporting_opt_in">Obrigado por compartilhar relatórios de travamento para ajudar a melhorar &amp;brand ShortName! Você sempre pode desativar isso indo para Configurações &gt; Reportar travamento.</string>
+    <string name="crash_reporting_send_once">Enviar desta vez</string>
+    <string name="crash_reporting_dont_ask_again">Não perguntar novamente</string>
+    <string name="ceno_home_card_personal_text">Para fazer login em uma conta ou acessar credenciais.</string>
 </resources>
