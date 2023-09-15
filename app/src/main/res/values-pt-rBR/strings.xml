@@ -94,4 +94,5 @@
     <string name="not_applicable">N/A</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
     <string name="customize_add_bootstrap_save">Salvar</string>
+    <string name="crash_report_sent">Relatório de travamento enviado!</string>
 </resources>
