@@ -141,7 +141,7 @@
     <string name="ceno_home_card_personal_title">ABAS PESSOAIS</string>
     <string name="crash_reporting_dont_send_this_time">Não enviar desta vez</string>
     <string name="ceno_home_card_public_title">ABAS PÚBLICAS</string>
-    <string name="crash_reporting_always_send">Nunca enviar</string>
+    <string name="crash_reporting_always_send">Sempre enviar</string>
     <string name="preferences_allow_crash_reporting">Relatório de travamento</string>
     <string name="crash_reporting_opt_out">Você optou por compartilhar relatórios de travamento. Você sempre pode optar por acessar Configurações &gt; Relatório de travamento.</string>
     <string name="ceno_onboarding_start_text">O backbone ponto-a-ponto do &brandShortName;’s permite que as pessoas acessem e compartilhem o conteúdo do site em regiões onde a conectividade foi interrompida ou comprometida.</string>
