@@ -311,5 +311,12 @@
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
         android:label="NetworkSettingsFragment" />
-
+    <fragment
+        android:id="@+id/standbyFragment"
+        android:name="ie.equalit.ceno.standby.StandbyFragment"
+        android:label="fragment_standby"
+        tools:layout="@layout/fragment_standby" />
+    <action
+        android:id="@+id/action_global_standbyFragment"
+        app:destination="@id/standbyFragment" />
 </navigation>
