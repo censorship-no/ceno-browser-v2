@@ -64,6 +64,7 @@ import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
+import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
@@ -153,6 +154,7 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.navigate(
             when {
                 Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
+                components.ouinet.background.getState() != RunningState.Started.toString() -> R.id.action_global_standbyFragment
                 components.core.store.state.selectedTab == null -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
