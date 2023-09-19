@@ -22,7 +22,9 @@
     <string name="onboarding_skip_button">Lewati</string>
     <string name="onboarding_info_title">Bukan peramban biasa</string>
     <string name="onboarding_info_button">Keren!</string>
-    <string name="onboarding_battery_text">Sistem operasi akan meminta izin kepada Anda untuk menonaktifkan pengoptimalan baterai.
+    <string name="onboarding_battery_text">Sistem operasi akan meminta izin kepada Anda untuk
+\n
+\n• Menonaktifkan optimasi baterai.
 \n
 \nIni diperlukan untuk terus berbagi situs web saat aplikasi berada di latar belakang</string>
     <string name="onboarding_battery_button">Lanjutkan</string>
@@ -46,7 +48,7 @@
     <string name="preferences_about_page">Tentang &vendorShortName;</string>
     <string name="about_category">Tentang</string>
     <string name="about_content"><p>%1$s - Bagikan Webnya!</p> <p>Ceno (kependekan dari censorship.no!) adalah peramban seluler pertama di dunia yang mengesampingkan metode sensor internet saat ini. Tulang punggung klien ke klien memungkinkan orang untuk mengakses dan berbagi informasi web di dalam dan di seluruh wilayah di mana konektivitas telah terganggu atau disusupi. </p> <p>%1$s adalah proyek eQualitie, sebuah organisasi berbasis di Kanada yang memiliki misi untuk mempromosikan dan mempertahankan kebebasan fundamental dan hak asasi manusia, termasuk kebebasan informasi daring. Tujuan kami adalah menciptakan teknologi yang dapat diakses dan meningkatkan keahlian yang diperlukan untuk membela hak asasi manusia dan kebebasan di era digital.</p></string>
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Penjelajahan Privat&lt;/h1&gt; &lt;p&gt;Ceno tidak akan membagikan konten dari tab privat dengan pengguna lain. Anda dapat mengunjungi situs yang memerlukan akun dengan aman. Namun, alamat ke internet diperlukan.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Ingin mempelajari lebih lanjut\?&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Penjelajahan Privat&lt;/h1&gt; &lt;p&gt;Ceno tidak akan membagikan konten dari tab privat dengan pengguna lain. Anda dapat mengunjungi situs yang memerlukan akun dengan aman. Namun, alamat ke internet diperlukan.&lt;/p&gt; &lt;p class=tentang-info&gt;&lt;a id=learnMore&gt;Ingin mempelajari lebih lanjut\?&lt;/p&gt;</string>
     <string name="ceno_home_mode_description">Gunakan tab biasa untuk berbagi konten dengan pengguna &brandShortName; lainnya. Gunakan tab privat jika tidak ingin berbagi, atau untuk halaman yang memerlukan akun.</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Disarankan untuk menggunakan &brandShortName; ketika Anda terhubung ke Wi-Fi, karena mungkin akan menggunakan lebih banyak data daripada yang Anda harapkan. Anda mungkin ingin menghentikan &brandShortName; saat menggunakan data seluler.</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Jangan tampilkan lagi</string>
@@ -54,7 +56,10 @@
     <string name="ceno_clear_dialog_clear_entire_app">Bersihkan tembolok dan data aplikasi &brandShortName;</string>
     <string name="onboarding_info_text">&brandShortName; menggunakan teknologi klien ke klien untuk berbagi konten web yang dapat diakses oleh pengguna &brandShortName; lainnya</string>
     <string name="onboarding_battery_title">Izin dibutuhkan</string>
-    <string name="onboarding_battery_text_v33">Sistem operasi akan meminta izin kepada Anda untuk menampilkan pemberitahuan dan menonaktifkan pengoptimalan baterai.
+    <string name="onboarding_battery_text_v33">Sistem operasi akan meminta izin kepada Anda untuk
+\n
+\n• Menampilkan notifikasi
+\n• Menonaktifkan pengoptimalan baterai
 \n
 \nIni diperlukan untuk terus berbagi situs web saat aplikasi berada di latar belakang</string>
     <string name="onboarding_warning_text">Pengoptimalan baterai masih diaktifkan.
@@ -122,4 +127,15 @@
     <string name="onboarding_cleanup_title">Bersihkan semuanya,
 \ndi mana pun, sekaligus</string>
     <string name="onboarding_cleanup_text">Hapus riwayat peramban, kredensial, dan jejak apa pun yang Anda tinggalkan di &brandShortName; dengan satu tombol.</string>
+    <string name="preferences_ceno_sources_reachability">Status keterjangkauan</string>
+    <string name="preferences_ceno_sources_upnp">Status UPnP</string>
+    <string name="ceno_home_card_public_title">TAB PUBLIK</string>
+    <string name="ceno_home_card_public_text">Untuk mengakses situs publik seperti berita, video atau artikel.</string>
+    <string name="onboarding_finish_button">Selesai</string>
+    <string name="preferences_ceno_sources_local_udp">Titik akhir UDP lokal</string>
+    <string name="ceno_home_card_personal_title">TAB PRIBADI</string>
+    <string name="preferences_ceno_sources_external_udp">Titik akhir UDP eksternal</string>
+    <string name="preferences_ceno_sources_public_udp">Titik akhir UDP publik</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstrap ekstra BitTorrent</string>
+    <string name="ceno_home_card_personal_text">Untuk masuk akun atau akses kredensial.</string>
 </resources>

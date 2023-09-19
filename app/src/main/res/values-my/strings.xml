@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">ရှာဖွေ (သို့) လိပ်စာ ထည့်သွင်းပါ</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">သီးသန့် ရှာဖွေကြည့်ရှုခြင်းတွင် ဖွင့်ထားသည်</string>
+    <string name="preferences_tracking_protection_private">တစ်ကိုယ်ရည်သုံးရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
     <!-- Preference for privacy -->
     <string name="privacy">ကိုယ်ပိုင်လွတ်လပ်ခွင့်</string>
     <!-- Preference summary for privacy -->
@@ -36,14 +36,14 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">ကိုယ်ပိုင်လွတ်လပ်ခွင့် အပြင်အဆင်များ</string> -->
     <!-- လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း -->
-    <string name="private_browsing_title">သီးသန့်ရှာဖွေခြင်း</string>
+    <string name="private_browsing_title">တစ်ကိုယ်ရည်သုံး ရှာဖွေခြင်း</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">စိတ်ကြိုက် အတ်-အွန်(Add-on) စုဆောင်းခြင်း</string>
     <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">အိုကေ</string>
     <!-- Button caption to abort the add-on collection configuration -->
-    <string name="customize_addon_collection_cancel">ပယ်ဖျက်</string>
+    <string name="customize_addon_collection_cancel">ပယ်ဖျက်မည်</string>
     <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">စုဆောင်းမှု အမည်</string>
     <!-- Hint displayed on input field for custom collection user ID-->
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">အပို စုဆောင်းမှုကို ပြုပြင်ပြီး ဖြစ်သည်။ အပြောင်းအလဲများ လျှောက်ထားရန် လျှောက်လွှာ မှ ထွက်ပါ …</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">သီးသန့်ရှာဖွေမှုကို ဖွင့်ပါ</string>
+    <string name="content_description_private_browsing_button">တစ်ကိုယ်ရည်သုံးရှာဖွေမှုကို ဖွင့်ပါ</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">တစ်ကိုယ်ရေသုံးတပ်ဗ်ဖွင့်</string>
+    <string name="bookmark_menu_open_in_private_tab_button">တစ်ကိုယ်ရေသုံးတပ်ဗ်၌ ဖွင့်မည်</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">အမည်ပြောင်းပါ</string>
@@ -118,7 +118,7 @@
     <string name="general_category">အထွေထွေ</string>
     <string name="toolbar_category">Toolbar ရွေးစရာများ</string>
     <string name="preferences_autofill">အလိုအလျောက်ဖြည့်ခြင်း အက်ပလီကေးရှင်းများ</string>
-    <string name="preferences_tracking_protection_normal">ပုံမှန် ရှာဖွေခြင်းမုဒ်၌ ဖွင့်ထားသည်</string>
+    <string name="preferences_tracking_protection_normal">ပုံမှန် ရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
     <string name="preferences_privacy_summary">တစ်ကိုယ်ရည်သုံးနှင့် အများသုံး ရှာဖွေခြင်းကို ဖွင့်ထားသည်</string>
     <string name="theme_category">အပြင်အဆင်</string>
     <string name="toast_copied">ကူးယူခဲ့ပြီး!</string>
@@ -155,4 +155,13 @@
     <string name="preference_category_search">ရှာဖွေမည်</string>
     <string name="preference_search_summary">ပုံသေ သတ်မှတ်မည်</string>
     <string name="preference_choose_search_engine">ရှာဖွေရေးအင်ဂျင်ကို ရွေးချယ်ပါ</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">လင့်ခ်ကို တစ်ကိုယ်ရည်သုံးတဗ်တွင် ဖွင့်မည်</string>
+    <string name="customize_add_bootstrap_save">သိမ်းမည်</string>
+    <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="other">%d လိပ်စာများ</item>
+    </plurals>
+    <string name="not_applicable">N/A</string>
 </resources>

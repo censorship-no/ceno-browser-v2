@@ -42,7 +42,9 @@
     <string name="onboarding_warning_button">موافق</string>
     <string name="onboarding_thanks_title">شكرا لتنمية الشبكة!</string>
     <string name="onboarding_thanks_text">بصفتك مستخدما ل &brandShortName; فإنك تساعد في تنمية شبكة الجسور المتاحة التي تتيح الوصول إلى المحتوى الخاضع للرقابة.</string>
-    <string name="onboarding_battery_text">سيطلب منك نظام التشغيل قريبا إذنا لتعطيل تحسين البطارية.
+    <string name="onboarding_battery_text">سيطلب منك نظام التشغيل قريبا إذنا لـ
+\n
+\n• تعطيل تحسين البطارية.
 \n
 \nهذا ضروري للاستمرار في مشاركة مواقع الويب أثناء وجود التطبيق في الخلفية</string>
     <string name="onboarding_thanks_button">هيا بنا!</string>
@@ -77,7 +79,10 @@
 \nانتقل إلى \"الإعدادات\" لمنح الإذن لاحقا</string>
     <string name="onboarding_info_text">&brandShortName; يستخدم تقنية نظير إلى نظير لمشاركة محتوى الويب الذي يمكن الوصول إليه من قبل المستخدمين الآخرين لـ &brandShortName;</string>
     <string name="onboarding_battery_title">الإذن مطلوب</string>
-    <string name="onboarding_battery_text_v33">سيطلب منك نظام التشغيل قريبا إذنا للسماح بالإشعارات وتعطيل تحسين البطارية.
+    <string name="onboarding_battery_text_v33">سيطلب منك نظام التشغيل قريبا إذنا لِـ
+\n
+\n• السماح بالإشعارات
+\n• تعطيل تحسين البطارية
 \n
 \nهذا ضروري للاستمرار في مشاركة مواقع الويب أثناء وجود التطبيق في الخلفية</string>
     <string name="preferences_toolbar_hide">قم بالتمرير للإخفاء</string>
@@ -91,7 +96,7 @@
     <string name="preferences_ceno_sources_private_summary">تحميل المحتوى عبر شبكة Ceno الخاصة</string>
     <string name="preferences_ceno_sources_peers">تمت مشاركته</string>
     <string name="preferences_ceno_groups_count">المحتوى الذي تمت مشاركته من طرفك</string>
-    <string name="preferences_ceno_network_config">تفاصيل شبكة&brandShortName;</string>
+    <string name="preferences_ceno_network_config">تفاصيل شبكة &brandShortName;</string>
     <string name="ceno_onboarding_start_text">يسمح حجر الأساس للنظير إلى نظير لـ &brandShortName; للأشخاص بالوصول إلى محتوى المواقع الإلكترونية ومشاركتها في وعبر المناطق التي تم فيها قطع الاتصال أو اختراقه.</string>
     <string name="onboarding_cleanup_text">امسح سجل تاريخ المتصفح وبيانات الاعتماد وأي أثر تركته على &brandShortName; بزر واحد.</string>
     <string name="shutdown_stop_title">مسح بيانات التطبيق و
@@ -127,4 +132,5 @@
     <string name="ceno_home_card_public_text">للوصول إلى الصفحات العامة مثل الأخبار أو مقاطع الفيديو أو المقالات.</string>
     <string name="ceno_home_card_personal_title">علامات التبويب الشخصية</string>
     <string name="ceno_home_card_personal_text">لتسجيل الدخول إلى حساب أو الوصول إلى بيانات الاعتماد.</string>
+    <string name="onboarding_finish_button">إنهاء</string>
 </resources>
