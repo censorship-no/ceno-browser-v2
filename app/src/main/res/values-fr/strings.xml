@@ -157,4 +157,6 @@
     <string name="preferences_delete_browsing_data_cookies_subtitle">Vous serez déconnecté.e de la plupart des sites</string>
     <string name="preference_category_search">Recherche</string>
     <string name="preference_search_summary">Valeur par défaut</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">Bootstraps BitTorrent</string>
 </resources>

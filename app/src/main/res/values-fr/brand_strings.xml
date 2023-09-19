@@ -81,7 +81,9 @@
     <string name="ceno_clear_dialog_description">AVERTISSEMENT : Effacer le cache et les données de l’appli réinitialisera l’appli &brandShortName; comme si elle n’avait jamais été utilisée.</string>
     <string name="browser_menu_ceno_ext">Paramètres de &brandShortName;</string>
     <string name="onboarding_skip_button">Ignorer</string>
-    <string name="onboarding_battery_text">Sous peu, le système d’exploitation vous demandera la permission de désactiver l’optimisation de la batterie.
+    <string name="onboarding_battery_text">Sous peu, le système d’exploitation vous demandera la permission de 
+\n
+\n• Désactiver l’optimisation de la batterie.
 \n
 \nCela est nécessaire pour continuer à partager des sites Web alors que l’appli est en arrière-plan</string>
     <string name="onboarding_thanks_title">Merci de développer le réseau.</string>
@@ -130,7 +132,7 @@
     <string name="preferences_ceno_sources_peers_summary">Charger le contenu partagé par d’autres utilisateurs</string>
     <string name="ceno_data_category">Données</string>
     <string name="preferences_ceno_cache_size">Cache local</string>
-    <string name="preferences_ceno_network_config">Détails du réseau &brandShortName;</string>
+    <string name="preferences_ceno_network_config">Détails du réseau</string>
     <string name="preferences_ceno_download_log">Télécharger le fichier journal</string>
     <string name="donate_button_text">Faire un don</string>
     <string name="preferences_ceno_network_config_summary">État de Ouinet, extrémités UDP, amorces BitTorrent</string>

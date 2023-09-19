@@ -86,7 +86,9 @@
     <string name="onboarding_info_button">Супер!</string>
     <string name="onboarding_info_text">&brandShortName; использует технологию peer-to-peer для обмена веб-контентом, доступ к которому могут получить другие пользователи &brandShortName;</string>
     <string name="about_content"><p>%1$s - Делитесь Интернетом!</p> <p>Ceno (сокращение от censorship.no!) - это первый в мире мобильный браузер, который обходит существующие методы цензуры в Интернете. Его одноранговая магистраль позволяет людям получать доступ к веб-информации и обмениваться ею в регионах, где связь прервана или нарушена. </p> <p>%1$s - это проект eQualitie, канадской организации, чья миссия заключается в продвижении и защите основных свобод и прав человека, включая свободное распространение информации в Интернете. Наша цель - создание доступных технологий и совершенствование навыков, необходимых для защиты прав и свобод человека в цифровую эпоху.</p></string>
-    <string name="onboarding_battery_text">Вскоре ОС предложит вам отключить оптимизацию батареи.
+    <string name="onboarding_battery_text">Вскоре ваша ОС попросит разрешение на
+\n
+\n• Отключение оптимизации батареи.
 \n
 \nЭто необходимо для продолжения обмена веб-сайтами, пока приложение находится в фоновом режиме</string>
     <string name="onboarding_warning_text">Оптимизация батареи все еще включена.
@@ -137,7 +139,10 @@
     <string name="onboarding_warning_text_v33_2">Уведомления не разрешены, и оптимизация батареи все еще включена.
 \n
 \nПерейдите в \"Настройки\", чтобы предоставить разрешение позже</string>
-    <string name="onboarding_battery_text_v33">Вскоре ОС попросит вас разрешить уведомления и отключить оптимизацию батареи.
+    <string name="onboarding_battery_text_v33">Вскоре ваша ОС попросит разрешение на
+\n
+\n• Отправку уведомлений
+\n• Отключение оптимизации батареи
 \n
 \nЭто необходимо для поддержки обмена веб-сайтами, когда приложение находится в фоновом режиме</string>
     <string name="preferences_ceno_sources_peers">Поделиться</string>
@@ -152,7 +157,7 @@
     <string name="preferences_ceno_download_log">Скачать файл журнала</string>
     <string name="preferences_ceno_network_config_summary">Состояние Ouinet, конечные точки UDP, бутстрапы BitTorrent</string>
     <string name="preferences_ceno_enable_log">Включить файл журнала</string>
-    <string name="onboarding_public_or_personal_title">Публичное или личное\?</string>
+    <string name="onboarding_public_or_personal_title">Общественный или личный\?</string>
     <string name="ceno_onboarding_start_text">Одноранговая сеть &brandShortName; позволяет получать доступ к содержимому сайтов и обмениваться им в регионах, где обычное подключение невозможно или скомпрометировано.</string>
     <string name="ceno_onboarding_start_title">Делитесь сайтами
 \nдруг с другом</string>
@@ -172,4 +177,5 @@
     <string name="preferences_ceno_sources_public_udp">Публичные конечные точки UDP</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Дополнительные точки запуска BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Состояние доступности</string>
+    <string name="onboarding_finish_button">Завершить</string>
 </resources>

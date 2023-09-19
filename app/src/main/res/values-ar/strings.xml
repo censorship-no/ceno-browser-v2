@@ -97,4 +97,6 @@
     <string name="toolbar_category">خيارات شريط الأدوات</string>
     <string name="preferences_customize_amo_collection">مجموعة الوظائف الإضافية المخصصة</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
+    <string name="customize_add_bootstrap_save">حفظ</string>
+    <string name="not_applicable">غير متوفِّر</string>
 </resources>
