@@ -12,7 +12,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
 
 class OnboardingInfoFragment : Fragment() {
     private var _binding: FragmentOnboardingInfoBinding? = null
@@ -39,7 +38,7 @@ class OnboardingInfoFragment : Fragment() {
                 binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
                 binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
                 binding.btnOnboardingCleanup.setOnClickListener {
-                    findNavController().onboardingToHome()
+                    findNavController().onboardingToHome(requireComponents)
                 }
             }
             else {
@@ -54,7 +53,7 @@ class OnboardingInfoFragment : Fragment() {
                 binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
                 binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
                 binding.btnOnboardingCleanup.setOnClickListener {
-                    findNavController().onboardingToHome()
+                    findNavController().onboardingToHome(requireComponents)
                 }
             } else {
                 binding.btnOnboardingCleanup.setOnClickListener {
@@ -69,7 +68,7 @@ class OnboardingInfoFragment : Fragment() {
                 findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
             }
             else {
-                findNavController().onboardingToHome()
+                findNavController().onboardingToHome(requireComponents)
             }
         }
     }
