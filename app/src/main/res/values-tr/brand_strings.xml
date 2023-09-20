@@ -85,9 +85,11 @@
     <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; Browser bildirimi</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Beklediğinizden daha fazla veri kullanabileceği için &brandShortName; ile kablosuz ağ bağlantısını kullanmanız önerilir. Mobil veri kullanırken &brandShortName; uygulamasını kapatmak isteyebilirsiniz.</string>
     <string name="shutdown_stop_title">&brandShortName; Browser durduruluyor</string>
-    <string name="onboarding_battery_text">Birazdan işletim sisteminiz sizden pil iyileştirmelerinin kapatılması için izin isteyecek.
+    <string name="onboarding_battery_text">Birazdan, işletim sisteminiz sizden şu izinleri isteyecek:
 \n
-\nBu izin uygulama arka planda çalışırken sitelerin paylaşılması için gereklidir</string>
+\n• Pil iyileştirmelerini kapatma
+\n
+\nBu izin, uygulama arka planda çalışırken siteleri paylaşmayı sürdürmek için gereklidir.</string>
     <string name="preferences_clear_ceno_cache_summary">Yerel ön bellekteki internet içeriğini temizle</string>
     <string name="ouinet_client_fetch_fail">&brandShortName; ayarı değiştirilemedi</string>
     <string name="about_content"><p>%1$s - İnterneti paylaşın!</p> <p>Ceno (censorship.no!\'nun kısaltması), güncel İnternet sansür yöntemlerinin etrafından dolaşan dünyanın ilk mobil tarayıcısıdır. Eşler arası omurgası, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde ve bölgeler arasında site bilgilerine erişmesini ve bunları paylaşmasını sağlar. </p> <p>%1$s, hedefi çevrim içi serbest bilgi akışı ile birlikte temel özgürlükleri ve insan haklarını desteklemek ve savunmak olan Kanadalı eQualitie kuruluşunun bir projesidir. Erişilebilir teknolojiler oluşturmayı ve dijital çağda insan hakları ve özgürlüklerini savunmak için gereken becerileri geliştirmeyi hedefliyoruz.</p></string>
@@ -104,9 +106,12 @@
     <string name="preferences_clear_behavior_summary">Temizle tuşuna dokunma davranışını ayarlayın</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; adres çubuğuna yazdıklarınızı arama hizmetinize gönderir</string>
     <string name="crash_report_non_fatal_action">&vendorShortName; bildirimi için dokunun</string>
-    <string name="onboarding_battery_text_v33">Birazdan işletim sisteminiz sizden pil iyileştirmelerinin kapatılması için izin isteyecek.
+    <string name="onboarding_battery_text_v33">Birazdan işletim sisteminiz sizden şu izinleri isteyecek:
 \n
-\nBu izin uygulama arka planda çalışırken sitelerin paylaşılması için gereklidir</string>
+\n• Bildirim izni
+\n• Pil iyileştirmelerini kapatma
+\n
+\nBu izin uygulama arka planda çalışırken siteleri paylaşmayı sürdürmek için gereklidir</string>
     <string name="onboarding_warning_text_v33_1">Bildirimlere izin verilmiyor.
 \n
 \nDaha sonra izin vermek için \"Ayarlar &gt; Bildirimlere izin ver\" bölümüne gidin</string>
@@ -134,4 +139,5 @@
     <string name="ceno_home_card_personal_title">GİZLİ SEKMELER</string>
     <string name="ceno_home_card_personal_text">Bir hesap oturumu açmak ya da kimlik doğrulama bilgilerine erişmek için.</string>
     <string name="preferences_ceno_sources_upnp">UPnP durumu</string>
+    <string name="onboarding_finish_button">Bitti</string>
 </resources>
