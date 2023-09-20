@@ -178,4 +178,14 @@
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Дополнительные точки запуска BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Состояние доступности</string>
     <string name="onboarding_finish_button">Завершить</string>
+    <string name="crash_reporting_dialog_description">Похоже, что &brandShortName; непредвиденно завершил работу!
+\nПомогите &brandShortName; стать лучше, отправив отчет.</string>
+    <string name="crash_reporting_never_send">Никогда не отправлять</string>
+    <string name="crash_reporting_dont_send_this_time">Не отправлять в этот раз</string>
+    <string name="crash_reporting_always_send">Всегда отправлять</string>
+    <string name="preferences_allow_crash_reporting">Отчёты об ошибках</string>
+    <string name="crash_reporting_opt_out">Вы отказались от отправки отчётов. Вы всегда можете зарегистрироваться в разделе Настройки &gt; Отчеты об авариях.</string>
+    <string name="crash_reporting_opt_in">Спасибо за отправку отчёта для улучшения &brandShortName;! Вы всегда можете отключить отправку отчётов в Настройках.</string>
+    <string name="crash_reporting_send_once">Отправить один раз</string>
+    <string name="crash_reporting_dont_ask_again">Больше не спрашивать</string>
 </resources>
