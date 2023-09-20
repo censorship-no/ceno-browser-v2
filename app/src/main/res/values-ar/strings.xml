@@ -88,7 +88,7 @@
     <string name="shortcut_name_hint">اسم الاختصار</string>
     <string name="top_sites_rename_dialog_cancel">إلغاء الأمر</string>
     <string name="top_sites_sponsored_label">برعاية</string>
-    <string name="browser_menu_refresh">إنعاش</string>
+    <string name="browser_menu_refresh">تحديث</string>
     <string name="browser_menu_stop">إيقاف</string>
     <string name="browser_menu_find_in_page">البحث في الصفحة</string>
     <string name="browser_menu_add_to_shortcuts">أضف إلى الاختصارات</string>
