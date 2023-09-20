@@ -63,4 +63,6 @@
     <string name="toast_customize_addon_collection_done">Kolekcja dodatków zmodyfikowana. Zamykanie aplikacji w celu zastosowania zmian…</string>
     <string name="browser_menu_add_to_shortcuts">Dodaj do skrótów</string>
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
+    <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
+    <string name="preferences_autofill">Automatycznie uzupełniaj w aplikacjach</string>
 </resources>
