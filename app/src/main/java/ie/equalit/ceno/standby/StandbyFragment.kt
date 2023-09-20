@@ -65,7 +65,7 @@ class StandbyFragment : Fragment() {
                 when(currentState) {
                     RunningState.Started.toString() -> {
                         //go to home or browser
-                        findNavController().popBackStack()
+                        findNavController().popBackStack(R.id.standbyFragment, true)
                         if (requireComponents.core.store.state.selectedTab == null)
                             findNavController().navigate(R.id.action_global_home)
                         else

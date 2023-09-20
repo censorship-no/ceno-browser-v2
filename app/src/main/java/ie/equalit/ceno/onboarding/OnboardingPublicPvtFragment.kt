@@ -12,7 +12,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingPublicPvtBinding
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
 
 /**
  * A simple [Fragment] subclass.
@@ -45,13 +44,13 @@ class OnboardingPublicPvtFragment : Fragment() {
                 if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
                     requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
                 ){
-                    findNavController().onboardingToHome()
+                    findNavController().onboardingToHome(requireComponents)
                 } else {
                     findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
                 }
             }
             else {
-                findNavController().onboardingToHome()
+                findNavController().onboardingToHome(requireComponents)
             }
         }
     }
