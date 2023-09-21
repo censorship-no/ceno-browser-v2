@@ -16,6 +16,8 @@ Ceno Browser açık kaynaklı Ouinet kitaplığı ile çalışır. Bu kitaplık 
 
 <strong>Unutmayın:</strong> Ceno bir anonimlik aracı değildir: İnternet gezinmeleriniz başka Ceno kullanıcılarına sızabilir. Aynı şekilde tarayıcınız bazı internet içeriklerini başkalarına sağlıyor olabilir. Uygulama ile erişilen içerik depolama alanında bir süre düz metin olarak tutulabilir. Bununla birlikte istediğiniz zaman depolanmış tüm içeriği 'Şimdi temizle' seçeneği ile kaldırabilirsiniz.
 
+<strong>F-Droid anti özellikleri:</strong> Upstream Ceno kaynak kodu, tümüyle özgür olmayan hazır Mozilla kitaplıklarını kullanır. Ceno Browser F-Droid sürümü için özgür olmayan parçaları değiştirerek bu kitaplıkları sıfırdan oluşturuyoruz.
+
 <strong>eQualit.ie hakkında</strong>
 eQualit.ie gizlilik, çevrim içi güvenlik ve bilgi yönetimine odaklanmış özgür ve yeniden kullanılabilir teknolojiler geliştirir. Hedefimiz dijital çağda insan hak ve özgürlüklerini korumak için gerekli olan deneyimleri edinmek ve erişilebilir bir teknoloji oluşturmaktır.
 
