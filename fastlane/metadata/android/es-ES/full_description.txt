@@ -16,6 +16,8 @@ El Navegador Ceno está potenciado por Ouinet, una biblioteca de código abierto
 
 <strong> Por favor ten en cuenta:</strong> Ceno no es una herramienta de anonimización: la información acerca de tu navegación podría ser filtrada a otra(o)s usuaria(o)s de Ceno, como así también el hecho de que tu aplicación está proveyendo contenido web particular a otra(o)s. El contenido accedido con la aplicación puede permanecer almacenado en texto sin cifrar por algún tiempo, de todas formas, puedes purgar todo el contenido almacenado en cualquier momento usando la opción "Purgar Ahora".
 
+<strong>Anticaracterísticas de F-Droid:</strong> El código fuente de Ceno utiliza bibliotecas pre-construidas de Mozilla que no son totalmente libres. Para la versión F-Droid de Ceno Browser, parcheamos las partes no libres y construimos estas bibliotecas desde cero.
+
 <strong>Acerca de eQualit.ie</strong>
 eQualit.ie desarrolla sistemas abiertos y reutilizables con enfoque en la privacidad, seguridad en línea, y gestión de la información. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesario para defender los derechos y libertades humanas en la era digital.
 

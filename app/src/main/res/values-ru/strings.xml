@@ -162,4 +162,8 @@
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Открыть ссылку в личной вкладке</string>
     <string name="udp_category">UDP</string>
     <string name="customize_add_bootstrap_save">Сохранить</string>
+    <string name="bit_torrent_bootstraps_category">Загрузчики BitTorrent</string>
+    <string name="customize_extra_bittorrent_bootstrap">Дополнительные загрузчики BitTorrent</string>
+    <string name="not_applicable">Н/Д</string>
+    <string name="crash_report_sent">Отчет о сбое отправлен!</string>
 </resources>

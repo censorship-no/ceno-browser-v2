@@ -57,6 +57,8 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
 
     override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
 
+        webExtensionId = requireNotNull(intent.getStringExtra("web_extension_id"))
+
         engineSession = components.core.store.state.extensions[webExtensionId]?.popupSession
 
         return when (name) {
