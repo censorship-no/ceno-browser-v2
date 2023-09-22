@@ -48,9 +48,13 @@
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">É recomendado usar &brandShortName; quando você tem uma conexão Wi-Fi, pois ele pode usar mais dados que o esperado. Você pode querer interromper &brandShortName; quando estiver usando dados móveis.</string>
     <string name="onboarding_info_button">Legal!</string>
     <string name="onboarding_button">Começar</string>
-    <string name="onboarding_battery_text">"Em breve, o sistema operacional irá pedir a você autorização para 
+    <string name="onboarding_battery_text">"Em breve, o S.O.(Sistema Operacional) irá pedir a você autorização para 
 \n
-\n•  Desabilitar a otimização de bateria.
+\n
+\n
+\n•  Desativar a otimização de bateria.
+\n
+\n
 \n
 \nEssa ação é necessária para continuar compartilhando websites enquanto o aplicativo está em segundo plano"</string>
     <string name="onboarding_thanks_title">Agradecemos por ajudar a rede a crescer!</string>
@@ -106,10 +110,14 @@
     <string name="ceno_clear_dialog_clear_cache_only">Limpar &brandShortName; apenas cache</string>
     <string name="preferences_ceno_network_config_summary">Estado da Ouinet, endpoints UDP, bootstraps do BitTorrent</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/pt_BR/concepts/public-private.html</string>
-    <string name="onboarding_battery_text_v33">"Em breve o SO irá pedir sua permissão para 
+    <string name="onboarding_battery_text_v33">"Em breve, o S.O.(Sistema Operacional) irá pedir a você autorização para 
+\n
 \n
 \n•  Permitir notificações
+\n
 \n•  Desativar a otimização de bateria
+\n
+\n
 \n
 \nEssa ação é necessária para manter o compartilhamento de websites enquanto o aplicativo está em segundo plano"</string>
     <string name="onboarding_warning_text_v33_1">Notificações não estão permitidas.
