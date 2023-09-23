@@ -100,7 +100,7 @@
     <string name="customize_add_bootstrap_save">حفظ</string>
     <string name="not_applicable">غير متوفِّر</string>
     <string name="udp_category">UDP</string>
-    <string name="bit_torrent_bootstraps_category">تمهيد BitTorrent</string>
+    <string name="bit_torrent_bootstraps_category">تمهيدات BitTorrent</string>
     <string name="customize_extra_bittorrent_bootstrap">تمهيدات BitTorrent إضافية</string>
     <string name="crash_report_sent">تم إرسال تقرير العطل!</string>
 </resources>
