@@ -11,8 +11,10 @@ import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
+import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -46,6 +48,12 @@ open class BrowserApplication : Application() {
 
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
+
+        // Initialize Sentry-Android
+        SentryAndroid.init(
+            this,
+            SentryOptionsConfiguration.getConfig(this)
+        )
 
         //------------------------------------------------------------
         // Ouinet
