@@ -99,8 +99,7 @@
     <string name="preferences_ceno_network_config">تفاصيل شبكة &brandShortName;</string>
     <string name="ceno_onboarding_start_text">اعتماد &brandShortName; بشكل أساسي على بنية نظير-لنظير يسمح للأشخاص بالوصول إلى محتوى المواقع الإلكترونية ومشاركتها ضمن وعبر المناطق التي تم فيها قطع الاتصال أو اختراقه.</string>
     <string name="onboarding_cleanup_text">امسح سجل تاريخ المتصفح، بيانات تسجيل الدخول وأي أثر تركته على &brandShortName; بزر واحد.</string>
-    <string name="shutdown_stop_title">مسح بيانات التطبيق
-\nوإيقاف متصفح &brandShortName;</string>
+    <string name="shutdown_stop_title">مسح بيانات التطبيق وإيقاف متصفح &brandShortName;</string>
     <string name="shutdown_clear_title">مسح بيانات التطبيق
 \nوإيقاف متصفح &brandShortName;</string>
     <string name="preferences_clear_behavior">السلوك الافتراضي</string>
@@ -138,10 +137,15 @@
 \nنرجو المساعدة لجعل &brandShortName; أفضل عبر إرسال تقرير العطل إلينا.</string>
     <string name="crash_reporting_never_send">لا ترسل أبداً</string>
     <string name="crash_reporting_dont_send_this_time">لا ترسِل هذه المرة</string>
-    <string name="crash_reporting_always_send">إرسال - في كل مرة</string>
-    <string name="preferences_allow_crash_reporting">جارٍ الإبلاغ عن العطل</string>
+    <string name="crash_reporting_always_send">أرسل - في كل مرة</string>
+    <string name="preferences_allow_crash_reporting">الإبلاغ عن الأعطال</string>
     <string name="crash_reporting_send_once">إرسال - هذه المرة فقط</string>
     <string name="preferences_ceno_sources_reachability">حالة إمكانية الوصول</string>
     <string name="crash_reporting_dont_ask_again">لا تسألني من جديد</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">تمهيدات BitTorrent إضافية</string>
+    <string name="crash_reporting_opt_out">اخترت عدم مشاركة تقارير الأعطال. يمكنك دائما اختيار إرسالها عبر التوجه إلى إعدادات ثم الإبلاع عن الأعطال.</string>
+    <string name="crash_reporting_opt_in">شكرا لمشاركة تقرير العطل والمساعدة في جعل &brandShortName; منتجاً أفضل! يمكنك إيقاف هذه الميزة بالتوجه إلى إدادات ثم الإبلاغ عن الأعطال.</string>
+    <string name="preferences_ceno_sources_local_udp">نقاط نهاية UDP محلية</string>
+    <string name="preferences_ceno_sources_external_udp">نقاط نهاية UDP خارجية</string>
+    <string name="preferences_ceno_sources_public_udp">نقاط نهاية UDP عامة</string>
 </resources>
