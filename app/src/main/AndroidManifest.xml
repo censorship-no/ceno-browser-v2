@@ -6,15 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ie.equalit.ceno"
     android:sharedUserId="ie.equalit.ceno.sharedID"
-    android:sharedUserMaxSdkVersion="32"
+    android:sharedUserMaxSdkVersion="33"
     tools:targetApi="tiramisu">
 
     <permission
         android:name="ie.equalit.ceno.permission.AccessCustomTabsService"
         android:protectionLevel="normal" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
@@ -45,11 +50,17 @@
             android:launchMode="singleTask"
             android:icon="@mipmap/ic_launcher_blue"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
+            <meta-data
+                android:name="android.supportsPictureInPicture"
+                android:value="true"
+                android:resource="@bool/supports_picture_in_picture" />
+            <meta-data
+                android:name="android.resizeableActivity"
+                android:value="true"
+                android:resource="@bool/resizeable_activity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
