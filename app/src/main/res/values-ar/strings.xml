@@ -28,7 +28,7 @@
     <string name="customize_addon_collection_ok">موافق</string>
     <string name="preference_choose_search_engine">اختر محرك البحث</string>
     <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصارا. المس الموقع مع الاستمرار وحدد إزالة.</string>
-    <string name="toast_customize_addon_collection_done">تم تعديل مجموعة الوظائف الإضافية. إنهاء التطبيق لتطبيق التغييرات…</string>
+    <string name="toast_customize_addon_collection_done">تم تعديل مجموعة الوظائف الإضافية. إغلاق التطبيق لتطبيق التغييرات…</string>
     <string name="preference_search_summary">الوضع الإفتراضي</string>
     <string name="preference_select_preferred_engine">حدد محركك المفضل:</string>
     <string name="insecure_connection">الاتصال غير آمن</string>
@@ -37,7 +37,7 @@
     <string name="preferences_remote_debugging">تصحيح الأخطاء عن بعد باستخدام USB</string>
     <string name="preferences_autofill_summary">الملء التلقائي لعمليات تسجيل الدخول وكلمات المرور في التطبيقات الأخرى</string>
     <string name="preferences_tracking_protection_normal">التمكين في وضع التصفح العادي</string>
-    <string name="preferences_tracking_protection_private">تمكين في وضع التصفح الشخصي</string>
+    <string name="preferences_tracking_protection_private">التمكين في وضع التصفح الشخصي</string>
     <string name="general_category">عام</string>
     <string name="settings">الإعدادات</string>
     <string name="customization_settings">التخصيص</string>
@@ -75,14 +75,14 @@
     <string name="preferences_delete_browsing_data_site_permissions">أذونات الموقع</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">علامات التبويب المفتوحة</string>
     <string name="preference_show_search_suggestions">الحصول على اقتراحات البحث</string>
-    <string name="theme_category">سمة</string>
+    <string name="theme_category">ثيمة</string>
     <string name="clear_button_category">الزر \'مسح\'</string>
     <string name="crash_report_non_fatal_message">معذرة. لقد تعطلنا</string>
     <string name="menu_share_with">شارك مع…</string>
-    <string name="toast_copied">نُسخ!</string>
+    <string name="toast_copied">تم النسخ!</string>
     <string name="customize_addon_collection_cancel">إلغاء</string>
     <string name="content_description_private_browsing_button">تمكين التصفح الشخصي</string>
-    <string name="rename_top_site">اعادة التسمية</string>
+    <string name="rename_top_site">إعادة التسمية</string>
     <string name="delete_from_history">حذف من سجل التاريخ</string>
     <string name="shortcut_max_limit_title">تم الوصول إلى الحد الأقصى لعدد الاختصارات</string>
     <string name="shortcut_name_hint">اسم الاختصار</string>
@@ -97,4 +97,6 @@
     <string name="toolbar_category">خيارات شريط الأدوات</string>
     <string name="preferences_customize_amo_collection">مجموعة الوظائف الإضافية المخصصة</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
+    <string name="customize_add_bootstrap_save">حفظ</string>
+    <string name="not_applicable">غير متوفِّر</string>
 </resources>
