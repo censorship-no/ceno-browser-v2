@@ -382,6 +382,20 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
+    fun setBTSource(context: Context, source: String) {
+        ouinetClientRequest(
+            context,
+            OuinetKey.EXTRA_BOOTSTRAPS,
+            OuinetValue.OTHER,
+            source
+        )
+
+        setExtraBitTorrentBootstrap(
+            context,
+            arrayOf(source)
+        )
+    }
+
     fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
