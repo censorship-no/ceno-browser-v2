@@ -382,7 +382,7 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun setBTSource(context: Context, source: String) {
+    fun saveBTSource(context: Context, source: String) {
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,

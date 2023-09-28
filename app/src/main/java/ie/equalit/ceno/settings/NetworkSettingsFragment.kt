@@ -82,7 +82,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
             when(newValue) {
                 getString(R.string.bt_sources_none) -> {
-                    CenoSettings.setBTSource(requireContext(), "")
+                    CenoSettings.saveBTSource(requireContext(), "")
                     getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                 }
                 getString(R.string.bt_sources_custom) -> {
@@ -101,10 +101,10 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
                                 if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
                                     || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches())) {
-                                    CenoSettings.setBTSource(requireContext(), customBTSourcesView.text.toString().trim())
+                                    CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim())
                                     getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                                 } else {
-                                    CenoSettings.setBTSource(requireContext(), "")
+                                    CenoSettings.saveBTSource(requireContext(), "")
                                     getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                                     Toast.makeText(requireContext(), getString(R.string.bt_invalid_source_error), Toast.LENGTH_SHORT).show()
                                 }
@@ -121,7 +121,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
                     }.show()
                 }
                 else -> {
-                    CenoSettings.setBTSource(requireContext(), newValue as String)
+                    CenoSettings.saveBTSource(requireContext(), newValue as String)
                     getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                 }
             }
