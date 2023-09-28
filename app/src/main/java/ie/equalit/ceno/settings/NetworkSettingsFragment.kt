@@ -107,11 +107,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
                             }
                         }
 
-                        customBTSourcesView.setText(
-                            CenoSettings.getExtraBitTorrentBootstrap(
-                                context
-                            )?.trim()
-                        )
                         customBTSourcesView.requestFocus()
                         customBTSourcesView.showKeyboard()
                         create()
@@ -142,7 +137,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val currentValue = CenoSettings.getExtraBitTorrentBootstrap(requireContext())?.trim()
 
         return when {
-            currentValue == "" -> getString(R.string.bt_sources_none)
+            currentValue.isNullOrEmpty() -> getString(R.string.bt_sources_none)
             btSourcesMap.values.contains(currentValue) -> btSourcesMap.entries.find { it.value.trim() == currentValue }?.key
             else -> currentValue
         }
