@@ -6,7 +6,10 @@ package ie.equalit.ceno.settings
 
 import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
+import android.net.InetAddresses
+import android.os.Build
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -91,22 +94,27 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
                         }
 
                         setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
-                            val ipPattern = """^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$""".toRegex()
-
                             val ipAddresses = customBTSourcesView.text.toString().trim().removeSuffix(",").split(",")
 
                             for (ipAddress in ipAddresses) {
                                 val trimmedIpAddress = ipAddress.trim().removeSuffix(",")
 
-                                if (ipPattern.matches(trimmedIpAddress)) {
+                                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
+                                    || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches())) {
                                     CenoSettings.setBTSource(requireContext(), customBTSourcesView.text.toString().trim())
                                     getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                                 } else {
+                                    CenoSettings.setBTSource(requireContext(), "")
+                                    getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
                                     Toast.makeText(requireContext(), getString(R.string.bt_invalid_source_error), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
-
+                        customBTSourcesView.setText(
+                            CenoSettings.getExtraBitTorrentBootstrap(
+                                context
+                            )?.trim()
+                        )
                         customBTSourcesView.requestFocus()
                         customBTSourcesView.showKeyboard()
                         create()
