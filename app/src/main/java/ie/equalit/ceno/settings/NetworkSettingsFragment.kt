@@ -20,6 +20,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import mozilla.components.support.ktx.android.view.showKeyboard
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
+import java.util.Locale
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
@@ -122,7 +123,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setUpBTSources() {
-        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[entry[0]] = entry[1]
+        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
         btSourcesMap["Custom"] = "Custom"
         btSourcesMap["None"] = ""
     }
