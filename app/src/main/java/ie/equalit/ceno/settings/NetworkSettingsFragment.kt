@@ -26,7 +26,7 @@ import mozilla.components.support.ktx.android.view.showKeyboard
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 import java.util.Locale
 
-class NetworkSettingsFragment : PreferenceFragmentCompat() {
+class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListener {
 
     private val btSourcesMap = mutableMapOf<String, String>()
 
@@ -69,7 +69,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferenceExtraBitTorrentBootstrap?.entries = btSourcesMap.keys.toList().toTypedArray()
         preferenceExtraBitTorrentBootstrap?.entryValues = btSourcesMap.values.toList().toTypedArray()
         preferenceExtraBitTorrentBootstrap?.onPreferenceChangeListener = getClickListenerForExtraBitTorrentBootstraps()
-        preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
+        preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceMapping()
 
     }
 
@@ -82,8 +82,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
             when(newValue) {
                 getString(R.string.bt_sources_none) -> {
-                    CenoSettings.saveBTSource(requireContext(), "")
-                    getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+                    CenoSettings.saveBTSource(requireContext(), "", this)
                 }
                 getString(R.string.bt_sources_custom) -> {
                     AlertDialog.Builder(context).apply {
@@ -101,11 +100,9 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
                                 if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
                                     || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches())) {
-                                    CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim())
-                                    getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+                                    CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim(), this@NetworkSettingsFragment)
                                 } else {
-                                    CenoSettings.saveBTSource(requireContext(), "")
-                                    getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+                                    CenoSettings.saveBTSource(requireContext(), "", this@NetworkSettingsFragment)
                                     Toast.makeText(requireContext(), getString(R.string.bt_invalid_source_error), Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -121,8 +118,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
                     }.show()
                 }
                 else -> {
-                    CenoSettings.saveBTSource(requireContext(), newValue as String)
-                    getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+                    CenoSettings.saveBTSource(requireContext(), newValue as String, this)
                 }
             }
 
@@ -141,7 +137,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         btSourcesMap[getString(R.string.bt_sources_none)] = getString(R.string.bt_sources_none)
     }
 
-    private fun getBTPreferenceSummary(): String? {
+    private fun getBTPreferenceMapping(): String? {
         val currentValue = CenoSettings.getExtraBitTorrentBootstrap(requireContext())?.trim()
 
         return when {
@@ -152,4 +148,13 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
+
+    override fun onBTChangeSuccess(source: String) {
+        CenoSettings.setExtraBitTorrentBootstrap(requireContext(), arrayOf(source))
+        getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceMapping()
+    }
+
+    override fun onErrorResponse() {
+        Toast.makeText(context, resources.getString(R.string.ouinet_client_fetch_fail), Toast.LENGTH_SHORT).show()
+    }
 }

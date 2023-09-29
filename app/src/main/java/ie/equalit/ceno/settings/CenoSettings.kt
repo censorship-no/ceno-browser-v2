@@ -382,21 +382,17 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun saveBTSource(context: Context, source: String) {
+    fun saveBTSource(context: Context, source: String, ouinetResponseListener: OuinetResponseListener?) {
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,
             OuinetValue.OTHER,
-            source
-        )
-
-        setExtraBitTorrentBootstrap(
-            context,
-            arrayOf(source)
+            source,
+            ouinetResponseListener
         )
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
+    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
@@ -404,6 +400,9 @@ object CenoSettings {
                 "${SET_VALUE_ENDPOINT}/${key.command}"
 
             webClientRequest(context, Request(request)).let { response ->
+
+                if(response == null) ouinetResponseListener?.onErrorResponse()
+
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
@@ -421,12 +420,15 @@ object CenoSettings {
                         }
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
+                    OuinetKey.EXTRA_BOOTSTRAPS -> {
+                        if(response != null)
+                            ouinetResponseListener?.onBTChangeSuccess(stringValue ?: "")
+                    }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
-                    OuinetKey.LOGFILE,
-                    OuinetKey.EXTRA_BOOTSTRAPS
+                    OuinetKey.LOGFILE
                     -> {
                         if (response == null) {
                             Toast.makeText(
