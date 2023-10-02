@@ -94,4 +94,5 @@
     <string name="customize_extra_bittorrent_bootstrap">Ek BitTorrent ön yüklemeleri</string>
     <string name="not_applicable">Kullanılamaz</string>
     <string name="udp_category">UDP</string>
+    <string name="crash_report_sent">Çökme bildirimi gönderildi!</string>
 </resources>
