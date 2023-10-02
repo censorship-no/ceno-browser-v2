@@ -18,7 +18,9 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentStandbyBinding
@@ -70,6 +72,7 @@ class StandbyFragment : Fragment() {
             var index = 0
             while (true) {
                 val state = requireComponents.ouinet.background.getState()
+
                 if (state != RunningState.Started.toString()) {
                     if (index <= displayText.lastIndex) {
                         emit(displayText[index])
@@ -103,45 +106,48 @@ class StandbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
         viewLifecycleOwner.lifecycleScope.launch {
-            status?.collect { currentState ->
-                Log.d("COLLECT", currentState)
-                if (!isDialogVisible) {
-                    when(currentState) {
-                        RunningState.Started.toString() -> {
-                            //go to home or browser
-                            findNavController().popBackStack(R.id.standbyFragment, true)
-                            if (requireComponents.core.store.state.selectedTab == null)
-                                findNavController().navigate(R.id.action_global_home)
-                            else
-                                findNavController().navigate((R.id.action_global_browser))
-                        }
-                        statusTooLong -> {
-                            //Show dialog
-                            displayTimeoutDialog()
-                        }
-                        RunningState.Starting.toString() -> {
-                            if (!isNetworkAvailable())
-                                binding.llNoInternet.visibility = View.VISIBLE
-                            else
-                                binding.llNoInternet.visibility = View.INVISIBLE
-                        }
-                        else -> {
-                            binding.tvStatus.text = currentState
-                            if (!isNetworkAvailable())
-                                binding.llNoInternet.visibility = View.VISIBLE
-                            else
-                                binding.llNoInternet.visibility = View.INVISIBLE
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                status?.collect { currentState ->
+                    Log.d("COLLECT", currentState)
+                    if (!isDialogVisible) {
+                        when(currentState) {
+                            RunningState.Started.toString() -> {
+                                //go to home or browser
+                                findNavController().popBackStack(R.id.standbyFragment, true)
+                                if (requireComponents.core.store.state.selectedTab == null)
+                                    findNavController().navigate(R.id.action_global_home)
+                                else
+                                    findNavController().navigate((R.id.action_global_browser))
+                            }
+                            statusTooLong -> {
+                                //Show dialog
+                                displayTimeoutDialog()
+                            }
+                            RunningState.Starting.toString() -> {
+                                if (!isNetworkAvailable())
+                                    binding.llNoInternet.visibility = View.VISIBLE
+                                else
+                                    binding.llNoInternet.visibility = View.INVISIBLE
+                            }
+                            RunningState.Stopped.toString() -> {
+                                //restart ouinet? todo
+
+                            }
+                            else -> {
+                                binding.tvStatus.text = currentState
+                                if (!isNetworkAvailable())
+                                    binding.llNoInternet.visibility = View.VISIBLE
+                                else
+                                    binding.llNoInternet.visibility = View.INVISIBLE
+                            }
                         }
                     }
                 }
             }
         }
     }
+
 
     private fun displayTimeoutDialog() {
         isDialogVisible = true
