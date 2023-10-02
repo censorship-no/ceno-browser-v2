@@ -62,10 +62,12 @@
         android:title="@string/bit_torrent_bootstraps_category"
         android:layout="@layout/preference_category_style">
 
-        <ListPreference
+        <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_ouinet_extra_bittorrent_bootstraps"
-            android:title="@string/preferences_ceno_sources_extra_bitTorrent_bootstraps"/>
+            android:defaultValue="false"
+            android:enabled="true"
+            android:title="@string/preferences_ceno_sources_extra_bitTorrent_bootstraps" />
 
     </PreferenceCategory>
 

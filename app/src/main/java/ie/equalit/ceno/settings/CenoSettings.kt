@@ -2,6 +2,7 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
@@ -231,16 +232,23 @@ object CenoSettings {
             .apply()
     }
 
-    fun getExtraBitTorrentBootstrap(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
+    fun getLocalBTSources(context: Context) : List<String>? {
+        val sources = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
-        )
+        ) ?: return null
+
+        Log.d("PPPPPP", "From DB, it is: $sources")
+
+        return sources.split(",")
+    }
 
     fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
-        texts?.forEach { formattedText += "${it.trim()} " }
+        texts?.forEach { formattedText = "$formattedText,${it.trim()}" }
+        formattedText = formattedText.removePrefix(",")
+        formattedText = formattedText.removeSuffix(",")
 
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
@@ -382,12 +390,12 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun saveBTSource(context: Context, source: String, ouinetResponseListener: OuinetResponseListener?) {
+    fun saveBTSource(context: Context, sources: List<String>, ouinetResponseListener: OuinetResponseListener?) {
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,
             OuinetValue.OTHER,
-            source,
+            sources,
             ouinetResponseListener
         )
     }
