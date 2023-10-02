@@ -148,12 +148,24 @@
     <string name="onboarding_warning_text_v33_2">Les notifications ne sont pas autorisées et l’optimisation de la batterie est toujours activée.
 \n
 \nAccédez aux « Paramètres » pour donner l’autorisation ultérieurement</string>
-    <string name="onboarding_battery_text_v33">Sous peu, le système d’exploitation vous demandera la permission d’autoriser les notifications et de désactiver l’optimisation de la batterie.
+    <string name="onboarding_battery_text_v33">Bientôt, le système d\'exploitation vous demandera bientôt l\'autorisation de
 \n
-\nCela est nécessaire pour continuer à partager des sites Web alors que l’appli est en arrière-plan</string>
+\n- Autoriser les notifications
+\n- Désactiver l\'optimisation de la batterie
+\n
+\nCette autorisation est nécessaire pour continuer à partager des sites web lorsque l\'application est en arrière-plan</string>
     <string name="onboarding_warning_text_v33_1">Les notifications ne sont pas autorisées.
 \n
 \nAccédez à « Paramètres &gt; Autoriser les notifications » pour les autoriser</string>
     <string name="onboarding_public_or_personal_title">Public ou Personnel \?</string>
     <string name="onboarding_cleanup_text">Effacez l\'historique de votre navigateur, vos identifiants et toute trace que vous avez laissée sur &amp;brand ShortName; avec un seul bouton.</string>
+    <string name="crash_reporting_dialog_description">Désolé, on dirait que &brandShortName; s’est écrasé !
+\nAidez-nous à améliorer &brandShortName; en nous envoyant le rapport d\'accident.</string>
+    <string name="crash_reporting_never_send">Ne jamais envoyez</string>
+    <string name="crash_reporting_dont_send_this_time">Ne pas envoyez cette fois-ci</string>
+    <string name="crash_reporting_always_send">Toujours envoyez</string>
+    <string name="crash_reporting_opt_out">Vous avez choisi de ne plus partagez les rapports d\'accident. Vous pouvez toujours le faire en allant dans « Paramètre &gt; Rapports d\'incident ».</string>
+    <string name="crash_reporting_opt_in">Merci d\'avoir partagé les rapports d\'accidents pour aider à améliorer &brandShortName; ! Vous pouvez toujours désactiver cette fonction en allant dans les paramètres &gt; Rapport d\'accident.</string>
+    <string name="crash_reporting_send_once">Envoyez une fois</string>
+    <string name="crash_reporting_dont_ask_again">Ne pas demandez à nouveau</string>
 </resources>
