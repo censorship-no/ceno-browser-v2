@@ -177,6 +177,7 @@ open class BrowserActivity : BaseActivity() {
         }
 
         // Check for previous crashes
+        /*
         if(Settings.showCrashReportingPermissionNudge(this)) {
 
             val lastCrash = Gson().fromJson(Settings.getLastCrash(this@BrowserActivity), SentryEvent::class.java)
@@ -229,7 +230,6 @@ open class BrowserActivity : BaseActivity() {
                 create()
             }.show()
         }
-        /*
         else {
             Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
