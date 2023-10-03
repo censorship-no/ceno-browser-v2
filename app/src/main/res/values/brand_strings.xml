@@ -213,6 +213,9 @@
     <string name="ouinet_timeout_dialog_text">Ceno requires a connection to the internet to work. Please check your network settings.</string>
     <string name="network_settings">Network Settings</string>
     <string name="standby_no_internet_text">No internet connection, performance of Ceno may be limited. Check your network connections and try reloading Ceno.</string>
+    <string name="standby_message_one">Connecting to Ceno network</string>
+    <string name="standby_message_two">Initializing cache</string>
+    <string name="standby_message_three">Finding bootstrap nodes</string>
 
     <!--  Ceno sources categories  -->
     <string name="ceno_sources_direct_from_website">Direct from website</string>
