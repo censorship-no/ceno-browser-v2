@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="customize_addon_collection_user_hint">مالك المجموعة (معرًف المستخدم)</string>
-    <string name="bookmark_menu_open_in_private_tab_button">فتح في علامة تبويب شخصية</string>
-    <string name="remove_top_site">ازالة</string>
-    <string name="top_sites_rename_dialog_title">اسم</string>
+    <string name="bookmark_menu_open_in_private_tab_button">افتح في علامة تبويب شخصية</string>
+    <string name="remove_top_site">إزالة</string>
+    <string name="top_sites_rename_dialog_title">الاسم</string>
     <string name="secure_connection">الاتصال آمن</string>
     <string name="preference_category_search">بحث</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
@@ -11,7 +11,7 @@
         <item quantity="one">%d علامة تبويب</item>
         <item quantity="two">%d علاماتي تبويب</item>
         <item quantity="few">%d علامات تبويب</item>
-        <item quantity="many">%d علامة تبويب</item>
+        <item quantity="many">%d علامات تبويب</item>
         <item quantity="other">%d علامة تبويب</item>
     </plurals>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
@@ -19,7 +19,7 @@
         <item quantity="one">%d عنوان</item>
         <item quantity="two">%d عنوانين</item>
         <item quantity="few">%d عنواين</item>
-        <item quantity="many">%d عنوان</item>
+        <item quantity="many">%d عناوين</item>
         <item quantity="other">%d عنوان</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cached_files">الصور والملفات المخزنة مؤقتًا</string>
@@ -27,9 +27,9 @@
     <string name="delete_browsing_data_prompt_message_3">%s سيحذف بيانات التصفح المحددة.</string>
     <string name="customize_addon_collection_ok">موافق</string>
     <string name="preference_choose_search_engine">اختر محرك البحث</string>
-    <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصارا. المس الموقع مع الاستمرار وحدد إزالة.</string>
+    <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصاراً قديماً. المس اسم الموقع واستمر ثم حدد إزالة.</string>
     <string name="toast_customize_addon_collection_done">تم تعديل مجموعة الوظائف الإضافية. إغلاق التطبيق لتطبيق التغييرات…</string>
-    <string name="preference_search_summary">الوضع الإفتراضي</string>
+    <string name="preference_search_summary">اضبط الوضع الافتراضي</string>
     <string name="preference_select_preferred_engine">حدد محركك المفضل:</string>
     <string name="insecure_connection">الاتصال غير آمن</string>
     <string name="menu_action_add_tab">إضافة علامة تبويب جديدة</string>
@@ -42,21 +42,21 @@
     <string name="settings">الإعدادات</string>
     <string name="customization_settings">التخصيص</string>
     <string name="top_sites_rename_dialog_ok">موافق</string>
-    <string name="browser_menu_forward">إلى الأمام</string>
+    <string name="browser_menu_forward">التالي</string>
     <string name="browser_menu_settings">الإعدادات</string>
     <string name="browser_menu_desktop_site">اطلب إصدار سطح المكتب</string>
-    <string name="browser_menu_add_ons">الوظائف الإضافية</string>
+    <string name="browser_menu_add_ons">الإضافات</string>
     <string name="browser_toolbar_home">الرئيسية</string>
     <string name="close_mode_item">أغلق الإشعار</string>
     <string name="preferences_privacy_summary">التمكين للتصفح الشخصي والعام</string>
-    <string name="preferences_customization_summary">أيقونة التطبيق، شريط الأدوات، الزر \'مسح\'</string>
-    <string name="top_sites_max_limit_confirmation_button">حسنا، فهمت</string>
-    <string name="button_content_readerview">رؤية القارئ</string>
+    <string name="preferences_customization_summary">أيقونة التطبيق، شريط الأدوات، زر \'مسح\'</string>
+    <string name="top_sites_max_limit_confirmation_button">حسناً، فهمت</string>
+    <string name="button_content_readerview">عرض القارئ</string>
     <string name="customize_addon_collection_hint">اسم المجموعة</string>
     <string name="browser_menu_add_to_homescreen">أضف إلى الشاشة الرئيسية</string>
     <string name="browser_menu_library">المكتبة</string>
     <string name="preferences_delete_browsing_data_snackbar">تم حذف بيانات التصفح</string>
-    <string name="deleting_browsing_data_in_progress">حذف بيانات التصفح ‥</string>
+    <string name="deleting_browsing_data_in_progress">حذف بيانات التصفح‥</string>
     <string name="preferences_delete_browsing_data">احذف بيانات التصفح</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">تصفح سجل تاريخ الموقع والبيانات</string>
     <string name="toolbar_hint">ابحث عن العنوان أو أدخله</string>
@@ -67,8 +67,8 @@
     <string name="open_links_in_apps">فتح الروابط في التطبيقات</string>
     <string name="tracker_category">الحماية من التعقب</string>
     <string name="private_browsing_title">التصفح الشخصي</string>
-    <string name="browser_menu_back">إلى الوراء</string>
-    <string name="delete_browsing_data_prompt_cancel">إلغاء الأمر</string>
+    <string name="browser_menu_back">الخلف</string>
+    <string name="delete_browsing_data_prompt_cancel">إلغاء</string>
     <string name="preferences_delete_browsing_data_cookies">ملفات تعريف الارتباط</string>
     <string name="delete_browsing_data_prompt_allow">حذف</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">يحرر مساحة التخزين</string>
@@ -76,7 +76,7 @@
     <string name="preferences_delete_browsing_data_tabs_title_2">علامات التبويب المفتوحة</string>
     <string name="preference_show_search_suggestions">الحصول على اقتراحات البحث</string>
     <string name="theme_category">ثيمة</string>
-    <string name="clear_button_category">الزر \'مسح\'</string>
+    <string name="clear_button_category">زر \'مسح\'</string>
     <string name="crash_report_non_fatal_message">معذرة. لقد تعطلنا</string>
     <string name="menu_share_with">شارك مع…</string>
     <string name="toast_copied">تم النسخ!</string>
@@ -86,17 +86,21 @@
     <string name="delete_from_history">حذف من سجل التاريخ</string>
     <string name="shortcut_max_limit_title">تم الوصول إلى الحد الأقصى لعدد الاختصارات</string>
     <string name="shortcut_name_hint">اسم الاختصار</string>
-    <string name="top_sites_rename_dialog_cancel">إلغاء الأمر</string>
+    <string name="top_sites_rename_dialog_cancel">إلغاء</string>
     <string name="top_sites_sponsored_label">برعاية</string>
-    <string name="browser_menu_refresh">إنعاش</string>
+    <string name="browser_menu_refresh">أعِد تحميل</string>
     <string name="browser_menu_stop">إيقاف</string>
     <string name="browser_menu_find_in_page">البحث في الصفحة</string>
     <string name="browser_menu_add_to_shortcuts">أضف إلى الاختصارات</string>
     <string name="browser_menu_remove_from_shortcuts">أزل من الاختصارات</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">سيتم تسجيل خروجك من معظم المواقع</string>
     <string name="toolbar_category">خيارات شريط الأدوات</string>
-    <string name="preferences_customize_amo_collection">مجموعة الوظائف الإضافية المخصصة</string>
+    <string name="preferences_customize_amo_collection">مجموعة الإضافات المخصصة</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
     <string name="customize_add_bootstrap_save">حفظ</string>
     <string name="not_applicable">غير متوفِّر</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">تمهيدات BitTorrent</string>
+    <string name="customize_extra_bittorrent_bootstrap">تمهيدات BitTorrent إضافية</string>
+    <string name="crash_report_sent">تم إرسال تقرير العطل!</string>
 </resources>

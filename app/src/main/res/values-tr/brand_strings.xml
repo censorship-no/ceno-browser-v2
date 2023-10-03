@@ -140,4 +140,14 @@
     <string name="ceno_home_card_personal_text">Bir hesap oturumu açmak ya da kimlik doğrulama bilgilerine erişmek için.</string>
     <string name="preferences_ceno_sources_upnp">UPnP durumu</string>
     <string name="onboarding_finish_button">Bitti</string>
+    <string name="crash_reporting_dialog_description">Ne yazık ki &brandShortName; çöktü!
+\nBir çökme bildirimi göndererek &brandShortName; uygulamasının geliştirilmesine katkıda bulunun.</string>
+    <string name="crash_reporting_never_send">Hiçbir zaman gönderilmesin</string>
+    <string name="crash_reporting_dont_send_this_time">Şimdi gönderilmesin</string>
+    <string name="crash_reporting_always_send">Her zaman gönderilsin</string>
+    <string name="preferences_allow_crash_reporting">Çökme bildirimleri</string>
+    <string name="crash_reporting_opt_out">Çökme bildirimlerini paylaşmaktan vazgeçtiniz. Bu durumu istediğiniz zaman Ayarlar &gt; Çökme bildirimleri bölümünden değiştirebilirsiniz.</string>
+    <string name="crash_reporting_opt_in">&brandShortName; uygulamasını geliştirmemize yardımcı olmak için çökme bildirimlerini paylaştığınız için teşekkür ederiz! Bu durumu istediğiniz zaman Ayarlar &gt; Çökme bildirimleri bölümünden değiştirebilirsiniz.</string>
+    <string name="crash_reporting_send_once">Bir kez gönderilsin</string>
+    <string name="crash_reporting_dont_ask_again">Bir daha sorulmasın</string>
 </resources>
