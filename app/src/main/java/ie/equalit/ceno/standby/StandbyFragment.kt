@@ -39,10 +39,18 @@ import mozilla.components.browser.state.selector.selectedTab
 class StandbyFragment : Fragment() {
 
     private var isDialogVisible: Boolean = false
-    val refreshIntervalMS: Long = 2500
-    val statusTooLong: String = "toolong"
+    private val refreshIntervalMS: Long = 2000
+    private val statusTooLong: String = "toolong"
 
-    var status: Flow<String>? = null
+    private var status: Flow<String>? = null
+
+    private var index = 0
+
+    private val displayText: List<Int> = listOf(
+        R.string.standby_message_one,
+        R.string.standby_message_two,
+        R.string.standby_message_three
+    )
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
@@ -69,15 +77,15 @@ class StandbyFragment : Fragment() {
 
     private fun initiateStatusUpdate() {
         status = flow {
-            var index = 0
+
             while (true) {
                 val state = requireComponents.ouinet.background.getState()
 
                 if (state != RunningState.Started.toString()) {
                     if (index <= displayText.lastIndex) {
-                        emit(displayText[index])
+                        emit(getString(displayText[index]))
                         //check for internet
-                    } else if (index == displayText.size) {
+                    } else if (index == 5) {
                         emit(statusTooLong)
                     } else {
                         emit(state)
@@ -87,7 +95,6 @@ class StandbyFragment : Fragment() {
                 }
                 delay(refreshIntervalMS)
                 index += 1
-                Log.d("EMIT", state + index)
             }
         }
     }
@@ -109,7 +116,6 @@ class StandbyFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 status?.collect { currentState ->
-                    Log.d("COLLECT", currentState)
                     if (!isDialogVisible) {
                         when(currentState) {
                             RunningState.Started.toString() -> {
@@ -129,10 +135,6 @@ class StandbyFragment : Fragment() {
                                     binding.llNoInternet.visibility = View.VISIBLE
                                 else
                                     binding.llNoInternet.visibility = View.INVISIBLE
-                            }
-                            RunningState.Stopped.toString() -> {
-                                //restart ouinet? todo
-
                             }
                             else -> {
                                 binding.tvStatus.text = currentState
@@ -155,39 +157,32 @@ class StandbyFragment : Fragment() {
         val timeoutDialogBuilder = AlertDialog.Builder(requireContext())
         val timeoutDialogView = View.inflate(requireContext(), R.layout.layout_standby_timeout, null)
 
-        val btnNetwork = timeoutDialogView.findViewById<Button>(R.id.btn_network_settings)
-        btnNetwork?.setOnClickListener {
-            isDialogVisible = false
-            val intent = Intent(ACTION_WIRELESS_SETTINGS)
-            startActivity(intent)
-        }
-
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
             setPositiveButton("Try Again") { dialogInterface, i ->
                 isDialogVisible = false
                 tryAgain()
             }
-
-            show()
         }
+
+        val dialog = timeoutDialogBuilder.create()
+        val btnNetwork = timeoutDialogView.findViewById<Button>(R.id.btn_network_settings)
+        btnNetwork?.setOnClickListener {
+            isDialogVisible = false
+            dialog.dismiss()
+            val intent = Intent(ACTION_WIRELESS_SETTINGS)
+            startActivity(intent)
+        }
+        dialog.show()
 
     }
 
     private fun tryAgain() {
-        //check for netword and set text
-
         //restart progressbar indicator
         binding.progressBar.isActivated = true
+        index = 0
     }
 
 
-    companion object {
-        val displayText: List<String> = listOf(
-            "Connecting to Ceno network",
-            "Initializing cache",
-            "Finding bootstrap nodes"
-        )
-    }
 
 }
