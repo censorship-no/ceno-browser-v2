@@ -290,6 +290,21 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
         var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
         var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
+
+        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
+            text = textPrimary,
+            hint = textSecondary
+        )
+        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
+            text = textPrimary,
+            hint = textSecondary,
+            securityIconSecure = textPrimary,
+            securityIconInsecure = textPrimary,
+            menu = textPrimary
+        )
+
 
         binding.toolbar.display.setUrlBackground(urlBackground)
 
