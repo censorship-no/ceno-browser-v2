@@ -22,7 +22,7 @@ import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.addons.AddonManager
-import mozilla.components.feature.addons.amo.AMOAddonsProvider
+import mozilla.components.feature.addons.amo.AddonCollectionProvider
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
 import mozilla.components.feature.customtabs.store.CustomTabsServiceStore
@@ -261,8 +261,8 @@ class Core(private val context: Context) {
         )
     }
 
-    private fun provideDefaultAddonProvider(): AMOAddonsProvider {
-        return AMOAddonsProvider(
+    private fun provideDefaultAddonProvider(): AddonCollectionProvider {
+        return AddonCollectionProvider(
             context = context,
             client = client,
             collectionName = "7dfae8669acc4312a65e8ba5553036",
@@ -270,8 +270,8 @@ class Core(private val context: Context) {
         )
     }
 
-    private fun provideCustomAddonProvider(): AMOAddonsProvider {
-        return AMOAddonsProvider(
+    private fun provideCustomAddonProvider(): AddonCollectionProvider {
+        return AddonCollectionProvider(
             context,
             client,
             collectionUser = Settings.getOverrideAmoUser(context),
