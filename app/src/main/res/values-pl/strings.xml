@@ -65,5 +65,7 @@
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
     <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
     <string name="preferences_autofill">Automatycznie uzupełniaj w aplikacjach</string>
-    <string name="preferences_customization_summary">Ikona Aplikacji, Pasek Narzędzi, Wyczyść Przycisk</string>
+    <string name="preferences_customization_summary">Ikona aplikacji, Pasek narzędzi, przycisk Wyczyść</string>
+    <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
+    <string name="general_category">Ogólne</string>
 </resources>
