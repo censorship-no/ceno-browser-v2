@@ -69,4 +69,5 @@
     <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
     <string name="general_category">Ogólne</string>
     <string name="tracker_category">Ochrona przed śledzeniem</string>
+    <string name="clear_button_category">Wyczyść Przycisk</string>
 </resources>
