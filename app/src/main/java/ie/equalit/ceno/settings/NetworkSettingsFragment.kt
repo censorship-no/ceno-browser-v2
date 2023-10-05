@@ -93,9 +93,11 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                     var allSelectedIPValues = ""
                     for (child in linearLayout.iterator()) {
                         if(child is CheckBox  && child.isChecked) {
-                            allSelectedIPValues = "$allSelectedIPValues,${flipKeyForValue(child.text.toString())}".removePrefix(",")
+                            allSelectedIPValues = "$allSelectedIPValues ${flipKeyForValue(child.text.toString())}".trim()
                         }
                     }
+
+                    Log.d("PPPPPP", "Sending $allSelectedIPValues to BE")
 
                     CenoSettings.saveBTSource(requireContext(), allSelectedIPValues, this@NetworkSettingsFragment)
                 }
@@ -112,7 +114,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
                 // add custom sources
                 CenoSettings.getLocalBTSources(requireContext())?.forEach {
-                    it.replace(",", "").let { source ->
+                    it.let { source ->
                         if(source.trim().isNotEmpty() && !btSourcesMap.containsValue(source.trim())) {
                             linearLayout.addView(
                                 CheckBox(activity).apply {
@@ -139,10 +141,10 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                         }
 
                         setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
-                            val ipAddresses = customBTSourcesView.text.toString().trim().removeSuffix(",").split(",")
+                            val ipAddresses = customBTSourcesView.text.toString().trim().split(" ")
 
                             for (ipAddress in ipAddresses) {
-                                val trimmedIpAddress = ipAddress.trim().removeSuffix(",")
+                                val trimmedIpAddress = ipAddress.trim()
 
                                 if (!((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
                                         || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches()))) {
@@ -185,19 +187,17 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
         var finalString = ""
 
-        Log.d("PPPPPP", "From local, it is: ${CenoSettings.getLocalBTSources(requireContext()).toString()}")
-
         CenoSettings.getLocalBTSources(requireContext())?.forEach {
             finalString = if(btSourcesMap.values.contains(it)) {
-                "$finalString, ${btSourcesMap.entries.find { e -> e.value.trim() == it }?.key}"
+                "$finalString ${btSourcesMap.entries.find { e -> e.value.trim() == it }?.key}"
             } else {
-                "$finalString, $it"
+                "$finalString $it"
             }
         }
 
         return when {
-            finalString.replace(",", "").trim().isEmpty() -> getString(R.string.bt_sources_none)
-            else -> finalString.removePrefix(",").removeSuffix(",")
+            finalString.trim().isEmpty() -> getString(R.string.bt_sources_none)
+            else -> finalString.trim()
         }
     }
 
