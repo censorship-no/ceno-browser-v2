@@ -68,4 +68,5 @@
     <string name="preferences_customization_summary">Ikona aplikacji, Pasek narzędzi, przycisk Wyczyść</string>
     <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
     <string name="general_category">Ogólne</string>
+    <string name="tracker_category">Ochrona Śledzenia</string>
 </resources>
