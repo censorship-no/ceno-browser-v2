@@ -38,15 +38,16 @@ class TabsToolbar @JvmOverloads constructor(
                 R.id.newTab -> {
                     //set browsing mode
                     browsingModeManager.mode = BrowsingMode.fromBoolean(isPrivateTray)
-                    when (isPrivateTray) {
-                        true -> {
-                            tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
-                            closeTabsTray?.invoke(false)
-                        }
-                        false -> {
-                            closeTabsTray?.invoke(true)
-                        }
-                    }
+                    closeTabsTray?.invoke(true)
+//                    when (isPrivateTray) {
+//                        true -> {
+//                            tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
+//                            closeTabsTray?.invoke(false)
+//                        }
+//                        false -> {
+//                            closeTabsTray?.invoke(true)
+//                        }
+//                    }
                 }
                 R.id.closeTab -> {
                     when (isPrivateTray) {

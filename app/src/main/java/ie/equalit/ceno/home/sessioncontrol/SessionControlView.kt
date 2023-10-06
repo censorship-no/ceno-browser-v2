@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
@@ -42,12 +43,18 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard): List<AdapterItem> =
-    normalModeAdapterItems(
-        prefs,
-        topSites,
-        messageCard
-    )
+internal fun personalModeAdapterItems(): List<AdapterItem> = listOf(AdapterItem.PersonalModeDescriptionItem)
+
+private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard): List<AdapterItem> = when(mode) {
+    BrowsingMode.Normal ->
+        normalModeAdapterItems(
+            prefs,
+            topSites,
+            messageCard
+        )
+    BrowsingMode.Personal -> personalModeAdapterItems()
+}
+
 
 class SessionControlView(
     val containerView: View,
@@ -85,6 +92,7 @@ class SessionControlView(
             interactor.showOnboardingDialog()
         }
          */
+
         val messageCard = CenoMessageCard(
             text = view.context.getString(R.string.onboarding_thanks_text),
             title = view.context.getString(R.string.onboarding_thanks_title)

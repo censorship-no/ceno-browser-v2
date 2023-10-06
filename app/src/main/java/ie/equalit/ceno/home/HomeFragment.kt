@@ -1,6 +1,7 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
@@ -24,6 +26,7 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
+import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -34,6 +37,7 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import java.util.logging.Logger
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
@@ -50,6 +54,8 @@ class HomeFragment : BaseHomeFragment() {
 
     private val topSitesFeature = ViewBoundFeatureWrapper<TopSitesFeature>()
 
+    private lateinit var themeManager: ThemeManager
+
     private val scope = MainScope()
 
     override fun onCreateView(
@@ -60,10 +66,14 @@ class HomeFragment : BaseHomeFragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false);
         val activity = activity as BrowserActivity
         val components = requireComponents
+        themeManager = activity.themeManager
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         components.useCases.tabsUseCases.selectTab("")
+
+        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentTheme))
+        Log.d("HOME", "${themeManager.currentTheme}")
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -148,7 +158,9 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        sessionControlView?.update(requireComponents.appStore.state)
+        if (themeManager.currentTheme == BrowsingMode.Normal) {
+            sessionControlView?.update(requireComponents.appStore.state)
+        }
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             sessionControlView?.update(it)
