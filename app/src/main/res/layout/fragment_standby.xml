@@ -27,6 +27,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:indeterminate="true"
+        android:progressTint="@color/ceno_home_card_public_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_standby_logo" />
@@ -51,8 +52,8 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
-        android:orientation="horizontal"
-        android:visibility="invisible"
+        android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_status">
@@ -61,11 +62,11 @@
             android:id="@+id/imageView4"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            app:srcCompat="@drawable/mozac_ic_information"
-            app:tint="@color/ceno_onboarding_button"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null"
+            app:srcCompat="@drawable/ic_no_internet"
+            app:tint="@color/ceno_home_card_public_text" />
 
         <TextView
             android:id="@+id/tv_no_internet"
@@ -74,6 +75,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="@string/standby_no_internet_text"
+            android:textAlignment="center"
             android:textColor="@color/ceno_onboarding_text" />
     </LinearLayout>
 
