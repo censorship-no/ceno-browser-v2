@@ -189,14 +189,12 @@ object Settings {
             .apply()
     }
 
-    fun showCrashReportingPermissionNudge(context: Context): Boolean = false
-        /*
+    fun showCrashReportingPermissionNudge(context: Context): Boolean =
         !PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_last_crash), ""
         ).isNullOrEmpty() && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
-         */
 
     fun toggleCrashReportingPermissionNudge(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
@@ -240,12 +238,9 @@ object Settings {
     }
 
     fun isCrashReportingPermissionGranted(context: Context) : Boolean {
-        return false
-        /*
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_allow_crash_reporting), false
         )
-        */
     }
 
     fun alwaysAllowCrashReporting(context: Context) {
@@ -265,12 +260,9 @@ object Settings {
     }
 
     fun wasCrashSuccessfullyLogged(context: Context) : Boolean {
-        return false
-        /*
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_crash_was_logged), false
         )
-        */
     }
 
     fun logSuccessfulCrashEvent(context: Context, value: Boolean) {
