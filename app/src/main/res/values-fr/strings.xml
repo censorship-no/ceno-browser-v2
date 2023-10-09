@@ -8,7 +8,7 @@
     <string name="menu_action_add_tab">Ajouter un nouvel onglet</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Fermer tous les onglets</string>
-    <string name="menu_action_close_tabs_private">Fermer les onglets privés</string>
+    <string name="menu_action_close_tabs_private">Fermer les onglets personnels</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Activer en mode de navigation privée</string>
+    <string name="preferences_tracking_protection_private">Activer en mode de navigation personnelle</string>
     <!-- Preference for privacy -->
     <string name="privacy">Confidentialité</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
     <!-- Navigation privée -->
-    <string name="private_browsing_title">Navigation privée</string>
+    <string name="private_browsing_title">Navigation personnelle</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Collection de modules complémentaires personnalisée</string>
