@@ -220,11 +220,9 @@ open class BrowserActivity : BaseActivity() {
                 }
                 setOnDismissListener {
                     Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
-                    SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                 }
                 setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
                     Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
-                    SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                 }
                 create()
             }.show()

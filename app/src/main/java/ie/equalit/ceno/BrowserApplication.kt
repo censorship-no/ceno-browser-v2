@@ -50,10 +50,12 @@ open class BrowserApplication : Application() {
         setupLogging()
 
         // Initialize Sentry-Android
-        SentryAndroid.init(
-            this,
-            SentryOptionsConfiguration.getConfig(this)
-        )
+        if(Settings.isCrashReportingPermissionGranted(this)) {
+            SentryAndroid.init(
+                this,
+                SentryOptionsConfiguration.getConfig(this)
+            )
+        }
 
         //------------------------------------------------------------
         // Ouinet
