@@ -570,7 +570,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
      *  Returns inflater with theme wrapped context for personal browsing mode [PersonalTheme]
     * */
     override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-        if (themeManager.currentTheme.isPersonal) {
+        if (themeManager.currentMode.isPersonal) {
             return LayoutInflater.from(themeManager.getContext())
         }
         return super.onGetLayoutInflater(savedInstanceState)

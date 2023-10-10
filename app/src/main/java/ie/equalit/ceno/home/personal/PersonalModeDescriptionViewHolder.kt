@@ -1,6 +1,9 @@
 package ie.equalit.ceno.home.personal
 
+import android.os.Build
+import android.text.Html
 import android.view.View
+import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.databinding.PersonalModeDescriptionBinding
 import ie.equalit.ceno.home.HomepageCardType
@@ -11,6 +14,12 @@ class PersonalModeDescriptionViewHolder(
 ): CenoViewHolder(view) {
 
     private val binding = PersonalModeDescriptionBinding.bind(view)
+
+    init {
+        binding.tvPersonalBrowsingLearnMore.setOnClickListener {
+            //open page todo
+        }
+    }
 
     fun bind() = Unit
     companion object {

@@ -72,8 +72,8 @@ class HomeFragment : BaseHomeFragment() {
 
         components.useCases.tabsUseCases.selectTab("")
 
-        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentTheme))
-        Log.d("HOME", "${themeManager.currentTheme}")
+        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
+        Log.d("HOME", "${themeManager.currentMode}")
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -115,6 +115,7 @@ class HomeFragment : BaseHomeFragment() {
         )
 
         updateSessionControlView()
+
 
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             topMargin = if(prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
@@ -158,7 +159,7 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        if (themeManager.currentTheme == BrowsingMode.Normal) {
+        if (themeManager.currentMode == BrowsingMode.Normal) {
             sessionControlView?.update(requireComponents.appStore.state)
         }
 
@@ -176,7 +177,12 @@ class HomeFragment : BaseHomeFragment() {
                 private = true
             )
         }
-        binding.homeAppBar.visibility = View.VISIBLE
+        if (themeManager.currentMode == BrowsingMode.Personal) {
+            binding.homeAppBar.visibility = View.GONE
+        }
+        else {
+            binding.homeAppBar.visibility = View.VISIBLE
+        }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
 }

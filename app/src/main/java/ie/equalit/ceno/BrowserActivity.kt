@@ -224,10 +224,14 @@ open class BrowserActivity : BaseActivity() {
         }
     }
 
+    private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
+        return cenoPreferences().lastKnownBrowsingMode
+    }
+
     private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {
         cenoPreferences().lastKnownBrowsingMode = mode
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
-            themeManager.currentTheme = newMode
+            themeManager.currentMode = newMode
         }
         themeManager = DefaultThemeManager(mode, this)
     }

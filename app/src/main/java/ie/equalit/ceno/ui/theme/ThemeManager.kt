@@ -18,13 +18,13 @@ import mozilla.components.support.ktx.android.view.getWindowInsetsController
 
 abstract class ThemeManager {
     abstract val themedContext: Context
-    abstract var currentTheme: BrowsingMode
+    abstract var currentMode: BrowsingMode
 
     /**
-     * Returns the style resource corresponding to the [currentTheme].
+     * Returns the style resource corresponding to the [currentMode].
      */
     @get:StyleRes
-    val currentThemeResource get() = when (currentTheme) {
+    val currentThemeResource get() = when (currentMode) {
         BrowsingMode.Normal -> R.style.NormalTheme
         BrowsingMode.Personal -> R.style.PersonalTheme
     }
@@ -35,7 +35,7 @@ abstract class ThemeManager {
     fun applyStatusBarTheme(activity: Activity) = applyStatusBarTheme(activity.window, activity)
 
     fun applyStatusBarTheme(window: Window, context: Context) {
-        when (currentTheme) {
+        when (currentMode) {
             BrowsingMode.Normal -> {
                 clearLightSystemBars(window)
                 updateNavigationBar(window, context = context)
@@ -76,7 +76,7 @@ class DefaultThemeManager(
 ) : ThemeManager() {
 
     override val themedContext:Context = ContextThemeWrapper(activity, R.style.PersonalTheme)
-    override var currentTheme: BrowsingMode = mode
+    override var currentMode: BrowsingMode = mode
         set(value) {
             //apply theme to fragment rather than recreating activity
             field = value
@@ -84,7 +84,7 @@ class DefaultThemeManager(
         }
 
     override fun getContext() : Context {
-        return when(currentTheme) {
+        return when(currentMode) {
             BrowsingMode.Normal -> activity
             BrowsingMode.Personal -> themedContext
         }
