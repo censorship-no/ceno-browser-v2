@@ -96,4 +96,5 @@
 \nwszędzie, naraz</string>
     <string name="onboarding_cleanup_text">Usuń historię przeglądania, dane logowania i zatrzyj wszelkie ślady zostawione na &brandShortName; za jednym dotknięciem.</string>
     <string name="about_category">Informacje o</string>
+    <string name="preferences_clear_behavior">Domyślne działanie</string>
 </resources>
