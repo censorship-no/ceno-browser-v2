@@ -85,7 +85,6 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingVertical="16dp"
         android:scrollbars="none"
         android:transitionGroup="false"
         android:importantForAccessibility="yes"

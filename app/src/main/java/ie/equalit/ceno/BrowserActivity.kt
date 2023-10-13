@@ -125,7 +125,7 @@ open class BrowserActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
-            openToBrowser(url, newTab = true)
+            openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
         }
 
         Logger.info(" --------- Starting ouinet service")

@@ -355,7 +355,7 @@ class ToolbarIntegration(
                 searchEngine = null,
                 parentSessionId = null
             )
-            (context as BrowserActivity).openToBrowser()
+            (context as BrowserActivity).openToBrowser(private = context.themeManager.currentMode.isPersonal)
         },
         sessionId,
     )
