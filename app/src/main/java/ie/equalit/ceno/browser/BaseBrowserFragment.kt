@@ -444,10 +444,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         /* TODO: this is still a little messy, should create ThemeManager class */
 
-        var urlBackground = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.url_background)
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        themeManager.applyTheme(binding.toolbar, requireContext())
 
-        binding.toolbar.display.setUrlBackground(urlBackground)
+        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
@@ -569,12 +568,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     /**
      *  Returns inflater with theme wrapped context for personal browsing mode [PersonalTheme]
     * */
-    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-        if (themeManager.currentMode.isPersonal) {
-            return LayoutInflater.from(themeManager.getContext())
-        }
-        return super.onGetLayoutInflater(savedInstanceState)
-    }
+//    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+//        if (themeManager.currentMode.isPersonal) {
+//            return LayoutInflater.from(themeManager.getContext())
+//        }
+//        return super.onGetLayoutInflater(savedInstanceState)
+//    }
 
     /**
      * Initializes themeManager to be used in [onGetLayoutInflater]

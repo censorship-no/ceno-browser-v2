@@ -39,6 +39,7 @@ import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.ui.theme.ThemeManager
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
@@ -57,6 +58,8 @@ import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
     var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
+
+    lateinit var themeManager: ThemeManager
 
     private val sessionFeature = ViewBoundFeatureWrapper<SessionFeature>()
     private val toolbarIntegration = ViewBoundFeatureWrapper<ToolbarIntegration>()
@@ -92,6 +95,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        themeManager = (activity as BrowserActivity).themeManager
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
@@ -246,7 +250,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         /* Redefine onStopListener to open browser fragment in addition to closing toolbar */
         awesomeBar.setOnStopListener {
             toolbar.displayMode()
-            (activity as BrowserActivity).openToBrowser()
+            (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
         }
 
         // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
@@ -288,26 +292,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         //    binding.toolbar.private = private
 //        /* TODO: this is still a little messy, should create ThemeManager class */
 
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
+        themeManager.applyTheme(binding.toolbar, requireContext())
         var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-
-        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-            text = textPrimary,
-            hint = textSecondary
-        )
-        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-            text = textPrimary,
-            hint = textSecondary,
-            securityIconSecure = textPrimary,
-            securityIconInsecure = textPrimary,
-            menu = textPrimary
-        )
-
-
-        binding.toolbar.display.setUrlBackground(urlBackground)
-
+        
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
          */

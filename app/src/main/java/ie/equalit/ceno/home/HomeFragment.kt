@@ -54,8 +54,6 @@ class HomeFragment : BaseHomeFragment() {
 
     private val topSitesFeature = ViewBoundFeatureWrapper<TopSitesFeature>()
 
-    private lateinit var themeManager: ThemeManager
-
     private val scope = MainScope()
 
     override fun onCreateView(
