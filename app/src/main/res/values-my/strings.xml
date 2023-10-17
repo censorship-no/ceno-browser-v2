@@ -164,4 +164,5 @@
         <item quantity="other">%d လိပ်စာများ</item>
     </plurals>
     <string name="not_applicable">N/A</string>
+    <string name="crash_report_sent">ချို့ယွင်းမှု အစီရင်ခံစာအား ပို့ပေးပြီးပါပြီ။</string>
 </resources>

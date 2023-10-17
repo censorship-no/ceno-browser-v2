@@ -165,5 +165,5 @@
     <string name="udp_category">UDP</string>
     <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
     <string name="not_applicable">n/a</string>
-    <string name="crash_report_sent">¡Informe de fallos enviado!</string>
+    <string name="crash_report_sent">¡Informe de errores enviado!</string>
 </resources>

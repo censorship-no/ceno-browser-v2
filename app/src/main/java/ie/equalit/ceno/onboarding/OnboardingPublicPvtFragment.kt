@@ -47,7 +47,7 @@ class OnboardingPublicPvtFragment : Fragment() {
                 ){
                     findNavController().onboardingToHome()
                 } else {
-                    findNavController().navigate(R.id.action_onboardingFragment_to_onboardingBatteryFragment)
+                    findNavController().navigate(R.id.action_onboardingPublicPvtFragment_to_onboardingBatteryFragment)
                 }
             }
             else {
