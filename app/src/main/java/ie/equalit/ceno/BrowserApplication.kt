@@ -44,7 +44,9 @@ open class BrowserApplication : Application() {
 
         // Record exceptions as well as app crashes
         Thread.setDefaultUncaughtExceptionHandler { _, _ ->
-            Settings.setCrashHappenedCommit(this, true)
+            if(!Settings.isCrashReportingPermissionGranted(this)) {
+                Settings.setCrashHappenedCommit(this, true)
+            }
             exitProcess(0)
         }
 
