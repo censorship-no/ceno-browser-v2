@@ -9,10 +9,6 @@
     android:sharedUserMaxSdkVersion="33"
     tools:targetApi="tiramisu">
 
-    <permission
-        android:name="ie.equalit.ceno.permission.AccessCustomTabsService"
-        android:protectionLevel="normal" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -20,6 +16,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
@@ -31,7 +28,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="ie.equalit.ceno.permission.AccessCustomTabsService" />
 
 
     <application
@@ -263,8 +259,8 @@
 
         <service
             android:name="ie.equalit.ceno.customtabs.CustomTabsService"
-            android:permission="ie.equalit.ceno.permission.AccessCustomTabsService"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="android.support.customtabs.action.CustomTabsService" />
             </intent-filter>
