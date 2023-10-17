@@ -7,8 +7,6 @@ package ie.equalit.ceno
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.components.ceno.CenoLocationUtils
-import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
@@ -29,8 +27,8 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
@@ -43,6 +41,12 @@ open class BrowserApplication : Application() {
         AppCompatDelegate.setDefaultNightMode(
                 Settings.getAppTheme(this)
         )
+
+        // Record exceptions as well as app crashes
+        Thread.setDefaultUncaughtExceptionHandler { _, _ ->
+            Settings.setCrashHappenedCommit(this, true)
+            exitProcess(0)
+        }
 
         setupCrashReporting(this)
 

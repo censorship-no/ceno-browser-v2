@@ -26,7 +26,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import com.google.gson.Gson
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -57,13 +56,10 @@ import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
-import io.sentry.Sentry
-import io.sentry.SentryEvent
 import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
-import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.pwa.ext.putWebAppManifest
 import kotlin.system.exitProcess
 
@@ -179,13 +175,10 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
 
-            val lastCrash = Gson().fromJson(Settings.getLastCrash(this@BrowserActivity), SentryEvent::class.java)
-
             // launch Sentry activation dialog
             val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
             val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
             val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
-            val radio2 = dialogView.findViewById<RadioButton>(R.id.radio2)
 
             val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
                 setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
@@ -196,39 +189,27 @@ open class BrowserActivity : BaseActivity() {
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
                     when {
                         radio0.isChecked -> {
-                            Sentry.captureEvent(lastCrash)
-
                             Settings.alwaysAllowCrashReporting(this@BrowserActivity)
                             SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
 
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
                         }
                         radio1.isChecked -> {
-                            Sentry.captureEvent(lastCrash)
-
-                            Settings.allowCrashReportingJustOnce(this@BrowserActivity)
-                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
-                            Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
-                        }
-                        radio2.isChecked -> {
                             Settings.neverAllowCrashReporting(this@BrowserActivity)
-
-                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
                             sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
                         }
                     }
                 }
                 setOnDismissListener {
-                    Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
                 }
                 setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
-                    Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
                 }
                 create()
             }.show()
         } else {
-            Settings.setLastCrash(this@BrowserActivity, "") // reset the value of lastCrash
-            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+            Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
     }
 

@@ -44,12 +44,6 @@
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/crash_reporting_send_once" />
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/crash_reporting_never_send" />
 
     </RadioGroup>
