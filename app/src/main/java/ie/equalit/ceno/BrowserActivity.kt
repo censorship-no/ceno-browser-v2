@@ -119,7 +119,6 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -225,7 +224,9 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
-        return cenoPreferences().lastKnownBrowsingMode
+        return if (components.core.store.state.selectedTab == null)
+            BrowsingMode.Normal
+        else cenoPreferences().lastKnownBrowsingMode
     }
 
     private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {

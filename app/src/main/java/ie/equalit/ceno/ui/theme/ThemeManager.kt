@@ -3,7 +3,10 @@ package ie.equalit.ceno.ui.theme
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.util.Log
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
@@ -28,22 +31,14 @@ abstract class ThemeManager {
     /**
      * Handles status bar theme change since the window does not dynamically recreate
      */
-    fun applyStatusBarTheme(activity: Activity) = applyStatusBarTheme(activity.window, activity)
 
-    fun applyStatusBarTheme(window: Window, context: Context) {
-        when (currentMode) {
-            BrowsingMode.Normal -> {
-                clearLightSystemBars(window)
-                updateNavigationBar(window, context = context)
-            }
-            BrowsingMode.Personal -> {
-                Log.d("MODE", context.resources.configuration.uiMode.toString())
-            }
-        }
+    abstract fun applyStatusBarTheme()
+
+    fun updateNavigationBar(window: Window, context: Context) {
+        window.navigationBarColor = context.getColorFromAttr(R.attr.layer1)
     }
 
-
-    private fun clearLightSystemBars(window: Window) {
+    fun clearLightSystemBars(window: Window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.getWindowInsetsController().isAppearanceLightStatusBars = false
         }
@@ -54,12 +49,39 @@ abstract class ThemeManager {
         }
     }
 
-    private fun updateNavigationBar(window: Window, context: Context) {
-        window.navigationBarColor = context.getColorFromAttr(R.attr.layer1)
-    }
-
     abstract fun applyTheme(toolbar: BrowserToolbar, context: Context)
 
+    fun updateLightSystemBars(window: Window, context: Context) {
+        if (SDK_INT >= Build.VERSION_CODES.M) {
+            window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+            window.getWindowInsetsController().isAppearanceLightStatusBars = true
+        } else {
+            window.statusBarColor = Color.BLACK
+        }
+
+        if (SDK_INT >= Build.VERSION_CODES.O) {
+            // API level can display handle light navigation bar color
+            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            updateNavigationBar(window, context)
+        }
+    }
+
+    fun updateDarkSystemBars(window: Window, context: Context) {
+        if (SDK_INT >= Build.VERSION_CODES.M) {
+            window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+            window.getWindowInsetsController().isAppearanceLightStatusBars = false
+        } else {
+            window.statusBarColor = Color.BLACK
+        }
+
+        if (SDK_INT >= Build.VERSION_CODES.O) {
+            // API level can display handle light navigation bar color
+            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            updateNavigationBar(window, context)
+        }
+    }
+
+    abstract fun applyStatusBarThemeTabsTray()
 }
 
 class DefaultThemeManager(
@@ -79,7 +101,42 @@ class DefaultThemeManager(
                 currentContext = personalThemeContext
             else
                 currentContext = activity
+
+            applyStatusBarTheme()
         }
+
+    override fun applyStatusBarThemeTabsTray() {
+        when (activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO,
+            -> {
+                updateLightSystemBars(activity.window, activity)
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED, //we assume dark mode is default
+            Configuration.UI_MODE_NIGHT_YES -> {
+                updateDarkSystemBars(activity.window, activity)
+            }
+        }
+    }
+
+    override fun applyStatusBarTheme() {
+        when (currentMode) {
+            BrowsingMode.Normal -> {
+                when (activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_NO,
+                    -> {
+                        updateLightSystemBars(activity.window, currentContext)
+                    }
+                    Configuration.UI_MODE_NIGHT_UNDEFINED, //we assume dark mode is default
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        updateDarkSystemBars(activity.window, currentContext)
+                    }
+                }
+            }
+            BrowsingMode.Personal -> {
+                updateDarkSystemBars(activity.window, currentContext)
+            }
+        }
+    }
 
     override fun applyTheme(toolbar: BrowserToolbar, context: Context) {
         toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
@@ -103,4 +160,5 @@ class DefaultThemeManager(
             menu = textPrimary
         )
     }
+
 }

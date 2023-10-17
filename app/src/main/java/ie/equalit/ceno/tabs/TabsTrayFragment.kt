@@ -32,6 +32,8 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ui.theme.DefaultThemeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
 
 /**
  * A fragment for displaying the tabs tray.
@@ -39,9 +41,11 @@ import ie.equalit.ceno.ext.requireComponents
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
 
+    lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        themeManager = (activity as BrowserActivity).themeManager
         browsingModeManager = (activity as BrowserActivity).browsingModeManager
         return inflater.inflate(R.layout.fragment_tabstray, container, false)
     }
@@ -76,7 +80,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
     override fun onStart() {
         super.onStart()
-
+        themeManager.applyStatusBarThemeTabsTray()
         tabsFeature?.start()
     }
 
