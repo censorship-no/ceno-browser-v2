@@ -2,12 +2,12 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import ie.equalit.ouinet.Config
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -237,8 +237,6 @@ object CenoSettings {
             context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
         ) ?: return null
 
-        Log.d("PPPPPP", "From DB, it is: $sources")
-
         return sources.split(" ")
     }
 
@@ -389,7 +387,22 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun saveBTSource(context: Context, sources: String, ouinetResponseListener: OuinetResponseListener?) {
+    fun saveBTSource(context: Context, sources: List<String>, ouinetResponseListener: OuinetResponseListener?) {
+        context.components.ouinet.let {
+            val config = Config.ConfigBuilder(context)
+                .setCacheHttpPubKey(it.config.cacheHttpPubKey)
+                .setInjectorCredentials(it.config.injectorCredentials)
+                .setInjectorTlsCert(it.config.injectorTlsCertPath)
+                .setTlsCaCertStorePath(it.config.tlsCaCertStorePath)
+                .setCacheType(it.config.cacheType)
+                .setLogLevel(it.config.logLevel)
+                .setBtBootstrapExtras(sources.toSet())
+                .setListenOnTcp(it.config.listenOnTcp)
+                .setFrontEndEp(it.config.frontEndEp)
+                .build()
+
+            it.setBackground(context)
+        }
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,
@@ -397,69 +410,6 @@ object CenoSettings {
             sources,
             ouinetResponseListener
         )
-    }
-
-    fun ouinetClientRequestBT(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {
-        MainScope().launch {
-            val request : String = if (newValue != null)
-                "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
-            else
-                "${SET_VALUE_ENDPOINT}/${key.command}"
-
-//            val body = Request.Body()
-
-            webClientRequest(context, Request(request)).let { response ->
-
-                if(response == null) ouinetResponseListener?.onErrorResponse()
-
-                when (key) {
-                    OuinetKey.API_STATUS -> {
-                        if (response != null)
-                            updateOuinetStatus(context, response)
-                    }
-                    OuinetKey.PURGE_CACHE -> {
-                        val text = if (response != null) {
-                            setCenoCacheSize(context, bytesToString(0))
-                            setCenoGroupsCount(context, 0)
-                            context.components.cenoPreferences.sharedPrefsUpdate = true
-                            context.resources.getString(R.string.clear_cache_success)
-                        }
-                        else {
-                            context.resources.getString(R.string.clear_cache_fail)
-                        }
-                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-                    }
-                    OuinetKey.EXTRA_BOOTSTRAPS -> {
-                        if(response != null)
-                            ouinetResponseListener?.onBTChangeSuccess(stringValue ?: "")
-                    }
-                    OuinetKey.ORIGIN_ACCESS,
-                    OuinetKey.PROXY_ACCESS,
-                    OuinetKey.INJECTOR_ACCESS,
-                    OuinetKey.DISTRIBUTED_CACHE,
-                    OuinetKey.LOGFILE
-                    -> {
-                        if (response == null) {
-                            Toast.makeText(
-                                context,
-                                context.resources.getString(R.string.ouinet_client_fetch_fail),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        else {
-                            if (key == OuinetKey.LOGFILE) {
-                                context.components.cenoPreferences.sharedPrefsUpdate = true
-                            }
-                        }
-                    }
-                    OuinetKey.GROUPS_TXT -> {
-                        if (response != null)
-                            updateCenoGroups(context, response)
-                    }
-                }
-            }
-            return@launch
-        }
     }
 
     fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {

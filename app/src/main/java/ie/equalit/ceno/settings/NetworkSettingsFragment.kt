@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.InetAddresses
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.CheckBox
@@ -90,16 +89,14 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                 setView(extraBtOptionsDialogView)
                 setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
                 setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
-                    var allSelectedIPValues = ""
+                    val allSelectedValues = mutableListOf<String>()
                     for (child in linearLayout.iterator()) {
                         if(child is CheckBox  && child.isChecked) {
-                            allSelectedIPValues = "$allSelectedIPValues ${flipKeyForValue(child.text.toString())}".trim()
+                            allSelectedValues.add(flipKeyForValue(child.text.toString()).trim())
                         }
                     }
 
-                    Log.d("PPPPPP", "Sending $allSelectedIPValues to BE")
-
-                    CenoSettings.saveBTSource(requireContext(), allSelectedIPValues, this@NetworkSettingsFragment)
+                    CenoSettings.saveBTSource(requireContext(), allSelectedValues.joinToString(","), this@NetworkSettingsFragment)
                 }
 
                 btSourcesMap.forEach {
