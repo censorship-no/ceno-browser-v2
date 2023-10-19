@@ -340,7 +340,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 ClearToolbarAction(
                     listener = {
                         clearButtonFeature.onClick()
-                    }
+                    },
+                    context = themeManager.getContext()
                 )
             )
         }
@@ -446,7 +447,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         themeManager.applyTheme(binding.toolbar, requireContext())
 
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state

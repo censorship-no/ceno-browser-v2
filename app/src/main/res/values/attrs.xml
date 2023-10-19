@@ -37,6 +37,8 @@
         <attr name="textActionPrimary" format="reference" />
 
         <!-- Icon -->
+        <!-- Primary icon -->
+        <attr name="iconPrimary" format="reference" />
         <!-- Secondary icon -->
         <attr name="iconSecondary" format="reference" />
         <!-- Active tab -->

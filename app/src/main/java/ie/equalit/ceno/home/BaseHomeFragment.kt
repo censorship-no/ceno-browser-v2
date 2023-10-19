@@ -196,7 +196,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                 ClearToolbarAction(
                     listener = {
                         clearButtonFeature.onClick()
-                    }
+                    },
+                    context = themeManager.getContext()
                 )
             )
         }
@@ -285,26 +286,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
     override fun onStart() {
         super.onStart()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        /* TODO: HomeFragment isn't used in for private mode yet,
-         *   need to implement a private theme for the HomeFragment
-         */
-        //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
-        //    binding.toolbar.private = private
-//        /* TODO: this is still a little messy, should create ThemeManager class */
 
         themeManager.applyTheme(binding.toolbar, requireContext())
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
-        
-        /* CENO: this is replaces the shield icon in the address bar
-         * with the ceno logo, regardless of tracking protection state
-         */
-        binding.toolbar.display.icons = DisplayToolbar.Icons(
-            emptyIcon = null,
-            trackingProtectionTrackersBlocked = statusIcon,
-            trackingProtectionNothingBlocked = statusIcon,
-            trackingProtectionException = statusIcon,
-            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
-        )
+
         val isToolbarPositionTop = prefs.getBoolean(
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
@@ -315,7 +299,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         else {
             DisplayToolbar.Gravity.TOP
         }
-        //}
     }
 
     private fun showTabs() {

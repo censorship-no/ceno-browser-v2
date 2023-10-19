@@ -82,6 +82,8 @@ abstract class ThemeManager {
     }
 
     abstract fun applyStatusBarThemeTabsTray()
+
+    abstract fun getContext(): Context
 }
 
 class DefaultThemeManager(
@@ -116,6 +118,10 @@ class DefaultThemeManager(
                 updateDarkSystemBars(activity.window, activity)
             }
         }
+    }
+
+    override fun getContext(): Context {
+        return currentContext
     }
 
     override fun applyStatusBarTheme() {
@@ -157,7 +163,7 @@ class DefaultThemeManager(
             hint = textSecondary,
             securityIconSecure = textPrimary,
             securityIconInsecure = textPrimary,
-            menu = textPrimary
+            menu = textPrimary,
         )
     }
 

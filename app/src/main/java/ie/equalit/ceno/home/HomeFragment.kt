@@ -71,7 +71,6 @@ class HomeFragment : BaseHomeFragment() {
         components.useCases.tabsUseCases.selectTab("")
 
         components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
-        Log.d("HOME", "${themeManager.currentMode}")
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
