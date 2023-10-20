@@ -79,7 +79,7 @@
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_allow_crash_reporting"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:title="@string/preferences_allow_crash_reporting"/>
 
     </PreferenceCategory>
