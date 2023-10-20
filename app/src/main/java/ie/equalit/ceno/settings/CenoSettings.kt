@@ -2,8 +2,10 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
+import com.google.gson.Gson
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -243,6 +245,10 @@ object CenoSettings {
     fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
+        texts?.forEach {
+            Log.d("PPPPPP", it)
+        }
+
         var formattedText = ""
         texts?.forEach { formattedText = "$formattedText ${it.trim()}" }
         formattedText = formattedText.trim()
@@ -388,26 +394,16 @@ object CenoSettings {
     }
 
     fun saveBTSource(context: Context, sources: List<String>, ouinetResponseListener: OuinetResponseListener?) {
-        context.components.ouinet.let {
-            val config = Config.ConfigBuilder(context)
-                .setCacheHttpPubKey(it.config.cacheHttpPubKey)
-                .setInjectorCredentials(it.config.injectorCredentials)
-                .setInjectorTlsCert(it.config.injectorTlsCertPath)
-                .setTlsCaCertStorePath(it.config.tlsCaCertStorePath)
-                .setCacheType(it.config.cacheType)
-                .setLogLevel(it.config.logLevel)
-                .setBtBootstrapExtras(sources.toSet())
-                .setListenOnTcp(it.config.listenOnTcp)
-                .setFrontEndEp(it.config.frontEndEp)
-                .build()
-
-            it.setBackground(context)
-        }
+        val gson = Gson()
+        Log.d("PPPPPP", "Original: $sources")
+        var jsonBody = gson.toJson(sources).replace("\"", "")
+        jsonBody = jsonBody.replace(",", "%20")
+        Log.d("PPPPPP", "Final: $jsonBody")
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,
             OuinetValue.OTHER,
-            sources,
+            jsonBody,
             ouinetResponseListener
         )
     }

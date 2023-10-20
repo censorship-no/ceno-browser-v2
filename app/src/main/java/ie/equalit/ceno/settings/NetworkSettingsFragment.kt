@@ -96,7 +96,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                         }
                     }
 
-                    CenoSettings.saveBTSource(requireContext(), allSelectedValues.joinToString(","), this@NetworkSettingsFragment)
+                    CenoSettings.saveBTSource(requireContext(), allSelectedValues, this@NetworkSettingsFragment)
                 }
 
                 btSourcesMap.forEach {
@@ -145,13 +145,13 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
                                 if (!((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
                                         || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches()))) {
-                                    CenoSettings.saveBTSource(requireContext(), "", this@NetworkSettingsFragment)
+                                    CenoSettings.saveBTSource(requireContext(), listOf(), this@NetworkSettingsFragment)
                                     Toast.makeText(requireContext(), getString(R.string.bt_invalid_source_error), Toast.LENGTH_SHORT).show()
                                     return@setPositiveButton
                                 }
                             }
 
-                            CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim(), this@NetworkSettingsFragment)
+//                            CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim(), this@NetworkSettingsFragment)
                         }
 
                         customBTSourcesView.setText(
