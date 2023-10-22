@@ -17,6 +17,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
+import java.net.URLEncoder
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
@@ -394,16 +395,19 @@ object CenoSettings {
     }
 
     fun saveBTSource(context: Context, sources: List<String>, ouinetResponseListener: OuinetResponseListener?) {
-        val gson = Gson()
+//        val gson = Gson()
         Log.d("PPPPPP", "Original: $sources")
-        var jsonBody = gson.toJson(sources).replace("\"", "")
-        jsonBody = jsonBody.replace(",", "%20")
-        Log.d("PPPPPP", "Final: $jsonBody")
+
+        val jsonBody = sources.joinToString(" ")
+
+        val encoded = URLEncoder.encode(jsonBody, "UTF-8")
+
+        Log.d("PPPPPP", "Final: $encoded")
         ouinetClientRequest(
             context,
             OuinetKey.EXTRA_BOOTSTRAPS,
             OuinetValue.OTHER,
-            jsonBody,
+            encoded,
             ouinetResponseListener
         )
     }
@@ -414,6 +418,8 @@ object CenoSettings {
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
             else
                 "${SET_VALUE_ENDPOINT}/${key.command}"
+
+            Log.d("PPPPPP", request)
 
             webClientRequest(context, Request(request)).let { response ->
 
