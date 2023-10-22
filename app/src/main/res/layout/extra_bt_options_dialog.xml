@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_custom_sources"
         android:text="Add custom sources"
+        android:visibility="gone"
         android:textColor="@color/fx_mobile_text_color_accent"
         android:fontFamily=""
         android:layout_marginVertical="24dp"

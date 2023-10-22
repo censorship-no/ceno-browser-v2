@@ -108,6 +108,12 @@
     <!-- Selection prompt for choosing BT sources -->
     <string name="select_extra_bt_source">Select extra BitTorrent bootstrap</string>
 
+    <!-- BT sources-extra updated successfully-->
+    <string name="bt_preference_update_successful">Extra BitTorrent Bootstraps saved successfully</string>
+
+    <!-- BT sources extra update failed-->
+    <string name="bt_preference_update_failed">An error occurred while saving extra BitTorrent Bootstraps</string>
+
     <!--  Custom label  -->
     <string name="custom"> Custom</string>
 

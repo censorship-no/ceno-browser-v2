@@ -5,11 +5,9 @@ import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
-import com.google.gson.Gson
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import ie.equalit.ouinet.Config
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,7 +15,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
-import java.net.URLEncoder
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
@@ -243,12 +240,8 @@ object CenoSettings {
         return sources.split(" ")
     }
 
-    fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
+    fun saveExtraBTBootstrapToLocal(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
-
-        texts?.forEach {
-            Log.d("PPPPPP", it)
-        }
 
         var formattedText = ""
         texts?.forEach { formattedText = "$formattedText ${it.trim()}" }
@@ -382,7 +375,7 @@ object CenoSettings {
         setLocalUdpEndpoint(context, status.local_udp_endpoints)
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
-        setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
+        saveExtraBTBootstrapToLocal(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
@@ -394,32 +387,12 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun saveBTSource(context: Context, sources: List<String>, ouinetResponseListener: OuinetResponseListener?) {
-//        val gson = Gson()
-        Log.d("PPPPPP", "Original: $sources")
-
-        val jsonBody = sources.joinToString(" ")
-
-        val encoded = URLEncoder.encode(jsonBody, "UTF-8")
-
-        Log.d("PPPPPP", "Final: $encoded")
-        ouinetClientRequest(
-            context,
-            OuinetKey.EXTRA_BOOTSTRAPS,
-            OuinetValue.OTHER,
-            encoded,
-            ouinetResponseListener
-        )
-    }
-
     fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
             else
                 "${SET_VALUE_ENDPOINT}/${key.command}"
-
-            Log.d("PPPPPP", request)
 
             webClientRequest(context, Request(request)).let { response ->
 
