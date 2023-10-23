@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -22,13 +23,16 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
+import mozilla.components.support.ktx.android.view.hideKeyboard
+import mozilla.components.support.ktx.android.view.showKeyboard
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 import java.net.URLEncoder
 import java.util.Locale
+import java.util.regex.Pattern
 
 class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListener {
 
-    // Map of all the sources from local.properties
+    // This variable stores a map of all the sources from local.properties
     private val btSourcesMap = mutableMapOf<String, String>()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -37,14 +41,19 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
     override fun onResume() {
         super.onResume()
-        setUpBTSources()
-        setupPreferences()
-        getActionBar().apply{
+
+        getActionBar().apply {
             show()
             setTitle(R.string.preferences_ceno_network_config)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
+
+        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
+            btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
+        }
+
+        setupPreferences()
     }
 
     private fun setupPreferences() {
@@ -80,17 +89,18 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
             val linearLayout = extraBtOptionsDialogView.findViewById<LinearLayout>(R.id.linear_layout)
             val tvCustomSource = extraBtOptionsDialogView.findViewById<TextView>(R.id.tv_custom_sources)
 
-            var allSelections = ""
-
-            AlertDialog.Builder(requireContext()).apply {
+            val alertDialog1 = AlertDialog.Builder(requireContext()).apply {
                 setTitle(getString(R.string.select_extra_bt_source))
                 setView(extraBtOptionsDialogView)
                 setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
                 setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
                     val allSelectedIPs = mutableListOf<String>()
                     for (child in linearLayout.iterator()) {
-                        if(child is CheckBox  && child.isChecked) {
-                            allSelectedIPs.add(getCountryBootstrapIPValue(child.text.toString()).trim())
+                        if (child is CheckBox && child.isChecked) {
+                            allSelectedIPs.add(
+                                btSourcesMap.entries.find { e ->
+                                    e.key.lowercase() == child.text.toString().trim().lowercase()
+                                }?.value ?: child.text.toString().trim())
                         }
                     }
 
@@ -114,89 +124,95 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                 }
 
                 // add custom sources
-//                CenoSettings.getLocalBTSources(requireContext())?.forEach {
-//                    it.let { source ->
-//                        if(source.trim().isNotEmpty() && !btSourcesMap.containsValue(source.trim())) {
-//                            linearLayout.addView(
-//                                CheckBox(activity).apply {
-//                                    text = it
-//                                    isChecked = true
-//                                    isAllCaps = false
-//                                }
-//                            )
-//                        }
-//                    }
-//                }
+                CenoSettings.getLocalBTSources(requireContext())?.forEach {
+                    it.let { source ->
+                        if (source.trim().isNotEmpty() && !btSourcesMap.containsValue(source.trim())) {
+                            linearLayout.addView(
+                                CheckBox(activity).apply {
+                                    text = it
+                                    isChecked = true
+                                    isAllCaps = false
+                                }
+                            )
+                        }
+                    }
+                }
 
-//                tvCustomSource.setOnClickListener {
-//                    allSelections = ""
-//                    for (child in linearLayout.iterator()) {
-//                        if(child is CheckBox && child.isChecked) allSelections = "$allSelections,${child.text}"
-//                    }
-//
-//                    AlertDialog.Builder(context).apply {
-//                        setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))
-//                        setView(customDialogView)
-//                        setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
-//                            dialog.cancel()
-//                        }
-//
-//                        setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
-//                            val ipAddresses = customBTSourcesView.text.toString().trim().split(" ")
-//
-//                            for (ipAddress in ipAddresses) {
-//                                val trimmedIpAddress = ipAddress.trim()
-//
-//                                if (!((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && InetAddresses.isNumericAddress(trimmedIpAddress))
-//                                        || ((Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) && Patterns.IP_ADDRESS.matcher(trimmedIpAddress).matches()))) {
-//                                    CenoSettings.ouinetClientRequest(
-//                                        context,
-//                                        OuinetKey.EXTRA_BOOTSTRAPS,
-//                                        OuinetValue.OTHER,
-//                                        URLEncoder.encode(listOf<String>().joinToString(" "), "UTF-8"),
-//                                        this@NetworkSettingsFragment
-//                                    )
-//                                    Toast.makeText(requireContext(), getString(R.string.bt_invalid_source_error), Toast.LENGTH_SHORT).show()
-//                                    return@setPositiveButton
-//                                }
-//                            }
-//
-////                            CenoSettings.saveBTSource(requireContext(), customBTSourcesView.text.toString().trim(), this@NetworkSettingsFragment)
-//                        }
-//
-//                        customBTSourcesView.setText(
-//                            allSelections
-//                        )
-//                        customBTSourcesView.requestFocus()
-//                        customBTSourcesView.showKeyboard()
-//                        create()
-//                    }.show()
-//                }
+                tvCustomSource.setOnClickListener {
+
+                    (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
+
+                    val alertDialog2 = AlertDialog.Builder(context).apply {
+                        setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))
+                        setView(customDialogView)
+                        setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
+                            customBTSourcesView.hideKeyboard()
+                            dialog.cancel()
+                        }
+                        setPositiveButton(R.string.customize_add_bootstrap_save) { dialogView, _ ->
+                            val ipAddresses = customBTSourcesView.text.toString().trim().split(",")
+
+                            for (ipAddress in ipAddresses) {
+
+                                // Pattern for validating IPs
+                                val ipPattern = Pattern.compile(
+                                    """^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$"""
+                                )
+                                if (!ipPattern.matcher(ipAddress.trim()).matches()) {
+                                    Toast.makeText(requireContext(), getString(R.string.bt_invalid_ip_error), Toast.LENGTH_SHORT).show()
+                                    customBTSourcesView.hideKeyboard()
+                                    return@setPositiveButton
+                                }
+                            }
+
+                            // Add IPs to the list of IP sources
+                            for (ip in ipAddresses) {
+                                linearLayout.addView(
+                                    CheckBox(activity).apply {
+                                        text = ip
+                                        isChecked = true
+                                        isAllCaps = false
+                                    }
+                                )
+                            }
+                        }
+                        customBTSourcesView.requestFocus()
+                        customBTSourcesView.showKeyboard()
+                        create()
+                    }
+
+                    alertDialog2.show()
+                }
                 create()
-            }.show()
+            }
+
+            alertDialog1.show()
 
             true
         }
     }
 
-    private fun getPreference(key : Int) : Preference? {
+    private fun getPreference(key: Int): Preference? {
         val prefKey = requireContext().getPreferenceKey(key)
         return findPreference(prefKey)
     }
 
-    private fun setUpBTSources() {
-        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
-            btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
-        }
+    override fun onBTChangeSuccess(source: String) {
+        CenoSettings.saveExtraBTBootstrapToLocal(requireContext(), source.split("+").toTypedArray())
+        getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+        Toast.makeText(requireContext(), getString(R.string.ouinet_client_fetch_success), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onErrorResponse() {
+        Toast.makeText(context, resources.getString(R.string.ouinet_client_fetch_fail), Toast.LENGTH_SHORT).show()
     }
 
     private fun getBTPreferenceSummary(): String {
-
         var summary = ""
 
         CenoSettings.getLocalBTSources(requireContext())?.forEach {
-            summary = if(btSourcesMap.values.contains(it)) {
-                "$summary ${btSourcesMap.entries.find { e -> e.value.trim() == it }?.key}"
+            summary = if (btSourcesMap.values.contains(it)) {
+                "$summary ${btSourcesMap.entries.find { e -> e.value.trim() == it }?.key?.replace(" ", "")}"
             } else {
                 "$summary $it"
             }
@@ -206,25 +222,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
             summary.trim().isEmpty() -> getString(R.string.bt_sources_none)
             else -> summary.trim().replace(" ", ", ")
         }
-    }
-
-    private fun getCountryBootstrapIPValue(country: String): String {
-        btSourcesMap.entries.find { e -> e.key.lowercase() == country.lowercase()
-        }?.value?.let {
-            return it
-        }
-
-        return country
-    }
-
-    override fun onBTChangeSuccess(source: String) {
-        CenoSettings.saveExtraBTBootstrapToLocal(requireContext(), source.split("+").toTypedArray())
-        getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
-        Toast.makeText(requireContext(), getString(R.string.bt_preference_update_successful), Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onErrorResponse() {
-        Toast.makeText(context, resources.getString(R.string.ouinet_client_fetch_fail), Toast.LENGTH_SHORT).show()
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
