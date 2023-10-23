@@ -149,11 +149,10 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                             customBTSourcesView.hideKeyboard()
                             dialog.cancel()
                         }
-                        setPositiveButton(R.string.customize_add_bootstrap_save) { dialogView, _ ->
+                        setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
                             val ipAddresses = customBTSourcesView.text.toString().trim().split(",")
 
                             for (ipAddress in ipAddresses) {
-
                                 // Pattern for validating IPs
                                 val ipPattern = Pattern.compile(
                                     """^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$"""
@@ -175,6 +174,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                                     }
                                 )
                             }
+
+                            customBTSourcesView.hideKeyboard()
                         }
                         customBTSourcesView.requestFocus()
                         customBTSourcesView.showKeyboard()
