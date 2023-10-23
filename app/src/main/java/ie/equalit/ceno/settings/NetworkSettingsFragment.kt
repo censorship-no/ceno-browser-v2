@@ -30,7 +30,7 @@ import java.net.URLEncoder
 import java.util.Locale
 import java.util.regex.Pattern
 
-class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListener {
+class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     // This variable stores a map of all the sources from local.properties
     private val btSourcesMap = mutableMapOf<String, String>()
@@ -49,10 +49,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
 
-        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
-            btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
-        }
-
+        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
         setupPreferences()
     }
 
@@ -68,7 +65,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
         val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
         preferenceExtraBitTorrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
-        preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
 
         preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
@@ -76,6 +72,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
         preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
+        preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
 
     }
 
@@ -109,7 +106,17 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
                         OuinetKey.EXTRA_BOOTSTRAPS,
                         OuinetValue.OTHER,
                         URLEncoder.encode(allSelectedIPs.joinToString(" "), "UTF-8"),
-                        this@NetworkSettingsFragment
+                        object : OuinetResponseListener {
+                            override fun onSuccess(message: String, data: Any?) {
+                                CenoSettings.setExtraBitTorrentBootstrap(requireContext(), message.split("+").toTypedArray())
+                                getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
+                                Toast.makeText(requireContext(), getString(R.string.ouinet_client_fetch_success), Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onError() {
+                                Toast.makeText(context, resources.getString(R.string.ouinet_client_fetch_fail), Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     )
                 }
 
@@ -140,6 +147,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
 
                 tvCustomSource.setOnClickListener {
 
+                    // This prevents the view from being added multiple times and causing a crash
                     (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
 
                     val alertDialog2 = AlertDialog.Builder(context).apply {
@@ -196,16 +204,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat(), OuinetResponseListen
     private fun getPreference(key: Int): Preference? {
         val prefKey = requireContext().getPreferenceKey(key)
         return findPreference(prefKey)
-    }
-
-    override fun onBTChangeSuccess(source: String) {
-        CenoSettings.saveExtraBTBootstrapToLocal(requireContext(), source.split("+").toTypedArray())
-        getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary = getBTPreferenceSummary()
-        Toast.makeText(requireContext(), getString(R.string.ouinet_client_fetch_success), Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onErrorResponse() {
-        Toast.makeText(context, resources.getString(R.string.ouinet_client_fetch_fail), Toast.LENGTH_SHORT).show()
     }
 
     private fun getBTPreferenceSummary(): String {

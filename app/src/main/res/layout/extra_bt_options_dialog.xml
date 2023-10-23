@@ -25,7 +25,7 @@
         android:id="@+id/tv_custom_sources"
         android:text="@string/customize_bittorrent_bootstrap_add_custom_sources"
         android:textColor="@color/fx_mobile_text_color_accent"
-        android:fontFamily=""
+        android:fontFamily="sans-serif-medium"
         android:layout_marginVertical="24dp"
         android:layout_marginHorizontal="@dimen/tap_increase_16"
         app:layout_constraintStart_toStartOf="parent"

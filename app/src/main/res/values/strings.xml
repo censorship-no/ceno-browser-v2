@@ -114,9 +114,6 @@
     <!-- Selection prompt for choosing BT sources -->
     <string name="select_extra_bt_source">Select extra BitTorrent bootstrap</string>
 
-    <!--  Custom label  -->
-    <string name="custom"> Custom</string>
-
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 

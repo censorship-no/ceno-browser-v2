@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
@@ -240,7 +239,7 @@ object CenoSettings {
         return sources.split(" ")
     }
 
-    fun saveExtraBTBootstrapToLocal(context: Context, texts : Array<String>?) {
+    fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
@@ -375,7 +374,7 @@ object CenoSettings {
         setLocalUdpEndpoint(context, status.local_udp_endpoints)
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
-        saveExtraBTBootstrapToLocal(context, status.bt_extra_bootstraps)
+        setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
     }
@@ -396,7 +395,7 @@ object CenoSettings {
 
             webClientRequest(context, Request(request)).let { response ->
 
-                if(response == null) ouinetResponseListener?.onErrorResponse()
+                if(response == null) ouinetResponseListener?.onError()
 
                 when (key) {
                     OuinetKey.API_STATUS -> {
@@ -417,7 +416,7 @@ object CenoSettings {
                     }
                     OuinetKey.EXTRA_BOOTSTRAPS -> {
                         if(response != null)
-                            ouinetResponseListener?.onBTChangeSuccess(stringValue ?: "")
+                            ouinetResponseListener?.onSuccess(stringValue ?: "")
                     }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,

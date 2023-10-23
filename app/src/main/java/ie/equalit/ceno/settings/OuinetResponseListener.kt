@@ -10,6 +10,6 @@ package ie.equalit.ceno.settings
  */
 interface OuinetResponseListener {
 
-    fun onBTChangeSuccess(source: String)
-    fun onErrorResponse()
+    fun onSuccess(message: String, data: Any? = null)
+    fun onError()
 }
