@@ -105,6 +105,15 @@
     <!-- Hint displayed on input field for Extra-BitTorrent-Bootstraps -->
     <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
 
+    <!-- CTA for adding custom BT sources -->
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Add custom bootstraps</string>
+
+    <!-- Hint displayed on input field for entering custom Extra-BitTorrent-Bootstraps -->
+    <string name="customize_custom_extra_bittorrent_bootstrap">Separate IPs with commas</string>
+
+    <!-- Selection prompt for choosing BT sources -->
+    <string name="select_extra_bt_source">Select extra BitTorrent bootstrap</string>
+
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
 

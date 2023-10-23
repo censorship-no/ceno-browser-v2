@@ -231,16 +231,20 @@ object CenoSettings {
             .apply()
     }
 
-    fun getExtraBitTorrentBootstrap(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
+    fun getLocalBTSources(context: Context) : List<String>? {
+        val sources = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
-        )
+        ) ?: return null
+
+        return sources.split(" ")
+    }
 
     fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
-        texts?.forEach { formattedText += "${it.trim()} " }
+        texts?.forEach { formattedText = "$formattedText ${it.trim()}" }
+        formattedText = formattedText.trim()
 
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
@@ -382,7 +386,7 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
+    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {
         MainScope().launch {
             val request : String = if (newValue != null)
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
@@ -390,6 +394,9 @@ object CenoSettings {
                 "${SET_VALUE_ENDPOINT}/${key.command}"
 
             webClientRequest(context, Request(request)).let { response ->
+
+                if(response == null) ouinetResponseListener?.onError()
+
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
@@ -407,12 +414,15 @@ object CenoSettings {
                         }
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
+                    OuinetKey.EXTRA_BOOTSTRAPS -> {
+                        if(response != null)
+                            ouinetResponseListener?.onSuccess(stringValue ?: "")
+                    }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
-                    OuinetKey.LOGFILE,
-                    OuinetKey.EXTRA_BOOTSTRAPS
+                    OuinetKey.LOGFILE
                     -> {
                         if (response == null) {
                             Toast.makeText(
