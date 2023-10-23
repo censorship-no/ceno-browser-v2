@@ -62,7 +62,6 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             { closeTabsTray(true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
-            Log.d("TABS", it.id)
             if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
                 it.content.private
             } else {
@@ -80,8 +79,8 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
     override fun onStart() {
         super.onStart()
-        themeManager.applyStatusBarThemeTabsTray()
         tabsFeature?.start()
+        themeManager.applyStatusBarThemeTabsTray()
     }
 
     override fun onStop() {

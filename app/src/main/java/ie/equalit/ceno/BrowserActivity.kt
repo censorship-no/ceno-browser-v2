@@ -231,10 +231,10 @@ open class BrowserActivity : BaseActivity() {
 
     private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {
         cenoPreferences().lastKnownBrowsingMode = mode
+        themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
         }
-        themeManager = DefaultThemeManager(mode, this)
     }
 
     override fun onPause() {

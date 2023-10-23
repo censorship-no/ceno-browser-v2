@@ -121,7 +121,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     protected var webAppToolbarShouldBeVisible = true
 
-    private lateinit var browsingMode: BrowsingMode
+    private lateinit var browsingModeManager: BrowsingModeManager
     private lateinit var themeManager: ThemeManager
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
@@ -443,8 +443,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
 
-        /* TODO: this is still a little messy, should create ThemeManager class */
-
+        binding.toolbar.private = themeManager.currentMode.isPersonal
         themeManager.applyTheme(binding.toolbar, requireContext())
 
         var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
@@ -565,23 +564,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
         feature?.onPermissionsResult(permissions, grantResults)
     }
-
     /**
-     *  Returns inflater with theme wrapped context for personal browsing mode [PersonalTheme]
-    * */
-//    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-//        if (themeManager.currentMode.isPersonal) {
-//            return LayoutInflater.from(themeManager.getContext())
-//        }
-//        return super.onGetLayoutInflater(savedInstanceState)
-//    }
-
-    /**
-     * Initializes themeManager to be used in [onGetLayoutInflater]
+     * Initializes themeManager and browsingModeManager
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         themeManager = (activity as BrowserActivity).themeManager
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
     }
 
     companion object {
