@@ -4,16 +4,26 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="Deprecated"
     package="ie.equalit.ceno"
-    android:sharedUserId="ie.equalit.ceno.sharedID">
+    android:sharedUserId="ie.equalit.ceno.sharedID"
+    android:sharedUserMaxSdkVersion="33"
+    tools:targetApi="tiramisu">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
-        tools:ignore="ScopedStorage"
+        />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
         />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -22,6 +32,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 
     <application
         android:allowBackup="true"
@@ -33,18 +44,23 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/NormalTheme"
-        android:name="ie.equalit.ceno.BrowserApplication"
-        tools:ignore="UnusedAttribute">
+        android:name="ie.equalit.ceno.BrowserApplication">
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
             android:icon="@mipmap/ic_launcher_blue"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
+            <meta-data
+                android:name="android.supportsPictureInPicture"
+                android:value="true"
+                android:resource="@bool/supports_picture_in_picture" />
+            <meta-data
+                android:name="android.resizeableActivity"
+                android:value="true"
+                android:resource="@bool/resizeable_activity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,4 +4,6 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources>
     <bool name="theme_is_light">false</bool>
+    <bool name="supports_picture_in_picture">false</bool>
+    <bool name="resizeable_activity">false</bool>
 </resources>
