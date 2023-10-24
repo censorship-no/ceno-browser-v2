@@ -37,6 +37,10 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -61,14 +65,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
         true
     }
 
+    private val apiCallRunnable = Runnable {
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                /* Fetch ouinet status */
+                CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
+                withContext(Dispatchers.Main) {
+                    /* Update UI state */
+                    refreshBrowserServiceUI()
+                }
+            }
+        }
+    }
+
+    private val apiCallHandler = Handler(Looper.getMainLooper())
+
     private val sharedPreferencesChangeListener = OnSharedPreferenceChangeListener {
             sharedPrefs, key ->
         val  newValue = sharedPrefs.getBoolean(key, false)
         if (key == getString(pref_key_shared_prefs_reload)) {
             Logger.debug("Got change listener for $key = $newValue")
             if (newValue) {
-                Logger.debug("Reloading Settings fragment")
+                Logger.debug("Reloading Settings preferences")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
+//                preferenceScreen = null
+//                addPreferencesFromResource(R.xml.preferences)
                 findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
                 findNavController().navigate(R.id.action_global_settings)
             }
@@ -153,12 +174,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
+
+        apiCallHandler.postDelayed(apiCallRunnable, 5000L)
     }
 
     override fun onPause() {
         super.onPause()
         cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         cenoPrefs.sharedPrefsReload = false
+        apiCallHandler.removeCallbacks(apiCallRunnable)
     }
 
     @Suppress("LongMethod") // Yep, this should be refactored.
@@ -572,6 +596,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             (activity as BrowserActivity).openToBrowser()
             true
+        }
+    }
+
+    private fun refreshBrowserServiceUI() {
+        // Update summary text for Browser Service
+        Logger.debug("Browser Service status updated")
+        getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
+            CenoSettings.getOuinetState(requireContext())
         }
     }
 
