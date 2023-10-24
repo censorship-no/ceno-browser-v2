@@ -62,14 +62,19 @@
     <string name="ceno_clear_dialog_description">WARNING: Clearing cache and app data will reset the &brandShortName; application as if it was never used.</string>
     <string name="ceno_clear_action_description">Clear</string>
     <!--  Crash reporting permission options  -->
-    <string name="crash_reporting_dialog_description">Sorry, looks like &brandShortName; crashed!\nHelp us make &brandShortName; better by sending us the crash report.</string>
+    <string name="crash_reporting_dialog_title">Sorry, looks like &brandShortName; crashed!</string>
+    <string name="crash_reporting_dialog_description">Help us make &brandShortName; better by sending us crash reports.</string>
     <string name="crash_reporting_send_once">Send once</string>
     <string name="crash_reporting_dont_send_this_time">Don\'t send this time</string>
-    <string name="crash_reporting_always_send">Always send</string>
+    <string name="crash_reporting_always_send">Always send, improve &brandShortName;</string>
     <string name="crash_reporting_never_send">Never send</string>
     <string name="crash_reporting_dont_ask_again">Don\'t ask again</string>
     <string name="crash_reporting_opt_in">Thanks for sharing crash reports to help improve &brandShortName;! You can always disable this by going to Settings > Crash reporting.</string>
     <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.</string>
+    <!--  BT Source menu items  -->
+    <string name="bt_sources_none">None</string>
+    <string name="bt_sources_custom">Custom</string>
+    <string name="bt_invalid_ip_error">Invalid IP</string>
     <!-- Menu options -->
     <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
@@ -181,6 +186,7 @@
     <string name="preference_show_search_suggestions_summary">&brandShortName; will send what you type in the address bar to your search engine</string>
     <string name="clear_cache_success">Cache cleared successfully</string>
     <string name="clear_cache_fail">Cache clear failed, try again soon</string>
+    <string name="ouinet_client_fetch_success">&brandShortName; setting updated</string>
     <string name="ouinet_client_fetch_fail">Failed to change &brandShortName; setting</string>
     <string name="addon_placeholder">No Add-ons Available</string>
     <string name="website_button_text">Website</string>
