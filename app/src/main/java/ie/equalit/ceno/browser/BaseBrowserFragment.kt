@@ -55,7 +55,11 @@ import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.theme.ThemeManager
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.action.WebExtensionAction
+import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
@@ -65,7 +69,9 @@ import mozilla.components.feature.awesomebar.AwesomeBarFeature
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
+import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -421,6 +427,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
+        observeTabSelection(requireComponents.core.store)
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
@@ -511,6 +518,34 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             navController.navigate(
                 R.id.action_global_tabsTray
             )
+        }
+    }
+
+    internal fun observeTabSelection(store: BrowserStore) {
+        consumeFlow(store) { flow ->
+            flow.ifAnyChanged {
+                arrayOf(it.selectedTabId)
+            }
+                .mapNotNull {
+                it.selectedTab
+                }
+                .collect {
+                    handleTabSelected(it)
+                }
+        }
+    }
+
+    private fun handleTabSelected(selectedTab: TabSessionState) {
+        if (!this.isRemoving ) {
+            updateThemeForSession(selectedTab)
+        }
+    }
+
+    private fun updateThemeForSession(selectedTab: TabSessionState) {
+        val sessionMode = BrowsingMode.fromBoolean(selectedTab.content.private)
+        if (sessionMode != browsingModeManager.mode) {
+            browsingModeManager.mode = sessionMode
+            themeManager.applyTheme(binding.toolbar, requireContext())
         }
     }
 
