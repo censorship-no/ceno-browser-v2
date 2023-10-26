@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -20,25 +21,27 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
-import androidx.lifecycle.lifecycleScope
+import ie.equalit.ceno.ext.getAutofillPreference
+import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
@@ -54,7 +57,6 @@ import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
 import kotlin.system.exitProcess
 
-@Suppress("TooManyFunctions")
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs : CenoPreferences
@@ -65,33 +67,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         true
     }
 
-    private val apiCallRunnable = Runnable {
-        viewLifecycleOwner.lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                /* Fetch ouinet status */
-                CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
-                withContext(Dispatchers.Main) {
-                    /* Update UI state */
-                    refreshBrowserServiceUI()
-                }
-            }
-        }
-    }
-
-    private val apiCallHandler = Handler(Looper.getMainLooper())
-
     private val sharedPreferencesChangeListener = OnSharedPreferenceChangeListener {
             sharedPrefs, key ->
+        Log.d("PPPPPP", key)
         val  newValue = sharedPrefs.getBoolean(key, false)
         if (key == getString(pref_key_shared_prefs_reload)) {
             Logger.debug("Got change listener for $key = $newValue")
             if (newValue) {
                 Logger.debug("Reloading Settings preferences")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
-//                preferenceScreen = null
-//                addPreferencesFromResource(R.xml.preferences)
-                findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
-                findNavController().navigate(R.id.action_global_settings)
+                preferenceScreen = null
+                addPreferencesFromResource(R.xml.preferences)
+                setupPreferences()
+                setupCenoSettings()
             }
         }
         else if (key == getString(pref_key_shared_prefs_update)) {
@@ -116,10 +104,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 cenoPrefs.sharedPrefsUpdate = false
             }
+            viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    /* Fetch ouinet status */
+                    delay(5000)
+                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
+                }
+            }
         }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        Log.d("PPPPPP", "Preferences page created")
         cenoPrefs = requireComponents.cenoPreferences
         setPreferencesFromResource(R.xml.preferences, rootKey)
     }
@@ -175,84 +171,56 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
 
-        apiCallHandler.postDelayed(apiCallRunnable, 5000L)
+        Log.d("PPPPPP", "Preliminary setting done")
     }
 
     override fun onPause() {
         super.onPause()
         cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         cenoPrefs.sharedPrefsReload = false
-        apiCallHandler.removeCallbacks(apiCallRunnable)
+        Log.d("PPPPPP", "Background task paused")
     }
 
-    @Suppress("LongMethod") // Yep, this should be refactored.
     private fun setupPreferences() {
-        val makeDefaultBrowserKey = requireContext().getPreferenceKey(pref_key_make_default_browser)
-        val remoteDebuggingKey = requireContext().getPreferenceKey(pref_key_remote_debugging)
-        val aboutPageKey = requireContext().getPreferenceKey(pref_key_about_page)
-        val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
-        val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
-        val autofillPreferenceKey = requireContext().getPreferenceKey(pref_key_autofill)
-        val allowNotificationsKey = requireContext().getPreferenceKey(pref_key_allow_notifications)
-        val disableBatteryOptKey = requireContext().getPreferenceKey(pref_key_disable_battery_opt)
-        val customizationKey = requireContext().getPreferenceKey(pref_key_customization)
-        val deleteBrowsingDataKey = requireContext().getPreferenceKey(pref_key_delete_browsing_data)
-        val allowCrashReportingDataKey = requireContext().getPreferenceKey(pref_key_allow_crash_reporting)
-        val searchKey = requireContext().getPreferenceKey(pref_key_search_engine)
-
-        val preferenceMakeDefaultBrowser = findPreference<Preference>(makeDefaultBrowserKey)
-        val preferenceRemoteDebugging = findPreference<SwitchPreferenceCompat>(remoteDebuggingKey)
-        val preferenceAboutPage = findPreference<Preference>(aboutPageKey)
-        val preferencePrivacy = findPreference<Preference>(privacyKey)
-        val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
-        val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
-        val preferenceAllowNotifications = findPreference<Preference>(allowNotificationsKey)
-        val preferenceDisableBatteryOpt = findPreference<Preference>(disableBatteryOptKey)
-        val preferenceCustomization = findPreference<Preference>(customizationKey)
-        val preferenceDeleteBrowsingData = findPreference<Preference>(deleteBrowsingDataKey)
-        val preferenceAllowCrashReporting = findPreference<SwitchPreferenceCompat>(allowCrashReportingDataKey)
-        val preferenceSearch = findPreference<Preference>(searchKey)
 
         if (!AutofillPreference.isSupported(requireContext())) {
-            preferenceAutofill?.isVisible = false
+            getAutofillPreference(pref_key_autofill)?.isVisible = false
         } else {
-            (preferenceAutofill as AutofillPreference).updateSwitch()
+            (getAutofillPreference(pref_key_autofill) as AutofillPreference).updateSwitch()
         }
 
-        preferenceMakeDefaultBrowser?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
-        preferenceRemoteDebugging?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
-        preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
-        preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
-        preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
-        preferenceCustomization?.onPreferenceClickListener = getClickListenerForCustomization()
-        preferenceDeleteBrowsingData?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
-        preferenceAllowCrashReporting?.onPreferenceChangeListener = getClickListenerForCrashReporting()
-        preferenceSearch?.onPreferenceClickListener = getClickListenerForSearch()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (!requireComponents.permissionHandler.isAllowingPostNotifications()) {
-                preferenceAllowNotifications?.isVisible = true
-                preferenceAllowNotifications?.onPreferenceClickListener =
-                    getClickListenerForAllowNotifications()
-            }
-            else {
-                preferenceAllowNotifications?.isVisible = false
-            }
-        }
-        else {
-            preferenceAllowNotifications?.isVisible = false
-        }
-        if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
-                preferenceDisableBatteryOpt?.isVisible = false
-        }
-        else {
-            preferenceDisableBatteryOpt?.isVisible = true
-            preferenceDisableBatteryOpt?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
-        }
-    }
+        getPreference(pref_key_make_default_browser)?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
+        getSwitchPreferenceCompat(pref_key_remote_debugging)?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
+        getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
+        getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
+        getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener = getClickListenerForCustomAddons()
+        getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
+        getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
+        getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
+        getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
 
-    private fun getPreference(key : Int) : Preference? {
-        val prefKey = requireContext().getPreferenceKey(key)
-        return findPreference(prefKey)
+        // Update notifications
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !requireComponents.permissionHandler.isAllowingPostNotifications() -> {
+                getPreference(pref_key_allow_notifications)?.isVisible = true
+                getPreference(pref_key_allow_notifications)?.onPreferenceClickListener = getClickListenerForAllowNotifications()
+            }
+            else -> {
+                getPreference(pref_key_allow_notifications)?.isVisible = false
+            }
+        }
+
+        // Update battery optimization
+        when {
+            requireComponents.permissionHandler.isIgnoringBatteryOptimizations() -> {
+                getPreference(pref_key_disable_battery_opt)?.isVisible = false
+            }
+            else -> {
+                getPreference(pref_key_disable_battery_opt)?.isVisible = true
+                getPreference(pref_key_disable_battery_opt)?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
+            }
+        }
+
     }
 
     private fun setPreference(
@@ -270,99 +238,83 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupCenoSettings() {
-        val preferenceOuinetState = getPreference(pref_key_ouinet_state)
-        val preferenceCenoSourcesOrigin = getPreference(pref_key_ceno_sources_origin)
-        val preferenceCenoSourcesPrivate = getPreference(pref_key_ceno_sources_private)
-        val preferenceCenoSourcesPublic = getPreference(pref_key_ceno_sources_public)
-        val preferenceCenoSourcesShared = getPreference(pref_key_ceno_sources_shared)
-        val preferenceCenoCacheSize = getPreference(pref_key_ceno_cache_size)
-        val preferenceCenoGroupsCount = getPreference(pref_key_ceno_groups_count)
-        val preferenceClearCenoCache = getPreference(pref_key_clear_ceno_cache)
-        val preferenceCenoNetworkDetails = getPreference(pref_key_ceno_network_config)
-        val preferenceCenoEnableLog = getPreference(pref_key_ceno_enable_log)
-        val preferenceCenoDownloadLog = getPreference(pref_key_ceno_download_log)
-
-        val preferenceAboutCeno = getPreference(pref_key_about_ceno)
-        val preferenceAboutGeckview = getPreference(pref_key_about_geckoview)
-        val preferenceAboutOuinet = getPreference(pref_key_about_ouinet)
-
-        preferenceCenoDownloadLog?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
-        preferenceAboutCeno?.summary =  CenoSettings.getCenoVersionString(requireContext())
-        preferenceAboutGeckview?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
+        getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+        getPreference(pref_key_about_ceno)?.summary =  CenoSettings.getCenoVersionString(requireContext())
+        getPreference(pref_key_about_geckoview)?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
-            setPreference(preferenceCenoSourcesOrigin, false)
-            setPreference(preferenceCenoSourcesPrivate, false)
-            setPreference(preferenceCenoSourcesPublic, false)
-            setPreference(preferenceCenoSourcesShared, false)
-            setPreference(preferenceCenoGroupsCount, false)
-            setPreference(preferenceClearCenoCache, false)
-            setPreference(preferenceCenoNetworkDetails, false)
-            setPreference(preferenceCenoEnableLog, false)
-            setPreference(preferenceCenoDownloadLog, false)
+            setPreference(getPreference(pref_key_ceno_sources_origin), false)
+            setPreference(getPreference(pref_key_ceno_sources_private), false)
+            setPreference(getPreference(pref_key_ceno_sources_public), false)
+            setPreference(getPreference(pref_key_ceno_sources_shared), false)
+            setPreference(getPreference(pref_key_ceno_groups_count), false)
+            setPreference(getPreference(pref_key_clear_ceno_cache), false)
+            setPreference(getPreference(pref_key_ceno_network_config), false)
+            setPreference(getPreference(pref_key_ceno_enable_log), false)
+            setPreference(getPreference(pref_key_ceno_download_log), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         }
         else {
             /* Enable Ceno related options */
             setPreference(
-                preferenceCenoSourcesOrigin,
+                getPreference(pref_key_ceno_sources_origin),
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.ORIGIN_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesPrivate,
+                getPreference(pref_key_ceno_sources_private),
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.PROXY_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesPublic,
+                getPreference(pref_key_ceno_sources_public),
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.INJECTOR_ACCESS)
             )
             setPreference(
-                preferenceCenoSourcesShared,
+                getPreference(pref_key_ceno_sources_shared),
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
             )
-            preferenceOuinetState?.summaryProvider = Preference.SummaryProvider<Preference> {
+            getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
             }
-            preferenceCenoCacheSize?.summaryProvider = Preference.SummaryProvider<Preference> {
+            getPreference(pref_key_ceno_cache_size)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getCenoCacheSize(requireContext())
             }
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
-            preferenceCenoGroupsCount?.summaryProvider = Preference.SummaryProvider<Preference> {
+            getPreference(pref_key_ceno_groups_count)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 String.format( "%d sites", CenoSettings.getCenoGroupsCount(requireContext()))
             }
             setPreference(
-                preferenceCenoGroupsCount,
+                getPreference(pref_key_ceno_groups_count),
                 true,
                 clickListener = getClickListenerForCenoGroupsCounts()
             )
             setPreference(
-                preferenceClearCenoCache,
+                getPreference(pref_key_clear_ceno_cache),
                 true,
                 clickListener = getClickListenerForClearCenoCache()
             )
             setPreference(
-                preferenceCenoNetworkDetails,
+                getPreference(pref_key_ceno_network_config),
                 true,
                 clickListener = getClickListenerForCenoNetworkDetails()
             )
             setPreference(
-                preferenceCenoEnableLog,
+                getPreference(pref_key_ceno_enable_log),
                 true,
                 changeListener = getChangeListenerForCenoSetting(OuinetKey.LOGFILE)
             )
             setPreference(
-                preferenceCenoDownloadLog,
+                getPreference(pref_key_ceno_download_log),
                 true,
                 clickListener = getClickListenerForCenoDownloadLog()
             )
-            preferenceAboutOuinet?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
+            getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                     CenoSettings.getOuinetBuildId(requireContext())
         }
     }
@@ -428,9 +380,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 requireContext(),
                 SentryOptionsConfiguration.getConfig(requireContext())
             )
-
-//            Re-allow post-crash permissions nudge
-//            This should ALWAYS be turned on when this permission state is toggled
+            // Re-allow post-crash permissions nudge
             ie.equalit.ceno.settings.Settings.toggleCrashReportingPermissionNudge(requireContext(), true)
             true
         }
@@ -601,15 +551,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun refreshBrowserServiceUI() {
-        // Update summary text for Browser Service
-        Logger.debug("Browser Service status updated")
-        getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
-            CenoSettings.getOuinetState(requireContext())
-        }
-    }
-
     companion object {
-        private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
+        private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3_000L
+        private const val OUINET_BACKGROUND_FETCH_DELAY = 5_000L
     }
 }
