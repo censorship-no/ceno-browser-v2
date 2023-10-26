@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -69,7 +68,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private val sharedPreferencesChangeListener = OnSharedPreferenceChangeListener {
             sharedPrefs, key ->
-        Log.d("PPPPPP", key)
         val  newValue = sharedPrefs.getBoolean(key, false)
         if (key == getString(pref_key_shared_prefs_reload)) {
             Logger.debug("Got change listener for $key = $newValue")
@@ -115,7 +113,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        Log.d("PPPPPP", "Preferences page created")
         cenoPrefs = requireComponents.cenoPreferences
         setPreferencesFromResource(R.xml.preferences, rootKey)
     }
@@ -170,15 +167,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
-
-        Log.d("PPPPPP", "Preliminary setting done")
     }
 
     override fun onPause() {
         super.onPause()
         cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         cenoPrefs.sharedPrefsReload = false
-        Log.d("PPPPPP", "Background task paused")
     }
 
     private fun setupPreferences() {

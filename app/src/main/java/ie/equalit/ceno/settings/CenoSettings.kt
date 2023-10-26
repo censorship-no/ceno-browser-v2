@@ -378,7 +378,6 @@ object CenoSettings {
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         context.components.cenoPreferences.sharedPrefsReload = true
-        Log.d("PPPPPP", "fdxgfchgvjhbkjn")
     }
 
     private fun updateCenoGroups(context : Context, responseBody : String) {
