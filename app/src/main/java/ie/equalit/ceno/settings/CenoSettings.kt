@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
