@@ -96,7 +96,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         savedInstanceState: Bundle?,
     ): View {
         themeManager = (activity as BrowserActivity).themeManager
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -287,7 +287,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         super.onStart()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        themeManager.applyTheme(binding.toolbar, requireContext())
+        themeManager.applyTheme(binding.toolbar)
 
         val isToolbarPositionTop = prefs.getBoolean(
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),

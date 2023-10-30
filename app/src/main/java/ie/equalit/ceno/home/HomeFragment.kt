@@ -61,10 +61,10 @@ class HomeFragment : BaseHomeFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false);
         val activity = activity as BrowserActivity
         val components = requireComponents
         themeManager = activity.themeManager
+        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false);
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 

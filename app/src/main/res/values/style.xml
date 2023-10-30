@@ -288,6 +288,8 @@
         <item name="layer1">@color/fx_mobile_private_layer_color_1</item>
         <!-- Primary icon -->
         <item name="iconPrimary">@color/fx_mobile_private_icon_color_primary</item>
+
+        <item name="tabCounterTintColor">?attr/textPrimary</item>
     </style>
 
 </resources>

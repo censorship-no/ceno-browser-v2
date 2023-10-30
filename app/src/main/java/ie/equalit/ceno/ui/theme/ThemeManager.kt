@@ -49,7 +49,7 @@ abstract class ThemeManager {
         }
     }
 
-    abstract fun applyTheme(toolbar: BrowserToolbar, context: Context)
+    abstract fun applyTheme(toolbar: BrowserToolbar)
 
     fun updateLightSystemBars(window: Window, context: Context) {
         if (SDK_INT >= Build.VERSION_CODES.M) {
@@ -93,7 +93,7 @@ class DefaultThemeManager(
 
     private var currentContext:Context = activity
 
-    private val personalThemeContext = ContextThemeWrapper(activity.applicationContext, R.style.PersonalTheme)
+    private val personalThemeContext = ContextThemeWrapper(activity, R.style.PersonalTheme)
 
     override var currentMode: BrowsingMode = mode
         set(value) {
@@ -144,13 +144,10 @@ class DefaultThemeManager(
         }
     }
 
-    override fun applyTheme(toolbar: BrowserToolbar, context: Context) {
+    override fun applyTheme(toolbar: BrowserToolbar) {
         toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
         toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
 
-        var color = TypedValue()
-        currentContext.theme.resolveAttribute(R.attr.textPrimary, color, true)
-        Log.d("THEME", "$color.resourceId")
         var textPrimary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textPrimary))
         var textSecondary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textSecondary))
 

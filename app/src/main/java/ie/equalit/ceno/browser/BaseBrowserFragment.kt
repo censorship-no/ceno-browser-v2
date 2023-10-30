@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.feature.app.links.AppLinksFeature
@@ -136,7 +137,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
+        _binding = FragmentBrowserBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -451,7 +452,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          */
 
         binding.toolbar.private = themeManager.currentMode.isPersonal
-        themeManager.applyTheme(binding.toolbar, requireContext())
+        themeManager.applyTheme(binding.toolbar)
 
         var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
@@ -545,7 +546,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         val sessionMode = BrowsingMode.fromBoolean(selectedTab.content.private)
         if (sessionMode != browsingModeManager.mode) {
             browsingModeManager.mode = sessionMode
-            themeManager.applyTheme(binding.toolbar, requireContext())
+            //reload fragment
+            val fragmentId = findNavController().currentDestination?.id
+            findNavController().popBackStack(fragmentId!!,true)
+            findNavController().navigate(fragmentId)
         }
     }
 
