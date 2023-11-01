@@ -222,13 +222,22 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                 )
             )
         }
+        val search = if (themeManager.currentMode.isPersonal) {
+            requireComponents.useCases.searchUseCases.newPrivateTabSearch
+        } else {
+            requireComponents.useCases.searchUseCases.newTabSearch
+        }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,
-                    requireComponents.useCases.searchUseCases.defaultSearch,
+                    searchUseCase = if (themeManager.currentMode.isPersonal) {
+                        requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                    } else {
+                        requireComponents.useCases.searchUseCases.newTabSearch
+                    },
                     fetchClient = requireComponents.core.client,
                     mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
                     engine = requireComponents.core.engine,
