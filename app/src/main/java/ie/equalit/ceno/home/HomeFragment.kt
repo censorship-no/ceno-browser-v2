@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -168,11 +169,12 @@ class HomeFragment : BaseHomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.privateBrowsingButton.setOnClickListener {
-            (activity as BrowserActivity).openToBrowser(
-                "about:privatebrowsing",
-                newTab = true,
-                private = true
-            )
+            //open personal mode home fragment
+            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Personal
+            //reload fragment
+            val fragmentId = findNavController().currentDestination?.id
+            findNavController().popBackStack(fragmentId!!,true)
+            findNavController().navigate(fragmentId)
         }
         if (themeManager.currentMode == BrowsingMode.Personal) {
             binding.homeAppBar.visibility = View.GONE
