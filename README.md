@@ -5,7 +5,7 @@
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](./LICENSE)
 [![Weblate](https://hosted.weblate.org/widgets/censorship-no/-/android-strings/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/)
 
-Ceno (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. CENO can be used to bypass Internet censorship and help others retrieve blocked pages.
+Ceno (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages.
 
 Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefox-android/blob/main/android-components/README.md), it includes the Mozilla Web Platform via GeckoView and a [Ouinet](https://ouinet.work) Client for sharing web content peer-to-peer.
 
@@ -24,19 +24,19 @@ Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefo
 ## 🚀 Features
 
 🌴 **Browse freely, anytime.**  
-CENO is designed with internet shutdown scenarios in mind. Websites are shared by a global network of peers, and stored in a distributed cache for availability when traditional networks are blocked or go down.
+Ceno is designed with internet shutdown scenarios in mind. Websites are shared by a global network of peers, and stored in a distributed cache for availability when traditional networks are blocked or go down.
 
 🔓 **Unlock the web.**  
 Access any website. Frequently requested content is cached on the network and cannot be forcibly removed.
 
 💲 **Reduce Data Costs.**  
-By routing user traffic through peer-to-peer networks, CENO Browser incurs less data costs while still providing users with circumvention capability.
+By routing user traffic through peer-to-peer networks, Ceno Browser incurs less data costs while still providing users with circumvention capability.
 
 🌐 **Grow the Network, Fight Censorship.**  
-Fight censorship by becoming a bridge! Install and run CENO Browser to instantly join the network and expand the availability of blocked websites to those in censored countries.
+Fight censorship by becoming a bridge! Install and run Ceno Browser to instantly join the network and expand the availability of blocked websites to those in censored countries.
 
 👐 **Free and open source.**  
-CENO Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the CENO network into their apps for peer-to-peer connectivity.
+Ceno Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the Ceno network into their apps for peer-to-peer connectivity.
 
 ## Important Notices:
 Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://censorship.no/en/support.html) or [User Manual](https://censorship.no/user-manual/en/) for more details on Ceno usage.
@@ -71,7 +71,7 @@ The resulting apks will be copied to the `output/debug/` directory.
 
 The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time. You may customize the `local.properties` file with your values and rebuild as needed.
 
-By default, the latest versions of the Ouinet library and GeckoView (CENO fork) are automatically downloaded from Maven Central repository and used for building both the debug and release variants CENO Browser.
+By default, the latest versions of the Ouinet library and GeckoView (Ceno fork) are automatically downloaded from the Maven Central repository and used for building both the debug and release variants of Ceno Browser.
 
 # Test Channel on Google Play Store
 
@@ -92,13 +92,13 @@ autoPublish.android-components.dir=../android-components
 autoPublish.application-services.dir=../application-services
 ```
 
-That's it! Next build of `CENO Browser` will be against your local versions of these repositories. Simply make changes in `android-components` or `application-services`, press Play in `reference-browser` and those changes will be picked-up.
+That's it! Next build of `Ceno Browser` will be against your local versions of these repositories. Simply make changes in `android-components` or `application-services`, press Play in `reference-browser` and those changes will be picked-up.
 
-See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same way with `CENO Browser`.
+See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same way with `Ceno Browser`.
 
 ## Dependency substitutions for [GeckoView](https://hg.mozilla.org/mozilla-central)
 
-CENO Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
+Ceno Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
 
 If you are interested in building GeckoView locally, it is recommended that you use our [mozilla-build-scripts](https://gitlab.com/censorship-no/mozilla-build-scripts/) to publish the GeckoView AAR to your local maven repository and then add `mavenLocal()` to the repositories in `app/build.gradle`.
 
@@ -111,7 +111,7 @@ This assumes that you have built, packaged, and published your local GeckoView -
 Do not forget to run a Gradle sync in Android Studio after changing `local.properties`. If you specified any substitutions (e.g. GeckoView), they will be reflected in the modules list, and you'll be able to modify them from a single Android Studio window. For auto-publication workflow, use seperate Android Studio windows.
 
 # Ouinet Integration
-Prior to building the CENO Browser you will want to set the Ouinet configuration in a `local.properties`, by setting the following values:
+Prior to building Ceno Browser you will want to set the Ouinet configuration in a `local.properties`, by setting the following values:
 ```groovy
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
 INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
