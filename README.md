@@ -1,11 +1,11 @@
-# CENO Browser
+# Ceno Browser
 
 [![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/main/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/main)
 [![Gitlab release (latest by date)](https://img.shields.io/gitlab/v/release/censorship-no/ceno-browser)](https://gitlab.com/censorship-no/ceno-browser/-/releases)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](./LICENSE)
 [![Weblate](https://hosted.weblate.org/widgets/censorship-no/-/android-strings/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/)
 
-CENO (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. CENO can be used to bypass Internet censorship and help others retrieve blocked pages.
+Ceno (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. CENO can be used to bypass Internet censorship and help others retrieve blocked pages.
 
 Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefox-android/blob/main/android-components/README.md), it includes the Mozilla Web Platform via GeckoView and a [Ouinet](https://ouinet.work) Client for sharing web content peer-to-peer.
 
@@ -37,6 +37,9 @@ Fight censorship by becoming a bridge! Install and run CENO Browser to instantly
 
 👐 **Free and open source.**  
 CENO Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the CENO network into their apps for peer-to-peer connectivity.
+
+## Important Notices:
+Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://censorship.no/en/support.html) or [User Manual](https://censorship.no/user-manual/en/) for more details on Ceno usage.
 
 ## 👪 Contributing!
 Interested in contributing to the project? Great! For starters, make sure to review and agree to the terms of our [Code of Conduct](CODE_OF_CONDUCT.md).
