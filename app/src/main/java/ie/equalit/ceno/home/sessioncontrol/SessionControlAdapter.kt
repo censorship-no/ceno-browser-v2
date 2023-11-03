@@ -136,7 +136,10 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
-            PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(view)
+            PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
+                view,
+                interactor
+            )
             else -> throw IllegalStateException()
         }
     }
