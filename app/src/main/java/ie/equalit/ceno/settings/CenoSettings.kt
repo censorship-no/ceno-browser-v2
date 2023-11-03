@@ -344,13 +344,13 @@ object CenoSettings {
                         success = true
                     } else {
                         tries++
-                        Logger.debug("Clear cache failed on try $tries")
+                        Logger.debug("webClientRequest failed on try $tries")
                         delay(500)
                     }
                 }
             } catch (ex: Exception) {
                 tries++
-                Logger.debug("Clear cache failed on try $tries")
+                Logger.debug("webClientRequest failed on try $tries")
                 delay(500)
             }
         }

@@ -159,7 +159,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             viewLifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     /* Fetch ouinet status without refreshing... */
-                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS, shouldRefresh = false)
+                    CenoSettings.ouinetClientRequest(
+                        requireContext(),
+                        OuinetKey.API_STATUS,
+                        ouinetResponseListener = object : OuinetResponseListener {
+                            override fun onSuccess(message: String, data: Any?) {
+                            }
+                            override fun onError() {
+                                CenoSettings.setOuinetState(requireContext(), "stopped")
+                            }
+                        },
+                        shouldRefresh = false
+                    )
                     withContext(Dispatchers.Main) {
 
                         /* Update summary text for Browser Service */
