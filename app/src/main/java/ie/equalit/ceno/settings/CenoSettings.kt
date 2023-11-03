@@ -344,20 +344,20 @@ object CenoSettings {
                         success = true
                     } else {
                         tries++
-                        Logger.debug("Clear cache failed on try $tries")
+                        Logger.debug("webClientRequest failed on try $tries")
                         delay(500)
                     }
                 }
             } catch (ex: Exception) {
                 tries++
-                Logger.debug("Clear cache failed on try $tries")
+                Logger.debug("webClientRequest failed on try $tries")
                 delay(500)
             }
         }
         return responseBody
     }
 
-    private fun updateOuinetStatus(context : Context, responseBody : String) {
+    private fun updateOuinetStatus(context : Context, responseBody : String, shouldRefresh: Boolean) {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
@@ -376,7 +376,7 @@ object CenoSettings {
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
-        context.components.cenoPreferences.sharedPrefsReload = true
+        if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
     private fun updateCenoGroups(context : Context, responseBody : String) {
@@ -386,7 +386,14 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null) {
+    fun ouinetClientRequest(
+        context: Context,
+        key : OuinetKey,
+        newValue: OuinetValue? = null,
+        stringValue: String? = null,
+        ouinetResponseListener: OuinetResponseListener? = null,
+        shouldRefresh: Boolean = true
+    ) {
         MainScope().launch {
             val request : String = if (newValue != null)
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
@@ -400,7 +407,7 @@ object CenoSettings {
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
-                            updateOuinetStatus(context, response)
+                            updateOuinetStatus(context, response, shouldRefresh)
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
