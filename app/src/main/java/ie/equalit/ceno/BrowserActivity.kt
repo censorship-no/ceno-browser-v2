@@ -38,7 +38,7 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -76,8 +76,8 @@ open class BrowserActivity : BaseActivity() {
     private val tab: SessionState?
         get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
 
-    private val webExtensionPopupFeature by lazy {
-        WebExtensionPopupFeature(components.core.store, ::openPopup)
+    private val webExtensionPopupObserver by lazy {
+        WebExtensionPopupObserver(components.core.store, ::openPopup)
     }
 
     private val navHost by lazy {
@@ -164,7 +164,7 @@ open class BrowserActivity : BaseActivity() {
         *  and we already have a notification for stopping/pausing/purging local CENO data
         * NotificationManager.checkAndNotifyPolicy(this)
          */
-        lifecycle.addObserver(webExtensionPopupFeature)
+        lifecycle.addObserver(webExtensionPopupObserver)
 
         // check if a crash happened in the last session
         if(Settings.wasCrashSuccessfullyLogged(this@BrowserActivity)) {
