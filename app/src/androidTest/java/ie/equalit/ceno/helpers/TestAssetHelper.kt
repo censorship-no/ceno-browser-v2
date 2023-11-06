@@ -16,7 +16,7 @@ object TestAssetHelper {
     @Suppress("MagicNumber")
     val waitingTime: Long = TimeUnit.SECONDS.toMillis(15)
     val waitingTimeShort: Long = TimeUnit.SECONDS.toMillis(1)
-    data class TestAsset(val url: Uri, val content: String, val title: String, val urlWithoutScheme: String = "")
+    data class TestAsset(val url: Uri, val content: String, val title: String, val displayUrl: String = "")
 
     /**
      * Hosts 3 simple websites, found at androidTest/assets/pages/generic[1|2|3].html
@@ -41,8 +41,8 @@ object TestAssetHelper {
         val url = server.url("pages/generic$pageNum.html").toString().toUri()!!
         val content = "Page content: $pageNum"
         val title = "Test_Page_$pageNum"
-        val urlWithoutScheme = url.toString().replaceFirst("^https?://(www\\.)?".toRegex(), "")
-        return TestAsset(url, content, title, urlWithoutScheme)
+        val displayUrl = url.toString().replaceFirst("^https?://(www\\.)?".toRegex(), "")
+        return TestAsset(url, content, title, displayUrl)
     }
 
     fun getLoremIpsumAsset(server: MockWebServer): TestAsset {

@@ -109,7 +109,7 @@ class ContextMenusTest {
         }
 
         browser {
-            verifyUrl(genericURL.url.toString())
+            verifyUrl(genericURL.displayUrl)
         }
     }
 

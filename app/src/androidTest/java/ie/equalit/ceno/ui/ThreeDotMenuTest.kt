@@ -6,7 +6,6 @@ package ie.equalit.ceno.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiSelector
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -156,18 +155,18 @@ class ThreeDotMenuTest {
             openPrivateBrowsing()
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyUrl(defaultWebPage.urlWithoutScheme)
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
-            verifyUrl(nextWebPage.urlWithoutScheme)
+            verifyUrl(nextWebPage.displayUrl)
         }.goBack {
-            verifyUrl(defaultWebPage.urlWithoutScheme)
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.openThreeDotMenu {
         }.goForward {
-            verifyUrl(nextWebPage.urlWithoutScheme)
+            verifyUrl(nextWebPage.displayUrl)
         }
     }
 
@@ -318,7 +317,7 @@ class ThreeDotMenuTest {
         }.openAddToHomeScreen {
             clickAddAutomaticallyToHomeScreenButton()
         }.openHomeScreenShortcut(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.urlWithoutScheme)
+            verifyUrl(defaultWebPage.displayUrl)
         }
     }
 }

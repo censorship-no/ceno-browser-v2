@@ -57,7 +57,7 @@ class SearchTest {
             typeText("generic1.html")
             verifySearchSuggestion(defaultWebPage.title)
         }.clickSearchSuggestion(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
     }
 }

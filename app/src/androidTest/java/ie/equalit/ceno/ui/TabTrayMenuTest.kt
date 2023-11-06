@@ -101,13 +101,13 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
-            verifyUrl(genericOneURL.urlWithoutScheme)
+            verifyUrl(genericOneURL.displayUrl)
         }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            verifyUrl(genericFourURL.urlWithoutScheme)
+            verifyUrl(genericFourURL.displayUrl)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
@@ -151,7 +151,7 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.urlWithoutScheme)
+            verifyUrl(genericURL.displayUrl)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
@@ -173,13 +173,13 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
-            verifyUrl(genericOneURL.urlWithoutScheme)
+            verifyUrl(genericOneURL.displayUrl)
         }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            verifyUrl(genericFourURL.urlWithoutScheme)
+            verifyUrl(genericFourURL.displayUrl)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
@@ -222,14 +222,14 @@ class TabTrayMenuTest {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.urlWithoutScheme)
+            verifyUrl(genericURL.displayUrl)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericURL.title)
         }.clickOpenTab(genericURL.title) {
-            verifyUrl(genericURL.urlWithoutScheme)
+            verifyUrl(genericURL.displayUrl)
         }
     }
 

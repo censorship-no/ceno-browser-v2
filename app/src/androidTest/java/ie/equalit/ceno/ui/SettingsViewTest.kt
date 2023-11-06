@@ -18,6 +18,7 @@ import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Ignore
 
 /**
  *   Tests for verifying the settings view options exist as expected:
@@ -191,6 +192,7 @@ class SettingsViewTest {
     }
 
     @Test
+    @Ignore("Disabled - too dependent on third-party UI, find some other not terrible app to test against")
     fun openLinksInAppsTest() {
         val url = "m.youtube.com"
         navigationToolbar {
