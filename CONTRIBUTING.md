@@ -1,4 +1,4 @@
-# 🧑🏼‍❤️‍🧑🏾 Contributing to Ceno Browser
+# ❣️ Contributing to Ceno Browser
 Interested in contributing to the project? Great! For starters, make sure to review and agree to the terms of our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 Here are some ways to help Ceno Browser improve:
