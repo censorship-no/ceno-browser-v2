@@ -12,9 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentClearDataBinding
-import ie.equalit.ceno.settings.Settings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -22,7 +22,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@SuppressWarnings("TooManyFunctions", "LargeClass")
 class ClearDataFragment : Fragment(R.layout.fragment_clear_data) {
 
     private lateinit var controller: DeleteBrowsingDataController
@@ -37,14 +36,7 @@ class ClearDataFragment : Fragment(R.layout.fragment_clear_data) {
         _binding = FragmentClearDataBinding.bind(view)
 
         getCheckboxes().iterator().forEach {
-            it.isChecked = when (it.text) {
-                getString(R.string.delete_browsing_data) -> Settings.deleteBrowsingHistory(requireContext())
-                getString(R.string.delete_browser_cache) -> Settings.deleteCache(requireContext())
-                getString(R.string.delete_all_app_data) -> Settings.deleteOpenTabs(requireContext())
-                else -> true
-            }
-
-            it.setOnCheckedChangeListener { _, b ->
+            it.setOnCheckedChangeListener { _, _ ->
                 updateDeleteButton()
             }
         }
@@ -89,14 +81,13 @@ class ClearDataFragment : Fragment(R.layout.fragment_clear_data) {
     private fun deleteSelected() {
         startDeletion()
         lifecycleScope.launch(IO) {
-            getCheckboxes().mapIndexed { i, v ->
+            getCheckboxes().mapIndexed { _, v ->
                 if (v.isChecked) {
                     when (v.text) {
                         getString(R.string.delete_browsing_data) -> controller.deleteBrowsingData()
                         getString(R.string.delete_browser_cache) -> controller.deleteCachedFiles()
                         getString(R.string.delete_all_app_data) -> {
-                            controller.deleteSitePermissions()
-                            controller.deleteDownloads()
+                            (context as BrowserActivity).beginShutdown(true)
                         }
                     }
                 }
@@ -139,24 +130,6 @@ class ClearDataFragment : Fragment(R.layout.fragment_clear_data) {
         super.onDestroyView()
         _binding = null
     }
-
-//    private fun updateItemCounts() {
-//        updateCookies()
-//        updateCachedImagesAndFiles()
-//        updateSitePermissions()
-//    }
-
-//    private fun updateCookies() {
-//        // NO OP until we have GeckoView methods to count cookies
-//    }
-//
-//    private fun updateCachedImagesAndFiles() {
-//        // NO OP until we have GeckoView methods to count cached images and files
-//    }
-//
-//    private fun updateSitePermissions() {
-//        // NO OP until we have GeckoView methods for cookies and cached files, for consistency
-//    }
 
     private fun getCheckboxes(): List<AppCompatCheckBox> {
         return listOf(
