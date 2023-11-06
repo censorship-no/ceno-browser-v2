@@ -45,6 +45,9 @@ Ceno Browser is powered by [Ouinet](https://ouinet.work), an open source library
 ## ❗ Important Notice:
 Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://censorship.no/en/support.html) or [User Manual](https://censorship.no/user-manual/en/) for more details on Ceno usage.
 
+## ❣️ Contributing
+From testing to translations to bug reporting and merge requests, there are lots of ways to contribute to this project! Please see [the contributing guidelines](CONTRIBUTING.md) for more information.
+
 ## 🔧 Building
 ### Developer Build
 To build debug versions of Ceno Browser, enter the checkout directory and execute the following commands,
