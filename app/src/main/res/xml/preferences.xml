@@ -82,7 +82,7 @@
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_delete_browsing_data"
             android:title="@string/preferences_delete_browsing_data"
-            android:layout="@layout/ceno_clickable_preference_red_text" />
+            android:layout="@layout/ceno_clickable_preference" />
 
     </PreferenceCategory>
 
