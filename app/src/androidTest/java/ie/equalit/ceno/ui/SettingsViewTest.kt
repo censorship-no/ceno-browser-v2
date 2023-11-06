@@ -152,7 +152,10 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("Remote debugging")
+            Thread.sleep(5000)
+            clickDownRecyclerView(17)
+            Thread.sleep(5000)
+            verifyRemoteDebugging()
             toggleRemoteDebuggingOn()
             toggleRemoteDebuggingOff()
             toggleRemoteDebuggingOn()

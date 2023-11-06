@@ -156,18 +156,18 @@ class ThreeDotMenuTest {
             openPrivateBrowsing()
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.urlWithoutScheme)
         }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.urlWithoutScheme)
         }.goBack {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.urlWithoutScheme)
         }
         navigationToolbar {
         }.openThreeDotMenu {
         }.goForward {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.urlWithoutScheme)
         }
     }
 
@@ -318,7 +318,7 @@ class ThreeDotMenuTest {
         }.openAddToHomeScreen {
             clickAddAutomaticallyToHomeScreenButton()
         }.openHomeScreenShortcut(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.urlWithoutScheme)
         }
     }
 }

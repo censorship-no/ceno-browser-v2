@@ -101,13 +101,13 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
-            verifyUrl(genericOneURL.url.toString())
+            verifyUrl(genericOneURL.urlWithoutScheme)
         }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            verifyUrl(genericFourURL.url.toString())
+            verifyUrl(genericFourURL.urlWithoutScheme)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
@@ -151,7 +151,7 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.url.toString())
+            verifyUrl(genericURL.urlWithoutScheme)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
@@ -173,13 +173,13 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
-            verifyUrl(genericOneURL.url.toString())
+            verifyUrl(genericOneURL.urlWithoutScheme)
         }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            verifyUrl(genericFourURL.url.toString())
+            verifyUrl(genericFourURL.urlWithoutScheme)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
@@ -222,14 +222,14 @@ class TabTrayMenuTest {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.url.toString())
+            verifyUrl(genericURL.urlWithoutScheme)
         }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericURL.title)
         }.clickOpenTab(genericURL.title) {
-            verifyUrl(genericURL.url.toString())
+            verifyUrl(genericURL.urlWithoutScheme)
         }
     }
 
@@ -255,7 +255,7 @@ class TabTrayMenuTest {
             checkNumberOfTabsTabCounter("2")
         }.openTabTrayMenu {
             openPrivateBrowsing()
-            verifyExistingOpenTabs("Private Browsing")
+            verifyExistingOpenTabs("Personal Browsing")
             verifyExistingOpenTabs(firstGenericURL.title)
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(secondGenericURL.url) {
