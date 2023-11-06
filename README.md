@@ -1,4 +1,5 @@
-# Ceno Browser
+<img src="https://censorship.no/img/logo_ceno.png" width=250px alt="Ceno Browser">
+
 
 [![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/main/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/main)
 [![Gitlab release (latest by date)](https://img.shields.io/gitlab/v/release/censorship-no/ceno-browser)](https://gitlab.com/censorship-no/ceno-browser/-/releases)
@@ -20,6 +21,9 @@ Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefo
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/ie.equalit.ceno/)
+[<img src="https://censorship.no/img/dcomms_badge.png"
+     alt="Get it on dComms"
+     height="80">](https://dcomm.net.ua/package/ceno/)
 
 ## 🚀 Features
 
@@ -38,27 +42,8 @@ Fight censorship by becoming a bridge! Install and run Ceno Browser to instantly
 👐 **Free and open source.**  
 Ceno Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the Ceno network into their apps for peer-to-peer connectivity.
 
-## Important Notices:
+## ❗ Important Notice:
 Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://censorship.no/en/support.html) or [User Manual](https://censorship.no/user-manual/en/) for more details on Ceno usage.
-
-## 👪 Contributing!
-Interested in contributing to the project? Great! For starters, make sure to review and agree to the terms of our [Code of Conduct](CODE_OF_CONDUCT.md).
-
-Here are some ways to help CENO Browser improve:
-* Test the app with different devices
-* Report issues in the [issue tracker](https://gitlab.com/censorship-no/ceno-browser-v2/issues)
-* Create a [Merge Request](https://docs.gitlab.com/ee/user/project/merge_requests/getting_started.html)
-* Help increasing the test coverage by contributing unit tests
-* Translate the app on [Weblate](https://hosted.weblate.org/projects/censorship-no/)
-
-### ➿ Translations
-Translation support is needed for:
-* [Android strings](https://hosted.weblate.org/projects/censorship-no/android-strings/)
-* The [CENO web extension](https://gitlab.com/censorship-no/ceno-ext-settings/)
-* The [user manual](https://github.com/censorship-no/ceno-docs/)
-* The [website](https://censorship.no)
-
-We use Weblate for continuously-updated translations. To get started, create an account at https://weblate.org and visit https://hosted.weblate.org/projects/censorship-no/ to join the project.
 
 ## 🔧 Building
 ### Developer Build
@@ -73,15 +58,11 @@ The Ouinet client configuration is currently hardcoded at build time and cannot 
 
 By default, the latest versions of the Ouinet library and GeckoView (Ceno fork) are automatically downloaded from the Maven Central repository and used for building both the debug and release variants of Ceno Browser.
 
-# Test Channel on Google Play Store
-
-Join our [beta testing channel](https://play.google.com/apps/testing/ie.equalit.ceno) on the Play Store to get the latest updates as soon as they are available.
-
-# Local Development
+## Local Development
 
 You might be interested in building this project against local versions of some of the dependencies. Depending on which dependencies you're building against, there are couple of paths.
 
-## Auto-publication workflow
+### Auto-publication workflow
 
 This is the most streamlined workflow which fully automates dependency publication. It currently supports [android-components](https://github.com/mozilla-mobile/android-components/) and [application-services](https://github.com/mozilla/application-services) dependencies.
 
@@ -96,7 +77,7 @@ That's it! Next build of `Ceno Browser` will be against your local versions of t
 
 See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same way with `Ceno Browser`.
 
-## Dependency substitutions for [GeckoView](https://hg.mozilla.org/mozilla-central)
+### Dependency substitutions for [GeckoView](https://hg.mozilla.org/mozilla-central)
 
 Ceno Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
 
@@ -110,7 +91,7 @@ This assumes that you have built, packaged, and published your local GeckoView -
 
 Do not forget to run a Gradle sync in Android Studio after changing `local.properties`. If you specified any substitutions (e.g. GeckoView), they will be reflected in the modules list, and you'll be able to modify them from a single Android Studio window. For auto-publication workflow, use seperate Android Studio windows.
 
-# Ouinet Integration
+## Ouinet Integration
 Prior to building Ceno Browser you will want to set the Ouinet configuration in a `local.properties`, by setting the following values:
 ```groovy
 CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
@@ -119,7 +100,7 @@ INJECTOR_TLS_CERT="-----BEGIN CERTIFICATE-----\\n\
 ABCDEFG...\
 \\n-----END CERTIFICATE-----"
 ```
-An example configuration can be copied from `local.properties.sample`, but this is essentially empty and will not allow you to connect to the production CENO network.
+An example configuration can be copied from `local.properties.sample`, but this is essentially empty and will not allow you to connect to the production Ceno network.
 
 Those values will be loaded by Gradle during the build process in **app/build.gradle**:
 
@@ -129,6 +110,4 @@ If your code has user-facing changes, follow [Android accessibility best practic
 
 # License
 
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/
+This Source Code Form is subject to the terms of [the Mozilla Public License, v. 2.0](LICENSE). 
