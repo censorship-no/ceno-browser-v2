@@ -383,7 +383,4 @@
     <!-- COPIED FROM DUCKDUCKGO -->
     <color name="grayishBrown">#494949</color>
     <!-- END COPIED FROM DUCKDUCKGO -->
-
-    <!-- Red color used to indicate important actions -->
-    <color name="ceno_danger_red">#FF0000</color>
 </resources>
