@@ -5,9 +5,9 @@
 package ie.equalit.ceno.settings
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+//import android.view.Menu
+//import android.view.MenuInflater
+//import android.view.MenuItem
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import mozilla.components.browser.state.state.SearchState

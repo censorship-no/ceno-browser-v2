@@ -29,19 +29,61 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.*
+import ie.equalit.ceno.R.string.customize_addon_collection_cancel
+import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.pref_key_about_ceno
+import ie.equalit.ceno.R.string.pref_key_about_geckoview
+import ie.equalit.ceno.R.string.pref_key_about_ouinet
+import ie.equalit.ceno.R.string.pref_key_about_page
+import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
+import ie.equalit.ceno.R.string.pref_key_allow_notifications
+import ie.equalit.ceno.R.string.pref_key_autofill
+import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
+import ie.equalit.ceno.R.string.pref_key_ceno_download_log
+import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
+import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
+import ie.equalit.ceno.R.string.pref_key_ceno_network_config
+import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
+import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
+import ie.equalit.ceno.R.string.pref_key_clear_data
+import ie.equalit.ceno.R.string.pref_key_customization
+import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_make_default_browser
+import ie.equalit.ceno.R.string.pref_key_ouinet_state
+import ie.equalit.ceno.R.string.pref_key_override_amo_collection
+import ie.equalit.ceno.R.string.pref_key_privacy
+import ie.equalit.ceno.R.string.pref_key_remote_debugging
+import ie.equalit.ceno.R.string.pref_key_search_engine
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
+import ie.equalit.ceno.R.string.preference_choose_search_engine
+import ie.equalit.ceno.R.string.preferences_about_page
+import ie.equalit.ceno.R.string.preferences_customize_amo_collection
+import ie.equalit.ceno.R.string.preferences_delete_browsing_data
+import ie.equalit.ceno.R.string.setting_item_selected
+import ie.equalit.ceno.R.string.settings
+import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
+import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getAutofillPreference
+import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
+import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.feature.PermissionsFeature
@@ -165,6 +207,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         ouinetResponseListener = object : OuinetResponseListener {
                             override fun onSuccess(message: String, data: Any?) {
                             }
+
                             override fun onError() {
                                 CenoSettings.setOuinetState(requireContext(), "stopped")
                             }
@@ -209,9 +252,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
         getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener = getClickListenerForCustomAddons()
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
-        getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
+        getPreference(pref_key_clear_data)?.onPreferenceClickListener = getClickListenerForClearData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
+        getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
+        getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
+
+        getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
 
         // Update notifications
         when {
@@ -261,10 +308,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
-            setPreference(getPreference(pref_key_ceno_sources_origin), false)
-            setPreference(getPreference(pref_key_ceno_sources_private), false)
-            setPreference(getPreference(pref_key_ceno_sources_public), false)
-            setPreference(getPreference(pref_key_ceno_sources_shared), false)
             setPreference(getPreference(pref_key_ceno_groups_count), false)
             setPreference(getPreference(pref_key_clear_ceno_cache), false)
             setPreference(getPreference(pref_key_ceno_network_config), false)
@@ -274,26 +317,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
             /* Enable Ceno related options */
-            setPreference(
-                getPreference(pref_key_ceno_sources_origin),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.ORIGIN_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_private),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.PROXY_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_public),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.INJECTOR_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_shared),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
-            )
             getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
             }
@@ -378,10 +401,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
+    private fun getClickListenerForAddOns(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_global_addons)
+            true
+        }
+    }
+
+    private fun getClickListenerForWebsiteSources(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_websiteSourceSettingsFragment)
+            true
+        }
+    }
+
+    private fun getClickListenerForClearData(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(
-                R.id.action_settingsFragment_to_deleteBrowsingDataFragment
+                R.id.action_settingsFragment_to_clearDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
             true

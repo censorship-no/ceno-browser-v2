@@ -45,7 +45,7 @@
     <string name="browser_menu_forward">التالي</string>
     <string name="browser_menu_settings">الإعدادات</string>
     <string name="browser_menu_desktop_site">اطلب إصدار سطح المكتب</string>
-    <string name="browser_menu_add_ons">الإضافات</string>
+    <string name="preferences_add_ons">الإضافات</string>
     <string name="browser_toolbar_home">الرئيسية</string>
     <string name="close_mode_item">أغلق الإشعار</string>
     <string name="preferences_privacy_summary">التمكين للتصفح الشخصي والعام</string>

@@ -181,8 +181,8 @@
             app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/action_settingsFragment_to_deleteBrowsingDataFragment"
-            app:destination="@id/deleteBrowsingDataFragment"
+            android:id="@+id/action_settingsFragment_to_clearDataFragment"
+            app:destination="@id/clearDataFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
@@ -204,12 +204,20 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
+        <action
+            android:id="@+id/action_settingsFragment_to_websiteSourceSettingsFragment"
+            app:destination="@id/websiteSourceSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
         android:id="@+id/addonsFragment"
         android:name="ie.equalit.ceno.addons.AddonsFragment"
-        android:label="@string/browser_menu_add_ons"
+        android:label="@string/preferences_add_ons"
         tools:layout="@layout/fragment_add_ons">
 
         <action
@@ -286,10 +294,10 @@
         android:label="@string/preference_choose_search_engine" />
 
     <fragment
-        android:id="@+id/deleteBrowsingDataFragment"
-        android:name="ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment"
+        android:id="@+id/clearDataFragment"
+        android:name="ie.equalit.ceno.settings.cleardata.ClearDataFragment"
         android:label="@string/preferences_delete_browsing_data"
-        tools:layout="@layout/fragment_delete_browsing_data" />
+        tools:layout="@layout/fragment_clear_data" />
 
     <fragment
         android:id="@+id/aboutFragment"
@@ -307,9 +315,15 @@
         android:id="@+id/shutdownFragment"
         android:name="ie.equalit.ceno.browser.ShutdownFragment"
         tools:layout="@layout/fragment_shutdown" />
+
     <fragment
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
         android:label="NetworkSettingsFragment" />
+
+    <fragment
+        android:id="@+id/websiteSourceSettingsFragment"
+        android:name="ie.equalit.ceno.settings.WebsiteSourceSettingsFragment"
+        android:label="WebsiteSourceSettingsFragment" />
 
 </navigation>

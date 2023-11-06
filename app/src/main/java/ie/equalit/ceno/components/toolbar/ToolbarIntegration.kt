@@ -262,10 +262,6 @@ class ToolbarIntegration(
             }
         }
 
-        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
-            navController?.navigate(R.id.action_global_addons)
-        }
-
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
             CenoSettings.setStatusUpdateRequired(context, true)
             navController?.navigate(R.id.action_global_settings)

@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package ie.equalit.ceno.settings.deletebrowsingdata
+package ie.equalit.ceno.settings.cleardata
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,7 +12,6 @@ import mozilla.components.browser.state.action.RecentlyClosedAction
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.storage.HistoryStorage
-import mozilla.components.feature.downloads.DownloadsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 //import org.mozilla.fenix.components.PermissionStorage
 import kotlin.coroutines.CoroutineContext

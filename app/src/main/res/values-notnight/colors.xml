@@ -221,6 +221,9 @@
     <!-- Normal theme colors for dark mode -->
     <color name="neutral_faded_normal_theme">@color/photonGrey20</color>
 
+    <!-- Forward-navigation icon color -->
+    <color name="forward_navigation_icon_theme">#000000</color>
+
     <!-- CENO: END OF COPIED FROM FENIX -->
 
     <color name="toolbarBackgroundColor">@color/fx_mobile_layer_color_1</color>
@@ -233,4 +236,7 @@
     <!-- COPIED FROM DUCKDUCKGO -->
     <color name="grayishBrown">#494949</color>
     <!-- END COPIED FROM DUCKDUCKGO -->
+
+    <!-- Red color used to indicate important actions -->
+    <color name="ceno_danger_red">#FF0000</color>
 </resources>
