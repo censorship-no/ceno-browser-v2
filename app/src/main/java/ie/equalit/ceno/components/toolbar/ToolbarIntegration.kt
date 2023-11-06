@@ -350,12 +350,20 @@ class ToolbarIntegration(
         context.components.core.store,
         context.components.useCases.customLoadUrlUseCase,
         { searchTerms ->
-            context.components.useCases.searchUseCases.defaultSearch.invoke(
-                searchTerms = searchTerms,
-                searchEngine = null,
-                parentSessionId = null
-            )
-            (context as BrowserActivity).openToBrowser(private = context.themeManager.currentMode.isPersonal)
+            if ((context as BrowserActivity).themeManager.currentMode.isPersonal) {
+                context.components.useCases.searchUseCases.newPrivateTabSearch.invoke(
+                    searchTerms = searchTerms,
+                    searchEngine = null,
+                    parentSessionId = null
+                )
+            } else {
+                context.components.useCases.searchUseCases.newTabSearch.invoke(
+                    searchTerms = searchTerms,
+                    searchEngine = null,
+                    parentSessionId = null
+                )
+            }
+            context.openToBrowser(private = context.themeManager.currentMode.isPersonal)
         },
         sessionId,
     )
