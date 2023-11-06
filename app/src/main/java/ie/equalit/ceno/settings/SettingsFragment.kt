@@ -46,8 +46,8 @@ import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
 import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
 import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
-import ie.equalit.ceno.R.string.pref_key_clear_data
 import ie.equalit.ceno.R.string.pref_key_customization
+import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
 import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
@@ -207,7 +207,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         ouinetResponseListener = object : OuinetResponseListener {
                             override fun onSuccess(message: String, data: Any?) {
                             }
-
                             override fun onError() {
                                 CenoSettings.setOuinetState(requireContext(), "stopped")
                             }
@@ -252,7 +251,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
         getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener = getClickListenerForCustomAddons()
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
-        getPreference(pref_key_clear_data)?.onPreferenceClickListener = getClickListenerForClearData()
+        getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
@@ -401,6 +400,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_deleteBrowsingDataFragment
+            )
+            getActionBar().setTitle(preferences_delete_browsing_data)
+            true
+        }
+    }
+
     private fun getClickListenerForAddOns(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(R.id.action_global_addons)
@@ -411,16 +420,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForWebsiteSources(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_websiteSourceSettingsFragment)
-            true
-        }
-    }
-
-    private fun getClickListenerForClearData(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            findNavController().navigate(
-                R.id.action_settingsFragment_to_clearDataFragment
-            )
-            getActionBar().setTitle(preferences_delete_browsing_data)
             true
         }
     }

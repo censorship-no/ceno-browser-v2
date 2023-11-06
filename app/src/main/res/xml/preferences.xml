@@ -80,8 +80,8 @@
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
-            android:title="@string/title_clear_data"
-            android:key="@string/pref_key_clear_data"
+            android:key="@string/pref_key_delete_browsing_data"
+            android:title="@string/preferences_delete_browsing_data"
             android:layout="@layout/ceno_clickable_preference_red_text" />
 
     </PreferenceCategory>
@@ -103,6 +103,13 @@
             android:key="@string/pref_key_ceno_groups_count"
             android:title="@string/preferences_ceno_groups_count"
             app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_clear_ceno_cache"
+            android:defaultValue="0 B"
+            android:title="@string/preferences_clear_ceno_cache"
+            android:summary="@string/preferences_clear_ceno_cache_summary" />
 
         <!--        <androidx.preference.Preference-->
         <!--            android:defaultValue="0 B"-->

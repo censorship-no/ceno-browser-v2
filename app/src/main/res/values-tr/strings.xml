@@ -84,6 +84,7 @@
         <item quantity="other">%d sekme</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">Çerezler</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Çoğu sitedeki oturumlarınız kapatılacak</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Açık sekmeler</string>
     <string name="browser_menu_find_in_page">Sayfada bul</string>
     <string name="preference_select_preferred_engine">Kullanmak istediğiniz arama hizmetini seçin:</string>

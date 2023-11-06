@@ -67,6 +67,7 @@
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data_snackbar">Dados de navegação apagados</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Perderá a sessão em maioria das páginas</string>
     <string name="preferences_delete_browsing_data_cached_files">Imagens e ficheiros em Cache</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Liberta espaço de armazenamento</string>
     <string name="preferences_delete_browsing_data_site_permissions">Permissões de sites</string>

@@ -134,6 +134,7 @@
         <item quantity="other">%d вкладки</item>
     </plurals>
     <string name="deleting_browsing_data_in_progress">Видалення даних перегляду</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Ви вийдете з більшості сайтів</string>
     <string name="preferences_delete_browsing_data_cached_files">Кешовані зображення та файли</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Звільняє місце для зберігання</string>
     <string name="preferences_delete_browsing_data_button">Видалити дані перегляду</string>

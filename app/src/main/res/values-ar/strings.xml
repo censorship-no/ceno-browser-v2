@@ -93,6 +93,7 @@
     <string name="browser_menu_find_in_page">البحث في الصفحة</string>
     <string name="browser_menu_add_to_shortcuts">أضف إلى الاختصارات</string>
     <string name="browser_menu_remove_from_shortcuts">أزل من الاختصارات</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">سيتم تسجيل خروجك من معظم المواقع</string>
     <string name="toolbar_category">خيارات شريط الأدوات</string>
     <string name="preferences_customize_amo_collection">مجموعة الإضافات المخصصة</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
