@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:paddingBottom="12dp">
 
     <TextView
         android:id="@android:id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="14dp"
-        android:paddingTop="8dp"
+        android:paddingTop="14dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Sample preference" />
@@ -26,23 +26,22 @@
         android:layout_marginTop="2dp"
         android:alpha="0.7"
         android:paddingHorizontal="14dp"
-        android:paddingBottom="8dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@android:id/title"
         tools:text="" />
 
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:paddingHorizontal="15dp"
-        android:src="@drawable/ic_proceed_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:id="@+id/arrow"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:paddingHorizontal="15dp"-->
+<!--        android:src="@drawable/ic_proceed_arrow"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

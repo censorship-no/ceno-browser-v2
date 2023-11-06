@@ -32,7 +32,6 @@
         <item quantity="other">%d alamat</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">Kuki</string>
-    <string name="preferences_delete_browsing_data_cookies_subtitle">Anda akan keluar dari sebagian besar situs</string>
     <string name="open_links_in_apps">Buka tautan di aplikasi</string>
     <string name="toast_copied">Disalin!</string>
     <string name="preferences_customize_amo_collection">Koleksi Pengaya Khusus</string>

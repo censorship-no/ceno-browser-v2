@@ -149,7 +149,6 @@
     <string name="delete_browsing_data_prompt_message_3">ရွေးချယ်ထားသည့် ရှာဖွေထားသည့် အချက်အလက်များကို %s က ဖျက်ပစ်ပါမည်။</string>
     <string name="close_mode_item">အသိပေးချက်ကို ပိတ်မည်</string>
     <string name="preference_show_search_suggestions">ရှာဖွေရာ၌ အကြံပြုချက်များကို ရယူမည်</string>
-    <string name="preferences_delete_browsing_data_cookies_subtitle">ဆိုက်အများစုမှ သင် ထွက်သွားလိမ့်မည်</string>
     <string name="preference_select_preferred_engine">သင်ကြိုက်နှစ်သက်ရာ အင်ဂျင်ကို ရွေးချယ်ပါ</string>
     <string name="preferences_delete_browsing_data_cookies">ကွတ်ကီးများ</string>
     <string name="preference_category_search">ရှာဖွေမည်</string>

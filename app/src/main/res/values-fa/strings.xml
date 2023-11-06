@@ -132,7 +132,6 @@
         <item quantity="other">%d آدرس‌ها</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">کوکی‌ها</string>
-    <string name="preferences_delete_browsing_data_cookies_subtitle">شما از اکثر وب‌سایت‌ها خارج خواهید شد</string>
     <string name="preferences_delete_browsing_data_cached_files">تصاویر و فایل‌های کش‌شده</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">فضای ذخیره را خالی کنید</string>
     <string name="preferences_delete_browsing_data_site_permissions">مجوزهای سایت</string>
