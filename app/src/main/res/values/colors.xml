@@ -368,6 +368,9 @@
     <!-- Normal theme colors for dark mode -->
     <color name="neutral_faded_normal_theme">#1FFBFBFE</color>
 
+    <!-- Forward-navigation icon color -->
+    <color name="forward_navigation_icon_theme">#FFFFFF</color>
+
     <!-- CENO: END OF COPIED FROM FENIX -->
 
     <color name="toolbarSuggestionForeground">@color/fx_mobile_layer_color_2</color>

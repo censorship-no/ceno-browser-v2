@@ -33,7 +33,6 @@ import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
@@ -42,6 +41,7 @@ import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
+import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.feature.PermissionsFeature
@@ -212,6 +212,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
+        getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
+        getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
+
+        getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
 
         // Update notifications
         when {
@@ -261,10 +265,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
             /* Grey out all Ceno related options */
-            setPreference(getPreference(pref_key_ceno_sources_origin), false)
-            setPreference(getPreference(pref_key_ceno_sources_private), false)
-            setPreference(getPreference(pref_key_ceno_sources_public), false)
-            setPreference(getPreference(pref_key_ceno_sources_shared), false)
             setPreference(getPreference(pref_key_ceno_groups_count), false)
             setPreference(getPreference(pref_key_clear_ceno_cache), false)
             setPreference(getPreference(pref_key_ceno_network_config), false)
@@ -274,26 +274,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
             /* Enable Ceno related options */
-            setPreference(
-                getPreference(pref_key_ceno_sources_origin),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.ORIGIN_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_private),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.PROXY_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_public),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.INJECTOR_ACCESS)
-            )
-            setPreference(
-                getPreference(pref_key_ceno_sources_shared),
-                true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.DISTRIBUTED_CACHE)
-            )
             getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
             }
@@ -384,6 +364,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
+            true
+        }
+    }
+
+    private fun getClickListenerForAddOns(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_global_addons)
+            true
+        }
+    }
+
+    private fun getClickListenerForWebsiteSources(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_websiteSourceSettingsFragment)
             true
         }
     }

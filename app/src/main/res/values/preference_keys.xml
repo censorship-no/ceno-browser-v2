@@ -10,6 +10,7 @@
     <string name="pref_key_testing_mode" translatable="false">pref_key_testing_mode</string>
     <string name="pref_key_about_page" translatable="false">pref_key_about_page</string>
     <string name="pref_key_privacy" translatable="false">pref_key_privacy</string>
+    <string name="pref_key_add_ons" translatable="false">pref_key_add_ons</string>
     <string name="pref_key_tracking_protection_normal" translatable="false">pref_key_tracking_protection_normal</string>
     <string name="pref_key_tracking_protection_private" translatable="false">pref_key_tracking_protection_private</string>
     <string name="pref_key_launch_external_app" translatable="false">pref_key_launch_external_app</string>
@@ -60,6 +61,7 @@
     <string name="pref_key_ceno_network_config" translatable="false">pref_key_ceno_network_config</string>
     <string name="pref_key_ceno_enable_log" translatable="false">pref_key_ceno_enable_log</string>
     <string name="pref_key_ceno_download_log" translatable="false">pref_key_ceno_download_log</string>
+    <string name="pref_key_ceno_website_sources" translatable="false">pref_key_ceno_website_sources</string>
     <string name="pref_key_about_ceno" translatable="false">pref_key_about_ceno</string>
     <string name="pref_key_about_geckoview" translatable="false">pref_key_about_geckoview</string>
     <string name="pref_key_about_ouinet" translatable="false">pref_key_about_ouinet</string>
