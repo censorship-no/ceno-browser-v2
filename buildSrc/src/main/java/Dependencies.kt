@@ -8,21 +8,21 @@
 // Synchronized version numbers for dependencies used by (some) modules
 object Versions {
     object AndroidX {
-        const val activity_compose = "1.6.1"
-        const val appcompat = "1.5.1"
-        const val compose = "1.4.2"
+        const val activity_compose = "1.7.2"
+        const val appcompat = "1.6.1"
+        const val compose = "1.5.4"
         const val constraintlayout = "2.1.4"
-        const val core = "1.9.0"
-        const val lifecycle = "2.6.1"
+        const val core = "1.12.0"
+        const val lifecycle = "2.6.2"
         const val navigation = "2.5.3"
-        const val preference = "1.2.0"
+        const val preference = "1.2.1"
         const val swiperefreshlayout = "1.1.0"
         const val work = "2.7.1"
     }
 
     object Google {
         const val compose_compiler = "1.4.2"
-        const val material = "1.7.0"
+        const val material = "1.9.0"
     }
 
     object Gradle {
@@ -32,24 +32,24 @@ object Versions {
 
     object Kotlin {
         const val compiler = "1.8.10"
-        const val coroutines = "1.6.4"
-        const val serialization = "1.5.0"
+        const val coroutines = "1.7.2"
+        const val serialization = "1.5.1"
     }
 
     object Testing {
         const val androidx_core = "1.5.0"
         const val androidx_espresso = "3.5.1"
-        const val androidx_ext_junit = "1.1.5"
+        const val androidx_ext_junit = "4.13.2"
         const val androidx_orchestrator = "1.4.2"
         const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
         const val jacoco = "0.8.8"
-        const val ktlint = "0.48.1"
+        const val ktlint = "0.49.1"
         const val mockwebserver = "4.10.0"
     }
 
     object ThirdParty {
-        const val sentry = "6.11.0"
+        const val sentry = "6.27.0"
         const val gson = "2.10.1"
     }
 
