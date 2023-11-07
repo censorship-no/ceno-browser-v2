@@ -21,7 +21,7 @@ object Versions {
     }
 
     object Google {
-        const val compose_compiler = "1.4.2"
+        const val compose_compiler = "1.4.8"
         const val material = "1.9.0"
     }
 
@@ -43,7 +43,7 @@ object Versions {
         const val androidx_orchestrator = "1.4.2"
         const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
-        const val jacoco = "0.8.8"
+        const val jacoco = "0.8.10"
         const val ktlint = "0.49.1"
         const val mockwebserver = "4.10.0"
     }
