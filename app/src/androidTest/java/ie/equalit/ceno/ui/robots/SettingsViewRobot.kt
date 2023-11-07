@@ -118,6 +118,13 @@ class SettingsViewRobot {
         }
         */
 
+        fun openSettingsViewSearch(interact: SettingsViewSearchRobot.() -> Unit):
+                SettingsViewSearchRobot.Transition {
+            searchButton().click()
+            SettingsViewSearchRobot().interact()
+            return SettingsViewSearchRobot.Transition()
+        }
+
         fun makeDefaultBrowser(interact: ExternalAppsRobot.() -> Unit):
                 ExternalAppsRobot.Transition {
             makeDefaultBrowserButton().click()

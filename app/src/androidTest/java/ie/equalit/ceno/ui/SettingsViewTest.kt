@@ -65,12 +65,16 @@ class SettingsViewTest {
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
             verifyDeleteBrowsingData()
+            clickDownRecyclerView(8)
+            Thread.sleep(5000)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                clickDownRecyclerView(1)
+                Thread.sleep(5000)
                 verifyDisableBatteryOptimization()
             }
             verifyShowOnboarding()
             // TODO: should make this smarter and click down list until matches some text
-            clickDownRecyclerView(13)
+            clickDownRecyclerView(5)
             verifySourcesHeading()
             verifyWebsiteCheckbox()
             verifyWebsiteSummary()
@@ -184,7 +188,9 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About Reference Browser")
+            Thread.sleep(5000)
+            clickDownRecyclerView(18)
+            Thread.sleep(5000)
             verifyCustomAddonCollectionButton()
             clickCustomAddonCollectionButton()
             verifyCustomAddonCollectionPanelExist()
