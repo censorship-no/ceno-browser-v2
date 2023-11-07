@@ -31,7 +31,7 @@ object Versions {
     }
 
     object Kotlin {
-        const val compiler = "1.8.10"
+        const val compiler = "1.8.22"
         const val coroutines = "1.7.2"
         const val serialization = "1.5.1"
     }
