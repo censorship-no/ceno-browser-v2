@@ -15,30 +15,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
-import mozilla.components.feature.downloads.DownloadsFeature
-import mozilla.components.feature.downloads.manager.FetchDownloadManager
-import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
-import mozilla.components.feature.session.SessionFeature
-import mozilla.components.feature.tabs.WindowFeature
-import mozilla.components.feature.webauthn.WebAuthnFeature
-import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.PermissionsFeature
-import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import mozilla.components.support.base.log.logger.Logger
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
+import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -46,8 +36,18 @@ import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.awesomebar.AwesomeBarFeature
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
+import mozilla.components.feature.downloads.DownloadsFeature
+import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
+import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
+import mozilla.components.feature.tabs.WindowFeature
+import mozilla.components.feature.webauthn.WebAuthnFeature
+import mozilla.components.support.base.feature.ActivityResultHandler
+import mozilla.components.support.base.feature.PermissionsFeature
+import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.base.log.logger.Logger
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -273,12 +273,13 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         )
 
-        TabsToolbarFeature(
+        TabCounterView(
             toolbar = toolbar,
             sessionId = sessionId,
             store = requireComponents.core.store,
             showTabs = ::showTabs,
-            lifecycleOwner = this
+            lifecycleOwner = this,
+            browsingModeManager = (activity as BrowserActivity).browsingModeManager
         )
 
         thumbnailsFeature.set(
