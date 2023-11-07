@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.components.ceno
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,16 +21,17 @@ import mozilla.components.support.ktx.android.view.setPadding
 open class ClearToolbarAction (
     internal val padding: Padding? = null,
     private val listener: () -> Unit,
+    private var context: Context
 ) : Toolbar.Action {
 
     override fun createView(parent: ViewGroup): View {
-        val rootView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.clear_toolbar_action, parent, false)
+        val inflater = LayoutInflater.from(context)
+        val rootView = inflater.inflate(R.layout.clear_toolbar_action, parent, false)
 
         rootView.setOnClickListener { listener.invoke() }
 
         val backgroundResource =
-            parent.context.theme.resolveAttribute(android.R.attr.selectableItemBackgroundBorderless)
+            context.theme.resolveAttribute(android.R.attr.selectableItemBackgroundBorderless)
 
         rootView.setBackgroundResource(backgroundResource)
         padding?.let { rootView.setPadding(it) }

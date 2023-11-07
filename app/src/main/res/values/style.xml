@@ -10,6 +10,8 @@
     </style>
 
     <!-- CENO: COPIED FROM FENIX -->
+    <style name="NormalTheme" parent="NormalThemeBase" />
+
     <style name="NormalThemeBase" parent="Theme.MaterialComponents.DayNight.Bridge">
         <!-- Android system styling -->
         <item name="searchViewStyle">@style/SearchViewStyle</item>
@@ -74,6 +76,8 @@
         <item name="textActionPrimary">@color/fx_mobile_text_color_action_primary</item>
 
         <!-- Icon -->
+        <!-- Primary icon -->
+        <item name="iconPrimary">@color/fx_mobile_icon_color_primary</item>
         <!-- Secondary icon -->
         <item name="iconSecondary">@color/fx_mobile_icon_color_secondary</item>
         <!-- Active tab -->
@@ -101,9 +105,10 @@
         <item name="neutral">@color/neutral_normal_theme</item>
         <item name="neutralFaded">@color/neutral_faded_normal_theme</item>
         <item name="accentUsedOnDarkBackground">@color/fx_mobile_text_color_accent</item>
-        <item name="toolbarStartGradient">@color/fx_mobile_layer_color_1</item>
-        <item name="toolbarCenterGradient">@color/fx_mobile_layer_color_1</item>
-        <item name="toolbarEndGradient">@color/fx_mobile_layer_color_1</item>
+
+        <item name="toolbarBackground">@color/fx_mobile_layer_color_1</item>
+        <item name="toolbarUrlBackground">@color/fx_mobile_layer_color_3</item>
+
         <item name="fillLinkFromClipboard">@color/fill_link_from_clipboard_normal_theme</item>
         <item name="syncDisconnected">@color/sync_disconnected_icon_fill_normal_theme</item>
         <item name="syncDisconnectedBackground">@color/sync_disconnected_background_normal_theme</item>
@@ -127,8 +132,6 @@
 
         <item name="tabCounterTintColor">?attr/textPrimary</item>
     </style>
-
-    <style name="NormalTheme" parent="NormalThemeBase" />
 
     <style name="BaseDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="colorControlNormal">?attr/textPrimary</item>
@@ -274,5 +277,19 @@
         <item name="android:textColor">@color/fx_mobile_text_color_primary</item>
     </style>
     <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <style name="PersonalTheme" parent="Theme.AppCompat.DayNight">
+        <item name="toolbarBackground">@color/fx_mobile_private_layer_color_1</item>
+        <item name="toolbarUrlBackground">@color/fx_mobile_private_layer_color_3</item>
+        <!-- Primary text -->
+        <item name="textPrimary">@color/fx_mobile_private_text_color_primary</item>
+        <!-- Secondary text -->
+        <item name="textSecondary">@color/fx_mobile_private_text_color_secondary</item>
+        <item name="layer1">@color/fx_mobile_private_layer_color_1</item>
+        <!-- Primary icon -->
+        <item name="iconPrimary">@color/fx_mobile_private_icon_color_primary</item>
+
+        <item name="tabCounterTintColor">?attr/textPrimary</item>
+    </style>
 
 </resources>

@@ -29,6 +29,8 @@ android {
         versionCode 1
         versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
 
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
