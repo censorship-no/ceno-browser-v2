@@ -39,7 +39,7 @@ object Versions {
     object Testing {
         const val androidx_core = "1.5.0"
         const val androidx_espresso = "3.5.1"
-        const val androidx_ext_junit = "4.13.2"
+        const val androidx_ext_junit = "1.1.5"
         const val androidx_orchestrator = "1.4.2"
         const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
