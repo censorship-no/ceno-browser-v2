@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_autofill_summary">Automatycznie uzupełniaj loginy i hasła w innych aplikacjach</string>
     <string name="privacy" tools:ignore="UnusedResources">Prywatność</string>
-    <string name="private_browsing_title">Prywatne przeglądanie</string>
+    <string name="private_browsing_title">Osobiste przeglądanie</string>
     <string name="theme_category">Kompozycja</string>
     <string name="toolbar_category">Opcje paska narzędzi</string>
     <string name="settings">Ustawienia</string>
@@ -20,7 +20,7 @@
     <string name="shortcut_max_limit_title">Osiągnięto limit skrótów</string>
     <string name="delete_from_history">Usuń z historii</string>
     <string name="shortcut_name_hint">Nazwa skrótu</string>
-    <string name="customize_addon_collection_ok">Ok</string>
+    <string name="customize_addon_collection_ok">OK</string>
     <string name="browser_menu_remove_from_shortcuts">Usuń ze skrótów</string>
     <string name="udp_category">UDP</string>
     <string name="browser_menu_desktop_site">Zażądaj strony w wersji dla komputera</string>
@@ -31,17 +31,17 @@
     <string name="preferences_delete_browsing_data_snackbar">Historia przeglądania usunięta</string>
     <string name="customize_extra_bittorrent_bootstrap">Dodatkowe bootstrapy BitTorrent</string>
     <string name="content_description_private_browsing_button">Włącz tryb przeglądania osobistego</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Uruchom w oknie osobistym</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Uruchom w karcie osobistej</string>
     <string name="delete_browsing_data_prompt_allow">Usuń</string>
     <string name="browser_menu_settings">Ustawienia</string>
     <string name="browser_menu_refresh">Odśwież</string>
-    <string name="menu_share_with">Udostępnij przez</string>
+    <string name="menu_share_with">Udostępnij przez…</string>
     <string name="browser_menu_forward">Dalej</string>
-    <string name="deleting_browsing_data_in_progress">Usuwanie historii przeglądania..</string>
+    <string name="deleting_browsing_data_in_progress">Usuwanie historii przeglądania…</string>
     <string name="browser_menu_stop">Stop</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="one">%d zakładka</item>
-        <item quantity="few">%d zakładek</item>
+        <item quantity="few">%d zakładki</item>
         <item quantity="many">%d zakładek</item>
         <item quantity="other">%d zakładek</item>
     </plurals>
@@ -65,4 +65,38 @@
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
     <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
     <string name="preferences_autofill">Automatycznie uzupełniaj w aplikacjach</string>
+    <string name="preferences_customization_summary">Ikona aplikacji, Pasek narzędzi, przycisk Wyczyść</string>
+    <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
+    <string name="general_category">Ogólne</string>
+    <string name="tracker_category">Ochrona przed śledzeniem</string>
+    <string name="clear_button_category">Przycisk Wyczyść</string>
+    <string name="preferences_delete_browsing_data_cached_files">Obrazy i pliki w pamięci podręcznej</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Otwórz odnośnik w zakładce osobistej</string>
+    <string name="insecure_connection">Połączenie nie jest bezpieczne</string>
+    <string name="preference_show_search_suggestions">Uzyskaj sugestie wyszukiwania</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="one">%d adres</item>
+        <item quantity="few">%d adresy</item>
+        <item quantity="many">%d adresów</item>
+        <item quantity="other">%d adresów</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_site_permissions">Uprawnienia witryny</string>
+    <string name="crash_report_sent">Wysłano raport o awarii!</string>
+    <string name="not_applicable">N/D</string>
+    <string name="preference_category_search">Szukaj</string>
+    <string name="preferences_delete_browsing_data_cookies">Ciasteczka</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">Otwórz karty</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Zwalnia miejsce do przechowywania</string>
+    <string name="delete_browsing_data_prompt_message_3">%s usunie wybrane dane przeglądania.</string>
+    <string name="preferences_customize_amo_collection">Niestandardowa kolekcja dodatków</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Nastąpi wylogowanie z większości witryn</string>
+    <string name="secure_connection">Połączenie jest bezpieczne</string>
+    <string name="preference_select_preferred_engine">Wybierz preferowany silnik:</string>
+    <string name="preferences_delete_browsing_data_button">Usuń dane przeglądania</string>
+    <string name="preference_search_summary">Ustaw domyślnym</string>
+    <string name="button_content_readerview">Widok czytelnika</string>
+    <string name="close_mode_item">Zamknij powiadomienie</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Historia przeglądania i dane witryny</string>
+    <string name="browser_toolbar_home">Strona główna</string>
+    <string name="preference_choose_search_engine">Wybierz wyszukiwarkę</string>
 </resources>

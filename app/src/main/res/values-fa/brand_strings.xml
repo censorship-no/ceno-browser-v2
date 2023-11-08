@@ -99,4 +99,5 @@
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>
     <string name="about_category">درباره</string>
+    <string name="preferences_about_ouinet_protocol">پروتکلOuinet</string>
 </resources>
