@@ -19,6 +19,7 @@ android {
 
     aaptOptions {
         ignoreAssetsPattern '!._'
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.zip'
     }
 
     defaultConfig {
@@ -142,6 +143,14 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-Xjvm-default=all"
         jvmTarget = "17"
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'mergeDebugAssets' ||
+            task.name == 'mergeBetaAssets' ||
+            task.name == 'mergeReleaseAssets') {
+        task.dependsOn unzipUblockOrigin
     }
 }
 
@@ -451,6 +460,13 @@ dependencies {
     androidTestImplementation Deps.espresso_core, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+}
+
+task unzipUblockOrigin(type: Copy) {
+    def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
+    def outputDir = file("src/main/assets/addons/uBlock")
+    from zipTree(zipFile)
+    into outputDir
 }
 
 // -------------------------------------------------------------------------------------------------
