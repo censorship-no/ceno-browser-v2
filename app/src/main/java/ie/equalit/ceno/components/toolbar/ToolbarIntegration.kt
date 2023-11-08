@@ -262,10 +262,6 @@ class ToolbarIntegration(
             }
         }
 
-        menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_add_ons)) {
-            navController?.navigate(R.id.action_global_addons)
-        }
-
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
             CenoSettings.setStatusUpdateRequired(context, true)
             navController?.navigate(R.id.action_global_settings)
@@ -350,12 +346,20 @@ class ToolbarIntegration(
         context.components.core.store,
         context.components.useCases.customLoadUrlUseCase,
         { searchTerms ->
-            context.components.useCases.searchUseCases.defaultSearch.invoke(
-                searchTerms = searchTerms,
-                searchEngine = null,
-                parentSessionId = null
-            )
-            (context as BrowserActivity).openToBrowser()
+            if ((context as BrowserActivity).themeManager.currentMode.isPersonal) {
+                context.components.useCases.searchUseCases.newPrivateTabSearch.invoke(
+                    searchTerms = searchTerms,
+                    searchEngine = null,
+                    parentSessionId = null
+                )
+            } else {
+                context.components.useCases.searchUseCases.newTabSearch.invoke(
+                    searchTerms = searchTerms,
+                    searchEngine = null,
+                    parentSessionId = null
+                )
+            }
+            context.openToBrowser(private = context.themeManager.currentMode.isPersonal)
         },
         sessionId,
     )

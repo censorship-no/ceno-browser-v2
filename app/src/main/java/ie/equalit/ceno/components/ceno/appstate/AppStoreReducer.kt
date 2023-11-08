@@ -25,5 +25,7 @@ internal object AppStoreReducer {
         }
 
         is AppAction.RemoveThanksCard -> state.copy(showThanksCard = action.showThanksCard)
+
+        is AppAction.ModeChange -> state.copy(mode = action.mode)
     }
 }

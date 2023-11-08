@@ -139,4 +139,15 @@
     <string name="onboarding_public_or_personal_title">Público ou Privado\?</string>
     <string name="preferences_ceno_sources_external_udp">Endpoints UDP externos</string>
     <string name="preferences_ceno_sources_public_udp">Endpoints UDP públicos</string>
+    <string name="ceno_home_card_public_text">Para acessar páginas públicas como notícias, vídeos ou artigos.</string>
+    <string name="ceno_home_card_personal_title">GUIAS PESSOAIS</string>
+    <string name="ceno_home_card_public_title">GUIAS PÚBLICAS</string>
+    <string name="onboarding_cleanup_title">Limpe tudo,
+\nem todos os lugares, de uma só vez</string>
+    <string name="onboarding_cleanup_text">Limpe o histórico do seu navegador, credenciais e qualquer rastro que você deixou no &brandShortName; com um único botão.</string>
+    <string name="ceno_home_card_personal_text">Para fazer login em uma conta ou acessar credenciais.</string>
+    <string name="onboarding_finish_button">Terminar</string>
+    <string name="onboarding_public_personal_text">Com as guias Públicas você pode acessar páginas públicas como notícias, vídeos ou artigos.
+\n
+\nPrecisa fazer login em uma conta com credenciais de acesso\? As guias pessoais são ideais para isso.</string>
 </resources>

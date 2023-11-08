@@ -34,6 +34,9 @@
     <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
 
+    <!-- Preference summary for website sources -->
+    <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
+
     <!-- Preference summary for customizaton -->
     <string name="preferences_customization_summary">App Icon, Toolbar, Clear button</string>
 
@@ -159,8 +162,6 @@
     <string name="browser_menu_refresh">Refresh</string>
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Stop</string>
-    <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Add-ons</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Settings</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -242,6 +243,12 @@
     <!-- Ceno: COPIED FROM FOCUS -->
     <string name="preference_category_search">Search</string>
 
+    <!-- Used to indicate the value of a setting item-->
+    <string name="setting_item_selected">%s selected</string>
+
+    <!-- Title key for search engine setting -->
+    <string name="set_default_search_engine">Set default search engine</string>
+
     <!-- Title of "switch" preference that enables/disables search suggestions -->
     <string name="preference_show_search_suggestions">Get search suggestions</string>
 
@@ -254,6 +261,9 @@
 
     <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
+
+    <!-- Preference title text that launches the addon manager -->
+    <string name="preferences_add_ons">Add-ons</string>
 
     <!-- Label that indicates a site is using a secure connection -->
     <string name="secure_connection">Connection is secure</string>
