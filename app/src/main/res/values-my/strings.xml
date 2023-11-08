@@ -91,7 +91,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">ရပ်ပါ</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">အတ်အွန်များ</string>
+    <string name="preferences_add_ons">အတ်အွန်များ</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">အပြင်အဆင်များ</string>
     <!-- Browser menu toggle that requests a desktop site -->

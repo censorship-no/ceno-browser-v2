@@ -89,7 +89,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Arrêter</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Modules complémentaires</string>
+    <string name="preferences_add_ons">Modules complémentaires</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Paramètres</string>
     <!-- Browser menu toggle that requests a desktop site -->

@@ -82,7 +82,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 scope.launch(Dispatchers.Main) {
                     try {
                         val adapter = AddonsManagerAdapter(
-                                requireContext().components.core.addonCollectionProvider,
+                                requireContext().components.core.addonProvider,
                                 this@AddonsFragment,
                                 addons
                         )
@@ -150,7 +150,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         val dialog = AddonInstallationDialogFragment.newInstance(
             addon = addon,
-            addonCollectionProvider = requireContext().components.core.addonCollectionProvider,
+            addonsProvider = requireContext().components.core.addonProvider,
             onConfirmButtonClicked = { _, allowInPrivateBrowsing ->
                 if (allowInPrivateBrowsing) {
                     requireContext().components.core.addonManager.setAddonAllowedInPrivateBrowsing(
@@ -203,7 +203,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         (activity as AppCompatActivity).supportActionBar?.apply {
             show()
-            setTitle(R.string.browser_menu_add_ons)
+            setTitle(R.string.preferences_add_ons)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }

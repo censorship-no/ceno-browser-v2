@@ -59,7 +59,7 @@
     <string name="shortcut_max_limit_title">Batas maksimal pintasan sudah tercapai</string>
     <string name="top_sites_max_limit_confirmation_button">Oke, Aku Mengerti</string>
     <string name="top_sites_rename_dialog_cancel">Batal</string>
-    <string name="browser_menu_add_ons">Pengaya</string>
+    <string name="preferences_add_ons">Pengaya</string>
     <string name="shortcut_max_limit_content">Untuk menambah pintasan baru, hapuslah salah satu. Sentuh dan tahan situs lalu pilih hapus.</string>
     <string name="customization_settings">Kustomisasi</string>
     <string name="customize_addon_collection_cancel">Batal</string>

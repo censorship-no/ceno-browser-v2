@@ -190,9 +190,9 @@ object Settings {
     }
 
     fun showCrashReportingPermissionNudge(context: Context): Boolean =
-        !PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_last_crash), ""
-        ).isNullOrEmpty() && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_crash_happened), false
+        ) && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
 
@@ -212,28 +212,22 @@ object Settings {
             .apply()
     }
 
-    fun getLastCrash(context: Context): String =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_last_crash),
-            ""
-        ) ?: ""
-
-    fun setLastCrash(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_last_crash)
+    fun setCrashHappened(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_crash_happened)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putString(key, value)
+            .putBoolean(key, value)
             .apply()
     }
 
     // duplicate function that uses commit() instead of apply()
     // This is necessary for the purpose of immediately saving crash logs locally when a crash happens
     @SuppressLint("ApplySharedPref")
-    fun setLastCrashCommit(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_last_crash)
+    fun setCrashHappenedCommit(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_crash_happened)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putString(key, value)
+            .putBoolean(key, value)
             .commit()
     }
 
@@ -244,17 +238,12 @@ object Settings {
     }
 
     fun alwaysAllowCrashReporting(context: Context) {
-        setLastCrash(context, "") // reset the value of lastCrash
+        setCrashHappened(context, false) // reset the value of lastCrash
         setCrashReportingPermissionValue(context, true)
     }
 
-    fun allowCrashReportingJustOnce(context: Context) {
-        setLastCrash(context, "") // reset the value of lastCrash
-        setCrashReportingPermissionValue(context, false)
-    }
-
     fun neverAllowCrashReporting(context: Context) {
-        setLastCrash(context, "") // reset the value of lastCrash
+        setCrashHappened(context, false) // reset the value of lastCrash
         toggleCrashReportingPermissionNudge(context, false)
         setCrashReportingPermissionValue(context, false)
     }

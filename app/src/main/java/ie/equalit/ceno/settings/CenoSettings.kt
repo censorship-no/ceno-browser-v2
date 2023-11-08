@@ -231,16 +231,20 @@ object CenoSettings {
             .apply()
     }
 
-    fun getExtraBitTorrentBootstrap(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
+    fun getLocalBTSources(context: Context) : List<String>? {
+        val sources = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
-        )
+        ) ?: return null
+
+        return sources.split(" ")
+    }
 
     fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
-        texts?.forEach { formattedText += "${it.trim()} " }
+        texts?.forEach { formattedText = "$formattedText ${it.trim()}" }
+        formattedText = formattedText.trim()
 
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
@@ -340,20 +344,20 @@ object CenoSettings {
                         success = true
                     } else {
                         tries++
-                        Logger.debug("Clear cache failed on try $tries")
+                        Logger.debug("webClientRequest failed on try $tries")
                         delay(500)
                     }
                 }
             } catch (ex: Exception) {
                 tries++
-                Logger.debug("Clear cache failed on try $tries")
+                Logger.debug("webClientRequest failed on try $tries")
                 delay(500)
             }
         }
         return responseBody
     }
 
-    private fun updateOuinetStatus(context : Context, responseBody : String) {
+    private fun updateOuinetStatus(context : Context, responseBody : String, shouldRefresh: Boolean) {
         val status = Json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
@@ -372,7 +376,7 @@ object CenoSettings {
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
-        context.components.cenoPreferences.sharedPrefsReload = true
+        if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
     private fun updateCenoGroups(context : Context, responseBody : String) {
@@ -382,7 +386,14 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
-    fun ouinetClientRequest(context: Context, key : OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null) {
+    fun ouinetClientRequest(
+        context: Context,
+        key : OuinetKey,
+        newValue: OuinetValue? = null,
+        stringValue: String? = null,
+        ouinetResponseListener: OuinetResponseListener? = null,
+        shouldRefresh: Boolean = true
+    ) {
         MainScope().launch {
             val request : String = if (newValue != null)
                 "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
@@ -390,10 +401,13 @@ object CenoSettings {
                 "${SET_VALUE_ENDPOINT}/${key.command}"
 
             webClientRequest(context, Request(request)).let { response ->
+
+                if(response == null) ouinetResponseListener?.onError()
+
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
-                            updateOuinetStatus(context, response)
+                            updateOuinetStatus(context, response, shouldRefresh)
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
@@ -407,12 +421,15 @@ object CenoSettings {
                         }
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
+                    OuinetKey.EXTRA_BOOTSTRAPS -> {
+                        if(response != null)
+                            ouinetResponseListener?.onSuccess(stringValue ?: "")
+                    }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
-                    OuinetKey.LOGFILE,
-                    OuinetKey.EXTRA_BOOTSTRAPS
+                    OuinetKey.LOGFILE
                     -> {
                         if (response == null) {
                             Toast.makeText(

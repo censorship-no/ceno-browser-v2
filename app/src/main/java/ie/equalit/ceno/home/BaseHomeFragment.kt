@@ -15,10 +15,32 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
+import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BuildConfig
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
+import ie.equalit.ceno.components.ceno.ClearToolbarAction
+import ie.equalit.ceno.components.toolbar.ToolbarIntegration
+import ie.equalit.ceno.databinding.FragmentHomeBinding
+import ie.equalit.ceno.downloads.DownloadService
+import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.search.AwesomeBarWrapper
+import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.tabs.TabCounterView
+import ie.equalit.ceno.ui.theme.ThemeManager
+import mozilla.components.browser.thumbnails.BrowserThumbnails
+import mozilla.components.browser.toolbar.BrowserToolbar
+import mozilla.components.browser.toolbar.display.DisplayToolbar
+import mozilla.components.concept.engine.EngineView
+import mozilla.components.feature.awesomebar.AwesomeBarFeature
+import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.session.SessionFeature
+import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.ActivityResultHandler
@@ -26,27 +48,6 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
-import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.BuildConfig
-import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.ClearButtonFeature
-import ie.equalit.ceno.components.ceno.ClearToolbarAction
-import ie.equalit.ceno.databinding.FragmentHomeBinding
-import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.components.toolbar.ToolbarIntegration
-import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.Settings
-import mozilla.components.browser.thumbnails.BrowserThumbnails
-import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.browser.toolbar.display.DisplayToolbar
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.awesomebar.AwesomeBarFeature
-import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -57,6 +58,8 @@ import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
     var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
+
+    lateinit var themeManager: ThemeManager
 
     private val sessionFeature = ViewBoundFeatureWrapper<SessionFeature>()
     private val toolbarIntegration = ViewBoundFeatureWrapper<ToolbarIntegration>()
@@ -92,7 +95,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        themeManager = (activity as BrowserActivity).themeManager
+        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -192,7 +196,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                 ClearToolbarAction(
                     listener = {
                         clearButtonFeature.onClick()
-                    }
+                    },
+                    context = themeManager.getContext()
                 )
             )
         }
@@ -217,13 +222,22 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                 )
             )
         }
+        val search = if (themeManager.currentMode.isPersonal) {
+            requireComponents.useCases.searchUseCases.newPrivateTabSearch
+        } else {
+            requireComponents.useCases.searchUseCases.newTabSearch
+        }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
                     requireContext(),
                     requireComponents.core.store,
-                    requireComponents.useCases.searchUseCases.defaultSearch,
+                    searchUseCase = if (themeManager.currentMode.isPersonal) {
+                        requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                    } else {
+                        requireComponents.useCases.searchUseCases.newTabSearch
+                    },
                     fetchClient = requireComponents.core.client,
                     mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
                     engine = requireComponents.core.engine,
@@ -246,7 +260,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         /* Redefine onStopListener to open browser fragment in addition to closing toolbar */
         awesomeBar.setOnStopListener {
             toolbar.displayMode()
-            (activity as BrowserActivity).openToBrowser()
+            (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
         }
 
         // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
@@ -259,12 +273,13 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         )
 
-        TabsToolbarFeature(
+        TabCounterView(
             toolbar = toolbar,
             sessionId = sessionId,
             store = requireComponents.core.store,
             showTabs = ::showTabs,
-            lifecycleOwner = this
+            lifecycleOwner = this,
+            browsingModeManager = (activity as BrowserActivity).browsingModeManager
         )
 
         thumbnailsFeature.set(
@@ -281,52 +296,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
     override fun onStart() {
         super.onStart()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        /* TODO: HomeFragment isn't used in for private mode yet,
-         *   need to implement a private theme for the HomeFragment
-         */
-        //requireComponents.core.store.state.selectedTab?.content?.private?.let{ private ->
-        //    binding.toolbar.private = private
-        /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
 
-        /*
-        if (private) {
-            textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
-            textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
-            urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_private_background)
-            toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
-            statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
-        }
-        */
+        themeManager.applyTheme(binding.toolbar)
 
-        binding.toolbar.display.setUrlBackground(urlBackground)
-        binding.toolbar.background = toolbarBackground
-        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                text = textPrimary,
-                hint = textSecondary
-        )
-        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                text = textPrimary,
-                hint = textSecondary,
-                securityIconSecure = textPrimary,
-                securityIconInsecure = textPrimary,
-                menu = textPrimary
-        )
-
-        /* CENO: this is replaces the shield icon in the address bar
-         * with the ceno logo, regardless of tracking protection state
-         */
-        binding.toolbar.display.icons = DisplayToolbar.Icons(
-            emptyIcon = null,
-            trackingProtectionTrackersBlocked = statusIcon,
-            trackingProtectionNothingBlocked = statusIcon,
-            trackingProtectionException = statusIcon,
-            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
-        )
         val isToolbarPositionTop = prefs.getBoolean(
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
@@ -337,7 +309,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         else {
             DisplayToolbar.Gravity.TOP
         }
-        //}
     }
 
     private fun showTabs() {
