@@ -14,6 +14,7 @@ import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ext.getPreferenceKey
 import java.security.InvalidParameterException
 
@@ -114,4 +115,34 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         appContext.getPreferenceKey(R.string.pref_key_shared_prefs_update),
         default = false
     )
+
+    /**
+     * Save browsing mode in preferences
+     * From Fenix
+     */
+    var lastKnownBrowsingMode: BrowsingMode = BrowsingMode.Normal
+        get() {
+            val lastKnownModeWasPersonal = preferences.getBoolean(
+                appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
+                false,
+            )
+
+            return if (lastKnownModeWasPersonal) {
+                BrowsingMode.Personal
+            } else {
+                BrowsingMode.Normal
+            }
+        }
+        set(value) {
+            val lastKnownModeWasPersonal = (value == BrowsingMode.Personal)
+
+            preferences.edit()
+                .putBoolean(
+                    appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
+                    lastKnownModeWasPersonal,
+                )
+                .apply()
+
+            field = value
+        }
 }

@@ -91,7 +91,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">停止</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">附加组件</string>
+    <string name="preferences_add_ons">附加组件</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">设置</string>
     <!-- Browser menu toggle that requests a desktop site -->
