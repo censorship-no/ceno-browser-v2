@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="0dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:alpha="0.5"
+        android:textStyle="italic"
+        android:textColor="@color/ceno_home_card_text_color"
+        tools:text="Wed, 6 Nov 2023"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:alpha="0.5"
+        android:textStyle="italic"
+        android:textColor="@color/ceno_home_card_text_color"
+        tools:text="Sample looooong text that will definitely span waaaaay more than a single lineee." />
+
+</LinearLayout>

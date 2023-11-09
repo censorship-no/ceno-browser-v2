@@ -14,7 +14,7 @@ import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssAnnouncementResponse
-import ie.equalit.ceno.home.CenoRSSAnnouncementViewHolder
+import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 

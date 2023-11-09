@@ -182,7 +182,7 @@ class HomeFragment : BaseHomeFragment() {
                             response
                         )
 
-                        // check for null and refresh homepage adapter only if necessary
+                        // check for null and refresh homepage adapter ONLY IF necessary
                         if(rssResponse != null) {
                             withContext(Dispatchers.Main) {
                                 if (themeManager.currentMode == BrowsingMode.Normal) {

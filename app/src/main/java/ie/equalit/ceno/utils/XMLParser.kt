@@ -1,6 +1,5 @@
 package ie.equalit.ceno.utils
 
-import androidx.core.text.HtmlCompat
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
 import org.xmlpull.v1.XmlPullParser
@@ -36,7 +35,7 @@ object XMLParser {
                                 "",
                                 "",
                                 "",
-                                HtmlCompat.fromHtml("", HtmlCompat.FROM_HTML_MODE_LEGACY)
+                                ""
                             )
                         }
                     }
@@ -65,7 +64,7 @@ object XMLParser {
                             if (currentRssItem == null) {
                                 rssFeedDescription = text
                             } else {
-                                currentRssItem.description = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                                currentRssItem.description = text
                             }
                         }
 
