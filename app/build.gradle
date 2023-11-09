@@ -372,7 +372,6 @@ dependencies {
 
     implementation Deps.thirdparty_sentry
     implementation Deps.thirdparty_gson
-    implementation Deps.thirdparty_xml_parser
 
     implementation Deps.kotlin_coroutines
     implementation Deps.kotlin_serialization

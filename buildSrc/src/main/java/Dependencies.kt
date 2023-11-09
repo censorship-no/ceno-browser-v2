@@ -51,7 +51,6 @@ object Versions {
     object ThirdParty {
         const val sentry = "6.11.0"
         const val gson = "2.10.1"
-        const val simpleframework = "2.7.1"
     }
 
     /* CENO: Versions for additional dependencies */
@@ -148,7 +147,6 @@ object Deps {
 
     const val thirdparty_sentry = "io.sentry:sentry-android:${Versions.ThirdParty.sentry}"
     const val thirdparty_gson = "com.google.code.gson:gson:${Versions.ThirdParty.gson}"
-    const val thirdparty_xml_parser = "org.simpleframework:simple-xml:${Versions.ThirdParty.simpleframework}"
 
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"

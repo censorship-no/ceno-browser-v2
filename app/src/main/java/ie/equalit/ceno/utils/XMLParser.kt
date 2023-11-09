@@ -1,6 +1,5 @@
 package ie.equalit.ceno.utils
 
-import android.util.Log
 import androidx.core.text.HtmlCompat
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
@@ -66,7 +65,6 @@ object XMLParser {
                             if (currentRssItem == null) {
                                 rssFeedDescription = text
                             } else {
-                                Log.d("PPPPPP", HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY).toString())
                                 currentRssItem.description = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
                             }
                         }
