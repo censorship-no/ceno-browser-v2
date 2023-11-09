@@ -30,8 +30,10 @@ import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.concept.fetch.Request
 import ie.equalit.ceno.settings.CenoSettings
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.concept.storage.FrecencyThresholdOption
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
@@ -158,23 +160,42 @@ class HomeFragment : BaseHomeFragment() {
      */
     private fun updateSessionControlView() {
 
-        MainScope().launch {
-            CenoSettings.webClientRequest(
-                requireContext(),
-                Request(CenoSettings.RSS_ANNOUNCEMENT_URL)
-            )?.let { response ->
-                val rssResponse = XMLParser.parseRssXml(
-                    response
-                )
+        viewLifecycleOwner.lifecycleScope.launch {
 
+            // Important: display all home page items first
+            withContext(Dispatchers.Main) {
                 if (themeManager.currentMode == BrowsingMode.Normal) {
-                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
+                    sessionControlView?.update(requireComponents.appStore.state, null)
                 }
-
                 binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                    sessionControlView?.update(it, rssResponse)
+                    sessionControlView?.update(it, null)
                 }
 
+                // Switch context to make network call
+
+                withContext(Dispatchers.IO) {
+                    CenoSettings.webClientRequest(
+                        requireContext(),
+                        Request(CenoSettings.RSS_ANNOUNCEMENT_URL)
+                    )?.let { response ->
+                        val rssResponse = XMLParser.parseRssXml(
+                            response
+                        )
+
+                        // check for null and refresh homepage adapter only if necessary
+                        if(rssResponse != null) {
+                            withContext(Dispatchers.Main) {
+                                if (themeManager.currentMode == BrowsingMode.Normal) {
+                                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
+                                }
+
+                                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                                    sessionControlView?.update(it, rssResponse)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
