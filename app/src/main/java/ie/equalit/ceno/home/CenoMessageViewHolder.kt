@@ -1,6 +1,5 @@
 package ie.equalit.ceno.home
 
-
 import android.view.View
 import ie.equalit.ceno.databinding.HomeMessageCardItemBinding
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor

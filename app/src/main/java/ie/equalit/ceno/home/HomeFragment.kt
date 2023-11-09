@@ -161,7 +161,7 @@ class HomeFragment : BaseHomeFragment() {
         MainScope().launch {
             CenoSettings.webClientRequest(
                 requireContext(),
-                Request("https://censorship.no/en/rss-announce.xml")
+                Request(CenoSettings.RSS_ANNOUNCEMENT_URL)
             )?.let { response ->
                 val rssResponse = XMLParser.parseRssXml(
                     response
