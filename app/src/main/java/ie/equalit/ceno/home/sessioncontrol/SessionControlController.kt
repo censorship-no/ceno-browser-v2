@@ -72,6 +72,8 @@ interface SessionControlController {
     fun handleMenuItemClicked(homepageCardType: HomepageCardType)
 
     fun handleRemoveCard(homepageCardType: HomepageCardType)
+
+    fun handleUrlClicked(homepageCardType: HomepageCardType, url: String)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -233,5 +235,9 @@ class DefaultSessionControlController(
             preferences.showThanksCard = false
             appStore.dispatch(AppAction.RemoveThanksCard(false))
         }
+    }
+
+    override fun handleUrlClicked(homepageCardType: HomepageCardType, url: String) {
+        activity.openToBrowser(url, newTab = true)
     }
 }

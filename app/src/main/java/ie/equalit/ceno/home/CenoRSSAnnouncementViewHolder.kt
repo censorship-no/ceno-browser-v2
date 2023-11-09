@@ -20,7 +20,7 @@ class CenoRSSAnnouncementViewHolder(
         }
 
         binding.rssTitle.setOnClickListener {
-//            openToBrowser(response.link, newTab = true)
+            interactor.onUrlClicked(homepageCardType, response.link)
         }
 
         // would fix this logic in a bit to prevent crashes. However, this ViewHolder will never get called if the list is empty
