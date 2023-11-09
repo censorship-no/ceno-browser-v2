@@ -141,6 +141,8 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
+            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor)
+
             PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,
                 interactor
