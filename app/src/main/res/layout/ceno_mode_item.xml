@@ -17,6 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/ceno_home_card_background_tint"
         android:importantForAccessibility="noHideDescendants"
         app:cardElevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,8 +54,9 @@
                 android:id="@+id/tv_home_card_public_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="0.5"
                 android:text="@string/ceno_home_card_public_text"
-                android:textColor="@color/ceno_onboarding_text"
+                android:textColor="@color/ceno_home_card_text_color"
                 android:textStyle="italic" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -65,6 +67,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:backgroundTint="@color/ceno_home_card_background_tint"
         android:importantForAccessibility="noHideDescendants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
