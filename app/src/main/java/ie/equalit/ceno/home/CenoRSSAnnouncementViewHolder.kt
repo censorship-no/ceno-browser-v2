@@ -14,8 +14,12 @@ class CenoRSSAnnouncementViewHolder(
 
     fun bind(response: RssAnnouncementResponse) {
         binding.rssTitle.text = response.title
-        binding.itemDate.text = response.item?.pubDate
-        binding.tvMessage.text = response.item?.description
+
+        // would fix this logic in a bit to prevent crashes. However, this ViewHolder will never get called if the list is empty
+        binding.itemDate.text = response.items[0].pubDate
+        "${response.items[0].title} ${response.items[0].description}".let {
+            binding.tvMessage.text = it
+        }
     }
 
     companion object {

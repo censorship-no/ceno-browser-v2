@@ -2,18 +2,15 @@ package ie.equalit.ceno.home
 
 data class RssAnnouncementResponse(
     override val title: String,
-    val link: String = "",
-    val description: String = "",
-    val item: RssAnnouncementItem
-) : BaseMessageCard() {
-    override val text: String
-        get() = item.description
-}
+    val link: String,
+    override val text: String,
+    val items: List<RssItem>
+) : BaseMessageCard()
 
-data class RssAnnouncementItem(
-    val title: String,
-    val guid: String,
-    val link: String = "",
-    val pubDate: String = "",
-    val description: String = ""
+data class RssItem(
+    var title: String,
+    var link: String,
+    var guid: String,
+    var pubDate: String,
+    var description: String
 )

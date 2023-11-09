@@ -35,7 +35,7 @@
             android:alpha="0.5"
             android:textColor="@color/ceno_home_card_text_color" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

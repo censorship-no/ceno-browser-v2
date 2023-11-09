@@ -330,7 +330,7 @@ object CenoSettings {
         }
     }
 
-    private suspend fun webClientRequest (context: Context, request: Request): String? {
+    suspend fun webClientRequest (context: Context, request: Request): String? {
         var responseBody : String? = null
         var tries = 0
         var success = false

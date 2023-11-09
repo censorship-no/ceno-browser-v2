@@ -1,7 +1,6 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +26,10 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.XMLParser
+import mozilla.components.concept.fetch.Request
+import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.storage.FrecencyThresholdOption
@@ -38,7 +39,6 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import java.util.logging.Logger
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
@@ -157,34 +157,25 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        if (themeManager.currentMode == BrowsingMode.Normal) {
-            sessionControlView?.update(requireComponents.appStore.state, RssAnnouncementResponse(
-                title = "Sample title",
-                link = "http://google.com",
-                description = "Yiddy yadda",
-                item = RssAnnouncementItem(
-                    title = "Sample item title",
-                    guid = "guid",
-                    link = "http://google.com",
-                    pubDate = "02 November, 2023",
-                    description = "Another yiddi yadda"
-                )
-            ))
-        }
 
-        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            sessionControlView?.update(it, RssAnnouncementResponse(
-                title = "Sample title",
-                link = "http://google.com",
-                description = "Yiddy yadda",
-                item = RssAnnouncementItem(
-                    title = "Sample item title",
-                    guid = "guid",
-                    link = "http://google.com",
-                    pubDate = "02 November, 2023",
-                    description = "Another yiddi yadda"
+        MainScope().launch {
+            CenoSettings.webClientRequest(
+                requireContext(),
+                Request("https://censorship.no/en/rss-announce.xml")
+            )?.let { response ->
+                val rssResponse = XMLParser.parseRssXml(
+                    response
                 )
-            ))
+
+                if (themeManager.currentMode == BrowsingMode.Normal) {
+                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
+                }
+
+                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                    sessionControlView?.update(it, rssResponse)
+                }
+
+            }
         }
     }
 

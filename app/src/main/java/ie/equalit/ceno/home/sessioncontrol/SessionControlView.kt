@@ -24,7 +24,7 @@ internal fun normalModeAdapterItems(
     settings: CenoPreferences,
     topSites: List<TopSite>,
     messageCard: CenoMessageCard,
-    announcement: RssAnnouncementResponse
+    announcement: RssAnnouncementResponse?
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
@@ -39,7 +39,7 @@ internal fun normalModeAdapterItems(
         items.add(AdapterItem.CenoModeItem)
     }
 
-    items.add(AdapterItem.CenoAnnouncementItem(announcement))
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
@@ -49,7 +49,7 @@ internal fun normalModeAdapterItems(
 
 internal fun personalModeAdapterItems(): List<AdapterItem> = listOf(AdapterItem.PersonalModeDescriptionItem)
 
-private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse): List<AdapterItem> = when (mode) {
+private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse?): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
             prefs,
@@ -91,7 +91,7 @@ class SessionControlView(
         itemTouchHelper.attachToRecyclerView(view)
     }
 
-    fun update(state: AppState, announcement: RssAnnouncementResponse) {
+    fun update(state: AppState, announcement: RssAnnouncementResponse?) {
         /* TODO: add onboarding pages
         if (state.shouldShowHomeOnboardingDialog(view.context.settings())) {
             interactor.showOnboardingDialog()
