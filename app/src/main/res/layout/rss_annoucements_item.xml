@@ -14,21 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.5"
-        android:textStyle="italic"
         android:clickable="true"
         android:focusable="true"
         android:textColor="@color/ceno_home_card_text_color"
-        tools:text="Ceno Browser Announcements"/>
+        android:textStyle="italic"
+        tools:text="Ceno Browser Announcements" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rssAnnouncementsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:importantForAccessibility="yes"
-        android:overScrollMode="never"
-        tools:listitem="@layout/rss_annoucements_sub_item"
+        android:scrollbars="none"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:itemCount="3"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        tools:listitem="@layout/rss_annoucements_sub_item" />
 
 </LinearLayout>
