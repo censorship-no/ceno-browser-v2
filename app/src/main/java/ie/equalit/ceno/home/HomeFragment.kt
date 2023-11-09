@@ -158,11 +158,33 @@ class HomeFragment : BaseHomeFragment() {
      */
     private fun updateSessionControlView() {
         if (themeManager.currentMode == BrowsingMode.Normal) {
-            sessionControlView?.update(requireComponents.appStore.state)
+            sessionControlView?.update(requireComponents.appStore.state, RssAnnouncementResponse(
+                title = "Sample title",
+                link = "http://google.com",
+                description = "Yiddy yadda",
+                item = RssAnnouncementItem(
+                    title = "Sample item title",
+                    guid = "guid",
+                    link = "http://google.com",
+                    pubDate = "02 November, 2023",
+                    description = "Another yiddi yadda"
+                )
+            ))
         }
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            sessionControlView?.update(it)
+            sessionControlView?.update(it, RssAnnouncementResponse(
+                title = "Sample title",
+                link = "http://google.com",
+                description = "Yiddy yadda",
+                item = RssAnnouncementItem(
+                    title = "Sample item title",
+                    guid = "guid",
+                    link = "http://google.com",
+                    pubDate = "02 November, 2023",
+                    description = "Another yiddi yadda"
+                )
+            ))
         }
     }
 
