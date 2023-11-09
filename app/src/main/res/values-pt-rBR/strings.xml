@@ -4,7 +4,7 @@
     <string name="content_description_private_browsing_button">Ativar Navegação Pessoal</string>
     <string name="remove_top_site">Remover</string>
     <string name="delete_from_history">Apagar do histórico</string>
-    <string name="browser_menu_add_ons">Extensões</string>
+    <string name="preferences_add_ons">Extensões</string>
     <string name="preferences_customization_summary">Ícone do Aplicativo, Barra de Ferramentas, botão Limpar</string>
     <string name="toast_copied">Copiado!</string>
     <string name="browser_menu_back">Anterior</string>

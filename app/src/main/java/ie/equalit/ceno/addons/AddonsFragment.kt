@@ -203,7 +203,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         (activity as AppCompatActivity).supportActionBar?.apply {
             show()
-            setTitle(R.string.browser_menu_add_ons)
+            setTitle(R.string.preferences_add_ons)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }

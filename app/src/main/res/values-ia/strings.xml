@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="preferences_delete_browsing_data">Deler datos de navigation</string>
+    <string name="top_sites_rename_dialog_title">Nomine</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Aperir ligamine in scheda personal</string>
+    <string name="delete_from_history">Deler del chronologia</string>
+    <string name="customize_addon_collection_ok">OK</string>
+    <string name="udp_category">UDP</string>
+    <string name="browser_menu_desktop_site">Requestar sito de scriptorio</string>
+    <string name="browser_menu_back">Retornar</string>
+    <string name="toast_copied">Copiate!</string>
+    <string name="customize_add_bootstrap_save">Salvar</string>
+    <string name="customize_addon_collection_cancel">Cancellar</string>
+    <string name="bit_torrent_bootstraps_category">Lanceamiento initial de BitTorrent</string>
+    <string name="preferences_customization_summary">Icone del app, Barra de instrumentos, button Rader</string>
+    <string name="customize_extra_bittorrent_bootstrap">Lanciamiento additional de BitTorrent</string>
+    <string name="content_description_private_browsing_button">Activar le navigation personal</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Aperir in un scheda personal</string>
+    <string name="menu_action_close_tabs_private">Clauder le schedas personal</string>
+    <string name="browser_menu_settings">Parametros</string>
+    <string name="browser_menu_refresh">Actualisar</string>
+    <string name="theme_category">Thema</string>
+    <string name="menu_action_add_tab">Adder nove scheda</string>
+    <string name="menu_share_with">Compartir con…</string>
+    <string name="tracker_category">Protection antitraciamento</string>
+    <string name="browser_menu_forward">Avantiar</string>
+    <string name="browser_menu_stop">Stoppar</string>
+    <string name="preference_category_search">Recerca</string>
+    <string name="menu_action_close_tabs">Clauder tote le schedas</string>
+    <string name="preferences_tracking_protection_private">Activar in modo de navigation personal</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">Aperir schedas</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="one">%d scheda</item>
+        <item quantity="other">%d schedas</item>
+    </plurals>
+    <string name="toolbar_category">Preferentias del barra de instrumentos</string>
+    <string name="customize_addon_collection_hint">Nomine del collection</string>
+    <string name="open_links_in_apps">Aperir ligamines in apps</string>
+    <string name="top_sites_rename_dialog_ok">OK</string>
+    <string name="delete_browsing_data_prompt_cancel">Cancellar</string>
+    <string name="preferences_customize_amo_collection">Collection de additivos personalisate</string>
+    <string name="rename_top_site">Renominar</string>
+    <string name="customize_addon_collection_user_hint">Proprietario del collection (ID de usator)</string>
+    <string name="toolbar_hint">Cerca o insere un adresse</string>
+    <string name="browser_menu_find_in_page">Trovar in pagina</string>
+    <string name="clear_button_category">Button Rader</string>
+    <string name="preferences_tracking_protection_normal">Activar in modo de navigation normal</string>
+    <string name="remove_top_site">Remover</string>
+    <string name="general_category">General</string>
+    <string name="settings">Parametros</string>
+    <string name="developer_tools_category">Instrumentos de disveloppator</string>
+    <string name="private_browsing_title">Navigation personal</string>
+    <string name="customization_settings">Personalisation</string>
+    <string name="preferences_remote_debugging">Depuration remote via USB</string>
+    <string name="browser_menu_library">Bibliotheca</string>
+    <string name="top_sites_rename_dialog_cancel">Cancellar</string>
+    <string name="close_mode_item">Clauder le notification</string>
+    <string name="privacy" tools:ignore="UnusedResources">Confidentialitate</string>
+    <string name="browser_menu_add_to_homescreen">Adder al schermo de initio</string>
+    <string name="preferences_privacy_summary">Activar in modo de navigation personal e private</string>
+    <string name="browser_toolbar_home">Initio</string>
+</resources>

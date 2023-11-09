@@ -15,9 +15,39 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
+import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BuildConfig
+import ie.equalit.ceno.R
+import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
+import ie.equalit.ceno.components.ceno.ClearToolbarAction
+import ie.equalit.ceno.components.toolbar.ToolbarIntegration
+import ie.equalit.ceno.databinding.FragmentBrowserBinding
+import ie.equalit.ceno.downloads.DownloadService
+import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.pip.PictureInPictureIntegration
+import ie.equalit.ceno.search.AwesomeBarWrapper
+import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.tabs.TabCounterView
+import ie.equalit.ceno.ui.theme.ThemeManager
+import kotlinx.coroutines.flow.mapNotNull
+import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.state.selector.selectedTab
+import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.browser.thumbnails.BrowserThumbnails
+import mozilla.components.browser.toolbar.BrowserToolbar
+import mozilla.components.browser.toolbar.display.DisplayToolbar
+import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.app.links.AppLinksFeature
+import mozilla.components.feature.awesomebar.AwesomeBarFeature
+import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
@@ -27,8 +57,11 @@ import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
+import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
+import mozilla.components.lib.state.ext.consumeFlow
+import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
@@ -36,32 +69,7 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.enterToImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
-import ie.equalit.ceno.BuildConfig
-import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.ClearButtonFeature
-import ie.equalit.ceno.components.ceno.ClearToolbarAction
-import ie.equalit.ceno.databinding.FragmentBrowserBinding
-import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
-import ie.equalit.ceno.pip.PictureInPictureIntegration
-import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
-import ie.equalit.ceno.components.toolbar.ToolbarIntegration
-import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.settings.Settings
-import mozilla.components.browser.state.action.WebExtensionAction
-import mozilla.components.browser.thumbnails.BrowserThumbnails
-import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.browser.toolbar.display.DisplayToolbar
-import mozilla.components.concept.engine.EngineSession
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.awesomebar.AwesomeBarFeature
-import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
-import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -117,13 +125,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     protected var webAppToolbarShouldBeVisible = true
 
+    private lateinit var browsingModeManager: BrowsingModeManager
+    private lateinit var themeManager: ThemeManager
+
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
+        _binding = FragmentBrowserBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -136,7 +147,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireComponents.core.store,
@@ -334,7 +344,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 ClearToolbarAction(
                     listener = {
                         clearButtonFeature.onClick()
-                    }
+                    },
+                    context = themeManager.getContext()
                 )
             )
         }
@@ -396,12 +407,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         )
 
-        TabsToolbarFeature(
+        TabCounterView(
             toolbar = toolbar,
             sessionId = sessionId,
             store = requireComponents.core.store,
             showTabs = ::showTabs,
-            lifecycleOwner = this
+            lifecycleOwner = this,
+            browsingModeManager = browsingModeManager
         )
 
         thumbnailsFeature.set(
@@ -414,6 +426,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
+        observeTabSelection(requireComponents.core.store)
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
@@ -436,37 +449,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
          * Doing this in onStart so it does not depend onViewCreated, which isn't run on returning to activity
          */
 
-        /* TODO: this is still a little messy, should create ThemeManager class */
-        var textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
-        var textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)
-        var urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_background)
-        var toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_dark_background)
-        var statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status)!!
+        binding.toolbar.private = themeManager.currentMode.isPersonal
+        themeManager.applyTheme(binding.toolbar)
 
-        requireComponents.core.store.state.selectedTab?.content?.private?.let { private ->
-            binding.toolbar.private = private
-            if (private) {
-                textPrimary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_primary)
-                textSecondary = ContextCompat.getColor(requireContext(), R.color.fx_mobile_private_text_color_secondary)
-                urlBackground = ContextCompat.getDrawable(requireContext(), R.drawable.url_private_background)
-                toolbarBackground = ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background)
-                statusIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_status_white)!!
-            }
-        }
-
-        binding.toolbar.display.setUrlBackground(urlBackground)
-        binding.toolbar.background = toolbarBackground
-        binding.toolbar.edit.colors = binding.toolbar.edit.colors.copy(
-                text = textPrimary,
-                hint = textSecondary
-        )
-        binding.toolbar.display.colors = binding.toolbar.display.colors.copy(
-                text = textPrimary,
-                hint = textSecondary,
-                securityIconSecure = textPrimary,
-                securityIconInsecure = textPrimary,
-                menu = textPrimary
-        )
+        var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
@@ -534,6 +520,37 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
     }
 
+    internal fun observeTabSelection(store: BrowserStore) {
+        consumeFlow(store) { flow ->
+            flow.ifAnyChanged {
+                arrayOf(it.selectedTabId)
+            }
+                .mapNotNull {
+                it.selectedTab
+                }
+                .collect {
+                    handleTabSelected(it)
+                }
+        }
+    }
+
+    private fun handleTabSelected(selectedTab: TabSessionState) {
+        if (!this.isRemoving ) {
+            updateThemeForSession(selectedTab)
+        }
+    }
+
+    private fun updateThemeForSession(selectedTab: TabSessionState) {
+        val sessionMode = BrowsingMode.fromBoolean(selectedTab.content.private)
+        if (sessionMode != browsingModeManager.mode) {
+            browsingModeManager.mode = sessionMode
+            //reload fragment
+            val fragmentId = findNavController().currentDestination?.id
+            findNavController().popBackStack(fragmentId!!,true)
+            findNavController().navigate(fragmentId)
+        }
+    }
+
     private fun fullScreenChanged(enabled: Boolean) {
         if (enabled) {
             activity?.enterToImmersiveMode()
@@ -583,6 +600,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             else -> null
         }
         feature?.onPermissionsResult(permissions, grantResults)
+    }
+    /**
+     * Initializes themeManager and browsingModeManager
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        themeManager = (activity as BrowserActivity).themeManager
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
     }
 
     companion object {
