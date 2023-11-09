@@ -57,55 +57,14 @@ ANDROID_HOME=/path/to/Android/Sdk ./gradlew assembleDebug
 ```
 The resulting apks will be copied to the `output/debug/` directory.
 
-The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time. You may customize the `local.properties` file with your values and rebuild as needed.
+The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time. You may customize the `local.properties` file with your own values and rebuild as needed.
 
-By default, the latest versions of the Ouinet library and GeckoView (Ceno fork) are automatically downloaded from the Maven Central repository and used for building both the debug and release variants of Ceno Browser.
+By default, the latest versions of the [Ouinet library](https://gitlab.com/equalitie/ouinet/-/releases) and our forks of [Mozilla's GeckoView and Android-Components](https://github.com/mozilla-mobile/firefox-android/releases) (built with our [Mozilla Build Scripts](https://gitlab.com/censorship-no/mozilla-build-scripts/)) are automatically downloaded from the [Maven Central repository](https://repo.maven.apache.org/maven2/ie/equalit/ouinet/) and used for building both the debug and release variants of Ceno Browser.
 
-## Local Development
+### F-Droid Build
+To build the F-Droid version of Ceno Browser, which requires that the Mozilla libraries are built from scratch without any prebuilts or proprietary blobs, follow the instructions in the [cenobuild repo](https://gitlab.com/censorship-no/cenobuild).
 
-You might be interested in building this project against local versions of some of the dependencies. Depending on which dependencies you're building against, there are couple of paths.
-
-### Auto-publication workflow
-
-This is the most streamlined workflow which fully automates dependency publication. It currently supports [android-components](https://github.com/mozilla-mobile/android-components/) and [application-services](https://github.com/mozilla/application-services) dependencies.
-
-In a `local.properties` file in root of the `reference-browser` checkout, specify relative paths to a repository you need (or both):
-```
-# Local workflow
-autoPublish.android-components.dir=../android-components
-autoPublish.application-services.dir=../application-services
-```
-
-That's it! Next build of `Ceno Browser` will be against your local versions of these repositories. Simply make changes in `android-components` or `application-services`, press Play in `reference-browser` and those changes will be picked-up.
-
-See a [demo of this workflow](https://www.youtube.com/watch?v=qZKlBzVvQGc) in action. Video mentions `Fenix`, but it works in exactly the same way with `Ceno Browser`.
-
-### Dependency substitutions for [GeckoView](https://hg.mozilla.org/mozilla-central)
-
-Ceno Browser requires a fork of GeckoView, which is pulled in automatically from [Maven Central](https://repo1.maven.org/maven2/ie/equalit/ouinet/geckoview-ceno-omni/).
-
-If you are interested in building GeckoView locally, it is recommended that you use our [mozilla-build-scripts](https://gitlab.com/censorship-no/mozilla-build-scripts/) to publish the GeckoView AAR to your local maven repository and then add `mavenLocal()` to the repositories in `app/build.gradle`.
-
-However, GeckoView also be configured via a dependency substitution to test changes to the library locally.
-
-In a `local.properties` file in the root of the `CENO Browser` checkout, specify GeckoView's path via `dependencySubstitutions.geckoviewTopsrcdir=/path/to/mozilla-central` (and, optionally, `dependencySubstitutions.geckoviewTopobjdir=/path/to/topobjdir`). See [Bug 1533465](https://bugzilla.mozilla.org/show_bug.cgi?id=1533465).
-
-This assumes that you have built, packaged, and published your local GeckoView -- but don't worry, the dependency substitution script has the latest instructions for doing that (WARNING: Building GeckoView can take very long, e.g. >40mins depending on your computers resources).
-
-Do not forget to run a Gradle sync in Android Studio after changing `local.properties`. If you specified any substitutions (e.g. GeckoView), they will be reflected in the modules list, and you'll be able to modify them from a single Android Studio window. For auto-publication workflow, use seperate Android Studio windows.
-
-## Ouinet Integration
-Prior to building Ceno Browser you will want to set the Ouinet configuration in a `local.properties`, by setting the following values:
-```groovy
-CACHE_PUB_KEY="YOUR OUINET CACHE PUB KEY"
-INJECTOR_CREDENTIALS="ouinet:YOURINJECTORPASSWORD"
-INJECTOR_TLS_CERT="-----BEGIN CERTIFICATE-----\\n\
-ABCDEFG...\
-\\n-----END CERTIFICATE-----"
-```
-An example configuration can be copied from `local.properties.sample`, but this is essentially empty and will not allow you to connect to the production Ceno network.
-
-Those values will be loaded by Gradle during the build process in **app/build.gradle**:
+Note: the use of Mozilla's prebuilt libraries in the official release of Ceno Browser means that F-Droid requires we disclose the "Upstream Non-Free" Anti-Feature, for more on this, see [#77](https://gitlab.com/censorship-no/ceno-browser/-/issues/77).
 
 # Accessibility
 
