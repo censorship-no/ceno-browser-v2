@@ -13,6 +13,7 @@ import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
 sealed class AdapterItem(val type: HomepageCardType) {
@@ -21,9 +22,9 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     object CenoModeItem : AdapterItem(CenoModeViewHolder.homepageCardType)
 
-    data class CenoMessageItem(val message: CenoMessageCard): AdapterItem(CenoMessageViewHolder.homepageCardType) {
+    data class CenoMessageItem(val message: CenoMessageCard): AdapterItem(CenoMessageViewHolder.homepageCardType)
 
-    }
+    object PersonalModeDescriptionItem : AdapterItem(PersonalModeDescriptionViewHolder.homepageCardType)
 
     /**
      * Contains a set of [Pair]s where [Pair.first] is the index of the changed [TopSite] and
@@ -121,6 +122,7 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.MODE_MESSAGE_CARD.value -> R.layout.ceno_mode_item
             HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.home_message_card_item
             HomepageCardType.TOPSITES_CARD.value -> R.layout.component_top_sites_pager
+            HomepageCardType.PERSONAL_MODE_CARD.value -> R.layout.personal_mode_description
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
@@ -133,6 +135,10 @@ class SessionControlAdapter internal constructor(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
+            )
+            PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
+                view,
+                interactor
             )
             else -> throw IllegalStateException()
         }

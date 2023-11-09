@@ -62,7 +62,7 @@ object EngineProvider {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
             HttpsByDefaultWebExt.install(it)
-            UblockOriginWebExt.installFromXpi(runtime)
+            UblockOriginWebExt.install(it)
         }
     }
 

@@ -29,7 +29,7 @@
     <string name="bookmark_menu_open_in_private_tab_button">نجی ٹیب میں کھولیں</string>
     <string name="shortcut_name_hint">شارٹ کٹ کا نام</string>
     <string name="browser_menu_desktop_site">ڈیسک ٹاپ سائٹ کی درخواست کریں</string>
-    <string name="browser_menu_add_ons">ایڈ آنز</string>
+    <string name="preferences_add_ons">ایڈ آنز</string>
     <string name="browser_menu_settings">ترتیبات</string>
     <string name="browser_menu_add_to_homescreen">ہوم اسکرین میں شامل کریں</string>
     <string name="browser_menu_find_in_page">صفحہ پر تلاش کریں</string>

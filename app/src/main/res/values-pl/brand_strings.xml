@@ -41,7 +41,7 @@
     <string name="preferences_ceno_sources_peers">Udostępnione</string>
     <string name="preferences_ceno_sources_peers_summary">Załaduj zawartość udostępnioną przez innych użytkowników</string>
     <string name="preferences_clear_ceno_cache_summary">Usuń zawartość stron internetowych zapisaną w pamięci podręcznej</string>
-    <string name="preferences_ceno_network_config">Szczegółowe informacje o sieci &brandShortName;</string>
+    <string name="preferences_ceno_network_config">Szczegółowe informacje o sieci</string>
     <string name="preferences_ceno_download_log">Pobierz plik rejestrowania</string>
     <string name="ouinet_client_fetch_fail">Nie udało się wprowadzić zmian w ustawieniach &brandShortName;</string>
     <string name="preferences_change_app_icon">Zmień ikonę aplikacji</string>
@@ -95,4 +95,6 @@
     <string name="onboarding_cleanup_title">Wyczyść wszystko,
 \nwszędzie, naraz</string>
     <string name="onboarding_cleanup_text">Usuń historię przeglądania, dane logowania i zatrzyj wszelkie ślady zostawione na &brandShortName; za jednym dotknięciem.</string>
+    <string name="about_category">Informacje o</string>
+    <string name="preferences_clear_behavior">Domyślne działanie</string>
 </resources>

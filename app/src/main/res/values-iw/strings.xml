@@ -23,7 +23,7 @@
     <string name="browser_menu_add_to_homescreen">הוספה למסך הבית</string>
     <string name="browser_menu_find_in_page">מצא בעמוד</string>
     <string name="browser_menu_add_to_shortcuts">הוסף לקיצורי דרך</string>
-    <string name="menu_action_close_tabs_private">סגור את הכרטיסיות הפרטיות</string>
+    <string name="menu_action_close_tabs_private">סגור את הכרטיסיות האישיות</string>
     <string name="menu_action_close_tabs">סגור את כל הכרטיסיות</string>
     <string name="preferences_remote_debugging">ניפוי באגים באמצעות USB</string>
     <string name="preferences_tracking_protection_normal">הפעל במצב גלישה רגיל</string>
@@ -37,4 +37,6 @@
     <string name="top_sites_rename_dialog_cancel">ביטול</string>
     <string name="top_sites_sponsored_label">ממומן</string>
     <string name="rename_top_site">שנה שם</string>
+    <string name="preferences_autofill">אפליקציות למילוי אוטומטי</string>
+    <string name="toolbar_hint">חפש או הזן כתובת</string>
 </resources>
