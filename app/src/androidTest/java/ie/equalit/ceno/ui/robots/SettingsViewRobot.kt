@@ -48,16 +48,6 @@ class SettingsViewRobot {
     fun verifyShowOnboarding(): ViewInteraction = assertShowOnboarding()
     fun verifyCrashReportingButton() = assertCrashReportingButton()
 
-    fun verifySourcesHeading(): ViewInteraction = assertSourcesHeading()
-    fun verifyWebsiteCheckbox(): ViewInteraction = assertWebsiteCheckbox()
-    fun verifyWebsiteSummary(): ViewInteraction = assertWebsiteSummary()
-    fun verifyPrivatelyCheckbox(): ViewInteraction = assertPrivatelyCheckbox()
-    fun verifyPrivatelySummary(): ViewInteraction = assertPrivatelySummary()
-    fun verifyPubliclyCheckbox(): ViewInteraction = assertPubliclyCheckbox()
-    fun verifyPubliclySummary(): ViewInteraction = assertPubliclySummary()
-    fun verifySharedCheckbox(): ViewInteraction = assertSharedCheckbox()
-    fun verifySharedSummary(): ViewInteraction = assertSharedSummary()
-
     fun verifyDataHeading(): ViewInteraction = assertDataHeading()
     fun verifyLocalCacheDisplay(): ViewInteraction = assertLocalCacheDisplay()
     fun verifyLocalCacheDefaultValue(): ViewInteraction = assertLocalCacheDefaultValue()
@@ -149,6 +139,13 @@ class SettingsViewRobot {
             return BrowserRobot.Transition()
         }
 
+        fun openSettingsViewSources(interact: SettingsViewSourcesRobot.() -> Unit):
+                SettingsViewSourcesRobot.Transition {
+            websiteSourcesButton().click()
+            SettingsViewSourcesRobot().interact()
+            return SettingsViewSourcesRobot.Transition()
+        }
+
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
             val navigateUpButton = mDevice.findObject(UiSelector().descriptionContains("Navigate up"))
             navigateUpButton.clickAndWaitForNewWindow()
@@ -193,14 +190,6 @@ private fun showOnboardingToggle() = onView(allOf(withId(R.id.switchWidget), has
 private fun crashReportingButton() = onView(withText(R.string.preferences_allow_crash_reporting))
 
 private fun sourcesHeading() = onView(withText(R.string.ceno_sources_category))
-private fun websiteCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_origin))))
-private fun websiteSummary() = onView(withText(R.string.preferences_ceno_sources_origin_summary))
-private fun privatelyCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_private))))
-private fun privatelySummary() = onView(withText(R.string.preferences_ceno_sources_private_summary))
-private fun publiclyCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_public))))
-private fun publiclySummary() = onView(withText(R.string.preferences_ceno_sources_public_summary))
-private fun sharedCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_peers))))
-private fun sharedSummary() = onView(withText(R.string.preferences_ceno_sources_peers_summary))
 
 private fun dataHeading() = onView(withText(R.string.ceno_data_category))
 private fun localCacheDisplay() = onView(withText(R.string.preferences_ceno_cache_size))
@@ -263,25 +252,6 @@ private fun assertDisableBatteryOptimizationButton() {
 private fun assertShowOnboarding() = showOnboardingToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCrashReportingButton() = crashReportingButton()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertSourcesHeading() = sourcesHeading()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertWebsiteCheckbox() = websiteCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertWebsiteSummary() = websiteSummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPrivatelyCheckbox() = privatelyCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPrivatelySummary() = privatelySummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPubliclyCheckbox() = publiclyCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPubliclySummary() = publiclySummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertSharedCheckbox() = sharedCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertSharedSummary() = sharedSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertDataHeading() = dataHeading()

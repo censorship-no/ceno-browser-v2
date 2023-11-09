@@ -222,4 +222,26 @@ class SettingsViewTest {
         }
         mDevice.pressHome()
     }
+
+    @Test
+    fun sourcesSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(18)
+            Thread.sleep(5000)
+        }.openSettingsViewSources {
+            verifySourcesUpButton()
+            verifySourcesSettings()
+            verifyWebsiteCheckbox()
+            verifyWebsiteSummary()
+            verifyPrivatelyCheckbox()
+            verifyPrivatelySummary()
+            verifyPubliclyCheckbox()
+            verifyPubliclySummary()
+            verifySharedCheckbox()
+            verifySharedSummary()
+        }
+    }
 }
