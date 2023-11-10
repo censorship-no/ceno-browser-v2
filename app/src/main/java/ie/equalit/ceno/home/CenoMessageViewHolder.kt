@@ -13,6 +13,7 @@ class CenoMessageViewHolder (
 
     init {
         cardType = homepageCardType
+        enableContextMenu()
         binding.closeButton.setOnClickListener {
             interactor.onRemoveCard(cardType)
         }

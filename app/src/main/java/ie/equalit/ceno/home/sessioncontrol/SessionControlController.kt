@@ -23,6 +23,7 @@ import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.CenoModeItemBinding
@@ -199,12 +200,12 @@ class DefaultSessionControlController(
                 openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true, private = true)
             }
         }
-        /*
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.apply{
-                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
+                switchToPersonalHome()
             }
         }
+        /*
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             activity.apply{
                 openToBrowser(getString(R.string.website_button_link), newTab = true)
@@ -216,7 +217,7 @@ class DefaultSessionControlController(
     override fun handleMenuItemClicked(homepageCardType: HomepageCardType) {
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.apply{
-                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
+                browsingModeManager.mode = BrowsingMode.Personal
             }
         }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {

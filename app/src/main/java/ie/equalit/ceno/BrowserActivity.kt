@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -425,6 +426,14 @@ open class BrowserActivity : BaseActivity() {
         }
 
         navHost.navController.navigate(R.id.action_global_browser)
+    }
+
+    fun switchToPersonalHome() {
+        browsingModeManager.mode = BrowsingMode.Personal
+        //reload fragment
+        val fragmentId = navHost.navController.currentDestination?.id
+        navHost.navController.popBackStack(fragmentId!!,true)
+        navHost.navController.navigate(fragmentId)
     }
 
     fun updateView(action: () -> Unit){
