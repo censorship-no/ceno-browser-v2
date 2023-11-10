@@ -435,6 +435,14 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.navigate(fragmentId)
     }
 
+    fun switchToPersonalHome() {
+        browsingModeManager.mode = BrowsingMode.Personal
+        //reload fragment
+        val fragmentId = navHost.navController.currentDestination?.id
+        navHost.navController.popBackStack(fragmentId!!,true)
+        navHost.navController.navigate(fragmentId)
+    }
+
     fun updateView(action: () -> Unit){
         //If the activity is in background we register the transaction
         if(!isActivityResumed){
