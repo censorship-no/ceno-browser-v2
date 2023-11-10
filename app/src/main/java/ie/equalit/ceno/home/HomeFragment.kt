@@ -1,5 +1,6 @@
 package ie.equalit.ceno.home
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -168,17 +169,15 @@ class HomeFragment : BaseHomeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var activity = activity as BrowserActivity
         binding.privateBrowsingButton.setOnClickListener {
             //open personal mode home fragment
-            (activity as BrowserActivity).apply {
-                switchToPersonalHome()
-            }
+            activity.switchToPersonalHome()
         }
-        if (themeManager.currentMode == BrowsingMode.Personal) {
-            binding.homeAppBar.visibility = View.GONE
-        }
-        else {
-            binding.homeAppBar.visibility = View.VISIBLE
+        if (themeManager.currentMode.isPersonal) {
+            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
+            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
+            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
         }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
