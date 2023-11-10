@@ -25,6 +25,7 @@ internal fun normalModeAdapterItems(
     settings: CenoPreferences,
     topSites: List<TopSite>,
     messageCard: CenoMessageCard,
+    mode: BrowsingMode,
     announcement: RssAnnouncementResponse?
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
@@ -36,12 +37,11 @@ internal fun normalModeAdapterItems(
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
 
+    items.add(AdapterItem.CenoModeItem(mode))
     if (settings.showThanksCard) {
         items.add(AdapterItem.CenoMessageItem(messageCard))
     }
-    if (settings.showCenoModeItem) {
-        items.add(AdapterItem.CenoModeItem)
-    }
+
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
@@ -49,7 +49,10 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-internal fun personalModeAdapterItems(): List<AdapterItem> = listOf(AdapterItem.PersonalModeDescriptionItem)
+internal fun personalModeAdapterItems(mode: BrowsingMode): List<AdapterItem> = listOf(
+    AdapterItem.CenoModeItem(mode),
+    AdapterItem.PersonalModeDescriptionItem
+)
 
 private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse?): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
@@ -57,9 +60,10 @@ private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMess
             prefs,
             topSites,
             messageCard,
+            mode,
             announcement
         )
-    BrowsingMode.Personal -> personalModeAdapterItems()
+    BrowsingMode.Personal -> personalModeAdapterItems(mode)
 }
 
 
