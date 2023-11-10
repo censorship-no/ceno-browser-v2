@@ -17,7 +17,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/ceno_home_card_background_tint"
         android:importantForAccessibility="noHideDescendants"
         app:cardElevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +66,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:backgroundTint="@color/ceno_home_card_background_tint"
         android:importantForAccessibility="noHideDescendants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +87,7 @@
                 app:srcCompat="@drawable/ceno_home_card_personal_icon" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_home_card_personal_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -99,7 +97,7 @@
                 android:textColor="@color/ceno_home_card_personal_text" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_home_card_personal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.5"
