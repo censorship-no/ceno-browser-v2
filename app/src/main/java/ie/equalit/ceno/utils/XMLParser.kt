@@ -1,5 +1,6 @@
 package ie.equalit.ceno.utils
 
+import ie.equalit.ceno.ext.extractLinks
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
 import org.xmlpull.v1.XmlPullParser
@@ -9,10 +10,21 @@ import java.io.StringReader
 object XMLParser {
 
     fun parseRssXml(xmlString: String): RssAnnouncementResponse? {
+
+        // extract URLs from description
+        var formattedXML: String? = xmlString
+
+        var count = 0
+
+        val descriptionUrls = xmlString.extractLinks()
+        descriptionUrls.forEach {
+            formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER)
+        }
+
         val factory: XmlPullParserFactory = XmlPullParserFactory.newInstance()
         val parser: XmlPullParser = factory.newPullParser()
 
-        parser.setInput(StringReader(xmlString))
+        parser.setInput(StringReader(formattedXML))
 
         // For tracking the current tag while looping across the XML
         var tag = ""
@@ -64,7 +76,13 @@ object XMLParser {
                             if (currentRssItem == null) {
                                 rssFeedDescription = text
                             } else {
-                                currentRssItem.description = text
+                                val occurrences = text.split(CENO_CUSTOM_PLACEHOLDER).size - 1
+                                var result = text
+                                for(i in 0 until occurrences) {
+                                    result = result.replaceFirst(CENO_CUSTOM_PLACEHOLDER, descriptionUrls[count])
+                                    count++
+                                }
+                                currentRssItem.description = result
                             }
                         }
 
@@ -106,4 +124,6 @@ object XMLParser {
 
         return RssAnnouncementResponse(rssFeedTitle, rssFeedLink, rssFeedDescription, rssFeedItems)
     }
+
+    private const val CENO_CUSTOM_PLACEHOLDER = "ceno_custom_placeholder"
 }

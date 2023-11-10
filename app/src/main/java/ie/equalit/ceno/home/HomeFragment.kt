@@ -172,7 +172,6 @@ class HomeFragment : BaseHomeFragment() {
                 }
 
                 // Switch context to make network call
-
                 withContext(Dispatchers.IO) {
                     CenoSettings.webClientRequest(
                         requireContext(),

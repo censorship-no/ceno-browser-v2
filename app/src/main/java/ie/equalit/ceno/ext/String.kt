@@ -14,3 +14,9 @@ fun String.replace(pairs: Map<String, String>): String {
     pairs.iterator().forEach { (l, r) -> result = result.replace(l, r) }
     return result
 }
+
+fun String.extractLinks(): List<String> {
+    val pattern = Regex("""<a[^>]*>.*?</a>""")
+    val matches = pattern.findAll(this)
+    return matches.map { it.value }.toList()
+}
