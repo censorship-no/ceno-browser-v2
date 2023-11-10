@@ -33,10 +33,25 @@ class CenoModeViewHolder(
         //modify based on mode
         when(mode) {
             BrowsingMode.Normal -> {
+                binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
+                binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
+                binding.publicModeCard.elevation = 2f
+                binding.personalModeCard.elevation = 8f
+
+                //text color
 
             }
             BrowsingMode.Personal -> {
                 binding.cenoModeItem.background = ContextCompat.getDrawable(itemView.context, R.color.fx_mobile_private_layer_color_1)
+                binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_layer_color_accent_opaque))
+                binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_layer_color_accent_opaque))
+                binding.publicModeCard.elevation = 8f
+                binding.personalModeCard.elevation = 2f
+
+                //text color
+                binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_text_color_primary))
+                binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_text_color_primary))
+
             }
         }
     }
