@@ -19,8 +19,8 @@ def scenario = new File("scenario.yaml")
 def testUrlStringArray = "{"
 if (scenario.exists()) {
     def cfg = new Yaml().load(scenario.newInputStream())
-    for (url in cfg.scenarios.website) {
-        testUrlStringArray += "\"" + url + "\", "
+    for (s in cfg.scenarios) {
+        testUrlStringArray += "{\"" + s.website + "\"," + "\"" + s.predictableText + "\"},"
     }
 }
 else {
@@ -57,7 +57,7 @@ android {
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
 
-        buildConfigField "String[]", "URL_ARRAY", testUrlStringArray
+        buildConfigField "String[][]", "URL_ARRAY", testUrlStringArray
     }
 
     /* CENO: Add signing config for release builds */

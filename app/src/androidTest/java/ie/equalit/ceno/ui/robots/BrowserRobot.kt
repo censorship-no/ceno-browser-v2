@@ -40,6 +40,15 @@ class BrowserRobot {
         )
     }
 
+    fun verifyPageLoaded() {
+        mDevice.waitForObjects(mDevice.findObject(UiSelector().resourceId("android.webkit.WebView")))
+        assertTrue(
+            mDevice.findObject(
+                UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_progress")
+            ).waitUntilGone(waitingTime),
+        )
+    }
+
     fun verifyFXAUrl() {
         verifyUrl("https://accounts.firefox.com")
     }
