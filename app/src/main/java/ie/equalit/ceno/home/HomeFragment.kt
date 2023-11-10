@@ -170,11 +170,9 @@ class HomeFragment : BaseHomeFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.privateBrowsingButton.setOnClickListener {
             //open personal mode home fragment
-            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Personal
-            //reload fragment
-            val fragmentId = findNavController().currentDestination?.id
-            findNavController().popBackStack(fragmentId!!,true)
-            findNavController().navigate(fragmentId)
+            (activity as BrowserActivity).apply {
+                switchToPersonalHome()
+            }
         }
         if (themeManager.currentMode == BrowsingMode.Personal) {
             binding.homeAppBar.visibility = View.GONE

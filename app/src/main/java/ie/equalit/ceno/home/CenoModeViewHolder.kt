@@ -22,8 +22,8 @@ class CenoModeViewHolder(
 
     init {
         cardType = homepageCardType
-        binding.closeButton.setOnClickListener {
-            interactor.onRemoveCard(cardType)
+        binding.personalModeCard.setOnClickListener {
+            interactor.onClicked(homepageCardType)
         }
     }
 
