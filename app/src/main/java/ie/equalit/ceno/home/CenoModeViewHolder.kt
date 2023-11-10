@@ -5,9 +5,11 @@
 package ie.equalit.ceno.home
 
 import android.view.View
+import androidx.core.content.ContextCompat
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
-import ie.equalit.ceno.utils.view.CenoViewHolder
 
 
 /**
@@ -27,7 +29,17 @@ class CenoModeViewHolder(
         }
     }
 
-    fun bind() = Unit
+    fun bind(mode: BrowsingMode) {
+        //modify based on mode
+        when(mode) {
+            BrowsingMode.Normal -> {
+
+            }
+            BrowsingMode.Personal -> {
+                binding.cenoModeItem.background = ContextCompat.getDrawable(itemView.context, R.color.fx_mobile_private_layer_color_1)
+            }
+        }
+    }
 
     companion object {
         val homepageCardType = HomepageCardType.MODE_MESSAGE_CARD
