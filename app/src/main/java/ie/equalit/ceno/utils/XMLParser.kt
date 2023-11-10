@@ -1,6 +1,6 @@
 package ie.equalit.ceno.utils
 
-import ie.equalit.ceno.ext.extractLinks
+import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
 import org.xmlpull.v1.XmlPullParser
@@ -16,7 +16,7 @@ object XMLParser {
 
         var count = 0
 
-        val descriptionUrls = xmlString.extractLinks()
+        val descriptionUrls = xmlString.extractATags()
         descriptionUrls.forEach {
             formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER)
         }
@@ -125,5 +125,5 @@ object XMLParser {
         return RssAnnouncementResponse(rssFeedTitle, rssFeedLink, rssFeedDescription, rssFeedItems)
     }
 
-    private const val CENO_CUSTOM_PLACEHOLDER = "ceno_custom_placeholder"
+    const val CENO_CUSTOM_PLACEHOLDER = "ceno_custom_placeholder"
 }

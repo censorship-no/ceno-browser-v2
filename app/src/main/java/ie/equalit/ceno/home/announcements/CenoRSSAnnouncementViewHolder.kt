@@ -28,7 +28,7 @@ class CenoRSSAnnouncementViewHolder(
         }
 
         binding.rssAnnouncementsRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
-        binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter().apply {
+        binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter(interactor).apply {
             submitList(response.items)
         }
 
