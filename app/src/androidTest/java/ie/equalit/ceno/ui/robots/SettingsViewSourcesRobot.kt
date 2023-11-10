@@ -42,6 +42,26 @@ class SettingsViewSourcesRobot {
         sharedCheckbox().click()
     }
 
+    fun setWebsiteSources(website: Boolean, private: Boolean, public: Boolean, shared : Boolean){
+        if (!website) {
+            verifyWebsiteCheckbox()
+            toggleWebsiteCheckbox()
+        }
+        if (!private) {
+            verifyPrivatelyCheckbox()
+            togglePrivatelyCheckbox()
+        }
+        if (!public) {
+            verifyPubliclyCheckbox()
+            togglePubliclyCheckbox()
+        }
+        if (!shared) {
+            verifySharedCheckbox()
+            toggleSharedCheckbox()
+        }
+    }
+
+
     class Transition {
         fun settingsViewSearch(interact: SettingsViewSourcesRobot.() -> Unit): Transition {
             return Transition()
