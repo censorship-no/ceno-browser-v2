@@ -3,7 +3,6 @@ package ie.equalit.ceno.home.announcements
 
 import android.view.View
 import androidx.core.text.HtmlCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import ie.equalit.ceno.databinding.RssAnnoucementsItemBinding
 import ie.equalit.ceno.home.BaseHomeCardViewHolder
 import ie.equalit.ceno.home.HomepageCardType
@@ -27,7 +26,6 @@ class CenoRSSAnnouncementViewHolder(
             interactor.onUrlClicked(homepageCardType, response.link)
         }
 
-        binding.rssAnnouncementsRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
         binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter(interactor).apply {
             submitList(response.items)
         }

@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:importantForAccessibility="yes"
         android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:itemCount="3"
         tools:listitem="@layout/rss_annoucements_sub_item" />
