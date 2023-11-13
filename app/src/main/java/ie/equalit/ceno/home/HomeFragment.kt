@@ -30,6 +30,7 @@ import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.concept.fetch.Request
 import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.settings.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -165,10 +166,10 @@ class HomeFragment : BaseHomeFragment() {
             // Important: display all home page items first
             withContext(Dispatchers.Main) {
                 if (themeManager.currentMode == BrowsingMode.Normal) {
-                    sessionControlView?.update(requireComponents.appStore.state, null)
+                    sessionControlView?.update(requireComponents.appStore.state, Settings.getAnnouncementData(requireContext()))
                 }
                 binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                    sessionControlView?.update(it, null)
+                    sessionControlView?.update(it, Settings.getAnnouncementData(requireContext()))
                 }
 
                 // Switch context to make network call
@@ -180,6 +181,9 @@ class HomeFragment : BaseHomeFragment() {
                         val rssResponse = XMLParser.parseRssXml(
                             response
                         )
+
+                        // save announcement data in local
+                        Settings.saveAnnouncementData(requireContext(), rssResponse)
 
                         // check for null and refresh homepage adapter ONLY IF necessary
                         if(rssResponse != null) {

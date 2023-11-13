@@ -1,8 +1,5 @@
 package ie.equalit.ceno.home
 
-import android.text.Spanned
-import androidx.core.text.HtmlCompat
-
 data class RssAnnouncementResponse(
     override val title: String,
     val link: String,
