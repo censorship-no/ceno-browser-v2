@@ -83,6 +83,7 @@
         android:id="@+id/sessionControlRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/browser_toolbar_height"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:scrollbars="none"
