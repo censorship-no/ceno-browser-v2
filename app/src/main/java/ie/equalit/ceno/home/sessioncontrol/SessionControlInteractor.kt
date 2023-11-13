@@ -3,9 +3,7 @@ package ie.equalit.ceno.home.sessioncontrol
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import android.view.ContextMenu
-import android.view.View
-import android.view.ViewGroup
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.home.HomepageCardType
 import mozilla.components.feature.top.sites.TopSite
 
@@ -73,7 +71,7 @@ interface HomePageInteractor {
 
     fun onCardSwipe(homepageCardType: HomepageCardType)
 
-    fun onClicked(homepageCardType: HomepageCardType)
+    fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode)
 
     fun onMenuItemClicked(homepageCardType: HomepageCardType)
 }
@@ -180,8 +178,8 @@ class SessionControlInteractor(
             controller.handleRemoveCard(homepageCardType)
         }
 
-        override fun onClicked(homepageCardType: HomepageCardType) {
-            controller.handleCardClicked(homepageCardType)
+        override fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {
+            controller.handleCardClicked(homepageCardType, mode)
         }
 
         override fun onMenuItemClicked(homepageCardType: HomepageCardType) {
