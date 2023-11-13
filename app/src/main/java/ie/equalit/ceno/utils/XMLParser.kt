@@ -11,22 +11,20 @@ object XMLParser {
 
     fun parseRssXml(xmlString: String): RssAnnouncementResponse? {
 
-        // extract URLs from description
+        var index = 0
+
+        // Replace all a-tags in the description string with a placeholder string
         var formattedXML: String? = xmlString
-
-        var count = 0
-
         val descriptionUrls = xmlString.extractATags()
-        descriptionUrls.forEach {
-            formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER)
-        }
+        descriptionUrls.forEach { formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER) }
 
+        // Initialize parser objects for processing the XML String
         val factory: XmlPullParserFactory = XmlPullParserFactory.newInstance()
         val parser: XmlPullParser = factory.newPullParser()
 
         parser.setInput(StringReader(formattedXML))
 
-        // For tracking the current tag while looping across the XML
+        // Variable for tracking the current tag while looping across the XML String
         var tag = ""
 
         var currentRssItem: RssItem? = null
@@ -79,8 +77,8 @@ object XMLParser {
                                 val occurrences = text.split(CENO_CUSTOM_PLACEHOLDER).size - 1
                                 var result = text
                                 for(i in 0 until occurrences) {
-                                    result = result.replaceFirst(CENO_CUSTOM_PLACEHOLDER, descriptionUrls[count])
-                                    count++
+                                    result = result.replaceFirst(CENO_CUSTOM_PLACEHOLDER, descriptionUrls[index])
+                                    index++
                                 }
                                 currentRssItem.description = result
                             }
@@ -112,7 +110,7 @@ object XMLParser {
         }
 
 
-        // If any of the vital fields is null, return a null response thus hiding the view
+        // If any of the vital fields is null, return a null response, thus hiding the view
 
         if (rssFeedTitle.isEmpty()
             || rssFeedLink.isEmpty()

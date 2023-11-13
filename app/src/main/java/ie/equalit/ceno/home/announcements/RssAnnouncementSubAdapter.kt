@@ -34,7 +34,7 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
     }
 
     internal object RssItemDiffCallback : DiffUtil.ItemCallback<RssItem>() {
-        override fun areItemsTheSame(oldItem: RssItem, newItem: RssItem) = oldItem.title == newItem.title
+        override fun areItemsTheSame(oldItem: RssItem, newItem: RssItem) = oldItem.pubDate == newItem.pubDate
 
         override fun areContentsTheSame(oldItem: RssItem, newItem: RssItem) =
             oldItem.description == newItem.description
@@ -48,32 +48,29 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
         fun bind(rssItem: RssItem, homePageInteractor: HomePageInteractor) {
             binding.itemDate.text = rssItem.pubDate
 
-            var count = 0
-
             var descriptionText = "${rssItem.title} ${rssItem.description}"
+
+            // Replace all a-tags in the description string with a placeholder string
             val allATags = descriptionText.extractATags()
+            allATags.forEach { descriptionText = descriptionText.replaceFirst(it, XMLParser.CENO_CUSTOM_PLACEHOLDER) }
 
-            allATags.forEach {
-                descriptionText = descriptionText.replaceFirst(it, XMLParser.CENO_CUSTOM_PLACEHOLDER)
-            }
-
+            // split the new description string by the placeholder string to generate an array
             val descriptionSubStringArray = descriptionText.split(XMLParser.CENO_CUSTOM_PLACEHOLDER)
 
+            // iteration variable for the list of a-tags
+            var index = 0
+
+            // Construct new HTML string to be displayed
             val spannedString = buildSpannedString {
                 descriptionSubStringArray.forEach {
                     append(it)
-
-                    // try/catch for indexOutOfBoundsException - needs refactor later ;-)
-                    try {
-                        val pair = allATags[count].getContentFromATag()
-                        click(true, onClick = {
-                            homePageInteractor.onUrlClicked(homepageCardType, pair.first.toString())
-                        }) {
-                            append(pair.second)
-                        }
-                        count++
-                    } catch (_: Exception) {
+                    val pair = allATags[index].getContentFromATag()
+                    click(true, onClick = {
+                        homePageInteractor.onUrlClicked(homepageCardType, pair.first.toString())
+                    }) {
+                        append(pair.second)
                     }
+                    index++
                 }
             }
 

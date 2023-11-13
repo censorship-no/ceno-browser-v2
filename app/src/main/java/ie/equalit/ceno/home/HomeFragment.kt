@@ -163,13 +163,18 @@ class HomeFragment : BaseHomeFragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
 
-            // Important: display all home page items first
             withContext(Dispatchers.Main) {
                 if (themeManager.currentMode == BrowsingMode.Normal) {
-                    sessionControlView?.update(requireComponents.appStore.state, Settings.getAnnouncementData(requireContext()))
+                    sessionControlView?.update(
+                        requireComponents.appStore.state,
+                        Settings.getAnnouncementData(requireContext()) /* From local storage */
+                    )
                 }
                 binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                    sessionControlView?.update(it, Settings.getAnnouncementData(requireContext()))
+                    sessionControlView?.update(
+                        it,
+                        Settings.getAnnouncementData(requireContext()) /* From local storage */
+                    )
                 }
 
                 // Switch context to make network call
@@ -185,7 +190,7 @@ class HomeFragment : BaseHomeFragment() {
                         // save announcement data in local
                         Settings.saveAnnouncementData(requireContext(), rssResponse)
 
-                        // check for null and refresh homepage adapter ONLY IF necessary
+                        // check for null and refresh homepage adapter if necessary
                         if(rssResponse != null) {
                             withContext(Dispatchers.Main) {
                                 if (themeManager.currentMode == BrowsingMode.Normal) {
