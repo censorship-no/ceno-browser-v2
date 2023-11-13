@@ -227,12 +227,13 @@ class HomeFragment : BaseHomeFragment() {
         var activity = activity as BrowserActivity
         binding.privateBrowsingButton.setOnClickListener {
             //open personal mode home fragment
-            activity.switchToPersonalHome()
+            activity.switchBrowsingModeHome(BrowsingMode.Normal)
         }
         if (themeManager.currentMode.isPersonal) {
             binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
             binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
             binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
+            binding.privateBrowsingButton.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
         }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }

@@ -21,27 +21,31 @@ class CenoModeViewHolder(
 ) : BaseHomeCardViewHolder(view, interactor) {
 
     private val binding = CenoModeItemBinding.bind(view)
+    private var mode = BrowsingMode.Normal
 
     init {
         cardType = homepageCardType
-        binding.personalModeCard.setOnClickListener {
-            interactor.onClicked(homepageCardType)
-        }
     }
 
     fun bind(mode: BrowsingMode) {
+        this@CenoModeViewHolder.mode = mode
         //modify based on mode
         when(mode) {
             BrowsingMode.Normal -> {
+                binding.personalModeCard.setOnClickListener {
+                    interactor.onClicked(homepageCardType, mode)
+                }
+
                 binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
                 binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
                 binding.publicModeCard.elevation = 2f
                 binding.personalModeCard.elevation = 8f
 
-                //text color
-
             }
             BrowsingMode.Personal -> {
+                binding.publicModeCard.setOnClickListener {
+                    interactor.onClicked(homepageCardType, mode)
+                }
                 binding.cenoModeItem.background = ContextCompat.getDrawable(itemView.context, R.color.fx_mobile_private_layer_color_1)
                 binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_layer_color_accent_opaque))
                 binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_layer_color_accent_opaque))
@@ -51,7 +55,10 @@ class CenoModeViewHolder(
                 //text color
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_text_color_primary))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.fx_mobile_private_text_color_primary))
-
+                binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_200))
+                binding.ivHomeCardPublic.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_200))
+                binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_200))
+                binding.ivHomeCardPersonal.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_200))
             }
         }
     }

@@ -427,9 +427,8 @@ open class BrowserActivity : BaseActivity() {
 
         navHost.navController.navigate(R.id.action_global_browser)
     }
-
-    fun switchToPersonalHome() {
-        browsingModeManager.mode = BrowsingMode.Personal
+    fun switchBrowsingModeHome(currentMode: BrowsingMode) {
+        browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
         //reload fragment
         val fragmentId = navHost.navController.currentDestination?.id
         navHost.navController.popBackStack(fragmentId!!,true)

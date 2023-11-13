@@ -28,6 +28,9 @@
     <color name="home_card_close_button">@color/photonDarkGrey70</color>
     <color name="home_card_announcements_background">#FFF7ED</color>
 
+    <color name="ceno_blue_200">#BAE6FD</color>
+    <color name="ceno_purple_200">#D698E0</color>
+
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
