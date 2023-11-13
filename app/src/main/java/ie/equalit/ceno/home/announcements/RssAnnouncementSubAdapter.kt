@@ -19,6 +19,7 @@ import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.XMLParser
+import mozilla.components.support.base.log.logger.Logger
 
 class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteractor) : ListAdapter<RssItem, RssAnnouncementSubAdapter.RssSubItemViewHolder>(RssItemDiffCallback) {
     override fun onCreateViewHolder(
@@ -64,13 +65,18 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
             val spannedString = buildSpannedString {
                 descriptionSubStringArray.forEach {
                     append(it)
-                    val pair = allATags[index].getContentFromATag()
-                    click(true, onClick = {
-                        homePageInteractor.onUrlClicked(homepageCardType, pair.first.toString())
-                    }) {
-                        append(pair.second)
+                    // try/catch for indexOutOfBoundsException - needs refactor later ;-)
+                    try {
+                        val pair = allATags[index].getContentFromATag()
+                        click(true, onClick = {
+                            homePageInteractor.onUrlClicked(homepageCardType, pair.first.toString())
+                        }) {
+                            append(pair.second)
+                        }
+                        index++
+                    } catch (e: Exception) {
+                        Logger(e.message)
                     }
-                    index++
                 }
             }
 
