@@ -53,9 +53,8 @@
                 android:id="@+id/tv_home_card_public_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:alpha="0.5"
                 android:text="@string/ceno_home_card_public_text"
-                android:textColor="@color/ceno_home_card_text_color"
+                android:textColor="@color/ceno_onboarding_text"
                 android:textStyle="italic" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
