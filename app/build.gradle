@@ -15,19 +15,28 @@ import org.yaml.snakeyaml.Yaml
 Properties localProperties = new Properties()
 localProperties.load(rootProject.file('local.properties').newDataInputStream())
 
-def scenario = new File("scenario.yaml")
-def testUrlStringArray = "{"
-if (scenario.exists()) {
-    def cfg = new Yaml().load(scenario.newInputStream())
-    for (s in cfg.scenarios) {
-        testUrlStringArray += "{\"" + s.website + "\"," + "\"" + s.predictableText + "\"},"
+def scenarioFile = new File("scenario.yaml")
+def scenarioArrayMap = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
+if (scenarioFile.exists()) {
+    def o = new Yaml().load(scenarioFile.newInputStream())
+    for (s in o.scenarios) {
+        scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
+                    "{" +
+                        "put(\"website\", \"${s.website}\");" +
+                        "put(\"expextedText\", \"${s.expectedText}\");" +
+                        "put(\"personal\", \"${s.personal}\");" +
+                    "}" +
+                "}); "
     }
 }
 else {
-    testUrlStringArray += "\"https://example.com\", "
-    testUrlStringArray += "\"https://ouinet.work\", "
+    scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
+            "{" +
+            "put(\"website\", \"https://example.com\");" +
+            "}" +
+            "}); "
 }
-testUrlStringArray += "}"
+scenarioArrayMap += "}}"
 
 android {
     compileSdkVersion Config.compileSdkVersion
@@ -57,7 +66,7 @@ android {
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
 
-        buildConfigField "String[][]", "URL_ARRAY", testUrlStringArray
+        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_ARRAY", scenarioArrayMap
     }
 
     /* CENO: Add signing config for release builds */

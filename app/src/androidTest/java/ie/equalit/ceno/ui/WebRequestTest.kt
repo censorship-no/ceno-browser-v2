@@ -62,93 +62,82 @@ class WebRequestTest {
 
     private fun verifyWebRequestList(shouldSucceed : Boolean) {
         var displayUrl = ""
-        for (url in BuildConfig.URL_ARRAY) {
-            displayUrl = url[0].replaceFirst("^https?://(www\\.)?".toRegex(), "")
+        for (scenario in BuildConfig.SCENARIO_ARRAY) {
+            scenario["website"]?.let {
+                displayUrl = it.replaceFirst("^https?://(www\\.)?".toRegex(), "")
+            }
+            if (scenario["personal"].toBoolean()) {
+                navigationToolbar {
+                }.openTabTrayMenu {
+                    openPrivateBrowsing()
+                }.openNewTab {
+                }
+            }
+            else {
+                navigationToolbar {
+                }.openTabTrayMenu {
+                    openRegularBrowsing()
+                }.openNewTab {
+                }
+            }
             navigationToolbar {
-            }.openTabTrayMenu {
-            }.openNewTab {
-            }.enterUrlAndEnterToBrowser(url[0].toUri()) {
+            }.enterUrlAndEnterToBrowser(displayUrl.toUri()) {
                 verifyUrl(displayUrl)
                 verifyPageLoaded()
-                if (url[1] != "") {
-                    if (shouldSucceed) {
-                        verifyPageContent(url[1])
-                    } else {
-                        verifyPageContent("Failed to retrieve the resource (after attempting all configured mechanisms)")
-                    }
+                if (shouldSucceed) {
+                    scenario["expectedText"]?.let { verifyPageContent(it) }
+                } else {
+                    verifyPageContent("Failed to retrieve the resource (after attempting all configured mechanisms)")
                 }
                 // TODO: how to check for success?
             }
         }
     }
 
+    // Test names are binary-encoded decimal,
     @Test
-    fun webRequestNoSourcesTest() {
-        val testUrl = "https://example.com"
-        navigateToSourcesAndSet(
-            website = false,
-            private = false,
-            public = false,
-            shared = false
-        )
-        navigationToolbar {
-        }.enterUrlAndEnterToBrowser(testUrl.toUri()) {
-            verifyPageContent("Failed to retrieve the resource (after attempting all configured mechanisms)")
-        }
-    }
-
-    @Test
-    fun webRequestListNoSourcesTest() {
-        navigateToSourcesAndSet(
-            website = false,
-            private = false,
-            public = false,
-            shared = false
-        )
+    fun webRequestListSourcesTest0() {
+        navigateToSourcesAndSet(website = false, private = false, public = false, shared = false)
         verifyWebRequestList(shouldSucceed = false)
     }
-
     @Test
-    fun webRequestListSharedSourceTest() {
-        navigateToSourcesAndSet(
-            website = false,
-            private = false,
-            public = false,
-            shared = true
-        )
+    fun webRequestListSourcesTest1() {
+        navigateToSourcesAndSet(website = false, private = false, public = false, shared = true)
         verifyWebRequestList(shouldSucceed = false)
     }
-
     @Test
-    fun webRequestListPublicSourceTest() {
-        navigateToSourcesAndSet(
-            website = false,
-            private = false,
-            public = true,
-            shared = false
-        )
+    fun webRequestListSourceTest2() {
+        navigateToSourcesAndSet(website = false, private = false, public = true, shared = false)
         verifyWebRequestList(shouldSucceed = false)
     }
-
     @Test
-    fun webRequestListPrivateSourceTest() {
-        navigateToSourcesAndSet(
-            website = false,
-            private = true,
-            public = false,
-            shared = false
-        )
+    fun webRequestListSourceTest3() {
+        navigateToSourcesAndSet(website = false, private = false, public = true, shared = true)
         verifyWebRequestList(shouldSucceed = false)
     }
-
     @Test
-    fun webRequestListWebsiteSourceTest() {
-        navigateToSourcesAndSet(
-            website = true,
-            private = false,
-            public = false,
-            shared = false
-        )
+    fun webRequestListSourceTest4() {
+        navigateToSourcesAndSet(website = false, private = true, public = false, shared = false)
+        verifyWebRequestList(shouldSucceed = false)
+    }
+    @Test
+    fun webRequestListSourceTest5() {
+        navigateToSourcesAndSet(website = false, private = true, public = false, shared = true)
+        verifyWebRequestList(shouldSucceed = false)
+    }
+    @Test
+    fun webRequestListSourceTest6() {
+        navigateToSourcesAndSet(website = false, private = true, public = true, shared = false)
+        verifyWebRequestList(shouldSucceed = false)
+    }
+    @Test
+    fun webRequestListSourceTest7() {
+        navigateToSourcesAndSet(website = false, private = true, public = true, shared = true)
+        verifyWebRequestList(shouldSucceed = false)
+    }
+    @Test
+    fun webRequestListSourceTest8() {
+        navigateToSourcesAndSet(website = true, private = false, public = false, shared = false)
         verifyWebRequestList(shouldSucceed = true)
     }
 }
