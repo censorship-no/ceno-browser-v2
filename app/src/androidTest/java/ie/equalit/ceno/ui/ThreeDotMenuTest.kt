@@ -86,7 +86,7 @@ class ThreeDotMenuTest {
             //verifyHttpsByDefaultButtonExists()
             //TODO: uBlock Origin takes some time to install, needs special test case
             //verifyUblockOriginButtonExists()
-            verifyAddOnsButtonExists()
+            //verifyAddOnsButtonExists()
             verifyOpenSettingsExists()
         }
     }
@@ -114,9 +114,8 @@ class ThreeDotMenuTest {
             verifyAddToShortcutsButtonExists()
             verifyFindInPageButtonExists()
             verifyHttpsByDefaultButtonExists()
-            //TODO: uBlock Origin takes some time to install, needs special test case
-            //verifyUblockOriginButtonExists()
-            verifyAddOnsButtonExists()
+            verifyUblockOriginButtonExists()
+            //verifyAddOnsButtonExists()
             //verifySyncedTabsButtonExists()
             //verifyReportIssueExists()
             verifyOpenSettingsExists()
