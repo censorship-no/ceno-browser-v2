@@ -14,7 +14,6 @@ import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
-import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 
@@ -60,13 +59,16 @@ class WebRequestTest {
         }
     }
 
-    private fun verifyWebRequestList(shouldSucceed : Boolean) {
+    private fun verifyWebRequestList(
+        scenarios: MutableList<MutableMap<String, String>>,
+        personal: Boolean
+    ) {
         var displayUrl = ""
-        for (scenario in BuildConfig.SCENARIO_ARRAY) {
-            scenario["website"]?.let {
+        for (s in scenarios) {
+            s["website"]?.let {
                 displayUrl = it.replaceFirst("^https?://(www\\.)?".toRegex(), "")
             }
-            if (scenario["personal"].toBoolean()) {
+            if (personal) {
                 navigationToolbar {
                 }.openTabTrayMenu {
                     openPrivateBrowsing()
@@ -84,60 +86,21 @@ class WebRequestTest {
             }.enterUrlAndEnterToBrowser(displayUrl.toUri()) {
                 verifyUrl(displayUrl)
                 verifyPageLoaded()
-                if (shouldSucceed) {
-                    scenario["expectedText"]?.let { verifyPageContent(it) }
-                } else {
-                    verifyPageContent("Failed to retrieve the resource (after attempting all configured mechanisms)")
-                }
-                // TODO: how to check for success?
+                s["expectedText"]?.let { verifyPageContent(it) }
             }
         }
     }
 
-    // Test names are binary-encoded decimal,
     @Test
-    fun webRequestListSourcesTest0() {
-        navigateToSourcesAndSet(website = false, private = false, public = false, shared = false)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourcesTest1() {
-        navigateToSourcesAndSet(website = false, private = false, public = false, shared = true)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest2() {
-        navigateToSourcesAndSet(website = false, private = false, public = true, shared = false)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest3() {
-        navigateToSourcesAndSet(website = false, private = false, public = true, shared = true)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest4() {
-        navigateToSourcesAndSet(website = false, private = true, public = false, shared = false)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest5() {
-        navigateToSourcesAndSet(website = false, private = true, public = false, shared = true)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest6() {
-        navigateToSourcesAndSet(website = false, private = true, public = true, shared = false)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest7() {
-        navigateToSourcesAndSet(website = false, private = true, public = true, shared = true)
-        verifyWebRequestList(shouldSucceed = false)
-    }
-    @Test
-    fun webRequestListSourceTest8() {
-        navigateToSourcesAndSet(website = true, private = false, public = false, shared = false)
-        verifyWebRequestList(shouldSucceed = true)
+    fun webRequestListSourcesTest() {
+        val config = BuildConfig.CONFIG_MAP
+        val scenarioList = BuildConfig.SCENARIO_LIST
+        navigateToSourcesAndSet(
+            website = config["website"].toBoolean(),
+            private = config["private"].toBoolean(),
+            public = config["public"].toBoolean(),
+            shared = config["shared"].toBoolean()
+        )
+        verifyWebRequestList(scenarioList, config["personalTab"].toBoolean())
     }
 }

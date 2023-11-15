@@ -15,27 +15,44 @@ import org.yaml.snakeyaml.Yaml
 Properties localProperties = new Properties()
 localProperties.load(rootProject.file('local.properties').newDataInputStream())
 
-def scenarioFile = new File("scenario.yaml")
+def scenarioFile = new File(project.hasProperty("testConfig") ? project.getProperty("testConfig") : "scenario.yaml")
+def configMap = " new java.util.HashMap<String, String>() {"
 def scenarioArrayMap = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
 if (scenarioFile.exists()) {
     def o = new Yaml().load(scenarioFile.newInputStream())
+    configMap +=
+            "{" +
+                "put(\"website\", \"${o.config.website}\");" +
+                "put(\"private\", \"${o.config.private}\");" +
+                "put(\"public\", \"${o.config.public}\");" +
+                "put(\"shared\", \"${o.config.shared}\");" +
+                "put(\"personalTab\", \"${o.config.personalTab}\");" +
+            "}"
     for (s in o.scenarios) {
         scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
                     "{" +
                         "put(\"website\", \"${s.website}\");" +
                         "put(\"expextedText\", \"${s.expectedText}\");" +
-                        "put(\"personal\", \"${s.personal}\");" +
                     "}" +
                 "}); "
     }
 }
 else {
-    scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
+    configMap +=
             "{" +
-            "put(\"website\", \"https://example.com\");" +
-            "}" +
+                "put(\"website\", \"false\");" +
+                "put(\"private\", \"true\");" +
+                "put(\"public\", \"true\");" +
+                "put(\"shared\", \"true\");" +
+                "put(\"personalTab\", \"false\");" +
+            "}"
+    scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
+                "{" +
+                    "put(\"website\", \"https://example.com\");" +
+                "}" +
             "}); "
 }
+configMap += "}"
 scenarioArrayMap += "}}"
 
 android {
@@ -66,7 +83,8 @@ android {
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
 
-        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_ARRAY", scenarioArrayMap
+        buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", configMap
+        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", scenarioArrayMap
     }
 
     /* CENO: Add signing config for release builds */
