@@ -27,7 +27,7 @@ buildscript {
         classpath Deps.tools_androidgradle
         classpath Deps.tools_kotlingradle
         classpath Deps.androidx_safeargs
-        classpath group: 'org.yaml', name: 'snakeyaml', version: '2.0'
+        classpath Deps.snakeyaml
     }
 }
 
