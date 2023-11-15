@@ -16,44 +16,7 @@ Properties localProperties = new Properties()
 localProperties.load(rootProject.file('local.properties').newDataInputStream())
 
 def scenarioFile = new File(project.hasProperty("testConfig") ? project.getProperty("testConfig") : "scenario.yaml")
-def configMap = " new java.util.HashMap<String, String>() {"
-def scenarioArrayMap = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
-if (scenarioFile.exists()) {
-    def o = new Yaml().load(scenarioFile.newInputStream())
-    configMap +=
-            "{" +
-                "put(\"website\", \"${o.config.website}\");" +
-                "put(\"private\", \"${o.config.private}\");" +
-                "put(\"public\", \"${o.config.public}\");" +
-                "put(\"shared\", \"${o.config.shared}\");" +
-                "put(\"personalTab\", \"${o.config.personalTab}\");" +
-            "}"
-    for (s in o.scenarios) {
-        scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
-                    "{" +
-                        "put(\"website\", \"${s.website}\");" +
-                        "put(\"expextedText\", \"${s.expectedText}\");" +
-                    "}" +
-                "}); "
-    }
-}
-else {
-    configMap +=
-            "{" +
-                "put(\"website\", \"false\");" +
-                "put(\"private\", \"true\");" +
-                "put(\"public\", \"true\");" +
-                "put(\"shared\", \"true\");" +
-                "put(\"personalTab\", \"false\");" +
-            "}"
-    scenarioArrayMap += "add(new java.util.HashMap<String, String>() {" +
-                "{" +
-                    "put(\"website\", \"https://example.com\");" +
-                "}" +
-            "}); "
-}
-configMap += "}"
-scenarioArrayMap += "}}"
+def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
 
 android {
     compileSdkVersion Config.compileSdkVersion
@@ -83,8 +46,8 @@ android {
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
 
-        buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", configMap
-        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", scenarioArrayMap
+        buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
+        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
     }
 
     /* CENO: Add signing config for release builds */
@@ -538,6 +501,53 @@ task printGeckoviewVersion {
         def geckoviewDependency = dependencies.find { it.selected.id.moduleIdentifier.group == 'org.mozilla.geckoview' }
         println('geckoviewVersion: ' + groovy.json.JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
     }
+}
+
+static def getScenarioList(o) {
+    def scenarioList = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
+    if (o != null) {
+        for (s in o.scenarios) {
+            scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                    "{" +
+                    "put(\"website\", \"${s.website}\");" +
+                    "put(\"expextedText\", \"${s.expectedText}\");" +
+                    "}" +
+                    "}); "
+        }
+    } else {
+        scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                "{" +
+                "put(\"website\", \"https://example.com\");" +
+                "}" +
+                "}); "
+    }
+    scenarioList += "}}"
+    return scenarioList
+}
+
+static def getConfigMap(o) {
+    def configMap = " new java.util.HashMap<String, String>() {"
+    if (o != null) {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"${o.config.website}\");" +
+                        "put(\"private\", \"${o.config.private}\");" +
+                        "put(\"public\", \"${o.config.public}\");" +
+                        "put(\"shared\", \"${o.config.shared}\");" +
+                        "put(\"personalTab\", \"${o.config.personalTab}\");" +
+                        "}"
+    } else {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"false\");" +
+                        "put(\"private\", \"true\");" +
+                        "put(\"public\", \"true\");" +
+                        "put(\"shared\", \"true\");" +
+                        "put(\"personalTab\", \"false\");" +
+                        "}"
+    }
+    configMap += "}"
+    return configMap
 }
 
 if (gradle.hasProperty('localProperties.dependencySubstitutions.geckoviewTopsrcdir')) {
