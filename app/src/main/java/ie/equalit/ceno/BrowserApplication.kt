@@ -7,12 +7,12 @@ package ie.equalit.ceno
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.components.ceno.CenoLocationUtils
-import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.utils.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
+import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -27,8 +27,8 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
@@ -42,10 +42,26 @@ open class BrowserApplication : Application() {
                 Settings.getAppTheme(this)
         )
 
+        // Record exceptions as well as app crashes
+        Thread.setDefaultUncaughtExceptionHandler { _, _ ->
+            if(!Settings.isCrashReportingPermissionGranted(this)) {
+                Settings.setCrashHappenedCommit(this, true)
+            }
+            exitProcess(0)
+        }
+
         setupCrashReporting(this)
 
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
+
+        // Initialize Sentry-Android
+        if(Settings.isCrashReportingPermissionGranted(this)) {
+            SentryAndroid.init(
+                this,
+                SentryOptionsConfiguration.getConfig(this)
+            )
+        }
 
         //------------------------------------------------------------
         // Ouinet
@@ -215,13 +231,6 @@ open class BrowserApplication : Application() {
         var mOuinetConfig: Config? = null
         var mNotificationConfig: NotificationConfig? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
-        init {
-            System.setProperty("http.proxyHost", "127.0.0.1")
-            System.setProperty("http.proxyPort", BuildConfig.PROXY_PORT)
-
-            System.setProperty("https.proxyHost", "127.0.0.1")
-            System.setProperty("https.proxyPort", BuildConfig.PROXY_PORT)
-        }
     }
 }
 

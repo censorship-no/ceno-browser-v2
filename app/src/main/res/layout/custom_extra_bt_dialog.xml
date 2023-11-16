@@ -12,11 +12,12 @@
         android:id="@+id/bootstrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/customize_extra_bittorrent_bootstrap"
+        android:hint="@string/customize_custom_extra_bittorrent_bootstrap"
         android:singleLine="true"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:inputType="text"
+        android:fontFamily="sans-serif-medium"
         android:layout_marginTop="8dp"
         android:importantForAutofill="no" />
 

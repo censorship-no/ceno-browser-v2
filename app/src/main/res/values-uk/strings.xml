@@ -89,7 +89,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Зупинити</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Додатки</string>
+    <string name="preferences_add_ons">Додатки</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Налаштування</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -160,4 +160,10 @@
     <string name="preference_select_preferred_engine">Оберіть бажаний пошуковик:</string>
     <string name="theme_category">Тема</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Відкрити посилання у персональній вкладці</string>
+    <string name="udp_category">UDP</string>
+    <string name="customize_add_bootstrap_save">Зберегти</string>
+    <string name="bit_torrent_bootstraps_category">Завантажувачі BitTorrent</string>
+    <string name="customize_extra_bittorrent_bootstrap">Додаткові завантажівачи BitTorrent</string>
+    <string name="crash_report_sent">Звіт про збій надіслано!</string>
+    <string name="not_applicable">Н/Д</string>
 </resources>

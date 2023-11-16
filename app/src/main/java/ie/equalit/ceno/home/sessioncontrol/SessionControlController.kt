@@ -192,6 +192,11 @@ class DefaultSessionControlController(
     }
 
     override fun handleCardClicked(homepageCardType: HomepageCardType) {
+        if (homepageCardType == HomepageCardType.PERSONAL_MODE_CARD) {
+            activity.apply{
+                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true, private = true)
+            }
+        }
         /*
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.apply{

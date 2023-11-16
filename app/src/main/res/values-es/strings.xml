@@ -90,7 +90,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Detener</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Complementos</string>
+    <string name="preferences_add_ons">Complementos</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Configuración</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -165,4 +165,5 @@
     <string name="udp_category">UDP</string>
     <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
     <string name="not_applicable">n/a</string>
+    <string name="crash_report_sent">¡Informe de errores enviado!</string>
 </resources>

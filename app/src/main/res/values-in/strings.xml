@@ -7,10 +7,10 @@
     <string name="menu_action_add_tab">Tambah Tab Baru</string>
     <string name="menu_action_close_tabs">Tutup Semua Tab</string>
     <string name="preferences_remote_debugging">Awakutu jarak jauh melalui USB</string>
-    <string name="preferences_tracking_protection_private">Aktifkan dalam Mode Penjelajahan Privat</string>
+    <string name="preferences_tracking_protection_private">Aktifkan dalam Mode Penjelajahan Pribadi</string>
     <string name="privacy" tools:ignore="UnusedResources">Privasi</string>
     <string name="preferences_privacy_summary">Aktifkan untuk Penjelajahan Privat dan Publik</string>
-    <string name="menu_action_close_tabs_private">Tutup Tab Privat</string>
+    <string name="menu_action_close_tabs_private">Tutup Tab Pribadi</string>
     <string name="browser_menu_desktop_site">Minta situs desktop</string>
     <string name="insecure_connection">Koneksi tidak aman</string>
     <string name="secure_connection">Koneksi aman</string>
@@ -59,7 +59,7 @@
     <string name="shortcut_max_limit_title">Batas maksimal pintasan sudah tercapai</string>
     <string name="top_sites_max_limit_confirmation_button">Oke, Aku Mengerti</string>
     <string name="top_sites_rename_dialog_cancel">Batal</string>
-    <string name="browser_menu_add_ons">Pengaya</string>
+    <string name="preferences_add_ons">Pengaya</string>
     <string name="shortcut_max_limit_content">Untuk menambah pintasan baru, hapuslah salah satu. Sentuh dan tahan situs lalu pilih hapus.</string>
     <string name="customization_settings">Kustomisasi</string>
     <string name="customize_addon_collection_cancel">Batal</string>
@@ -72,10 +72,10 @@
     <string name="preferences_customization_summary">Ikon Apl, Bilah Alat, Tombol Hapus</string>
     <string name="toolbar_category">Opsi Bilah Alat</string>
     <string name="clear_button_category">Tombol Hapus</string>
-    <string name="private_browsing_title">Penjelajahan Privat</string>
+    <string name="private_browsing_title">Penjelajahan Pribadi</string>
     <string name="menu_share_with">Bagikan dengan…</string>
-    <string name="content_description_private_browsing_button">Aktifkan penjelajahan privat</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Buka di tab privat</string>
+    <string name="content_description_private_browsing_button">Aktifkan penjelajahan pribadi</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Buka di tab pribadi</string>
     <string name="browser_menu_refresh">Segarkan</string>
     <string name="shortcut_name_hint">Nama pintasan</string>
     <string name="top_sites_rename_dialog_ok">Oke</string>
@@ -86,4 +86,9 @@
     <string name="browser_menu_add_to_shortcuts">Tambahkan pintasan</string>
     <string name="deleting_browsing_data_in_progress">Menghapus data penjelajahan..</string>
     <string name="preferences_delete_browsing_data_site_permissions">Izin situs</string>
+    <string name="bit_torrent_bootstraps_category">Bootstrap BitTorrent</string>
+    <string name="udp_category">UDP</string>
+    <string name="customize_add_bootstrap_save">Simpan</string>
+    <string name="not_applicable">N/A</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Buka link di tab pribadi</string>
 </resources>

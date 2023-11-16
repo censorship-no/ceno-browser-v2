@@ -17,10 +17,12 @@ import android.os.Process
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import android.widget.RadioButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -36,12 +38,15 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
@@ -53,10 +58,16 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ui.theme.DefaultThemeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
+import mozilla.components.support.utils.toSafeIntent
 import kotlin.system.exitProcess
 
 /**
@@ -65,6 +76,8 @@ import kotlin.system.exitProcess
 open class BrowserActivity : BaseActivity() {
 
     private lateinit var crashIntegration: CrashIntegration
+    lateinit var themeManager: ThemeManager
+    lateinit var browsingModeManager: BrowsingModeManager
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -72,8 +85,8 @@ open class BrowserActivity : BaseActivity() {
     private val tab: SessionState?
         get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
 
-    private val webExtensionPopupFeature by lazy {
-        WebExtensionPopupFeature(components.core.store, ::openPopup)
+    private val webExtensionPopupObserver by lazy {
+        WebExtensionPopupObserver(components.core.store, ::openPopup)
     }
 
     private val navHost by lazy {
@@ -106,11 +119,12 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
-            openToBrowser(url, newTab = true)
+            openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
         }
 
         Logger.info(" --------- Starting ouinet service")
@@ -160,7 +174,67 @@ open class BrowserActivity : BaseActivity() {
         *  and we already have a notification for stopping/pausing/purging local CENO data
         * NotificationManager.checkAndNotifyPolicy(this)
          */
-        lifecycle.addObserver(webExtensionPopupFeature)
+        lifecycle.addObserver(webExtensionPopupObserver)
+
+        // check if a crash happened in the last session
+        if(Settings.wasCrashSuccessfullyLogged(this@BrowserActivity)) {
+            Settings.logSuccessfulCrashEvent(this@BrowserActivity, false)
+            Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
+        }
+
+        // Check for previous crashes
+        if(Settings.showCrashReportingPermissionNudge(this)) {
+
+            // launch Sentry activation dialog
+            val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
+            val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
+            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+
+            val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
+                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+            } }
+
+            AlertDialog.Builder(this@BrowserActivity).apply {
+                setView(dialogView)
+                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                    when {
+                        radio0.isChecked -> {
+                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
+                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
+                        }
+                        radio1.isChecked -> {
+                            Settings.neverAllowCrashReporting(this@BrowserActivity)
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                        }
+                    }
+                }
+                setOnDismissListener {
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+                }
+                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+                }
+                create()
+            }.show()
+        } else {
+            Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+        }
+    }
+
+    private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
+        return if (components.core.store.state.selectedTab == null)
+            BrowsingMode.Normal
+        else cenoPreferences().lastKnownBrowsingMode
+    }
+
+    private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {
+        cenoPreferences().lastKnownBrowsingMode = mode
+        themeManager = DefaultThemeManager(mode, this)
+        browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
+            themeManager.currentMode = newMode
+        }
     }
 
     override fun onPause() {
@@ -329,6 +403,8 @@ open class BrowserActivity : BaseActivity() {
     fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
         if (url != null) {
             if (newTab) {
+                //set browsingMode
+                browsingModeManager.mode = BrowsingMode.fromBoolean(private)
                 components.useCases.tabsUseCases.addTab(
                     url = url,
                     selectTab = true,

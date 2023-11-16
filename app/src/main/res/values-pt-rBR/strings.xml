@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_customize_amo_collection">Coleção de Extensões personalizadas</string>
-    <string name="content_description_private_browsing_button">Ativar navegação privativa</string>
+    <string name="content_description_private_browsing_button">Ativar Navegação Pessoal</string>
     <string name="remove_top_site">Remover</string>
     <string name="delete_from_history">Apagar do histórico</string>
-    <string name="browser_menu_add_ons">Extensões</string>
+    <string name="preferences_add_ons">Extensões</string>
     <string name="preferences_customization_summary">Ícone do Aplicativo, Barra de Ferramentas, botão Limpar</string>
     <string name="toast_copied">Copiado!</string>
     <string name="browser_menu_back">Anterior</string>
@@ -16,9 +16,9 @@
     <string name="open_links_in_apps">Abrir links em aplicativos</string>
     <string name="developer_tools_category">Ferramentas de desenvolvimento</string>
     <string name="crash_report_non_fatal_message">Desculpe. Nós travamos</string>
-    <string name="private_browsing_title">Navegação Privativa</string>
+    <string name="private_browsing_title">Navegação Pessoais</string>
     <string name="customize_addon_collection_user_hint">Proprietário da coleção (ID de usuário)</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Abrir em aba privativa</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Abrir em aba pessoal</string>
     <string name="customize_addon_collection_ok">OK</string>
     <string name="customize_addon_collection_cancel">Cancelar</string>
     <string name="customize_addon_collection_hint">Nome da coleção</string>
@@ -42,10 +42,10 @@
     <string name="preferences_tracking_protection_normal">Ativar no Modo de Navegação Normal</string>
     <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
-    <string name="menu_action_close_tabs_private">Fechar Abas Privativas</string>
+    <string name="menu_action_close_tabs_private">Fechar Abas Pessoais</string>
     <string name="preferences_autofill">Aplicativos de preenchimento automático</string>
     <string name="preferences_autofill_summary">Preencher automaticamente logins e senhas em outros aplicativos</string>
-    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Privativa</string>
+    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Pessoais</string>
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
@@ -90,4 +90,9 @@
     <string name="browser_menu_add_to_shortcuts">Adicionar aos atalhos</string>
     <string name="browser_menu_remove_from_shortcuts">Remover dos atalhos</string>
     <string name="shortcut_name_hint">Nome do atalho</string>
+    <string name="udp_category">UDP</string>
+    <string name="not_applicable">N/A</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
+    <string name="customize_add_bootstrap_save">Salvar</string>
+    <string name="crash_report_sent">Relatório de travamento enviado!</string>
 </resources>

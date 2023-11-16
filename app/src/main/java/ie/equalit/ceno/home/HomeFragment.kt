@@ -1,6 +1,7 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
@@ -24,6 +27,7 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
+import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -34,6 +38,7 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import java.util.logging.Logger
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
@@ -57,13 +62,16 @@ class HomeFragment : BaseHomeFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false);
         val activity = activity as BrowserActivity
         val components = requireComponents
+        themeManager = activity.themeManager
+        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false);
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         components.useCases.tabsUseCases.selectTab("")
+
+        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -105,6 +113,7 @@ class HomeFragment : BaseHomeFragment() {
         )
 
         updateSessionControlView()
+
 
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             topMargin = if(prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
@@ -148,7 +157,9 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        sessionControlView?.update(requireComponents.appStore.state)
+        if (themeManager.currentMode == BrowsingMode.Normal) {
+            sessionControlView?.update(requireComponents.appStore.state)
+        }
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             sessionControlView?.update(it)
@@ -158,13 +169,19 @@ class HomeFragment : BaseHomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.privateBrowsingButton.setOnClickListener {
-            (activity as BrowserActivity).openToBrowser(
-                "about:privatebrowsing",
-                newTab = true,
-                private = true
-            )
+            //open personal mode home fragment
+            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Personal
+            //reload fragment
+            val fragmentId = findNavController().currentDestination?.id
+            findNavController().popBackStack(fragmentId!!,true)
+            findNavController().navigate(fragmentId)
         }
-        binding.homeAppBar.visibility = View.VISIBLE
+        if (themeManager.currentMode == BrowsingMode.Personal) {
+            binding.homeAppBar.visibility = View.GONE
+        }
+        else {
+            binding.homeAppBar.visibility = View.VISIBLE
+        }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
 }
