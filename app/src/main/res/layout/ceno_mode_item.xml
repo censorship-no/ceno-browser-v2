@@ -26,6 +26,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
+        <ImageView
+            android:id="@+id/public_check_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            app:srcCompat="@drawable/check_circle_outline"
+            android:contentDescription="@string/green_check_mark_in_a_circle"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -56,6 +65,7 @@
                 android:text="@string/ceno_home_card_public_text"
                 android:textColor="@color/ceno_onboarding_text"
                 android:textStyle="italic" />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -70,6 +80,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/public_mode_card"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/personal_check_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            app:srcCompat="@drawable/check_circle_outline"
+            android:contentDescription="@string/green_check_mark_in_a_circle"/>
 
         <LinearLayout
             android:layout_width="match_parent"

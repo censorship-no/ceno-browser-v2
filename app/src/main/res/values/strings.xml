@@ -286,4 +286,5 @@
 
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
+    <string name="green_check_mark_in_a_circle">Green check mark in a circle</string>
 </resources>
