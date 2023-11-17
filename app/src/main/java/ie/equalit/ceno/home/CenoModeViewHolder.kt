@@ -39,6 +39,8 @@ class CenoModeViewHolder(
                 binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_100))
                 binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
 
+                binding.publicCheckMark.visibility = View.VISIBLE
+                binding.personalCheckMark.visibility = View.INVISIBLE
             }
             BrowsingMode.Personal -> {
                 binding.publicModeCard.setOnClickListener {
@@ -54,6 +56,9 @@ class CenoModeViewHolder(
                 binding.ivHomeCardPublic.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_700))
                 binding.ivHomeCardPersonal.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_700))
+
+                binding.publicCheckMark.visibility = View.INVISIBLE
+                binding.personalCheckMark.visibility = View.VISIBLE
             }
         }
     }
