@@ -226,6 +226,7 @@ class HomeFragment : BaseHomeFragment() {
         super.onViewCreated(view, savedInstanceState)
         var activity = activity as BrowserActivity
 
+
         if (themeManager.currentMode.isPersonal) {
             binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
