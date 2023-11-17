@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="48dp"
         android:text="@string/private_browsing_title"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/ceno_grey_200"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ceno_home_card_personal_icon"
-        app:tint="#FFFFFF"
+        app:tint="@color/ceno_grey_200"
         android:contentDescription="@string/private_browsing_title" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:text="@string/ceno_personal_browsing_description"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/ceno_grey_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/personal_browsing_title"
         app:layout_constraintTop_toBottomOf="@+id/personal_browsing_title" />
@@ -50,7 +50,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:text="@string/personal_home_learn_more"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/ceno_grey_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/personal_browsing_description"
         app:layout_constraintTop_toBottomOf="@+id/personal_browsing_description" />
