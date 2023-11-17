@@ -229,6 +229,8 @@ class HomeFragment : BaseHomeFragment() {
             binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
+        } else {
+            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_card_public_text))
         }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
