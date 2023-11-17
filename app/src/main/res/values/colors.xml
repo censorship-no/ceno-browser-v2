@@ -13,7 +13,7 @@
     <!-- Overriding color of tab counter icon in toolbar -->
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
 
-    <color name="ceno_home_background">@color/fx_mobile_layer_color_3</color>
+    <color name="ceno_home_background">#F0F0F4</color>
     <color name="ceno_home_card_public_text">#0EA5E9</color>
     <color name="ceno_home_card_personal_text">#9C27B0</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
