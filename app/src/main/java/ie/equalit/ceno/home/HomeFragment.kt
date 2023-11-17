@@ -227,8 +227,8 @@ class HomeFragment : BaseHomeFragment() {
         var activity = activity as BrowserActivity
 
         if (themeManager.currentMode.isPersonal) {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_1)
+            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
+            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
         }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
