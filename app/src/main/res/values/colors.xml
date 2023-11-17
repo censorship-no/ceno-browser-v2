@@ -14,8 +14,8 @@
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
 
     <color name="ceno_home_background">#F0F0F4</color>
-    <color name="ceno_home_card_public_text">#0EA5E9</color>
-    <color name="ceno_home_card_personal_text">#9C27B0</color>
+    <color name="ceno_home_card_public_text">@color/ceno_blue_600</color>
+    <color name="ceno_home_card_personal_text">@color/ceno_purple_600</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
     <color name="ceno_home_card_text_color">@color/photonBlack</color>
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
@@ -28,9 +28,11 @@
     <color name="ceno_blue_100">#E0F2FE</color>
     <color name="ceno_blue_200">#BAE6FD</color>
     <color name="ceno_blue_300">#7DD3FC</color>
+    <color name="ceno_blue_600">#0284C7</color>
 
     <color name="ceno_purple_100">#E1BEE7</color>
     <color name="ceno_purple_200">#D698E0</color>
+    <color name="ceno_purple_600">#9826AB</color>
     <color name="ceno_purple_700">#751A85</color>
     <color name="ceno_purple_800">#53115F</color>
     <color name="ceno_purple_900">#320B39</color>

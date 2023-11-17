@@ -49,6 +49,9 @@ class CenoModeViewHolder(
                 binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_800))
                 binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_100))
 
+                binding.ivHomeCardPublic.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_600))
+                binding.ivHomeCardPersonal.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_600))
+
                 //text color
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_200))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_onboarding_text))
