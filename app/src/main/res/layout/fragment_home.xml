@@ -35,7 +35,7 @@
         android:id="@+id/homeAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ceno_onboarding_background"
+        android:background="@color/ceno_home_background"
         app:elevation="0dp"
         android:fitsSystemWindows="false">
 
@@ -91,7 +91,7 @@
         android:overScrollMode="never"
         tools:listitem="@layout/collection_home_list_row"
         tools:itemCount="3"
-        android:background="@color/ceno_onboarding_background"
+        android:background="@color/ceno_home_background"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <ie.equalit.ceno.search.AwesomeBarWrapper

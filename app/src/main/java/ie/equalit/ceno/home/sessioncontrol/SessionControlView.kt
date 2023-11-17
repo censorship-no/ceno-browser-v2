@@ -32,9 +32,11 @@ internal fun normalModeAdapterItems(
     items.add(AdapterItem.TopPlaceholderItem)
 
     items.add(AdapterItem.CenoModeItem(mode))
+    /*
     if (settings.showThanksCard) {
         items.add(AdapterItem.CenoMessageItem(messageCard))
     }
+    */
 
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {

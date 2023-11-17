@@ -24,7 +24,7 @@ class PersonalModeDescriptionViewHolder(
     private val binding = PersonalModeDescriptionBinding.bind(view)
 
     init {
-        binding.root.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.fx_mobile_private_layer_color_1))
+        binding.root.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.fx_mobile_private_layer_color_3))
         setLinkTextView(binding.tvPersonalBrowsingLearnMore, view.context.getString(R.string.personal_home_learn_more))
         binding.tvPersonalBrowsingLearnMore.setOnClickListener {
             interactor.onClicked(homepageCardType, BrowsingMode.Personal)
