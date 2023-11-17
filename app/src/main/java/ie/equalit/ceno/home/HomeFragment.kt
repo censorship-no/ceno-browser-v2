@@ -170,15 +170,11 @@ class HomeFragment : BaseHomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var activity = activity as BrowserActivity
-        binding.privateBrowsingButton.setOnClickListener {
-            //open personal mode home fragment
-            activity.switchBrowsingModeHome(BrowsingMode.Normal)
-        }
+        
         if (themeManager.currentMode.isPersonal) {
             binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
             binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
-            binding.privateBrowsingButton.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
         }
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
     }
