@@ -28,6 +28,7 @@ import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.MessagingActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
@@ -370,7 +371,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForAddOns(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(R.id.action_global_addons)
+            //findNavController().navigate(R.id.action_global_addons)
+            val myIntent = Intent(context, MessagingActivity::class.java)
+            startActivity(myIntent)
             true
         }
     }
