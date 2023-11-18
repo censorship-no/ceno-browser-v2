@@ -13,6 +13,22 @@
     <org.mozilla.geckoview.GeckoView
         android:id="@+id/geckoview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_onboarding_start"
+        />
+
+    <Button
+        android:id="@+id/btn_onboarding_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/ceno_onboarding_button"
+        android:text="@string/onboarding_button"
+        android:textAllCaps="false"
+        android:textColor="@color/photonWhite"
+        app:layout_constraintTop_toBottomOf="@+id/geckoview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
