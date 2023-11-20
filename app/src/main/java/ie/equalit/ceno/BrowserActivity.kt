@@ -163,6 +163,8 @@ open class BrowserActivity : BaseActivity() {
 
         initializeSearchEngines()
 
+        components.webExtensionPort.createPort()
+
         if (isCrashReportActive) {
             crashIntegration = CrashIntegration(this, components.analytics.crashReporter) { crash ->
                 onNonFatalCrash(crash)

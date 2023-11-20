@@ -36,7 +36,6 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
 import kotlinx.coroutines.flow.mapNotNull
-import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -61,7 +60,6 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.lib.state.ext.consumeFlow
-import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
@@ -477,7 +475,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     }
 
     fun showWebExtensionPopupPanel(webExtId : String) {
-        val session = requireContext().components.core.store.state.extensions[webExtId]?.popupSession
         val tab = requireContext().components.core.store.state.selectedTab!!
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
@@ -486,30 +483,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 tabUrl = tab.content.url,
                 isConnectionSecure = tab.content.securityInfo.secure,
         ).also { currentEtp -> currentEtp.show() }
-
-        if (session != null) {
-            webExtensionActionPopupPanel?.renderSettingsView(session)
-            consumePopupSession(webExtId)
-        } else {
-            consumeFrom(requireContext().components.core.store) { state ->
-                state.extensions[webExtId]?.let { extState ->
-                    extState.popupSession?.let {
-                        if (engineSession == null) {
-                            webExtensionActionPopupPanel?.renderSettingsView(it)
-                            consumePopupSession(webExtId)
-                            engineSession = it
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun consumePopupSession(webExtId: String) {
-        requireContext().components.core.store.dispatch(
-                WebExtensionAction.UpdatePopupSessionAction(webExtId, popupSession = null)
-        )
     }
 
     private fun showTabs() {

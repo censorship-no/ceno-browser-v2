@@ -1,11 +1,11 @@
 package ie.equalit.ceno.addons
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -15,17 +15,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.settings.CenoSources
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.concept.engine.EngineSession
-import mozilla.components.concept.fetch.Request
-import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import org.json.JSONObject
+import org.mozilla.geckoview.WebExtension
 
 @SuppressWarnings("LongParameterList")
 class WebExtensionActionPopupPanel(
@@ -38,15 +33,13 @@ class WebExtensionActionPopupPanel(
     private var binding: DialogWebExtensionPopupSheetBinding =
         DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
 
-    private var sourceUrl: String? = null // for retrying in case network call fails
-
     init {
         initWindow()
         setContentView(binding.root)
         expand()
         updateTitle()
         updateConnectionState()
-        setOnClickListener()
+        updateStats()
     }
 
     private fun initWindow() {
@@ -98,89 +91,36 @@ class WebExtensionActionPopupPanel(
         )
     }
 
-    fun renderSettingsView(engineSession: EngineSession) {
-        engineSession.register(object : EngineSession.Observer {
-            override fun onLoadRequest(url: String, triggeredByRedirect: Boolean, triggeredByWebContent: Boolean) {
-                super.onLoadRequest(url, triggeredByRedirect, triggeredByWebContent)
-                sourceUrl = url.replace("popup.html", "sources.html")
-                Logger.debug(sourceUrl)
-                sourceUrl?.let { getSources(it) }
+    private fun updateStats() {
+        val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
+            override fun onPortMessage(
+                message: Any, port: WebExtension.Port
+            ) {
+                Log.d("PortDelegate", "Received message from extension: $message")
+                val response = JSONObject(message as String)
+                binding.progressBar.isGone = true
+                binding.tvDirectFromWebsiteCount.text = if(response.has("origin")) response.getString("origin") else "0"
+                binding.tvPersonalNetworkCount.text = if(response.has("proxy")) response.getString("proxy") else "0"
+                binding.tvPublicNetworkCount.text = if(response.has("injector")) response.getString("injector") else "0"
+                binding.tvSharedByOthersCount.text = if(response.has("dist-cache")) response.getString("dist-cache") else "0"
+                binding.tvSharedByYouCount.text = if(response.has("local-cache")) response.getString("local-cache") else "0"
             }
-        })
-    }
 
-    private fun getSources(url: String) {
-        binding.progressBar.isGone = false
-        binding.failureGroup.isGone = true
-        binding.successGroup.isInvisible = false // isInvisible toggle between View.INVISIBLE and View.VISIBLE
-        MainScope().launch {
-            webClientRequest(Request(url)).let { response ->
-                if (response != null) {
-                    binding.progressBar.isGone = true
-                    binding.tvDirectFromWebsiteCount.text = response.origin ?: "0"
-                    binding.tvPersonalNetworkCount.text = response.proxy ?: "0"
-                    binding.tvPublicNetworkCount.text = response.injector ?: "0"
-                    binding.tvSharedByOthersCount.text = response.distCache ?: "0"
-                    binding.tvSharedByYouCount.text = response.localCache ?: "0"
-                } else {
-                    // display error view that can trigger a retry of the API call
-                    binding.progressBar.isGone = true
-                    binding.failureGroup.isGone = false
-                    binding.successGroup.isInvisible = true
+            override fun onDisconnect(port: WebExtension.Port) {
+                // This port is not usable anymore.
+                if (port === context.components.webExtensionPort.mPort) {
+                    context.components.webExtensionPort.mPort = null
                 }
             }
         }
-    }
 
-    private suspend fun webClientRequest(request: Request): CenoSources? {
-        var responseBody: CenoSources? = null
-        var tries = 0
-        var success = false
-        while (tries < 5 && !success) {
-            try {
-                context.components.core.client.fetch(request).use { response ->
-                    if (response.status == 200) {
-                        Logger.debug("webClientRequest succeeded try $tries")
-                        Logger.debug("Response header: ${response.headers}")
-                        responseBody = parseJson(response.body.string())
-                        success = true
-                    } else {
-                        tries++
-                        Logger.debug("Clear cache failed on try $tries")
-                        delay(500)
-                    }
-                }
-            } catch (ex: Exception) {
-                tries++
-                Logger.debug("Clear cache failed on try $tries")
-                Logger.debug(ex.toString())
-                delay(500)
-            }
-        }
-        return responseBody
-    }
-
-
-    private fun parseJson(jsonString: String): CenoSources? {
-        return try {
-            val jsonObject = JSONObject(jsonString)
-
-            CenoSources(
-                origin = jsonObject.getString("origin"),
-                injector = jsonObject.getString("injector"),
-                proxy = jsonObject.getString("proxy"),
-                distCache = jsonObject.getString("dist-cache"),
-                localCache = jsonObject.getString("local-cache")
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-    private fun setOnClickListener() {
-        binding.btnRetry.setOnClickListener {
-            sourceUrl?.let { getSources(it) }
+        Log.d("Message", "Updating stats?")
+        context.components.webExtensionPort.mPort?.let {
+            it.setDelegate(portDelegate)
+            val message = JSONObject()
+            message.put("requestSources", "true")
+            Log.d("Message", "Sending message: $message")
+            it.postMessage(message)
         }
     }
 }
