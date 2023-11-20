@@ -284,6 +284,9 @@
 
     <string name="crash_report_sent">Crash report sent!</string>
 
+    <!-- Header for announcement-card on the home page -->
+    <string name="announcement_header">Announcement</string>
+
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
 </resources>

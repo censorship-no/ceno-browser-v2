@@ -127,7 +127,7 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.home_message_card_item
             HomepageCardType.TOPSITES_CARD.value -> R.layout.component_top_sites_pager
             HomepageCardType.PERSONAL_MODE_CARD.value -> R.layout.personal_mode_description
-            HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_annoucements_item
+            HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_announcement_item
             else -> throw IllegalArgumentException("Invalid view type")
         }
 

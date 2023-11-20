@@ -1,9 +1,13 @@
 package ie.equalit.ceno.home.announcements
 
-
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.core.text.HtmlCompat
-import ie.equalit.ceno.databinding.RssAnnoucementsItemBinding
+import androidx.annotation.ColorInt
+import androidx.core.view.isGone
+import ie.equalit.ceno.R
+import ie.equalit.ceno.databinding.RssAnnouncementItemBinding
 import ie.equalit.ceno.home.BaseHomeCardViewHolder
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssAnnouncementResponse
@@ -14,24 +18,35 @@ class CenoRSSAnnouncementViewHolder(
     interactor: HomePageInteractor
 ) : BaseHomeCardViewHolder(itemView, interactor) {
 
-    private val binding = RssAnnoucementsItemBinding.bind(itemView)
+    private val binding = RssAnnouncementItemBinding.bind(itemView)
 
     fun bind(response: RssAnnouncementResponse) {
 
-        HtmlCompat.fromHtml("<u>${response.title}</u>", HtmlCompat.FROM_HTML_MODE_LEGACY).let {
-            binding.rssTitle.text = it
-        }
-
         binding.rssTitle.setOnClickListener {
-            interactor.onUrlClicked(homepageCardType, response.link)
+            val listIsHidden = binding.rssAnnouncementsRecyclerView.visibility == View.GONE
+
+            binding.rssAnnouncementsRecyclerView.isGone = !listIsHidden
+            binding.rssTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                if (listIsHidden) R.drawable.ic_announcement_expanded else R.drawable.ic_announcement_collapsed,
+                0,
+                if (listIsHidden) R.drawable.ic_arrow_expanded else R.drawable.ic_arrow_collapsed,
+                0
+            )
         }
 
         binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter(interactor).apply {
             submitList(response.items)
         }
 
-
     }
+
+    private fun Drawable.tinted(@ColorInt tintColor: Int? = null, tintMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) =
+        apply {
+            setTintList(tintColor?.toColorStateList())
+            setTintMode(tintMode)
+        }
+
+    private fun Int.toColorStateList() = ColorStateList.valueOf(this)
 
     companion object {
         val homepageCardType = HomepageCardType.ANNOUNCEMENTS_CARD

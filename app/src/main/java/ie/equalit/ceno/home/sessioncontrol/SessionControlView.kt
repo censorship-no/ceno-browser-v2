@@ -29,6 +29,9 @@ internal fun normalModeAdapterItems(
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
 
+    // Show announcements at the top
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
+
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
 
@@ -38,8 +41,6 @@ internal fun normalModeAdapterItems(
     if (settings.showCenoModeItem) {
         items.add(AdapterItem.CenoModeItem)
     }
-
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))

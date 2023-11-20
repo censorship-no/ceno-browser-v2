@@ -11,7 +11,7 @@ import androidx.core.text.buildSpannedString
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ie.equalit.ceno.databinding.RssAnnoucementsSubItemBinding
+import ie.equalit.ceno.databinding.RssAnnouncementSubItemBinding
 import ie.equalit.ceno.ext.click
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.ext.getContentFromATag
@@ -25,7 +25,7 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
         parent: ViewGroup,
         viewType: Int,
     ): RssSubItemViewHolder {
-        val binding = RssAnnoucementsSubItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RssAnnouncementSubItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RssSubItemViewHolder(binding)
     }
 
@@ -42,7 +42,7 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
     }
 
     class RssSubItemViewHolder(
-        val binding: RssAnnoucementsSubItemBinding,
+        val binding: RssAnnouncementSubItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(rssItem: RssItem, homePageInteractor: HomePageInteractor) {

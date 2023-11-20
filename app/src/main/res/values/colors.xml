@@ -18,12 +18,15 @@
     <color name="ceno_home_card_personal_text">#9C27B0</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
     <color name="ceno_home_card_text_color">@color/photonBlack</color>
+    <color name="ceno_home_card_announcement_title_color">#FB923C</color>
+    <color name="ceno_home_card_announcement_timestamp_color">#B5B5B5</color>
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
     <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
     <color name="ceno_onboarding_background">#F0F9FF</color>
     <color name="ceno_onboarding_text">#5F5F5F</color>
     <color name="ceno_onboarding_button">#027DBD</color>
     <color name="home_card_close_button">@color/photonDarkGrey70</color>
+    <color name="home_card_announcements_background">#FFF7ED</color>
 
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
