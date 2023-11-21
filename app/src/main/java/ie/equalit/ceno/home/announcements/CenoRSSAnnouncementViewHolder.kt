@@ -1,10 +1,6 @@
 package ie.equalit.ceno.home.announcements
 
-import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.annotation.ColorInt
 import androidx.core.view.isGone
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.RssAnnouncementItemBinding
@@ -22,7 +18,10 @@ class CenoRSSAnnouncementViewHolder(
 
     fun bind(response: RssAnnouncementResponse) {
 
+        binding.rssTitle.text = response.items.getOrNull(0)?.title ?: response.title
+
         binding.rssTitle.setOnClickListener {
+
             val listIsHidden = binding.rssAnnouncementsRecyclerView.visibility == View.GONE
 
             binding.rssAnnouncementsRecyclerView.isGone = !listIsHidden
@@ -39,14 +38,6 @@ class CenoRSSAnnouncementViewHolder(
         }
 
     }
-
-    private fun Drawable.tinted(@ColorInt tintColor: Int? = null, tintMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) =
-        apply {
-            setTintList(tintColor?.toColorStateList())
-            setTintMode(tintMode)
-        }
-
-    private fun Int.toColorStateList() = ColorStateList.valueOf(this)
 
     companion object {
         val homepageCardType = HomepageCardType.ANNOUNCEMENTS_CARD

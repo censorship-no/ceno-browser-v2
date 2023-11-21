@@ -24,19 +24,19 @@
             android:clickable="true"
             android:drawableStart="@drawable/ic_announcement_collapsed"
             android:drawableEnd="@drawable/ic_arrow_collapsed"
-            android:drawablePadding="6dp"
+            android:drawablePadding="8dp"
             android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
-            android:text="@string/announcement_header"
             android:textAllCaps="true"
-            android:textColor="@color/ceno_home_card_announcement_title_color" />
+            android:textColor="@color/ceno_home_card_announcement_title_color"
+            tools:text="Announcements" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rssAnnouncementsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="6dp"
             android:importantForAccessibility="yes"
