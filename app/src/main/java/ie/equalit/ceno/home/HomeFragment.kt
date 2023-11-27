@@ -184,16 +184,24 @@ class HomeFragment : BaseHomeFragment() {
                     // Get language code or fall back to 'en'
                     val languageCode = Locale.getDefault().language.ifEmpty { "en" }
 
-                    CenoSettings.webClientRequest(
+                    var response = CenoSettings.webClientRequest(
                         requireContext(),
                         Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
-                    )?.let { response ->
-                        val rssResponse = XMLParser.parseRssXml(
-                            response
-                        )
+                    )
 
-                        // save announcement data in local
-                        Settings.saveAnnouncementData(requireContext(), rssResponse)
+                    // if the network call fails, try to load 'en' locale
+                    if(response == null) {
+                        response = CenoSettings.webClientRequest(
+                            requireContext(),
+                            Request(CenoSettings.getRSSAnnouncementUrl("en"))
+                        )
+                    }
+
+                    response?.let { result ->
+                        val rssResponse = XMLParser.parseRssXml(result)
+
+                        // perform null-check and save announcement data in local
+                        rssResponse?.let { Settings.saveAnnouncementData(requireContext(), it) }
 
                         // check for null and refresh homepage adapter if necessary
                         if(rssResponse != null) {
