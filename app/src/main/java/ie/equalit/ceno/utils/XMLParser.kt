@@ -88,7 +88,7 @@ object XMLParser {
                             currentRssItem?.guid = text
                         }
 
-                        "pubdate" -> {
+                        "pubDate" -> {
                             currentRssItem?.pubDate = text
                         }
                     }

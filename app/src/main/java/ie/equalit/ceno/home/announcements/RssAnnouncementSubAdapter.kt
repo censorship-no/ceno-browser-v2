@@ -15,10 +15,12 @@ import ie.equalit.ceno.databinding.RssAnnouncementSubItemBinding
 import ie.equalit.ceno.ext.click
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.ext.getContentFromATag
+import ie.equalit.ceno.ext.replace
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.XMLParser
+import mozilla.components.support.base.log.logger.Logger
 
 class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteractor) : ListAdapter<RssItem, RssAnnouncementSubAdapter.RssSubItemViewHolder>(RssItemDiffCallback) {
     override fun onCreateViewHolder(
@@ -48,8 +50,7 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
         fun bind(rssItem: RssItem, homePageInteractor: HomePageInteractor) {
             binding.itemDate.text = rssItem.pubDate
 
-            var descriptionText = "${rssItem.title} ${rssItem.description}"
-
+            var descriptionText = rssItem.description
             // Replace all a-tags in the description string with a placeholder string
             val allATags = descriptionText.extractATags()
             allATags.forEach { descriptionText = descriptionText.replaceFirst(it, XMLParser.CENO_CUSTOM_PLACEHOLDER) }
