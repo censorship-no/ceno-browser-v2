@@ -9,7 +9,7 @@ import mozilla.components.concept.toolbar.Toolbar
 import mozilla.components.ui.tabcounter.TabCounterMenu
 
 class TabCounterView (
-    toolbar: Toolbar,
+    var toolbar: Toolbar,
     store: BrowserStore,
     sessionId: String? = null,
     lifecycleOwner: LifecycleOwner,
@@ -19,12 +19,14 @@ class TabCounterView (
     browsingModeManager: BrowsingModeManager,
     themeManager: ThemeManager
 ){
+    private lateinit var tabsAction: TabCounterToolbarButton
+
     init {
         run {
             // this feature is not used for Custom Tabs
             if (sessionId != null && store.state.findCustomTab(sessionId) != null) return@run
 
-            val tabsAction = TabCounterToolbarButton(
+            tabsAction = TabCounterToolbarButton(
                 store = store,
                 lifecycleOwner = lifecycleOwner,
                 showTabs = showTabs,
@@ -35,5 +37,11 @@ class TabCounterView (
             )
             toolbar.addBrowserAction(tabsAction)
         }
+    }
+
+    fun update() {
+        //  Need to find a better way to update the color of the tab counter
+        toolbar.removeBrowserAction(tabsAction)
+        toolbar.addBrowserAction(tabsAction)
     }
 }
