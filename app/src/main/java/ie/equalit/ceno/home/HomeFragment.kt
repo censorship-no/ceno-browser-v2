@@ -66,13 +66,13 @@ class HomeFragment : BaseHomeFragment() {
         val activity = activity as BrowserActivity
         val components = requireComponents
         themeManager = activity.themeManager
-        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false);
+        _binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         components.useCases.tabsUseCases.selectTab("")
 
-        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
+//        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -158,26 +158,35 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        if (themeManager.currentMode == BrowsingMode.Normal) {
-            sessionControlView?.update(requireComponents.appStore.state)
-        }
+//        if (themeManager.currentMode == BrowsingMode.Normal) {
+//            sessionControlView?.update(requireComponents.appStore.state)
+//        }
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             sessionControlView?.update(it)
+            updateUI(it.mode)
+        }
+    }
+
+    private fun updateUI(mode: BrowsingMode) {
+        applyTheme()
+        if (mode == BrowsingMode.Personal) {
+            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
+            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
+            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
+        } else {
+            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
+            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
+            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_card_public_text))
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var activity = activity as BrowserActivity
 
-        if (themeManager.currentMode.isPersonal) {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
-        } else {
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_card_public_text))
-        }
+//        updateUI(themeManager.currentMode)
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
+
+        binding.sessionControlRecyclerView.itemAnimator = null
     }
 }
