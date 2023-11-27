@@ -31,6 +31,8 @@ class TabCounterToolbarButton(
 
     private var reference = WeakReference<TabCounter>(null)
 
+    private lateinit var tabCounter: TabCounter
+
     override fun bind(view: View) = Unit
 
     override fun createView(parent: ViewGroup): View {
@@ -44,7 +46,7 @@ class TabCounterToolbarButton(
         }
 
 
-        var tabCounter = TabCounter(themeManager.getContext()).apply {
+        tabCounter = TabCounter(themeManager.getContext()).apply {
             reference = WeakReference(this)
             setOnClickListener {
                 showTabs.invoke()
@@ -96,5 +98,9 @@ class TabCounterToolbarButton(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun updateCount(count: Int) {
         reference.get()?.setCountWithAnimation(count)
+    }
+
+    fun updateColor() {
+        tabCounter.invalidate()
     }
 }

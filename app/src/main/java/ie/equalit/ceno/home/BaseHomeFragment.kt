@@ -56,6 +56,7 @@ import mozilla.components.support.base.log.logger.Logger
  */
 @Suppress("TooManyFunctions")
 abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+    private lateinit var tabConterView: TabCounterView
     var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
@@ -270,7 +271,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         )
 
-        TabCounterView(
+        tabConterView = TabCounterView(
             toolbar = binding.toolbar,
             sessionId = sessionId,
             store = requireComponents.core.store,
@@ -321,6 +322,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         //modify clear ceno button color
         clearCenoAction.updateIconColor(themeManager.getContext())
         //modify tab counter icon color
+        tabConterView.update()
         //modify rest of the toolbar
         themeManager.applyTheme(binding.toolbar)
     }
