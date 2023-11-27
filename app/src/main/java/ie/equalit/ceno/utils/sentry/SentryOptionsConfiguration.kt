@@ -1,4 +1,4 @@
-package ie.equalit.ceno.utils
+package ie.equalit.ceno.utils.sentry
 
 import android.content.Context
 import ie.equalit.ceno.settings.Settings
