@@ -1,5 +1,6 @@
 package ie.equalit.ceno.home.sessioncontrol
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
@@ -92,6 +93,7 @@ class SessionControlView(
         itemTouchHelper.attachToRecyclerView(view)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun update(state: AppState, announcement: RssAnnouncementResponse?) {
         /* TODO: add onboarding pages
         if (state.shouldShowHomeOnboardingDialog(view.context.settings())) {
@@ -104,6 +106,7 @@ class SessionControlView(
             title = view.context.getString(R.string.onboarding_thanks_title)
         )
         sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement))
+        sessionControlAdapter.notifyDataSetChanged()
 
     }
 }

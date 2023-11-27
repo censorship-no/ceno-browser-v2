@@ -12,11 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
+import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.getPreferenceKey
@@ -179,9 +182,22 @@ class HomeFragment : BaseHomeFragment() {
 
                 // Switch context to make network call
                 withContext(Dispatchers.IO) {
+
+                    val countryIsoCode = CenoLocationUtils(requireContext().application).currentCountry ?: ""
+
+                    // Attempt getting country-specific language entry from BuildConfig BT_BOOTSTRAP_EXTRAS,
+                    // fall back to 'en' otherwise.
+                    var languageCode= "en"
+                    if (countryIsoCode.isNotEmpty()) {
+                        // Country code found, try getting language resource for this country
+                        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
+                            if (countryIsoCode == entry[0]) languageCode = entry[1]
+                        }
+                    }
+
                     CenoSettings.webClientRequest(
                         requireContext(),
-                        Request(CenoSettings.RSS_ANNOUNCEMENT_URL)
+                        Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
                     )?.let { response ->
                         val rssResponse = XMLParser.parseRssXml(
                             response
