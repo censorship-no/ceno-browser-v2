@@ -24,6 +24,13 @@ sealed class AdapterItem(val type: HomepageCardType) {
     object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.homepageCardType)
 
     data class CenoModeItem(val mode: BrowsingMode) : AdapterItem(CenoModeViewHolder.homepageCardType)
+    {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newCenoMode = (other as? CenoModeItem) ?: return false
+            if (newCenoMode.mode != this.mode) return false
+            return super.contentsSameAs(other)
+        }
+    }
 
     data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
 

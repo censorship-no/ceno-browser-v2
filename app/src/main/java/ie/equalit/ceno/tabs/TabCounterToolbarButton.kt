@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingModeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
@@ -24,7 +25,8 @@ class TabCounterToolbarButton(
     private val showTabs: () -> Unit,
     private val menu: TabCounterMenu? = null,
     private val browsingModeManager: BrowsingModeManager,
-    private val countBasedOnSelectedTabType: Boolean
+    private val countBasedOnSelectedTabType: Boolean,
+    private val themeManager: ThemeManager
 ): Toolbar.Action {
 
     private var reference = WeakReference<TabCounter>(null)
@@ -41,7 +43,8 @@ class TabCounterToolbarButton(
                 }
         }
 
-        val tabCounter = TabCounter(parent.context).apply {
+
+        var tabCounter = TabCounter(themeManager.getContext()).apply {
             reference = WeakReference(this)
             setOnClickListener {
                 showTabs.invoke()
@@ -63,7 +66,6 @@ class TabCounterToolbarButton(
                     override fun onViewDetachedFromWindow(v: View) { /* no-op */ }
                 },
             )
-
             contentDescription = parent.context.getString(R.string.mozac_feature_tabs_toolbar_tabs_button)
         }
 

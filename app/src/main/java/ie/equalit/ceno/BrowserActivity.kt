@@ -234,6 +234,7 @@ open class BrowserActivity : BaseActivity() {
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
+            components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
     }
 
@@ -429,10 +430,8 @@ open class BrowserActivity : BaseActivity() {
     }
     fun switchBrowsingModeHome(currentMode: BrowsingMode) {
         browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
-        //reload fragment
-        val fragmentId = navHost.navController.currentDestination?.id
-        navHost.navController.popBackStack(fragmentId!!,true)
-        navHost.navController.navigate(fragmentId)
+
+        components.appStore.dispatch(AppAction.ModeChange(browsingModeManager.mode))
     }
 
     fun updateView(action: () -> Unit){

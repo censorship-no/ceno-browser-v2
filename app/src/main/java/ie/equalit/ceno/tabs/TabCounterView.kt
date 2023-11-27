@@ -2,6 +2,7 @@ package ie.equalit.ceno.tabs
 
 import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.browser.BrowsingModeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
 import mozilla.components.browser.state.selector.findCustomTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.toolbar.Toolbar
@@ -15,7 +16,8 @@ class TabCounterView (
     showTabs: () -> Unit,
     tabCounterMenu: TabCounterMenu? = null,
     countBasedOnSelectedTabType: Boolean = true,
-    browsingModeManager: BrowsingModeManager
+    browsingModeManager: BrowsingModeManager,
+    themeManager: ThemeManager
 ){
     init {
         run {
@@ -28,7 +30,8 @@ class TabCounterView (
                 showTabs = showTabs,
                 menu = tabCounterMenu,
                 countBasedOnSelectedTabType = countBasedOnSelectedTabType,
-                browsingModeManager = browsingModeManager
+                browsingModeManager = browsingModeManager,
+                themeManager = themeManager
             )
             toolbar.addBrowserAction(tabsAction)
         }
