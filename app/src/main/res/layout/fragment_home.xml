@@ -35,7 +35,7 @@
         android:id="@+id/homeAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ceno_onboarding_background"
+        android:background="@color/ceno_home_background"
         app:elevation="0dp"
         android:fitsSystemWindows="false">
 
@@ -43,21 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll">
-
-            <ImageButton
-                android:id="@+id/privateBrowsingButton"
-                android:layout_width="@dimen/glyph_button_height"
-                android:layout_height="@dimen/glyph_button_height"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="12dp"
-                android:layout_gravity="end"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_description_private_browsing_button"
-                app:srcCompat="@drawable/ceno_home_card_personal_icon"
-                app:tint="@color/photonBlack"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier=".167"/>
-            <!-- This value needs to be 1.67 * the wordmark parallax value as its 24dp vs 40 -->
 
             <ImageView
                 android:id="@+id/wordmark"
@@ -92,7 +77,7 @@
         android:overScrollMode="never"
         tools:listitem="@layout/collection_home_list_row"
         tools:itemCount="3"
-        android:background="@color/ceno_onboarding_background"
+        android:background="@color/ceno_home_background"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <ie.equalit.ceno.search.AwesomeBarWrapper

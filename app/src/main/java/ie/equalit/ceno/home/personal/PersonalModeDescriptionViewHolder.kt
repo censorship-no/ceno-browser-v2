@@ -1,8 +1,6 @@
 package ie.equalit.ceno.home.personal
 
 import android.annotation.SuppressLint
-import android.os.Build
-import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.BackgroundColorSpan
@@ -12,7 +10,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import ie.equalit.ceno.R
-import ie.equalit.ceno.databinding.CenoModeItemBinding
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.PersonalModeDescriptionBinding
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
@@ -26,10 +24,10 @@ class PersonalModeDescriptionViewHolder(
     private val binding = PersonalModeDescriptionBinding.bind(view)
 
     init {
-        binding.root.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.fx_mobile_private_layer_color_1))
+        binding.root.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.fx_mobile_private_layer_color_3))
         setLinkTextView(binding.tvPersonalBrowsingLearnMore, view.context.getString(R.string.personal_home_learn_more))
         binding.tvPersonalBrowsingLearnMore.setOnClickListener {
-            interactor.onClicked(homepageCardType)
+            interactor.onClicked(homepageCardType, BrowsingMode.Personal)
 
         }
     }

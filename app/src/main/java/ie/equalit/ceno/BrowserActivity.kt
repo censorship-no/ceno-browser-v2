@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -233,6 +234,7 @@ open class BrowserActivity : BaseActivity() {
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
+            components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
     }
 
@@ -425,6 +427,11 @@ open class BrowserActivity : BaseActivity() {
         }
 
         navHost.navController.navigate(R.id.action_global_browser)
+    }
+    fun switchBrowsingModeHome(currentMode: BrowsingMode) {
+        browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
+
+        components.appStore.dispatch(AppAction.ModeChange(browsingModeManager.mode))
     }
 
     fun updateView(action: () -> Unit){

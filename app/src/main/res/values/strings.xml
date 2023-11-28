@@ -122,7 +122,7 @@
 
     <!-- Ceno: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Enable Personal browsing</string>
+    <string name="content_description_private_browsing_button" tools:ignore="UnusedResources">Enable Personal browsing</string>
 
     <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
@@ -286,4 +286,5 @@
 
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
+    <string name="green_check_mark_in_a_circle">Green check mark in a circle</string>
 </resources>

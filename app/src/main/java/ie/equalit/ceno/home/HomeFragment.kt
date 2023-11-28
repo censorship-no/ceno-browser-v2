@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -19,6 +18,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
@@ -69,13 +69,13 @@ class HomeFragment : BaseHomeFragment() {
         val activity = activity as BrowserActivity
         val components = requireComponents
         themeManager = activity.themeManager
-        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false);
+        _binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         components.useCases.tabsUseCases.selectTab("")
 
-        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
+//        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -115,8 +115,6 @@ class HomeFragment : BaseHomeFragment() {
             viewLifecycleOwner,
             sessionControlInteractor
         )
-
-        updateSessionControlView()
 
 
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
@@ -161,23 +159,17 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-
-        viewLifecycleOwner.lifecycleScope.launch {
-
-            withContext(Dispatchers.Main) {
-                if (themeManager.currentMode == BrowsingMode.Normal) {
-                    sessionControlView?.update(
-                        requireComponents.appStore.state,
-                        Settings.getAnnouncementData(requireContext()) /* From local storage */
-                    )
-                }
-                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                    sessionControlView?.update(
-                        it,
-                        Settings.getAnnouncementData(requireContext()) /* From local storage */
-                    )
-                }
-
+        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            context?.let { context ->
+                sessionControlView?.update(
+                    it,
+                    Settings.getAnnouncementData(context) /* From local storage */
+                )
+            }
+            updateUI(it.mode)
+        }
+        context?.let { context ->
+            viewLifecycleOwner.lifecycleScope.launch {
                 // Switch context to make network call
                 withContext(Dispatchers.IO) {
 
@@ -185,14 +177,14 @@ class HomeFragment : BaseHomeFragment() {
                     val languageCode = Locale.getDefault().language.ifEmpty { "en" }
 
                     var response = CenoSettings.webClientRequest(
-                        requireContext(),
+                        context,
                         Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
                     )
 
                     // if the network call fails, try to load 'en' locale
                     if(response == null) {
                         response = CenoSettings.webClientRequest(
-                            requireContext(),
+                            context,
                             Request(CenoSettings.getRSSAnnouncementUrl("en"))
                         )
                     }
@@ -201,18 +193,13 @@ class HomeFragment : BaseHomeFragment() {
                         val rssResponse = XMLParser.parseRssXml(result)
 
                         // perform null-check and save announcement data in local
-                        rssResponse?.let { Settings.saveAnnouncementData(requireContext(), it) }
+                        rssResponse?.let { Settings.saveAnnouncementData(context, it) }
 
                         // check for null and refresh homepage adapter if necessary
                         if(rssResponse != null) {
                             withContext(Dispatchers.Main) {
-                                if (themeManager.currentMode == BrowsingMode.Normal) {
-                                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
-                                }
-
-                                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                                    sessionControlView?.update(it, rssResponse)
-                                }
+                                val state = context.components.appStore.state
+                                sessionControlView?.update(state, rssResponse)
                             }
                         }
                     }
@@ -221,22 +208,33 @@ class HomeFragment : BaseHomeFragment() {
         }
     }
 
+    private fun updateUI(mode: BrowsingMode) {
+        context?.let {
+            if (mode == BrowsingMode.Personal) {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_background))
+            } else {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_card_public_text))
+            }
+        }
+        applyTheme()
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.privateBrowsingButton.setOnClickListener {
-            //open personal mode home fragment
-            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Personal
-            //reload fragment
-            val fragmentId = findNavController().currentDestination?.id
-            findNavController().popBackStack(fragmentId!!,true)
-            findNavController().navigate(fragmentId)
-        }
-        if (themeManager.currentMode == BrowsingMode.Personal) {
-            binding.homeAppBar.visibility = View.GONE
-        }
-        else {
-            binding.homeAppBar.visibility = View.VISIBLE
-        }
+
+//        updateUI(themeManager.currentMode)
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
+
+        binding.sessionControlRecyclerView.itemAnimator = null
+    }
+
+    override fun onStart() {
+        updateSessionControlView()
+        super.onStart()
     }
 }

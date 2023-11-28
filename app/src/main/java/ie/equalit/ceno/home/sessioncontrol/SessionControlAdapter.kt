@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.home.CenoMessageCard
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.CenoModeViewHolder
@@ -22,7 +23,14 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.homepageCardType)
 
-    object CenoModeItem : AdapterItem(CenoModeViewHolder.homepageCardType)
+    data class CenoModeItem(val mode: BrowsingMode) : AdapterItem(CenoModeViewHolder.homepageCardType)
+    {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newCenoMode = (other as? CenoModeItem) ?: return false
+            if (newCenoMode.mode != this.mode) return false
+            return super.contentsSameAs(other)
+        }
+    }
 
     data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
 
@@ -161,7 +169,7 @@ class SessionControlAdapter internal constructor(
                 holder.bind()
             }
             is CenoModeViewHolder -> {
-                holder.bind()
+                holder.bind((item as AdapterItem.CenoModeItem).mode)
             }
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)

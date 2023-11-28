@@ -6,11 +6,8 @@ package ie.equalit.ceno.home.sessioncontrol
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,12 +20,11 @@ import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**
@@ -67,7 +63,7 @@ interface SessionControlController {
      */
     fun handleMenuOpened()
 
-    fun handleCardClicked(homepageCardType: HomepageCardType)
+    fun handleCardClicked(homepageCardType: HomepageCardType, mode: BrowsingMode)
 
     fun handleMenuItemClicked(homepageCardType: HomepageCardType)
 
@@ -193,18 +189,16 @@ class DefaultSessionControlController(
          */
     }
 
-    override fun handleCardClicked(homepageCardType: HomepageCardType) {
+    override fun handleCardClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {
         if (homepageCardType == HomepageCardType.PERSONAL_MODE_CARD) {
             activity.apply{
-                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true, private = true)
+                openToBrowser(getString(R.string.ceno_support_link_url), newTab = true, private = true)
             }
+        }
+        if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
+            activity.switchBrowsingModeHome(mode)
         }
         /*
-        if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
-            activity.apply{
-                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
-            }
-        }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             activity.apply{
                 openToBrowser(getString(R.string.website_button_link), newTab = true)
@@ -216,7 +210,7 @@ class DefaultSessionControlController(
     override fun handleMenuItemClicked(homepageCardType: HomepageCardType) {
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.apply{
-                openToBrowser(getString(R.string.ceno_mode_manual_link), newTab = true)
+                browsingModeManager.mode = BrowsingMode.Personal
             }
         }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
