@@ -78,7 +78,7 @@ abstract class ThemeManager {
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            window.getWindowInsetsController().isAppearanceLightNavigationBars = false
             updateNavigationBar(window, context)
         }
     }
@@ -105,8 +105,6 @@ class DefaultThemeManager(
                 currentContext = personalThemeContext
             else
                 currentContext = activity
-
-            applyStatusBarTheme()
         }
 
     override fun applyStatusBarThemeTabsTray() {
@@ -147,6 +145,8 @@ class DefaultThemeManager(
     }
 
     override fun applyTheme(toolbar: BrowserToolbar) {
+        applyStatusBarTheme()
+        
         toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
 
         var textPrimary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textPrimary))

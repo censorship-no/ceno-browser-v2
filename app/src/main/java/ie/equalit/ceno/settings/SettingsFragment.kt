@@ -129,6 +129,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             owner = this,
             view = view,
         )
+
+        (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
     }
 
     override fun onRequestPermissionsResult(
