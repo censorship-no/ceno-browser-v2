@@ -1,6 +1,5 @@
 package ie.equalit.ceno.home
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -162,9 +160,10 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-//        if (themeManager.currentMode == BrowsingMode.Normal) {
-//            sessionControlView?.update(requireComponents.appStore.state)
-//        }
+        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            sessionControlView?.update(it)
+            updateUI(it.mode)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
 
@@ -227,16 +226,19 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     private fun updateUI(mode: BrowsingMode) {
-        applyTheme()
-        if (mode == BrowsingMode.Personal) {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
-        } else {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_card_public_text))
+        context?.let {
+            if (mode == BrowsingMode.Personal) {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_background))
+            } else {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_card_public_text))
+            }
         }
+        applyTheme()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
