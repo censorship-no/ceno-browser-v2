@@ -18,6 +18,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
@@ -115,8 +116,6 @@ class HomeFragment : BaseHomeFragment() {
             sessionControlInteractor
         )
 
-        updateSessionControlView()
-
 
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             topMargin = if(prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_position), false)) {
@@ -161,26 +160,16 @@ class HomeFragment : BaseHomeFragment() {
      */
     private fun updateSessionControlView() {
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            sessionControlView?.update(it)
+            context?.let { context ->
+                sessionControlView?.update(
+                    it,
+                    Settings.getAnnouncementData(context) /* From local storage */
+                )
+            }
             updateUI(it.mode)
         }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-
-            withContext(Dispatchers.Main) {
-                if (themeManager.currentMode == BrowsingMode.Normal) {
-                    sessionControlView?.update(
-                        requireComponents.appStore.state,
-                        Settings.getAnnouncementData(requireContext()) /* From local storage */
-                    )
-                }
-                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                    sessionControlView?.update(
-                        it,
-                        Settings.getAnnouncementData(requireContext()) /* From local storage */
-                    )
-                }
-
+        context?.let { context ->
+            viewLifecycleOwner.lifecycleScope.launch {
                 // Switch context to make network call
                 withContext(Dispatchers.IO) {
 
@@ -188,14 +177,14 @@ class HomeFragment : BaseHomeFragment() {
                     val languageCode = Locale.getDefault().language.ifEmpty { "en" }
 
                     var response = CenoSettings.webClientRequest(
-                        requireContext(),
+                        context,
                         Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
                     )
 
                     // if the network call fails, try to load 'en' locale
                     if(response == null) {
                         response = CenoSettings.webClientRequest(
-                            requireContext(),
+                            context,
                             Request(CenoSettings.getRSSAnnouncementUrl("en"))
                         )
                     }
@@ -204,19 +193,13 @@ class HomeFragment : BaseHomeFragment() {
                         val rssResponse = XMLParser.parseRssXml(result)
 
                         // perform null-check and save announcement data in local
-                        rssResponse?.let { Settings.saveAnnouncementData(requireContext(), it) }
+                        rssResponse?.let { Settings.saveAnnouncementData(context, it) }
 
                         // check for null and refresh homepage adapter if necessary
                         if(rssResponse != null) {
                             withContext(Dispatchers.Main) {
-                                if (themeManager.currentMode == BrowsingMode.Normal) {
-                                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
-                                }
-
-                                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                                    sessionControlView?.update(it, rssResponse)
-                                    updateUI(it.mode)
-                                }
+                                val state = context.components.appStore.state
+                                sessionControlView?.update(state, rssResponse)
                             }
                         }
                     }
@@ -248,5 +231,10 @@ class HomeFragment : BaseHomeFragment() {
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
 
         binding.sessionControlRecyclerView.itemAnimator = null
+    }
+
+    override fun onStart() {
+        updateSessionControlView()
+        super.onStart()
     }
 }
