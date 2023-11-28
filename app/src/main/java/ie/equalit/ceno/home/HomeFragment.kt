@@ -1,8 +1,6 @@
 package ie.equalit.ceno.home
 
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -28,7 +25,6 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -39,7 +35,6 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import java.util.logging.Logger
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
@@ -158,10 +153,6 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-//        if (themeManager.currentMode == BrowsingMode.Normal) {
-//            sessionControlView?.update(requireComponents.appStore.state)
-//        }
-
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             sessionControlView?.update(it)
             updateUI(it.mode)
@@ -169,16 +160,19 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     private fun updateUI(mode: BrowsingMode) {
-        applyTheme()
-        if (mode == BrowsingMode.Personal) {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.fx_mobile_private_layer_color_3)
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_background))
-        } else {
-            binding.homeAppBar.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
-            binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(requireContext(), R.color.ceno_home_background)
-            binding.wordmark.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_home_card_public_text))
+        context?.let {
+            if (mode == BrowsingMode.Personal) {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_background))
+            } else {
+                binding.homeAppBar.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.sessionControlRecyclerView.background = ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.ceno_home_card_public_text))
+            }
         }
+        applyTheme()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
