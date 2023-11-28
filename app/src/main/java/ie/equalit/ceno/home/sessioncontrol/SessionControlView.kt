@@ -31,11 +31,11 @@ internal fun normalModeAdapterItems(
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
 
-    // Show announcements at the top
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
-
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
+
+    // Show announcements at the top
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
     /*
@@ -51,11 +51,18 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-internal fun personalModeAdapterItems(mode: BrowsingMode): List<AdapterItem> = listOf(
-    AdapterItem.CenoModeItem(mode),
-    AdapterItem.PersonalModeDescriptionItem
-)
+internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnouncementResponse?): List<AdapterItem> {
+    val items = mutableListOf<AdapterItem>()
+    // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
+    items.add(AdapterItem.TopPlaceholderItem)
+    // Show announcements at the top
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
 
+    items.add(AdapterItem.CenoModeItem(mode))
+    items.add(AdapterItem.PersonalModeDescriptionItem)
+
+    return items
+}
 private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse?): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
@@ -65,7 +72,7 @@ private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMess
             mode,
             announcement
         )
-    BrowsingMode.Personal -> personalModeAdapterItems(mode)
+    BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
 }
 
 
