@@ -34,7 +34,7 @@ import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
 import ie.equalit.ceno.utils.CenoPreferences
-import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.*
 import mozilla.components.browser.state.action.ContentAction
@@ -129,6 +129,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             owner = this,
             view = view,
         )
+
+        (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
     }
 
     override fun onRequestPermissionsResult(

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.util.Log
@@ -13,6 +14,7 @@ import android.view.ContextThemeWrapper
 import android.view.Window
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ExternalAppBrowserActivity
 import ie.equalit.ceno.R
@@ -103,8 +105,6 @@ class DefaultThemeManager(
                 currentContext = personalThemeContext
             else
                 currentContext = activity
-
-            applyStatusBarTheme()
         }
 
     override fun applyStatusBarThemeTabsTray() {
@@ -145,8 +145,9 @@ class DefaultThemeManager(
     }
 
     override fun applyTheme(toolbar: BrowserToolbar) {
+        applyStatusBarTheme()
+        
         toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
-        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
 
         var textPrimary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textPrimary))
         var textSecondary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textSecondary))
@@ -161,7 +162,15 @@ class DefaultThemeManager(
             securityIconSecure = textPrimary,
             securityIconInsecure = textPrimary,
             menu = textPrimary,
+
         )
+
+        /*
+        * When switching between modes, we need to set the url background to something else before
+        * before setting it to the correct url background
+        * */
+        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background))
+        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
     }
 
 }

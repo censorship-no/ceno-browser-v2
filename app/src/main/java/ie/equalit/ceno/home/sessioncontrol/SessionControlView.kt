@@ -1,5 +1,6 @@
 package ie.equalit.ceno.home.sessioncontrol
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
@@ -13,6 +14,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ceno.home.HomeCardSwipeCallback
+import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.utils.CenoPreferences
 
 // This method got a little complex with the addition of the tab tray feature flag
@@ -23,6 +25,8 @@ internal fun normalModeAdapterItems(
     settings: CenoPreferences,
     topSites: List<TopSite>,
     messageCard: CenoMessageCard,
+    mode: BrowsingMode,
+    announcement: RssAnnouncementResponse?
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
     var shouldShowCustomizeHome = false
@@ -30,12 +34,16 @@ internal fun normalModeAdapterItems(
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
 
+    // Show announcements at the top
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
+
+    items.add(AdapterItem.CenoModeItem(mode))
+    /*
     if (settings.showThanksCard) {
         items.add(AdapterItem.CenoMessageItem(messageCard))
     }
-    if (settings.showCenoModeItem) {
-        items.add(AdapterItem.CenoModeItem)
-    }
+    */
+
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
@@ -43,16 +51,28 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-internal fun personalModeAdapterItems(): List<AdapterItem> = listOf(AdapterItem.PersonalModeDescriptionItem)
+internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnouncementResponse?): List<AdapterItem> {
+    val items = mutableListOf<AdapterItem>()
+    // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
+    items.add(AdapterItem.TopPlaceholderItem)
+    // Show announcements at the top
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
 
-private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard): List<AdapterItem> = when(mode) {
+    items.add(AdapterItem.CenoModeItem(mode))
+    items.add(AdapterItem.PersonalModeDescriptionItem)
+
+    return items
+}
+private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse?): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
             prefs,
             topSites,
-            messageCard
+            messageCard,
+            mode,
+            announcement
         )
-    BrowsingMode.Personal -> personalModeAdapterItems()
+    BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
 }
 
 
@@ -86,7 +106,8 @@ class SessionControlView(
         itemTouchHelper.attachToRecyclerView(view)
     }
 
-    fun update(state: AppState) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(state: AppState, announcement: RssAnnouncementResponse?) {
         /* TODO: add onboarding pages
         if (state.shouldShowHomeOnboardingDialog(view.context.settings())) {
             interactor.showOnboardingDialog()
@@ -97,7 +118,8 @@ class SessionControlView(
             text = view.context.getString(R.string.onboarding_thanks_text),
             title = view.context.getString(R.string.onboarding_thanks_title)
         )
-        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard))
+        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement))
+        sessionControlAdapter.notifyDataSetChanged()
 
     }
 }
