@@ -124,7 +124,7 @@
     <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
     <string name="delete_browsing_data_prompt_allow">Borrar</string>
     <string name="preferences_delete_browsing_data_snackbar">Datos de navegación eliminados</string>
-    <string name="deleting_browsing_data_in_progress">Eliminando los datos de navegación‥</string>
+    <string name="deleting_browsing_data_in_progress">Eliminando los datos de la navegación…</string>
     <string name="preferences_delete_browsing_data">Eliminar datos de navegación</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="one">pestaña %d</item>
