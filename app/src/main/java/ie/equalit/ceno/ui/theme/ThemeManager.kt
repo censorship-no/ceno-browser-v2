@@ -23,7 +23,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
-import mozilla.components.support.ktx.android.view.getWindowInsetsController
+import mozilla.components.support.ktx.android.view.createWindowInsetsController
 import java.util.logging.Logger
 
 abstract class ThemeManager {
@@ -42,12 +42,12 @@ abstract class ThemeManager {
 
     fun clearLightSystemBars(window: Window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.getWindowInsetsController().isAppearanceLightStatusBars = false
+            window.createWindowInsetsController().isAppearanceLightStatusBars = false
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = false
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = false
         }
     }
 
@@ -56,14 +56,14 @@ abstract class ThemeManager {
     fun updateLightSystemBars(window: Window, context: Context) {
         if (SDK_INT >= Build.VERSION_CODES.M) {
             window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.getWindowInsetsController().isAppearanceLightStatusBars = true
+            window.createWindowInsetsController().isAppearanceLightStatusBars = true
         } else {
             window.statusBarColor = Color.BLACK
         }
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
             updateNavigationBar(window, context)
         }
     }
@@ -71,14 +71,14 @@ abstract class ThemeManager {
     fun updateDarkSystemBars(window: Window, context: Context) {
         if (SDK_INT >= Build.VERSION_CODES.M) {
             window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.getWindowInsetsController().isAppearanceLightStatusBars = false
+            window.createWindowInsetsController().isAppearanceLightStatusBars = false
         } else {
             window.statusBarColor = Color.BLACK
         }
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = false
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
             updateNavigationBar(window, context)
         }
     }
