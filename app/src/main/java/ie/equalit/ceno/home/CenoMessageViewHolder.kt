@@ -1,13 +1,8 @@
 package ie.equalit.ceno.home
 
-import android.util.Log
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import ie.equalit.ceno.databinding.HomeMessageCardItemBinding
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
-import ie.equalit.ceno.utils.view.CenoViewHolder
 
 class CenoMessageViewHolder (
     itemView: View,
@@ -18,6 +13,7 @@ class CenoMessageViewHolder (
 
     init {
         cardType = homepageCardType
+        enableContextMenu()
         binding.closeButton.setOnClickListener {
             interactor.onRemoveCard(cardType)
         }

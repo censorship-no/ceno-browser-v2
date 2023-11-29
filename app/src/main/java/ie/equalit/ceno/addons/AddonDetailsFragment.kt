@@ -54,7 +54,7 @@ class AddonDetailsFragment : Fragment() {
 
         bindDetails(addon, rootView)
 
-        bindAuthors(addon, rootView)
+        bindAuthor(addon, rootView)
 
         bindVersion(addon, rootView)
 
@@ -81,7 +81,7 @@ class AddonDetailsFragment : Fragment() {
     private fun bindWebsite(addon: Addon, rootView: View) {
         rootView.findViewById<View>(R.id.home_page_text).setOnClickListener {
             val intent =
-                Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.siteUrl))
+                Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.homepageUrl))
             startActivity(intent)
         }
     }
@@ -96,14 +96,10 @@ class AddonDetailsFragment : Fragment() {
         versionView.text = addon.version
     }
 
-    private fun bindAuthors(addon: Addon, rootView: View) {
+    private fun bindAuthor(addon: Addon, rootView: View) {
         val authorsView = rootView.findViewById<TextView>(R.id.author_text)
 
-        val authorText = addon.authors.joinToString { author ->
-            author.name + " \n"
-        }
-
-        authorsView.text = authorText
+        authorsView.text = addon.author?.name.orEmpty()
     }
 
     private fun bindDetails(addon: Addon, rootView: View) {

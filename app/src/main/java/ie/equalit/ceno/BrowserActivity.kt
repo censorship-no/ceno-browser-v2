@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -61,13 +62,12 @@ import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
-import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
-import mozilla.components.support.utils.toSafeIntent
 import kotlin.system.exitProcess
 
 /**
@@ -234,6 +234,7 @@ open class BrowserActivity : BaseActivity() {
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
+            components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
     }
 
@@ -426,6 +427,11 @@ open class BrowserActivity : BaseActivity() {
         }
 
         navHost.navController.navigate(R.id.action_global_browser)
+    }
+    fun switchBrowsingModeHome(currentMode: BrowsingMode) {
+        browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
+
+        components.appStore.dispatch(AppAction.ModeChange(browsingModeManager.mode))
     }
 
     fun updateView(action: () -> Unit){
