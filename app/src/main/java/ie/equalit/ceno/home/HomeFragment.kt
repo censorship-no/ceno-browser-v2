@@ -1,7 +1,6 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,10 +26,15 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.XMLParser
+import mozilla.components.concept.fetch.Request
+import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.settings.Settings
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.concept.storage.FrecencyThresholdOption
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
@@ -38,7 +42,7 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import java.util.logging.Logger
+import java.util.Locale
 
 /**
  * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
@@ -157,12 +161,63 @@ class HomeFragment : BaseHomeFragment() {
      * doesn't get run right away which means that we won't draw on the first layout pass.
      */
     private fun updateSessionControlView() {
-        if (themeManager.currentMode == BrowsingMode.Normal) {
-            sessionControlView?.update(requireComponents.appStore.state)
-        }
 
-        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            sessionControlView?.update(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            withContext(Dispatchers.Main) {
+                if (themeManager.currentMode == BrowsingMode.Normal) {
+                    sessionControlView?.update(
+                        requireComponents.appStore.state,
+                        Settings.getAnnouncementData(requireContext()) /* From local storage */
+                    )
+                }
+                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                    sessionControlView?.update(
+                        it,
+                        Settings.getAnnouncementData(requireContext()) /* From local storage */
+                    )
+                }
+
+                // Switch context to make network call
+                withContext(Dispatchers.IO) {
+
+                    // Get language code or fall back to 'en'
+                    val languageCode = Locale.getDefault().language.ifEmpty { "en" }
+
+                    var response = CenoSettings.webClientRequest(
+                        requireContext(),
+                        Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
+                    )
+
+                    // if the network call fails, try to load 'en' locale
+                    if(response == null) {
+                        response = CenoSettings.webClientRequest(
+                            requireContext(),
+                            Request(CenoSettings.getRSSAnnouncementUrl("en"))
+                        )
+                    }
+
+                    response?.let { result ->
+                        val rssResponse = XMLParser.parseRssXml(result)
+
+                        // perform null-check and save announcement data in local
+                        rssResponse?.let { Settings.saveAnnouncementData(requireContext(), it) }
+
+                        // check for null and refresh homepage adapter if necessary
+                        if(rssResponse != null) {
+                            withContext(Dispatchers.Main) {
+                                if (themeManager.currentMode == BrowsingMode.Normal) {
+                                    sessionControlView?.update(requireComponents.appStore.state, rssResponse)
+                                }
+
+                                binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                                    sessionControlView?.update(it, rssResponse)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

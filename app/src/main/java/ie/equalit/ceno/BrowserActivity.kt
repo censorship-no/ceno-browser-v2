@@ -61,13 +61,12 @@ import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
-import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.pwa.ext.putWebAppManifest
-import mozilla.components.support.utils.toSafeIntent
 import kotlin.system.exitProcess
 
 /**
