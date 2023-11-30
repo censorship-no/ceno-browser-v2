@@ -151,6 +151,6 @@ class WebExtensionActionPopupPanel(
     }
 
     companion object {
-        private const val SOURCES_COUNT_FETCH_DELAY = 5000L
+        private const val SOURCES_COUNT_FETCH_DELAY = 7000L
     }
 }
