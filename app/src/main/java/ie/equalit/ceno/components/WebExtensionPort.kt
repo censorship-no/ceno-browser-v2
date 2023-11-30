@@ -1,6 +1,5 @@
 package ie.equalit.ceno.components
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.annotation.Nullable
@@ -9,7 +8,6 @@ import org.json.JSONObject
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.WebExtension
 
-@SuppressLint("WrongThread")
 class WebExtensionPort (private val context : Context) {
 
     var mPort: WebExtension.Port? = null
@@ -53,8 +51,12 @@ class WebExtensionPort (private val context : Context) {
                 EXTENSION_ID
             )
             .accept( // Register message delegate for background script
-                { extension -> extension!!.setMessageDelegate(messageDelegate, "browser") }
+                { extension -> setMessageDelegate(extension, messageDelegate) }
             ) { e -> Log.e("MessageDelegate", "Error registering WebExtension", e) }
+    }
+
+    private fun setMessageDelegate(extension: WebExtension?, messageDelegate: WebExtension.MessageDelegate) {
+        extension!!.setMessageDelegate(messageDelegate, "browser")
     }
 
     companion object {
