@@ -66,6 +66,7 @@
     <string name="pref_key_about_geckoview" translatable="false">pref_key_about_geckoview</string>
     <string name="pref_key_about_ouinet" translatable="false">pref_key_about_ouinet</string>
     <string name="pref_key_ouinet_version" translatable="false">pref_key_ouinet_version</string>
+    <string name="pref_key_rss_announcement_data" translatable="false">pref_key_rss_announcement_data</string>
     <string name="pref_key_ouinet_build_id" translatable="false">pref_key_ouinet_build_id</string>
     <string name="pref_key_about_ouinet_protocol" translatable="false">pref_key_about_ouinet_protocol</string>
     <string name="pref_key_ouinet_protocol" translatable="false">pref_key_ouinet_protocol</string>

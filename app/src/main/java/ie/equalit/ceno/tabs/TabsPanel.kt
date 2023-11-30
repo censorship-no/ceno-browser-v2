@@ -32,7 +32,7 @@ class TabsPanel @JvmOverloads constructor(
     init {
         normalTab = newTab().apply {
             contentDescription = "Tabs"
-            icon = resources.getThemedDrawable(R.drawable.mozac_ic_tab)
+            icon = resources.getThemedDrawable(R.drawable.ceno_home_card_public_icon)
         }
 
         privateTab = newTab().apply {
