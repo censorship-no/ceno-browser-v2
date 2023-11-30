@@ -20,6 +20,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
@@ -325,6 +326,26 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         tabConterView.update()
         //modify rest of the toolbar
         themeManager.applyTheme(binding.toolbar)
+    }
+
+    internal fun updateSearch(mode: BrowsingMode) {
+        awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
+        awesomeBar.addProviders(
+            SearchSuggestionProvider(
+                requireContext(),
+                requireComponents.core.store,
+                searchUseCase = if (themeManager.currentMode.isPersonal) {
+                    requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                } else {
+                    requireComponents.useCases.searchUseCases.newTabSearch
+                },
+                fetchClient = requireComponents.core.client,
+                limit = 5,
+                mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                engine = requireComponents.core.engine,
+                filterExactMatch = true,
+            )
+        )
     }
 
     @CallSuper

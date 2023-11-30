@@ -165,8 +165,9 @@ class HomeFragment : BaseHomeFragment() {
                     it,
                     Settings.getAnnouncementData(context) /* From local storage */
                 )
+                updateUI(it.mode)
+                updateSearch(it.mode)
             }
-            updateUI(it.mode)
         }
         context?.let { context ->
             viewLifecycleOwner.lifecycleScope.launch {
