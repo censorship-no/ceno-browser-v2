@@ -1,12 +1,15 @@
 package ie.equalit.ceno.addons
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
@@ -15,6 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
@@ -33,6 +39,9 @@ class WebExtensionActionPopupPanel(
     private var binding: DialogWebExtensionPopupSheetBinding =
         DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
 
+    private lateinit var runnable: Runnable
+    private var handler = Handler(Looper.getMainLooper())
+
     init {
         initWindow()
         setContentView(binding.root)
@@ -40,6 +49,17 @@ class WebExtensionActionPopupPanel(
         updateTitle()
         updateConnectionState()
         updateStats()
+
+        runnable = Runnable {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    updateStats()
+                    handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
+                }
+            }
+        }
+
+        handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
     }
 
     private fun initWindow() {
@@ -122,5 +142,14 @@ class WebExtensionActionPopupPanel(
             Log.d("Message", "Sending message: $message")
             it.postMessage(message)
         }
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        handler.removeCallbacks(runnable)
+    }
+
+    companion object {
+        private const val SOURCES_COUNT_FETCH_DELAY = 5000L
     }
 }
