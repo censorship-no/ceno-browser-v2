@@ -14,8 +14,7 @@ class HomeCardSwipeCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        if (viewHolder.itemViewType == HomepageCardType.BASIC_MESSAGE_CARD.value ||
-            viewHolder.itemViewType == HomepageCardType.MODE_MESSAGE_CARD.value)
+        if (viewHolder.itemViewType == HomepageCardType.BASIC_MESSAGE_CARD.value)
             return makeMovementFlags(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT

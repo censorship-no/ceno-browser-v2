@@ -106,7 +106,7 @@
 \n&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ဖို့အတွက် ချို့ယွင်းချက် အစီရင်ခံစာကို ကျွန်ုပ်တို့ကို ပို့ပေးနိုင်ပါတယ်။</string>
     <string name="crash_reporting_never_send">ဘယ်တော့မှ မပို့ပါ</string>
     <string name="crash_reporting_dont_send_this_time">ဒီတစ်ကြိမ်တွင် မပို့ပါနှင့်</string>
-    <string name="crash_reporting_always_send">အမြဲတမ်း ပို့မည်</string>
+    <string name="crash_reporting_always_send">အမြဲတမ်း ပို့မည်၊ &brandShortName; ကို တိုးတက်အောင်လုပ်မည်</string>
     <string name="preferences_allow_crash_reporting">ချို့ယွင်းမှုအကြောင်း ပေးပို့ခြင်း</string>
     <string name="crash_reporting_opt_out">သင်သည် ချို့ယွင်းမှုအစီရင်ခံစာများအား မျှဝေခြင်းကို မရွေးချယ်ထားပါ။ ဆက်တင်များထဲမှ ချို့ယွင်းမှုအကြောင်း ပေးပို့ခြင်းတွင် ပြန်လည်ရွေးချယ်နိုင်ပါသည်။</string>
     <string name="crash_reporting_opt_in">&brandShortName; ကို တိုးတက်အောင် ကူညီပေးနိုင်သည့် ချို့ယွင်းချက် အစီရင်ခံစာကို မျှဝေပေးခြင်းအတွက် ကျေးဇူးတင်ပါသည်။ သင့်အနေဖြင့် ဆက်တင်များ &gt; ချို့ယွင်းမှုအကြောင်း ‌ပေးပို့ခြင်းတွင် ပြန်လည် ပိတ်နိုင်ပါသည်။</string>

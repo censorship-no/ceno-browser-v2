@@ -65,7 +65,7 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.ktx.android.view.enterToImmersiveMode
+import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 
@@ -132,7 +132,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentBrowserBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
+        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -411,7 +411,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             store = requireComponents.core.store,
             showTabs = ::showTabs,
             lifecycleOwner = this,
-            browsingModeManager = browsingModeManager
+            browsingModeManager = browsingModeManager,
+            themeManager = themeManager
         )
 
         thumbnailsFeature.set(
@@ -526,7 +527,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun fullScreenChanged(enabled: Boolean) {
         if (enabled) {
-            activity?.enterToImmersiveMode()
+            activity?.enterImmersiveMode()
             binding.toolbar.visibility = View.GONE
             binding.engineView.setDynamicToolbarMaxHeight(0)
         } else {
