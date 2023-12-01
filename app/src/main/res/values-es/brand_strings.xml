@@ -184,4 +184,7 @@
     <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de los fallos para ayudar a mejorar &brandShortName;! Siempre se puede desactivar esto yendo a Configuración &gt; Informes de errores.</string>
     <string name="crash_reporting_send_once">Enviar una vez</string>
     <string name="crash_reporting_dont_ask_again">No preguntar de nuevo</string>
+    <string name="ouinet_client_fetch_success">&brandShortName; configuración actualizada</string>
+    <string name="crash_reporting_dialog_title">¡Lo sentimos, parece que &brandShortName; ha fallado!</string>
+    <string name="ceno_support_link_url">https://censorship.no/es/support.html</string>
 </resources>
