@@ -55,26 +55,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/panel_item_margin_top"
+            android:drawablePadding="@dimen/panel_item_drawable_padding"
             android:gravity="center_vertical"
             android:text="@string/ceno_sources_header"
-            android:drawablePadding="@dimen/panel_item_drawable_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/security_info" />
 
         <ProgressBar
+            android:id="@+id/progress_bar"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="@+id/sources_info"
             app:layout_constraintEnd_toEndOf="@+id/sources_info"
-            app:layout_constraintTop_toTopOf="@+id/sources_info"
-            app:layout_constraintBottom_toBottomOf="@+id/sources_info"/>
+            app:layout_constraintTop_toTopOf="@+id/sources_info" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_direct_from_website_count"
             style="@style/PanelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/panel_vertical_margin"
             android:gravity="center_vertical"
             android:text="@string/preferences_clear_behavior_default"
@@ -192,44 +192,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/ceno_sources_shared_by_you"
+            app:layout_constraintBottom_toBottomOf="@id/tv_shared_by_you_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"
-            app:layout_constraintTop_toTopOf="@id/tv_shared_by_you_count"
-            app:layout_constraintBottom_toBottomOf="@id/tv_shared_by_you_count"/>
+            app:layout_constraintTop_toTopOf="@id/tv_shared_by_you_count" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_request_failed"
-            style="@style/PanelTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="@string/ceno_sources_fetch_failed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/btn_retry" />
-
-        <Button
-            android:id="@+id/btn_retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/retry"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_shared_by_you"/>
-
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/success_group"
-            app:constraint_referenced_ids="tv_direct_from_website_count,tv_personal_network_count,tv_public_network_count,tv_shared_by_others_count,tv_shared_by_you_count,tv_direct_from_website,tv_personal_network,tv_public_network,tv_shared_by_others,tv_shared_by_you" />
-
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/failure_group"
-            app:constraint_referenced_ids="btn_retry,tv_request_failed"
-            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

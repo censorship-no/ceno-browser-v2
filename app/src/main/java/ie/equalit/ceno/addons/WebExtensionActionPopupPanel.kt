@@ -51,7 +51,7 @@ class WebExtensionActionPopupPanel(
         updateStats()
 
         runnable = Runnable {
-            lifecycleScope.launch {
+            lifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     updateStats()
                     handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
@@ -62,18 +62,23 @@ class WebExtensionActionPopupPanel(
         handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
     }
 
-    val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
+    private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
             Log.d("PortDelegate", "Received message from extension: $message")
-            val response = JSONObject(message as String)
-            binding.progressBar.isGone = true
-            binding.tvDirectFromWebsiteCount.text = if(response.has("origin")) response.getString("origin") else "0"
-            binding.tvPersonalNetworkCount.text = if(response.has("proxy")) response.getString("proxy") else "0"
-            binding.tvPublicNetworkCount.text = if(response.has("injector")) response.getString("injector") else "0"
-            binding.tvSharedByOthersCount.text = if(response.has("dist-cache")) response.getString("dist-cache") else "0"
-            binding.tvSharedByYouCount.text = if(response.has("local-cache")) response.getString("local-cache") else "0"
+
+            // nullable check for `message` which returns as null sometimes
+            (message as String?)?.let {
+                binding.progressBar.isGone = true
+                val response = JSONObject(message)
+
+                binding.tvDirectFromWebsiteCount.text = if(response.has("origin")) response.getString("origin") else "0"
+                binding.tvPersonalNetworkCount.text = if(response.has("proxy")) response.getString("proxy") else "0"
+                binding.tvPublicNetworkCount.text = if(response.has("injector")) response.getString("injector") else "0"
+                binding.tvSharedByOthersCount.text = if(response.has("dist-cache")) response.getString("dist-cache") else "0"
+                binding.tvSharedByYouCount.text = if(response.has("local-cache")) response.getString("local-cache") else "0"
+            }
         }
 
         override fun onDisconnect(port: WebExtension.Port) {
