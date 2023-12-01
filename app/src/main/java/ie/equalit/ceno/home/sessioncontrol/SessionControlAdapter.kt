@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.home.CenoMessageCard
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
@@ -20,9 +23,18 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.homepageCardType)
 
-    object CenoModeItem : AdapterItem(CenoModeViewHolder.homepageCardType)
+    data class CenoModeItem(val mode: BrowsingMode) : AdapterItem(CenoModeViewHolder.homepageCardType)
+    {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newCenoMode = (other as? CenoModeItem) ?: return false
+            if (newCenoMode.mode != this.mode) return false
+            return super.contentsSameAs(other)
+        }
+    }
 
-    data class CenoMessageItem(val message: CenoMessageCard): AdapterItem(CenoMessageViewHolder.homepageCardType)
+    data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
+
+    data class CenoAnnouncementItem(val response: RssAnnouncementResponse) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType)
 
     object PersonalModeDescriptionItem : AdapterItem(PersonalModeDescriptionViewHolder.homepageCardType)
 
@@ -123,6 +135,7 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.home_message_card_item
             HomepageCardType.TOPSITES_CARD.value -> R.layout.component_top_sites_pager
             HomepageCardType.PERSONAL_MODE_CARD.value -> R.layout.personal_mode_description
+            HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_announcement_item
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
@@ -136,6 +149,8 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
+            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor)
+
             PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,
                 interactor
@@ -154,13 +169,17 @@ class SessionControlAdapter internal constructor(
                 holder.bind()
             }
             is CenoModeViewHolder -> {
-                holder.bind()
+                holder.bind((item as AdapterItem.CenoModeItem).mode)
             }
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)
             }
             is CenoMessageViewHolder -> {
                 holder.bind((item as AdapterItem.CenoMessageItem).message)
+            }
+
+            is CenoRSSAnnouncementViewHolder -> {
+                holder.bind((item as AdapterItem.CenoAnnouncementItem).response)
             }
             /*
             is OnboardingSectionHeaderViewHolder -> holder.bind(

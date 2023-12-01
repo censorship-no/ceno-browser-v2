@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.utils.SentryOptionsConfiguration
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
 import io.sentry.android.core.SentryAndroid
