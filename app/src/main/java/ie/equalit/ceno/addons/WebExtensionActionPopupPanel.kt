@@ -68,8 +68,8 @@ class WebExtensionActionPopupPanel(
         ) {
             Log.d("PortDelegate", "Received message from extension: $message")
 
-            // nullable check for `message` which returns as null sometimes
-            (message as String?)?.let {
+            // `message` returns as undefined sometimes. This check handles that
+            if((message as String?) != null && message.isNotEmpty()) {
                 binding.progressBar.isGone = true
                 val response = JSONObject(message)
 
@@ -156,6 +156,6 @@ class WebExtensionActionPopupPanel(
     }
 
     companion object {
-        private const val SOURCES_COUNT_FETCH_DELAY = 7000L
+        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
     }
 }
