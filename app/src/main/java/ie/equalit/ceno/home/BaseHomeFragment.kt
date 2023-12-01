@@ -321,7 +321,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     fun applyTheme() {
         //modify clear ceno button color
-        clearCenoAction.updateIconColor(themeManager.getContext())
+        if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+            clearCenoAction.updateIconColor(themeManager.getContext())
+        }
         //modify tab counter icon color
         tabConterView.update()
         //modify rest of the toolbar
