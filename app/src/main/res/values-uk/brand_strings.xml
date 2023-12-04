@@ -76,9 +76,11 @@
     <string name="onboarding_button">Почати роботу</string>
     <string name="onboarding_info_title">Не ваш звичайний браузер</string>
     <string name="onboarding_battery_title">Необхідний дозвіл</string>
-    <string name="onboarding_battery_text">Невдовзі ОС (операційна система) запитає у вас дозвіл вимкнути оптимізацію батареї.
+    <string name="onboarding_battery_text">Незабаром ОС запитає у вас дозвіл
 \n
-\nЦе потрібно, щоб продовжувати ділитися веб-сайтами, поки програма працює у фоновому режимі</string>
+\n• Вимкнути оптимізацію батареї
+\n
+\nНеобхідно продовжувати ділитися веб-сайтами, поки програма працює у фоновому режимі.</string>
     <string name="onboarding_warning_button">Гаразд</string>
     <string name="onboarding_thanks_title">Дякуємо за розширення мережі!</string>
     <string name="onboarding_thanks_button">Почнімо!</string>
@@ -121,9 +123,12 @@
     <string name="source_code_button_text">Вихідний код</string>
     <string name="website_button_text">Вебсайт</string>
     <string name="donate_button_text">Задонатьте</string>
-    <string name="onboarding_battery_text_v33">Невдовзі операційна система запитає у вас дозвіл на сповіщення та вимкнення оптимізації батареї.
+    <string name="onboarding_battery_text_v33">Вскоре ОС запросит у вас разрешение на
 \n
-\nЦе потрібно, щоб продовжувати ділитися веб-сайтами, поки застосунок працює у фоновому режимі</string>
+\n• Разрешить уведомления.
+\n• Отключить оптимизацию батареи.
+\n
+\nНеобходимо продолжать делиться веб-сайтами, пока программа работает в фоновом режиме.</string>
     <string name="onboarding_warning_text_v33_1">Сповіщення заборонені.
 \n
 \nПерейдіть до «Налаштування &gt; Дозволити сповіщення», щоб надати дозвіл пізніше</string>
@@ -165,11 +170,30 @@
 \nусюди, все й відразу</string>
     <string name="onboarding_cleanup_text">Очистіть історію браузера, облікові дані та будь-які сліди, які ви залишили в &brandShortName; за допомогою однієї кнопки.</string>
     <string name="ceno_onboarding_start_text">&brandShortName;’s одноранговий (піринговий) протокол дозволяє людям отримувати доступ до вмісту веб-сайту та обмінюватися ним у регіонах, де з’єднання було перервано або порушено.</string>
-    <string name="ceno_home_card_personal_text">Для входу в обліковий запис або доступу до облікових даних.</string>
-    <string name="ceno_home_card_public_text">Для доступу до публічних сторінок, таких як новини, відео чи статті.</string>
+    <string name="ceno_home_card_personal_text">Хорошая связь, больше конфиденциальности. Для входа в аккаунты, не оставляя следов, не разглашая</string>
+    <string name="ceno_home_card_public_text">Лучшее соединение, меньше конфиденциальности. Для чтения новостей, просмотра видео и обмена ими с другими</string>
     <string name="ceno_home_card_personal_title">ПЕРСОНАЛЬНІ ВКЛАДКИ</string>
     <string name="preferences_ceno_sources_upnp">Статус UPnP</string>
     <string name="preferences_ceno_sources_reachability">Статус доступності</string>
     <string name="onboarding_finish_button">Закінчити</string>
     <string name="ceno_support_link_url">https://censorship.no/uk/support.html</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Додаткові завантажувальні програми BitTorrent</string>
+    <string name="personal_home_learn_more">Хочете дізнатися більше?</string>
+    <string name="ouinet_client_fetch_success">&brandShortName; налаштування оновлено</string>
+    <string name="crash_reporting_dialog_description">Допоможіть нам зробити &brandShortName; краще, надсилаючи нам звіти про збої.</string>
+    <string name="ceno_personal_browsing_description">Ceno не буде ділитися вмістом з особистих вкладок з іншими користувачами. Ви можете відвідувати сайти, які потребують авторизації.</string>
+    <string name="crash_reporting_never_send">Ніколи не надсилайте</string>
+    <string name="crash_reporting_dont_send_this_time">Цього разу не надсилайте</string>
+    <string name="crash_reporting_always_send">Завжди надсилайте, покращуйте &brandShortName;</string>
+    <string name="crash_reporting_dialog_title">Вибачте, виглядає як &brandShortName; розбився!</string>
+    <string name="bt_invalid_ip_error">Недійсний IP</string>
+    <string name="preferences_allow_crash_reporting">Звіт про збої</string>
+    <string name="crash_reporting_opt_out">Ви відмовилися від надсилання звітів про збої. Ви завжди можете погодитися, перейшовши в Налаштування &gt; Звіт про збої.</string>
+    <string name="crash_reporting_opt_in">Дякуємо, що поділилися звітами про збої, щоб допомогти покращити &brandShortName;! Ви завжди можете вимкнути це, перейшовши до Налаштувань &gt; Звіт про збої.</string>
+    <string name="crash_reporting_send_once">Надіслати один раз</string>
+    <string name="preferences_ceno_sources_local_udp">Локальні кінцеві точки UDP</string>
+    <string name="crash_reporting_dont_ask_again">Більше не питай</string>
+    <string name="bt_sources_none">Жодного</string>
+    <string name="preferences_ceno_sources_external_udp">Зовнішні кінцеві точки UDP</string>
+    <string name="preferences_ceno_sources_public_udp">Публічні кінцеві точки UDP</string>
 </resources>
