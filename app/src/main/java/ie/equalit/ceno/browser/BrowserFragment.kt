@@ -52,7 +52,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 null
             )!!,
             contentDescription = requireContext().getString(R.string.browser_toolbar_home),
-            iconTintColorResource = R.color.fx_mobile_text_color_primary,
+            iconTintColorResource = themeManager.getIconColor(),
             listener = ::onHomeButtonClicked,
         )
 

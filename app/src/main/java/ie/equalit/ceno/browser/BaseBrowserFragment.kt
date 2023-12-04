@@ -126,7 +126,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     protected var webAppToolbarShouldBeVisible = true
 
     private lateinit var browsingModeManager: BrowsingModeManager
-    private lateinit var themeManager: ThemeManager
+    internal lateinit var themeManager: ThemeManager
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
