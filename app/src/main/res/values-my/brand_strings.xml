@@ -113,4 +113,5 @@
     <string name="crash_reporting_send_once">တစ်ကြိမ်ပို့မည်</string>
     <string name="crash_reporting_dont_ask_again">ထပ်မမေးပါနှင့်</string>
     <string name="preferences_disable_battery_opt">ဘက်ထရီ သုံးစွဲမှု လျှော့ချခြင်းကို ပိတ်မည်</string>
+    <string name="crash_reporting_dialog_title">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။</string>
 </resources>
