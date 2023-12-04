@@ -157,16 +157,16 @@
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
     <string name="onboarding_public_or_personal_title">¿Pública o personal\?</string>
-    <string name="onboarding_public_personal_text">Con las pestañas públicas puede acceder a páginas públicas como noticias, vídeos o artículos.
+    <string name="onboarding_public_personal_text">Utilice las pestañas públicas para leer noticias, ver vídeos y navegar por Internet en general. Comparte contenidos web con otros usuarios de Ceno.
 \n
-\n¿Necesitas entrar en una cuenta con credenciales de acceso\? Las pestañas personales son perfectas para ello.</string>
+\nLas pestañas personales son más adecuadas para las sociales, compras en línea y navegación por páginas web que no desea compartir con otros.</string>
     <string name="onboarding_cleanup_title">Limpiar todo,
 \nen todas partes, todo a la vez</string>
     <string name="onboarding_cleanup_text">Borra el historial del navegador, las credenciales y cualquier rastro que hayas dejado en &brandShortName; con un solo botón.</string>
-    <string name="ceno_home_card_public_text">Para acceder a páginas públicas como noticias, vídeos o artículos.</string>
+    <string name="ceno_home_card_public_text">La mejor conectividad, menos privacidad. Para leer noticias, ver vídeos y compartir con los demás</string>
     <string name="ceno_home_card_personal_title">PESTAÑAS PERSONALES</string>
     <string name="ceno_home_card_public_title">PESTAÑAS PÚBLICAS</string>
-    <string name="ceno_home_card_personal_text">Para iniciar sesión en una cuenta o acceder a las credenciales.</string>
+    <string name="ceno_home_card_personal_text">Buena conectividad, más privacidad. Para entrar en las cuentas, no dejar rastros y no compartir</string>
     <string name="preferences_ceno_sources_upnp">Estado del UPnP</string>
     <string name="preferences_ceno_sources_local_udp">Terminales UDP locales</string>
     <string name="preferences_ceno_sources_external_udp">Terminales UDP externos</string>
@@ -187,4 +187,10 @@
     <string name="ouinet_client_fetch_success">&brandShortName; configuración actualizada</string>
     <string name="crash_reporting_dialog_title">¡Lo sentimos, parece que &brandShortName; ha fallado!</string>
     <string name="ceno_support_link_url">https://censorship.no/es/support.html</string>
+    <string name="personal_home_learn_more">¿Quiere saber más?</string>
+    <string name="ceno_personal_browsing_description">Ceno no compartirá el contenido de las etiquetas personales con otros usuarios. Puede visitar páginas que requieran un inicio de sesión.</string>
+    <string name="bt_invalid_ip_error">IP no válida</string>
+    <string name="preferences_ceno_website_sources">Fuentes de la página web</string>
+    <string name="bt_sources_none">Ninguno</string>
+    <string name="bt_sources_custom">Personalizado</string>
 </resources>
