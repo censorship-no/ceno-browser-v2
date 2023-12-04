@@ -365,6 +365,13 @@
     <color name="ic_launcher_white_background">#FDFDFD</color>
     <color name="ic_launcher_blue_background">#0EA5E9</color>
     <color name="ic_launcher_red_background">#F0412F</color>
+    
+    <!--  Ceno sources count label colors  -->
+    <color name="ceno_sources_green">#18CA08</color>
+    <color name="ceno_sources_blue">#38BDF8</color>
+    <color name="ceno_sources_orange">#F97316</color>
+    <color name="ceno_sources_grey">#A7A7A7</color>
+    <color name="ceno_sources_purple">#9C27B0</color>
 
 
     <!-- Private Browsing Mode Persistent Notification -->
