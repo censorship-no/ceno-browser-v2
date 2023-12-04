@@ -101,8 +101,6 @@ class WebExtensionActionPopupPanel(
     private fun expand() {
         val bottomSheet =
             findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
-        //bottomSheet.setBackgroundColor(ContextCompat.getColor(context, R.color.fx_mobile_layer_color_1))
-        //bottomSheet.background = ContextCompat.getDrawable(context, R.drawable.home_background)
         BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
     }
 

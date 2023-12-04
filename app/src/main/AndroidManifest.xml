@@ -217,12 +217,6 @@
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name="ie.equalit.ceno.MessagingActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
-
-        <activity
             android:name="ie.equalit.ceno.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
             android:theme="@style/Theme.AppCompat.Light"/>
