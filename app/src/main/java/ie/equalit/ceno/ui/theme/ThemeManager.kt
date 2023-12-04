@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.util.Log
@@ -13,6 +14,7 @@ import android.view.ContextThemeWrapper
 import android.view.Window
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ExternalAppBrowserActivity
 import ie.equalit.ceno.R
@@ -21,7 +23,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
-import mozilla.components.support.ktx.android.view.getWindowInsetsController
+import mozilla.components.support.ktx.android.view.createWindowInsetsController
 import java.util.logging.Logger
 
 abstract class ThemeManager {
@@ -40,12 +42,12 @@ abstract class ThemeManager {
 
     fun clearLightSystemBars(window: Window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.getWindowInsetsController().isAppearanceLightStatusBars = false
+            window.createWindowInsetsController().isAppearanceLightStatusBars = false
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = false
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = false
         }
     }
 
@@ -54,14 +56,14 @@ abstract class ThemeManager {
     fun updateLightSystemBars(window: Window, context: Context) {
         if (SDK_INT >= Build.VERSION_CODES.M) {
             window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.getWindowInsetsController().isAppearanceLightStatusBars = true
+            window.createWindowInsetsController().isAppearanceLightStatusBars = true
         } else {
             window.statusBarColor = Color.BLACK
         }
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
             updateNavigationBar(window, context)
         }
     }
@@ -69,14 +71,14 @@ abstract class ThemeManager {
     fun updateDarkSystemBars(window: Window, context: Context) {
         if (SDK_INT >= Build.VERSION_CODES.M) {
             window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.getWindowInsetsController().isAppearanceLightStatusBars = false
+            window.createWindowInsetsController().isAppearanceLightStatusBars = false
         } else {
             window.statusBarColor = Color.BLACK
         }
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.getWindowInsetsController().isAppearanceLightNavigationBars = true
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
             updateNavigationBar(window, context)
         }
     }
@@ -103,8 +105,6 @@ class DefaultThemeManager(
                 currentContext = personalThemeContext
             else
                 currentContext = activity
-
-            applyStatusBarTheme()
         }
 
     override fun applyStatusBarThemeTabsTray() {
@@ -145,8 +145,9 @@ class DefaultThemeManager(
     }
 
     override fun applyTheme(toolbar: BrowserToolbar) {
+        applyStatusBarTheme()
+        
         toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
-        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
 
         var textPrimary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textPrimary))
         var textSecondary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textSecondary))
@@ -161,7 +162,15 @@ class DefaultThemeManager(
             securityIconSecure = textPrimary,
             securityIconInsecure = textPrimary,
             menu = textPrimary,
+
         )
+
+        /*
+        * When switching between modes, we need to set the url background to something else before
+        * before setting it to the correct url background
+        * */
+        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background))
+        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
     }
 
 }

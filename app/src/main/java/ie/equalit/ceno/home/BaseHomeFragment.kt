@@ -20,6 +20,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
@@ -56,6 +57,7 @@ import mozilla.components.support.base.log.logger.Logger
  */
 @Suppress("TooManyFunctions")
 abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+    private lateinit var tabConterView: TabCounterView
     var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
@@ -89,6 +91,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
 
+    lateinit var clearCenoAction:ClearToolbarAction
+
     /* CENO: do not make onCreateView "final", needs to be overridden by HomeFragment */
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,7 +100,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         savedInstanceState: Bundle?,
     ): View {
         themeManager = (activity as BrowserActivity).themeManager
-        _binding = FragmentHomeBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -185,21 +189,21 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         }
 
         /* CENO: Add purge button to toolbar */
+        val clearButtonFeature = ClearButtonFeature(
+            requireContext(),
+            prefs.getString(
+                requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                .toInt()
+        )
+        clearCenoAction = ClearToolbarAction(
+            listener = {
+                clearButtonFeature.onClick()
+            },
+            context = themeManager.getContext()
+        )
+
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
-            val clearButtonFeature = ClearButtonFeature(
-                requireContext(),
-                prefs.getString(
-                    requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
-                    .toInt()
-            )
-            binding.toolbar.addBrowserAction(
-                ClearToolbarAction(
-                    listener = {
-                        clearButtonFeature.onClick()
-                    },
-                    context = themeManager.getContext()
-                )
-            )
+            binding.toolbar.addBrowserAction(clearCenoAction)
         }
 
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
@@ -221,11 +225,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                     false
                 )
             )
-        }
-        val search = if (themeManager.currentMode.isPersonal) {
-            requireComponents.useCases.searchUseCases.newPrivateTabSearch
-        } else {
-            requireComponents.useCases.searchUseCases.newTabSearch
         }
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
@@ -273,13 +272,14 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             )
         )
 
-        TabCounterView(
-            toolbar = toolbar,
+        tabConterView = TabCounterView(
+            toolbar = binding.toolbar,
             sessionId = sessionId,
             store = requireComponents.core.store,
             showTabs = ::showTabs,
             lifecycleOwner = this,
-            browsingModeManager = (activity as BrowserActivity).browsingModeManager
+            browsingModeManager = (activity as BrowserActivity).browsingModeManager,
+            themeManager = themeManager
         )
 
         thumbnailsFeature.set(
@@ -317,6 +317,37 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
                 R.id.action_global_tabsTray
             )
         }
+    }
+
+    fun applyTheme() {
+        //modify clear ceno button color
+        if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+            clearCenoAction.updateIconColor(themeManager.getContext())
+        }
+        //modify tab counter icon color
+        tabConterView.update()
+        //modify rest of the toolbar
+        themeManager.applyTheme(binding.toolbar)
+    }
+
+    internal fun updateSearch(mode: BrowsingMode) {
+        awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
+        awesomeBar.addProviders(
+            SearchSuggestionProvider(
+                requireContext(),
+                requireComponents.core.store,
+                searchUseCase = if (themeManager.currentMode.isPersonal) {
+                    requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                } else {
+                    requireComponents.useCases.searchUseCases.newTabSearch
+                },
+                fetchClient = requireComponents.core.client,
+                limit = 5,
+                mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                engine = requireComponents.core.engine,
+                filterExactMatch = true,
+            )
+        )
     }
 
     @CallSuper
