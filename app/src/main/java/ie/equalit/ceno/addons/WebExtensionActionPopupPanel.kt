@@ -76,11 +76,11 @@ class WebExtensionActionPopupPanel(
                 binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
                 binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
                 binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
-                binding.tvViaCenoNetworkCount.text = when {
-                    response.has("proxy") && response.getString("proxy") != "0" -> response.getString("proxy")
-                    response.has("injector") && response.getString("injector") != "0" -> response.getString("injector")
-                    else -> "0"
-                }
+
+                val proxy = if(response.has("proxy")) response.getString("proxy").toInt() else 0
+                val injector = if(response.has("injector")) response.getString("injector").toInt() else 0
+
+                binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
             }
         }
 
