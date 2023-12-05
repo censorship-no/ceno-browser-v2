@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.browser.icons.IconRequest
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
@@ -69,16 +70,17 @@ class WebExtensionActionPopupPanel(
             Log.d("PortDelegate", "Received message from extension: $message")
 
             // `message` returns as undefined sometimes. This check handles that
-            if ((message as String?) != null && message.isNotEmpty()) {
-                binding.progressBar.isGone = true
+            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
+
                 val response = JSONObject(message)
 
                 binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
                 binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
                 binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
 
-                val proxy = if(response.has("proxy")) response.getString("proxy").toInt() else 0
-                val injector = if(response.has("injector")) response.getString("injector").toInt() else 0
+                val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
+                val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
 
                 binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
             }
