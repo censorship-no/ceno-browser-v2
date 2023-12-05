@@ -235,7 +235,7 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     override fun onStart() {
-        updateSessionControlView()
         super.onStart()
+        updateSessionControlView()
     }
 }

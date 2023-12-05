@@ -78,7 +78,7 @@ abstract class ThemeManager {
 
         if (SDK_INT >= Build.VERSION_CODES.O) {
             // API level can display handle light navigation bar color
-            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
+            window.createWindowInsetsController().isAppearanceLightNavigationBars = false
             updateNavigationBar(window, context)
         }
     }
@@ -86,6 +86,7 @@ abstract class ThemeManager {
     abstract fun applyStatusBarThemeTabsTray()
 
     abstract fun getContext(): Context
+    abstract fun getIconColor(): Int
 }
 
 class DefaultThemeManager(
@@ -122,6 +123,13 @@ class DefaultThemeManager(
 
     override fun getContext(): Context {
         return currentContext
+    }
+
+    override fun getIconColor(): Int {
+        if (currentMode.isPersonal)
+            return R.color.fx_mobile_private_icon_color_primary
+        else
+            return R.color.fx_mobile_icon_color_primary
     }
 
     override fun applyStatusBarTheme() {
