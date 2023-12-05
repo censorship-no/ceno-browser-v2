@@ -69,15 +69,18 @@ class WebExtensionActionPopupPanel(
             Log.d("PortDelegate", "Received message from extension: $message")
 
             // `message` returns as undefined sometimes. This check handles that
-            if((message as String?) != null && message.isNotEmpty()) {
+            if ((message as String?) != null && message.isNotEmpty()) {
                 binding.progressBar.isGone = true
                 val response = JSONObject(message)
 
-                binding.tvDirectFromWebsiteCount.text = if(response.has("origin")) response.getString("origin") else "0"
-                binding.tvPersonalNetworkCount.text = if(response.has("proxy")) response.getString("proxy") else "0"
-                binding.tvPublicNetworkCount.text = if(response.has("injector")) response.getString("injector") else "0"
-                binding.tvSharedByOthersCount.text = if(response.has("dist-cache")) response.getString("dist-cache") else "0"
-                binding.tvSharedByYouCount.text = if(response.has("local-cache")) response.getString("local-cache") else "0"
+                binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
+                binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
+                binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
+                binding.tvViaCenoNetworkCount.text = when {
+                    response.has("proxy") && response.getString("proxy") != "0" -> response.getString("proxy")
+                    response.has("injector") && response.getString("injector") != "0" -> response.getString("injector")
+                    else -> "0"
+                }
             }
         }
 

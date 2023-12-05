@@ -41,8 +41,8 @@
             style="@style/PanelTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/panel_item_margin_top"
-            android:drawablePadding="@dimen/panel_item_drawable_padding"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="14dp"
             android:gravity="center_vertical"
             app:drawableStartCompat="@drawable/mozac_ic_lock"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +54,11 @@
             style="@style/PanelTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/panel_item_margin_top"
-            android:drawablePadding="@dimen/panel_item_drawable_padding"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="14dp"
             android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="0dp"
             android:text="@string/ceno_sources_header"
             app:drawableStartCompat="@drawable/ic_input"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +78,7 @@
             style="@style/PanelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:gravity="center_vertical"
             android:text="@string/preferences_clear_behavior_default"
@@ -91,7 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:text="@string/ceno_sources_direct_from_website"
@@ -103,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@id/sources_info" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_personal_network_count"
+            android:id="@+id/tv_via_ceno_network_count"
             style="@style/PanelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,50 +119,20 @@
             app:layout_constraintTop_toBottomOf="@id/tv_direct_from_website" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_personal_network"
+            android:id="@+id/tv_via_ceno_network"
             style="@style/PanelTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:text="@string/ceno_sources_personal_network"
+            android:text="@string/ceno_sources_via_ceno_network"
             android:textColor="@color/ceno_sources_blue"
             app:drawableStartCompat="@drawable/shape_circle"
             app:drawableTint="@color/ceno_sources_blue"
-            app:layout_constraintBottom_toBottomOf="@id/tv_personal_network_count"
+            app:layout_constraintBottom_toBottomOf="@id/tv_via_ceno_network_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"
-            app:layout_constraintTop_toTopOf="@id/tv_personal_network_count" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_public_network_count"
-            style="@style/PanelTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:text="@string/preferences_clear_behavior_default"
-            android:textColor="@color/ceno_sources_purple"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_direct_from_website_count"
-            app:layout_constraintTop_toBottomOf="@id/tv_personal_network_count" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_public_network"
-            style="@style/PanelTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:text="@string/ceno_sources_public_network"
-            android:textColor="@color/ceno_sources_purple"
-            app:drawableStartCompat="@drawable/shape_hexagon"
-            app:drawableTint="@color/ceno_sources_purple"
-            app:layout_constraintBottom_toBottomOf="@id/tv_public_network_count"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"
-            app:layout_constraintTop_toTopOf="@id/tv_public_network_count" />
+            app:layout_constraintTop_toTopOf="@id/tv_via_ceno_network_count" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_shared_by_others_count"
@@ -173,8 +145,8 @@
             android:text="@string/preferences_clear_behavior_default"
             android:textColor="@color/ceno_sources_orange"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_direct_from_website_count"
-            app:layout_constraintTop_toBottomOf="@id/tv_public_network_count" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_via_ceno_network_count"
+            app:layout_constraintTop_toBottomOf="@id/tv_via_ceno_network_count" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_shared_by_others"
