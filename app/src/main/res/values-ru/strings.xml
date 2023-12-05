@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Приватность Параметры</string> -->
     <!-- Приватный просмотр -->
-    <string name="private_browsing_title">Личный просмотр</string>
+    <string name="private_browsing_title">Личный браузинг</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Настраиваемая коллекция дополнений</string>
@@ -89,7 +89,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Остановить</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="preferences_add_ons">Дополнения</string>
+    <string name="preferences_add_ons">Расширения</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Настройки</string>
     <!-- Browser menu toggle that requests a desktop site -->
