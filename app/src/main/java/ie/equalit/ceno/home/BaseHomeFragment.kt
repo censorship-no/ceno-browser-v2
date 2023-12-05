@@ -331,23 +331,25 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
     }
 
     internal fun updateSearch(mode: BrowsingMode) {
-        awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
-        awesomeBar.addProviders(
-            SearchSuggestionProvider(
-                requireContext(),
-                requireComponents.core.store,
-                searchUseCase = if (themeManager.currentMode.isPersonal) {
-                    requireComponents.useCases.searchUseCases.newPrivateTabSearch
-                } else {
-                    requireComponents.useCases.searchUseCases.newTabSearch
-                },
-                fetchClient = requireComponents.core.client,
-                limit = 5,
-                mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                engine = requireComponents.core.engine,
-                filterExactMatch = true,
+        if (Settings.shouldShowSearchSuggestions(requireContext())) {
+            awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
+            awesomeBar.addProviders(
+                SearchSuggestionProvider(
+                    requireContext(),
+                    requireComponents.core.store,
+                    searchUseCase = if (themeManager.currentMode.isPersonal) {
+                        requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                    } else {
+                        requireComponents.useCases.searchUseCases.newTabSearch
+                    },
+                    fetchClient = requireComponents.core.client,
+                    limit = 5,
+                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                    engine = requireComponents.core.engine,
+                    filterExactMatch = true,
+                )
             )
-        )
+        }
     }
 
     @CallSuper
