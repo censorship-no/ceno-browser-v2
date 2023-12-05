@@ -68,6 +68,7 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
+import org.json.JSONObject
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -75,7 +76,7 @@ import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler, WebExtensionActionPopupPanel.SourceCountFetchListener {
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
 
@@ -125,6 +126,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private lateinit var browsingModeManager: BrowsingModeManager
     private lateinit var themeManager: ThemeManager
+
+    private var cachedSourceCounts: JSONObject? = null
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
@@ -483,6 +486,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 lifecycleOwner = this,
                 tabUrl = tab.content.url,
                 isConnectionSecure = tab.content.securityInfo.secure,
+                cachedSourceCounts = cachedSourceCounts,
+                this
         ).also { currentEtp -> currentEtp.show() }
     }
 
@@ -595,5 +600,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
+    }
+
+    override fun onCountsFetched(jsonObject: JSONObject) {
+        cachedSourceCounts = jsonObject
     }
 }

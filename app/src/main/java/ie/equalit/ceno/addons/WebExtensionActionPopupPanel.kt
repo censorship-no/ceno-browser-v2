@@ -35,6 +35,8 @@ class WebExtensionActionPopupPanel(
     private val lifecycleOwner: LifecycleOwner,
     private val tabUrl: String,
     private val isConnectionSecure: Boolean,
+    cachedSourceCounts: JSONObject?,
+    private val sourceCountFetchListener: SourceCountFetchListener?
 ) : BottomSheetDialog(context), EngineSession.Observer {
 
     private var binding: DialogWebExtensionPopupSheetBinding =
@@ -51,6 +53,20 @@ class WebExtensionActionPopupPanel(
         updateConnectionState()
         updateStats()
 
+        // load previously cached source counts
+        cachedSourceCounts?.let { response ->
+            if (response.has("url") && response.getString("url") == tabUrl.tryGetHostFromUrl()) {
+                binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
+                binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
+                binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
+
+                val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
+                val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
+                binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
+            }
+        }
+
+        // start runnable to continiously fetch new source counts
         runnable = Runnable {
             lifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
@@ -83,6 +99,10 @@ class WebExtensionActionPopupPanel(
                 val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
 
                 binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
+
+                // cache the values gotten; caching is done through SourceCountFetchListener interface
+                response.put("url", tabUrl.tryGetHostFromUrl())
+                sourceCountFetchListener?.onCountsFetched(response)
             }
         }
 
@@ -151,6 +171,11 @@ class WebExtensionActionPopupPanel(
             Log.d("Message", "Sending message: $message")
             it.postMessage(message)
         }
+    }
+
+    // interface for listening for successful count fetches
+    interface SourceCountFetchListener {
+        fun onCountsFetched(jsonObject: JSONObject)
     }
 
     override fun dismiss() {
