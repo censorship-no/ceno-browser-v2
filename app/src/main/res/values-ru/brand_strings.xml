@@ -157,7 +157,7 @@
     <string name="preferences_ceno_download_log">Скачать файл журнала</string>
     <string name="preferences_ceno_network_config_summary">Состояние Ouinet, конечные точки UDP, бутстрапы BitTorrent</string>
     <string name="preferences_ceno_enable_log">Включить файл журнала</string>
-    <string name="onboarding_public_or_personal_title">Публичный или персональный\?</string>
+    <string name="onboarding_public_or_personal_title">Публичный или личный?</string>
     <string name="ceno_onboarding_start_text">Одноранговая сеть &brandShortName; позволяет получать доступ к содержимому сайтов и обмениваться им в регионах, где обычное подключение невозможно или скомпрометировано.</string>
     <string name="ceno_onboarding_start_title">Делитесь сайтами
 \nдруг с другом</string>
@@ -184,9 +184,17 @@
     <string name="crash_reporting_dont_send_this_time">Не отправлять в этот раз</string>
     <string name="crash_reporting_always_send">Всегда отправлять</string>
     <string name="preferences_allow_crash_reporting">Отчёты об ошибках</string>
-    <string name="crash_reporting_opt_out">Вы отказались от отправки отчётов. Вы всегда можете зарегистрироваться в разделе Настройки &gt; Отчеты об авариях.</string>
+    <string name="crash_reporting_opt_out">Вы отказались от отправки отчётов. Вы всегда можете снова начать отправлять отчёты перейдя в раздел Настройки &gt; Отчеты об авариях.</string>
     <string name="crash_reporting_opt_in">Спасибо за отправку отчёта для улучшения &brandShortName;! Вы всегда можете отключить отправку отчётов в Настройках.</string>
     <string name="crash_reporting_send_once">Отправить один раз</string>
     <string name="crash_reporting_dont_ask_again">Больше не спрашивать</string>
     <string name="ceno_support_link_url">https://censorship.no/ru/support.html</string>
+    <string name="personal_home_learn_more">Хотите узнать больше?</string>
+    <string name="ouinet_client_fetch_success">Настройка &brandShortName; обновлена</string>
+    <string name="ceno_personal_browsing_description">Ceno не будет делиться контентом с личных вкладок с другими пользователями. Вы можете посещать сайты, требующие авторизации.</string>
+    <string name="crash_reporting_dialog_title">Прости, похоже в &brandShortName; произошел сбой!</string>
+    <string name="bt_invalid_ip_error">Неверный IP-адрес</string>
+    <string name="preferences_ceno_website_sources">Источники сайта</string>
+    <string name="bt_sources_none">Никакой</string>
+    <string name="bt_sources_custom">Кастомный</string>
 </resources>
