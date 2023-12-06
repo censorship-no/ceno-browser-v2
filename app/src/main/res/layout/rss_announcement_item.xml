@@ -28,7 +28,6 @@
             android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
-            android:textAllCaps="true"
             android:textColor="@color/ceno_home_card_announcement_title_color"
             tools:text="Announcements" />
 
