@@ -236,6 +236,7 @@ open class BrowserActivity : BaseActivity() {
             themeManager.currentMode = newMode
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
+        components.appStore.dispatch(AppAction.ModeChange(mode))
     }
 
     override fun onPause() {

@@ -150,4 +150,7 @@
     <string name="crash_reporting_opt_in">&brandShortName; uygulamasını geliştirmemize yardımcı olmak için çökme bildirimlerini paylaştığınız için teşekkür ederiz! Bu durumu istediğiniz zaman Ayarlar &gt; Çökme bildirimleri bölümünden değiştirebilirsiniz.</string>
     <string name="crash_reporting_send_once">Bir kez gönderilsin</string>
     <string name="crash_reporting_dont_ask_again">Bir daha sorulmasın</string>
+    <string name="ouinet_client_fetch_success">&brandShortName; ayarı güncellendi</string>
+    <string name="crash_reporting_dialog_title">Ne yazık ki &brandShortName; uygulaması çöktü!</string>
+    <string name="ceno_support_link_url">https://censorship.no/tr/support.html</string>
 </resources>
