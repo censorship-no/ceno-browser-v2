@@ -191,7 +191,7 @@
     <string name="button_content_readerview">Reader view</string>
     <string name="close_mode_item">Close notification</string>
     <!-- Ceno: COPIED FROM FOCUS -->
-    <string name="preference_category_search">Search</string>
+    <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <!-- Used to indicate the value of a setting item-->
     <string name="setting_item_selected">%s selected</string>
     <!-- Title key for search engine setting -->

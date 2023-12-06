@@ -79,3 +79,4 @@ geckoview
 app_branded
 */lint
 app/src/main/assets/addons/uBlock
+scenario.yaml
