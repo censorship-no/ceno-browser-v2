@@ -39,7 +39,7 @@ import mozilla.components.browser.state.selector.selectedTab
 class StandbyFragment : Fragment() {
 
     private var isDialogVisible: Boolean = false
-    private val refreshIntervalMS: Long = 2000
+    private val refreshIntervalMS: Long = 1300
     private val statusTooLong: String = "toolong"
 
     private var status: Flow<String>? = null
@@ -182,7 +182,5 @@ class StandbyFragment : Fragment() {
         binding.progressBar.isActivated = true
         index = 0
     }
-
-
 
 }
