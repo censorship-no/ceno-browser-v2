@@ -1,96 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Search or enter address</string>
-
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Add New Tab</string>
-
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
-
     <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
     <!-- Preference summary for settings related to send telemetry data -->
     <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
-
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
-
     <!-- Preference for enabling tracking protection in normal mode -->
     <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
-
     <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Enable in Personal Browsing Mode</string>
-
     <!-- Preference for privacy -->
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
-
     <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
-
     <!-- Preference summary for website sources -->
     <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
-
     <!-- Preference summary for customizaton -->
     <string name="preferences_customization_summary">App Icon, Toolbar, Clear button</string>
-
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>
-
     <!-- Preference category for developer tools -->
     <string name="general_category">General</string>
-
     <!-- Preference category for Bit Torrent bootstraps -->
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
-
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>
-
     <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
     <!-- Preference for settings related turn on telemetry data-->
     <!-- <string name="use_telemetry">Use Telemetry</string> -->
-
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">Tracking Protection</string>
-
     <!-- Preference category for tracking protection -->
     <string name="theme_category">Theme</string>
-
     <!-- Preference category for tracking protection -->
     <string name="toolbar_category">Toolbar Options</string>
-
     <!-- Preference category for UDP -->
     <string name="udp_category">UDP</string>
-
     <!-- Preference category for tracking protection -->
     <string name="clear_button_category">Clear Button</string>
-
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">Data Choices</string> -->
-
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Settings</string>
-
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <string name="customization_settings">Customization</string>
-
     <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message">Sorry. We crashed</string>
-
     <!-- Private Browsing -->
     <string name="private_browsing_title">Personal Browsing</string>
-
     <!-- <string name="default_notification_channel">Browser</string> -->
-
     <string name="menu_share_with">Share with…</string>
     <string name="toast_copied">Copied!</string>
-
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
@@ -104,29 +75,21 @@
     <string name="customize_addon_collection_hint">Collection name</string>
     <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
-
     <!-- Hint displayed on input field for Extra-BitTorrent-Bootstraps -->
     <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
-
     <!-- CTA for adding custom BT sources -->
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Add custom bootstraps</string>
-
     <!-- Hint displayed on input field for entering custom Extra-BitTorrent-Bootstraps -->
     <string name="customize_custom_extra_bittorrent_bootstrap">Separate IPs with commas</string>
-
     <!-- Selection prompt for choosing BT sources -->
     <string name="select_extra_bt_source">Select extra BitTorrent bootstrap</string>
-
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
-
     <!-- Ceno: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Enable Personal browsing</string>
-
+    <string name="content_description_private_browsing_button" tools:ignore="UnusedResources">Enable Personal browsing</string>
     <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
-
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Rename</string>
@@ -134,7 +97,6 @@
     <string name="remove_top_site">Remove</string>
     <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Delete from history</string>
-
     <!-- Top Sites -->
     <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">Shortcut limit reached</string>
@@ -152,7 +114,6 @@
     <string name="top_sites_rename_dialog_cancel">Cancel</string>
     <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Sponsored</string>
-
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <string name="browser_menu_back">Back</string>
@@ -178,13 +139,10 @@
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
-
     <!-- Browser menu button that opens a user's library -->
     <string name="browser_menu_library">Library</string>
-
     <!--suppress CheckTagEmptyBody This is a default value for places where we don't want a string set-->
-    <string name="empty_string" translatable="false"></string>
-
+    <string name="empty_string" translatable="false"/>
     <!-- Text for the cancel button for the data deletion dialog -->
     <string name="delete_browsing_data_prompt_cancel">Cancel</string>
     <!-- Text for the allow button for the data deletion dialog -->
@@ -192,8 +150,7 @@
     <!-- Text for the snackbar confirmation that the data was deleted -->
     <string name="preferences_delete_browsing_data_snackbar">Browsing data deleted</string>
     <!-- Text for the snackbar to show the user that the deletion of browsing data is in progress -->
-    <string name="deleting_browsing_data_in_progress">Deleting browsing data&#8229;</string>
-
+    <string name="deleting_browsing_data_in_progress">Deleting browsing data…</string>
     <!-- Title for the Delete browsing data preference -->
     <string name="preferences_delete_browsing_data">Delete browsing data</string>
     <!-- Subtitle for the tabs item in Delete browsing data, parameter will be replaced with the number of open tabs -->
@@ -201,8 +158,6 @@
         <item quantity="one">%d tab</item>
         <item quantity="other">%d tabs</item>
     </plurals>
-
-
     <!-- Title for the data and history items in Delete browsing data -->
     <string name="preferences_delete_browsing_data_browsing_data_title">Browsing history and site data</string>
     <!-- Subtitle for the data and history items in delete browsing data, parameter will be replaced with the
@@ -227,53 +182,38 @@
     -->
     <!-- Text for the button to delete browsing data -->
     <string name="preferences_delete_browsing_data_button">Delete browsing data</string>
-
     <!-- Title for the tabs item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_tabs_title_2">Open tabs</string>
-
     <!-- Dialog message to the user asking to delete browsing data. Parameter will be replaced by app name. -->
     <string name="delete_browsing_data_prompt_message_3">%s will delete the selected browsing data.</string>
-
     <!-- Ceno: END OF COPIED FROM FENIX -->
-
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
     <string name="close_mode_item">Close notification</string>
-
     <!-- Ceno: COPIED FROM FOCUS -->
-    <string name="preference_category_search">Search</string>
-
+    <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <!-- Used to indicate the value of a setting item-->
     <string name="setting_item_selected">%s selected</string>
-
     <!-- Title key for search engine setting -->
     <string name="set_default_search_engine">Set default search engine</string>
-
     <!-- Title of "switch" preference that enables/disables search suggestions -->
     <string name="preference_show_search_suggestions">Get search suggestions</string>
-
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
     <string name="preference_search_summary">Set default</string>
-
     <!-- Header for the list of installed search engines -->
     <string name="preference_choose_search_engine">Choose search engine</string>
-
     <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
-
     <!-- Preference title text that launches the addon manager -->
     <string name="preferences_add_ons">Add-ons</string>
-
     <!-- Label that indicates a site is using a secure connection -->
     <string name="secure_connection">Connection is secure</string>
     <!-- Label that indicates a site is using a insecure connection -->
     <string name="insecure_connection">Connection is not secure</string>
     <!-- Ceno: END OF COPIED FROM FOCUS -->
-
     <!-- Label that indicates that an item doesn't have a relevant value -->
     <string name="not_applicable">N/A</string>
-
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
     <string name="default_search_engine_id" translatable="false">ddg</string>
@@ -281,9 +221,8 @@
     <string name="cache_type" translatable="false">bep5-http</string>
     <string name="loopback_ip" translatable="false">127.0.0.1</string>
     <string name="browser_toolbar_home">Home</string>
-
     <string name="crash_report_sent">Crash report sent!</string>
-
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
+    <string name="green_check_mark_in_a_circle">Green check mark in a circle</string>
 </resources>

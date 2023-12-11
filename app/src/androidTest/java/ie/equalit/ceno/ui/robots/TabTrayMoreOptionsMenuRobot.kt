@@ -44,7 +44,7 @@ class TabTrayMoreOptionsMenuRobot {
 }
 
 private fun closeAllTabsButton() = onView(ViewMatchers.withText("Close All Tabs"))
-private fun closeAllPrivateTabsButton() = onView(ViewMatchers.withText("Close Private Tabs"))
+private fun closeAllPrivateTabsButton() = onView(ViewMatchers.withText("Close Personal Tabs"))
 private fun assertCloseAllTabsButton() {
     val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     mDevice.waitAndInteract(Until.findObject(By.text("Close All Tabs"))) {}

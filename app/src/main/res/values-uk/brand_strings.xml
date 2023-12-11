@@ -76,9 +76,11 @@
     <string name="onboarding_button">Почати роботу</string>
     <string name="onboarding_info_title">Не ваш звичайний браузер</string>
     <string name="onboarding_battery_title">Необхідний дозвіл</string>
-    <string name="onboarding_battery_text">Невдовзі ОС (операційна система) запитає у вас дозвіл вимкнути оптимізацію батареї.
+    <string name="onboarding_battery_text">Незабаром операційна система запитає у вас дозвіл
 \n
-\nЦе потрібно, щоб продовжувати ділитися веб-сайтами, поки програма працює у фоновому режимі</string>
+\n• Вимкнути оптимізацію батареї
+\n
+\nЦе потрібно аби ділитися веб-сайтами, поки програма працює у фоновому режимі.</string>
     <string name="onboarding_warning_button">Гаразд</string>
     <string name="onboarding_thanks_title">Дякуємо за розширення мережі!</string>
     <string name="onboarding_thanks_button">Почнімо!</string>
@@ -95,7 +97,7 @@
 \nПерейдіть до «Hалаштування &gt; Вимкнути оптимізацію акумулятора», щоб надати дозвіл пізніше</string>
     <string name="onboarding_thanks_text">Як користувач &brandShortName;, ви допомагаєте розширити мережу доступних мостів, що забезпечують доступ до цензурованого контенту.</string>
     <string name="preferences_disable_battery_opt">Вимкнути оптимізацію батареї</string>
-    <string name="about_content"><p>%1$s - Поділіться Інтернетом!</p> <p>Ceno (скорочення від censorship.no!) - перший у світі мобільний браузер, який обходить існуючі методи цензури в Інтернеті. Його пірингова основа дозволяє людям отримувати доступ до веб-інформації та обмінюватися нею в регіонах, де зв\'язок був перерваний або скомпрометований. </p> <p>%1$s є проектом eQualitie, канадської організації, місія якої полягає у просуванні та захисті фундаментальних свобод і прав людини, включаючи вільний потік інформації в Інтернеті. Наша мета - створити доступні технології та вдосконалити набір навичок, необхідних для захисту прав і свобод людини в цифрову епоху.</p></string>
+    <string name="about_content"><p>%1$s - Поділіться інтернетом!</p> <p>Ceno (скорочення від censorship.no!) - перший у світі мобільний браузер, який обходить наявні методи цензури в інтернеті. Його пірингова основа дозволяє людям отримувати доступ до інформації в мережі та обмінюватися нею у місцевості, де зв\'язок був перерваний або скомпрометований. </p> <p>%1$s є проектом канадської організації eQualitie, місія якої полягає у просуванні та захисті фундаментальних свобод і прав людини, включаючи вільний обмін інформацією в Інтернеті. Наша мета – створити доступні технології та вдосконалити набір навичок, необхідних для захисту прав і свобод людини в цифрову епоху.</p></string>
     <string name="ceno_clear_dialog_clear_entire_app">Очистити &brandShortName; кеш і дані застосунку</string>
     <string name="preferences_clear_in_toolbar">Показати на панелі інструментів</string>
     <string name="preferences_clear_in_menu">Показати в меню</string>
@@ -121,9 +123,12 @@
     <string name="source_code_button_text">Вихідний код</string>
     <string name="website_button_text">Вебсайт</string>
     <string name="donate_button_text">Задонатьте</string>
-    <string name="onboarding_battery_text_v33">Невдовзі операційна система запитає у вас дозвіл на сповіщення та вимкнення оптимізації батареї.
+    <string name="onboarding_battery_text_v33">Незабаром операційна система запитає у вас дозвіл 
 \n
-\nЦе потрібно, щоб продовжувати ділитися веб-сайтами, поки застосунок працює у фоновому режимі</string>
+\n• Дозволити сповіщення
+\n• Вимкнути оптимізацію батареї
+\n
+\nЦе потрібно аби ділитися веб-сайтами, поки програма працює у фоновому режимі.</string>
     <string name="onboarding_warning_text_v33_1">Сповіщення заборонені.
 \n
 \nПерейдіть до «Налаштування &gt; Дозволити сповіщення», щоб надати дозвіл пізніше</string>
@@ -158,17 +163,37 @@
     <string name="ceno_onboarding_start_title">Поширюйте веб
 \nвід користувача до користувача</string>
     <string name="onboarding_public_or_personal_title">Публічний чи персональний\?</string>
-    <string name="onboarding_public_personal_text">За допомогою публічних вкладок ви можете отримати доступ до загальнодоступних сторінок, таких як новини, відео чи статті.
+    <string name="onboarding_public_personal_text">Використовуйте Публічні вкладки аби читати новини, дивитися відео чи загальний серфінг в інтернеті. Поширюйте цей контент з іншими користувачами Ceno.
 \n
-\nПотрібно ввійти в обліковий запис за допомогою облікових даних\? Персональні вкладки якраз підходять для цього.</string>
+\nПерсональні вкладки краще підходять для акаунтів у соцмережах, магазинів онлайн-покупок і перегляду веб-сайтів, інформацією про які ви не хочете ділитися з іншими.</string>
     <string name="onboarding_cleanup_title">Очистити все,
 \nусюди, все й відразу</string>
     <string name="onboarding_cleanup_text">Очистіть історію браузера, облікові дані та будь-які сліди, які ви залишили в &brandShortName; за допомогою однієї кнопки.</string>
     <string name="ceno_onboarding_start_text">&brandShortName;’s одноранговий (піринговий) протокол дозволяє людям отримувати доступ до вмісту веб-сайту та обмінюватися ним у регіонах, де з’єднання було перервано або порушено.</string>
-    <string name="ceno_home_card_personal_text">Для входу в обліковий запис або доступу до облікових даних.</string>
-    <string name="ceno_home_card_public_text">Для доступу до публічних сторінок, таких як новини, відео чи статті.</string>
+    <string name="ceno_home_card_personal_text">Менш швидкий зв\'язок, однак більше конфіденційності. Аби логінитися в акаунти, не залишаючи слідів</string>
+    <string name="ceno_home_card_public_text">Хороша якість зв\'язку, однак менше конфіденційності. Для читання новин, перегляду відео та обміну контентом з іншими</string>
     <string name="ceno_home_card_personal_title">ПЕРСОНАЛЬНІ ВКЛАДКИ</string>
     <string name="preferences_ceno_sources_upnp">Статус UPnP</string>
     <string name="preferences_ceno_sources_reachability">Статус доступності</string>
-    <string name="onboarding_finish_button">Закінчити</string>
+    <string name="onboarding_finish_button">Завершити</string>
+    <string name="ceno_support_link_url">https://censorship.no/uk/support.html</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Додаткові завантажувальні програми BitTorrent</string>
+    <string name="personal_home_learn_more">Хочете дізнатися більше?</string>
+    <string name="ouinet_client_fetch_success">&brandShortName; налаштування оновлено</string>
+    <string name="crash_reporting_dialog_description">Допоможіть нам зробити &brandShortName; кращим, надсилайте нам звіти про збої.</string>
+    <string name="ceno_personal_browsing_description">Ceno НЕ буде ділитися контентом з особистих вкладок з іншими користувачами. Ви можете відвідувати сайти, які потребують логіну.</string>
+    <string name="crash_reporting_never_send">Ніколи не надсилайте</string>
+    <string name="crash_reporting_dont_send_this_time">Цього разу не надсилати</string>
+    <string name="crash_reporting_always_send">Завжди надсилайте, покращуйте &brandShortName;</string>
+    <string name="crash_reporting_dialog_title">Вибачте, &brandShortName; тимчасово не працює!</string>
+    <string name="bt_invalid_ip_error">Недійсний IP</string>
+    <string name="preferences_allow_crash_reporting">Звіт про збої</string>
+    <string name="crash_reporting_opt_out">Ви відмовилися від надсилання звітів про збої. Ви завжди можете повернути цю функцію, перейшовши в Налаштування &gt; Звіт про збої.</string>
+    <string name="crash_reporting_opt_in">Дякуємо, що поділилися звітами про збої – це допоможе покращити &brandShortName;! Ви завжди можете вимкнути цю функцію, перейшовши до Налаштувань &gt; Звіт про збої.</string>
+    <string name="crash_reporting_send_once">Надіслати один раз</string>
+    <string name="preferences_ceno_sources_local_udp">Локальні кінцеві точки UDP</string>
+    <string name="crash_reporting_dont_ask_again">Більше не питайте</string>
+    <string name="bt_sources_none">Жоден</string>
+    <string name="preferences_ceno_sources_external_udp">Зовнішні кінцеві точки UDP</string>
+    <string name="preferences_ceno_sources_public_udp">Публічні кінцеві точки UDP</string>
 </resources>

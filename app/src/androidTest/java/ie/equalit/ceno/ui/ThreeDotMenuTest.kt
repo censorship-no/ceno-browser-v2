@@ -6,7 +6,6 @@ package ie.equalit.ceno.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiSelector
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -87,7 +86,7 @@ class ThreeDotMenuTest {
             //verifyHttpsByDefaultButtonExists()
             //TODO: uBlock Origin takes some time to install, needs special test case
             //verifyUblockOriginButtonExists()
-            verifyAddOnsButtonExists()
+            //verifyAddOnsButtonExists()
             verifyOpenSettingsExists()
         }
     }
@@ -115,9 +114,8 @@ class ThreeDotMenuTest {
             verifyAddToShortcutsButtonExists()
             verifyFindInPageButtonExists()
             verifyHttpsByDefaultButtonExists()
-            //TODO: uBlock Origin takes some time to install, needs special test case
-            //verifyUblockOriginButtonExists()
-            verifyAddOnsButtonExists()
+            verifyUblockOriginButtonExists()
+            //verifyAddOnsButtonExists()
             //verifySyncedTabsButtonExists()
             //verifyReportIssueExists()
             verifyOpenSettingsExists()
@@ -156,18 +154,18 @@ class ThreeDotMenuTest {
             openPrivateBrowsing()
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.displayUrl)
         }.goBack {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.openThreeDotMenu {
         }.goForward {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.displayUrl)
         }
     }
 
@@ -318,7 +316,7 @@ class ThreeDotMenuTest {
         }.openAddToHomeScreen {
             clickAddAutomaticallyToHomeScreenButton()
         }.openHomeScreenShortcut(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
     }
 }

@@ -36,7 +36,6 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
 import kotlinx.coroutines.flow.mapNotNull
-import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -61,15 +60,15 @@ import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.lib.state.ext.consumeFlow
-import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.ktx.android.view.enterToImmersiveMode
+import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
+import org.json.JSONObject
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -77,7 +76,7 @@ import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler, WebExtensionActionPopupPanel.SourceCountFetchListener {
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
 
@@ -126,7 +125,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     protected var webAppToolbarShouldBeVisible = true
 
     private lateinit var browsingModeManager: BrowsingModeManager
-    private lateinit var themeManager: ThemeManager
+    internal lateinit var themeManager: ThemeManager
+
+    private var cachedSourceCounts: JSONObject? = null
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
@@ -134,7 +135,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentBrowserBinding.inflate(LayoutInflater.from(themeManager.getContext()), container, false)
+        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
         container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
@@ -413,7 +414,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             store = requireComponents.core.store,
             showTabs = ::showTabs,
             lifecycleOwner = this,
-            browsingModeManager = browsingModeManager
+            browsingModeManager = browsingModeManager,
+            themeManager = themeManager
         )
 
         thumbnailsFeature.set(
@@ -477,7 +479,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     }
 
     fun showWebExtensionPopupPanel(webExtId : String) {
-        val session = requireContext().components.core.store.state.extensions[webExtId]?.popupSession
         val tab = requireContext().components.core.store.state.selectedTab!!
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
@@ -485,31 +486,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 lifecycleOwner = this,
                 tabUrl = tab.content.url,
                 isConnectionSecure = tab.content.securityInfo.secure,
+                cachedSourceCounts = cachedSourceCounts,
+                this
         ).also { currentEtp -> currentEtp.show() }
-
-        if (session != null) {
-            webExtensionActionPopupPanel?.renderSettingsView(session)
-            consumePopupSession(webExtId)
-        } else {
-            consumeFrom(requireContext().components.core.store) { state ->
-                state.extensions[webExtId]?.let { extState ->
-                    extState.popupSession?.let {
-                        if (engineSession == null) {
-                            webExtensionActionPopupPanel?.renderSettingsView(it)
-                            consumePopupSession(webExtId)
-                            engineSession = it
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun consumePopupSession(webExtId: String) {
-        requireContext().components.core.store.dispatch(
-                WebExtensionAction.UpdatePopupSessionAction(webExtId, popupSession = null)
-        )
     }
 
     private fun showTabs() {
@@ -553,7 +532,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun fullScreenChanged(enabled: Boolean) {
         if (enabled) {
-            activity?.enterToImmersiveMode()
+            activity?.enterImmersiveMode()
             binding.toolbar.visibility = View.GONE
             binding.engineView.setDynamicToolbarMaxHeight(0)
         } else {
@@ -621,5 +600,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
+    }
+
+    override fun onCountsFetched(jsonObject: JSONObject) {
+        cachedSourceCounts = jsonObject
     }
 }

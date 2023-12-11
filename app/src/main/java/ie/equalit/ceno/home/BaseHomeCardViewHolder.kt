@@ -18,6 +18,9 @@ open class BaseHomeCardViewHolder(
 
     init {
         itemView.setOnClickListener(this)
+    }
+
+    fun enableContextMenu() {
         itemView.setOnCreateContextMenuListener(this)
     }
 
@@ -51,6 +54,10 @@ open class BaseHomeCardViewHolder(
     }
 
     override fun onClick(p0: View?) {
-        interactor.onClicked(cardType)
+        /*
+        if (cardType == HomepageCardType.BASIC_MESSAGE_CARD) {
+            interactor.onClicked(cardType)
+        }
+        */
     }
 }

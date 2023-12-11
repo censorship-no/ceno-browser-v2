@@ -19,6 +19,7 @@ import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
 import ie.equalit.ceno.components.Utilities
+import ie.equalit.ceno.components.WebExtensionPort
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
@@ -106,4 +107,6 @@ class Components(private val context: Context) {
     }
     val ouinet by lazy { Ouinet(context) }
     val permissionHandler by lazy { PermissionHandler(context) }
+
+    val webExtensionPort by lazy { WebExtensionPort(context) }
 }

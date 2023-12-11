@@ -13,17 +13,34 @@
     <!-- Overriding color of tab counter icon in toolbar -->
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
 
-    <color name="ceno_home_background">#F9F9FA</color>
-    <color name="ceno_home_card_public_text">#0EA5E9</color>
-    <color name="ceno_home_card_personal_text">#9C27B0</color>
+    <color name="ceno_home_background">#F0F0F4</color>
+    <color name="ceno_home_card_public_text">@color/ceno_blue_600</color>
+    <color name="ceno_home_card_personal_text">@color/ceno_purple_600</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
     <color name="ceno_home_card_text_color">@color/photonBlack</color>
+    <color name="ceno_home_card_announcement_title_color">#FB923C</color>
+    <color name="ceno_home_card_announcement_timestamp_color">#B5B5B5</color>
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
     <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
     <color name="ceno_onboarding_background">#F0F9FF</color>
     <color name="ceno_onboarding_text">#5F5F5F</color>
     <color name="ceno_onboarding_button">#027DBD</color>
     <color name="home_card_close_button">@color/photonDarkGrey70</color>
+    <color name="home_card_announcements_background">#FFF7ED</color>
+
+    <color name="ceno_blue_100">#E0F2FE</color>
+    <color name="ceno_blue_200">#BAE6FD</color>
+    <color name="ceno_blue_300">#7DD3FC</color>
+    <color name="ceno_blue_600">#0284C7</color>
+
+    <color name="ceno_purple_100">#E1BEE7</color>
+    <color name="ceno_purple_200">#D698E0</color>
+    <color name="ceno_purple_600">#9826AB</color>
+    <color name="ceno_purple_700">#751A85</color>
+    <color name="ceno_purple_800">#53115F</color>
+    <color name="ceno_purple_900">#320B39</color>
+
+    <color name="ceno_grey_200">#D2D2D2</color>
 
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
@@ -157,11 +174,11 @@
 
     <!-- Layers -->
     <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->
-    <color name="fx_mobile_private_layer_color_1">@color/photonInk50</color>
+    <color name="fx_mobile_private_layer_color_1">@color/ceno_purple_800</color>
     <!-- Card background, Menu background, Dialog, Banner -->
     <color name="fx_mobile_private_layer_color_2">@color/photonInk50</color>
     <!-- Search -->
-    <color name="fx_mobile_private_layer_color_3">@color/photonInk70</color>
+    <color name="fx_mobile_private_layer_color_3">@color/ceno_purple_900</color>
     <!-- Homescreen background, Toolbar -->
     <color name="fx_mobile_private_layer_color_4_start">@color/photonPurple70</color>
     <!-- Homescreen background, Toolbar -->
@@ -348,6 +365,12 @@
     <color name="ic_launcher_white_background">#FDFDFD</color>
     <color name="ic_launcher_blue_background">#0EA5E9</color>
     <color name="ic_launcher_red_background">#F0412F</color>
+    
+    <!--  Ceno sources count label colors  -->
+    <color name="ceno_sources_green">#18CA08</color>
+    <color name="ceno_sources_blue">#38BDF8</color>
+    <color name="ceno_sources_orange">#F97316</color>
+    <color name="ceno_sources_grey">#A7A7A7</color>
 
 
     <!-- Private Browsing Mode Persistent Notification -->
