@@ -154,7 +154,6 @@ open class BrowserActivity : BaseActivity() {
         navHost.navController.navigate(
             when {
                 Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
-                components.ouinet.background.getState() != RunningState.Started.toString() -> R.id.action_global_standbyFragment
                 components.core.store.state.selectedTab == null -> R.id.action_global_home
                 else -> R.id.action_global_browser
             }
@@ -260,6 +259,8 @@ open class BrowserActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (components.ouinet.background.getState() != RunningState.Started.toString())
+            navHost.navController.navigate(R.id.action_global_standbyFragment)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background
