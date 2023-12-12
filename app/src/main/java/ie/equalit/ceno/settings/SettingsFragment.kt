@@ -33,6 +33,7 @@ import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.ceno.tryNavigate
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
@@ -72,7 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Logger.debug("Reloading Settings fragment")
                 CenoSettings.setStatusUpdateRequired(requireContext(), false)
                 findNavController().popBackStack() // Pop before relaunching the fragment to preserve backstack
-                findNavController().navigate(R.id.action_global_settings)
+                findNavController().tryNavigate(R.id.action_global_settings)
             }
         } else if (key == getString(pref_key_shared_prefs_update)) {
             if (newValue) {
@@ -333,7 +334,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForPrivacy(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_privacySettingsFragment
             )
             getActionBar().setTitle(tracker_category)
@@ -343,7 +344,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCustomization(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_customizationSettingsFragment
             )
             true
@@ -352,7 +353,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForSearch(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_installedSearchEnginesSettingsFragment
             )
             getActionBar().setTitle(preference_choose_search_engine)
@@ -362,7 +363,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForDeleteBrowsingData(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
@@ -372,14 +373,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForAddOns(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(R.id.action_global_addons)
+            findNavController().tryNavigate(R.id.action_global_addons)
             true
         }
     }
 
     private fun getClickListenerForWebsiteSources(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_websiteSourceSettingsFragment)
+            findNavController().tryNavigate(R.id.action_settingsFragment_to_websiteSourceSettingsFragment)
             true
         }
     }
@@ -408,7 +409,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getAboutPageListener(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_aboutFragment
             )
             getActionBar().setTitle(preferences_about_page)
@@ -543,7 +544,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoNetworkDetails(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            findNavController().navigate(
+            findNavController().tryNavigate(
                 R.id.action_settingsFragment_to_networkSettingsFragment
             )
             true
