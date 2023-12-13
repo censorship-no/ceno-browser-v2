@@ -16,6 +16,7 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.browser
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Ignore
 
 class ContextMenusTest {
 
@@ -109,10 +110,11 @@ class ContextMenusTest {
         }
 
         browser {
-            verifyUrl(genericURL.url.toString())
+            verifyUrl(genericURL.displayUrl)
         }
     }
 
+    @Ignore("Disabled - Share option behaves oddly in redroid-11 instance")
     @Test
     fun contextShareLinkTest() {
         val pageLinks = TestAssetHelper.getGenericAsset(mockWebServer, 4)

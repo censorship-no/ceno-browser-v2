@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Buscar o introducir dirección</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Agregar Nueva Pestaña</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
-    <string name="menu_action_close_tabs_private">Cerrar Pestañas Privadas</string>
+    <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Activar en Modo de Navegación Privada</string>
+    <string name="preferences_tracking_protection_private">Activar en modo de navegación personal</string>
     <!-- Preference for privacy -->
     <string name="privacy">Privacidad</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
     <!-- Navegación privada -->
-    <string name="private_browsing_title">Navegación Privada</string>
+    <string name="private_browsing_title">Navegación personal</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Colección de Complementos personalizada</string>
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">Colección de complementos modificada. Cerrando la aplicación para aplicar los cambios…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Habilitar la navegación privada</string>
+    <string name="content_description_private_browsing_button">Activar la navegación personal</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña privada</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña personal</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renombrar</string>
@@ -90,7 +90,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Detener</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Complementos</string>
+    <string name="preferences_add_ons">Complementos</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Configuración</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -124,7 +124,7 @@
     <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
     <string name="delete_browsing_data_prompt_allow">Borrar</string>
     <string name="preferences_delete_browsing_data_snackbar">Datos de navegación eliminados</string>
-    <string name="deleting_browsing_data_in_progress">Eliminando los datos de navegación‥</string>
+    <string name="deleting_browsing_data_in_progress">Eliminando los datos de la navegación…</string>
     <string name="preferences_delete_browsing_data">Eliminar datos de navegación</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="one">pestaña %d</item>
@@ -146,7 +146,7 @@
     <string name="preferences_delete_browsing_data_tabs_title_2">Abrir pestañas</string>
     <string name="clear_button_category">Botón de Borrar</string>
     <string name="delete_browsing_data_prompt_message_3">%s borrará los datos de navegación seleccionados.</string>
-    <string name="crash_report_non_fatal_message">Disculpas. Estamos bloqueados</string>
+    <string name="crash_report_non_fatal_message">Lo sentimos. Algo ha fallado</string>
     <string name="close_mode_item">Cerrar la notificación</string>
     <string name="preference_category_search">Buscar</string>
     <string name="preference_choose_search_engine">Elegir motor de búsqueda</string>
@@ -159,4 +159,11 @@
     <string name="insecure_connection">La conexión no es segura</string>
     <string name="browser_menu_back">Atrás</string>
     <string name="browser_toolbar_home">Inicio</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir el enlace en una pestaña personal</string>
+    <string name="bit_torrent_bootstraps_category">Arranque de BitTorrent</string>
+    <string name="customize_add_bootstrap_save">Guardar</string>
+    <string name="udp_category">UDP</string>
+    <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
+    <string name="not_applicable">n/a</string>
+    <string name="crash_report_sent">¡Informe de errores enviado!</string>
 </resources>

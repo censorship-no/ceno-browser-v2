@@ -8,31 +8,32 @@
 // Synchronized version numbers for dependencies used by (some) modules
 object Versions {
     object AndroidX {
-        const val activity_compose = "1.6.1"
-        const val appcompat = "1.5.1"
-        const val compose = "1.3.1"
+        const val activity_compose = "1.7.2"
+        const val appcompat = "1.6.1"
+        const val compose = "1.5.4"
         const val constraintlayout = "2.1.4"
-        const val core = "1.9.0"
-        const val lifecycle = "2.5.1"
-        const val preference = "1.2.0"
+        const val core = "1.12.0"
+        const val lifecycle = "2.6.2"
+        const val navigation = "2.5.3"
+        const val preference = "1.2.1"
         const val swiperefreshlayout = "1.1.0"
         const val work = "2.7.1"
     }
 
     object Google {
-        const val compose_compiler = "1.4.2"
-        const val material = "1.7.0"
+        const val compose_compiler = "1.4.8"
+        const val material = "1.9.0"
     }
 
     object Gradle {
-        const val android_plugin = "7.3.0"
+        const val android_plugin = "7.4.2"
         const val kotlin_plugin = Kotlin.compiler
     }
 
     object Kotlin {
-        const val compiler = "1.8.10"
-        const val coroutines = "1.6.4"
-        const val serialization = "1.5.0"
+        const val compiler = "1.8.22"
+        const val coroutines = "1.7.2"
+        const val serialization = "1.5.1"
     }
 
     object Testing {
@@ -42,19 +43,21 @@ object Versions {
         const val androidx_orchestrator = "1.4.2"
         const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
-        const val jacoco = "0.8.8"
-        const val ktlint = "0.48.1"
+        const val jacoco = "0.8.10"
+        const val ktlint = "0.49.1"
         const val mockwebserver = "4.10.0"
     }
 
     object ThirdParty {
-        const val sentry = "6.11.0"
+        const val sentry = "6.27.0"
+        const val gson = "2.10.1"
     }
 
     /* CENO: Versions for additional dependencies */
-    const val ouinet_version = "0.21.10"
+    const val ouinet_version = "0.22.0"
     const val relinker_version = "1.4.4"
     const val clean_insights = "2.7.0"
+    const val snakeyaml_version = "2.0"
 
     // Workaround for a Gradle parsing bug that prevents using nested objects directly in Gradle files.
     // These might be removable if we switch to kts files instead.
@@ -145,6 +148,7 @@ object Deps {
     const val mozilla_lib_publicsuffixlist = "org.mozilla.components:lib-publicsuffixlist:${AndroidComponents.VERSION}"
 
     const val thirdparty_sentry = "io.sentry:sentry-android:${Versions.ThirdParty.sentry}"
+    const val thirdparty_gson = "com.google.code.gson:gson:${Versions.ThirdParty.gson}"
 
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
@@ -158,6 +162,9 @@ object Deps {
     const val androidx_compose_material = "androidx.compose.material:material:${Versions.AndroidX.compose}"
     const val androidx_activity_compose = "androidx.activity:activity-compose:${Versions.AndroidX.activity_compose}"
     const val androidx_swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swiperefreshlayout}"
+    const val androidx_safeargs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_ui = "androidx.navigation:navigation-ui:${Versions.AndroidX.navigation}"
 
     const val google_material = "com.google.android.material:material:${Versions.Google.material}"
 
@@ -184,4 +191,5 @@ object Deps {
     const val ouinet_omni = "ie.equalit.ouinet:ouinet-omni:${Versions.ouinet_version}"
     const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
     const val clean_insights = "org.cleaninsights.sdk:clean-insights-sdk:${Versions.clean_insights}"
+    const val snakeyaml = "org.yaml:snakeyaml:${Versions.snakeyaml_version}"
 }

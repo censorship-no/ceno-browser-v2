@@ -8,6 +8,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -17,9 +18,14 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.RadioButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -34,34 +40,47 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
+import ie.equalit.ceno.base.BaseActivity
+import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.CrashIntegration
+import ie.equalit.ceno.browser.DefaultBrowsingManager
+import ie.equalit.ceno.browser.ExternalAppBrowserFragment
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
-import ie.equalit.ceno.onboarding.OnboardingFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
-import ie.equalit.ceno.settings.SettingsFragment
-import ie.equalit.ceno.browser.ShutdownFragment
+import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ui.theme.DefaultThemeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
+import io.sentry.android.core.SentryAndroid
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import org.cleaninsights.sdk.ConsentRequestUi
 import org.cleaninsights.sdk.Feature
+import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.pwa.ext.putWebAppManifest
 import kotlin.system.exitProcess
 
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : AppCompatActivity() {
+open class BrowserActivity : BaseActivity() {
 
     private lateinit var crashIntegration: CrashIntegration
+    lateinit var themeManager: ThemeManager
+    lateinit var browsingModeManager: BrowsingModeManager
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -69,8 +88,12 @@ open class BrowserActivity : AppCompatActivity() {
     private val tab: SessionState?
         get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
 
-    private val webExtensionPopupFeature by lazy {
-        WebExtensionPopupFeature(components.core.store, ::openPopup)
+    private val webExtensionPopupObserver by lazy {
+        WebExtensionPopupObserver(components.core.store, ::openPopup)
+    }
+
+    private val navHost by lazy {
+        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     }
 
     private var isActivityResumed = false
@@ -79,26 +102,35 @@ open class BrowserActivity : AppCompatActivity() {
     private var firstTime = true
 
     /**
-     * CENO: Returns a new instance of [CenoHomeFragment] to display.
-     */
-    open fun createOnboardingFragment(sessionId: String?): Fragment =
-        OnboardingFragment.create(sessionId)
-
-    /**
-     * CENO: Returns a new instance of [CenoHomeFragment] to display.
-     */
-    open fun createCenoHomeFragment(sessionId: String?): Fragment =
-        CenoHomeFragment.create(sessionId)
-
-    /**
      * Returns a new instance of [BrowserFragment] to display.
      */
-    open fun createBrowserFragment(sessionId: String?): Fragment =
-        BrowserFragment.create(sessionId)
+    open fun createBrowserFragment(sessionId: String?) {
+        navHost.navController.navigate(R.id.action_global_browser)
+    }
+
+    /**
+     * Returns a new instance of [ExternalAppBrowserFragment] to display.
+     */
+    open fun createExternalAppBrowserFragment(
+        sessionId: String,
+        manifest: WebAppManifest?,
+        trustedScopes: List<Uri>
+    ) {
+        navHost.navController.navigate(R.id.action_global_external_browser, Bundle().apply {
+            "session_id" to sessionId
+            putWebAppManifest(manifest)
+            putParcelableArrayList("org.mozilla.samples.browser.TRUSTED_SCOPES", ArrayList(trustedScopes))
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
+            openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
+        }
 
         Logger.info(" --------- Starting ouinet service")
         components.ouinet.let {
@@ -113,41 +145,30 @@ open class BrowserActivity : AppCompatActivity() {
 
         components.ouinet.background.startup()
 
-        if (savedInstanceState == null) {
-            /* CENO: Set default behavior for AppBar */
-            supportActionBar!!.apply {
-                hide()
-                setDisplayHomeAsUpEnabled(true)
-                setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.ceno_action_bar)))
-            }
-
-            /* CENO: Choose which fragment to display first based on onboarding flag and selected tab */
-            if (Settings.shouldShowOnboarding(this)) {
-                supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container, createOnboardingFragment(sessionId), OnboardingFragment.TAG)
-                    commit()
-                }
-            }
-            else {
-                if (components.core.store.state.selectedTab?.content?.url == CenoHomeFragment.ABOUT_HOME) {
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container, createCenoHomeFragment(sessionId), CenoHomeFragment.TAG)
-                        commit()
-                    }
-                }
-                else {
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container, createBrowserFragment(sessionId), BrowserFragment.TAG)
-                        commit()
-                    }
-                }
-            }
+        /* CENO: Set default behavior for AppBar */
+        supportActionBar!!.apply {
+            hide()
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
+
+        val safeIntent = SafeIntent(intent)
+
+        navHost.navController.popBackStack() // Remove startupFragment from backstack
+        navHost.navController.navigate(
+            when {
+                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
+                components.core.store.state.selectedTab == null -> R.id.action_global_home
+                else -> R.id.action_global_browser
+            }
+        )
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
 
         initializeSearchEngines()
+
+        components.webExtensionPort.createPort()
 
         if (isCrashReportActive) {
             crashIntegration = CrashIntegration(this, components.analytics.crashReporter) { crash ->
@@ -160,7 +181,69 @@ open class BrowserActivity : AppCompatActivity() {
         *  and we already have a notification for stopping/pausing/purging local CENO data
         * NotificationManager.checkAndNotifyPolicy(this)
          */
-        lifecycle.addObserver(webExtensionPopupFeature)
+        lifecycle.addObserver(webExtensionPopupObserver)
+
+        // check if a crash happened in the last session
+        if(Settings.wasCrashSuccessfullyLogged(this@BrowserActivity)) {
+            Settings.logSuccessfulCrashEvent(this@BrowserActivity, false)
+            Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
+        }
+
+        // Check for previous crashes
+        if(Settings.showCrashReportingPermissionNudge(this)) {
+
+            // launch Sentry activation dialog
+            val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
+            val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
+            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+
+            val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
+                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+            } }
+
+            AlertDialog.Builder(this@BrowserActivity).apply {
+                setView(dialogView)
+                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                    when {
+                        radio0.isChecked -> {
+                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
+                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
+                        }
+                        radio1.isChecked -> {
+                            Settings.neverAllowCrashReporting(this@BrowserActivity)
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                        }
+                    }
+                }
+                setOnDismissListener {
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+                }
+                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+                }
+                create()
+            }.show()
+        } else {
+            Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+        }
+    }
+
+    private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
+        return if (components.core.store.state.selectedTab == null)
+            BrowsingMode.Normal
+        else cenoPreferences().lastKnownBrowsingMode
+    }
+
+    private fun setupThemeAndBrowsingMode(mode: BrowsingMode) {
+        cenoPreferences().lastKnownBrowsingMode = mode
+        themeManager = DefaultThemeManager(mode, this)
+        browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
+            themeManager.currentMode = newMode
+            components.appStore.dispatch(AppAction.ModeChange(newMode))
+        }
+        components.appStore.dispatch(AppAction.ModeChange(mode))
     }
 
     override fun onPause() {
@@ -225,26 +308,28 @@ open class BrowserActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    fun popToFragmentIndex(i : Int) {
-        val entry: FragmentManager.BackStackEntry =
-            supportFragmentManager.getBackStackEntryAt(i)
-        supportFragmentManager.popBackStack(
-            entry.id,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        supportFragmentManager.executePendingTransactions()
-    }
-
     override fun onBackPressed() {
-        supportFragmentManager.fragments.iterator().forEach {
-            /* If coming from settings fragment, always clear back stack and go back to root fragment */
-            if (it.tag == SettingsFragment.TAG) {
-                popToFragmentIndex(0)
-                return
+        /* If coming from settings fragment, always clear back stack and go back to root fragment */
+        if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
+            if (components.core.store.state.selectedTabId == "" ||
+                components.core.store.state.selectedTabId == null
+            ) {
+                navHost.navController.popBackStack(R.id.homeFragment, true)
+                navHost.navController.navigate(R.id.action_global_home)
             }
-            if (it is UserInteractionHandler && it.onBackPressed()) {
-                return
+            else {
+                navHost.navController.navigate(R.id.action_global_browser)
             }
+            return
+        }
+        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
+            navHost.navController.navigate(R.id.action_global_settings)
+            return
+        }
+
+        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
+            return
         }
 
         super.onBackPressed()
@@ -259,20 +344,35 @@ open class BrowserActivity : AppCompatActivity() {
                 "requestCode: $requestCode, resultCode: $resultCode, data: $data"
         )
 
-        supportFragmentManager.fragments.iterator().forEach {
-            if (it is ActivityResultHandler && it.onActivityResult(requestCode, data, resultCode)) {
-                return
+        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if (fragment is ActivityResultHandler && fragment.onActivityResult(requestCode, data, resultCode)) {
+            return
+        }
+
+        if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
+            if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
+                navHost.navController.onboardingToHome()
+            } else {
+                updateView {
+                    navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
+                }
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    /* CENO: Handle intent sent to BrowserActivity to open tab if needed or close the app */
+    /* CENO: Handle intent sent to BrowserActivity to open to Homepage or open a homescreen shortcut link */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if(intent?.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA) == true){
-            components.useCases.tabsUseCases.selectOrAddTab(CenoHomeFragment.ABOUT_HOME)
+        val safeIntent = intent?.let { SafeIntent(it) }
+        if(safeIntent?.action == Intent.ACTION_MAIN &&
+            safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
+        ){
+            navHost.navController.navigate(R.id.action_global_home)
+        }
+        if(safeIntent?.action == Intent.ACTION_VIEW) {
+            navHost.navController.navigate(R.id.action_global_browser)
         }
     }
 
@@ -303,10 +403,9 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     override fun onUserLeaveHint() {
-        supportFragmentManager.fragments.iterator().forEach {
-            if (it is UserInteractionHandler && it.onHomePressed()) {
-                return
-            }
+        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if (fragment is UserInteractionHandler && fragment.onHomePressed()) {
+            return
         }
 
         super.onUserLeaveHint()
@@ -327,9 +426,9 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     private fun openPopup(webExtensionState: WebExtensionState) {
-        if (webExtensionState.id == CENO_EXTENSION_ID) {
-            val fragment = supportFragmentManager.findFragmentByTag(BrowserFragment.TAG) as BrowserFragment
-            fragment.showWebExtensionPopupPanel(webExtensionState.id)
+        if (webExtensionState.id == CENO_EXTENSION_ID && navHost.navController.currentDestination?.id == R.id.browserFragment) {
+            val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
+            fragment?.showWebExtensionPopupPanel(webExtensionState.id)
         }
         else {
             val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
@@ -341,20 +440,37 @@ open class BrowserActivity : AppCompatActivity() {
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String, newTab : Boolean = false, private: Boolean = false){
-        if (newTab) {
-            components.useCases.tabsUseCases.addTab(
-                url = url,
-                selectTab = true,
-                private = private,
-            )
+    fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
+        if (url != null) {
+            if (newTab) {
+                //set browsingMode
+                browsingModeManager.mode = BrowsingMode.fromBoolean(private)
+                components.useCases.tabsUseCases.addTab(
+                    url = url,
+                    selectTab = true,
+                    private = private,
+                )
+            } else {
+                components.useCases.sessionUseCases.loadUrl(
+                    url = url
+                )
+            }
         }
-        else {
-            components.useCases.sessionUseCases.loadUrl(
-                url = url
-            )
+        showBrowser()
+    }
+
+    private fun showBrowser() {
+
+        if(navHost.navController.currentDestination?.id == R.id.browserFragment) {
+            return
         }
-        /* No need to change fragments, this is handled by the toolbar observing the change of url */
+
+        navHost.navController.navigate(R.id.action_global_browser)
+    }
+    fun switchBrowsingModeHome(currentMode: BrowsingMode) {
+        browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
+
+        components.appStore.dispatch(AppAction.ModeChange(browsingModeManager.mode))
     }
 
     fun updateView(action: () -> Unit){
@@ -390,7 +506,9 @@ open class BrowserActivity : AppCompatActivity() {
             callback.run()
         }
         updateView {
-            ShutdownFragment.transitionToFragment(this, doClear)
+            navHost.navController.navigate(R.id.action_global_shutDown, bundleOf(
+                "do_clear" to doClear
+            ))
         }
     }
 
@@ -417,7 +535,8 @@ open class BrowserActivity : AppCompatActivity() {
             components.appStore.dispatch(
                 AppAction.Change(
                     topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem
+                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
+                    showThanksCard = components.cenoPreferences.showThanksCard
                 )
             )
         }

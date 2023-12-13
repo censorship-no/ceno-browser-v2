@@ -1,0 +1,27 @@
+Ceno (Censorship.No!) é um navegador descentralizado para dispositivos móveis. Ele usa tecnologia P2P para entregar websites para o seu telefone e armazena conteúdos populares entre os seus pares em cache. Ceno pode ser usado para ultrapassar a censura na Internet e ajudar outros a recuperar páginas bloqueadas.
+
+Diga NÃO à censura! Instale o Navegador Ceno hoje e prepare-se para a próxima vez que sofrer com uma 🔌 desconexão.
+
+🚫🌴 <strong>Offline em primeiro lugar.</strong>
+Ceno é projetado com cenários desligados da Internet em mente. Websites são partilhados por uma rede global de pessoas e são armazenados num cache distribuído para ficarem disponíveis quando as redes tradicionais estiverem bloqueadas ou travarem.
+
+🔓👀 <strong>Desbloqueie a web.</strong>
+Acesse qualquer website. Conteúdos solicitados com frequência são armazenados em cache na rede e não podem ser removidos à força.
+
+💲🌐 <strong>Reduzir custos com dados.</strong>
+Ao rotear o tráfego de utilizador por meio de redes P2P, o Navegador Ceno gera menos custos com dados e, ao mesmo tempo, oferece aos utilizadores a capacidade de contornar bloqueios.
+
+📖👐 <strong>Livre e de código aberto.</strong>
+O navegador Ceno é oferecido pela Ouinet, uma biblioteca de código aberto que permite a programadores externos incorporar a rede Ceno em aplicações para prover conectividade P2P.
+
+<strong>Por favor, observe:</strong> o Ceno não é uma ferramenta de anonimato: informações sobre a sua navegação podem ser vazadas para outros utilizadores Ceno, assim como o fato da sua aplicação estar a disponibilizar determinado conteúdo web para outros. Conteúdo acessado com a aplicação pode ficar armazenado em texto explícito por algum tempo, mas pode limpar todo o conteúdo armazenado a qualquer momento usando a funcionalidade "Limpar Agora."
+
+<strong>Sobre eQualit.ie</strong>
+eQualit.ie desenvolve sistemas abertos e reutilizáveis com foco em privacidade, segurança online e gestão de informação. O nosso objetivo é criar tecnologia acessível e melhorar o conjunto de habilidades necessário para defender direitos humanos e liberdade na era digital.
+
+Para saber mais sobre o Navegador Ceno e a sua biblioteca distribuída, Ouinet, por favor visite https://censorship.no
+
+<strong>Perguntas / Precisa de ajuda?</strong>
+Leia mais no <a href="https://censorship.no/user-manual/en/">Manual de utilizador do Ceno</a> ou fale connosco em support@censorship.no. Amamos receber feedback e estamos continuamente melhorando Ceno para os seus utilizadores!
+
+Fique conectado, e ajude a manter a web aberta e acessível para todo mundo!

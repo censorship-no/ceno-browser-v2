@@ -5,14 +5,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ie.equalit.ceno"
-    android:sharedUserId="ie.equalit.ceno.sharedID">
+    android:sharedUserId="ie.equalit.ceno.sharedID"
+    android:sharedUserMaxSdkVersion="33"
+    tools:targetApi="tiramisu">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
-        tools:ignore="ScopedStorage"
+        />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
         />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -21,6 +32,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 
     <application
         android:allowBackup="true"
@@ -32,18 +44,23 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/NormalTheme"
-        android:name="ie.equalit.ceno.BrowserApplication"
-        tools:ignore="UnusedAttribute">
+        android:name="ie.equalit.ceno.BrowserApplication">
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
             android:icon="@mipmap/ic_launcher_blue"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
-            android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
+            <meta-data
+                android:name="android.supportsPictureInPicture"
+                android:value="true"
+                android:resource="@bool/supports_picture_in_picture" />
+            <meta-data
+                android:name="android.resizeableActivity"
+                android:value="true"
+                android:resource="@bool/resizeable_activity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -186,25 +203,6 @@
             android:persistableMode="persistNever"
             android:autoRemoveFromRecents="false"
             />
-
-        <activity
-            android:theme="@style/Theme.AppCompat.Light"
-            android:name="ie.equalit.ceno.addons.AddonsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:exported="false"
-            android:parentActivityName="ie.equalit.ceno.BrowserActivity" />
-
-        <activity
-            android:theme="@style/Theme.AppCompat.Light"
-            android:name="ie.equalit.ceno.addons.AddonDetailsActivity"
-            android:exported="false"
-            android:label="@string/mozac_feature_addons_addons" />
-
-        <activity android:name="ie.equalit.ceno.addons.InstalledAddonDetailsActivity"
-            android:label="@string/mozac_feature_addons_addons"
-            android:parentActivityName="ie.equalit.ceno.addons.AddonsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
             android:name="ie.equalit.ceno.addons.PermissionsDetailsActivity"

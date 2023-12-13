@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><!DOCTYPE resources [
-<!ENTITY brandShortName "CENO">
-<!ENTITY brandFullName "eQualitie CENO">
+<!DOCTYPE resources [
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -36,7 +30,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/my/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; သည် သီးသန့်တပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း&lt;/h1&gt; &lt;p&gt;Ceno သည် သီးသန့်တပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;ပိုမိုသိရှိလိုပါသလား။&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း&lt;/h1&gt; &lt;p&gt;CENO သည် တစ်ကိုယ်ရည်သုံးတပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင် ပြုလုပ်ရန်လိုအပ်သော ဆိုက်များသို့ သင် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;ပိုမိုသိရှိလိုပါသလား။&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; ဘရောက်ဇာ ဝန်ဆောင်မှု</string>
     <string name="ceno_notification_description">ရပ်ရန် နှိပ်ပါ</string>
@@ -51,7 +45,7 @@
     <string name="ceno_on_mobile_data_dialog_continue">ဆက်လုပ်မည်</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">ထပ်မပြပါနှင့်</string>
     <!-- Default suggested site title and urls -->
-    <string name="default_top_site_1_title">CENO လက်စွဲ</string>
+    <string name="default_top_site_1_title">Ceno လက်စွဲ</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_my_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
     <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
@@ -82,7 +76,9 @@
     <string name="ceno_clear_dialog_clear_cache_only">&brandShortName; ယာယီသိမ်းဆည်းထားသော မှတ်ဉာဏ်များကိုသာ ဖျက်ပါ</string>
     <string name="ceno_clear_dialog_clear_entire_app">&brandShortName; ယာယီသိမ်းဆည်းထားသော မှတ်ဉာဏ်နှင့် အက်ပ် ‌‌ဒေတာများကို ဖျက်ပါ</string>
     <string name="onboarding_info_text">&brandShortName; သည် ဝဘ်အကြောင်းအရာများကို မျှဝေရန် အသုံးပြုသူမှ အသုံးပြုသူ နည်းပညာကို အသုံးပြုထားပြီး အခြား &brandShortName; အသုံးပြုသူများမှလည်း ၎င်းအကြောင်းအရာများကို ရယူကြည့်ရှုနိုင်သည်</string>
-    <string name="onboarding_battery_text">အကျဉ်းချုပ်ပြောရလျှင် OS က battery optimization ကို ပိတ်ထားဖို့ ခွင့်ပြုချက်တောင်းပါလိမ့်မည်။
+    <string name="onboarding_battery_text">အကျဉ်းချုပ်ပြောရလျှင်
+\n
+\nOS က battery optimization ကို ပိတ်ထားဖို့ ခွင့်ပြုချက်တောင်းပါလိမ့်မည်။
 \n
 \n၎င်းသည် အက်ပ်ကို နောက်ကွယ်မှ အလုပ်လုပ်စေနိုင်ပြီး ဝဘ်ဆိုက်များကို ဆက်တိုက် မျှဝေနိုင်ရန်အတွက် လိုအပ်သောကြောင့် ဖြစ်ပါသည်။</string>
     <string name="onboarding_fragment">&brandShortName; မှ ကြိုဆိုပါတယ်</string>
@@ -91,4 +87,31 @@
     <string name="onboarding_skip_button">ကျော်မည်</string>
     <string name="ceno_clear_action_description">ရှင်းပါ/ ဖျက်ပါ</string>
     <string name="ceno_clear_dialog_description">အသိပေးချက်၊ ယာယီမှတ်ဉာဏ်သိမ်းဆည်းမှုနှင့် အက်ပ် ဒေတာများကို ဖျက်ခြင်းသည် &brandShortName; အက်ပလီကေးရှင်းအား တစ်ခါမှ အသုံးမပြုရသေးသကဲ့သလို့ ဖြစ်သွားပါမည်။</string>
+    <string name="onboarding_battery_text_v33">အကျဉ်းချုံးပြောရလျှင် OS မှ ခွင့်ပြုချက်တောင်းခံသောအရာများမှာ
+\n
+\n•အသိပေးချက်များကို ခွင့်ပြုရန်
+\n•ဘက်ထရီသုံးစွဲမှုလျှော့ချခြင်းများကို ပိတ်ထားရန် တို့ဖြစ်ပါသည်။
+\n
+\n၎င်းသည် အက်ပ်ကို နောက်ကွယ်မှ အလုပ်လုပ်စေနိုင်ပြီး ဝဘ်ဆိုက်များကို ဆက်တိုက် မျှဝေနိုင်ရန်အတွက် လိုအပ်သောကြောင့် ဖြစ်ပါသည်။</string>
+    <string name="onboarding_warning_title">ခွင့်တောင်းမှုကို ငြင်းပယ်သည်</string>
+    <string name="preferences_about_ouinet_protocol">Ouinet ပရိုတိုကောလ်</string>
+    <string name="onboarding_thanks_text">&brandShortName; သုံးစွဲသူတစ်ယောက်အနေဖြင့် သင်သည် ဆင်ဆာဖြတ်တောက်ခံရသည့် အကြောင်းအရာများကို ရယူကြည့်ရှုနိုင်ခွင့်ကို ခွင့်ပြုပေးသည့် တံတားများကွန်ရက်ကို တိုးတက်အောင် ကူညီနေခြင်းဖြစ်ပါသည်။</string>
+    <string name="preferences_toolbar_position">မျက်နှာပြင်၏ အပေါ်ပိုင်းတွင် ထားမည်</string>
+    <string name="preferences_toolbar_hide">ဖျောက်ထားရန် စာမျက်နှာကို ဆွဲပါ</string>
+    <string name="preferences_allow_notifications">အသိပေးချက်များကို ခွင့်ပြုမည်</string>
+    <string name="shutdown_clear_title">အက်ပ် အချက်အလက်များကို ဖျက်ပစ်ခြင်းနှင့်
+\n&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
+    <string name="shutdown_stop_title">&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
+    <string name="crash_reporting_dialog_description">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။
+\n&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ဖို့အတွက် ချို့ယွင်းချက် အစီရင်ခံစာကို ကျွန်ုပ်တို့ကို ပို့ပေးနိုင်ပါတယ်။</string>
+    <string name="crash_reporting_never_send">ဘယ်တော့မှ မပို့ပါ</string>
+    <string name="crash_reporting_dont_send_this_time">ဒီတစ်ကြိမ်တွင် မပို့ပါနှင့်</string>
+    <string name="crash_reporting_always_send">အမြဲတမ်း ပို့မည်၊ &brandShortName; ကို တိုးတက်အောင်လုပ်မည်</string>
+    <string name="preferences_allow_crash_reporting">ချို့ယွင်းမှုအကြောင်း ပေးပို့ခြင်း</string>
+    <string name="crash_reporting_opt_out">သင်သည် ချို့ယွင်းမှုအစီရင်ခံစာများအား မျှဝေခြင်းကို မရွေးချယ်ထားပါ။ ဆက်တင်များထဲမှ ချို့ယွင်းမှုအကြောင်း ပေးပို့ခြင်းတွင် ပြန်လည်ရွေးချယ်နိုင်ပါသည်။</string>
+    <string name="crash_reporting_opt_in">&brandShortName; ကို တိုးတက်အောင် ကူညီပေးနိုင်သည့် ချို့ယွင်းချက် အစီရင်ခံစာကို မျှဝေပေးခြင်းအတွက် ကျေးဇူးတင်ပါသည်။ သင့်အနေဖြင့် ဆက်တင်များ &gt; ချို့ယွင်းမှုအကြောင်း ‌ပေးပို့ခြင်းတွင် ပြန်လည် ပိတ်နိုင်ပါသည်။</string>
+    <string name="crash_reporting_send_once">တစ်ကြိမ်ပို့မည်</string>
+    <string name="crash_reporting_dont_ask_again">ထပ်မမေးပါနှင့်</string>
+    <string name="preferences_disable_battery_opt">ဘက်ထရီ သုံးစွဲမှု လျှော့ချခြင်းကို ပိတ်မည်</string>
+    <string name="crash_reporting_dialog_title">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။</string>
 </resources>

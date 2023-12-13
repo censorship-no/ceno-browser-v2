@@ -3,9 +3,8 @@ package ie.equalit.ceno.home.sessioncontrol
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import ie.equalit.ceno.databinding.CenoModeItemBinding
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.home.HomepageCardType
 import mozilla.components.feature.top.sites.TopSite
 
 /**
@@ -66,12 +65,17 @@ interface CustomizeHomeIteractor {
 }
  */
 
-interface CenoModeInteractor {
-    /**
-     * Opens the customize home settings page.
-     */
-    fun onCenoModeClicked()
-    fun onRemoveCenoModeCard(view : ViewGroup)
+
+interface HomePageInteractor {
+    fun onRemoveCard(homepageCardType: HomepageCardType)
+
+    fun onCardSwipe(homepageCardType: HomepageCardType)
+
+    fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode)
+
+    fun onMenuItemClicked(homepageCardType: HomepageCardType)
+
+    fun onUrlClicked(homepageCardType: HomepageCardType, url: String)
 }
 
 /**
@@ -137,9 +141,8 @@ class SessionControlInteractor(
     private val controller: SessionControlController,
 ) :
     //OnboardingInteractor,
-    CenoModeInteractor,
-    TopSiteInteractor
-    //CustomizeHomeIteractor,
+    TopSiteInteractor,
+    HomePageInteractor
     {
         override fun onOpenInPrivateTabClicked(topSite: TopSite) {
             controller.handleOpenInPrivateTabClicked(topSite)
@@ -169,11 +172,23 @@ class SessionControlInteractor(
             controller.handleMenuOpened()
         }
 
-        override fun onCenoModeClicked() {
-            controller.handleCenoModeClicked()
+        override fun onRemoveCard(homepageCardType: HomepageCardType) {
+            controller.handleRemoveCard(homepageCardType)
         }
 
-        override fun onRemoveCenoModeCard(view: ViewGroup) {
-            controller.handleRemoveCenoModeCard(view)
+        override fun onCardSwipe(homepageCardType: HomepageCardType) {
+            controller.handleRemoveCard(homepageCardType)
+        }
+
+        override fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {
+            controller.handleCardClicked(homepageCardType, mode)
+        }
+
+        override fun onMenuItemClicked(homepageCardType: HomepageCardType) {
+            controller.handleMenuItemClicked(homepageCardType)
+        }
+
+        override fun onUrlClicked(homepageCardType: HomepageCardType, url: String) {
+            controller.handleUrlClicked(homepageCardType, url)
         }
     }

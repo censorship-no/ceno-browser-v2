@@ -22,7 +22,7 @@ import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.addons.AddonManager
-import mozilla.components.feature.addons.amo.AddonCollectionProvider
+import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
 import mozilla.components.feature.customtabs.store.CustomTabsServiceStore
@@ -53,6 +53,7 @@ import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.settings.Settings
 import java.util.concurrent.TimeUnit
@@ -102,7 +103,7 @@ class Core(private val context: Context) {
                     LocationService.default(),
                 ),
                 SearchMiddleware(context),
-                RecordingDevicesMiddleware(context),
+                RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
             ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)
@@ -114,6 +115,7 @@ class Core(private val context: Context) {
                 R.drawable.ic_notification,
                 geckoSitePermissionsStorage,
                 BrowserActivity::class.java,
+                notificationsDelegate = context.components.notificationsDelegate,
             )
 
             MediaSessionFeature(context, MediaSessionService::class.java, this).start()
@@ -184,18 +186,22 @@ class Core(private val context: Context) {
 
     // Addons
     val addonManager by lazy {
-        AddonManager(store, engine, addonCollectionProvider, addonUpdater)
+        AddonManager(store, engine, addonProvider, addonUpdater)
     }
 
     val addonUpdater by lazy {
-        DefaultAddonUpdater(context, Frequency(1, TimeUnit.DAYS))
+        DefaultAddonUpdater(
+            context,
+            Frequency(1, TimeUnit.DAYS),
+            notificationsDelegate = context.components.notificationsDelegate,
+        )
     }
 
-    val addonCollectionProvider by lazy {
+    val addonProvider by lazy {
         if (Settings.isAmoCollectionOverrideConfigured(context)) {
-            provideCustomAddonCollectionProvider()
+            provideCustomAddonProvider()
         } else {
-            provideDefaultAddonCollectionProvider()
+            provideDefaultAddonProvider()
         }
     }
 
@@ -255,8 +261,8 @@ class Core(private val context: Context) {
         )
     }
 
-    private fun provideDefaultAddonCollectionProvider(): AddonCollectionProvider {
-        return AddonCollectionProvider(
+    private fun provideDefaultAddonProvider(): AMOAddonsProvider {
+        return AMOAddonsProvider(
             context = context,
             client = client,
             collectionName = "7dfae8669acc4312a65e8ba5553036",
@@ -264,8 +270,8 @@ class Core(private val context: Context) {
         )
     }
 
-    private fun provideCustomAddonCollectionProvider(): AddonCollectionProvider {
-        return AddonCollectionProvider(
+    private fun provideCustomAddonProvider(): AMOAddonsProvider {
+        return AMOAddonsProvider(
             context,
             client,
             collectionUser = Settings.getOverrideAmoUser(context),

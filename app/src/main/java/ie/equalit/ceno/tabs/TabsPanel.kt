@@ -16,11 +16,14 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.tabs.TabLayout
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 
 class TabsPanel @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
 ) : TabLayout(context, attrs), TabLayout.OnTabSelectedListener {
+    private var browsingModeManager: BrowsingModeManager? = null
     private var normalTab: Tab
     private var privateTab: Tab
     private var tabsFeature: TabsFeature? = null
@@ -29,12 +32,12 @@ class TabsPanel @JvmOverloads constructor(
     init {
         normalTab = newTab().apply {
             contentDescription = "Tabs"
-            icon = resources.getThemedDrawable(R.drawable.mozac_ic_tab)
+            icon = resources.getThemedDrawable(R.drawable.ceno_home_card_public_icon)
         }
 
         privateTab = newTab().apply {
-            contentDescription = "Private tabs"
-            icon = resources.getThemedDrawable(R.drawable.mozac_ic_private_browsing)
+            contentDescription = "Personal tabs"
+            icon = resources.getThemedDrawable(R.drawable.ceno_home_card_personal_icon)
         }
 
         addOnTabSelectedListener(this)
@@ -43,15 +46,20 @@ class TabsPanel @JvmOverloads constructor(
         addTab(privateTab)
     }
 
-    fun initialize(tabsFeature: TabsFeature?, updateTabsToolbar: (isPrivate: Boolean) -> Unit) {
+    fun initialize(
+        tabsFeature: TabsFeature?,
+        browsingModeManager: BrowsingModeManager,
+        updateTabsToolbar: (isPrivate: Boolean) -> Unit
+    ) {
         this.tabsFeature = tabsFeature
+        this.browsingModeManager = browsingModeManager
         this.updateTabsToolbar = updateTabsToolbar
+        selectTab(browsingModeManager.mode.isPersonal)
     }
 
     override fun onTabSelected(tab: Tab?) {
         // Tint the selected tab's icon.
         tab?.icon?.colorTint(R.color.photonPurple50)
-
         tabsFeature?.filterTabs { tabSessionState ->
             if (tab == normalTab) {
                 !tabSessionState.content.private

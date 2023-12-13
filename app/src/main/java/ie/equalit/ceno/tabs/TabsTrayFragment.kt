@@ -7,12 +7,16 @@ package ie.equalit.ceno.tabs
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.BrowserActivity
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
@@ -24,10 +28,12 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ui.theme.DefaultThemeManager
+import ie.equalit.ceno.ui.theme.ThemeManager
 
 /**
  * A fragment for displaying the tabs tray.
@@ -35,8 +41,15 @@ import ie.equalit.ceno.ext.requireComponents
 class TabsTrayFragment : Fragment(), UserInteractionHandler {
     private var tabsFeature: TabsFeature? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.fragment_tabstray, container, false)
+    lateinit var themeManager: ThemeManager
+    lateinit var browsingModeManager: BrowsingModeManager
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        themeManager = (activity as BrowserActivity).themeManager
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
+        return inflater.inflate(R.layout.fragment_tabstray, container, false)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,14 +59,12 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         tabsFeature = TabsFeature(
             trayAdapter,
             requireComponents.core.store,
-            { closeTabsTray(toHome = true, withNewTab = true) },
+            { closeTabsTray(true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
             if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
-                selectTabInPanel(isPrivate = true)
                 it.content.private
             } else {
-                selectTabInPanel(isPrivate = false)
                 !it.content.private
             }
         }
@@ -61,14 +72,15 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         val tabsPanel: TabsPanel = view.findViewById(R.id.tabsPanel)
         val tabsToolbar: TabsToolbar = view.findViewById(R.id.tabsToolbar)
 
-        tabsPanel.initialize(tabsFeature, updateTabsToolbar = ::updateTabsToolbar)
-        tabsToolbar.initialize(tabsFeature, ::closeTabsTray)
+        tabsPanel.initialize(tabsFeature, browsingModeManager, updateTabsToolbar = ::updateTabsToolbar)
+        tabsToolbar.initialize(tabsFeature, browsingModeManager, ::closeTabsTray)
+
     }
 
     override fun onStart() {
         super.onStart()
-
         tabsFeature?.start()
+        themeManager.applyStatusBarThemeTabsTray()
     }
 
     override fun onStop() {
@@ -78,27 +90,21 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     }
 
     override fun onBackPressed(): Boolean {
-        closeTabsTray()
+        val newTab = requireComponents.core.store.state.selectedTabId == ""
+        closeTabsTray(newTab)
         return true
     }
 
     /* CENO: Modify closeTabsTray function to take booleans for determining
      * how to close the TabsTrayFragment, i.e. to open the Home or Browser Fragment,
      * with or without a new blank tab? */
-    private fun closeTabsTray(toHome: Boolean = false, withNewTab: Boolean = false) {
-        if(toHome) {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, CenoHomeFragment.create(), CenoHomeFragment.TAG)
-                commit()
-            }
-            if (withNewTab)
-                requireComponents.useCases.tabsUseCases.addTab(CenoHomeFragment.ABOUT_HOME)
+    private fun closeTabsTray(newTab: Boolean = false) {
+        findNavController().popBackStack() //This way, clicking back-button on the next fragment would not lead back here
+        if(newTab) {
+            findNavController().navigate(R.id.action_global_home)
         }
         else {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, BrowserFragment.create(), BrowserFragment.TAG)
-                commit()
-            }
+            findNavController().navigate(R.id.action_global_browser)
         }
     }
 
@@ -118,7 +124,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         val thumbnailLoader = ThumbnailLoader(context.components.core.thumbnailStorage)
         val trayStyling = TabsTrayStyling(
                 itemBackgroundColor = Color.TRANSPARENT,
-                itemTextColor = resources.getColor(R.color.fx_mobile_text_color_primary)
+                itemTextColor = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
         )
         val viewHolderProvider: ViewHolderProvider = { viewGroup ->
             val view = LayoutInflater.from(context)
@@ -132,15 +138,9 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             styling = trayStyling,
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
+                    browsingModeManager.mode = BrowsingMode.fromBoolean(tab.content.private)
                     requireComponents.useCases.tabsUseCases.selectTab(tab.id)
-                    /* CENO: Check if tab should open HomeFragment or BrowserFragment after closing */
-                    if(tab.content.url == CenoHomeFragment.ABOUT_HOME){
-                        /* A home page "tab" was selected, close the tab tray and open the HomeFragment,
-                         * but do not create a new tab to associate with the Fragment, since selectedTab is homepage */
-                        closeTabsTray(toHome = true, withNewTab = false)
-                    }else{
-                        closeTabsTray()
-                    }
+                    closeTabsTray(false)
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
@@ -158,10 +158,5 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         }.attachToRecyclerView(tabsTray)
 
         return tabsAdapter
-    }
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "TABS_TRAY"
     }
 }

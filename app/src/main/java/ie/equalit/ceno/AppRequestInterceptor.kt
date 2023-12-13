@@ -11,7 +11,7 @@ import mozilla.components.browser.errorpages.ErrorPages
 import mozilla.components.browser.errorpages.ErrorType
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.request.RequestInterceptor
-import ie.equalit.ceno.browser.CenoHomeFragment
+import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.tabs.PrivatePage
 
@@ -74,15 +74,8 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
         errorType: ErrorType,
         uri: String?,
     ): RequestInterceptor.ErrorResponse {
-        /* CENO: Intercept the error page that is loaded for homepage
-         * and instead load a blank html page that the home fragment will overlay */
-        return if (uri == CenoHomeFragment.ABOUT_HOME) {
-            val page = "resource://android/assets/about_home.html"
-            RequestInterceptor.ErrorResponse(page)
-        } else {
-            val errorPage = ErrorPages.createUrlEncodedErrorPage(context, errorType, uri)
-            RequestInterceptor.ErrorResponse(errorPage)
-        }
+        val errorPage = ErrorPages.createUrlEncodedErrorPage(context, errorType, uri)
+        return RequestInterceptor.ErrorResponse(errorPage)
     }
 
     override fun interceptsAppInitiatedRequests() = true

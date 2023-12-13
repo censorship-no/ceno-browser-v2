@@ -1,0 +1,19 @@
+---
+config:
+  website: false
+  private: true
+  public: true
+  shared: true
+  personalTab: false
+
+scenarios:
+  - website: https://example.com
+    target: 192.160.0.1
+    present: true
+    timeout: 60
+    expectedText: Example Domain
+  - website: https://ouinet.work
+    target: 192.160.100.2
+    present: false
+    timeout: 90
+    expectedText: Bypass internet

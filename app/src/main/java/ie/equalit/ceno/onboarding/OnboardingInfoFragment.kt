@@ -7,81 +7,71 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentOnboardingInfoBinding
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OnboardingInfoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OnboardingInfoFragment : Fragment() {
     private var _binding: FragmentOnboardingInfoBinding? = null
     private val binding get() = _binding!!
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingInfoBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
-                    requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
-                ) {
-                    OnboardingThanksFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
-                }
-                else {
-                    OnboardingBatteryFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (requireComponents.permissionHandler.isAllowingPostNotifications() &&
+                requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+            ) {
+                //set button text as Finish
+                binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
+                binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().onboardingToHome()
                 }
             }
             else {
-                if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
-                    OnboardingThanksFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
                 }
-                else {
-                    OnboardingBatteryFragment.transitionToFragment(
-                        requireActivity(),
-                        sessionId
-                    )
+            }
+        }
+        else {
+            if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations()) {
+                //set button text as Finish
+                binding.btnOnboardingCleanup.text = getString(R.string.onboarding_finish_button)
+                binding.btnOnboardingCleanupSkip.visibility = View.INVISIBLE
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().onboardingToHome()
                 }
+            } else {
+                binding.btnOnboardingCleanup.setOnClickListener {
+                    findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
+                }
+            }
+        }
+
+        binding.btnOnboardingCleanupSkip.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                /* Android 13 or later, always ask for permissions */
+                findNavController().navigate(R.id.action_onboardingInfoFragment_to_onboardingBatteryFragment)
+            }
+            else {
+                findNavController().onboardingToHome()
             }
         }
     }
 
-    companion object {
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-
-        const val TAG = "ONBOARD_BATTERY"
-        fun create(sessionId: String? = null) = OnboardingInfoFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
-    }
 }

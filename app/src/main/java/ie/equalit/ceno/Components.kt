@@ -6,6 +6,7 @@ package ie.equalit.ceno
 
 import android.content.Context
 import android.os.Build
+import androidx.core.app.NotificationManagerCompat
 import mozilla.components.feature.autofill.AutofillConfiguration
 import ie.equalit.ceno.autofill.AutofillConfirmActivity
 import ie.equalit.ceno.autofill.AutofillSearchActivity
@@ -18,11 +19,13 @@ import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
 import ie.equalit.ceno.components.Utilities
+import ie.equalit.ceno.components.WebExtensionPort
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
 import org.cleaninsights.sdk.CleanInsights
+import mozilla.components.support.base.android.NotificationsDelegate
 
 /**
  * Provides access to all components.
@@ -81,6 +84,15 @@ class Components(private val context: Context) {
         }
     }
 
+
+    private val notificationManagerCompat = NotificationManagerCompat.from(context)
+
+    val notificationsDelegate: NotificationsDelegate by lazy {
+        NotificationsDelegate(
+            notificationManagerCompat,
+        )
+    }
+
     /* CENO: Allow access to CENO SharedPreference wrapper through components*/
     val cenoPreferences by lazy { CenoPreferences(context) }
 
@@ -89,7 +101,8 @@ class Components(private val context: Context) {
         AppStore(
             initialState = AppState(
                 topSites = core.cenoTopSitesStorage.cachedTopSites.sort(),
-                showCenoModeItem = cenoPreferences.showCenoModeItem
+                showCenoModeItem = cenoPreferences.showCenoModeItem,
+                showThanksCard = cenoPreferences.showThanksCard
             )
         )
     }
@@ -100,4 +113,6 @@ class Components(private val context: Context) {
             context.assets.open("cleaninsights.json").reader().readText(),
             context.filesDir)
     }
+
+    val webExtensionPort by lazy { WebExtensionPort(context) }
 }

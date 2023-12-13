@@ -12,11 +12,6 @@
 
     <!-- Overriding color of tab counter icon in toolbar -->
     <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
-
-    <color name="ceno_onboarding_gradient_middle">#4bb0bc</color>
-    <color name="ceno_home_background_gradient_start">#0391a1</color><!--#D4C1FA</color>-->
-    <color name="ceno_home_background_gradient_middle">#0391a1</color><!--#D4C1FA</color>-->
-    <color name="ceno_home_background_gradient_end">@color/photonWhite</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
     <color name="ceno_home_card_text_color">@color/photonBlack</color>
     <color name="ceno_onboarding_button_text_color">@color/photonBlack</color>
@@ -226,10 +221,11 @@
     <!-- Normal theme colors for dark mode -->
     <color name="neutral_faded_normal_theme">@color/photonGrey20</color>
 
+    <!-- Forward-navigation icon color -->
+    <color name="forward_navigation_icon_theme">#000000</color>
+
     <!-- CENO: END OF COPIED FROM FENIX -->
 
-    <color name="toolbarBackgroundColor">@color/fx_mobile_layer_color_1</color>
-    <color name="toolbarUrlBoxColor">@color/fx_mobile_layer_color_3</color>
     <color name="toolbarSuggestionForeground">@color/fx_mobile_layer_color_1</color>
     <color name="toolbarSuggestionBackground">@color/accent</color>
 

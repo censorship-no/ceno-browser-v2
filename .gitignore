@@ -78,3 +78,6 @@ geckoview
 .build_date
 app_branded
 */lint
+app/src/main/assets/addons/uBlock
+app/src/main/assets/addons/*.zip
+scenario.yaml

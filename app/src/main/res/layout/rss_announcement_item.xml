@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CenoMode.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/ceno_mode_margin_horizontal"
+    android:layout_marginTop="@dimen/tap_increase_16"
+    android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
+    android:importantForAccessibility="noHideDescendants"
+    app:cardBackgroundColor="@color/home_card_announcements_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rss_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawableStart="@drawable/ic_announcement_collapsed"
+            android:drawableEnd="@drawable/ic_arrow_collapsed"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center|start"
+            android:textColor="@color/ceno_home_card_announcement_title_color"
+            tools:text="Announcements" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rssAnnouncementsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:importantForAccessibility="yes"
+            android:paddingBottom="8dp"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:itemCount="3"
+            tools:listitem="@layout/rss_announcement_sub_item"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

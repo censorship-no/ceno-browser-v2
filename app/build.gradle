@@ -5,19 +5,25 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
+import org.yaml.snakeyaml.Yaml
 
 Properties localProperties = new Properties()
 localProperties.load(rootProject.file('local.properties').newDataInputStream())
+
+def scenarioFile = new File(project.hasProperty("testConfig") ? project.getProperty("testConfig") : "scenario.yaml")
+def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
 
 android {
     compileSdkVersion Config.compileSdkVersion
 
     aaptOptions {
         ignoreAssetsPattern '!._'
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
     }
 
     defaultConfig {
@@ -28,6 +34,8 @@ android {
         versionCode 1
         versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
 
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
@@ -37,6 +45,9 @@ android {
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS",  localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
+
+        buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
+        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
     }
 
     /* CENO: Add signing config for release builds */
@@ -115,8 +126,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     packagingOptions {
@@ -138,7 +149,16 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-Xjvm-default=all"
-        jvmTarget = "11"
+        jvmTarget = "17"
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'mergeDebugAssets' ||
+            task.name == 'mergeBetaAssets' ||
+            task.name == 'mergeReleaseAssets') {
+        task.dependsOn renameUblockXpi
+        task.dependsOn unzipUblockOrigin
     }
 }
 
@@ -368,6 +388,7 @@ dependencies {
     implementation Deps.mozilla_lib_dataprotect
 
     implementation Deps.thirdparty_sentry
+    implementation Deps.thirdparty_gson
 
     implementation Deps.kotlin_coroutines
     implementation Deps.kotlin_serialization
@@ -385,6 +406,8 @@ dependencies {
     implementation Deps.androidx_compose_ui_tooling
     implementation Deps.androidx_compose_foundation
     implementation Deps.androidx_compose_material
+    implementation Deps.androidx_navigation_fragment
+    implementation Deps.androidx_navigation_ui
 
     implementation Deps.google_material
 
@@ -448,6 +471,20 @@ dependencies {
     }
 }
 
+task renameUblockXpi (type: Copy) {
+    from ('src/main/assets/addons/')
+    include 'uBlock0@raymondhill.net.xpi'
+    destinationDir file('src/main/assets/addons/')
+    rename { 'uBlock0@raymondhill.net.zip' }
+}
+
+task unzipUblockOrigin(type: Copy) {
+    def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
+    def outputDir = file("src/main/assets/addons/uBlock")
+    from zipTree(zipFile)
+    into outputDir
+}
+
 // -------------------------------------------------------------------------------------------------
 // Task for printing APK information for the requested variant
 // Usage: ./gradlew printVariants
@@ -473,6 +510,53 @@ task printGeckoviewVersion {
         def geckoviewDependency = dependencies.find { it.selected.id.moduleIdentifier.group == 'org.mozilla.geckoview' }
         println('geckoviewVersion: ' + groovy.json.JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
     }
+}
+
+static def getScenarioList(o) {
+    def scenarioList = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
+    if (o != null) {
+        for (s in o.scenarios) {
+            scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                    "{" +
+                    "put(\"website\", \"${s.website}\");" +
+                    "put(\"expextedText\", \"${s.expectedText}\");" +
+                    "}" +
+                    "}); "
+        }
+    } else {
+        scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                "{" +
+                "put(\"website\", \"https://example.com\");" +
+                "}" +
+                "}); "
+    }
+    scenarioList += "}}"
+    return scenarioList
+}
+
+static def getConfigMap(o) {
+    def configMap = " new java.util.HashMap<String, String>() {"
+    if (o != null) {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"${o.config.website}\");" +
+                        "put(\"private\", \"${o.config.private}\");" +
+                        "put(\"public\", \"${o.config.public}\");" +
+                        "put(\"shared\", \"${o.config.shared}\");" +
+                        "put(\"personalTab\", \"${o.config.personalTab}\");" +
+                        "}"
+    } else {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"false\");" +
+                        "put(\"private\", \"true\");" +
+                        "put(\"public\", \"true\");" +
+                        "put(\"shared\", \"true\");" +
+                        "put(\"personalTab\", \"false\");" +
+                        "}"
+    }
+    configMap += "}"
+    return configMap
 }
 
 if (gradle.hasProperty('localProperties.dependencySubstitutions.geckoviewTopsrcdir')) {

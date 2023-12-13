@@ -6,7 +6,6 @@ package ie.equalit.ceno.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiSelector
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -66,9 +65,9 @@ class ThreeDotMenuTest {
     }
 
     /* ktlint-disable no-blank-line-before-rbrace */ // This imposes unreadable grouping.
-    /* CENO: homepage menu is identical to browser tab menu
     @Test
     fun homeScreenMenuTest() {
+        mDevice.waitForIdle()
         navigationToolbar {
         }.openThreeDotMenu {
             verifyThreeDotMenuExists()
@@ -79,15 +78,18 @@ class ThreeDotMenuTest {
             verifyShareButtonDoesntExist()
             verifyRequestDesktopSiteToggleDoesntExist()
             verifyAddToHomescreenButtonDoesntExist()
+            verifyAddToShortcutsButtonDoesntExist()
             verifyFindInPageButtonDoesntExist()
             // Only these items should exist in the home screen menu
-            verifyAddOnsButtonExists()
-            verifySyncedTabsButtonExists()
-            verifyReportIssueExists()
+            verifyClearCenoButtonExists()
+            //TODO: Https-by-default currently disabled on homepage, add back when needed
+            //verifyHttpsByDefaultButtonExists()
+            //TODO: uBlock Origin takes some time to install, needs special test case
+            //verifyUblockOriginButtonExists()
+            //verifyAddOnsButtonExists()
             verifyOpenSettingsExists()
         }
     }
-    */
 
     @Test
     fun threeDotMenuItemsTest() {
@@ -112,9 +114,8 @@ class ThreeDotMenuTest {
             verifyAddToShortcutsButtonExists()
             verifyFindInPageButtonExists()
             verifyHttpsByDefaultButtonExists()
-            //TODO: uBlock Origin takes some time to install, needs special test case
-            //verifyUblockOriginButtonExists()
-            verifyAddOnsButtonExists()
+            verifyUblockOriginButtonExists()
+            //verifyAddOnsButtonExists()
             //verifySyncedTabsButtonExists()
             //verifyReportIssueExists()
             verifyOpenSettingsExists()
@@ -153,18 +154,18 @@ class ThreeDotMenuTest {
             openPrivateBrowsing()
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.displayUrl)
         }.goBack {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
         }.openThreeDotMenu {
         }.goForward {
-            verifyUrl(nextWebPage.url.toString())
+            verifyUrl(nextWebPage.displayUrl)
         }
     }
 
@@ -315,7 +316,7 @@ class ThreeDotMenuTest {
         }.openAddToHomeScreen {
             clickAddAutomaticallyToHomeScreenButton()
         }.openHomeScreenShortcut(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
     }
 }

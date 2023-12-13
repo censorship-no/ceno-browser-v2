@@ -25,7 +25,7 @@ class SearchTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
 
     @Before
     fun setUp() {
@@ -46,17 +46,30 @@ class SearchTest {
     fun siteSearchSuggestionTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
 
+        // Disable suggestions from search engine provide
+        // because they can cause this test to fail
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            verifySearchButton()
+        }.openSettingsViewSearch {
+            verifyGetSearchSuggestionsToggle()
+            toggleGetSearchSuggestions()
+        }.goBack {
+        }.goBack {
+        }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
         }
         navigationToolbar {
         }.openTabTrayMenu {
+            verifyExistingOpenTabs(defaultWebPage.title)
         }.openNewTab {
         }.clickToolbar {
             typeText("generic1.html")
             verifySearchSuggestion(defaultWebPage.title)
         }.clickSearchSuggestion(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.url.toString())
+            verifyUrl(defaultWebPage.displayUrl)
         }
     }
 }

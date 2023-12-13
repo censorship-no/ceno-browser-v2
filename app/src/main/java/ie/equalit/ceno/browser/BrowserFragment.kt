@@ -7,6 +7,7 @@ package ie.equalit.ceno.browser
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -17,7 +18,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 //import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.tabs.TabsTrayFragment
 
 /**
  * Fragment used for browsing the web within the main app.
@@ -48,11 +48,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         val homeAction = BrowserToolbar.Button(
             imageDrawable = ResourcesCompat.getDrawable(
                 resources,
-                R.drawable.mozac_ic_home,
+                R.drawable.mozac_ic_home_24,
                 null
             )!!,
             contentDescription = requireContext().getString(R.string.browser_toolbar_home),
-            iconTintColorResource = R.color.fx_mobile_text_color_primary,
+            iconTintColorResource = themeManager.getIconColor(),
             listener = ::onHomeButtonClicked,
         )
 
@@ -89,36 +89,14 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             view = view,
         )
         */
-        binding.homeAppBar.visibility = View.GONE
         binding.sessionControlRecyclerView.visibility = View.GONE
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 
-    private fun showTabs() {
-        // For now we are performing manual fragment transactions here. Once we can use the new
-        // navigation support library we may want to pass navigation graphs around.
-        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
-            commit()
-        }
-    }
-
     private fun onHomeButtonClicked() {
-        /* Request home page url, toolbar listener will take care of the home fragment transaction */
-        requireComponents.useCases.sessionUseCases.loadUrl(CenoHomeFragment.ABOUT_HOME)
+        findNavController().navigate(R.id.action_global_home)
     }
 
     override fun onBackPressed(): Boolean =
         readerViewFeature.onBackPressed() || super.onBackPressed()
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "BROWSER"
-        fun create(sessionId: String? = null) = BrowserFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
-    }
 }

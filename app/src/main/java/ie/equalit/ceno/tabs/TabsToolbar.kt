@@ -8,6 +8,8 @@ import android.content.Context
 import android.util.AttributeSet
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 
 /* CENO: Modify closeTabsTray function to take booleans for determining
@@ -19,26 +21,33 @@ class TabsToolbar @JvmOverloads constructor(
 ) : androidx.appcompat.widget.Toolbar(context, attrs) {
     private var tabsFeature: TabsFeature? = null
     private var isPrivateTray = false
-    private var closeTabsTray: ((Boolean, Boolean) -> Unit)? = null
+    private var closeTabsTray: ((Boolean) -> Unit)? = null
+    private lateinit var browsingModeManager: BrowsingModeManager
 
     init {
         navigationContentDescription = "back"
         setNavigationIcon(R.drawable.mozac_ic_back)
         setNavigationOnClickListener {
-            closeTabsTray?.invoke(false, false)
+            val newTab = components.core.store.state.selectedTabId == ""
+            closeTabsTray?.invoke(newTab)
         }
         inflateMenu(R.menu.tabstray_menu)
         setOnMenuItemClickListener {
             val tabsUseCases = components.useCases.tabsUseCases
             when (it.itemId) {
                 R.id.newTab -> {
-                    when (isPrivateTray) {
-                        true -> {
-                                tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
-                                closeTabsTray?.invoke(false, false)
-                        }
-                        false -> closeTabsTray?.invoke(true, true)
-                    }
+                    //set browsing mode
+                    browsingModeManager.mode = BrowsingMode.fromBoolean(isPrivateTray)
+                    closeTabsTray?.invoke(true)
+//                    when (isPrivateTray) {
+//                        true -> {
+//                            tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)
+//                            closeTabsTray?.invoke(false)
+//                        }
+//                        false -> {
+//                            closeTabsTray?.invoke(true)
+//                        }
+//                    }
                 }
                 R.id.closeTab -> {
                     when (isPrivateTray) {
@@ -51,9 +60,14 @@ class TabsToolbar @JvmOverloads constructor(
         }
     }
 
-    fun initialize(tabsFeature: TabsFeature?, closeTabsTray: (Boolean, Boolean) -> Unit) {
+    fun initialize(
+        tabsFeature: TabsFeature?,
+        browsingModeManager: BrowsingModeManager,
+        closeTabsTray: (Boolean) -> Unit
+    ) {
         this.tabsFeature = tabsFeature
         this.closeTabsTray = closeTabsTray
+        this.browsingModeManager = browsingModeManager
     }
 
     fun updateToolbar(isPrivate: Boolean) {

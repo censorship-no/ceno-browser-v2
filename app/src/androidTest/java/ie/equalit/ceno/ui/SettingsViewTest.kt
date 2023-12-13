@@ -18,6 +18,7 @@ import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Ignore
 
 /**
  *   Tests for verifying the settings view options exist as expected:
@@ -53,8 +54,6 @@ class SettingsViewTest {
             verifySettingsRecyclerViewToExist()
             verifyNavigateUp()
             verifyGeneralHeading()
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
             verifySearchButton()
             verifySearchSummary()
             verifyCustomizationButton()
@@ -63,22 +62,30 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
+            verifyAddOnsButton()
+            clickDownRecyclerView(6)
+            Thread.sleep(5000)
+            verifyShowOnboarding()
+            verifyCrashReportingButton()
             verifyDeleteBrowsingData()
+            clickDownRecyclerView(3)
+            Thread.sleep(5000)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                clickDownRecyclerView(1)
+                Thread.sleep(5000)
                 verifyDisableBatteryOptimization()
             }
-            verifyShowOnboarding()
-            // TODO: should make this smarter and click down list until matches some text
-            clickDownRecyclerView(13)
-            verifySourcesHeading()
-            verifyWebsiteCheckbox()
-            verifyWebsiteSummary()
-            verifyPrivatelyCheckbox()
-            verifyPrivatelySummary()
-            verifyPubliclyCheckbox()
-            verifyPubliclySummary()
-            verifySharedCheckbox()
-            verifySharedSummary()
+            //clickDownRecyclerView(5)
+            //Thread.sleep(5000)
+            //verifySourcesHeading()
+            //verifyWebsiteCheckbox()
+            //verifyWebsiteSummary()
+            //verifyPrivatelyCheckbox()
+            //verifyPrivatelySummary()
+            //verifyPubliclyCheckbox()
+            //verifyPubliclySummary()
+            //verifySharedCheckbox()
+            //verifySharedSummary()
             clickDownRecyclerView(3)
             Thread.sleep(5000)
             verifyDataHeading()
@@ -88,7 +95,7 @@ class SettingsViewTest {
             verifyContentsSharedDefaultValue()
             verifyClearCachedContentButton()
             verifyClearCachedContentSummary()
-            clickDownRecyclerView(4)
+            clickDownRecyclerView(6)
             Thread.sleep(5000)
             verifyDeveloperToolsHeading()
             verifyRemoteDebugging()
@@ -96,7 +103,11 @@ class SettingsViewTest {
             verifyCenoNetworkDetailsButton()
             verifyCenoNetworkDetailsSummary()
             verifyEnableLogFile()
-            clickDownRecyclerView(6)
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
+            clickDownRecyclerView(5)
             Thread.sleep(5000)
             verifyAboutHeading()
             verifyCenoBrowserServiceDisplay()
@@ -152,7 +163,10 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("Remote debugging")
+            Thread.sleep(5000)
+            clickDownRecyclerView(13)
+            Thread.sleep(5000)
+            verifyRemoteDebugging()
             toggleRemoteDebuggingOn()
             toggleRemoteDebuggingOff()
             toggleRemoteDebuggingOn()
@@ -164,7 +178,9 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About eQualitie")
+            Thread.sleep(5000)
+            clickDownRecyclerView(23)
+            Thread.sleep(5000)
         }.openAboutReferenceBrowser {
             verifyAboutBrowser()
         }
@@ -180,7 +196,9 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About Reference Browser")
+            Thread.sleep(5000)
+            clickDownRecyclerView(14)
+            Thread.sleep(5000)
             verifyCustomAddonCollectionButton()
             clickCustomAddonCollectionButton()
             verifyCustomAddonCollectionPanelExist()
@@ -188,6 +206,7 @@ class SettingsViewTest {
     }
 
     @Test
+    @Ignore("Disabled - too dependent on third-party UI, find some other not terrible app to test against")
     fun openLinksInAppsTest() {
         val url = "m.youtube.com"
         navigationToolbar {
@@ -202,5 +221,27 @@ class SettingsViewTest {
             verifyYouTubeApp()
         }
         mDevice.pressHome()
+    }
+
+    @Test
+    fun sourcesSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(18)
+            Thread.sleep(5000)
+        }.openSettingsViewSources {
+            verifySourcesUpButton()
+            verifySourcesSettings()
+            verifyWebsiteCheckbox()
+            verifyWebsiteSummary()
+            verifyPrivatelyCheckbox()
+            verifyPrivatelySummary()
+            verifyPubliclyCheckbox()
+            verifyPubliclySummary()
+            verifySharedCheckbox()
+            verifySharedSummary()
+        }
     }
 }

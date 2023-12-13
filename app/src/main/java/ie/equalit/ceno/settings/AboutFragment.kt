@@ -23,12 +23,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentManager.BackStackEntry
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import mozilla.components.Build
@@ -120,7 +119,7 @@ class AboutFragment : Fragment() {
         textView.setText(notClickedString, TextView.BufferType.SPANNABLE)
         val clickedString = SpannableString(notClickedString)
         clickedString.setSpan(
-            BackgroundColorSpan(resources.getColor(R.color.fx_mobile_text_color_secondary)), 0, notClickedString.length,
+            BackgroundColorSpan(ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_secondary)), 0, notClickedString.length,
             Spanned.SPAN_INCLUSIVE_EXCLUSIVE
         )
         textView.setOnTouchListener { v, event ->
@@ -143,6 +142,7 @@ class AboutFragment : Fragment() {
         return View.OnClickListener {
             val browserActivity = activity as BrowserActivity
             browserActivity.openToBrowser(url, newTab = true)
+            /*
             val entry: BackStackEntry =
                 browserActivity.supportFragmentManager.getBackStackEntryAt(0)
             browserActivity.supportFragmentManager.popBackStack(
@@ -150,6 +150,7 @@ class AboutFragment : Fragment() {
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
             browserActivity.supportFragmentManager.executePendingTransactions()
+             */
         }
     }
 }

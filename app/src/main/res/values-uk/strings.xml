@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Введіть запит чи адресу</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Нова вкладка</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Закрити всі вкладки</string>
-    <string name="menu_action_close_tabs_private">Закрити приватні вкладки</string>
+    <string name="menu_action_close_tabs_private">Закрити персональні вкладки</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Увімкнено в приватному перегляді</string>
+    <string name="preferences_tracking_protection_private">Увімкнено в режимі персонального перегляду</string>
     <!-- Preference for privacy -->
     <string name="privacy">Приватність</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Приватність Налаштування</string> -->
     <!-- Приватний перегляд -->
-    <string name="private_browsing_title">Приватний перегляд</string>
+    <string name="private_browsing_title">Персональний перегляд</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Власна підбірка застосунків</string>
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">Збірку застосунків змінено. Вихід з застосунку для застосування змін…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Увімкнути приватний перегляд</string>
+    <string name="content_description_private_browsing_button">Увімкнути режим персонального перегляду</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Відкрити у приватній вкладці</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Відкрити у персональній вкладці</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Перейменувати</string>
@@ -89,7 +89,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Зупинити</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Додатки</string>
+    <string name="preferences_add_ons">Розширення</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Налаштування</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -133,7 +133,7 @@
         <item quantity="many">%d вкладки</item>
         <item quantity="other">%d вкладки</item>
     </plurals>
-    <string name="deleting_browsing_data_in_progress">Видалення даних перегляду</string>
+    <string name="deleting_browsing_data_in_progress">Видалення результатів перегляду</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Ви вийдете з більшості сайтів</string>
     <string name="preferences_delete_browsing_data_cached_files">Кешовані зображення та файли</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Звільняє місце для зберігання</string>
@@ -148,4 +148,22 @@
         <item quantity="other">%d адрес</item>
     </plurals>
     <string name="close_mode_item">Закрити сповіщення</string>
+    <string name="general_category">Загальні</string>
+    <string name="secure_connection">З\'єднання є безпечним</string>
+    <string name="insecure_connection">З\'єднання не є безпечним</string>
+    <string name="browser_toolbar_home">Домашня сторінка (Home)</string>
+    <string name="browser_menu_back">Назад</string>
+    <string name="preference_category_search">Пошук</string>
+    <string name="preference_show_search_suggestions">Отримайте пропозиції пошуку</string>
+    <string name="preference_search_summary">Встановити за замовчуванням</string>
+    <string name="preference_choose_search_engine">Оберіть пошуковик</string>
+    <string name="preference_select_preferred_engine">Оберіть бажаний пошуковик:</string>
+    <string name="theme_category">Тема</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Відкрити посилання у персональній вкладці</string>
+    <string name="udp_category">UDP</string>
+    <string name="customize_add_bootstrap_save">Зберегти</string>
+    <string name="bit_torrent_bootstraps_category">Завантажувачі BitTorrent</string>
+    <string name="customize_extra_bittorrent_bootstrap">Додаткові завантажувачі BitTorrent</string>
+    <string name="crash_report_sent">Звіт про збій надіслано!</string>
+    <string name="not_applicable">недоступно</string>
 </resources>
