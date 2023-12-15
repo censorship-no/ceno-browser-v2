@@ -114,4 +114,11 @@
     <string name="crash_reporting_dont_ask_again">ထပ်မမေးပါနှင့်</string>
     <string name="preferences_disable_battery_opt">ဘက်ထရီ သုံးစွဲမှု လျှော့ချခြင်းကို ပိတ်မည်</string>
     <string name="crash_reporting_dialog_title">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။</string>
+    <string name="preferences_theme_summary">အမှောင်၊ အလင်း၊ ဘက်ထရီသုံးစွဲမှု လျှော့ချခြင်း</string>
+    <string name="preferences_ceno_sources_origin_summary">ဝဘ်အကြောင်းအရာများကို ဝဘ်ဆိုက်မှ တိုက်ရိုက်ရယူမည်</string>
+    <string name="preferences_ceno_sources_private">တစ်ကိုယ်ရည်သုံး</string>
+    <string name="preferences_ceno_sources_origin">ဝဘ်ဆိုက်</string>
+    <string name="preferences_theme">အပ်ပ် ပုံစံကို သတ်မှတ်မည်</string>
+    <string name="ceno_sources_category">ရင်းမြစ်များ</string>
+    <string name="preferences_show_home_button">ပင်မစာမျက်နှာခလုတ်ကို ပြသမည်</string>
 </resources>
