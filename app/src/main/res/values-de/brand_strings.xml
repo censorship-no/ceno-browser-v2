@@ -7,7 +7,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="onboarding_fragment">Willkommen bei &brandShortName;</string>
     <string name="onboarding_battery_title">Berechtigung erforderlich</string>
-    <string name="onboarding_battery_text">In Kürze wird das Betriebssystem Sie um die Berechtigung bitten, die Batterieoptimierung zu deaktivieren.
+    <string name="onboarding_battery_text">In Kürze wird das Betriebssystem Sie um eine Berechtigung bitten,
+\n
+\n• die Batterieoptimierung deaktivieren zu können.
 \n
 \nDies ist erforderlich, um das Teilen von Webseiten fortzusetzen, während die App im Hintergrund läuft.</string>
     <string name="onboarding_skip_button">Überspringen</string>
@@ -18,7 +20,7 @@
     <string name="changeIconCtaAccept">Anwenden</string>
     <string name="changeIconCtaCancel">Abbrechen</string>
     <string name="changeIconDialogTitle">Neues Symbol anwenden\?</string>
-    <string name="ceno_clear_action_description">Löschen</string>
+    <string name="ceno_clear_action_description">Leeren</string>
     <string name="preferences_clear_in_toolbar">In der Symbolleiste anzeigen</string>
     <string name="preferences_clear_in_menu">Im Menü anzeigen</string>
     <string name="preferences_clear_behavior">Standardverhalten</string>
@@ -55,7 +57,7 @@
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Es wird empfohlen, &brandShortName; zu verwenden, wenn du eine Wi-Fi-Verbindung haben, da es mehr Daten verbrauchen kann, als Sie erwarten. Wenn du mobile Daten verwendest, solltest du &brandShortName; deaktivieren.</string>
     <string name="crash_reporting_never_send">Niemals senden</string>
     <string name="crash_reporting_dont_send_this_time">Dieses Mal nicht senden</string>
-    <string name="crash_reporting_always_send">Immer senden</string>
+    <string name="crash_reporting_always_send">Immer senden, um &brandShortName; zu verbessern</string>
     <string name="crash_reporting_send_once">Einmalig senden</string>
     <string name="default_top_site_1_title">&brandShortName; Anleitung</string>
     <string name="crash_reporting_dont_ask_again">Nicht erneut nachfragen</string>
@@ -127,7 +129,7 @@
 \n- Benachrichtigungen zulassen
 \n- Batterieoptimierung deaktivieren
 \n
-\nDies ist erforderlich, um Websites weiterhin zu nutzen, während die App im Hintergrund läuft.</string>
+\nDies ist erforderlich, um Websites weiterhin zu nutzen, während die App im Hintergrund läuft</string>
     <string name="ceno_support_link_url">https://censorship.no/en/support.html</string>
     <string name="changeIconDialogMessage">Die App wird möglicherweise geschlossen, um die Änderungen zu übernehmen. Komm wieder, wenn du dein hübsches neues Icon bewundert hast.</string>
     <string name="preferences_ceno_enable_log">Aktivieren der Logdaten</string>
