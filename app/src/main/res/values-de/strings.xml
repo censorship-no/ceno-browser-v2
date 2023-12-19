@@ -87,4 +87,5 @@
     <string name="browser_menu_back">Zurück</string>
     <string name="theme_category">Thema</string>
     <string name="preference_search_summary">Standard festlegen</string>
+    <string name="browser_toolbar_home">Startseite</string>
 </resources>
