@@ -19,9 +19,12 @@
 
 
     <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_200</color>
+    <color name="ceno_home_card_announcement_title_background">@color/ceno_orange_800</color>
     <color name="ceno_home_card_announcement_timestamp_color">@color/ceno_orange_300</color>
     <color name="ceno_home_card_announcement_message">@color/ceno_orange_200</color>
-    <color name="home_card_announcements_background">@color/ceno_orange_800</color>
+    <color name="home_card_announcements_background">@color/ceno_orange_900</color>
+    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_900</color>
+    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_100</color>
 
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
 
@@ -55,10 +58,12 @@
     <color name="ceno_grey_800">#39393B</color>
     <color name="ceno_grey_900">#08080A</color>
 
+    <color name="ceno_orange_50">#FFF7ED</color>
     <color name="ceno_orange_100">#FFEDD5</color>
     <color name="ceno_orange_200">#FED7AA</color>
     <color name="ceno_orange_300">#FDBA74</color>
     <color name="ceno_orange_400">#FB923C</color>
+    <color name="ceno_orange_500">#F97316</color>
     <color name="ceno_orange_700">#C2410C</color>
     <color name="ceno_orange_800">#9A3412</color>
     <color name="ceno_orange_900">#7C2D12</color>

@@ -14,10 +14,13 @@
     <color name="ceno_home_card_personal_text">@color/ceno_purple_600</color>
     <color name="ceno_home_card_text_color">@color/ceno_grey_500</color>
 
-    <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_400</color>
+    <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_500</color>
+    <color name="ceno_home_card_announcement_title_background">@color/ceno_orange_100</color>
     <color name="ceno_home_card_announcement_timestamp_color">@color/ceno_grey_300</color>
     <color name="ceno_home_card_announcement_message">@color/ceno_grey_700</color>
-    <color name="home_card_announcements_background">@color/ceno_orange_100</color>
+    <color name="home_card_announcements_background">@color/ceno_orange_50</color>
+    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_500</color>
+    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_100</color>
 
     <color name="ceno_onboarding_button_text_color">@color/photonBlack</color>
 

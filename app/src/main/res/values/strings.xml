@@ -189,7 +189,7 @@
     <!-- Ceno: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
-    <string name="close_mode_item">Close notification</string>
+    <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
     <!-- Ceno: COPIED FROM FOCUS -->
     <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <!-- Used to indicate the value of a setting item-->
