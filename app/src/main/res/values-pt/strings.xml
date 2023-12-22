@@ -49,7 +49,7 @@
     <string name="browser_menu_add_to_homescreen">Adicionar ao ecrã inicial</string>
     <string name="browser_menu_remove_from_shortcuts">Remover dos atalhos</string>
     <string name="shortcut_max_limit_content">Para adicionar um atalho novo, remova um. Toque e segure na página e selecione remover.</string>
-    <string name="deleting_browsing_data_in_progress">A apagar dados de navegação..</string>
+    <string name="deleting_browsing_data_in_progress">A apagar dados de navegação…</string>
     <string name="browser_menu_desktop_site">Pedir página de desktop</string>
     <string name="secure_connection">Conexão é segura</string>
     <string name="insecure_connection">Conexão não é segura</string>
@@ -90,10 +90,16 @@
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
     <string name="shortcut_max_limit_title">Limite de atalhos atingido</string>
     <string name="shortcut_name_hint">Nome do atalho</string>
-    <string name="customize_add_bootstrap_save">Salvar</string>
+    <string name="customize_add_bootstrap_save">Gravar</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
     <string name="udp_category">UDP</string>
     <string name="not_applicable">N/A</string>
     <string name="bit_torrent_bootstraps_category">Manha</string>
     <string name="customize_extra_bittorrent_bootstrap">Bittorrent</string>
+    <string name="setting_item_selected">%s selecionados</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adicionar bootstraps personalizados</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">IPs separados com vírgulas</string>
+    <string name="crash_report_sent">Relatório de travamento enviado!</string>
+    <string name="preferences_website_sources_summary">Selecione de onde deseja carregar o conteúdo do site</string>
+    <string name="set_default_search_engine">Definir motor de pesquisa padrão</string>
 </resources>
