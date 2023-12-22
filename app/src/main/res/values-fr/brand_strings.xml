@@ -159,11 +159,10 @@
 \nAccédez à « Paramètres &gt; Autoriser les notifications » pour les autoriser</string>
     <string name="onboarding_public_or_personal_title">Public ou Personnel \?</string>
     <string name="onboarding_cleanup_text">Effacez l\'historique de votre navigateur, vos identifiants et toute trace que vous avez laissée sur &brandShortName; avec un seul bouton.</string>
-    <string name="crash_reporting_dialog_description">Désolé, on dirait que &amp;brandShortName ; s’est écrasé !
-\nAidez-nous à améliorer &amp;brandShortName ; en nous envoyant le rapport d\'accident.</string>
+    <string name="crash_reporting_dialog_description">Aidez-nous à améliorer &amp;brandShortName ; en nous envoyant les rapports d\'incident.</string>
     <string name="crash_reporting_never_send">Ne jamais envoyez</string>
     <string name="crash_reporting_dont_send_this_time">Ne pas envoyez cette fois-ci</string>
-    <string name="crash_reporting_always_send">Toujours envoyez</string>
+    <string name="crash_reporting_always_send">Toujours envoyer, améliore &amp;brandShortName ;</string>
     <string name="crash_reporting_opt_out">Vous avez choisi de ne plus partagez les rapports d\'accident. Vous pouvez toujours le faire en allant dans « Paramètre &gt; Rapports d\'incident ».</string>
     <string name="crash_reporting_opt_in">Merci d\'avoir partagé les rapports d\'accidents pour aider à améliorer &brandShortName; ! Vous pouvez toujours désactiver cette fonction en allant dans les paramètres &gt; Rapport d\'accident.</string>
     <string name="crash_reporting_send_once">Envoyez une fois</string>
