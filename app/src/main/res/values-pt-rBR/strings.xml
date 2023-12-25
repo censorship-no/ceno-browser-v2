@@ -60,7 +60,7 @@
     <string name="browser_menu_library">Biblioteca</string>
     <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
     <string name="preferences_delete_browsing_data_snackbar">Dados de navegação apagados</string>
-    <string name="deleting_browsing_data_in_progress">Apagando dados de navegação..</string>
+    <string name="deleting_browsing_data_in_progress">Apagando dados de navegação…</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">Histórico de navegação e dados do website</string>
     <string name="preferences_delete_browsing_data_button">Apagar dados de navegação</string>
     <string name="secure_connection">A conexão é segura</string>
@@ -95,4 +95,8 @@
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
     <string name="customize_add_bootstrap_save">Salvar</string>
     <string name="crash_report_sent">Relatório de travamento enviado!</string>
+    <string name="setting_item_selected">%s selecionado</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">IPs separados com vírgulas</string>
+    <string name="preferences_website_sources_summary">Selecione onde você deseja carregar o conteúdo do site de</string>
+    <string name="set_default_search_engine">Definir mecanismo de busca padrão</string>
 </resources>
