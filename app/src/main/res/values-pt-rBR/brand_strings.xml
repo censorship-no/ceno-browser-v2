@@ -157,4 +157,5 @@
     <string name="bt_invalid_ip_error">IP inválido</string>
     <string name="preferences_ceno_website_sources">Fontes de Website</string>
     <string name="bt_sources_none">Nenhuma</string>
+    <string name="bt_sources_custom">Personalizada</string>
 </resources>
