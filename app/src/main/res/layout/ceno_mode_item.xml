@@ -1,52 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ceno_mode_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/ceno_mode_margin_horizontal"
-    android:layout_marginTop="@dimen/ceno_mode_margin_top"
-    android:layout_marginEnd="@dimen/ceno_mode_margin_horizontal"
-    android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
-    android:background="@android:color/transparent"
-    android:orientation="vertical"
-    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+    android:layout_margin="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/public_mode_card"
-        style="@style/CenoMode.Card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
-        android:importantForAccessibility="noHideDescendants"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/personal_mode_card"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-
-        <ImageView
-            android:id="@+id/public_check_mark"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/ceno_mode_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:layout_margin="8dp"
-            app:srcCompat="@drawable/check_circle_outline"
-            android:contentDescription="@string/green_check_mark_in_a_circle"/>
+            android:layout_margin="16dp"
+            android:text="@string/browsing_mode_card_title"
+            android:textSize="18sp"
+            app:drawableEndCompat="@drawable/ic_arrow_expanded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/public_mode_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/browsing_mode_card_outline"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/personal_mode_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ceno_mode_title">
 
-            <ImageView
-                android:id="@+id/iv_home_card_public"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ceno_home_card_public_icon" />
 
             <TextView
                 android:id="@+id/tv_home_card_public_title"
@@ -54,9 +46,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:drawablePadding="4dp"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
                 android:text="@string/ceno_home_card_public_title"
-                android:textColor="@color/ceno_home_card_public_text" />
+                android:textColor="@color/ceno_home_card_public_text"
+                app:drawableStartCompat="@drawable/ceno_home_card_public_icon"
+                app:drawableEndCompat="@drawable/check_circle_outline" />
 
             <TextView
                 android:id="@+id/tv_home_card_public_text"
@@ -67,42 +63,23 @@
                 android:textStyle="italic" />
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/personal_mode_card"
-        style="@style/CenoMode.Card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:importantForAccessibility="noHideDescendants"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/public_mode_card"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/personal_check_mark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:layout_margin="8dp"
-            app:srcCompat="@drawable/check_circle_outline"
-            android:contentDescription="@string/green_check_mark_in_a_circle"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/personal_mode_card"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
+            android:background="@drawable/browsing_mode_card_outline"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/iv_home_card_personal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ceno_home_card_personal_icon" />
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/public_mode_card"
+            app:layout_constraintTop_toBottomOf="@id/ceno_mode_title">
 
             <TextView
                 android:id="@+id/tv_home_card_personal_title"
@@ -110,9 +87,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:drawablePadding="4dp"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
                 android:text="@string/ceno_home_card_personal_title"
-                android:textColor="@color/ceno_home_card_personal_text" />
+                android:textColor="@color/ceno_home_card_personal_text"
+                app:drawableStartCompat="@drawable/ceno_home_card_personal_icon" />
 
             <TextView
                 android:id="@+id/tv_home_card_personal_text"
@@ -122,6 +102,7 @@
                 android:textColor="@color/ceno_onboarding_text"
                 android:textStyle="italic" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

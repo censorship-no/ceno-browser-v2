@@ -16,6 +16,8 @@
     <color name="ceno_home_card_public_text">@color/ceno_blue_300</color>
     <color name="ceno_home_card_personal_text">@color/ceno_purple_300</color>
     <color name="ceno_home_card_text_color">@color/ceno_grey_300</color>
+    <color name="ceno_mode_selected_green">#23AB01</color>
+    <color name="ceno_browsing_mode_card_border">@color/ceno_grey_500</color>
 
 
     <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_200</color>
