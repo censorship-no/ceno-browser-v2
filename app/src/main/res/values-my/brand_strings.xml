@@ -102,8 +102,7 @@
     <string name="shutdown_clear_title">အက်ပ် အချက်အလက်များကို ဖျက်ပစ်ခြင်းနှင့်
 \n&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
     <string name="shutdown_stop_title">&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
-    <string name="crash_reporting_dialog_description">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။
-\n&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ဖို့အတွက် ချို့ယွင်းချက် အစီရင်ခံစာကို ကျွန်ုပ်တို့ကို ပို့ပေးနိုင်ပါတယ်။</string>
+    <string name="crash_reporting_dialog_description">&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ရန်အတွက် ချို့ယွင်းချက် အစီရင်ခံစာများကို ကျွန်ုပ်ထံ ပို့ပေးခြင်းဖြင့် ကူညီနိုင်ပါသည်။</string>
     <string name="crash_reporting_never_send">ဘယ်တော့မှ မပို့ပါ</string>
     <string name="crash_reporting_dont_send_this_time">ဒီတစ်ကြိမ်တွင် မပို့ပါနှင့်</string>
     <string name="crash_reporting_always_send">အမြဲတမ်း ပို့မည်၊ &brandShortName; ကို တိုးတက်အောင်လုပ်မည်</string>
@@ -133,4 +132,5 @@
     <string name="preferences_ceno_sources_external_udp">ပြင်ပ UDP ဆုံးမှတ်များ</string>
     <string name="preferences_ceno_cache_size">စက်တွင်း ယာယီသိမ်းဆည်းထားသည့် မှတ်ဉာဏ်</string>
     <string name="preferences_ceno_sources_public_udp">အများသုံး UDP အဆုံးမှတ်များ</string>
+    <string name="onboarding_thanks_title">ကွန်ရက်ကို ကျယ်ပြန့်စေသည့်အတွက် ကျေးဇူးတင်ပါသည်။</string>
 </resources>
