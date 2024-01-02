@@ -61,9 +61,9 @@
     <string name="onboarding_battery_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve el sistema operativo te pedirá permiso para
 \n
-\n• Desactivar la optimización de la batería.
+\n- Desactivar la optimización de la batería.
 \n
-\nEsto es necesario para seguir compartiendo las páginas web mientras la aplicación está en segundo plano</string>
+\nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano.</string>
     <string name="onboarding_battery_button">Continuar</string>
     <string name="onboarding_warning_text">La optimización de la batería sigue activada.
 \n
@@ -152,7 +152,7 @@
 \n• Permitir las notificaciones
 \n• Desactivar la optimización de la batería
 \n
-\nEsto es necesario para seguir compartiendo sitios web mientras la aplicación está en segundo plano</string>
+\nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano.</string>
     <string name="ceno_onboarding_start_title">Comparte la web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
