@@ -174,11 +174,10 @@
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>
     <string name="onboarding_finish_button">Terminar</string>
-    <string name="crash_reporting_dialog_description">Lo sentimos, ¡parece que &brandShortName; se ha bloqueado!
-\nAyúdanos a mejorar &brandShortName; enviándonos el informe del error.</string>
+    <string name="crash_reporting_dialog_description">Ayúdanos a mejorar &brandShortName; enviándonos el informe del error.</string>
     <string name="crash_reporting_never_send">Nunca enviar</string>
     <string name="crash_reporting_dont_send_this_time">No enviar esta vez</string>
-    <string name="crash_reporting_always_send">Enviar siempre</string>
+    <string name="crash_reporting_always_send">Enviar siempre, mejorar &brandShortName;</string>
     <string name="preferences_allow_crash_reporting">Informe de fallos</string>
     <string name="crash_reporting_opt_out">Has optado por no compartir los informes de los errores. Siempre puedes optar por hacerlo yendo a Ajustes &gt; Informes de errores.</string>
     <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de los fallos para ayudar a mejorar &brandShortName;! Siempre se puede desactivar esto yendo a Configuración &gt; Informes de errores.</string>
