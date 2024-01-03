@@ -49,6 +49,15 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileWriter
+import java.io.IOException
+import android.media.MediaScannerConnection
+import android.content.ContentValues
+import android.content.Context
+import android.os.Environment
+import android.provider.MediaStore
 import kotlin.system.exitProcess
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -210,6 +219,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
         getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener = getClickListenerForCustomAddons()
+        getPreference(pref_key_ceno_export_android_logs)?.onPreferenceClickListener = getClickListenerForAndroidLogExport()
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
@@ -417,6 +427,60 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
+
+    private fun getClickListenerForAndroidLogExport(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val fileName = "hjkjhbjhjbhj.txt" // File name
+            val content = "This is the content of the text file."
+
+            try {
+                val file = File(fileName)
+
+                val writer = FileWriter(file)
+
+                writer.write(content)
+                writer.close()
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val contentValues = ContentValues().apply {
+                        put(MediaStore.Downloads.DISPLAY_NAME, fileName)
+                        put(MediaStore.Downloads.MIME_TYPE, "text/plain")
+                        put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                    }
+                    val contentUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI
+                    val uri = context?.contentResolver?.insert(contentUri, contentValues)
+                    val outputStream = context?.contentResolver?.openOutputStream(uri!!)
+                    outputStream?.write(content.toByteArray())
+                    outputStream?.close()
+                } else {
+                    val mediaStorageDir = File(
+                        "${
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                .toString() + File.separator
+                        }$fileName"
+                    )
+                    try {
+                        val outputStream = context?.openFileOutput(fileName, Context.MODE_PRIVATE)
+                        outputStream?.write(content.toByteArray())
+                        outputStream?.close()
+                        MediaScannerConnection.scanFile(
+                            context,
+                            arrayOf(mediaStorageDir.absolutePath),
+                            null
+                        ) { _, _ -> }
+                    } catch (e: FileNotFoundException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+
+            } catch (e: Exception) {
+                println("An error occurred: ${e.message}")
+            }
+            true
+        }
+    }
 
     private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
