@@ -102,8 +102,7 @@
     <string name="shutdown_clear_title">အက်ပ် အချက်အလက်များကို ဖျက်ပစ်ခြင်းနှင့်
 \n&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
     <string name="shutdown_stop_title">&brandShortName; ဘရောက်ဇာကို ရပ်တန့်ခြင်း</string>
-    <string name="crash_reporting_dialog_description">တောင်းပန်ပါတယ်၊ &brandShortName; သည် တစ်ခုခု ချို့ယွင်းနေပါသည်။
-\n&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ဖို့အတွက် ချို့ယွင်းချက် အစီရင်ခံစာကို ကျွန်ုပ်တို့ကို ပို့ပေးနိုင်ပါတယ်။</string>
+    <string name="crash_reporting_dialog_description">&brandShortName; ကို ပိုမိုကောင်းမွန်အောင် ပြင်ဆင်နိုင်ရန်အတွက် ချို့ယွင်းချက် အစီရင်ခံစာများကို ကျွန်ုပ်ထံ ပို့ပေးခြင်းဖြင့် ကူညီနိုင်ပါသည်။</string>
     <string name="crash_reporting_never_send">ဘယ်တော့မှ မပို့ပါ</string>
     <string name="crash_reporting_dont_send_this_time">ဒီတစ်ကြိမ်တွင် မပို့ပါနှင့်</string>
     <string name="crash_reporting_always_send">အမြဲတမ်း ပို့မည်၊ &brandShortName; ကို တိုးတက်အောင်လုပ်မည်</string>
@@ -122,4 +121,16 @@
     <string name="ceno_sources_category">ရင်းမြစ်များ</string>
     <string name="preferences_show_home_button">ပင်မစာမျက်နှာခလုတ်ကို ပြသမည်</string>
     <string name="about_content"><p>%1$s - ဝဘ်ကို မျှဝေပါ</p> <p>censorship.no၏အတိုကောက် Ceno သည် အထူးသဖြင့် လက်ရှိ အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုနည်းလမ်းများကို ရှောင်ရှားနိုင်ရန်အတွက် ပြုလုပ်ထားသည့် ကမ္ဘာ့ပထမဆုံး မိုဘိုင်းဘရောက်ဇာဖြစ်ပါသည်။ ၎င်းသည် လူများအား ဆက်သွယ်မှု ပြတ်တောက်ခြင်း သို့မဟုတ် အပေးအယူ ပြတ်တောက်သွားသည့် ဒေသများအတွင်း နှင့် အနှံ့အပြားတွင် သတင်းအချက်အလက်များကို ရယူမျှဝေနိုင်စေပါသည်။ </p> <p>%1$s CENO သည် ကနေဒါနိုင်ငံ အခြေစိုက် အဖွဲ့အစည်းဖြစ်သည့် eQualitie ၏ ပရောဂျက်တစ်ခုဖြစ်ပြီး အွန်လိုင်းပေါ်ရှိအခက်အလက်များ လွတ်လပ်စွာစီးဆင်းနိုင်ခွင့် အပါအဝင် အခြေခံလွတ်လပ်ခွင့်များနှင့် လူ့အခွင့်အရေးများကို ဖော်ထုတ်ရန်၊ ကာကွယ်ရန် ရည်ရွယ်ပါသည်။ ကျွန်ုပ်တို့၏ ပန်းတိုင်မှာ ဒီဂျစ်တယ်ခေတ်တွင် လူ့အခွင့်အရေးနှင့် လွတ်လပ်ခွင့်များကို ကာကွယ်ရန်အတွက် လိုအပ်သည့် အရည်အသွေးများကို မြှင့်တင်ရန်နှင့် လက်လှမ်းမီ ရယူနိုင်သည့် နည်းပညာများကို ဖန်တီးရန် ဖြစ်ပါသည်။</p></string>
+    <string name="preferences_ceno_sources_upnp">UPnP အခြေအနေ</string>
+    <string name="preferences_ceno_network_config">ကွန်ရက် အသေးစိတ်များ</string>
+    <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_groups_count">သင် မျှဝေထားသည့် အကြောင်းအရာ</string>
+    <string name="preferences_ceno_sources_reachability">ရောက်ရှိနိုင်သည့် အခြေအနေ</string>
+    <string name="preferences_ceno_sources_local_udp">စက်တွင်း UDP ဆုံးမှတ်များ</string>
+    <string name="preferences_clear_ceno_cache">ယာယီသိမ်းဆည်းထားသည့် အကြောင်းအရာကို ဖျက်မည်</string>
+    <string name="preferences_clear_ceno_cache_summary">စက်တွင်း ယာယီသိမ်းဆည်းထားသည့် ဝဘ်အကြောင်းအရာကို ဖျက်မည်</string>
+    <string name="preferences_ceno_sources_external_udp">ပြင်ပ UDP ဆုံးမှတ်များ</string>
+    <string name="preferences_ceno_cache_size">စက်တွင်း ယာယီသိမ်းဆည်းထားသည့် မှတ်ဉာဏ်</string>
+    <string name="preferences_ceno_sources_public_udp">အများသုံး UDP အဆုံးမှတ်များ</string>
+    <string name="onboarding_thanks_title">ကွန်ရက်ကို ကျယ်ပြန့်စေသည့်အတွက် ကျေးဇူးတင်ပါသည်။</string>
 </resources>
