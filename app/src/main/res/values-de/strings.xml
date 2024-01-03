@@ -72,7 +72,7 @@
     <string name="shortcut_name_hint">Name der Verknüpfung</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Sie werden aus den meisten Seiten abgemeldet</string>
     <string name="preferences_delete_browsing_data_snackbar">Browsing-Daten gelöscht</string>
-    <string name="deleting_browsing_data_in_progress">Löschen von Browsing-Daten‥</string>
+    <string name="deleting_browsing_data_in_progress">Lösche Browsing-Daten…</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Räumt Speicherplatz frei</string>
     <string name="preferences_delete_browsing_data_cached_files">Zwischengespeicherte Bilder und Dateien</string>
     <string name="preferences_delete_browsing_data_button">Browsing-Daten löschen</string>
@@ -87,4 +87,5 @@
     <string name="browser_menu_back">Zurück</string>
     <string name="theme_category">Thema</string>
     <string name="preference_search_summary">Standard festlegen</string>
+    <string name="browser_toolbar_home">Startseite</string>
 </resources>
