@@ -56,7 +56,7 @@
     <string name="browser_menu_add_to_homescreen">أضف إلى الشاشة الرئيسية</string>
     <string name="browser_menu_library">المكتبة</string>
     <string name="preferences_delete_browsing_data_snackbar">تم حذف بيانات التصفح</string>
-    <string name="deleting_browsing_data_in_progress">حذف بيانات التصفح‥</string>
+    <string name="deleting_browsing_data_in_progress">جارٍ حذف بيانات التصفح…</string>
     <string name="preferences_delete_browsing_data">احذف بيانات التصفح</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">تصفح سجل تاريخ الموقع والبيانات</string>
     <string name="toolbar_hint">ابحث عن العنوان أو أدخله</string>
@@ -103,4 +103,10 @@
     <string name="bit_torrent_bootstraps_category">تمهيدات BitTorrent</string>
     <string name="customize_extra_bittorrent_bootstrap">تمهيدات BitTorrent إضافية</string>
     <string name="crash_report_sent">تم إرسال تقرير العطل!</string>
+    <string name="setting_item_selected">تم تحديد %s</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">إضافة تمهيد مخصص</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">افصل عناوين IP بفواصل</string>
+    <string name="preferences_website_sources_summary">حدد المكان الذي تريد تحميل محتوى موقع الويب منه</string>
+    <string name="select_extra_bt_source">حدد التمهيد الإضافي لـ BitTorrent</string>
+    <string name="set_default_search_engine">تعيين محرك البحث الافتراضي</string>
 </resources>

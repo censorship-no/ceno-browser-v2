@@ -132,7 +132,7 @@
     <string name="browser_menu_library">Library</string>
     <string name="secure_connection">ဆက်သွယ်ချိတ်ဆက်ခြင်း စိတ်ချရသည်</string>
     <string name="browser_menu_desktop_site">Desktop ပုံစံကြည့်ရန် တောင်းဆိုမည်</string>
-    <string name="deleting_browsing_data_in_progress">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်ရန်</string>
+    <string name="deleting_browsing_data_in_progress">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်ရန်…</string>
     <string name="preferences_delete_browsing_data">ရှာဖွေထားသည့် အချက်အလက်များကို ဖျက်ရန်</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="other">Singular
@@ -165,4 +165,10 @@
     </plurals>
     <string name="not_applicable">N/A</string>
     <string name="crash_report_sent">ချို့ယွင်းမှု အစီရင်ခံစာအား ပို့ပေးပြီးပါပြီ။</string>
+    <string name="setting_item_selected">%s အား ရွေးချယ်ပြီး</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">စိတ်ကြိုက် BitTorrent bootstraps ထည့်ပါ</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">IP များကို ကော်မာများဖြင့် ခွဲခြားပါ</string>
+    <string name="preferences_website_sources_summary">ဝဘ်ဆိုက် အကြောင်းအရာများကို မည်သည့်နေရာမှ ရယူမည့်အကြောင်း ရွေးချယ်ပါ</string>
+    <string name="select_extra_bt_source">အပိုဆောင်း BitTorrent bootstrap ကို ရွေးချယ်ပါ</string>
+    <string name="set_default_search_engine">ရှာဖွေရေး အင်ဂျင်ကို ပုံသေသတ်မှတ်ပါ</string>
 </resources>
