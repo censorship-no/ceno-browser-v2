@@ -44,15 +44,15 @@ class CenoModeViewHolder(
                 binding.cenoModeTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.cenoModeItem.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
 
+                binding.publicModeCardCheckmark.visibility = View.VISIBLE
                 binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
-                binding.tvHomeCardPublicTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ceno_home_card_public_icon, 0, R.drawable.check_circle_outline, 0 )
 
+                binding.personalModeCardCheckmark.visibility = View.INVISIBLE
                 binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_browsing_mode_card_border))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
-                binding.tvHomeCardPersonalTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ceno_home_card_personal_icon, 0, 0, 0 )
 
             }
             BrowsingMode.Personal -> {
@@ -63,15 +63,15 @@ class CenoModeViewHolder(
                 binding.cenoModeTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.cenoModeItem.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_800))
 
+                binding.publicModeCardCheckmark.visibility = View.INVISIBLE
                 binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_grey_500))
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
-                binding.tvHomeCardPublicTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ceno_home_card_public_icon, 0, 0, 0 )
 
+                binding.personalModeCardCheckmark.visibility = View.VISIBLE
                 binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
-                binding.tvHomeCardPersonalTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ceno_home_card_personal_icon, 0, R.drawable.check_circle_outline, 0 )
             }
         }
     }
