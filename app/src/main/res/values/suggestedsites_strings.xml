@@ -5,7 +5,6 @@
     <string name="suggestedsites_wikipedia_url" translatable="false">"https://www.wikipedia.org/</string>
     <string name="suggestedsites_apnews_url" translatable="false">https://apnews.com/</string>
     <string name="suggestedsites_reuters_url" translatable="false">https://www.reuters.com/</string>
-    <string name="suggestedsites_bbc_en_url" translatable="false">https://www.bbc.com/news</string>
 
     <string name="suggestedsites_ceno_es_url" translatable="false">https://censorship.no/user-manual/es/</string>
     <string name="suggestedsites_elpais_url" translatable="false">https://elpais.com/internacional/</string>
@@ -15,7 +14,6 @@
     <string name="suggestedsites_ceno_fa_url" translatable="false">https://censorship.no/user-manual/fa/</string>
     <string name="suggestedsites_paskooceh_url" translatable="false">http://paskoocheh.com/</string>
     <string name="suggestedsites_factnameh_url" translatable="false">https://factnameh.com/fa</string>
-    <string name="suggestedsites_bbc_fa_url" translatable="false">https://www.bbc.com/persian</string>
 
     <string name="suggestedsites_courier_url" translatable="false">https://www.courrierinternational.com/</string>
     <string name="suggestedsites_lapresse_url" translatable="false">https://www.lapresse.ca/</string>
