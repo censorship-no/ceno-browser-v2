@@ -8,8 +8,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
@@ -20,6 +22,7 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -29,14 +32,67 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.*
+import ie.equalit.ceno.R.string.ceno_android_logs_file_name
+import ie.equalit.ceno.R.string.ceno_log_file_saved
+import ie.equalit.ceno.R.string.customize_addon_collection_cancel
+import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.onboarding_battery_title
+import ie.equalit.ceno.R.string.onboarding_warning_title
+import ie.equalit.ceno.R.string.pref_key_about_ceno
+import ie.equalit.ceno.R.string.pref_key_about_geckoview
+import ie.equalit.ceno.R.string.pref_key_about_ouinet
+import ie.equalit.ceno.R.string.pref_key_about_page
+import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
+import ie.equalit.ceno.R.string.pref_key_allow_notifications
+import ie.equalit.ceno.R.string.pref_key_autofill
+import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
+import ie.equalit.ceno.R.string.pref_key_ceno_download_log
+import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
+import ie.equalit.ceno.R.string.pref_key_ceno_export_android_logs
+import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
+import ie.equalit.ceno.R.string.pref_key_ceno_network_config
+import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
+import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
+import ie.equalit.ceno.R.string.pref_key_customization
+import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
+import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_make_default_browser
+import ie.equalit.ceno.R.string.pref_key_ouinet_state
+import ie.equalit.ceno.R.string.pref_key_override_amo_collection
+import ie.equalit.ceno.R.string.pref_key_privacy
+import ie.equalit.ceno.R.string.pref_key_remote_debugging
+import ie.equalit.ceno.R.string.pref_key_search_engine
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
+import ie.equalit.ceno.R.string.preference_choose_search_engine
+import ie.equalit.ceno.R.string.preferences_about_page
+import ie.equalit.ceno.R.string.preferences_customize_amo_collection
+import ie.equalit.ceno.R.string.preferences_delete_browsing_data
+import ie.equalit.ceno.R.string.setting_item_selected
+import ie.equalit.ceno.R.string.settings
+import ie.equalit.ceno.R.string.share_logs
+import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
+import ie.equalit.ceno.R.string.tracker_category
+import ie.equalit.ceno.R.string.view_file
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getAutofillPreference
+import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getSwitchPreferenceCompat
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.share
 import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.LogReader
+import ie.equalit.ceno.utils.isExternalStorageAvailable
+import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -50,15 +106,8 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileWriter
-import java.io.IOException
-import android.media.MediaScannerConnection
-import android.content.ContentValues
-import android.content.Context
-import android.os.Environment
-import android.provider.MediaStore
 import kotlin.system.exitProcess
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -430,53 +479,47 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForAndroidLogExport(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val fileName = "hjkjhbjhjbhj.txt" // File name
-            val content = "This is the content of the text file."
 
-            try {
-                val file = File(fileName)
+            when {
+                !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
+                    // external storage not available
 
-                val writer = FileWriter(file)
-
-                writer.write(content)
-                writer.close()
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val contentValues = ContentValues().apply {
-                        put(MediaStore.Downloads.DISPLAY_NAME, fileName)
-                        put(MediaStore.Downloads.MIME_TYPE, "text/plain")
-                        put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                    }
-                    val contentUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI
-                    val uri = context?.contentResolver?.insert(contentUri, contentValues)
-                    val outputStream = context?.contentResolver?.openOutputStream(uri!!)
-                    outputStream?.write(content.toByteArray())
-                    outputStream?.close()
-                } else {
-                    val mediaStorageDir = File(
-                        "${
-                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                                .toString() + File.separator
-                        }$fileName"
-                    )
-                    try {
-                        val outputStream = context?.openFileOutput(fileName, Context.MODE_PRIVATE)
-                        outputStream?.write(content.toByteArray())
-                        outputStream?.close()
-                        MediaScannerConnection.scanFile(
-                            context,
-                            arrayOf(mediaStorageDir.absolutePath),
-                            null
-                        ) { _, _ -> }
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+                    Toast.makeText(requireContext(), getString(onboarding_battery_title), Toast.LENGTH_LONG).show()
                 }
+                !requireComponents.permissionHandler.isStoragePermissionGranted() -> {
+                    // permission not granted, dynamically request for permission
 
-            } catch (e: Exception) {
-                println("An error occurred: ${e.message}")
+                    Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+                    requireComponents.permissionHandler.requestPermissionForExternalStorage(this)
+                }
+                else -> {
+
+                    // Initialize Android logs
+                    val logs = LogReader.getLogEntries().takeLast(50).joinToString("\n")
+
+                    // save file to external storage
+                    val file = File(Environment.getExternalStorageDirectory().path +"/${getString(ceno_android_logs_file_name)}.txt")
+                    file.mkdir()
+
+                    file.writeText(logs)
+
+                    // prompt the user to view or share
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(context.getString(ceno_log_file_saved))
+                        setNegativeButton(getString(share_logs)) { _, _ ->
+                            requireContext().share(logs, "Share")
+                        }
+                        setPositiveButton(getString(view_file)) { _, _ ->
+                            findNavController().navigate(
+                                R.id.action_settingsFragment_to_androidLogFragment,
+                                bundleOf(
+                                    "log" to logs
+                                )
+                            )
+                        }
+                        create()
+                    }.show()
+                }
             }
             true
         }

@@ -212,6 +212,14 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
+        <action
+            android:id="@+id/action_settingsFragment_to_androidLogFragment"
+            app:destination="@id/androidLogFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
@@ -324,5 +332,10 @@
         android:id="@+id/websiteSourceSettingsFragment"
         android:name="ie.equalit.ceno.settings.WebsiteSourceSettingsFragment"
         android:label="WebsiteSourceSettingsFragment" />
+
+    <fragment
+        android:id="@+id/androidLogFragment"
+        android:name="ie.equalit.ceno.settings.AndroidLogFragment"
+        android:label="AndroidLogFragment" />
 
 </navigation>

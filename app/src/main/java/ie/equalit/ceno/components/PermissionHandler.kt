@@ -10,11 +10,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.AppPermissionCodes
 import mozilla.components.support.base.feature.ActivityResultHandler
+
 
 /* CENO: Handles checking which permissions have been granted,
  * adapted from https://pub.dev/packages/flutter_background
@@ -22,6 +25,7 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 class PermissionHandler(private val context: Context) : ActivityResultHandler {
     companion object {
         const val PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS = 5672353
+        const val PERMISSION_CODE_STORAGE_PERMISSION_REQUEST = 5472321
     }
 
     /*
@@ -34,6 +38,13 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         };
     }
     */
+
+    fun requestPermissionForExternalStorage(fragment : Fragment) {
+        @Suppress("DEPRECATION")
+        fragment.requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
+        )
+    }
 
     fun isIgnoringBatteryOptimizations(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -53,6 +64,17 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         )) {
             PackageManager.PERMISSION_GRANTED -> true
             PackageManager.PERMISSION_DENIED -> false
+            else -> false
+        }
+    }
+
+    fun isStoragePermissionGranted(): Boolean {
+
+        return when(ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )) {
+            PackageManager.PERMISSION_GRANTED -> true
             else -> false
         }
     }
