@@ -48,11 +48,13 @@ class CenoModeViewHolder(
                 binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
+                binding.ivPublicModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
 
                 binding.personalModeCardCheckmark.visibility = View.INVISIBLE
                 binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_browsing_mode_card_border))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
+                binding.ivPersonalModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
 
             }
             BrowsingMode.Personal -> {
@@ -67,11 +69,13 @@ class CenoModeViewHolder(
                 binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_grey_500))
                 binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
+                binding.ivPublicModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
 
                 binding.personalModeCardCheckmark.visibility = View.VISIBLE
                 binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
+                binding.ivPersonalModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
             }
         }
     }

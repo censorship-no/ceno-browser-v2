@@ -6,7 +6,8 @@
     android:id="@+id/ceno_mode_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,13 +32,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/browsing_mode_card_outline"
-            android:padding="8dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/personal_mode_card"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/personal_mode_card"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ceno_mode_title">
@@ -47,23 +45,23 @@
                 android:id="@+id/public_mode_card_checkmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/public_browsing_mode_selected"
                 app:layout_constraintBottom_toTopOf="@+id/tv_home_card_public_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/check_circle_outline"
-                android:contentDescription="@string/public_browsing_mode_selected" />
+                app:srcCompat="@drawable/check_circle_outline" />
 
             <ImageView
                 android:id="@+id/iv_public_mode_card_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/public_mode_icon"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_card_public_title"
                 app:layout_constraintEnd_toStartOf="@+id/public_mode_card_checkmark"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ceno_home_card_public_icon"
-                android:contentDescription="@string/public_mode_icon"/>
+                app:srcCompat="@drawable/ceno_home_card_public_icon" />
 
             <TextView
                 android:id="@+id/tv_home_card_public_title"
@@ -104,10 +102,7 @@
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@drawable/browsing_mode_card_outline"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/public_mode_card"
@@ -117,23 +112,23 @@
                 android:id="@+id/personal_mode_card_checkmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/personal_browsing_mode_selected"
                 app:layout_constraintBottom_toTopOf="@+id/tv_home_card_personal_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/check_circle_outline"
-                android:contentDescription="@string/personal_browsing_mode_selected"/>
+                app:srcCompat="@drawable/check_circle_outline" />
 
             <ImageView
                 android:id="@+id/iv_personal_mode_card_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/personal_mode_icon"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_card_personal_title"
                 app:layout_constraintEnd_toStartOf="@+id/personal_mode_card_checkmark"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ceno_home_card_personal_icon"
-                android:contentDescription="@string/personal_mode_icon"/>
+                app:srcCompat="@drawable/ceno_home_card_personal_icon" />
 
             <TextView
                 android:id="@+id/tv_home_card_personal_title"
