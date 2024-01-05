@@ -25,8 +25,8 @@
     <color name="ceno_home_card_announcement_timestamp_color">@color/ceno_orange_300</color>
     <color name="ceno_home_card_announcement_message">@color/ceno_orange_200</color>
     <color name="home_card_announcements_background">@color/ceno_orange_900</color>
-    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_900</color>
-    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_100</color>
+    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_300</color>
+    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_800</color>
 
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
 

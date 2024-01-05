@@ -4,6 +4,8 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources>
         <!-- Design system color attributes -->
+    <attr name="announcementIconFill" format="reference" />
+    <attr name="announcementIconStroke" format="reference" />
 
         <!-- Layers -->
         <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->

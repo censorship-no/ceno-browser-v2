@@ -35,7 +35,7 @@ internal fun normalModeAdapterItems(
     items.add(AdapterItem.TopPlaceholderItem)
 
     // Show announcements at the top
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Normal)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
     /*
@@ -56,7 +56,7 @@ internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnou
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
     // Show announcements at the top
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it)) }
+    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Personal)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
     items.add(AdapterItem.PersonalModeDescriptionItem)
