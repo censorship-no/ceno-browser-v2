@@ -532,7 +532,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
                     // Initialize Android logs
-                    val logs = LogReader.getLogEntries().takeLast(60).joinToString("\n")
+                    val logs = LogReader.getLogEntries().takeLast(150).joinToString("\n")
 
                     // save file to external storage
                     val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
