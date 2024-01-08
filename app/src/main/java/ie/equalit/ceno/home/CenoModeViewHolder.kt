@@ -4,8 +4,12 @@
 
 package ie.equalit.ceno.home
 
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.CenoModeItemBinding
@@ -37,18 +41,20 @@ class CenoModeViewHolder(
                     interactor.onClicked(homepageCardType, mode)
                 }
                 binding.publicModeCard.setOnClickListener(null)
+                binding.cenoModeTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
+                binding.cenoModeItem.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
 
-                binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_100))
-                binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_onboarding_text))
+                binding.publicModeCardCheckmark.visibility = View.VISIBLE
+                binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
+                binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
-                binding.ivHomeCardPublic.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
-                binding.publicCheckMark.visibility = View.VISIBLE
+                binding.ivPublicModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_public_text))
 
-                binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_background_tint))
-                binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_onboarding_text))
+                binding.personalModeCardCheckmark.visibility = View.INVISIBLE
+                binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_browsing_mode_card_border))
+                binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_text_color))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
-                binding.ivHomeCardPersonal.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
-                binding.personalCheckMark.visibility = View.INVISIBLE
+                binding.ivPersonalModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_personal_text))
 
             }
             BrowsingMode.Personal -> {
@@ -56,23 +62,40 @@ class CenoModeViewHolder(
                     interactor.onClicked(homepageCardType, mode)
                 }
                 binding.personalModeCard.setOnClickListener(null)
-                binding.publicModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_800))
-                binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_200))
-                binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
-                binding.ivHomeCardPublic.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
-                binding.publicCheckMark.visibility = View.INVISIBLE
+                binding.cenoModeTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
+                binding.cenoModeItem.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_800))
 
-                binding.personalModeCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_100))
-                binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_onboarding_text))
-                binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_700))
-                binding.ivHomeCardPersonal.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_700))
-                binding.personalCheckMark.visibility = View.VISIBLE
+                binding.publicModeCardCheckmark.visibility = View.INVISIBLE
+                binding.publicModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_grey_500))
+                binding.tvHomeCardPublicText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
+                binding.tvHomeCardPublicTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
+                binding.ivPublicModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_blue_300))
+
+                binding.personalModeCardCheckmark.visibility = View.VISIBLE
+                binding.personalModeCard.background.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_mode_selected_green))
+                binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
+                binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
+                binding.ivPersonalModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
             }
         }
     }
 
     init {
         cardType = homepageCardType
+        binding.cenoModeTitle.setOnClickListener {
+            //collapse
+            if (binding.tvHomeCardPublicText.isVisible) {
+                binding.tvHomeCardPublicText.visibility = View.GONE
+                binding.tvHomeCardPersonalText.visibility = View.GONE
+                binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_collapsed), null)
+            } else {
+                //expand
+                binding.tvHomeCardPublicText.visibility = View.VISIBLE
+                binding.tvHomeCardPersonalText.visibility = View.VISIBLE
+                binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_expanded), null)
+            }
+
+        }
     }
 
     fun bind(mode: BrowsingMode) {
@@ -82,5 +105,11 @@ class CenoModeViewHolder(
 
     companion object {
         val homepageCardType = HomepageCardType.MODE_MESSAGE_CARD
+    }
+
+    private fun Drawable.colorTint(@ColorRes color: Int) = apply {
+        mutate()
+        @Suppress("DEPRECATION") // Deprecated warning appeared when switching to Java 11.
+        setColorFilter(ContextCompat.getColor(itemView.context, color), PorterDuff.Mode.SRC_IN)
     }
 }

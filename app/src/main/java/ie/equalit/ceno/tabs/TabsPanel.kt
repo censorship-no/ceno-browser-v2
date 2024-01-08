@@ -59,7 +59,13 @@ class TabsPanel @JvmOverloads constructor(
 
     override fun onTabSelected(tab: Tab?) {
         // Tint the selected tab's icon.
-        tab?.icon?.colorTint(R.color.photonPurple50)
+        if (tab == normalTab) {
+            tab?.icon?.colorTint(R.color.ceno_home_card_public_text)
+            this.tabSelectedIndicator.colorTint(R.color.ceno_home_card_public_text)
+        } else {
+            tab?.icon?.colorTint(R.color.ceno_home_card_personal_text)
+            this.tabSelectedIndicator.colorTint(R.color.ceno_home_card_personal_text)
+        }
         tabsFeature?.filterTabs { tabSessionState ->
             if (tab == normalTab) {
                 !tabSessionState.content.private

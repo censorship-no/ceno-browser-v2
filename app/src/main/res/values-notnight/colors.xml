@@ -5,16 +5,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
     <!-- TODO: A lot of these colors are unused, hence blanket ignore,
             need to remove all unused colors -->
-    <color name="placeholder_grey">#777777</color>
-    <color name="accent">#ff00BCD4</color>
 
     <color name="icons">#ffffffff</color>
 
-    <!-- Overriding color of tab counter icon in toolbar -->
-    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
+    <color name="ceno_home_background">@color/ceno_grey_50</color>
     <color name="ceno_home_card_background_tint">@color/photonWhite</color>
-    <color name="ceno_home_card_text_color">@color/photonBlack</color>
+    <color name="ceno_home_card_public_text">@color/ceno_blue_600</color>
+    <color name="ceno_home_card_personal_text">@color/ceno_purple_600</color>
+    <color name="ceno_home_card_text_color">@color/ceno_grey_500</color>
+    <color name="ceno_mode_selected_green">#23AB01</color>
+    <color name="ceno_browsing_mode_card_border">@color/ceno_grey_100</color>
+
+    <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_500</color>
+    <color name="ceno_home_card_announcement_title_background">@color/ceno_orange_100</color>
+    <color name="ceno_home_card_announcement_timestamp_color">@color/ceno_grey_300</color>
+    <color name="ceno_home_card_announcement_message">@color/ceno_grey_700</color>
+    <color name="home_card_announcements_background">@color/ceno_orange_50</color>
+    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_500</color>
+    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_100</color>
+
     <color name="ceno_onboarding_button_text_color">@color/photonBlack</color>
+
     <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
@@ -23,11 +34,11 @@
 
     <!-- Layers -->
     <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->
-    <color name="fx_mobile_layer_color_1">@color/photonLightGrey10</color>
+    <color name="fx_mobile_layer_color_1">@color/photonWhite</color>
     <!-- Card background, Menu background, Dialog, Banner -->
     <color name="fx_mobile_layer_color_2">@color/photonWhite</color>
     <!-- Search -->
-    <color name="fx_mobile_layer_color_3">@color/photonLightGrey20</color>
+    <color name="fx_mobile_layer_color_3">@color/ceno_grey_100</color>
     <!-- App Bar Top (edit), Text Cursor, Selected Tab Check -->
     <color name="fx_mobile_layer_color_accent">@color/accent</color>
     <!-- Selected tab -->
