@@ -64,16 +64,6 @@
                     android:textColor="@color/ceno_home_card_text_color" />
             </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:contentDescription="@string/close_mode_item"
-            android:padding="8dp"
-            app:srcCompat="@drawable/mozac_ic_close"
-            app:tint="@color/home_card_close_button" />
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
