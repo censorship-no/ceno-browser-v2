@@ -27,6 +27,7 @@ data class OuinetStatus(val auto_refresh : Boolean,
                         val injector_access : Boolean,
                         val is_upnp_active : String,
                         val local_cache_size : Int? = null,
+                        val bridge_announcement : Boolean,
                         val local_udp_endpoints : Array<String>? = null,
                         val logfile : Boolean,
                         val max_cached_age : Int,
@@ -319,6 +320,11 @@ object CenoSettings {
             .putBoolean(key, value)
             .apply()
     }
+
+    fun isBridgeAnnouncementEnabled(context: Context) : Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_bridge_announcement), false
+        )
 
     fun getCenoVersionString(context: Context) : String {
         return try {

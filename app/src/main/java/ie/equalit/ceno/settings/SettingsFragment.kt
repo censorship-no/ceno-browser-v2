@@ -40,59 +40,7 @@ import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.ceno_android_logs_file_name
-import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
-import ie.equalit.ceno.R.string.ceno_log_file_saved
-import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
-import ie.equalit.ceno.R.string.customize_addon_collection_cancel
-import ie.equalit.ceno.R.string.customize_addon_collection_ok
-import ie.equalit.ceno.R.string.download_logs
-import ie.equalit.ceno.R.string.no_external_storage
-import ie.equalit.ceno.R.string.onboarding_battery_button
-import ie.equalit.ceno.R.string.onboarding_battery_title
-import ie.equalit.ceno.R.string.onboarding_warning_title
-import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
-import ie.equalit.ceno.R.string.pref_key_about_ceno
-import ie.equalit.ceno.R.string.pref_key_about_geckoview
-import ie.equalit.ceno.R.string.pref_key_about_ouinet
-import ie.equalit.ceno.R.string.pref_key_about_page
-import ie.equalit.ceno.R.string.pref_key_add_ons
-import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
-import ie.equalit.ceno.R.string.pref_key_allow_notifications
-import ie.equalit.ceno.R.string.pref_key_autofill
-import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
-import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
-import ie.equalit.ceno.R.string.pref_key_ceno_download_log
-import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
-import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
-import ie.equalit.ceno.R.string.pref_key_ceno_network_config
-import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
-import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
-import ie.equalit.ceno.R.string.pref_key_customization
-import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
-import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
-import ie.equalit.ceno.R.string.pref_key_make_default_browser
-import ie.equalit.ceno.R.string.pref_key_ouinet_state
-import ie.equalit.ceno.R.string.pref_key_override_amo_collection
-import ie.equalit.ceno.R.string.pref_key_privacy
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
-import ie.equalit.ceno.R.string.pref_key_search_engine
-import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
-import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
-import ie.equalit.ceno.R.string.preference_choose_search_engine
-import ie.equalit.ceno.R.string.preferences_about_page
-import ie.equalit.ceno.R.string.preferences_ceno_download_log
-import ie.equalit.ceno.R.string.preferences_customize_amo_collection
-import ie.equalit.ceno.R.string.preferences_delete_browsing_data
-import ie.equalit.ceno.R.string.select_log_scope_header
-import ie.equalit.ceno.R.string.select_log_scope_message
-import ie.equalit.ceno.R.string.setting_item_selected
-import ie.equalit.ceno.R.string.settings
-import ie.equalit.ceno.R.string.share_logs
-import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
-import ie.equalit.ceno.R.string.tracker_category
-import ie.equalit.ceno.R.string.view_logs
-import ie.equalit.ceno.R.string.write_storage_permission_text
+import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
@@ -357,6 +305,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
+            setPreference(getPreference(pref_key_bridge_announcement), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
@@ -400,6 +349,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_android_log),
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
+            )
+            setPreference(
+                getPreference(pref_key_bridge_announcement),
+                true,
+                changeListener = getChangeListenerForBridgeAnnouncment()
             )
             getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                 CenoSettings.getOuinetBuildId(requireContext())
@@ -708,6 +662,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 create()
             }.show()
+            true
+        }
+    }
+
+    private fun getChangeListenerForBridgeAnnouncment(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, newValue ->
+            val text = if (newValue == true) {
+                getString(ceno_bridge_announcement_enabled)
+            }
+            else {
+                getString(ceno_bridge_announcement_enabled)
+            }
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             true
         }
     }
