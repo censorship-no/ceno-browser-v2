@@ -6,6 +6,8 @@
 
 package ie.equalit.ceno.ext
 
+import android.util.Patterns
+
 /**
  * Replaces the keys with the values with the map provided.
  */
@@ -20,6 +22,41 @@ fun String.replace(pairs: Map<String, String>): String {
  */
 fun String.extractATags(): List<String> {
     val pattern = Regex("""<a[^>]*>.*?</a>""")
+    val matches = pattern.findAll(this)
+    return matches.map { it.value }.toList()
+}
+
+/**
+ * Helper function extracting phone numbers from a string
+ */
+fun String.extractPhoneNumbers(): List<String> {
+    val pattern = Regex(Patterns.PHONE.pattern())
+    val matches = pattern.findAll(this)
+    return matches.map { it.value }.toList()
+}
+
+/**
+ * Helper function extracting ipv4 from a string
+ */
+fun String.extractIpv4Addresses(): List<String> {
+    val pattern = Regex("""\b(?:\d{1,3}\.){3}\d{1,3}\b""")
+    val matches = pattern.findAll(this)
+    return matches.map { it.value }.toList()
+}
+
+/**
+ * Helper function extracting ipv6 from a string
+ */
+fun String.extractIpv6Addresses(): List<String> {
+    val pattern = Regex("""\b(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|
+        (?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}
+        (?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|
+        (?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}
+        (?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((?::[0-9a-fA-F]{1,4}){1,6})|
+        :(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::
+        (?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}
+        (?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[0-9a-fA-F]{1,4}:){1,4}:
+        (?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\b""")
     val matches = pattern.findAll(this)
     return matches.map { it.value }.toList()
 }

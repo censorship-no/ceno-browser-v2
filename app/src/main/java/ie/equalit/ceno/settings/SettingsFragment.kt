@@ -8,13 +8,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -34,6 +34,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.ceno_android_logs_file_name
 import ie.equalit.ceno.R.string.ceno_log_file_saved
+import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
 import ie.equalit.ceno.R.string.onboarding_battery_title
@@ -494,8 +495,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 else -> {
 
+                    /*
+                    To test this locally, uncomment the lines below
+                    These test logs would be in the last lines of the generated logs and can thus be analyzed
+                    */
+
+                    val logTag = "test"
+
+                    Log.d(logTag,"Phone number: 123-456-7890")
+                    Log.d(logTag,"Email address: tasleemoseni@gmail.com")
+                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
+                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
+                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
+                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
+
                     // Initialize Android logs
-                    val logs = LogReader.getLogEntries().takeLast(50).joinToString("\n")
+                    val logs = LogReader.getLogEntries().takeLast(60).joinToString("\n")
 
                     // save file to external storage
                     val file = File(Environment.getExternalStorageDirectory().path +"/${getString(ceno_android_logs_file_name)}.txt")
@@ -506,14 +521,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     // prompt the user to view or share
                     AlertDialog.Builder(requireContext()).apply {
                         setTitle(context.getString(ceno_log_file_saved))
+                        setMessage(context.getString(ceno_log_file_saved_desc))
                         setNegativeButton(getString(share_logs)) { _, _ ->
-                            requireContext().share(logs, "Share")
+                            requireContext().share(logs, getString(share_logs))
                         }
                         setPositiveButton(getString(view_file)) { _, _ ->
                             findNavController().navigate(
                                 R.id.action_settingsFragment_to_androidLogFragment,
                                 bundleOf(
-                                    "log" to logs
+                                    LOG to logs
                                 )
                             )
                         }
@@ -674,5 +690,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         private const val BROWSER_SERVICE_REFRESH_DELAY = 5000L
+        const val LOG = "log"
     }
 }
