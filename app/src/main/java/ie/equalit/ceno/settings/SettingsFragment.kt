@@ -27,6 +27,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -545,7 +546,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         setTitle(context.getString(ceno_log_file_saved))
                         setMessage(context.getString(ceno_log_file_saved_desc))
                         setNegativeButton(getString(share_logs)) { _, _ ->
-                            requireContext().share(logs, getString(share_logs))
+                            if (file.exists()) {
+
+                                val uri = FileProvider.getUriForFile(
+                                    requireContext(),
+                                    ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
+                                    file
+                                )
+                                val intent = Intent(Intent.ACTION_SEND)
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                intent.setType("*/*")
+                                intent.putExtra(Intent.EXTRA_STREAM, uri)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent)
+                            }
                         }
                         setPositiveButton(getString(view_file)) { _, _ ->
                             findNavController().navigate(
