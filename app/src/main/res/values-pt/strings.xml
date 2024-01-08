@@ -94,7 +94,7 @@
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
     <string name="udp_category">UDP</string>
     <string name="not_applicable">N/A</string>
-    <string name="bit_torrent_bootstraps_category">Manha</string>
+    <string name="bit_torrent_bootstraps_category">Inicialização BitTorrent</string>
     <string name="customize_extra_bittorrent_bootstrap">Bittorrent</string>
     <string name="setting_item_selected">%s selecionados</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adicionar bootstraps personalizados</string>
@@ -102,4 +102,5 @@
     <string name="crash_report_sent">Relatório de travamento enviado!</string>
     <string name="preferences_website_sources_summary">Selecione de onde deseja carregar o conteúdo do site</string>
     <string name="set_default_search_engine">Definir motor de pesquisa padrão</string>
+    <string name="select_extra_bt_source">Selecione bootstrap extra do BitTorrent</string>
 </resources>

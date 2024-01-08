@@ -166,4 +166,10 @@
     <string name="customize_extra_bittorrent_bootstrap">Додаткові завантажувачі BitTorrent</string>
     <string name="crash_report_sent">Звіт про збій надіслано!</string>
     <string name="not_applicable">недоступно</string>
+    <string name="setting_item_selected">%s обрано</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Додайте спеціальні завантажувальні програми</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Відокремте IP через кому</string>
+    <string name="preferences_website_sources_summary">Оберіть, звідки ви хочете завантажити контент веб-сайту</string>
+    <string name="select_extra_bt_source">Виберіть додаткову завантажувальну програму BitTorrent</string>
+    <string name="set_default_search_engine">Встановіть пошукову систему за замовчуванням</string>
 </resources>
