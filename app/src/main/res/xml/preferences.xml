@@ -170,6 +170,12 @@
             android:layout="@layout/ceno_clickable_preference"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_key_bridge_announcement"
+            android:title="@string/preferences_ceno_bridge_announcement"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

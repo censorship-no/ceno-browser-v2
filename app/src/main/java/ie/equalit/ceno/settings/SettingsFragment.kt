@@ -272,6 +272,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_log), false)
+            setPreference(getPreference(pref_key_bridge_announcement), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
@@ -310,6 +311,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_log),
                 true,
                 clickListener = getClickListenerForCenoDownloadLog()
+            )
+            setPreference(
+                getPreference(pref_key_bridge_announcement),
+                true,
+                changeListener = getChangeListenerForBridgeAnnouncment()
             )
             getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                 CenoSettings.getOuinetBuildId(requireContext())
@@ -560,6 +566,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
             }
             (activity as BrowserActivity).openToBrowser()
+            true
+        }
+    }
+
+    private fun getChangeListenerForBridgeAnnouncment(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, newValue ->
+            val text = if (newValue == true) {
+                getString(ceno_bridge_announcement_enabled)
+            }
+            else {
+                getString(ceno_bridge_announcement_enabled)
+            }
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             true
         }
     }
