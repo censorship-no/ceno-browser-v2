@@ -4,8 +4,6 @@
 
 package ie.equalit.ceno.settings
 
-import android.app.DownloadManager
-import android.content.Context.DOWNLOAD_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -17,7 +15,6 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -90,7 +87,6 @@ import ie.equalit.ceno.ext.getAutofillPreference
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.ext.share
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.isExternalStorageAvailable

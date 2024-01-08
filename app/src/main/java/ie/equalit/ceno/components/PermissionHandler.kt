@@ -19,14 +19,12 @@ import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import mozilla.components.support.base.feature.ActivityResultHandler
 
-
 /* CENO: Handles checking which permissions have been granted,
  * adapted from https://pub.dev/packages/flutter_background
  */
 class PermissionHandler(private val context: Context) : ActivityResultHandler {
     companion object {
         const val PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS = 5672353
-        const val PERMISSION_CODE_STORAGE_PERMISSION_REQUEST = 5472321
     }
 
     /*
@@ -41,6 +39,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     */
 
     fun requestPermissionForExternalStorage(activity: Activity, activityResultLauncher: ActivityResultLauncher<Intent>) {
+        /// Android 11 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             try {
                 val intent = Intent()
@@ -76,7 +75,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun isAllowingPostNotifications(): Boolean {
+    fun isAllowingPostNotifications() : Boolean {
         return when (ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.POST_NOTIFICATIONS
@@ -99,7 +98,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @SuppressLint("BatteryLife")
-    fun requestBatteryOptimizationsOff(activity: Activity): Boolean {
+    fun requestBatteryOptimizationsOff(activity: Activity) : Boolean {
         var result = false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             // Before Android 12 (S) the battery optimization isn't needed for our use case -> Always "ignoring"
@@ -110,11 +109,9 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
                 powerManager.isIgnoringBatteryOptimizations(context.packageName) -> {
                     result = false
                 }
-
                 context.checkSelfPermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_DENIED -> {
                     result = false
                 }
-
                 else -> {
                     // Only return true if intent was sent to request permission
                     val intent = Intent()
@@ -129,24 +126,25 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun requestPostNotificationsPermission(fragment: Fragment): Boolean {
+    fun requestPostNotificationsPermission(fragment : Fragment) : Boolean {
         return if (isAllowingPostNotifications()) {
-            false
-        } else {
-            // Only return true if intent was sent to request permission
-            @Suppress("DEPRECATION")
-            fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
-            )
-            true
-        }
+                false
+            } else {
+                // Only return true if intent was sent to request permission
+                @Suppress("DEPRECATION")
+                fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
+                )
+                true
+            }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         if (requestCode == PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 this.isAllowingPostNotifications() && this.isIgnoringBatteryOptimizations()
-            } else {
+            }
+            else {
                 this.isIgnoringBatteryOptimizations()
             }
         }
