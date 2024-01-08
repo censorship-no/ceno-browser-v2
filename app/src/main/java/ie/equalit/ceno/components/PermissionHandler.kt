@@ -10,12 +10,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.AppPermissionCodes
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 
@@ -39,11 +40,29 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
     */
 
-    fun requestPermissionForExternalStorage(fragment : Fragment) {
-        @Suppress("DEPRECATION")
-        fragment.requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
-        )
+    fun requestPermissionForExternalStorage(activity: Activity, activityResultLauncher: ActivityResultLauncher<Intent>) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                val intent = Intent()
+                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                val uri = Uri.fromParts("package", context.packageName, null)
+                intent.setData(uri)
+                activityResultLauncher.launch(intent)
+            } catch (e: Exception) {
+                val intent = Intent()
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                activityResultLauncher.launch(intent)
+            }
+        } else {
+            //Below android 11
+            ActivityCompat.requestPermissions(
+                activity, arrayOf<String>(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ),
+                REQUEST_CODE_STORAGE_PERMISSIONS
+            )
+        }
     }
 
     fun isIgnoringBatteryOptimizations(): Boolean {
@@ -57,7 +76,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun isAllowingPostNotifications() : Boolean {
+    fun isAllowingPostNotifications(): Boolean {
         return when (ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.POST_NOTIFICATIONS
@@ -70,7 +89,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
 
     fun isStoragePermissionGranted(): Boolean {
 
-        return when(ContextCompat.checkSelfPermission(
+        return when (ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )) {
@@ -80,7 +99,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @SuppressLint("BatteryLife")
-    fun requestBatteryOptimizationsOff(activity: Activity) : Boolean {
+    fun requestBatteryOptimizationsOff(activity: Activity): Boolean {
         var result = false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             // Before Android 12 (S) the battery optimization isn't needed for our use case -> Always "ignoring"
@@ -91,9 +110,11 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
                 powerManager.isIgnoringBatteryOptimizations(context.packageName) -> {
                     result = false
                 }
+
                 context.checkSelfPermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_DENIED -> {
                     result = false
                 }
+
                 else -> {
                     // Only return true if intent was sent to request permission
                     val intent = Intent()
@@ -108,25 +129,24 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun requestPostNotificationsPermission(fragment : Fragment) : Boolean {
+    fun requestPostNotificationsPermission(fragment: Fragment): Boolean {
         return if (isAllowingPostNotifications()) {
-                false
-            } else {
-                // Only return true if intent was sent to request permission
-                @Suppress("DEPRECATION")
-                fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
-                )
-                true
-            }
+            false
+        } else {
+            // Only return true if intent was sent to request permission
+            @Suppress("DEPRECATION")
+            fragment.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
+            )
+            true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         if (requestCode == PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 this.isAllowingPostNotifications() && this.isIgnoringBatteryOptimizations()
-            }
-            else {
+            } else {
                 this.isIgnoringBatteryOptimizations()
             }
         }

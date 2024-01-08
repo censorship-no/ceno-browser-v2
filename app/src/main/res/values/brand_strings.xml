@@ -222,8 +222,9 @@
 
     <string name="ceno_log_file_saved">Log file saved successfully</string>
     <string name="ceno_log_file_saved_desc">Your logs have been saved to your external storage. All personal identifying information have been scrubbed for privacy.</string>
-    <string name="ceno_android_logs_file_name">&brandShortName; Android Logs</string>
+    <string name="ceno_android_logs_file_name">&brandShortName; hLogs</string>
 
     <string name="view_file">View</string>
     <string name="share_logs">Share</string>
+    <string name="no_external_storage">Storage is not available</string>
 </resources>

@@ -4,9 +4,12 @@
 
 package ie.equalit.ceno.settings
 
+import android.app.DownloadManager
+import android.content.Context.DOWNLOAD_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +22,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,6 +35,7 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.ceno_android_logs_file_name
@@ -37,7 +43,7 @@ import ie.equalit.ceno.R.string.ceno_log_file_saved
 import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
-import ie.equalit.ceno.R.string.onboarding_battery_title
+import ie.equalit.ceno.R.string.no_external_storage
 import ie.equalit.ceno.R.string.onboarding_warning_title
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
@@ -197,6 +203,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
         permissions: Array<String>,
         grantResults: IntArray,
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CODE_STORAGE_PERMISSIONS) {
+            if (grantResults.isNotEmpty()) {
+                val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                if (read && write) {
+                    getClickListenerForAndroidLogExport()
+                } else {
+                    Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+                }
+            }
+            return
+        }
+
         val feature: PermissionsFeature? = when (requestCode) {
             AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
             else -> null
@@ -483,15 +504,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             when {
                 !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
-                    // external storage not available
 
-                    Toast.makeText(requireContext(), getString(onboarding_battery_title), Toast.LENGTH_LONG).show()
+                    // storage not available
+                    Toast.makeText(requireContext(), getString(no_external_storage), Toast.LENGTH_LONG).show()
                 }
-                !requireComponents.permissionHandler.isStoragePermissionGranted() -> {
-                    // permission not granted, dynamically request for permission
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
+                    || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
 
+                        // permission not granted, dynamically request for permission
                     Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
-                    requireComponents.permissionHandler.requestPermissionForExternalStorage(this)
+                    activity?.let { a -> requireComponents.permissionHandler.requestPermissionForExternalStorage(a, storageActivityResultLauncher) }
                 }
                 else -> {
 
@@ -500,23 +522,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     These test logs would be in the last lines of the generated logs and can thus be analyzed
                     */
 
-                    val logTag = "test"
-
-                    Log.d(logTag,"Phone number: 123-456-7890")
-                    Log.d(logTag,"Email address: tasleemoseni@gmail.com")
-                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
-                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
-                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
-                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
+//                    val logTag = "test"
+//
+//                    Log.d(logTag,"Phone number: 123-456-7890")
+//                    Log.d(logTag,"Email address: tasleemoseni@gmail.com")
+//                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
+//                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
+//                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
+//                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
                     // Initialize Android logs
                     val logs = LogReader.getLogEntries().takeLast(60).joinToString("\n")
 
                     // save file to external storage
-                    val file = File(Environment.getExternalStorageDirectory().path +"/${getString(ceno_android_logs_file_name)}.txt")
-                    file.mkdir()
+                    val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
 
                     file.writeText(logs)
+
 
                     // prompt the user to view or share
                     AlertDialog.Builder(requireContext()).apply {
@@ -684,6 +706,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             (activity as BrowserActivity).openToBrowser()
             true
+        }
+    }
+
+    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                // Permission granted!
+               getClickListenerForAndroidLogExport()
+            } else {
+                Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            //Below android 11
         }
     }
 
