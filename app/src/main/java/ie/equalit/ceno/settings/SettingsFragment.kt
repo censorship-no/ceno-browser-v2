@@ -37,11 +37,14 @@ import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.ceno_android_logs_file_name
+import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.ceno_log_file_saved
 import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
 import ie.equalit.ceno.R.string.no_external_storage
+import ie.equalit.ceno.R.string.onboarding_battery_button
+import ie.equalit.ceno.R.string.onboarding_battery_title
 import ie.equalit.ceno.R.string.onboarding_warning_title
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
@@ -80,6 +83,7 @@ import ie.equalit.ceno.R.string.share_logs
 import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.R.string.view_file
+import ie.equalit.ceno.R.string.write_storage_permission_text
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
@@ -214,6 +218,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (read && write) {
                     getClickListenerForAndroidLogExport()
                 } else {
+                    // show toast for permission denied
                     Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
                 }
             }
@@ -519,9 +524,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
                     || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
 
-                        // permission not granted, dynamically request for permission
-                    Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
-                    activity?.let { a -> requireComponents.permissionHandler.requestPermissionForExternalStorage(a, storageActivityResultLauncher) }
+                    // permission not granted, dynamically request for permission
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(getString(onboarding_battery_title))
+                        setMessage(getString(write_storage_permission_text))
+                        setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ ->
+                            // show toast for permission denied
+                            Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+                        }
+                        setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                            activity?.let { a -> requireComponents.permissionHandler.requestPermissionForExternalStorage(a, storageActivityResultLauncher) }
+                        }
+                        create()
+                    }.show()
                 }
                 else -> {
 
@@ -533,14 +548,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    val logTag = "test"
 //
 //                    Log.d(logTag,"Phone number: 123-456-7890")
-//                    Log.d(logTag,"Email address: tasleemoseni@gmail.com")
+//                    Log.d(logTag,"Email address: sample@samplemail.com")
 //                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
 //                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
 //                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
 //                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
                     // Initialize Android logs
-                    val logs = LogReader.getLogEntries().takeLast(150).joinToString("\n")
+                    val logs = LogReader.getLogEntries().takeLast(200).joinToString("\n")
 
                     // save file to external storage
                     val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
@@ -736,6 +751,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 // Permission granted!
                getClickListenerForAndroidLogExport()
             } else {
+                // show toast for permission denied
                 Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
             }
         } else {
