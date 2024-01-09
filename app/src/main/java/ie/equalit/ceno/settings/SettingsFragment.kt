@@ -52,9 +52,9 @@ import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
 import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_autofill
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
+import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
 import ie.equalit.ceno.R.string.pref_key_ceno_download_log
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
-import ie.equalit.ceno.R.string.pref_key_ceno_export_android_logs
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
 import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
@@ -152,6 +152,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     it.isEnabled = !(it.isEnabled)
                 }
                 getPreference(pref_key_ceno_download_log)?.let {
+                    it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
+                }
+                getPreference(pref_key_ceno_download_android_log)?.let {
                     it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
                     it.isEnabled = !(it.isEnabled)
                     it.isEnabled = !(it.isEnabled)
@@ -287,7 +292,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
         getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener = getClickListenerForCustomAddons()
-        getPreference(pref_key_ceno_export_android_logs)?.onPreferenceClickListener = getClickListenerForAndroidLogExport()
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
@@ -339,6 +343,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+        getPreference(pref_key_ceno_download_android_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         getPreference(pref_key_about_ceno)?.summary = CenoSettings.getCenoVersionString(requireContext())
         getPreference(pref_key_about_geckoview)?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
 
@@ -350,6 +355,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_log), false)
+            setPreference(getPreference(pref_key_ceno_download_android_log), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
@@ -388,6 +394,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_log),
                 true,
                 clickListener = getClickListenerForCenoDownloadLog()
+            )
+            setPreference(
+                getPreference(pref_key_ceno_download_android_log),
+                true,
+                clickListener = getClickListenerForAndroidLogExport()
             )
             getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                 CenoSettings.getOuinetBuildId(requireContext())
