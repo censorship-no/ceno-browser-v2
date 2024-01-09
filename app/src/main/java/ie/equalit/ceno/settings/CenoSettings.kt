@@ -308,7 +308,7 @@ object CenoSettings {
 
     fun isCenoLogEnabled(context: Context) : Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_enable_log), false
+            context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
         )
 
     private fun setCenoEnableLog(context: Context, value: Boolean) {
