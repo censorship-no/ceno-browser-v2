@@ -232,4 +232,5 @@
     <string name="view_file">View</string>
     <string name="share_logs">Share</string>
     <string name="no_external_storage">Storage is not available</string>
+    <string name="empty_log_text">Looks like your log is empty</string>
 </resources>

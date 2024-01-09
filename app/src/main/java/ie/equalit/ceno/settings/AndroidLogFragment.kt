@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
+import ie.equalit.ceno.R.string.empty_log_text
 import ie.equalit.ceno.databinding.FragmentAndroidLogBinding
 
 
@@ -40,7 +41,7 @@ class AndroidLogFragment : Fragment() {
 
         arguments?.getString(SettingsFragment.LOG)?.let {
             binding.tvLog.text = SpannableStringBuilder().apply {
-                append(it)
+                append(it.ifEmpty { getString(R.string.empty_log_text) })
             }
         }
     }
