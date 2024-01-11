@@ -195,9 +195,6 @@ open class BrowserApplication : Application() {
             // WebPush integration to observe and deliver push messages to engine.
             WebPushEngineIntegration(components.core.engine, it).start()
 
-            // Perform a one-time initialization of the account manager if a message is received.
-            PushFxaIntegration(it, lazy { components.backgroundServices.accountManager }).launch()
-
             // Initialize the push feature and service.
             it.initialize()
         }
