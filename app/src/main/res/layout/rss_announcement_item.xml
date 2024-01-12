@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CenoMode.Card"
+    android:id="@+id/rss_announcements_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/ceno_mode_margin_horizontal"
     android:layout_marginTop="@dimen/tap_increase_16"
     android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
     android:importantForAccessibility="noHideDescendants"
-    app:cardBackgroundColor="@color/home_card_announcements_background">
+    app:cardBackgroundColor="@color/home_card_announcements_background"
+    app:cardCornerRadius="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -29,7 +30,9 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
             android:textColor="@color/ceno_home_card_announcement_title_color"
-            tools:text="Announcements" />
+            tools:text="Announcements"
+            android:background="@drawable/annoncements_title_background"
+            android:padding="8dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rssAnnouncementsRecyclerView"

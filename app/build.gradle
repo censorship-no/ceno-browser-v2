@@ -23,7 +23,7 @@ android {
 
     aaptOptions {
         ignoreAssetsPattern '!._'
-        ignoreAssetsPattern 'uBlock0@raymondhill.net.zip'
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
     }
 
     defaultConfig {
@@ -157,6 +157,7 @@ tasks.whenTaskAdded { task ->
     if (task.name == 'mergeDebugAssets' ||
             task.name == 'mergeBetaAssets' ||
             task.name == 'mergeReleaseAssets') {
+        task.dependsOn renameUblockXpi
         task.dependsOn unzipUblockOrigin
     }
 }
@@ -467,6 +468,13 @@ dependencies {
     androidTestImplementation Deps.espresso_core, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+}
+
+task renameUblockXpi (type: Copy) {
+    from ('src/main/assets/addons/')
+    include 'uBlock0@raymondhill.net.xpi'
+    destinationDir file('src/main/assets/addons/')
+    rename { 'uBlock0@raymondhill.net.zip' }
 }
 
 task unzipUblockOrigin(type: Copy) {
