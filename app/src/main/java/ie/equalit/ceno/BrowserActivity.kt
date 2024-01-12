@@ -318,7 +318,7 @@ open class BrowserActivity : BaseActivity() {
                 navHost.navController.onboardingToHome()
             } else {
                 updateView {
-                    navHost.navController.navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
+                    navHost.navController.navigate(R.id.action_global_onboardingWarningFragment)
                 }
             }
         }
