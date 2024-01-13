@@ -59,4 +59,20 @@
     <string name="browser_menu_add_to_homescreen">Adder al schermo de initio</string>
     <string name="preferences_privacy_summary">Activar in modo de navigation personal e private</string>
     <string name="browser_toolbar_home">Initio</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Chronologia de navigation e datos de sito</string>
+    <string name="top_sites_sponsored_label">Sponsorisate</string>
+    <string name="browser_menu_add_to_shortcuts">Adder al accessos directe</string>
+    <string name="browser_menu_remove_from_shortcuts">Deler del accessos directe</string>
+    <string name="delete_browsing_data_prompt_allow">Deler</string>
+    <string name="preferences_delete_browsing_data_snackbar">Datos de navigation delite</string>
+    <string name="preferences_delete_browsing_data_site_permissions">Permissiones de sitos</string>
+    <string name="preference_show_search_suggestions">Obtener suggestiones de recerca</string>
+    <string name="preference_choose_search_engine">Seliger motor de recerca</string>
+    <string name="setting_item_selected">%s seligite</string>
+    <string name="set_default_search_engine">Definir le motor de recerca predeterminate</string>
+    <string name="preferences_add_ons">Additivos</string>
+    <string name="preferences_delete_browsing_data_cookies">Cookies</string>
+    <string name="preferences_delete_browsing_data_cached_files">Imagines e files in cache</string>
+    <string name="delete_browsing_data_prompt_message_3">%s delera le datos de navigation seligite.</string>
+    <string name="preferences_delete_browsing_data_button">Deler le datos de navigation</string>
 </resources>
