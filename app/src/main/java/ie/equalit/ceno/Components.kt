@@ -12,7 +12,6 @@ import ie.equalit.ceno.autofill.AutofillConfirmActivity
 import ie.equalit.ceno.autofill.AutofillSearchActivity
 import ie.equalit.ceno.autofill.AutofillUnlockActivity
 import ie.equalit.ceno.components.Analytics
-import ie.equalit.ceno.components.BackgroundServices
 import ie.equalit.ceno.components.Core
 import ie.equalit.ceno.components.Ouinet
 import ie.equalit.ceno.components.PermissionHandler
@@ -41,16 +40,6 @@ class Components(private val context: Context) {
         )
     }
 
-    // Background services are initiated eagerly; they kick off periodic tasks and setup an accounts system.
-    val backgroundServices by lazy {
-        BackgroundServices(
-            context,
-            //push,
-            core.lazyHistoryStorage,
-            core.lazyRemoteTabsStorage,
-            core.lazyLoginsStorage
-        )
-    }
     val analytics by lazy { Analytics(context) }
     val utils by lazy {
         Utilities(
@@ -62,7 +51,7 @@ class Components(private val context: Context) {
             useCases.customTabsUseCases
         )
     }
-    val services by lazy { Services(context, backgroundServices.accountManager, useCases.tabsUseCases) }
+    val services by lazy { Services(context) }
     /* CENO F-Droid: Do not use firebase push */
     //val push by lazy { Push(context, analytics.crashReporter) }
 
