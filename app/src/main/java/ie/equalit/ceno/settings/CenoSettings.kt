@@ -65,17 +65,17 @@ object CenoSettings {
 
     fun getRSSAnnouncementUrl(locale: String) = "https://censorship.no/${locale}/rss-announce.xml"
 
-    private fun log2(n: Int): Double {
-        return ln(n.toDouble()) / ln(2.0)
+    private fun log2(n: Double): Double {
+        return ln(n) / ln(2.0)
     }
 
-    private fun bytesToString(b: Int): String {
+    private fun bytesToString(b: Long): String {
         // originally from <https://stackoverflow.com/a/42408230>
         // ported from extension JS code to kotlin
-        if (b == 0) {
+        if (b == 0L) {
             return "0 B"
         }
-        val i = floor(log2(b) / 10).toInt()
+        val i = floor(log2(b.toDouble()) / 10).toInt()
         val v = b / 1024.0.pow(i)
         val u =
             if (i > 0)
@@ -367,7 +367,7 @@ object CenoSettings {
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)
         setCenoSourcesShared(context, status.distributed_cache)
-        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
+        setCenoCacheSize(context, bytesToString(status.local_cache_size?.toLong()!!))
         setOuinetVersion(context, status.ouinet_version)
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
