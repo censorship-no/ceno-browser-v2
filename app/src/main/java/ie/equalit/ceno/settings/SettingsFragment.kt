@@ -706,7 +706,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = if(newValue == true) "debug" else "info",
+                stringValue = if(newValue == true) OuinetLogLevel.DEBUG.string else OuinetLogLevel.INFO.string,
             )
 
             true

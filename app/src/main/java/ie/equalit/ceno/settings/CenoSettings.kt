@@ -59,6 +59,11 @@ enum class OuinetValue(val string: String) {
     OTHER("other")
 }
 
+enum class OuinetLogLevel(val string: String) {
+    DEBUG("debug"),
+    INFO("info")
+}
+
 object CenoSettings {
 
     const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
