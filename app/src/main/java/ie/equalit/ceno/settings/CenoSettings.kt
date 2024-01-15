@@ -50,6 +50,7 @@ enum class OuinetKey(val command : String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
+    LOG_LEVEL("log_level")
 }
 
 enum class OuinetValue(val string: String) {
@@ -431,6 +432,7 @@ object CenoSettings {
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
+                    OuinetKey.LOG_LEVEL,
                     OuinetKey.LOGFILE
                     -> {
                         if (response == null) {

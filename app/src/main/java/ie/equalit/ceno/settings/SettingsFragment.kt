@@ -694,12 +694,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getChangeListenerForCenoSetting(key: OuinetKey): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
-            val value = if (newValue == true) {
-                OuinetValue.ENABLED
-            } else {
-                OuinetValue.DISABLED
-            }
-            CenoSettings.ouinetClientRequest(requireContext(), key, value)
+
+            // network request to update preference value
+            CenoSettings.ouinetClientRequest(
+                requireContext(),
+                key,
+                if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED
+            )
+
+            // network request to update log level based on preference value
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.LOG_LEVEL,
+                stringValue = if(newValue == true) "debug" else "info",
+            )
+
             true
         }
     }
