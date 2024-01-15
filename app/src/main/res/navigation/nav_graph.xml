@@ -54,6 +54,14 @@
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out" />
 
+    <action
+        android:id="@+id/action_global_onboardingWarningFragment"
+        app:destination="@id/onboardingWarningFragment"
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/slide_out"
+        app:popEnterAnim="@anim/slide_back_in"
+        app:popExitAnim="@anim/slide_back_out" />
+
     <fragment
         android:id="@+id/startupFragment"
         android:name="ie.equalit.ceno.StartupFragment"
