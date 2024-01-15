@@ -262,6 +262,21 @@ open class BrowserActivity : BaseActivity() {
             updateView(lastCall!!)
             lastCall = null
         }
+
+        /*
+        CENO: Update behavior for AppBar
+        This needs to be optimized to reduce the need to update this part of the codebase when a new fragment is created
+        */
+        supportActionBar!!.apply {
+            when(navHost.navController.currentDestination?.id) {
+                R.id.settingsFragment, R.id.networkSettingsFragment, R.id.privacySettingsFragment,
+                R.id.customizationSettingsFragment, R.id.installedSearchEnginesSettingsFragment,
+                R.id.deleteBrowsingDataFragment, R.id.aboutFragment, R.id.websiteSourceSettingsFragment -> show()
+                else -> hide()
+            }
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
