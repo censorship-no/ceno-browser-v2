@@ -42,10 +42,12 @@ import ie.equalit.ceno.R.string.ceno_log_file_saved
 import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.download_logs
 import ie.equalit.ceno.R.string.no_external_storage
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.onboarding_battery_title
 import ie.equalit.ceno.R.string.onboarding_warning_title
+import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
@@ -75,6 +77,7 @@ import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
 import ie.equalit.ceno.R.string.preference_choose_search_engine
 import ie.equalit.ceno.R.string.preferences_about_page
+import ie.equalit.ceno.R.string.preferences_ceno_download_log
 import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.setting_item_selected
@@ -82,7 +85,7 @@ import ie.equalit.ceno.R.string.settings
 import ie.equalit.ceno.R.string.share_logs
 import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
-import ie.equalit.ceno.R.string.view_file
+import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.R.string.write_storage_permission_text
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
@@ -398,7 +401,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(
                 getPreference(pref_key_ceno_download_log),
                 true,
-                clickListener = getClickListenerForCenoDownloadLog()
+                clickListener = getClickListenerForOuinetLogExport()
             )
             setPreference(
                 getPreference(pref_key_ceno_download_android_log),
@@ -583,7 +586,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 startActivity(intent)
                             }
                         }
-                        setPositiveButton(getString(view_file)) { _, _ ->
+                        setPositiveButton(getString(view_logs)) { _, _ ->
                             findNavController().navigate(
                                 R.id.action_settingsFragment_to_androidLogFragment,
                                 bundleOf(
@@ -740,16 +743,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
+    private fun getClickListenerForOuinetLogExport(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             val store = requireComponents.core.store
             val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
             val download = DownloadState(logUrl)
-            createTab(logUrl).apply {
-                store.dispatch(TabListAction.AddTabAction(this, select = true))
-                store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
-            }
-            (activity as BrowserActivity).openToBrowser()
+
+            // prompt the user to view or download
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(context.getString(preferences_ceno_download_log))
+                setMessage(context.getString(ouinet_log_file_prompt_desc))
+                setNegativeButton(getString(download_logs)) { _, _ ->
+                    createTab(logUrl).apply {
+                        store.dispatch(TabListAction.AddTabAction(this, select = true))
+                        store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
+                    }
+                    (activity as BrowserActivity).openToBrowser()
+                }
+                setPositiveButton(getString(view_logs)) { _, _ ->
+                    createTab(logUrl).apply {
+                        store.dispatch(TabListAction.AddTabAction(this, select = true))
+                    }
+                    (activity as BrowserActivity).openToBrowser()
+                }
+                create()
+            }.show()
             true
         }
     }

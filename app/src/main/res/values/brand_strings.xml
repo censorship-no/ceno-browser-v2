@@ -229,8 +229,11 @@
     <string name="ceno_log_file_saved_desc">Your logs have been saved to your storage. To prioritize your privacy, all personal identifying information have been carefully removed from the logs.</string>
     <string name="ceno_android_logs_file_name">&brandShortName; Logs</string>
 
-    <string name="view_file">View</string>
+    <string name="ouinet_log_file_prompt_desc">To prioritize your privacy, all personal identifying information have been carefully removed from the logs.</string>
+
+    <string name="view_logs">View</string>
     <string name="share_logs">Share</string>
+    <string name="download_logs">Download</string>
     <string name="no_external_storage">Storage is not available</string>
     <string name="empty_log_text">Looks like your log is empty</string>
     <string name="write_storage_permission_text">Shortly the OS will ask you for permission to\n\n\u2022 Allow access to storage\n\nThis is needed to save the log file on your device.</string>
