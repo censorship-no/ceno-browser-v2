@@ -260,7 +260,7 @@ open class BrowserActivity : BaseActivity() {
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                     }
-                    delay(5000)
+                    delay(3000)
                 }
             }
         }
