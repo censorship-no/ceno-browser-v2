@@ -11,6 +11,7 @@ import mozilla.components.feature.autofill.AutofillConfiguration
 import ie.equalit.ceno.autofill.AutofillConfirmActivity
 import ie.equalit.ceno.autofill.AutofillSearchActivity
 import ie.equalit.ceno.autofill.AutofillUnlockActivity
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.Analytics
 import ie.equalit.ceno.components.BackgroundServices
 import ie.equalit.ceno.components.Core
@@ -100,8 +101,7 @@ class Components(private val context: Context) {
         AppStore(
             initialState = AppState(
                 topSites = core.cenoTopSitesStorage.cachedTopSites.sort(),
-                showCenoModeItem = cenoPreferences.showCenoModeItem,
-                showThanksCard = cenoPreferences.showThanksCard
+                mode = BrowsingMode.Normal
             )
         )
     }

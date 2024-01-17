@@ -1,9 +1,11 @@
 package ie.equalit.ceno.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -31,6 +33,8 @@ import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.concept.fetch.Request
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ouinet.Ouinet
+import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -42,6 +46,7 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.base.log.logger.Logger
 import java.util.Locale
 
 /**
@@ -60,6 +65,8 @@ class HomeFragment : BaseHomeFragment() {
     private val topSitesFeature = ViewBoundFeatureWrapper<TopSitesFeature>()
 
     private val scope = MainScope()
+
+    private var ouinetStatus = RunningState.Starting
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +89,7 @@ class HomeFragment : BaseHomeFragment() {
             components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
             components.appStore.dispatch(
                 AppAction.Change(
-                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
-                    showThanksCard = components.cenoPreferences.showThanksCard
+                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
                 )
             )
         }
@@ -167,6 +172,9 @@ class HomeFragment : BaseHomeFragment() {
                 )
                 updateUI(it.mode)
                 updateSearch(it.mode)
+                if (ouinetStatus != it.ouinetStatus) {
+                    updateOuinetStatus(context, it.ouinetStatus)
+                }
             }
         }
         context?.let { context ->
@@ -207,6 +215,18 @@ class HomeFragment : BaseHomeFragment() {
                 }
             }
         }
+    }
+
+    private fun updateOuinetStatus(context: Context, status: RunningState) {
+        ouinetStatus = status
+        val message = if (ouinetStatus == RunningState.Started) {
+            "Connected to Ceno network"
+        } else if (ouinetStatus == RunningState.Stopped){
+            "Disconnected from Ceno network"
+        } else {
+            "Connecting to Ceno network"
+        }
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun updateUI(mode: BrowsingMode) {

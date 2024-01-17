@@ -23,6 +23,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -58,13 +61,18 @@ import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.OuinetNotification
 import ie.equalit.ceno.components.PermissionHandler
+import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
 import ie.equalit.ouinet.Ouinet.RunningState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
@@ -224,6 +232,8 @@ open class BrowserActivity : BaseActivity() {
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
+
+        updateOuinetStatus()
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
@@ -239,7 +249,21 @@ open class BrowserActivity : BaseActivity() {
             themeManager.currentMode = newMode
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
-        components.appStore.dispatch(AppAction.ModeChange(mode))
+        //components.appStore.dispatch(AppAction.ModeChange(mode))
+    }
+
+    private fun updateOuinetStatus() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    val status = RunningState.valueOf(components.ouinet.background.getState())
+                    if (components.appStore.state.ouinetStatus != status) {
+                        components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                    }
+                    delay(5000)
+                }
+            }
+        }
     }
 
     override fun onPause() {
@@ -501,9 +525,7 @@ open class BrowserActivity : BaseActivity() {
             )
             components.appStore.dispatch(
                 AppAction.Change(
-                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
-                    showThanksCard = components.cenoPreferences.showThanksCard
+                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
                 )
             )
         }
