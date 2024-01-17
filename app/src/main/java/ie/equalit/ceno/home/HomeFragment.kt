@@ -66,7 +66,7 @@ class HomeFragment : BaseHomeFragment() {
 
     private val scope = MainScope()
 
-    private var ouinetStatus = RunningState.Starting
+    private var ouinetStatus = RunningState.Started
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
