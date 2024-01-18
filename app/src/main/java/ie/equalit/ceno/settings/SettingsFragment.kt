@@ -44,6 +44,7 @@ import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
@@ -55,9 +56,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs: CenoPreferences
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-
-    private lateinit var runnable: Runnable
-    private var handler = Handler(Looper.getMainLooper())
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -131,6 +129,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
+
+        view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
+            getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
+                CenoSettings.getOuinetState(requireContext())
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -147,54 +152,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
-        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
+        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(
+            sharedPreferencesChangeListener
+        )
         setupPreferences()
         setupCenoSettings()
         getActionBar().apply {
             show()
             setTitle(settings)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
-        }
-
-        runnable = Runnable {
-            viewLifecycleOwner.lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    /* Fetch ouinet status without refreshing... */
-                    CenoSettings.ouinetClientRequest(
+            setBackgroundDrawable(
+                ColorDrawable(
+                    ContextCompat.getColor(
                         requireContext(),
-                        OuinetKey.API_STATUS,
-                        ouinetResponseListener = object : OuinetResponseListener {
-                            override fun onSuccess(message: String, data: Any?) {
-                            }
-                            override fun onError() {
-                                CenoSettings.setOuinetState(requireContext(), "stopped")
-                            }
-                        },
-                        shouldRefresh = false
+                        R.color.ceno_action_bar
                     )
-                    withContext(Dispatchers.Main) {
-
-                        /* Update summary text for Browser Service */
-                        getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
-                            CenoSettings.getOuinetState(requireContext())
-                        }
-
-                        Logger.debug("Browser Service status updated via ${BROWSER_SERVICE_REFRESH_DELAY / 1000} second background refresh")
-                        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
-                    }
-                }
-            }
+                )
+            )
         }
-
-        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
     }
 
     override fun onPause() {
         super.onPause()
         cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         cenoPrefs.sharedPrefsReload = false
-        handler.removeCallbacks(runnable)
     }
 
     private fun setupPreferences() {
