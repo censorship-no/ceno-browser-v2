@@ -283,7 +283,8 @@ open class BrowserActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (components.ouinet.background.getState() != RunningState.Started.toString())
+        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != RunningState.Started.toString()))
+            navHost.navController.popBackStack()
             navHost.navController.navigate(R.id.action_global_standbyFragment)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
