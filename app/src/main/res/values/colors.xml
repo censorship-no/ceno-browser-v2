@@ -32,11 +32,15 @@
 
     <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
 
-    <color name="ceno_onboarding_background">#F0F9FF</color>
-    <color name="ceno_onboarding_text">#5F5F5F</color>
-    <color name="ceno_onboarding_button">#027DBD</color>
+    <color name="ceno_onboarding_background">@color/ceno_blue_50</color>
+    <color name="ceno_onboarding_text">@color/ceno_grey_700</color>
+    <color name="ceno_onboarding_button">@color/ceno_blue_600</color>
+
+    <color name="ceno_standby_background">@color/ceno_grey_800</color>
+    <color name="ceno_standby_logo_color">@color/ceno_blue_300</color>
 
 
+    <color name="ceno_blue_50">#F0F9FF</color>
     <color name="ceno_blue_100">#E0F2FE</color>
     <color name="ceno_blue_200">#BAE6FD</color>
     <color name="ceno_blue_300">#7DD3FC</color>

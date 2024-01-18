@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.3"
+        app:tint="@color/ceno_standby_logo_color" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -27,7 +28,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:indeterminate="true"
-        android:progressTint="@color/ceno_home_card_public_text"
+        android:progressTint="@color/ceno_standby_logo_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_standby_logo" />
@@ -40,7 +41,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:textAlignment="center"
-        android:textColor="@color/ceno_onboarding_text"
+        android:textColor="@color/fx_mobile_text_color_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
@@ -78,7 +79,7 @@
             android:layout_weight="1"
             android:text="@string/standby_no_internet_text"
             android:textAlignment="center"
-            android:textColor="@color/ceno_onboarding_text" />
+            android:textColor="@color/fx_mobile_text_color_secondary" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

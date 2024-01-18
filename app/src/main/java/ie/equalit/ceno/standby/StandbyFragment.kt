@@ -108,7 +108,7 @@ class StandbyFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentStandbyBinding.inflate(inflater, container, false)
-        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_standby_background))
 
         return binding.root
     }
