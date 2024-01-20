@@ -99,6 +99,7 @@ import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.isExternalStorageAvailable
 import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
+import ie.equalit.ouinet.Config
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Runnable
@@ -709,7 +710,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = if(newValue == true) OuinetLogLevel.DEBUG.string else OuinetLogLevel.INFO.string,
+                stringValue = if(newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
 
             true
