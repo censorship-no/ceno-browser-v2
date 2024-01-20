@@ -71,6 +71,11 @@
     <string name="crash_reporting_dont_ask_again">Don\'t ask again</string>
     <string name="crash_reporting_opt_in">Thanks for sharing crash reports to help improve &brandShortName;! You can always disable this by going to Settings > Crash reporting.</string>
     <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.</string>
+    <!-- Clean Insights -->
+    <string name="clean_insights_header">Help make &brandShortName; better!</string>
+    <string name="clean_insights_sub_header">Would you like to opt-in to sharing privacy-preserving metrics such as:\n\n  •  crash reports\n  •  load times\n  •  lang/locale\n  •  frequency of app usage\n\nto improve &brandShortName;? No personally identifiable information will be stored.</string>
+    <string name="clean_insights_opt_in">YES, OPT ME IN</string>
+    <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
     <!--  BT Source menu items  -->
     <string name="bt_sources_none">None</string>
     <string name="bt_sources_custom">Custom</string>
