@@ -397,7 +397,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(
                 getPreference(pref_key_ceno_enable_log),
                 true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.LOGFILE)
+                changeListener = getChangeListenerForLogFileToggle()
             )
             setPreference(
                 getPreference(pref_key_ceno_download_log),
@@ -696,13 +696,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getChangeListenerForCenoSetting(key: OuinetKey): OnPreferenceChangeListener {
+    private fun getChangeListenerForLogFileToggle(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
 
             // network request to update preference value
             CenoSettings.ouinetClientRequest(
                 requireContext(),
-                key,
+                OuinetKey.LOGFILE,
                 if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED
             )
 
