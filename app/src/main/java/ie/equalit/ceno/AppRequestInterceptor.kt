@@ -11,7 +11,6 @@ import mozilla.components.browser.errorpages.ErrorPages
 import mozilla.components.browser.errorpages.ErrorType
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.request.RequestInterceptor
-import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.tabs.PrivatePage
 
@@ -46,16 +45,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
             }
 
             else -> {
-                context.components.services.accountsAuthFeature.interceptor.onLoadRequest(
-                    engineSession,
-                    uri,
-                    lastUri,
-                    hasUserGesture,
-                    isSameDomain,
-                    isRedirect,
-                    isDirectNavigation,
-                    isSubframeRequest,
-                ) ?: context.components.services.appLinksInterceptor.onLoadRequest(
+                context.components.services.appLinksInterceptor.onLoadRequest(
                     engineSession,
                     uri,
                     lastUri,

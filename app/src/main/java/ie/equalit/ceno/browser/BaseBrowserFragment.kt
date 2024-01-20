@@ -56,7 +56,6 @@ import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.lib.state.ext.consumeFlow
@@ -397,16 +396,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
             it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
         }
-
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
-        )
 
         TabCounterView(
             toolbar = toolbar,
