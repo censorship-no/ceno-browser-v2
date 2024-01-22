@@ -28,11 +28,13 @@ import ie.equalit.ceno.databinding.FragmentStandbyBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.ExtraBTBootstrapsDialog
 import ie.equalit.ouinet.Ouinet.RunningState
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.selectedTab
+import mozilla.components.lib.state.ext.consumeFrom
 import java.util.Locale
 
 
@@ -42,16 +44,21 @@ import java.util.Locale
 class StandbyFragment : Fragment() {
 
     private var isDialogVisible: Boolean = false
-    private val refreshIntervalMS: Long = 1300
+    private val refreshIntervalMS: Long = 1200
     private val statusTooLong: String = "toolong"
 
     private var status: Flow<String>? = null
+
+    private var currentStatus = RunningState.Starting
 
     private var index = 0
 
     private val displayText: List<Int> = listOf(
         R.string.standby_message_one,
+        R.string.standby_message_one,
         R.string.standby_message_two,
+        R.string.standby_message_two,
+        R.string.standby_message_three,
         R.string.standby_message_three
     )
 
@@ -60,7 +67,7 @@ class StandbyFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initiateStatusUpdate()
+//        initiateStatusUpdate()
     }
 
     private fun isNetworkAvailable(): Boolean {
@@ -78,30 +85,6 @@ class StandbyFragment : Fragment() {
         return false
     }
 
-    private fun initiateStatusUpdate() {
-        status = flow {
-
-            while (true) {
-                val state = requireComponents.ouinet.background.getState()
-
-                if (state != RunningState.Started.toString()) {
-                    if (index <= displayText.lastIndex) {
-                        emit(getString(displayText[index]))
-                        //check for internet
-                    } else if (index == 5) {
-                        emit(statusTooLong)
-                    } else {
-                        emit(state)
-                    }
-                } else {
-                    emit(state)
-                }
-                delay(refreshIntervalMS)
-                index += 1
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,43 +99,12 @@ class StandbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                status?.collect { currentState ->
-                    if (!isDialogVisible) {
-                        when(currentState) {
-                            RunningState.Started.toString() -> {
-                                //go to home or browser
-                                findNavController().popBackStack(R.id.standbyFragment, true)
-                                if (requireComponents.core.store.state.selectedTab == null)
-                                    findNavController().navigate(R.id.action_global_home)
-                                else
-                                    findNavController().navigate((R.id.action_global_browser))
-                            }
-                            statusTooLong -> {
-                                //Show dialog
-                                displayTimeoutDialog()
-                            }
-                            RunningState.Starting.toString() -> {
-                                if (!isNetworkAvailable())
-                                    binding.llNoInternet.visibility = View.VISIBLE
-                                else
-                                    binding.llNoInternet.visibility = View.INVISIBLE
-                            }
-                            else -> {
-                                binding.tvStatus.text = currentState
-                                if (!isNetworkAvailable())
-                                    binding.llNoInternet.visibility = View.VISIBLE
-                                else
-                                    binding.llNoInternet.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
+        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            currentStatus = it.ouinetStatus
+        }
+        updateDisplayText()
+    }
 
     private fun displayTimeoutDialog() {
         isDialogVisible = true
@@ -166,6 +118,10 @@ class StandbyFragment : Fragment() {
                 isDialogVisible = false
                 tryAgain()
             }
+        }
+
+        timeoutDialogBuilder.setOnCancelListener{
+            tryAgain()
         }
 
         val dialog = timeoutDialogBuilder.create()
@@ -198,6 +154,38 @@ class StandbyFragment : Fragment() {
         //restart progressbar indicator
         binding.progressBar.isActivated = true
         index = 0
+        updateDisplayText()
+    }
+
+    private fun updateDisplayText() {
+        viewLifecycleOwner.lifecycleScope.launch{
+            while (currentStatus == RunningState.Starting) {
+                if (isNetworkAvailable()) {
+                    binding.llNoInternet.visibility = View.INVISIBLE
+                } else
+                    binding.llNoInternet.visibility = View.VISIBLE
+                if (index < displayText.size)
+                {
+                    binding.tvStatus.text = getString(displayText[index])
+                    index += 1
+                } else {
+                    break
+                }
+                delay(refreshIntervalMS)
+            }
+            if (currentStatus == RunningState.Started) {
+                //Navigate away
+                //go to home or browser
+                findNavController().popBackStack(R.id.standbyFragment, true)
+                if (requireComponents.core.store.state.selectedTab == null)
+                    findNavController().navigate(R.id.action_global_home)
+                else
+                    findNavController().navigate((R.id.action_global_browser))
+            } else {
+                displayTimeoutDialog()
+            }
+            cancel()
+        }
     }
 
 }
