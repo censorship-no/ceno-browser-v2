@@ -396,9 +396,9 @@
     
     <!--  Ceno sources count label colors  -->
     <color name="ceno_sources_green">#18CA08</color>
-    <color name="ceno_sources_blue">#38BDF8</color>
+    <color name="ceno_sources_yellow">#FFEB3B</color>
     <color name="ceno_sources_orange">#F97316</color>
-    <color name="ceno_sources_grey">#A7A7A7</color>
+    <color name="ceno_sources_blue">#3F51B5</color>
 
 
     <!-- Private Browsing Mode Persistent Notification -->

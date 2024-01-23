@@ -663,7 +663,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 if(distCache > 0) binding.sourcesProgressBar.addView(createSegment((distCache / sum) * 100, R.color.ceno_sources_orange))
                 if(origin > 0) binding.sourcesProgressBar.addView(createSegment((origin / sum) * 100, R.color.ceno_sources_green))
                 if((proxy + injector) > 0) binding.sourcesProgressBar.addView(createSegment(((proxy + injector) / sum) * 100, R.color.ceno_sources_blue))
-                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_purple_800))
+                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
             }
         }
 
