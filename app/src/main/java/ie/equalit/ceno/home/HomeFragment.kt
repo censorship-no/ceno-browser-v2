@@ -224,7 +224,7 @@ class HomeFragment : BaseHomeFragment() {
         } else {
             getString(R.string.ceno_ouinet_connecting)
         }
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     private fun updateUI(mode: BrowsingMode) {
