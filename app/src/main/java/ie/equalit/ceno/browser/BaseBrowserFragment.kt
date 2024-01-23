@@ -87,7 +87,7 @@ import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler, WebExtensionActionPopupPanel.SourceCountFetchListener {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
 
@@ -433,17 +433,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         observeTabSelection(requireComponents.core.store)
 
-        // start runnable to continiously fetch new source counts
+        // start runnable to continuously fetch new source counts
         runnable = Runnable {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     updateStats()
-                    handler.postDelayed(runnable, WebExtensionActionPopupPanel.SOURCES_COUNT_FETCH_DELAY)
+                    handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
                 }
             }
         }
 
-        handler.postDelayed(runnable, WebExtensionActionPopupPanel.SOURCES_COUNT_FETCH_DELAY)
+        handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
@@ -501,8 +501,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 lifecycleOwner = this,
                 tabUrl = tab.content.url,
                 isConnectionSecure = tab.content.securityInfo.secure,
-                cachedSourceCounts = cachedSourceCounts,
-                this
+                cachedSourceCounts
         ).also { currentEtp -> currentEtp.show() }
     }
 
@@ -606,6 +605,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     companion object {
         private const val SESSION_ID = "session_id"
+        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
@@ -615,10 +615,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
-    }
-
-    override fun onCountsFetched(jsonObject: JSONObject) {
-        cachedSourceCounts = jsonObject
     }
 
     private fun createSegment(percentage: Float, @ColorRes background: Int): View {
@@ -648,7 +644,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                 // cache the values gotten; caching is done through SourceCountFetchListener interface
                 response.put("url", tabUrl.tryGetHostFromUrl())
-                onCountsFetched(response)
+                cachedSourceCounts = response
+
+                // update sources bottomsheet if the reference is not null
+                webExtensionActionPopupPanel?.onCountsFetched(response)
 
                 val distCache = if(response.has("dist-cache")) response.getString("dist-cache").toFloat() else 0F
                 val origin = if(response.has("origin")) response.getString("origin").toFloat() else 0F
