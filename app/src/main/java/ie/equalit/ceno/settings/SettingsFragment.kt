@@ -220,7 +220,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
                 val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
                 if (read && write) {
-                    getClickListenerForAndroidLogExport()
+                    // Permission granted!
+                    exportAndroidLogs()
                 } else {
                     // show toast for permission denied
                     Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
@@ -543,60 +544,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }.show()
                 }
                 else -> {
-
-                    /*
-                    To test this locally, uncomment the lines below
-                    These test logs would be in the last lines of the generated logs and can thus be analyzed
-                    */
-
-//                    val logTag = "test"
-//
-//                    Log.d(logTag,"Phone number: 123-456-7890")
-//                    Log.d(logTag,"Email address: sample@samplemail.com")
-//                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
-//                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
-//                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
-//                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
-
-                    // Initialize Android logs
-                    val logs = LogReader.getLogEntries().takeLast(200).joinToString("\n")
-
-                    // save file to external storage
-                    val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
-
-                    file.writeText(logs)
-
-
-                    // prompt the user to view or share
-                    AlertDialog.Builder(requireContext()).apply {
-                        setTitle(context.getString(ceno_log_file_saved))
-                        setMessage(context.getString(ceno_log_file_saved_desc))
-                        setNegativeButton(getString(share_logs)) { _, _ ->
-                            if (file.exists()) {
-
-                                val uri = FileProvider.getUriForFile(
-                                    requireContext(),
-                                    ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
-                                    file
-                                )
-                                val intent = Intent(Intent.ACTION_SEND)
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                intent.setType("*/*")
-                                intent.putExtra(Intent.EXTRA_STREAM, uri)
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent)
-                            }
-                        }
-                        setPositiveButton(getString(view_logs)) { _, _ ->
-                            findNavController().navigate(
-                                R.id.action_settingsFragment_to_androidLogFragment,
-                                bundleOf(
-                                    LOG to logs
-                                )
-                            )
-                        }
-                        create()
-                    }.show()
+                    exportAndroidLogs()
                 }
             }
             true
@@ -773,11 +721,67 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun exportAndroidLogs() {
+        /*
+        To test this locally, uncomment the lines below
+        These test logs would be in the last lines of the generated logs and can thus be analyzed
+        */
+
+//                    val logTag = "test"
+//
+//                    Log.d(logTag,"Phone number: 123-456-7890")
+//                    Log.d(logTag,"Email address: sample@samplemail.com")
+//                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
+//                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
+//                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
+//                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
+
+        // Initialize Android logs
+        val logs = LogReader.getLogEntries().takeLast(200).joinToString("\n")
+
+        // save file to external storage
+        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
+
+        file.writeText(logs)
+
+
+        // prompt the user to view or share
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(context.getString(ceno_log_file_saved))
+            setMessage(context.getString(ceno_log_file_saved_desc))
+            setNegativeButton(getString(share_logs)) { _, _ ->
+                if (file.exists()) {
+
+                    val uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
+                        file
+                    )
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    intent.setType("*/*")
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent)
+                }
+            }
+            setPositiveButton(getString(view_logs)) { _, _ ->
+                findNavController().navigate(
+                    R.id.action_settingsFragment_to_androidLogFragment,
+                    bundleOf(
+                        LOG to logs
+                    )
+                )
+            }
+            create()
+        }.show()
+    }
+
     private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager()) {
                 // Permission granted!
-               getClickListenerForAndroidLogExport()
+                exportAndroidLogs()
             } else {
                 // show toast for permission denied
                 Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
