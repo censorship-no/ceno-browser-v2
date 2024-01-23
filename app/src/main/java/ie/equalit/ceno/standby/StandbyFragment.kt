@@ -44,8 +44,7 @@ import java.util.Locale
 class StandbyFragment : Fragment() {
 
     private var isDialogVisible: Boolean = false
-    private val refreshIntervalMS: Long = 1200
-    private val statusTooLong: String = "toolong"
+    private val refreshIntervalMS: Long = 1000
 
     private var status: Flow<String>? = null
 
@@ -56,8 +55,11 @@ class StandbyFragment : Fragment() {
     private val displayText: List<Int> = listOf(
         R.string.standby_message_one,
         R.string.standby_message_one,
+        R.string.standby_message_one,
         R.string.standby_message_two,
         R.string.standby_message_two,
+        R.string.standby_message_two,
+        R.string.standby_message_three,
         R.string.standby_message_three,
         R.string.standby_message_three
     )
