@@ -51,9 +51,12 @@ class StandbyFragment : Fragment() {
         R.string.standby_message_one,
         R.string.standby_message_one,
         R.string.standby_message_one,
+        R.string.standby_message_one,
         R.string.standby_message_two,
         R.string.standby_message_two,
         R.string.standby_message_two,
+        R.string.standby_message_two,
+        R.string.standby_message_three,
         R.string.standby_message_three,
         R.string.standby_message_three,
         R.string.standby_message_three
