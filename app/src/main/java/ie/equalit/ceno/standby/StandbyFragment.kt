@@ -1,7 +1,6 @@
 package ie.equalit.ceno.standby
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
@@ -10,7 +9,6 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings.ACTION_WIRELESS_SETTINGS
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +16,7 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
@@ -31,7 +27,6 @@ import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.lib.state.ext.consumeFrom
@@ -116,7 +111,7 @@ class StandbyFragment : Fragment() {
 
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
-            setPositiveButton("Try Again") { dialogInterface, i ->
+            setPositiveButton(getString(R.string.standby_try_again)) { dialogInterface, i ->
                 isDialogVisible = false
                 tryAgain()
             }

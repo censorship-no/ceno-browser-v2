@@ -28,17 +28,16 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
-import ie.equalit.ceno.utils.CenoPreferences
-import ie.equalit.ceno.utils.XMLParser
-import mozilla.components.concept.fetch.Request
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ouinet.Ouinet
+import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.concept.fetch.Request
 import mozilla.components.concept.storage.FrecencyThresholdOption
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
@@ -46,7 +45,6 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import mozilla.components.support.base.log.logger.Logger
 import java.util.Locale
 
 /**
@@ -220,11 +218,11 @@ class HomeFragment : BaseHomeFragment() {
     private fun updateOuinetStatus(context: Context, status: RunningState) {
         ouinetStatus = status
         val message = if (ouinetStatus == RunningState.Started) {
-            "Connected to Ceno network"
+            getString(R.string.ceno_ouinet_connected)
         } else if (ouinetStatus == RunningState.Stopped){
-            "Disconnected from Ceno network"
+            getString(R.string.ceno_ouinet_disconnected)
         } else {
-            "Connecting to Ceno network"
+            getString(R.string.ceno_ouinet_connecting)
         }
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
