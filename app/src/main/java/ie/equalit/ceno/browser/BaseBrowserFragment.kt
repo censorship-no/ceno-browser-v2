@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.browser
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,8 +15,6 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -33,7 +30,11 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.disableDynamicBehavior
+import ie.equalit.ceno.ext.enableDynamicBehavior
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
@@ -480,11 +481,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
                 val message = if (ouinetStatus == Ouinet.RunningState.Started) {
-                    "Connected to Ceno network"
-                } else if (ouinetStatus == Ouinet.RunningState.Stopped) {
-                    "Disconnected from Ceno network"
+                    getString(R.string.ceno_ouinet_connected)
+                } else if (ouinetStatus == Ouinet.RunningState.Stopped){
+                    getString(R.string.ceno_ouinet_disconnected)
                 } else {
-                    "Connecting to Ceno network"
+                    getString(R.string.ceno_ouinet_connecting)
                 }
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
