@@ -66,7 +66,7 @@ class WebExtensionActionPopupPanel(
             }
         }
 
-        // start runnable to continiously fetch new source counts
+        // start runnable to continuously fetch new source counts
         runnable = Runnable {
             lifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
@@ -184,6 +184,6 @@ class WebExtensionActionPopupPanel(
     }
 
     companion object {
-        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
+        const val SOURCES_COUNT_FETCH_DELAY = 1000L
     }
 }

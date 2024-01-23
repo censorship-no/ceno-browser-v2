@@ -68,15 +68,37 @@
         android:visibility="gone"
         app:layout_behavior="ie.equalit.ceno.browser.FindInPageBarBehavior" />
 
-    <mozilla.components.browser.toolbar.BrowserToolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/browser_toolbar_height"
-        android:layout_gravity="bottom"
-        android:background="?toolbarBackground"
-        mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
-        mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
-        mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:id="@+id/sourcesProgressBar"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </LinearLayout>
+
+        <mozilla.components.browser.toolbar.BrowserToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/browser_toolbar_height"
+            android:background="?toolbarBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/sourcesProgressBar"
+            mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
+            mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
+            mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <mozilla.components.feature.readerview.view.ReaderViewControlsBar
         android:id="@+id/readerViewBar"

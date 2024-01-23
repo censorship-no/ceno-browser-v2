@@ -10,6 +10,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import android.widget.LinearLayout
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.annotation.ColorRes
+import androidx.lifecycle.lifecycleScope
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -35,6 +42,9 @@ import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
@@ -68,6 +78,8 @@ import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
+import org.mozilla.geckoview.WebExtension
+import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -95,6 +107,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
     private var engineSession: EngineSession? = null
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
+    private lateinit var runnable: Runnable
+    private var handler = Handler(Looper.getMainLooper())
 
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
@@ -419,6 +433,18 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         observeTabSelection(requireComponents.core.store)
 
+        // start runnable to continiously fetch new source counts
+        runnable = Runnable {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    updateStats()
+                    handler.postDelayed(runnable, WebExtensionActionPopupPanel.SOURCES_COUNT_FETCH_DELAY)
+                }
+            }
+        }
+
+        handler.postDelayed(runnable, WebExtensionActionPopupPanel.SOURCES_COUNT_FETCH_DELAY)
+
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
@@ -593,5 +619,76 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     override fun onCountsFetched(jsonObject: JSONObject) {
         cachedSourceCounts = jsonObject
+    }
+
+    private fun createSegment(percentage: Float, @ColorRes background: Int): View {
+        val segment = View(context)
+        val layoutParams = LinearLayout.LayoutParams(
+            0,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            percentage
+        )
+        segment.layoutParams = layoutParams
+        context?.let { c -> segment.setBackgroundColor(ContextCompat.getColor(c, background)) }
+        return segment
+    }
+
+    private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
+        override fun onPortMessage(
+            message: Any, port: WebExtension.Port
+        ) {
+            Log.d("PortDelegate", "Received message from extension: $message")
+
+            // `message` returns as undefined sometimes. This check handles that
+            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                // set sources progress bar
+
+                val response = JSONObject(message)
+                val tabUrl = requireContext().components.core.store.state.selectedTab!!.content.url
+
+                // cache the values gotten; caching is done through SourceCountFetchListener interface
+                response.put("url", tabUrl.tryGetHostFromUrl())
+                onCountsFetched(response)
+
+                val distCache = if(response.has("dist-cache")) response.getString("dist-cache").toFloat() else 0F
+                val origin = if(response.has("origin")) response.getString("origin").toFloat() else 0F
+                val injector = if(response.has("injector")) response.getString("injector").toFloat() else 0F
+                val proxy = if(response.has("proxy")) response.getString("proxy").toFloat() else 0F
+                val localCache = if(response.has("local-cache")) response.getString("local-cache").toFloat() else 0F
+
+                val sum = distCache + origin + injector + proxy + localCache
+                binding.sourcesProgressBar.isVisible = sum != 0F && (cachedSourceCounts?.has("url") == true && cachedSourceCounts?.get("url") == tabUrl.tryGetHostFromUrl())
+
+                binding.sourcesProgressBar.removeAllViews()
+
+                if(distCache > 0) binding.sourcesProgressBar.addView(createSegment((distCache / sum) * 100, R.color.ceno_sources_orange))
+                if(origin > 0) binding.sourcesProgressBar.addView(createSegment((origin / sum) * 100, R.color.ceno_sources_green))
+                if((proxy + injector) > 0) binding.sourcesProgressBar.addView(createSegment(((proxy + injector) / sum) * 100, R.color.ceno_sources_blue))
+                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_purple_800))
+            }
+        }
+
+        override fun onDisconnect(port: WebExtension.Port) {
+            if (port === context?.components?.webExtensionPort?.mPort) {
+                context?.components?.webExtensionPort?.mPort = null
+            }
+        }
+    }
+
+    private fun updateStats() {
+
+        Log.d("Message", "Updating stats?")
+        context?.components?.webExtensionPort?.mPort?.let {
+            it.setDelegate(portDelegate)
+            val message = JSONObject()
+            message.put("requestSources", "true")
+            Log.d("Message", "Sending message: $message")
+            it.postMessage(message)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(runnable)
     }
 }
