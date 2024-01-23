@@ -27,7 +27,7 @@ class WebExtensionActionPopupPanel(
     private val lifecycleOwner: LifecycleOwner,
     private val tabUrl: String,
     private val isConnectionSecure: Boolean,
-    private val cachedSourceCounts: JSONObject?
+    cachedSourceCounts: JSONObject?
 ) : BottomSheetDialog(context), EngineSession.Observer {
 
     private var binding: DialogWebExtensionPopupSheetBinding =
