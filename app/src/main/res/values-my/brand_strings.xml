@@ -147,4 +147,8 @@
     <string name="ceno_onboarding_start_title">ဝဘ်ကိုမျှဝေပါ၊
 \nအသုံးပြုသူမှ အသုံးပြုအချင်းချင်း</string>
     <string name="donate_button_text">လှူဒါန်းမည်</string>
+    <string name="ceno_home_card_public_title">အများသုံးတပ်ဗ်များ</string>
+    <string name="preferences_clear_in_menu">မီနူးထဲတွင် ပြမည်</string>
+    <string name="preferences_change_app_icon">အပ်ပ် အိုင်ကွန်ကို ပြောင်းမည်</string>
+    <string name="personal_home_learn_more">အခြားအကြောင်းအရာများကို လေ့လာချင်ပါသလား။</string>
 </resources>
