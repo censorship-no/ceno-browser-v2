@@ -541,7 +541,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
                         }
                         setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
-                            activity?.let { a -> requireComponents.permissionHandler.requestPermissionForExternalStorage(a, storageActivityResultLauncher) }
+                            requireComponents.permissionHandler.requestPermissionForExternalStorage(this@SettingsFragment, storageActivityResultLauncher)
                         }
                         create()
                     }.show()

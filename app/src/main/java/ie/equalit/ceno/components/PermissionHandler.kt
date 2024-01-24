@@ -12,7 +12,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.AppPermissionCodes
@@ -38,7 +37,7 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
     */
 
-    fun requestPermissionForExternalStorage(activity: Activity, activityResultLauncher: ActivityResultLauncher<Intent>) {
+    fun requestPermissionForExternalStorage(fragment: Fragment, activityResultLauncher: ActivityResultLauncher<Intent>) {
         /// Android 11 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             try {
@@ -52,10 +51,10 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
                 intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
                 activityResultLauncher.launch(intent)
             }
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             //Below android 11
-            ActivityCompat.requestPermissions(
-                activity, arrayOf<String>(
+            fragment.requestPermissions(
+                arrayOf<String>(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ),
