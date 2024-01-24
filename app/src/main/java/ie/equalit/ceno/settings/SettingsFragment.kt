@@ -788,6 +788,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         } else {
             //Below android 11
+            if(requireComponents.permissionHandler.isStoragePermissionGranted()) {
+                // Permission granted!
+                exportAndroidLogs()
+            }
         }
     }
 
