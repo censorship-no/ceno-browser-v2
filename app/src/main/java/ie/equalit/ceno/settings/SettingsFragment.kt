@@ -249,37 +249,40 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
         }
 
-        runnable = Runnable {
-            viewLifecycleOwner.lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    /* Fetch ouinet status without refreshing... */
-                    CenoSettings.ouinetClientRequest(
-                        requireContext(),
-                        OuinetKey.API_STATUS,
-                        ouinetResponseListener = object : OuinetResponseListener {
-                            override fun onSuccess(message: String, data: Any?) {
-                            }
-                            override fun onError() {
-                                CenoSettings.setOuinetState(requireContext(), "stopped")
-                            }
-                        },
-                        shouldRefresh = false
-                    )
-                    withContext(Dispatchers.Main) {
+        // using a null view will cause a crash because the viewLifecycleOwner will equally be  null
+        view?.let {
+            runnable = Runnable {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        /* Fetch ouinet status without refreshing... */
+                        CenoSettings.ouinetClientRequest(
+                            requireContext(),
+                            OuinetKey.API_STATUS,
+                            ouinetResponseListener = object : OuinetResponseListener {
+                                override fun onSuccess(message: String, data: Any?) {
+                                }
+                                override fun onError() {
+                                    CenoSettings.setOuinetState(requireContext(), "stopped")
+                                }
+                            },
+                            shouldRefresh = false
+                        )
+                        withContext(Dispatchers.Main) {
 
-                        /* Update summary text for Browser Service */
-                        getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
-                            CenoSettings.getOuinetState(requireContext())
+                            /* Update summary text for Browser Service */
+                            getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
+                                CenoSettings.getOuinetState(requireContext())
+                            }
+
+                            Logger.debug("Browser Service status updated via ${BROWSER_SERVICE_REFRESH_DELAY / 1000} second background refresh")
+                            handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
                         }
-
-                        Logger.debug("Browser Service status updated via ${BROWSER_SERVICE_REFRESH_DELAY / 1000} second background refresh")
-                        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
                     }
                 }
             }
-        }
 
-        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
+            handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
+        }
     }
 
     override fun onPause() {
