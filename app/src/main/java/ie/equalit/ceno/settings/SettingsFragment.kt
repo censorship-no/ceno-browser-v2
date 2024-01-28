@@ -15,8 +15,11 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.result.ActivityResultLauncher
@@ -80,6 +83,8 @@ import ie.equalit.ceno.R.string.preferences_about_page
 import ie.equalit.ceno.R.string.preferences_ceno_download_log
 import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
+import ie.equalit.ceno.R.string.select_log_scope_header
+import ie.equalit.ceno.R.string.select_log_scope_message
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
 import ie.equalit.ceno.R.string.share_logs
@@ -92,6 +97,7 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getAutofillPreference
 import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
@@ -102,6 +108,7 @@ import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -128,6 +135,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var runnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
+
+    private var job: Job? = null
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -726,7 +735,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun exportAndroidLogs() {
         /*
-        To test this locally, uncomment the lines below
+        To test the scrubbing locally, uncomment the lines below
         These test logs would be in the last lines of the generated logs and can thus be analyzed
         */
 
@@ -739,45 +748,102 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
 //                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
-        // Initialize Android logs
-        val logs = LogReader.getLogEntries().takeLast(200).joinToString("\n")
+        // Ask user to choose log filter
+        val logTimeFilterDialogView = View.inflate(context, R.layout.select_logtime_filter, null)
+        val radio5Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_5_minutes)
+        val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
 
-        // save file to external storage
-        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
-
-        file.writeText(logs)
-
-
-        // prompt the user to view or share
         AlertDialog.Builder(requireContext()).apply {
-            setTitle(context.getString(ceno_log_file_saved))
-            setMessage(context.getString(ceno_log_file_saved_desc))
-            setNegativeButton(getString(share_logs)) { _, _ ->
-                if (file.exists()) {
+            setTitle(select_log_scope_header)
+            setMessage(select_log_scope_message)
+            setView(logTimeFilterDialogView)
+            setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
 
-                    val uri = FileProvider.getUriForFile(
-                        requireContext(),
-                        ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
-                        file
-                    )
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.setType("*/*")
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent)
+                // Initialize Android logs
+
+                var logs: MutableList<String>
+                var logString: String
+                var file: File?
+
+                val progressDialogView = View.inflate(context, R.layout.progress_dialog, null)
+
+                val progressDialog = AlertDialog.Builder(requireContext())
+                    .setView(progressDialogView)
+                    .create()
+                    .apply {
+                        setOnDismissListener {
+                            job?.cancel()
+                            dismiss()
+                        }
+                        progressDialogView.findViewById<ImageButton>(R.id.cancel).setOnClickListener { dismiss() }
+                    }
+
+                job = viewLifecycleOwner.lifecycleScope.launch {
+
+                    withContext(Dispatchers.Main) {
+
+                        progressDialog.show()
+                        withContext(Dispatchers.IO) {
+                            logs = LogReader.getLogEntries(
+                                when {
+                                    radio5Button.isChecked -> LOGS_LAST_5_MINUTES
+                                    radio10Button.isChecked -> LOGS_LAST_10_MINUTES
+                                    else -> LOGS_ALL_TIME
+                                }
+                            ).toMutableList()
+
+                            logString = logs.joinToString("\n")
+
+                            Log.d(TAG, "Log content size: ${logString.getSizeInMB()} MB")
+
+                            // save file to external storage
+                            file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
+
+                            file?.writeText(logString)
+
+                            withContext(Dispatchers.Main) {
+
+                                progressDialog.hide()
+
+                                // prompt the user to view or share
+                                AlertDialog.Builder(requireContext()).apply {
+                                    setTitle(context.getString(ceno_log_file_saved))
+                                    setMessage(context.getString(ceno_log_file_saved_desc))
+                                    setNegativeButton(getString(share_logs)) { _, _ ->
+                                        if (file?.exists() == true) {
+
+                                            val uri = FileProvider.getUriForFile(
+                                                requireContext(),
+                                                ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
+                                                file!!
+                                            )
+                                            val intent = Intent(Intent.ACTION_SEND)
+                                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                            intent.setType("*/*")
+                                            intent.putExtra(Intent.EXTRA_STREAM, uri)
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent)
+                                        }
+                                    }
+                                    setPositiveButton(getString(view_logs)) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.action_settingsFragment_to_androidLogFragment,
+                                            bundleOf().apply {
+                                                putStringArrayList(LOG, ArrayList(logs))
+                                            }
+                                        )
+                                    }
+                                    create()
+                                }.show()
+                            }
+                        }
+                    }
                 }
             }
-            setPositiveButton(getString(view_logs)) { _, _ ->
-                findNavController().navigate(
-                    R.id.action_settingsFragment_to_androidLogFragment,
-                    bundleOf(
-                        LOG to logs
-                    )
-                )
-            }
             create()
-        }.show()
+            show()
+        }
     }
 
     private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -801,6 +867,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         private const val BROWSER_SERVICE_REFRESH_DELAY = 5000L
+        private const val TAG = "SettingsFragment"
         const val LOG = "log"
+
+        const val LOG_FILE_SIZE_LIMIT_MB = 20.0
+
+        const val LOGS_LAST_5_MINUTES = 300.0
+        const val LOGS_LAST_10_MINUTES = 600.0
+        const val LOGS_ALL_TIME = 0.0
     }
 }

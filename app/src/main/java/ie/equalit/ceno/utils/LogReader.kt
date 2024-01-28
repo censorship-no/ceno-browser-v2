@@ -9,20 +9,24 @@ import android.util.Patterns
 import ie.equalit.ceno.ext.extractIpv4Addresses
 import ie.equalit.ceno.ext.extractIpv6Addresses
 import ie.equalit.ceno.ext.extractPhoneNumbers
+import ie.equalit.ceno.ext.getSizeInMB
+import ie.equalit.ceno.settings.SettingsFragment
 import java.net.Inet4Address
 import java.net.InetAddress
 
 object LogReader {
 
-    fun getLogEntries(): List<String> {
+    fun getLogEntries(filterInSeconds: Double): List<String> {
         val logs = mutableListOf<String>()
 
         try {
-            val process = Runtime.getRuntime().exec("logcat -d")
+            val process = Runtime.getRuntime().exec("logcat -d *:D | grep -v 'chatty'")
             val reader = process.inputStream.bufferedReader()
 
+            Log.d("PPPPPP", "Ze filter is $filterInSeconds")
+
             var line: String? = reader.readLine()
-            while (line != null) {
+            while (line != null && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
                 logs.add(scrubLogs(line))
                 line = reader.readLine()
             }

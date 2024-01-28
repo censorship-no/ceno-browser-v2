@@ -71,3 +71,10 @@ fun String.getContentFromATag(): Pair<String?, String?> {
     val text = matchResult?.groupValues?.getOrNull(2)
     return Pair(url, text)
 }
+
+/**
+ * Helper function for getting the size of a String in MB
+ */
+fun String.getSizeInMB(): Double {
+    return toByteArray(Charsets.UTF_8).size.toDouble() / (1024.0 * 1024.0)
+}
