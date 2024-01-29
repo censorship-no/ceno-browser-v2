@@ -61,33 +61,35 @@ class AndroidLogFragment : Fragment() {
         binding.logRecyclerView.adapter = adapter
 
         // Load initial data
-        loadInitialData()
+//        loadInitialData()
+
+        adapter.submitList(allItems)
     }
 
-    private fun loadInitialData() {
-        // Load the initial set of data (e.g., the first batch of items)
-        val initialData = loadBatchOfItems(0)
-        loadedItemCount += initialData.size
-
-        // Notify the adapter about the new data
-        adapter.submitList(initialData)
-    }
-
-    private fun loadMoreData() {
-
-        Log.d("PPPPPP", "loaded more")
-        // Load the next batch of data
-        val nextBatch = loadBatchOfItems(loadedItemCount)
-        loadedItemCount += nextBatch.size
-
-        // Notify the adapter about the new data
-        adapter.submitList(nextBatch)
-    }
-
-    private fun loadBatchOfItems(startIndex: Int): List<String> {
-        val endIndex = startIndex + itemsPerBatch
-        return allItems.subList(startIndex, endIndex.coerceAtMost(allItems.size))
-    }
+//    private fun loadInitialData() {
+//        // Load the initial set of data (e.g., the first batch of items)
+//        val initialData = loadBatchOfItems(0)
+//        loadedItemCount += initialData.size
+//
+//        // Notify the adapter about the new data
+//        adapter.submitList(initialData)
+//    }
+//
+//    private fun loadMoreData() {
+//
+//        Log.d("PPPPPP", "loaded more")
+//        // Load the next batch of data
+//        val nextBatch = loadBatchOfItems(loadedItemCount)
+//        loadedItemCount += nextBatch.size
+//
+//        // Notify the adapter about the new data
+//        adapter.submitList(nextBatch)
+//    }
+//
+//    private fun loadBatchOfItems(startIndex: Int): List<String> {
+//        val endIndex = startIndex + itemsPerBatch
+//        return allItems.subList(startIndex, endIndex.coerceAtMost(allItems.size))
+//    }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 

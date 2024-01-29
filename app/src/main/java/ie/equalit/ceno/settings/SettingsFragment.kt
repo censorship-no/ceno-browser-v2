@@ -758,7 +758,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setMessage(select_log_scope_message)
             setView(logTimeFilterDialogView)
             setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
-            setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
+            setPositiveButton(onboarding_battery_button) { _, _ ->
 
                 // Initialize Android logs
 
@@ -789,7 +789,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 when {
                                     radio5Button.isChecked -> LOGS_LAST_5_MINUTES
                                     radio10Button.isChecked -> LOGS_LAST_10_MINUTES
-                                    else -> LOGS_ALL_TIME
+                                    else -> null
                                 }
                             ).toMutableList()
 
@@ -872,8 +872,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val LOG_FILE_SIZE_LIMIT_MB = 20.0
 
-        const val LOGS_LAST_5_MINUTES = 300.0
-        const val LOGS_LAST_10_MINUTES = 600.0
-        const val LOGS_ALL_TIME = 0.0
+        const val LOGS_LAST_5_MINUTES = 300L
+        const val LOGS_LAST_10_MINUTES = 600L
     }
 }

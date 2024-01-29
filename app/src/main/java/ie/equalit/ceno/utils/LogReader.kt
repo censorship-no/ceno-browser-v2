@@ -11,30 +11,99 @@ import ie.equalit.ceno.ext.extractIpv6Addresses
 import ie.equalit.ceno.ext.extractPhoneNumbers
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.settings.SettingsFragment
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.Inet4Address
 import java.net.InetAddress
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 object LogReader {
 
-    fun getLogEntries(filterInSeconds: Double): List<String> {
+    fun getLogEntries(timeWindowInSeconds: Long? = null): List<String> {
         val logs = mutableListOf<String>()
 
         try {
-            val process = Runtime.getRuntime().exec("logcat -d *:D | grep -v 'chatty'")
-            val reader = process.inputStream.bufferedReader()
-
-            Log.d("PPPPPP", "Ze filter is $filterInSeconds")
-
-            var line: String? = reader.readLine()
-            while (line != null && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
-                logs.add(scrubLogs(line))
-                line = reader.readLine()
+            // Run logcat command without timestamp filtering if x is null
+            if (timeWindowInSeconds == null) {
+                return getAllLogs()
             }
+
+            // Calculate timestamp difference based on timeWindowInSeconds
+            val startTime = System.currentTimeMillis() - (timeWindowInSeconds * 1000)
+
+            // Run logcat command
+            val process = ProcessBuilder("logcat", "-d", "*:D").start()
+
+            // Read the output
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            var line: String?
+
+            while (reader.readLine().also { line = it } != null
+                && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+
+                // filter out chatty logs
+                if (line?.contains("chatty", ignoreCase = true) == false
+                    && isLogWithinTimeRange(line!!, startTime)) logs.add(scrubLogs(line!!))
+            }
+
+            process.waitFor()
+
         } catch (e: Exception) {
             Log.e("LogReader", "Error reading logs", e)
         }
 
         return logs
+    }
+
+    private fun getAllLogs(): List<String> {
+        val allLogs = mutableListOf<String>()
+
+        try {
+            // Fetch logs without timestamp filtering
+            val process = ProcessBuilder("logcat", "-d", "*:D").start()
+
+            // Read the output
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            var line: String?
+
+            while (reader.readLine().also { line = it } != null
+                && allLogs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+
+                // filter out chatty logs
+                if (line?.contains("chatty", ignoreCase = true) == false) allLogs.add(scrubLogs(line!!))
+            }
+
+            process.waitFor()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return allLogs
+    }
+
+    private fun isLogWithinTimeRange(log: String, startTime: Long): Boolean {
+        try {
+
+            val timestampRegex = Regex("\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
+            val matchResult = timestampRegex.find(log)
+
+            matchResult?.let {
+                val logTimestampString = matchResult.value
+                val timestampFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.US)
+                val logTimestamp = (timestampFormat.parse(logTimestampString)?.time
+                    ?: 0).times(1000)
+
+                // Check if the log entry timestamp is within the specified time window
+                return logTimestamp >= startTime
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return false
     }
 
     private fun scrubLogs(originalLogs: String): String {
