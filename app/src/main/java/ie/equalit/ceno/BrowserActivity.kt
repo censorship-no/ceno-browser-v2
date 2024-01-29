@@ -246,6 +246,16 @@ open class BrowserActivity : BaseActivity() {
         isActivityResumed = false
     }
 
+    override fun onStart() {
+        super.onStart()
+        components.notificationsDelegate.bindToActivity(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        components.notificationsDelegate.unBindActivity(this)
+    }
+
     override fun onResume() {
         super.onResume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
