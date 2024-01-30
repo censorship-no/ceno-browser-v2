@@ -4,6 +4,8 @@
 
 package ie.equalit.ceno.utils
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.Patterns
 import ie.equalit.ceno.ext.extractIpv4Addresses
@@ -21,13 +23,14 @@ import java.util.Locale
 
 object LogReader {
 
-    fun getLogEntries(timeWindowInMilliseconds: Long? = null): List<String> {
+    fun getLogEntries(timeWindowInMilliseconds: Long? = null, progressCallback: (Int) -> Unit): List<String> {
         val logs = mutableListOf<String>()
+        var logsRead = 0
 
         try {
             // Run logcat command without timestamp filtering if {timeWindowInMilliseconds} is null
             if (timeWindowInMilliseconds == null) {
-                return getAllLogs()
+                return getAllLogs(progressCallback)
             }
 
             // Regex for identifying timestamp within log
@@ -40,12 +43,24 @@ object LogReader {
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String?
 
+            val handler = Handler(Looper.getMainLooper())
+
             while (reader.readLine().also { line = it } != null
                 && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
 
                 // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false
-                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, timeWindowInMilliseconds)) logs.add(scrubLogs(line!!))
+                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, timeWindowInMilliseconds)) {
+                    logs.add(scrubLogs(line!!))
+                    logsRead++
+
+                    // Update progress callback on the main thread via handler post
+                    handler.post {
+                        val progress = (logsRead / SettingsFragment.AVERAGE_TOTAL_LOGS) * 100
+                        progressCallback(progress)
+                    }
+
+                }
             }
 
             process.waitFor()
@@ -78,8 +93,10 @@ object LogReader {
         return false
     }
 
-    private fun getAllLogs(): List<String> {
+    private fun getAllLogs(progressCallback: (Int) -> Unit): List<String> {
+
         val allLogs = mutableListOf<String>()
+        var logsRead = 0
 
         try {
             // Fetch logs without timestamp filtering
@@ -89,11 +106,22 @@ object LogReader {
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String?
 
+            val handler = Handler(Looper.getMainLooper())
+
             while (reader.readLine().also { line = it } != null
                 && allLogs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
 
                 // filter out chatty logs
-                if (line?.contains("chatty", ignoreCase = true) == false) allLogs.add(scrubLogs(line!!))
+                if (line?.contains("chatty", ignoreCase = true) == false) {
+                    allLogs.add(scrubLogs(line!!))
+                    logsRead++
+                }
+
+                // Update progress callback on the main thread via handler post
+                handler.post {
+                    val progress = (logsRead / SettingsFragment.AVERAGE_TOTAL_LOGS) * 100
+                    progressCallback(progress)
+                }
             }
 
             process.waitFor()
