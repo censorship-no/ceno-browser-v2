@@ -872,7 +872,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val LOG_FILE_SIZE_LIMIT_MB = 20.0
 
-        const val LOGS_LAST_5_MINUTES = 300L
-        const val LOGS_LAST_10_MINUTES = 600L
+        const val LOGS_LAST_5_MINUTES = 300000L
+        const val LOGS_LAST_10_MINUTES = 600000L
     }
 }

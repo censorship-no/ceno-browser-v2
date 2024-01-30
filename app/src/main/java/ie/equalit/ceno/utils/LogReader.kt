@@ -16,21 +16,22 @@ import java.io.InputStreamReader
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 object LogReader {
 
-    fun getLogEntries(timeWindowInSeconds: Long? = null): List<String> {
+    fun getLogEntries(timeWindowInMilliseconds: Long? = null): List<String> {
         val logs = mutableListOf<String>()
 
         try {
-            // Run logcat command without timestamp filtering if x is null
-            if (timeWindowInSeconds == null) {
+            // Run logcat command without timestamp filtering if {timeWindowInMilliseconds} is null
+            if (timeWindowInMilliseconds == null) {
                 return getAllLogs()
             }
 
-            // Calculate timestamp difference based on timeWindowInSeconds
-            val startTime = System.currentTimeMillis() - (timeWindowInSeconds * 1000)
+            // Regex for identifying timestamp within log
+            val timestampRegex = Regex("\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
 
             // Run logcat command
             val process = ProcessBuilder("logcat", "-d", "*:D").start()
@@ -42,9 +43,9 @@ object LogReader {
             while (reader.readLine().also { line = it } != null
                 && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
 
-                // filter out chatty logs
+                // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false
-                    && isLogWithinTimeRange(line!!, startTime)) logs.add(scrubLogs(line!!))
+                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, timeWindowInMilliseconds)) logs.add(scrubLogs(line!!))
             }
 
             process.waitFor()
@@ -54,6 +55,27 @@ object LogReader {
         }
 
         return logs
+    }
+
+    private fun isWithinTimeRange(timestamp: String?, millisecondDifference: Long): Boolean {
+
+        if (timestamp == null) return false
+
+        val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
+
+        // current date-time
+        val now = dateFormat.format(Date(System.currentTimeMillis()))
+
+        try {
+            val differenceInMillis = (dateFormat.parse(now)?.time
+                ?: 0) - (dateFormat.parse(timestamp)?.time ?: 0)
+
+            return differenceInMillis <= millisecondDifference
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
     }
 
     private fun getAllLogs(): List<String> {
@@ -81,29 +103,6 @@ object LogReader {
         }
 
         return allLogs
-    }
-
-    private fun isLogWithinTimeRange(log: String, startTime: Long): Boolean {
-        try {
-
-            val timestampRegex = Regex("\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
-            val matchResult = timestampRegex.find(log)
-
-            matchResult?.let {
-                val logTimestampString = matchResult.value
-                val timestampFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.US)
-                val logTimestamp = (timestampFormat.parse(logTimestampString)?.time
-                    ?: 0).times(1000)
-
-                // Check if the log entry timestamp is within the specified time window
-                return logTimestamp >= startTime
-            }
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return false
     }
 
     private fun scrubLogs(originalLogs: String): String {
