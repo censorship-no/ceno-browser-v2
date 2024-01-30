@@ -111,6 +111,7 @@ import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
@@ -813,6 +814,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             file?.writeText(logString)
 
                             withContext(Dispatchers.Main) {
+
+                                progressView.progress = 100
+                                delay(200)
 
                                 progressDialog.hide()
 
