@@ -247,4 +247,6 @@
 
     <string name="select_log_scope_header">Select your preferred scope</string>
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
+
+    <string name="log_export_cancelled">Log export cancelled</string>
 </resources>

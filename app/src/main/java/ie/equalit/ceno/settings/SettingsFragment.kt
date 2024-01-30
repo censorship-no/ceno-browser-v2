@@ -776,6 +776,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     .create()
                     .apply {
                         setOnDismissListener {
+                            Toast.makeText(requireContext(), getString(R.string.log_export_cancelled), Toast.LENGTH_LONG).show()
                             job?.cancel()
                             dismiss()
                         }
@@ -814,6 +815,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             file?.writeText(logString)
 
                             withContext(Dispatchers.Main) {
+
+                                progressDialog.setOnDismissListener {  } // reset dismissListener
 
                                 progressView.progress = 100
                                 delay(200)
