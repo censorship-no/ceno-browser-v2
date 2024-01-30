@@ -61,6 +61,7 @@
     <string name="pref_key_ceno_network_config" translatable="false">pref_key_ceno_network_config</string>
     <string name="pref_key_ceno_enable_log" translatable="false">pref_key_ceno_enable_log</string>
     <string name="pref_key_ceno_download_log" translatable="false">pref_key_ceno_download_log</string>
+    <string name="pref_key_ceno_download_android_log" translatable="false">pref_key_ceno_download_android_logs</string>
     <string name="pref_key_ceno_website_sources" translatable="false">pref_key_ceno_website_sources</string>
     <string name="pref_key_about_ceno" translatable="false">pref_key_about_ceno</string>
     <string name="pref_key_about_geckoview" translatable="false">pref_key_about_geckoview</string>

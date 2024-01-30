@@ -50,6 +50,7 @@ enum class OuinetKey(val command : String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
+    LOG_LEVEL("log_level")
 }
 
 enum class OuinetValue(val string: String) {
@@ -308,7 +309,7 @@ object CenoSettings {
 
     fun isCenoLogEnabled(context: Context) : Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_enable_log), false
+            context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
         )
 
     private fun setCenoEnableLog(context: Context, value: Boolean) {
@@ -431,6 +432,7 @@ object CenoSettings {
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
+                    OuinetKey.LOG_LEVEL,
                     OuinetKey.LOGFILE
                     -> {
                         if (response == null) {
