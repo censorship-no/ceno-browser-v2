@@ -56,8 +56,8 @@ object LogReader {
 
                     // Update progress callback on the main thread via handler post
                     handler.post {
-                        val progress = (logsRead / SettingsFragment.AVERAGE_TOTAL_LOGS) * 100
-                        progressCallback(progress)
+                        val progress = (logsRead.toFloat() / SettingsFragment.AVERAGE_TOTAL_LOGS).times(100).coerceAtMost(96F)
+                        progressCallback(progress.toInt())
                     }
 
                 }
@@ -119,8 +119,8 @@ object LogReader {
 
                 // Update progress callback on the main thread via handler post
                 handler.post {
-                    val progress = (logsRead / SettingsFragment.AVERAGE_TOTAL_LOGS) * 100
-                    progressCallback(progress)
+                    val progress = (logsRead.toFloat() / SettingsFragment.AVERAGE_TOTAL_LOGS).times(100).coerceAtMost(96F)
+                    progressCallback(progress.toInt())
                 }
             }
 

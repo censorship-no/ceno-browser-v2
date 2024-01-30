@@ -885,6 +885,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val LOGS_LAST_5_MINUTES = 300000L
         const val LOGS_LAST_10_MINUTES = 600000L
 
-        const val AVERAGE_TOTAL_LOGS = 2000
+        const val AVERAGE_TOTAL_LOGS = 3000F
     }
 }
