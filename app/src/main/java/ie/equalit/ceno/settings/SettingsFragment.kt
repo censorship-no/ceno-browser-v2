@@ -818,7 +818,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 progressView.progress = 100
                                 delay(200)
 
-                                progressDialog.hide()
+                                progressDialog.dismiss()
 
                                 // prompt the user to view or share
                                 AlertDialog.Builder(requireContext()).apply {
