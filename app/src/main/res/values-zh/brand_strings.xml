@@ -67,4 +67,13 @@
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">继续</string>
     <string name="ceno_notification_clear_do_description">是</string>
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">立即停止 &brandShortName;</string>
+    <string name="crash_reporting_dialog_description">帮我们让 &brandShortName; 更易于以错误报告的形式发送给我们.</string>
+    <string name="crash_reporting_always_send">始终发送，改进 &brandShortName;</string>
+    <string name="crash_reporting_never_send">从不发送</string>
+    <string name="crash_reporting_send_once">发送一次</string>
+    <string name="crash_reporting_dont_send_this_time">不要在这个时间发送</string>
+    <string name="crash_reporting_dont_ask_again">别再问了</string>
+    <string name="crash_reporting_dialog_title">对不起，貌似 &amp;bransShortName; 已崩坏！</string>
+    <string name="ceno_clear_dialog_description">【警告】：清理缓存和应用数据会重置 &brandShortName; 就像从未使用过一样.</string>
+    <string name="ceno_clear_action_description">清理</string>
 </resources>
