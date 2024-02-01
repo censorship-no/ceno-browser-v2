@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.equalit.ceno.BrowserActivity">
+    tools:context="ie.equalit.ceno.browser.BrowserFragment">
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"

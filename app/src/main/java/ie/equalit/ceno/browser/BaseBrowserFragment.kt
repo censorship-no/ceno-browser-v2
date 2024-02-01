@@ -146,6 +146,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        // set custom SwipeRefreshLayout sensitivity
+        binding.swipeRefresh.setDistanceToTriggerSync(requireContext())
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         sessionFeature.set(
             feature = SessionFeature(
