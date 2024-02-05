@@ -38,11 +38,8 @@ internal fun normalModeAdapterItems(
     announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Normal)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
-    /*
-    if (settings.showThanksCard) {
-        items.add(AdapterItem.CenoMessageItem(messageCard))
-    }
-    */
+
+    items.add(AdapterItem.CenoMessageItem(messageCard))
 
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
@@ -97,13 +94,6 @@ class SessionControlView(
                 }
             }
         }
-
-        val itemTouchHelper = ItemTouchHelper(HomeCardSwipeCallback(
-            swipeDirs = ItemTouchHelper.LEFT,
-            dragDirs = 0,
-            interactor = interactor
-        ))
-        itemTouchHelper.attachToRecyclerView(view)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -115,8 +105,8 @@ class SessionControlView(
          */
 
         val messageCard = CenoMessageCard(
-            text = view.context.getString(R.string.onboarding_thanks_text),
-            title = view.context.getString(R.string.onboarding_thanks_title)
+            text = "Make the Ceno network stonger by becoming a bridge. You can enable Bridge Mode by going to Settings -> Enable Bridge Mode",
+            title = "Enable Bridge Mode"
         )
         sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement))
         sessionControlAdapter.notifyDataSetChanged()

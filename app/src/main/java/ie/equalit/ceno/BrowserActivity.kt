@@ -586,4 +586,8 @@ open class BrowserActivity : BaseActivity() {
             Settings.setUpdateSearchEngines(this, false)
         }
     }
+
+    fun openSettings() {
+        navHost.navController.navigate(R.id.action_global_settings)
+    }
 }

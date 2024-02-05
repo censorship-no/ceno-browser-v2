@@ -1,6 +1,7 @@
 package ie.equalit.ceno.home
 
 import android.view.View
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.HomeMessageCardItemBinding
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 
@@ -13,14 +14,16 @@ class CenoMessageViewHolder (
 
     init {
         cardType = homepageCardType
-        enableContextMenu()
+//        enableContextMenu()
 
     }
 
     fun bind(message: CenoMessageCard) {
         binding.tvCardTitle.text = message.title
         binding.tvCardText.text = message.text
-//        binding.ivMessageIcon.setImageDrawable(message.icon)
+        binding.cardHomepage.setOnClickListener {
+            interactor.onClicked(cardType, BrowsingMode.Normal)
+        }
     }
 
     companion object {
