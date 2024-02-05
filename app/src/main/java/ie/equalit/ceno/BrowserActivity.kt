@@ -23,23 +23,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
-import mozilla.components.lib.crash.Crash
-import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -49,25 +38,44 @@ import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.ceno.sort
+import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ouinet.OuinetNotification
-import ie.equalit.ceno.components.PermissionHandler
-import ie.equalit.ceno.ext.ceno.onboardingToHome
-import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
+import ie.equalit.ouinet.Ouinet.RunningState
+import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.browser.state.state.*
+import mozilla.components.browser.state.state.SessionState
+import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.state.state.WebExtensionState
+import mozilla.components.browser.state.state.searchEngines
+import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
+import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
+import mozilla.components.lib.crash.Crash
+import mozilla.components.support.base.feature.ActivityResultHandler
+import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.utils.SafeIntent
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import kotlin.system.exitProcess
 
 /**
@@ -223,6 +231,8 @@ open class BrowserActivity : BaseActivity() {
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
+
+        updateOuinetStatus()
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
@@ -238,7 +248,21 @@ open class BrowserActivity : BaseActivity() {
             themeManager.currentMode = newMode
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
-        components.appStore.dispatch(AppAction.ModeChange(mode))
+        //components.appStore.dispatch(AppAction.ModeChange(mode))
+    }
+
+    private fun updateOuinetStatus() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    val status = RunningState.valueOf(components.ouinet.background.getState())
+                    if (components.appStore.state.ouinetStatus != status) {
+                        components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                    }
+                    delay(2000)
+                }
+            }
+        }
     }
 
     override fun onPause() {
@@ -258,6 +282,10 @@ open class BrowserActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != RunningState.Started.toString())) {
+            navHost.navController.popBackStack()
+            navHost.navController.navigate(R.id.action_global_standbyFragment)
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background
@@ -340,7 +368,7 @@ open class BrowserActivity : BaseActivity() {
 
         if (requestCode == PermissionHandler.PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS) {
             if (components.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-                navHost.navController.onboardingToHome()
+                navHost.navController.onboardingToHome(components)
             } else {
                 updateView {
                     navHost.navController.navigate(R.id.action_global_onboardingWarningFragment)
@@ -523,9 +551,7 @@ open class BrowserActivity : BaseActivity() {
             )
             components.appStore.dispatch(
                 AppAction.Change(
-                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort(),
-                    showCenoModeItem = components.cenoPreferences.showCenoModeItem,
-                    showThanksCard = components.cenoPreferences.showThanksCard
+                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
                 )
             )
         }

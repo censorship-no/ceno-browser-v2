@@ -346,4 +346,12 @@
         android:name="ie.equalit.ceno.settings.AndroidLogFragment"
         android:label="AndroidLogFragment" />
 
+    <fragment
+        android:id="@+id/standbyFragment"
+        android:name="ie.equalit.ceno.standby.StandbyFragment"
+        android:label="fragment_standby"
+        tools:layout="@layout/fragment_standby" />
+    <action
+        android:id="@+id/action_global_standbyFragment"
+        app:destination="@id/standbyFragment" />
 </navigation>
