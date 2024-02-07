@@ -18,8 +18,10 @@ class Ouinet (
         private val context : Context
     ) {
 
-    val config: Config by lazy {
-        Config.ConfigBuilder(context)
+    lateinit var config: Config
+
+    fun setConfig() {
+        config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
             .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)

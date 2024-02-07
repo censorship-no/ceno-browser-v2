@@ -72,6 +72,7 @@ open class BrowserApplication : Application() {
         }
 
         /* CENO: Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
+        components.ouinet.setConfig()
         components.core.setRootCertificate(components.ouinet.config.caRootCertPath)
 
         components.core.engine.warmUp()

@@ -55,6 +55,7 @@ import ie.equalit.ceno.utils.isExternalStorageAvailable
 import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
+import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -66,6 +67,7 @@ import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
+import mozilla.components.concept.fetch.Request
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.lib.state.ext.consumeFrom
@@ -167,6 +169,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
             getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
+            }
+            if (it.ouinetStatus == Ouinet.RunningState.Stopped) {
+                requireComponents.ouinet.setConfig()
+                requireComponents.ouinet.setBackground(requireContext())
+                requireComponents.ouinet.background.startup()
             }
         }
     }
@@ -674,6 +681,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             else {
                 getString(ceno_bridge_announcement_enabled)
             }
+            requireComponents.ouinet.background.stopOuinet()
+            requireComponents.ouinet.background.shutdown(false) {
+                Log.d("Ouinet", "Shutting down ouinet")
+            }
+
             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             true
         }
@@ -827,7 +839,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
-        private const val BROWSER_SERVICE_REFRESH_DELAY = 5000L
         private const val TAG = "SettingsFragment"
         const val LOG = "log"
 
