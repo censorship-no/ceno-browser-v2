@@ -5,6 +5,7 @@
 package ie.equalit.ceno
 
 import android.app.Application
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.ext.isCrashReportActive
@@ -27,6 +28,11 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
+import org.cleaninsights.sdk.Campaign
+import org.cleaninsights.sdk.CleanInsights
+import org.cleaninsights.sdk.ConsentRequestUi
+import org.cleaninsights.sdk.ConsentRequestUiComplete
+import org.cleaninsights.sdk.Feature
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -199,6 +205,54 @@ open class BrowserApplication : Application() {
             it.initialize()
         }
         */
+
+
+        // Clean Insights initializations
+        // Instantiate with configuration and directory to write store to, best in an `Application` subclass.
+        val ci = CleanInsights(
+            assets.open("cleaninsights.json").reader().readText(),
+            filesDir)
+
+        // Ask for consent:
+        ci.requestConsent("test", object: ConsentRequestUi {
+            override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
+                val period = campaign.nextTotalMeasurementPeriod ?: return
+
+                val msg = "Test message"
+
+                AlertDialog.Builder(this@BrowserApplication)
+                    .setTitle("Test title")
+                    .setMessage(msg)
+                    .setNegativeButton("No") { _, _ -> complete(false) }
+                    .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+                    .create()
+                    .show()
+            }
+
+            override fun show(feature: Feature, complete: ConsentRequestUiComplete) {
+                val msg = "Test message"
+
+                AlertDialog.Builder(this@BrowserApplication)
+                    .setTitle("Test title")
+                    .setMessage(msg)
+                    .setNegativeButton("No") { _, _ -> complete(false) }
+                    .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+                    .create()
+                    .show()
+            }
+
+        })
+
+        // Measure a page visit, e.g. in `Activity#onResume`:
+        ci.measureVisit(listOf("Main"), "test")
+
+        // Measure an event (e.g. a button press):
+        ci.measureEvent("music", "play", "test")
+
+        // Make sure to persist the locally cached data. E.g. on `Application#onTrimMemory`, `#onLowMemory`
+        // and `#onTerminate`.
+        ci.persist()
+
     }
 
     override fun onTrimMemory(level: Int) {

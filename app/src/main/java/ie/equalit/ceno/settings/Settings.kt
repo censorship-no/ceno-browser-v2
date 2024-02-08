@@ -198,6 +198,11 @@ object Settings {
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
 
+    fun showCleanInsightsNudge(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_permission_granted), false
+        ).not()
+
     fun toggleCrashReportingPermissionNudge(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
         PreferenceManager.getDefaultSharedPreferences(context)

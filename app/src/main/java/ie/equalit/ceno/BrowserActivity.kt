@@ -14,20 +14,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
-import android.text.Html
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -190,8 +186,9 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
             showCrashReportingPrompt()
-        } else {
+        } else if(Settings.showCleanInsightsNudge(this)) {
             launchCleanInsightsDialog()
+        } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
     }
@@ -233,7 +230,10 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun launchCleanInsightsDialog() {
-        // launch Sentry activation dialog
+
+
+        Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+
         val dialogView = View.inflate(this, R.layout.clean_insights_nudge_dialog, null)
 
         AlertDialog.Builder(this@BrowserActivity).apply {
