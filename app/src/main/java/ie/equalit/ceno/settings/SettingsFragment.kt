@@ -170,12 +170,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
             }
-            if (it.ouinetStatus == Ouinet.RunningState.Stopped) {
-                requireComponents.ouinet.setConfig()
-                requireComponents.ouinet.setBackground(requireContext())
-                requireComponents.ouinet.background.startup()
-            }
         }
+
+
     }
 
     override fun onRequestPermissionsResult(
@@ -312,7 +309,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
-            setPreference(getPreference(pref_key_bridge_announcement), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
@@ -356,11 +352,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_android_log),
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
-            )
-            setPreference(
-                getPreference(pref_key_bridge_announcement),
-                true,
-                changeListener = getChangeListenerForBridgeAnnouncment()
             )
             getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                 CenoSettings.getOuinetBuildId(requireContext())
@@ -669,24 +660,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 create()
             }.show()
-            true
-        }
-    }
-
-    private fun getChangeListenerForBridgeAnnouncment(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, newValue ->
-            val text = if (newValue == true) {
-                getString(ceno_bridge_announcement_enabled)
-            }
-            else {
-                getString(ceno_bridge_announcement_enabled)
-            }
-            requireComponents.ouinet.background.stopOuinet()
-            requireComponents.ouinet.background.shutdown(false) {
-                Log.d("Ouinet", "Shutting down ouinet")
-            }
-
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             true
         }
     }

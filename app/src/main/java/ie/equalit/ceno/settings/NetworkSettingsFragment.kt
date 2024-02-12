@@ -6,6 +6,10 @@ package ie.equalit.ceno.settings
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
@@ -13,10 +17,16 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ouinet.Ouinet
+import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 import java.util.Locale
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var bridgeAnnouncementDialog: AlertDialog
 
     // This variable stores a map of all the sources from local.properties
     private val btSourcesMap = mutableMapOf<String, String>()
@@ -48,6 +58,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val preferencePublicUdpEndpoint = getPreference(R.string.pref_key_ouinet_public_udp_endpoints)
         val preferenceUpnpStatus = getPreference(R.string.pref_key_ouinet_upnp_status)
         val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
+        val preferenceBridgeAnnouncement = getPreference(R.string.pref_key_bridge_announcement)
+        preferenceBridgeAnnouncement?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncment()
 
         val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
         preferenceExtraBitTorrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
@@ -60,6 +72,47 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
+        view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            when(it.ouinetStatus) {
+                Ouinet.RunningState.Stopped -> {
+                    requireComponents.ouinet.setConfig()
+                    requireComponents.ouinet.setBackground(requireContext())
+                    requireComponents.ouinet.background.start()
+                }
+                Ouinet.RunningState.Started -> {
+                    bridgeAnnouncementDialog.dismiss()
+                }
+                else -> {
+                    Logger.debug(it.ouinetStatus.toString())
+                }
+            }
+
+        }
+
+
+    }
+
+    private fun getChangeListenerForBridgeAnnouncment(): Preference.OnPreferenceChangeListener? {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            val text = if (newValue == true) {
+                getString(R.string.ceno_bridge_announcement_enabled)
+            } else {
+                getString(R.string.ceno_bridge_announcement_disabled)
+            }
+
+            requireComponents.ouinet.background.stop {
+                Log.d("Ouinet", "Shutting down ouinet")
+            }
+
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+            bridgeAnnouncementDialog.show()
+            true
+        }
     }
 
     private fun getClickListenerForExtraBitTorrentBootstraps(): Preference.OnPreferenceClickListener {

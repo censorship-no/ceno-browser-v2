@@ -15,6 +15,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -256,6 +257,7 @@ open class BrowserActivity : BaseActivity() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 while (true) {
                     val status = RunningState.valueOf(components.ouinet.background.getState())
+                    Log.d("OuinetStatus", status.toString())
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                     }
