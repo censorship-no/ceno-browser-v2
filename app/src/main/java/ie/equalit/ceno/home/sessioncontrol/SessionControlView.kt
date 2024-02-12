@@ -4,17 +4,15 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
-import ie.equalit.ceno.home.HomeCardSwipeCallback
 import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
 
 // This method got a little complex with the addition of the tab tray feature flag
@@ -26,10 +24,10 @@ internal fun normalModeAdapterItems(
     topSites: List<TopSite>,
     messageCard: CenoMessageCard,
     mode: BrowsingMode,
-    announcement: RssAnnouncementResponse?
+    announcement: RssAnnouncementResponse?,
+    isBridgeAnnouncementEnabled: Boolean
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
-    var shouldShowCustomizeHome = false
 
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
@@ -39,7 +37,8 @@ internal fun normalModeAdapterItems(
 
     items.add(AdapterItem.CenoModeItem(mode))
 
-    items.add(AdapterItem.CenoMessageItem(messageCard))
+    if (!isBridgeAnnouncementEnabled)
+        items.add(AdapterItem.CenoMessageItem(messageCard))
 
 
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
@@ -60,14 +59,20 @@ internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnou
 
     return items
 }
-private fun AppState.toAdapterList(prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: RssAnnouncementResponse?): List<AdapterItem> = when (mode) {
+private fun AppState.toAdapterList(
+    prefs: CenoPreferences,
+    messageCard: CenoMessageCard,
+    announcement: RssAnnouncementResponse?,
+    isBridgeAnnouncementEnabled: Boolean
+): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
             prefs,
             topSites,
             messageCard,
             mode,
-            announcement
+            announcement,
+            isBridgeAnnouncementEnabled
         )
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
 }
@@ -108,7 +113,7 @@ class SessionControlView(
             text = "Make the Ceno network stonger by becoming a bridge. You can enable Bridge Mode by going to Settings -> Enable Bridge Mode",
             title = "Enable Bridge Mode"
         )
-        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement))
+        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement, CenoSettings.isBridgeAnnouncementEnabled(view.context)))
         sessionControlAdapter.notifyDataSetChanged()
 
     }
