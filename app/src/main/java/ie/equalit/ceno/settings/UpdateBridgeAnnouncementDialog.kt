@@ -14,7 +14,7 @@ class UpdateBridgeAnnouncementDialog (
     init {
         val dialogView = View.inflate(context, R.layout.bridge_announcement_dialog, null)
         builder.apply {
-            setTitle(ContextCompat.getString(context, R.string.select_extra_bt_source))
+            setTitle(ContextCompat.getString(context, R.string.bridge_announcement_dialog_title))
             setView(dialogView)
             setCancelable(false)
         }

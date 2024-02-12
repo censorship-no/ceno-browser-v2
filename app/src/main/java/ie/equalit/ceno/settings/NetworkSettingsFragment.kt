@@ -99,17 +99,9 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     private fun getChangeListenerForBridgeAnnouncment(): Preference.OnPreferenceChangeListener? {
         return Preference.OnPreferenceChangeListener { _, newValue ->
-            val text = if (newValue == true) {
-                getString(R.string.ceno_bridge_announcement_enabled)
-            } else {
-                getString(R.string.ceno_bridge_announcement_disabled)
-            }
-
             requireComponents.ouinet.background.stop {
                 Log.d("Ouinet", "Shutting down ouinet")
             }
-
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
             bridgeAnnouncementDialog.show()
             true
         }

@@ -3,9 +3,11 @@ package ie.equalit.ceno.home.sessioncontrol
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
@@ -110,8 +112,8 @@ class SessionControlView(
          */
 
         val messageCard = CenoMessageCard(
-            text = "Make the Ceno network stonger by becoming a bridge. You can enable Bridge Mode by going to Settings -> Enable Bridge Mode",
-            title = "Enable Bridge Mode"
+            text = ContextCompat.getString(view.context,R.string.enable_bridge_card_text),
+            title = ContextCompat.getString(view.context, R.string.bridge_announcement_dialog_title)
         )
         sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement, CenoSettings.isBridgeAnnouncementEnabled(view.context)))
         sessionControlAdapter.notifyDataSetChanged()
