@@ -653,17 +653,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 val origin = if(response.has("origin")) response.getString("origin").toFloat() else 0F
                 val injector = if(response.has("injector")) response.getString("injector").toFloat() else 0F
                 val proxy = if(response.has("proxy")) response.getString("proxy").toFloat() else 0F
-                val localCache = if(response.has("local-cache")) response.getString("local-cache").toFloat() else 0F
+//                val localCache = if(response.has("local-cache")) response.getString("local-cache").toFloat() else 0F
 
-                val sum = distCache + origin + injector + proxy + localCache
+                val sum = distCache + origin + injector + proxy
                 binding.sourcesProgressBar.isVisible = sum != 0F && (cachedSourceCounts?.has("url") == true && cachedSourceCounts?.get("url") == tabUrl.tryGetHostFromUrl())
 
                 binding.sourcesProgressBar.removeAllViews()
 
-                if(distCache > 0) binding.sourcesProgressBar.addView(createSegment((distCache / sum) * 100, R.color.ceno_sources_orange))
                 if(origin > 0) binding.sourcesProgressBar.addView(createSegment((origin / sum) * 100, R.color.ceno_sources_green))
-                if((proxy + injector) > 0) binding.sourcesProgressBar.addView(createSegment(((proxy + injector) / sum) * 100, R.color.ceno_sources_blue))
-                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
+                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(createSegment(((proxy + injector + distCache) / sum) * 100, R.color.ceno_sources_orange))
+//                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
             }
         }
 

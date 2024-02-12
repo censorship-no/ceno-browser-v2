@@ -95,13 +95,13 @@ class WebExtensionActionPopupPanel(
             binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
 
             binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
-            binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
-            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
+//            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
 
+            val distCache = if (response.has("dist-cache")) response.getString("dist-cache").toInt() else 0
             val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
             val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
 
-            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
+            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toString()
         }
     }
 }
