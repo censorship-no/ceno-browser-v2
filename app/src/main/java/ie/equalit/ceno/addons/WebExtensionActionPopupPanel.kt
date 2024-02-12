@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import ie.equalit.ceno.ext.createSegment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -94,14 +96,25 @@ class WebExtensionActionPopupPanel(
         if (response.has("url") && response.getString("url") == tabUrl.tryGetHostFromUrl()) {
             binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
 
-            binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
 //            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
 
-            val distCache = if (response.has("dist-cache")) response.getString("dist-cache").toInt() else 0
-            val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
-            val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
+            val distCache = if (response.has("dist-cache")) response.getString("dist-cache").toFloat() else 0F
+            val proxy = if (response.has("proxy")) response.getString("proxy").toFloat() else 0F
+            val injector = if (response.has("injector")) response.getString("injector").toFloat() else 0F
+            val origin = if (response.has("origin")) response.getString("origin").toFloat() else 0F
 
-            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toString()
+            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toInt().toString()
+            binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
+
+
+            val sum = distCache + origin + injector + proxy
+            binding.sourcesProgressBar.isVisible = sum != 0F
+
+            binding.sourcesProgressBar.removeAllViews()
+
+            if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
+            if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector + distCache) / sum) * 100), R.color.ceno_sources_orange))
+//                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
         }
     }
 }

@@ -11,11 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import android.widget.LinearLayout
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.annotation.ColorRes
 import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
@@ -38,6 +36,7 @@ import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.createSegment
 import ie.equalit.ceno.ext.disableDynamicBehavior
 import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
@@ -642,18 +641,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 
-    private fun createSegment(percentage: Float, @ColorRes background: Int): View {
-        val segment = View(context)
-        val layoutParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            percentage
-        )
-        segment.layoutParams = layoutParams
-        context?.let { c -> segment.setBackgroundColor(ContextCompat.getColor(c, background)) }
-        return segment
-    }
-
     private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
@@ -685,8 +672,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                 binding.sourcesProgressBar.removeAllViews()
 
-                if(origin > 0) binding.sourcesProgressBar.addView(createSegment((origin / sum) * 100, R.color.ceno_sources_green))
-                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(createSegment(((proxy + injector + distCache) / sum) * 100, R.color.ceno_sources_orange))
+                if(origin > 0) binding.sourcesProgressBar.addView(requireContext().createSegment((origin / sum) * 100, R.color.ceno_sources_green))
+                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(requireContext().createSegment(((proxy + injector + distCache) / sum) * 100, R.color.ceno_sources_orange))
 //                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
             }
         }
