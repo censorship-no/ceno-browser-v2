@@ -17,6 +17,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.lifecycle.lifecycleScope
+import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,7 +37,11 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.disableDynamicBehavior
+import ie.equalit.ceno.ext.enableDynamicBehavior
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
@@ -45,6 +50,7 @@ import ie.equalit.ceno.ui.theme.ThemeManager
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
+import ie.equalit.ouinet.Ouinet
 import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
@@ -69,6 +75,7 @@ import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.lib.state.ext.consumeFlow
+import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
@@ -88,6 +95,7 @@ import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
  */
 @Suppress("TooManyFunctions")
 abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+    private var ouinetStatus: Ouinet.RunningState = Ouinet.RunningState.Started
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
 
@@ -490,6 +498,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
         else {
             DisplayToolbar.Gravity.TOP
+        }
+        updateOuinetStatus()
+    }
+
+    private fun updateOuinetStatus() {
+        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            if (ouinetStatus != it.ouinetStatus) {
+                ouinetStatus = it.ouinetStatus
+                val message = if (ouinetStatus == Ouinet.RunningState.Started) {
+                    getString(R.string.ceno_ouinet_connected)
+                } else if (ouinetStatus == Ouinet.RunningState.Stopped){
+                    getString(R.string.ceno_ouinet_disconnected)
+                } else {
+                    getString(R.string.ceno_ouinet_connecting)
+                }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 

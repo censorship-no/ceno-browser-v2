@@ -20,12 +20,8 @@ internal object AppStoreReducer {
 
         is AppAction.TopSitesChange -> state.copy(topSites = action.topSites)
 
-        is AppAction.RemoveCenoModeItem -> {
-            state.copy(showCenoModeItem = false)
-        }
-
-        is AppAction.RemoveThanksCard -> state.copy(showThanksCard = action.showThanksCard)
-
         is AppAction.ModeChange -> state.copy(mode = action.mode)
+
+        is AppAction.OuinetStatusChange -> state.copy(ouinetStatus = action.status)
     }
 }

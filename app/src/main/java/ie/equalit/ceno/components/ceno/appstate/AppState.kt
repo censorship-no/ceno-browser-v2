@@ -5,6 +5,7 @@
 package ie.equalit.ceno.components.ceno.appstate
 
 import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.State
 
@@ -18,7 +19,6 @@ import mozilla.components.lib.state.State
  */
 data class AppState(
     val topSites: List<TopSite> = emptyList(),
-    val showCenoModeItem: Boolean = true,
-    val showThanksCard: Boolean = false,
-    val mode: BrowsingMode = BrowsingMode.Normal
+    val mode: BrowsingMode = BrowsingMode.Normal,
+    val ouinetStatus: RunningState = RunningState.Started
 ) : State
