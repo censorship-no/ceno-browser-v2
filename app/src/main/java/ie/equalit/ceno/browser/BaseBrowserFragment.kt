@@ -7,6 +7,9 @@ package ie.equalit.ceno.browser
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.annotation.SuppressLint
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +60,6 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
-import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.awesomebar.AwesomeBarFeature
@@ -112,7 +114,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
-    private var engineSession: EngineSession? = null
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
     private lateinit var runnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
@@ -165,6 +166,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     *  option was removed from Settings, will be added back if needed */
     //abstract val shouldUseComposeUI: Boolean
 
+    @SuppressLint("ClickableViewAccessibility")
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -464,6 +466,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             swipeRefresh.layoutParams = params
         }
         */
+
+        binding.clBar.setOnTouchListener { _, motionEvent ->
+            when(motionEvent.action) {
+                MotionEvent.ACTION_UP -> {
+                    val endY = motionEvent.y
+                    val deltaY = endY - 0F
+                    if (deltaY < GESTURE_SWIPE_DISTANCE) {
+                        showWebExtensionPopupPanel()
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.sourcesProgressBar.setOnClickListener { showWebExtensionPopupPanel() }
     }
 
     override fun onStart() {
@@ -476,7 +494,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         binding.toolbar.private = themeManager.currentMode.isPersonal
         themeManager.applyTheme(binding.toolbar)
 
-        var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
+        val statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
@@ -517,7 +535,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         }
     }
 
-    fun showWebExtensionPopupPanel(webExtId : String) {
+    fun showWebExtensionPopupPanel() {
         val tab = requireContext().components.core.store.state.selectedTab!!
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
@@ -630,6 +648,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     companion object {
         private const val SESSION_ID = "session_id"
         private const val SOURCES_COUNT_FETCH_DELAY = 1000L
+        private const val GESTURE_SWIPE_DISTANCE = -20
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
