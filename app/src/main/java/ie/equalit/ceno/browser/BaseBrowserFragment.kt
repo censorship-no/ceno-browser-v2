@@ -117,6 +117,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
     private lateinit var runnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
+    private var startY = 0f
 
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
@@ -469,9 +470,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         binding.clBar.setOnTouchListener { _, motionEvent ->
             when(motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    startY = motionEvent.y
+                    true
+                }
                 MotionEvent.ACTION_UP -> {
                     val endY = motionEvent.y
-                    val deltaY = endY - 0F
+                    val deltaY = endY - startY
                     if (deltaY < GESTURE_SWIPE_DISTANCE) {
                         showWebExtensionPopupPanel()
                     }
@@ -648,7 +653,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     companion object {
         private const val SESSION_ID = "session_id"
         private const val SOURCES_COUNT_FETCH_DELAY = 1000L
-        private const val GESTURE_SWIPE_DISTANCE = -20
+        private const val GESTURE_SWIPE_DISTANCE = -10
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
