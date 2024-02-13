@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -19,6 +18,7 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -668,7 +668,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 //                val localCache = if(response.has("local-cache")) response.getString("local-cache").toFloat() else 0F
 
                 val sum = distCache + origin + injector + proxy
-                binding.sourcesProgressBar.isVisible = sum != 0F && (cachedSourceCounts?.has("url") == true && cachedSourceCounts?.get("url") == tabUrl.tryGetHostFromUrl())
+                binding.sourcesProgressBar.isInvisible = sum == 0F || (cachedSourceCounts?.has("url") != true || cachedSourceCounts?.get("url") != tabUrl.tryGetHostFromUrl())
 
                 binding.sourcesProgressBar.removeAllViews()
 
