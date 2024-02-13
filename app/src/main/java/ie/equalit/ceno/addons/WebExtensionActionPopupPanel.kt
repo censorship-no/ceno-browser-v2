@@ -14,6 +14,7 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
 import mozilla.components.browser.icons.IconRequest
@@ -93,15 +94,15 @@ class WebExtensionActionPopupPanel(
 
     fun onCountsFetched(response: JSONObject) {
 
-        if (response.has("url") && response.getString("url") == tabUrl.tryGetHostFromUrl()) {
+        if (response.has(BaseBrowserFragment.URL) && response.getString(BaseBrowserFragment.URL) == tabUrl.tryGetHostFromUrl()) {
             binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
 
 //            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
 
-            val distCache = if (response.has("dist-cache")) response.getString("dist-cache").toFloat() else 0F
-            val proxy = if (response.has("proxy")) response.getString("proxy").toFloat() else 0F
-            val injector = if (response.has("injector")) response.getString("injector").toFloat() else 0F
-            val origin = if (response.has("origin")) response.getString("origin").toFloat() else 0F
+            val distCache = if (response.has(BaseBrowserFragment.DIST_CACHE)) response.getString(BaseBrowserFragment.DIST_CACHE).toFloat() else 0F
+            val proxy = if (response.has(BaseBrowserFragment.PROXY)) response.getString(BaseBrowserFragment.PROXY).toFloat() else 0F
+            val injector = if (response.has(BaseBrowserFragment.INJECTOR)) response.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
+            val origin = if (response.has(BaseBrowserFragment.ORIGIN)) response.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
 
             binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toInt().toString()
             binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()

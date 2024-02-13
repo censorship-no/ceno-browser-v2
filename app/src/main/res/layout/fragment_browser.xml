@@ -77,19 +77,6 @@
         android:layout_gravity="bottom"
         android:background="?toolbarBackground">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="4dp"
-            android:id="@+id/sourcesProgressBar"
-            android:orientation="horizontal"
-            android:visibility="invisible"
-            android:background="@android:color/transparent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-        </LinearLayout>
-
         <mozilla.components.browser.toolbar.BrowserToolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
@@ -97,10 +84,22 @@
             android:background="?toolbarBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/sourcesProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
             mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
             mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
             mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:id="@+id/sourcesProgressBar"
+            android:orientation="horizontal"
+            android:background="@color/ceno_grey_300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
