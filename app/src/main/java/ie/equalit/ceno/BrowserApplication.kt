@@ -5,7 +5,6 @@
 package ie.equalit.ceno
 
 import android.app.Application
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.ext.isCrashReportActive
@@ -28,16 +27,32 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import org.cleaninsights.sdk.Campaign
 import org.cleaninsights.sdk.CleanInsights
-import org.cleaninsights.sdk.ConsentRequestUi
-import org.cleaninsights.sdk.ConsentRequestUiComplete
-import org.cleaninsights.sdk.Feature
+import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
+
+    val cleanInsights: CleanInsights by lazy {
+
+        val filename = "cleaninsights.json"
+        val file = File(filesDir, filename)
+
+        if (!file.exists()) {
+            // If the file doesn't exist, create it and write some default content
+            file.createNewFile()
+            val defaultContent = "hjjjhj"
+            file.writeText(defaultContent)
+        }
+
+        CleanInsights(
+            assets.open("cleaninsights.json").reader().readText(),
+            filesDir
+        )
+    }
+
 
     override fun onCreate() {
         super.onCreate()
@@ -205,58 +220,16 @@ open class BrowserApplication : Application() {
             it.initialize()
         }
         */
-
-
-        // Clean Insights initializations
-        // Instantiate with configuration and directory to write store to, best in an `Application` subclass.
-        val ci = CleanInsights(
-            assets.open("cleaninsights.json").reader().readText(),
-            filesDir)
-
-        // Ask for consent:
-        ci.requestConsent("test", object: ConsentRequestUi {
-            override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
-                val period = campaign.nextTotalMeasurementPeriod ?: return
-
-                val msg = "Test message"
-
-                AlertDialog.Builder(this@BrowserApplication)
-                    .setTitle("Test title")
-                    .setMessage(msg)
-                    .setNegativeButton("No") { _, _ -> complete(false) }
-                    .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
-                    .create()
-                    .show()
-            }
-
-            override fun show(feature: Feature, complete: ConsentRequestUiComplete) {
-                val msg = "Test message"
-
-                AlertDialog.Builder(this@BrowserApplication)
-                    .setTitle("Test title")
-                    .setMessage(msg)
-                    .setNegativeButton("No") { _, _ -> complete(false) }
-                    .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
-                    .create()
-                    .show()
-            }
-
-        })
-
-        // Measure a page visit, e.g. in `Activity#onResume`:
-        ci.measureVisit(listOf("Main"), "test")
-
-        // Measure an event (e.g. a button press):
-        ci.measureEvent("music", "play", "test")
-
-        // Make sure to persist the locally cached data. E.g. on `Application#onTrimMemory`, `#onLowMemory`
-        // and `#onTerminate`.
-        ci.persist()
-
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
+
+        // Since there's no good callback before the app gets killed, we work around this problem
+        // by persisting, when the OS gets annoyed about memory consumption, which is an indicator,
+        // that we're soon going to get killed.
+        cleanInsights.persist()
+
         runOnlyInMainProcess {
             components.core.store.dispatch(SystemAction.LowMemoryAction(level))
             components.core.icons.onTrimMemory(level)
@@ -277,6 +250,23 @@ open class BrowserApplication : Application() {
             .whenGoingToBackground()
             .whenSessionsChange()
     }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+
+        // Since there's no good callback before the app gets killed, we work around this problem
+        // by persisting, when the OS gets annoyed about memory consumption, which is an indicator,
+        // that we're soon going to get killed.
+        cleanInsights.persist()
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+
+        // This only works in emulators, but nevertheless, for completeness sakes.
+        cleanInsights.persist()
+    }
+
 
     companion object {
         var mOuinetConfig: Config? = null

@@ -15,6 +15,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -26,19 +27,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
-import mozilla.components.lib.crash.Crash
-import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -48,26 +36,45 @@ import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
+import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.ceno.sort
+import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ouinet.OuinetNotification
-import ie.equalit.ceno.components.PermissionHandler
-import ie.equalit.ceno.ext.ceno.onboardingToHome
-import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
+import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
+import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
+import mozilla.components.lib.crash.Crash
+import mozilla.components.support.base.feature.ActivityResultHandler
+import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.utils.SafeIntent
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
+import org.cleaninsights.sdk.Campaign
+import org.cleaninsights.sdk.ConsentRequestUi
+import org.cleaninsights.sdk.ConsentRequestUiComplete
+import org.cleaninsights.sdk.Feature
+import org.cleaninsights.sdk.JavaConsentRequestUi
 import kotlin.system.exitProcess
+
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -77,6 +84,7 @@ open class BrowserActivity : BaseActivity() {
     private lateinit var crashIntegration: CrashIntegration
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
+    private var firstTime = true // initialize by SharedPreferences value
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -306,6 +314,60 @@ open class BrowserActivity : BaseActivity() {
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
+
+        if (firstTime) {
+
+            // Ask for consent:
+            (application as? BrowserApplication)?.cleanInsights?.requestConsent("test", object: ConsentRequestUi {
+                override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
+                    val period = campaign.nextTotalMeasurementPeriod ?: return
+
+                    val msg = "Test message"
+
+                    AlertDialog.Builder(this@BrowserActivity)
+                        .setTitle("Test title")
+                        .setMessage(msg)
+                        .setNegativeButton("No") { _, _ -> complete(false) }
+                        .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+                        .create()
+                        .show()
+                }
+
+                override fun show(feature: Feature, complete: ConsentRequestUiComplete) {
+                    val msg = "Test message"
+
+                    AlertDialog.Builder(this@BrowserActivity)
+                        .setTitle("Test title")
+                        .setMessage(msg)
+                        .setNegativeButton("No") { _, _ -> complete(false) }
+                        .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+                        .create()
+                        .show()
+                }
+
+            })
+            firstTime = false
+        } else {
+            // Measure a page visit, e.g. in `Activity#onResume`:
+            (application as? BrowserApplication)?.cleanInsights?.measureVisit(listOf("Main"), "test")
+
+            // Measure an event (e.g. a button press):
+            (application as? BrowserApplication)?.cleanInsights?.measureEvent("music", "play", "test")
+
+            // Make sure to persist the locally cached data. E.g. on `Application#onTrimMemory`, `#onLowMemory`
+            // and `#onTerminate`.
+            (application as? BrowserApplication)?.cleanInsights?.persist()
+        }
+
+        (application as? BrowserApplication)?.cleanInsights?.testServer { e: Exception? ->
+            if (e != null) {
+                Log.e("Server Test", "Exception!")
+                e.printStackTrace()
+            } else {
+                Log.i("Server Test", "No exception - works!")
+            }
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
