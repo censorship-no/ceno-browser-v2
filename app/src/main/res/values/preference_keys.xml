@@ -42,6 +42,7 @@
     <string name="pref_key_radio_search_engine_list" translatable="false">pref_key_radio_search_engine_list</string>
     <string name="pref_key_show_search_suggestions" translatable="false">pref_key_show_search_suggestions</string>
     <string name="pref_key_update_search_engines" translatable="false">pref_key_update_search_engines</string>
+    <string name="pref_key_default_search_engine" translatable="false">pref_key_default_search_engine</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
 
     <string name="pref_key_shared_prefs_reload" translatable="false">pref_key_shared_prefs_reload</string>
@@ -50,6 +51,7 @@
 
     <string name="pref_key_ceno_status_update_required" translatable="false">pref_key_ceno_status_update_required</string>
 
+    <string name="pref_key_export_settings" translatable="false">pref_key_export_settings</string>
     <string name="pref_key_ceno_sources_origin" translatable="false">pref_key_ceno_sources_origin</string>
     <string name="pref_key_ceno_sources_public" translatable="false">pref_key_ceno_sources_public</string>
     <string name="pref_key_ceno_sources_private" translatable="false">pref_key_ceno_sources_private</string>
@@ -76,7 +78,7 @@
     <string name="pref_key_ouinet_local_udp_endpoints" translatable="false">pref_key_ouinet_local_udp_endpoint</string>
     <string name="pref_key_ouinet_external_udp_endpoints" translatable="false">pref_key_ouinet_external_udp_endpoint</string>
     <string name="pref_key_ouinet_public_udp_endpoints" translatable="false">pref_key_ouinet_public_udp_endpoint</string>
-    <string name="pref_key_ouinet_extra_bittorrent_bootstraps" translatable="false">pref_key_ouinet_extra_buttorrent_bootstraps</string>
+    <string name="pref_key_ouinet_extra_bittorrent_bootstraps" translatable="false">pref_key_ouinet_extra_bittorrent_bootstraps</string>
     <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
     <string name="pref_key_bridge_announcement" translatable="false">pref_key_bridge_announcement</string>
@@ -92,4 +94,23 @@
     <string name="pref_key_top_sites_max_limit" translatable="false">pref_key_top_sites_max_limit</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
 
+    <string-array name="prefs_included_in_backup">
+        <item>@string/pref_key_theme</item>
+        <item>@string/pref_key_ceno_enable_log</item>
+        <item>@string/pref_key_tracking_protection_normal</item>
+        <item>@string/pref_key_launch_external_app</item>
+        <item>@string/pref_key_toolbar_hide</item>
+        <item>@string/pref_key_show_search_suggestions</item>
+        <item>@string/pref_key_toolbar_position</item>
+        <item>@string/pref_key_tracking_protection_private</item>
+        <item>@string/pref_key_allow_crash_reporting</item>
+        <item>@string/pref_key_allow_crash_reporting</item>
+        <item>@string/pref_key_remote_debugging</item>
+        <item>@string/pref_key_clear_in_menu</item>
+        <item>@string/pref_key_clear_in_toolbar</item>
+        <item>@string/pref_key_clear_behavior</item>
+        <item>@string/pref_key_show_home_button</item>
+        <item>@string/pref_key_selected_app_icon</item>
+        <item>@string/pref_key_default_search_engine</item>
+    </string-array>
 </resources>

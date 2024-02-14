@@ -90,6 +90,12 @@
             android:title="@string/preferences_delete_browsing_data"
             android:layout="@layout/ceno_clickable_preference" />
 
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_export_settings"
+            android:title="@string/preferences_export_settings"
+            android:layout="@layout/ceno_clickable_preference" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

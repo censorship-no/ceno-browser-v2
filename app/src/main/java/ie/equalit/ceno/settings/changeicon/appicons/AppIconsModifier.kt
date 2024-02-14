@@ -34,8 +34,6 @@ interface IconModifier {
         previousIcon: AppIcon,
         newIcon: AppIcon,
     )
-
-    fun isEnabled(icon: AppIcon) : Boolean
 }
 
 enum class AppIcon(
@@ -95,11 +93,6 @@ class AppIconModifier (
         enable(context, newIcon)
     }
 
-    override fun isEnabled(icon: AppIcon): Boolean {
-        return getComponentState(context, icon.componentName) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-
-    }
-
     private fun enable(
         context: Context,
         appIcon: AppIcon,
@@ -114,13 +107,6 @@ class AppIconModifier (
         AppIcon.values().filterNot { it.componentName == appIcon.componentName }.forEach {
             setComponentState(context, it.componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
         }
-    }
-
-    private fun getComponentState(context: Context, componentName: String) : Int {
-        return context.packageManager.getComponentEnabledSetting(
-                ComponentName(BuildConfig.APPLICATION_ID,
-                componentName)
-        )
     }
 
     private fun setComponentState(

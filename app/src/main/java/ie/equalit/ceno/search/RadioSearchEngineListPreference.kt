@@ -11,6 +11,7 @@ import android.widget.RadioGroup
 import androidx.preference.PreferenceViewHolder
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.Settings
 
 class RadioSearchEngineListPreference : SearchEngineListPreference, RadioGroup.OnCheckedChangeListener {
 
@@ -45,6 +46,8 @@ class RadioSearchEngineListPreference : SearchEngineListPreference, RadioGroup.O
         }
 
         val newDefaultEngine = searchEngines[checkedId]
+
+        Settings.setDefaultSearchEngine(context, searchEngines[checkedId].id)
 
         context.components.useCases.searchUseCases.selectSearchEngine(newDefaultEngine)
     }

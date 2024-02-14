@@ -182,6 +182,7 @@
     <string name="preferences_ceno_website_sources">Website sources</string>
     <string name="preferences_ceno_bridge_announcement">Enable bridge mode</string>
 
+    <string name="preferences_export_settings">Backup your &brandShortName; settings</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">Tap to report to &vendorShortName;</string>
     <!-- COPIED FROM DUCKDUCKGO -->
@@ -296,4 +297,6 @@
     <string name="confirm_clear_cached_content">Clear cached content?</string>
     <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
 
+    <string name="settings_backup_header">Backup your &brandShortName; settings</string>
+    <string name="settings_backup_message">All of your customizations will be exported to a file.</string>
 </resources>

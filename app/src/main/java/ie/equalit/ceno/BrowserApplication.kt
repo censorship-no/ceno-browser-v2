@@ -38,6 +38,8 @@ open class BrowserApplication : Application() {
 
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
+        /* Re-fetch the current app icon, since it may be mismatched after an app data clear */
+        Settings.refetchAppIcon(this)
         AppCompatDelegate.setDefaultNightMode(
                 Settings.getAppTheme(this)
         )

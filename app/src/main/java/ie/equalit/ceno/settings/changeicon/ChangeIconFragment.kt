@@ -45,11 +45,7 @@ class ChangeIconFragment : Fragment() {
         )
 
         // Check that app icon is setting matches the launcher enabled in the manifest
-        for (icon in AppIcon.values()){
-            if (appIconModifier.isEnabled(icon)){
-                Settings.setAppIcon(requireContext(), icon.componentName)
-            }
-        }
+        Settings.refetchAppIcon(requireContext())
 
         updateChangeIconView()
 
