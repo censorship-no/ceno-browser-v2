@@ -97,4 +97,19 @@
     <string name="onboarding_cleanup_text">Usuń historię przeglądania, dane logowania i zatrzyj wszelkie ślady zostawione na &brandShortName; za jednym dotknięciem.</string>
     <string name="about_category">Informacje o</string>
     <string name="preferences_clear_behavior">Domyślne działanie</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Wyczyść &brandShortName; tylko pamięć podręczna</string>
+    <string name="ceno_clear_action_description">Wyczyść</string>
+    <string name="crash_reporting_send_once">Wyślij raz</string>
+    <string name="crash_reporting_dont_send_this_time">Nie wysyłaj</string>
+    <string name="ceno_clear_dialog_title">Wyczyść &brandShortName;</string>
+    <string name="crash_reporting_dialog_title">Przykro mi, wygląda na to że &brandShortName; uległ awarii!</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">"Zatrzymaj &amp;brandShortName  now"</string>
+    <string name="crash_reporting_always_send">Zawsze wysylaj, powiększone &amp;brandShortName</string>
+    <string name="crash_reporting_dialog_description">Pomóż nam uczynić &brandShortName; lepszyą wysyłając raporty błędów.</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Wyczyść &brandShortName; pamięć podręczna i dane aplikacji</string>
+    <string name="crash_reporting_opt_out">Zrezygnowałeś z udostępniania zgłoszeń o awariach. Możesz zawsze je włączyć wchodząc do Ustawień &gt; Zgłoszenia o awariach.</string>
+    <string name="bt_sources_none">Żaden</string>
+    <string name="ceno_clear_dialog_description">UWAGA: Wyczyszczenie pamięci podręcznej i danych aplikacji może zresetować &brandShortName; aplikację jeśli nie została nigdy użyta.</string>
+    <string name="crash_reporting_never_send">Nigdy nie wysyłaj</string>
+    <string name="crash_reporting_dont_ask_again">Nie pytaj ponownie</string>
 </resources>

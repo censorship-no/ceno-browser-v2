@@ -3,6 +3,7 @@ package ie.equalit.ceno.components.ceno
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import mozilla.components.concept.engine.webextension.InstallationMethod
 import mozilla.components.concept.engine.webextension.WebExtensionRuntime
 import mozilla.components.support.base.log.logger.Logger
 
@@ -19,13 +20,13 @@ object CenoWebExt {
      * Installs the web extension in the runtime through the WebExtensionRuntime install method
      */
     fun install(runtime: WebExtensionRuntime) {
-        runtime.installWebExtension(
+        runtime.installBuiltInWebExtension(
                 CENO_EXTENSION_ID, CENO_EXTENSION_URL,
                 onSuccess = {
                     logger.debug("Installed CENO webextension: ${it.id}")
                 },
-                onError = { ext, throwable ->
-                    logger.error("Failed to install CENO webextension: $ext", throwable)
+                onError = { throwable ->
+                    logger.error("Failed to install CENO webextension:", throwable)
                 }
         )
     }

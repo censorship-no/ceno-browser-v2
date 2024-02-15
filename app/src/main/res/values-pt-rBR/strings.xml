@@ -95,8 +95,12 @@
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Abrir link em aba pessoal</string>
     <string name="customize_add_bootstrap_save">Salvar</string>
     <string name="crash_report_sent">Relatório de travamento enviado!</string>
-    <string name="setting_item_selected">%s selecionado</string>
+    <string name="setting_item_selected">%s selecionados</string>
     <string name="customize_custom_extra_bittorrent_bootstrap">IPs separados com vírgulas</string>
     <string name="preferences_website_sources_summary">Selecione onde você deseja carregar o conteúdo do site de</string>
-    <string name="set_default_search_engine">Definir mecanismo de busca padrão</string>
+    <string name="set_default_search_engine">Definir mecanismo de pesquisa padrão</string>
+    <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adicionar bootstraps personalizados</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
+    <string name="select_extra_bt_source">Selecionar bootstrap extra do BitTorrent</string>
 </resources>
