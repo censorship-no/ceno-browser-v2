@@ -20,5 +20,6 @@ import mozilla.components.lib.state.State
 data class AppState(
     val topSites: List<TopSite> = emptyList(),
     val mode: BrowsingMode = BrowsingMode.Normal,
-    val ouinetStatus: RunningState = RunningState.Started
+    val ouinetStatus: RunningState = RunningState.Started,
+    val showBridgeCard: Boolean = true
 ) : State

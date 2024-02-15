@@ -24,4 +24,6 @@ sealed class AppAction : Action {
     data class TopSitesChange(val topSites: List<TopSite>) : AppAction()
     data class ModeChange(val mode: BrowsingMode) : AppAction()
     data class OuinetStatusChange(val status: RunningState) : AppAction()
+
+    data class BridgeCardChange(val showCard: Boolean) : AppAction()
 }

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
@@ -13,6 +14,7 @@ import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
+import ie.equalit.ceno.home.HomeCardSwipeCallback
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
@@ -39,7 +41,7 @@ internal fun normalModeAdapterItems(
 
     items.add(AdapterItem.CenoModeItem(mode))
 
-    if (!isBridgeAnnouncementEnabled)
+    if (!isBridgeAnnouncementEnabled && settings.showBridgeAnnouncementCard)
         items.add(AdapterItem.CenoMessageItem(messageCard))
 
 
@@ -101,6 +103,16 @@ class SessionControlView(
                 }
             }
         }
+
+        val itemTouchHelper = ItemTouchHelper(
+            HomeCardSwipeCallback (
+                swipeDirs = ItemTouchHelper.LEFT,
+                dragDirs = 0,
+                interactor = interactor
+            )
+        )
+        itemTouchHelper.attachToRecyclerView(view)
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

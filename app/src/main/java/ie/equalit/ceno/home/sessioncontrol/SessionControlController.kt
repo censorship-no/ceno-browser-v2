@@ -219,6 +219,10 @@ class DefaultSessionControlController(
     }
 
     override fun handleRemoveCard(homepageCardType: HomepageCardType) {
+        if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
+            preferences.showBridgeAnnouncementCard = false
+            appStore.dispatch(AppAction.BridgeCardChange(false))
+        }
     }
 
     override fun handleUrlClicked(homepageCardType: HomepageCardType, url: String) {

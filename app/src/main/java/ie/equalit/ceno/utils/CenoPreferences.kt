@@ -116,9 +116,9 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         default = false
     )
 
-    var isBridgeAnnouncementEnabled by booleanPreference(
+    var showBridgeAnnouncementCard by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_bridge_announcement),
-        default = false
+        default = true
     )
 
     /**
