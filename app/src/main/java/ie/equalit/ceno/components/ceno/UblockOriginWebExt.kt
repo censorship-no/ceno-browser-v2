@@ -3,6 +3,7 @@ package ie.equalit.ceno.components.ceno
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import mozilla.components.concept.engine.webextension.InstallationMethod
 import mozilla.components.concept.engine.webextension.WebExtensionRuntime
 import mozilla.components.support.base.log.logger.Logger
 import org.mozilla.geckoview.GeckoResult
@@ -37,13 +38,12 @@ object UblockOriginWebExt {
     }
 
     fun install(runtime: WebExtensionRuntime) {
-        runtime.installWebExtension(
-            UBLOCK_ORIGIN_EXTENSION_ID,
-            UBLOCK_ORIGIN_EXTENSION_URL,
+        runtime.installBuiltInWebExtension(
+            UBLOCK_ORIGIN_EXTENSION_ID, UBLOCK_ORIGIN_EXTENSION_URL,
             onSuccess = {
                 logger.debug("Installed uBlock Origin WebExtension: ")
             },
-            onError = { _, throwable ->
+            onError = { throwable ->
                 logger.error("Failed to install uBlock Origin WebExtension:", throwable)
             }
         )
