@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -491,12 +492,24 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
         )
+
+        val params = binding.sourcesProgressBar.layoutParams as ConstraintLayout.LayoutParams
+
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+            // reset constraint of the sources progress bar
+            params.bottomToBottom = binding.toolbar.id
+            params.topToTop = ConstraintLayout.LayoutParams.UNSET
             DisplayToolbar.Gravity.BOTTOM
         }
         else {
+            // reset constraint of the sources progress bar
+            params.topToTop = binding.toolbar.id
+            params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
             DisplayToolbar.Gravity.TOP
         }
+
+        binding.sourcesProgressBar.requestLayout()
+
         updateOuinetStatus()
     }
 
