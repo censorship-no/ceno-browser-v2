@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -69,10 +70,8 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.cleaninsights.sdk.Campaign
-import org.cleaninsights.sdk.ConsentRequestUi
 import org.cleaninsights.sdk.ConsentRequestUiComplete
 import org.cleaninsights.sdk.Feature
-import org.cleaninsights.sdk.JavaConsentRequestUi
 import kotlin.system.exitProcess
 
 
@@ -84,7 +83,8 @@ open class BrowserActivity : BaseActivity() {
     private lateinit var crashIntegration: CrashIntegration
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
-    private var firstTime = true // initialize by SharedPreferences value
+    private var firstTime = true
+    private val start = System.currentTimeMillis()
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -247,7 +247,9 @@ open class BrowserActivity : BaseActivity() {
         AlertDialog.Builder(this@BrowserActivity).apply {
             setView(dialogView)
             setPositiveButton(getString(R.string.clean_insights_maybe_later)) { _, _ -> }
-            setNegativeButton(getString(R.string.clean_insights_opt_in)) { _, _ -> }
+            setNegativeButton(getString(R.string.clean_insights_opt_in)) { _, _ ->
+
+            }
             create()
         }.show()
     }
@@ -316,57 +318,37 @@ open class BrowserActivity : BaseActivity() {
         }
 
         if (firstTime) {
+            val ui = ConsentRequestUi(this)
 
-            // Ask for consent:
-            (application as? BrowserApplication)?.cleanInsights?.requestConsent("test", object: ConsentRequestUi {
-                override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
-                    val period = campaign.nextTotalMeasurementPeriod ?: return
+            cleanInsights.requestConsent("test", ui) { granted ->
+                if (!granted) return@requestConsent
 
-                    val msg = "Test message"
-
-                    AlertDialog.Builder(this@BrowserActivity)
-                        .setTitle("Test title")
-                        .setMessage(msg)
-                        .setNegativeButton("No") { _, _ -> complete(false) }
-                        .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
-                        .create()
-                        .show()
+                cleanInsights.requestConsent(Feature.Lang, ui) {
+                    cleanInsights.requestConsent(Feature.Ua, ui)
                 }
 
-                override fun show(feature: Feature, complete: ConsentRequestUiComplete) {
-                    val msg = "Test message"
+                val time = (System.currentTimeMillis() - start) / 1000.0
 
-                    AlertDialog.Builder(this@BrowserActivity)
-                        .setTitle("Test title")
-                        .setMessage(msg)
-                        .setNegativeButton("No") { _, _ -> complete(false) }
-                        .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
-                        .create()
-                        .show()
-                }
+                cleanInsights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
+                cleanInsights.measureVisit(listOf("Main"), "test")
+            }
 
-            })
             firstTime = false
-        } else {
-            // Measure a page visit, e.g. in `Activity#onResume`:
-            (application as? BrowserApplication)?.cleanInsights?.measureVisit(listOf("Main"), "test")
 
-            // Measure an event (e.g. a button press):
-            (application as? BrowserApplication)?.cleanInsights?.measureEvent("music", "play", "test")
-
-            // Make sure to persist the locally cached data. E.g. on `Application#onTrimMemory`, `#onLowMemory`
-            // and `#onTerminate`.
-            (application as? BrowserApplication)?.cleanInsights?.persist()
+        }
+        else {
+            cleanInsights.measureVisit(listOf("Main"), "test")
         }
 
-        (application as? BrowserApplication)?.cleanInsights?.testServer { e: Exception? ->
-            if (e != null) {
+        cleanInsights.testServer {
+            if (it != null) {
                 Log.e("Server Test", "Exception!")
-                e.printStackTrace()
+                it.printStackTrace()
             } else {
                 Log.i("Server Test", "No exception - works!")
             }
         }
+
 
     }
 
@@ -641,4 +623,5 @@ open class BrowserActivity : BaseActivity() {
             Settings.setUpdateSearchEngines(this, false)
         }
     }
+
 }

@@ -4,7 +4,9 @@
 
 package ie.equalit.ceno
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.ext.isCrashReportActive
@@ -28,34 +30,17 @@ import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
 import org.cleaninsights.sdk.CleanInsights
-import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
 
-    val cleanInsights: CleanInsights by lazy {
-
-        val filename = "cleaninsights.json"
-        val file = File(filesDir, filename)
-
-        if (!file.exists()) {
-            // If the file doesn't exist, create it and write some default content
-            file.createNewFile()
-            val defaultContent = "hjjjhj"
-            file.writeText(defaultContent)
-        }
-
-        CleanInsights(
-            assets.open("cleaninsights.json").reader().readText(),
-            filesDir
-        )
-    }
-
 
     override fun onCreate() {
         super.onCreate()
+
+        context = this
 
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
@@ -272,6 +257,17 @@ open class BrowserApplication : Application() {
         var mOuinetConfig: Config? = null
         var mNotificationConfig: NotificationConfig? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
+
+        @SuppressLint("StaticFieldLeak")
+        private var context: Context? = null
+
+        @JvmStatic
+        val cleanInsights: CleanInsights by lazy {
+            CleanInsights(
+                context!!.assets.open("cleaninsights.json").reader().readText(),
+                context!!.filesDir)
+        }
+
     }
 }
 
