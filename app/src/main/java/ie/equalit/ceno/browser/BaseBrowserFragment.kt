@@ -19,6 +19,8 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.Gravity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -493,22 +495,30 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             false
         )
 
-        val params = binding.sourcesProgressBar.layoutParams as ConstraintLayout.LayoutParams
+        val constraintLayoutParams = binding.sourcesProgressBar.layoutParams as ConstraintLayout.LayoutParams
+        val coordinatorLayoutParams = binding.clBar.layoutParams as CoordinatorLayout.LayoutParams
 
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+            // reset layout_gravity of toolbar layout
+            coordinatorLayoutParams.gravity = Gravity.TOP
+
             // reset constraint of the sources progress bar
-            params.bottomToBottom = binding.toolbar.id
-            params.topToTop = ConstraintLayout.LayoutParams.UNSET
+            constraintLayoutParams.bottomToBottom = binding.toolbar.id
+            constraintLayoutParams.topToTop = ConstraintLayout.LayoutParams.UNSET
             DisplayToolbar.Gravity.BOTTOM
         }
         else {
+            // reset layout_gravity of toolbar layout
+            coordinatorLayoutParams.gravity = Gravity.BOTTOM
+
             // reset constraint of the sources progress bar
-            params.topToTop = binding.toolbar.id
-            params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+            constraintLayoutParams.topToTop = binding.toolbar.id
+            constraintLayoutParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
             DisplayToolbar.Gravity.TOP
         }
 
         binding.sourcesProgressBar.requestLayout()
+        binding.clBar.layoutParams = coordinatorLayoutParams
 
         updateOuinetStatus()
     }
