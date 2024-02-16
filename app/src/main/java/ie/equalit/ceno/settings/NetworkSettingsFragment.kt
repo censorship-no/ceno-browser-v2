@@ -6,26 +6,28 @@ package ie.equalit.ceno.settings
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ouinet.Ouinet
+import ie.equalit.ouinet.Ouinet.RunningState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import mozilla.components.lib.state.ext.consumeFrom
-import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 import java.util.Locale
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
+    private var hasStopped: Boolean = false
+    private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
 
     // This variable stores a map of all the sources from local.properties
@@ -78,30 +80,34 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
         bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
         view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            when(it.ouinetStatus) {
-                Ouinet.RunningState.Stopped -> {
-                    requireComponents.ouinet.setConfig()
-                    requireComponents.ouinet.setBackground(requireContext())
-                    requireComponents.ouinet.background.start()
-                }
-                Ouinet.RunningState.Started -> {
-                    bridgeAnnouncementDialog.dismiss()
-                }
-                else -> {
-                    Logger.debug(it.ouinetStatus.toString())
+            if (it.ouinetStatus == RunningState.Started) {
+                bridgeAnnouncementDialog.dismiss()
+            }
+        }
+    }
+
+    private fun monitorOuinet() {
+        lifecycleScope.launch {
+            while (!hasStopped) {
+                delay(1000)
+            }
+            if (hasStopped) {
+                requireComponents.ouinet.setConfig()
+                requireComponents.ouinet.setBackground(requireContext())
+                requireComponents.ouinet.background.start {
+                    hasStopped = false
                 }
             }
-
         }
-
-
     }
 
     private fun getChangeListenerForBridgeAnnouncment(): Preference.OnPreferenceChangeListener? {
         return Preference.OnPreferenceChangeListener { _, newValue ->
+            monitorOuinet()
             requireComponents.ouinet.background.stop {
-                Log.d("Ouinet", "Shutting down ouinet")
+                hasStopped = true
             }
+            bridgeModeChanged = true
             bridgeAnnouncementDialog.show()
             true
         }
