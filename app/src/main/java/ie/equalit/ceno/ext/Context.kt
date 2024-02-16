@@ -11,6 +11,10 @@ import android.content.Intent.ACTION_SEND
 import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.view.View
+import android.widget.LinearLayout
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.annotation.StringRes
 import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.Log.Priority.WARN
@@ -61,4 +65,18 @@ fun Context.share(text: String, subject: String = ""): Boolean {
         Log.log(WARN, message = "No activity to share to found", throwable = e, tag = "Reference-Browser")
         false
     }
+}
+
+
+// Custom implementation for creating different segments inside a horizontal LinearLayout
+fun Context.createSegment(percentage: Float, @ColorRes background: Int): View {
+    val segment = View(this)
+    val layoutParams = LinearLayout.LayoutParams(
+        0,
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        percentage
+    )
+    segment.layoutParams = layoutParams
+    segment.setBackgroundColor(ContextCompat.getColor(this, background))
+    return segment
 }

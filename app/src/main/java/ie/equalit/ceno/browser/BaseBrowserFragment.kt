@@ -7,12 +7,19 @@ package ie.equalit.ceno.browser
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import android.view.Gravity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -31,6 +38,7 @@ import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.createSegment
 import ie.equalit.ceno.ext.disableDynamicBehavior
 import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
@@ -40,6 +48,9 @@ import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import ie.equalit.ouinet.Ouinet
 import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.selector.selectedTab
@@ -48,7 +59,6 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
-import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.awesomebar.AwesomeBarFeature
@@ -75,6 +85,8 @@ import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
+import org.mozilla.geckoview.WebExtension
+import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -82,7 +94,7 @@ import org.json.JSONObject
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler, WebExtensionActionPopupPanel.SourceCountFetchListener {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
     private var ouinetStatus: Ouinet.RunningState = Ouinet.RunningState.Started
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
@@ -101,8 +113,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
-    private var engineSession: EngineSession? = null
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
+    private lateinit var runnable: Runnable
+    private var handler = Handler(Looper.getMainLooper())
 
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
@@ -152,6 +165,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     *  option was removed from Settings, will be added back if needed */
     //abstract val shouldUseComposeUI: Boolean
 
+    @SuppressLint("ClickableViewAccessibility")
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -427,6 +441,18 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         observeTabSelection(requireComponents.core.store)
 
+        // start runnable to continuously fetch new source counts
+        runnable = Runnable {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    updateStats()
+                    handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
+                }
+            }
+        }
+
+        handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
+
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
@@ -451,7 +477,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         binding.toolbar.private = themeManager.currentMode.isPersonal
         themeManager.applyTheme(binding.toolbar)
 
-        var statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
+        val statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
         /* CENO: this is replaces the shield icon in the address bar
          * with the ceno logo, regardless of tracking protection state
@@ -467,12 +493,32 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
         )
+
+        val toolBarCoordinatorLayoutParams = binding.toolbar.layoutParams as CoordinatorLayout.LayoutParams
+
+        val sourcesProgressCoordinatorLayoutParams = binding.sourcesProgressBar.layoutParams as CoordinatorLayout.LayoutParams
+        sourcesProgressCoordinatorLayoutParams.anchorId = binding.toolbar.id
+
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+            // reset layout_gravity of toolbar layout
+            toolBarCoordinatorLayoutParams.gravity = Gravity.TOP
+
+            // reset constraint of the sources progress bar
+            sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.BOTTOM
             DisplayToolbar.Gravity.BOTTOM
         }
         else {
+            // reset layout_gravity of toolbar layout
+            toolBarCoordinatorLayoutParams.gravity = Gravity.BOTTOM
+
+            // reset constraint of the sources progress bar
+            sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.TOP
             DisplayToolbar.Gravity.TOP
         }
+
+        binding.sourcesProgressBar.requestLayout()
+        binding.toolbar.layoutParams = toolBarCoordinatorLayoutParams
+
         updateOuinetStatus()
     }
 
@@ -480,19 +526,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
-                val message = if (ouinetStatus == Ouinet.RunningState.Started) {
-                    getString(R.string.ceno_ouinet_connected)
-                } else if (ouinetStatus == Ouinet.RunningState.Stopped){
-                    getString(R.string.ceno_ouinet_disconnected)
-                } else {
-                    getString(R.string.ceno_ouinet_connecting)
+                val message = when (ouinetStatus) {
+                    Ouinet.RunningState.Started -> {
+                        getString(R.string.ceno_ouinet_connected)
+                    }
+                    Ouinet.RunningState.Stopped -> {
+                        getString(R.string.ceno_ouinet_disconnected)
+                    }
+                    else -> {
+                        getString(R.string.ceno_ouinet_connecting)
+                    }
                 }
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    fun showWebExtensionPopupPanel(webExtId : String) {
+    fun showWebExtensionPopupPanel() {
         val tab = requireContext().components.core.store.state.selectedTab!!
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
@@ -500,8 +550,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 lifecycleOwner = this,
                 tabUrl = tab.content.url,
                 isConnectionSecure = tab.content.securityInfo.secure,
-                cachedSourceCounts = cachedSourceCounts,
-                this
+                cachedSourceCounts
         ).also { currentEtp -> currentEtp.show() }
     }
 
@@ -605,6 +654,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     companion object {
         private const val SESSION_ID = "session_id"
+        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
+
+        const val DIST_CACHE = "dist-cache"
+        const val ORIGIN = "origin"
+        const val INJECTOR = "injector"
+        const val PROXY = "proxy"
+//        const val LOCAL_CACHE = "local-cache"
+
+        const val URL = "url"
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
@@ -616,7 +674,105 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 
-    override fun onCountsFetched(jsonObject: JSONObject) {
-        cachedSourceCounts = jsonObject
+    private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
+        override fun onPortMessage(
+            message: Any, port: WebExtension.Port
+        ) {
+            Log.d("PortDelegate", "Received message from extension: $message")
+
+            // the percentage progress for the webpage
+            val webPageLoadProgress = requireComponents.core.store.state.selectedTab?.content?.progress ?: 0
+            Log.d("WebPageLoadProgress", "Webpage loaded $webPageLoadProgress%")
+
+            // `message` returns as undefined sometimes. This check handles that
+            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                // set sources progress bar
+
+                val response = JSONObject(message)
+                val tabUrl = requireContext().components.core.store.state.selectedTab!!.content.url
+
+                // cache the values gotten; caching is done through SourceCountFetchListener interface
+                response.put(URL, tabUrl.tryGetHostFromUrl())
+                cachedSourceCounts = response
+
+                // update sources BottomSheet if the reference is not null
+                webExtensionActionPopupPanel?.onCountsFetched(response)
+
+                val distCache = if(response.has(DIST_CACHE)) response.getString(DIST_CACHE).toFloat() else 0F
+                val origin = if(response.has(ORIGIN)) response.getString(ORIGIN).toFloat() else 0F
+                val injector = if(response.has(INJECTOR)) response.getString(INJECTOR).toFloat() else 0F
+                val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
+//                val localCache = if(response.has(LOCAL_CACHE)) response.getString(LOCAL_CACHE).toFloat() else 0F
+
+                val sum = distCache + origin + injector + proxy
+
+                binding.sourcesProgressBar.removeAllViews()
+
+                // Add direct-from-website source
+                if(origin > 0) binding.sourcesProgressBar.addView(
+                    requireContext().createSegment(
+                        origin.div(sum).times(100).run {
+                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                        },
+                        R.color.ceno_sources_green
+                    )
+                )
+
+                // Add via-ceno-network source
+                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
+                    requireContext().createSegment(
+                        (proxy + injector + distCache).div(sum).times(100).run {
+                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                        },
+                        R.color.ceno_sources_orange
+                    )
+                )
+
+                // Add progressbar if the webpage hasn't loaded completely
+                if(webPageLoadProgress < 100) binding.sourcesProgressBar.addView(
+                    requireContext().createSegment(
+                        (100 - webPageLoadProgress).toFloat(),
+                        R.color.ceno_grey_300
+                    )
+                )
+            } else {
+                // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
+
+                // compare the URL key in `cachedSourceCounts` with the current tab's URL.
+                // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
+                if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
+                    binding.sourcesProgressBar.removeAllViews()
+                    binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            webPageLoadProgress.toFloat(),
+                            R.color.accent
+                        )
+                    )
+                }
+            }
+        }
+
+        override fun onDisconnect(port: WebExtension.Port) {
+            if (port === context?.components?.webExtensionPort?.mPort) {
+                context?.components?.webExtensionPort?.mPort = null
+            }
+        }
+    }
+
+    private fun updateStats() {
+
+        Log.d("Message", "Updating stats?")
+        context?.components?.webExtensionPort?.mPort?.let {
+            it.setDelegate(portDelegate)
+            val message = JSONObject()
+            message.put("requestSources", "true")
+            Log.d("Message", "Sending message: $message")
+            it.postMessage(message)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(runnable)
     }
 }
