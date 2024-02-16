@@ -94,7 +94,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
             if (hasStopped) {
                 requireComponents.ouinet.setConfig()
                 requireComponents.ouinet.setBackground(requireContext())
-                requireComponents.ouinet.background.start {
+                requireComponents.ouinet.background.startup {
                     hasStopped = false
                 }
             }
@@ -104,7 +104,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     private fun getChangeListenerForBridgeAnnouncment(): Preference.OnPreferenceChangeListener? {
         return Preference.OnPreferenceChangeListener { _, newValue ->
             monitorOuinet()
-            requireComponents.ouinet.background.stop {
+            requireComponents.ouinet.background.shutdown(false) {
                 hasStopped = true
             }
             bridgeModeChanged = true
