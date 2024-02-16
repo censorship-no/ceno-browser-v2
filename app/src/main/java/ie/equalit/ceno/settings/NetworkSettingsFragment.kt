@@ -79,6 +79,11 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
+        if (arguments?.getBoolean(scrollToBridge) == true) {
+            getPreference(R.string.pref_key_bridge_announcement)?.let {
+                scrollToPreference(it)
+            }
+        }
         view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             if (it.ouinetStatus == RunningState.Started) {
                 bridgeAnnouncementDialog.dismiss()
@@ -148,4 +153,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
+
+    companion object {
+        const val scrollToBridge = "scrollToBridge"
+    }
 }

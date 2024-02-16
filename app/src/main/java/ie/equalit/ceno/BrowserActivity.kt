@@ -48,6 +48,7 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
+import ie.equalit.ceno.settings.NetworkSettingsFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
@@ -589,6 +590,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     fun openSettings() {
-        navHost.navController.navigate(R.id.action_global_settings)
+        val bundle = bundleOf(NetworkSettingsFragment.scrollToBridge to true)
+        navHost.navController.navigate(R.id.action_homeFragment_to_networkSettingsFragment, bundle)
     }
 }
