@@ -495,30 +495,30 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             false
         )
 
-        val constraintLayoutParams = binding.sourcesProgressBar.layoutParams as ConstraintLayout.LayoutParams
-        val coordinatorLayoutParams = binding.clBar.layoutParams as CoordinatorLayout.LayoutParams
+        val toolBarCoordinatorLayoutParams = binding.toolbar.layoutParams as CoordinatorLayout.LayoutParams
+
+        val sourcesProgressCoordinatorLayoutParams = binding.sourcesProgressBar.layoutParams as CoordinatorLayout.LayoutParams
+        sourcesProgressCoordinatorLayoutParams.anchorId = binding.toolbar.id
 
         binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
             // reset layout_gravity of toolbar layout
-            coordinatorLayoutParams.gravity = Gravity.TOP
+            toolBarCoordinatorLayoutParams.gravity = Gravity.TOP
 
             // reset constraint of the sources progress bar
-            constraintLayoutParams.bottomToBottom = binding.toolbar.id
-            constraintLayoutParams.topToTop = ConstraintLayout.LayoutParams.UNSET
+            sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.BOTTOM
             DisplayToolbar.Gravity.BOTTOM
         }
         else {
             // reset layout_gravity of toolbar layout
-            coordinatorLayoutParams.gravity = Gravity.BOTTOM
+            toolBarCoordinatorLayoutParams.gravity = Gravity.BOTTOM
 
             // reset constraint of the sources progress bar
-            constraintLayoutParams.topToTop = binding.toolbar.id
-            constraintLayoutParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+            sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.TOP
             DisplayToolbar.Gravity.TOP
         }
 
         binding.sourcesProgressBar.requestLayout()
-        binding.clBar.layoutParams = coordinatorLayoutParams
+        binding.toolbar.layoutParams = toolBarCoordinatorLayoutParams
 
         updateOuinetStatus()
     }
