@@ -221,14 +221,6 @@ class DefaultSessionControlController(
     }
 
     override fun handleRemoveCard(homepageCardType: HomepageCardType) {
-        if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
-            preferences.showCenoModeItem = false
-            appStore.dispatch(AppAction.RemoveCenoModeItem)
-        }
-        if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
-            preferences.showThanksCard = false
-            appStore.dispatch(AppAction.RemoveThanksCard(false))
-        }
     }
 
     override fun handleUrlClicked(homepageCardType: HomepageCardType, url: String) {

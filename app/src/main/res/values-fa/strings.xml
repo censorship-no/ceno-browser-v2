@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -144,4 +144,20 @@
     <string name="preferences_tracking_protection_normal">فعال در حالت مرور عادی</string>
     <string name="preferences_privacy_summary">ردیابی، کوکی‌ها، انتخاب داده‌ها</string>
     <string name="crash_report_non_fatal_message">متاسفیم. دچار مشکل شدیم</string>
+    <string name="browser_toolbar_home">خانه</string>
+    <string name="preference_category_search">جستوجو</string>
+    <string name="preference_select_preferred_engine">موتور جستوجو دلخواه هور را انتخاب کنید:</string>
+    <string name="theme_category">شخصی سازی</string>
+    <string name="preference_show_search_suggestions">پیشنهادات جستوجو بگیرید</string>
+    <string name="insecure_connection">ارطتاب امن نیست</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">باز کردن لینک در صفحه شخصی</string>
+    <string name="set_default_search_engine">لطفا موتور جستوگر اصلی خود را انتخاب کنید</string>
+    <string name="udp_category">یو دی پی</string>
+    <string name="customize_add_bootstrap_save">ذخیره</string>
+    <string name="preference_search_summary">عصلی باشد</string>
+    <string name="secure_connection">ارتباط امن است</string>
+    <string name="not_applicable">وجود ندارد</string>
+    <string name="crash_report_sent">گذارش خرابی با موفقیت ارسال شد!</string>
+    <string name="preferences_website_sources_summary">انتخاب کنید کجا میخواهید محتویات وبسایت را بارگیری کنید</string>
+    <string name="browser_menu_back">بازگشت</string>
 </resources>
