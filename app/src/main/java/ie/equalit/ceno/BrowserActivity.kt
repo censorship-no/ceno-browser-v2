@@ -15,7 +15,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -30,6 +29,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import android.util.Log
 import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -66,13 +66,13 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
-import ie.equalit.ouinet.Ouinet
+import ie.equalit.ouinet.Ouinet.RunningState
 import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.delay
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
 import mozilla.components.concept.engine.manifest.WebAppManifest
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
 import org.cleaninsights.sdk.Feature
 import kotlin.system.exitProcess
@@ -201,6 +201,8 @@ open class BrowserActivity : BaseActivity() {
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
+
+        updateOuinetStatus()
     }
 
     private fun showCrashReportingPrompt() {
@@ -269,7 +271,21 @@ open class BrowserActivity : BaseActivity() {
             themeManager.currentMode = newMode
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
-        components.appStore.dispatch(AppAction.ModeChange(mode))
+        //components.appStore.dispatch(AppAction.ModeChange(mode))
+    }
+
+    private fun updateOuinetStatus() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    val status = RunningState.valueOf(components.ouinet.background.getState())
+                    if (components.appStore.state.ouinetStatus != status) {
+                        components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                    }
+                    delay(2000)
+                }
+            }
+        }
     }
 
     override fun onPause() {
@@ -289,7 +305,7 @@ open class BrowserActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != Ouinet.RunningState.Started.toString())) {
+        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != RunningState.Started.toString())) {
             navHost.navController.popBackStack()
             navHost.navController.navigate(R.id.action_global_standbyFragment)
         }
