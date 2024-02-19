@@ -383,6 +383,11 @@ open class BrowserActivity : BaseActivity() {
             }
         }
 
+        val tracker: Tracker? = (application as BrowserApplication).getTracker()
+
+        TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
+        TrackHelper.track().download().with(tracker)
+
 
     }
 

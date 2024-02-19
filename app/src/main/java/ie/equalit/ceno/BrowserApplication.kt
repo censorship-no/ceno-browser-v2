@@ -44,7 +44,7 @@ open class BrowserApplication : Application() {
     @Synchronized
     fun getTracker(): Tracker? {
         if (_tracker == null) {
-            _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/ci/cleaninsights.php", 30).build(Matomo.getInstance(this))
+            _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/matomo.php", 4).build(Matomo.getInstance(this))
         }
         return _tracker
     }
