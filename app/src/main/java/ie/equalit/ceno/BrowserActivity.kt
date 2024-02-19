@@ -15,6 +15,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -29,21 +30,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import android.util.Log
 import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
-import mozilla.components.lib.crash.Crash
-import mozilla.components.support.base.feature.ActivityResultHandler
-import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -69,13 +56,30 @@ import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.*
+import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
+import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
+import mozilla.components.lib.crash.Crash
+import mozilla.components.support.base.feature.ActivityResultHandler
+import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.utils.SafeIntent
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.cleaninsights.sdk.Feature
+import org.matomo.sdk.Tracker
+import org.matomo.sdk.extra.MatomoApplication
+import org.matomo.sdk.extra.TrackHelper
 import kotlin.system.exitProcess
+
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -196,8 +200,8 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
             showCrashReportingPrompt()
-        } else if(Settings.showCleanInsightsNudge(this)) {
-            launchCleanInsightsDialog()
+//        } else if(Settings.showCleanInsightsNudge(this)) {
+//            launchCleanInsightsDialog()
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
@@ -353,6 +357,14 @@ open class BrowserActivity : BaseActivity() {
 
                 cleanInsights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
                 cleanInsights.measureVisit(listOf("Main"), "test")
+
+                // The `Tracker` instance from the previous step
+                // The `Tracker` instance from the previous step
+                val tracker: Tracker? = (application as BrowserApplication).getTracker()
+
+                TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
+                TrackHelper.track().download().with(tracker)
+
             }
 
             firstTime = false

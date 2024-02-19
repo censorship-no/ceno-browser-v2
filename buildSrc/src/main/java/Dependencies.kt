@@ -52,6 +52,7 @@ object Versions {
         const val sentry = "6.27.0"
         const val gson = "2.10.1"
         const val clean_insights = "2.8.0"
+        const val matomo = "4.2"
     }
 
     /* CENO: Versions for additional dependencies */
@@ -150,6 +151,7 @@ object Deps {
     const val thirdparty_sentry = "io.sentry:sentry-android:${Versions.ThirdParty.sentry}"
     const val thirdparty_gson = "com.google.code.gson:gson:${Versions.ThirdParty.gson}"
     const val thirdparty_clean_insight = "org.cleaninsights.sdk:clean-insights-sdk:${Versions.ThirdParty.clean_insights}"
+    const val thirdparty_matomo = "com.github.matomo-org:matomo-sdk-android:${Versions.ThirdParty.matomo}"
 
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
