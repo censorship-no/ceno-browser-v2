@@ -26,7 +26,7 @@ import java.util.Locale
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
-    private var hasStopped: Boolean = false
+    private var hasOuinetStopped: Boolean = false
     private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
 
@@ -93,14 +93,14 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     private fun monitorOuinet() {
         lifecycleScope.launch {
-            while (!hasStopped) {
-                delay(1000)
+            while (!hasOuinetStopped) {
+                delay(DELAY_ONE_SECOND)
             }
-            if (hasStopped) {
+            if (hasOuinetStopped) {
                 requireComponents.ouinet.setConfig()
                 requireComponents.ouinet.setBackground(requireContext())
                 requireComponents.ouinet.background.startup {
-                    hasStopped = false
+                    hasOuinetStopped = false
                 }
             }
         }
@@ -110,7 +110,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         return Preference.OnPreferenceChangeListener { _, newValue ->
             monitorOuinet()
             requireComponents.ouinet.background.shutdown(false) {
-                hasStopped = true
+                hasOuinetStopped = true
             }
             bridgeModeChanged = true
             bridgeAnnouncementDialog.show()
@@ -156,5 +156,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         const val scrollToBridge = "scrollToBridge"
+        const val DELAY_ONE_SECOND = 1000L
     }
 }

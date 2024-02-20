@@ -261,7 +261,7 @@ open class BrowserActivity : BaseActivity() {
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                     }
-                    delay(2000)
+                    delay(DELAY_TWO_SECONDS)
                 }
             }
         }
@@ -592,5 +592,9 @@ open class BrowserActivity : BaseActivity() {
     fun openSettings() {
         val bundle = bundleOf(NetworkSettingsFragment.scrollToBridge to true)
         navHost.navController.navigate(R.id.action_homeFragment_to_networkSettingsFragment, bundle)
+    }
+
+    companion object {
+        const val DELAY_TWO_SECONDS = 2000L
     }
 }
