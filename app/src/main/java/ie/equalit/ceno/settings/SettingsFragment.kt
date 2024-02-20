@@ -57,6 +57,7 @@ import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
 import ie.equalit.ceno.R.string.pref_key_about_page
 import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_allow_clean_insights_tracking
 import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
 import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_autofill
@@ -296,6 +297,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
+        getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
@@ -485,6 +487,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //            Re-allow post-crash permissions nudge
 //            This should ALWAYS be turned on when this permission state is toggled
             ie.equalit.ceno.settings.Settings.toggleCrashReportingPermissionNudge(requireContext(), true)
+            true
+        }
+    }
+
+    private fun getClickListenerForCleanInsightsTracking(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, _ ->
+            // TODO: Add logic for revoking consent from CleanInsights
+
+//            Re-allow clean insights permission nudge
+//            This should ALWAYS be turned on when this permission state is toggled
+            ie.equalit.ceno.settings.Settings.setCleanInsightsPermissionNudgeValue(requireContext(), true)
             true
         }
     }
