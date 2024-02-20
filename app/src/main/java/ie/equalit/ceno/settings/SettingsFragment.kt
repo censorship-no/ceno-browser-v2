@@ -39,6 +39,8 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BrowserApplication
+import ie.equalit.ceno.ConsentRequestUi
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.ceno_android_logs_file_name
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
@@ -126,6 +128,7 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
+import org.cleaninsights.sdk.Feature
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
 import kotlin.system.exitProcess
@@ -492,9 +495,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun getClickListenerForCleanInsightsTracking(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, _ ->
+        return OnPreferenceChangeListener { _, newValue ->
             // TODO: Add logic for revoking consent from CleanInsights
 
+            if((newValue as Boolean) && activity != null) {
+                val ui = ConsentRequestUi((activity as BrowserActivity))
+
+                BrowserApplication.cleanInsights.requestConsent("test", ui) { granted ->
+                    if (!granted) return@requestConsent
+                    BrowserApplication.cleanInsights.requestConsent(Feature.Lang, ui) {
+                        BrowserApplication.cleanInsights.requestConsent(Feature.Ua, ui)
+                    }
+                }
+            }
 //            Re-allow clean insights permission nudge
 //            This should ALWAYS be turned on when this permission state is toggled
             ie.equalit.ceno.settings.Settings.setCleanInsightsPermissionNudgeValue(requireContext(), true)
