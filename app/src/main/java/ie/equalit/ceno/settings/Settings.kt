@@ -198,11 +198,6 @@ object Settings {
             context.getString(R.string.pref_key_show_crash_reporting_permission), true
         )
 
-    fun showCleanInsightsNudge(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_clean_insights_permission_granted), false
-        ).not()
-
     fun toggleCrashReportingPermissionNudge(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -211,8 +206,29 @@ object Settings {
             .apply()
     }
 
+    fun showCleanInsightsPermissionNudge(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_clean_insights_permission), true
+        )
+
+    fun setCleanInsightsPermissionNudgeValue(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_clean_insights_permission)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
     fun setCrashReportingPermissionValue(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_crash_reporting)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setCleanInsightsTrackingValue(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_allow_clean_insights_tracking)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putBoolean(key, value)
@@ -241,6 +257,12 @@ object Settings {
     fun isCrashReportingPermissionGranted(context: Context) : Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_allow_crash_reporting), false
+        )
+    }
+
+    fun isCleanInsightsTrackingPermissionGranted(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_allow_clean_insights_tracking), false
         )
     }
 

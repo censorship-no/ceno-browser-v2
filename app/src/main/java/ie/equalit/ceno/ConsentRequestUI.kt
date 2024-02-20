@@ -1,34 +1,28 @@
 package ie.equalit.ceno
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.view.View
+import ie.equalit.ceno.base.BaseActivity
+import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.Campaign
 import org.cleaninsights.sdk.ConsentRequestUiComplete
 import org.cleaninsights.sdk.Feature
-import java.text.DateFormat
 
-class ConsentRequestUi(private val activity: Activity): org.cleaninsights.sdk.ConsentRequestUi {
-
-    companion object {
-        @JvmStatic
-        val df: DateFormat by lazy {
-            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-        }
-    }
+class ConsentRequestUi(private val activity: BaseActivity) : org.cleaninsights.sdk.ConsentRequestUi {
 
     override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
-        val period = campaign.nextTotalMeasurementPeriod ?: return
 
-        val msg = activity.getString(R.string._measurement_consent_explanation_,
-            df.format(period.startDate),
-            df.format(period.endDate))
+        val dialogView = View.inflate(activity, R.layout.clean_insights_nudge_dialog, null)
+
 
         AlertDialog.Builder(activity)
-            .setTitle(R.string.Your_Consent)
-            .setMessage(msg)
-            .setNegativeButton(R.string.No__sorry_) { _, _ -> complete(false) }
-            .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+            .setView(dialogView)
+            .setNegativeButton(R.string.clean_insights_maybe_later) { _, _ -> complete(false) }
+            .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
+                Settings.setCleanInsightsTrackingValue(activity, true)
+                complete(true)
+            }
             .create()
             .show()
     }
@@ -39,8 +33,11 @@ class ConsentRequestUi(private val activity: Activity): org.cleaninsights.sdk.Co
         AlertDialog.Builder(activity)
             .setTitle(R.string.Your_Consent)
             .setMessage(msg)
-            .setNegativeButton(R.string.No__sorry_) { _, _ -> complete(false) }
-            .setPositiveButton(android.R.string.ok) { _, _ -> complete(true) }
+            .setNegativeButton(R.string.clean_insights_no) { _, _ -> complete(false) }
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                BrowserApplication.cleanInsights.grant(feature)
+                complete(true)
+            }
             .create()
             .show()
     }
@@ -48,7 +45,7 @@ class ConsentRequestUi(private val activity: Activity): org.cleaninsights.sdk.Co
 
 fun Feature.localized(context: Context): String {
     when (this) {
-        Feature.Lang -> return context.getString(R.string.Your_locale)
+        Feature.Lang -> return context.getString(R.string.lang_and_locale)
         Feature.Ua -> return context.getString(R.string.Your_device_type)
     }
 }

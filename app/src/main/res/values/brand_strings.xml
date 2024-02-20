@@ -73,9 +73,10 @@
     <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.</string>
     <!-- Clean Insights -->
     <string name="clean_insights_header">Help make &brandShortName; better!</string>
-    <string name="clean_insights_sub_header">Would you like to opt-in to sharing privacy-preserving metrics such as:\n\n  •  crash reports\n  •  load times\n  •  lang/locale\n  •  frequency of app usage\n\nto improve &brandShortName;? No personally identifiable information will be stored.</string>
+    <string name="clean_insights_sub_header">Would you like to opt-in to sharing privacy-preserving metrics (such as crash reports, load times, etc) to improve &brandShortName;? No personally identifiable information will be stored.</string>
     <string name="clean_insights_opt_in">YES, OPT ME IN</string>
     <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
+    <string name="clean_insights_no">NO</string>
     <!--  BT Source menu items  -->
     <string name="bt_sources_none">None</string>
     <string name="bt_sources_custom">Custom</string>
@@ -269,10 +270,8 @@
 
     <!-- ConsentRequestUi -->
     <string name="Your_Consent">Your Consent</string>
-    <string name="_measurement_consent_explanation_">We would like to run a measurement between %1$s and %2$s to understand some problems we noticed recently.\n\nYour help would be highly appreciated.</string>
-    <string name="_feature_consent_explanation_">In case you allow us to run measurements, are you OK that we record the following?\n\n%1$s</string>
-    <string name="No__sorry_">No, sorry.</string>
-    <string name="Your_locale">Your locale</string>
+    <string name="_feature_consent_explanation_">Are you OK that we record the following?\n\n%1$s</string>
+    <string name="lang_and_locale">Your language and locale</string>
     <string name="Your_device_type">Your device type</string>
     <string name="Consents">Consents</string>
     <string name="General_Infos">General Infos</string>

@@ -76,7 +76,6 @@ import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.cleaninsights.sdk.Feature
 import org.matomo.sdk.Tracker
-import org.matomo.sdk.extra.MatomoApplication
 import org.matomo.sdk.extra.TrackHelper
 import kotlin.system.exitProcess
 
@@ -89,7 +88,6 @@ open class BrowserActivity : BaseActivity() {
     private lateinit var crashIntegration: CrashIntegration
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
-    private var firstTime = true
     private val start = System.currentTimeMillis()
 
     private val sessionId: String?
@@ -200,10 +198,16 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
             showCrashReportingPrompt()
-//        } else if(Settings.showCleanInsightsNudge(this)) {
-//            launchCleanInsightsDialog()
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+
+            if(Settings.showCleanInsightsPermissionNudge(this)
+                && !Settings.isCleanInsightsTrackingPermissionGranted(this)
+                && navHost.navController.currentDestination?.id == R.id.homeFragment) {
+                launchCleanInsightsPermissionDialog()
+            } else if(Settings.isCleanInsightsTrackingPermissionGranted(this)) {
+                trackDataViaCleanInsights()
+            }
         }
 
         updateOuinetStatus()
@@ -245,21 +249,43 @@ open class BrowserActivity : BaseActivity() {
         }.show()
     }
 
-    private fun launchCleanInsightsDialog() {
+    private fun launchCleanInsightsPermissionDialog() {
 
+        val ui = ConsentRequestUi(this)
 
-        Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-
-        val dialogView = View.inflate(this, R.layout.clean_insights_nudge_dialog, null)
-
-        AlertDialog.Builder(this@BrowserActivity).apply {
-            setView(dialogView)
-            setPositiveButton(getString(R.string.clean_insights_maybe_later)) { _, _ -> }
-            setNegativeButton(getString(R.string.clean_insights_opt_in)) { _, _ ->
-
+        cleanInsights.requestConsent("test", ui) { granted ->
+            if (!granted) return@requestConsent
+            cleanInsights.requestConsent(Feature.Lang, ui) {
+                cleanInsights.requestConsent(Feature.Ua, ui)
             }
-            create()
-        }.show()
+            trackDataViaCleanInsights()
+        }
+
+        Settings.setCleanInsightsPermissionNudgeValue(this@BrowserActivity, false)
+    }
+
+    private fun trackDataViaCleanInsights() {
+        val time = (System.currentTimeMillis() - start) / 1000.0
+
+        cleanInsights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
+        cleanInsights.measureVisit(listOf("Main"), "test")
+
+        // test code
+        cleanInsights.testServer {
+            if (it != null) {
+                Log.e("Server Test", "Exception!")
+                it.printStackTrace()
+            } else {
+                Log.i("Serer Test", "No exception - works!")
+            }
+        }
+
+        // The `Tracker` instance from the previous step
+        // The `Tracker` instance from the previous step
+        val tracker: Tracker? = (application as BrowserApplication).getTracker()
+
+        TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
+        TrackHelper.track().download().with(tracker)
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
@@ -342,52 +368,6 @@ open class BrowserActivity : BaseActivity() {
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
-
-        if (firstTime) {
-            val ui = ConsentRequestUi(this)
-
-            cleanInsights.requestConsent("test", ui) { granted ->
-                if (!granted) return@requestConsent
-
-                cleanInsights.requestConsent(Feature.Lang, ui) {
-                    cleanInsights.requestConsent(Feature.Ua, ui)
-                }
-
-                val time = (System.currentTimeMillis() - start) / 1000.0
-
-                cleanInsights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
-                cleanInsights.measureVisit(listOf("Main"), "test")
-
-                // The `Tracker` instance from the previous step
-                // The `Tracker` instance from the previous step
-                val tracker: Tracker? = (application as BrowserApplication).getTracker()
-
-                TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
-                TrackHelper.track().download().with(tracker)
-
-            }
-
-            firstTime = false
-
-        }
-        else {
-            cleanInsights.measureVisit(listOf("Main"), "test")
-        }
-
-        cleanInsights.testServer {
-            if (it != null) {
-                Log.e("Server Test", "Exception!")
-                it.printStackTrace()
-            } else {
-                Log.i("Server Test", "No exception - works!")
-            }
-        }
-
-        val tracker: Tracker? = (application as BrowserApplication).getTracker()
-
-        TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
-        TrackHelper.track().download().with(tracker)
-
 
     }
 

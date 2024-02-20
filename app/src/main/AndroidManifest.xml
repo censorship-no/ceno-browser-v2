@@ -43,9 +43,6 @@
         android:theme="@style/NormalTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ConsentsActivity"
-            android:exported="false" />
-        <activity
             android:name=".BrowserActivity"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
             android:exported="true"
