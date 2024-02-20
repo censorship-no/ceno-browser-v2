@@ -15,7 +15,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -88,7 +87,8 @@ open class BrowserActivity : BaseActivity() {
     private lateinit var crashIntegration: CrashIntegration
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
-    private val start = System.currentTimeMillis()
+    private val screenStartTime = System.currentTimeMillis()
+    private var hasOuinetStarted = false
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -205,8 +205,6 @@ open class BrowserActivity : BaseActivity() {
                 && !Settings.isCleanInsightsTrackingPermissionGranted(this)
                 && navHost.navController.currentDestination?.id == R.id.homeFragment) {
                 launchCleanInsightsPermissionDialog()
-            } else if(Settings.isCleanInsightsTrackingPermissionGranted(this)) {
-                trackDataViaCleanInsights()
             }
         }
 
@@ -258,33 +256,20 @@ open class BrowserActivity : BaseActivity() {
             cleanInsights.requestConsent(Feature.Lang, ui) {
                 cleanInsights.requestConsent(Feature.Ua, ui)
             }
-            trackDataViaCleanInsights()
         }
 
         Settings.setCleanInsightsPermissionNudgeValue(this@BrowserActivity, false)
     }
 
     private fun trackDataViaCleanInsights() {
-        val time = (System.currentTimeMillis() - start) / 1000.0
+        val time = (System.currentTimeMillis() - screenStartTime) / 1000.0
 
-        cleanInsights.measureEvent("app-state", "startup-success", "test", "time-needed", time)
-        cleanInsights.measureVisit(listOf("Main"), "test")
+        cleanInsights.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
+//        cleanInsights.measureVisit(listOf("Main"), "test")
 
-        // test code
-        cleanInsights.testServer {
-            if (it != null) {
-                Log.e("Server Test", "Exception!")
-                it.printStackTrace()
-            } else {
-                Log.i("Serer Test", "No exception - works!")
-            }
-        }
-
-        // The `Tracker` instance from the previous step
-        // The `Tracker` instance from the previous step
         val tracker: Tracker? = (application as BrowserApplication).getTracker()
 
-        TrackHelper.track().screen("/BrowserActivity").title("LandingActivity").with(tracker)
+        TrackHelper.track().screen("/BrowserActivity").title("BrowserActivity").with(tracker)
         TrackHelper.track().download().with(tracker)
     }
 
@@ -311,6 +296,10 @@ open class BrowserActivity : BaseActivity() {
                     val status = RunningState.valueOf(components.ouinet.background.getState())
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                        if(!hasOuinetStarted && status == RunningState.Started) {
+                            trackDataViaCleanInsights()
+                            hasOuinetStarted = true
+                        }
                     }
                     delay(2000)
                 }
