@@ -22,6 +22,7 @@ android {
     namespace 'ie.equalit.ceno'
 
     compileSdkVersion Config.compileSdkVersion
+    namespace 'ie.equalit.ceno'
 
     aaptOptions {
         ignoreAssetsPattern '!._'
@@ -435,6 +436,10 @@ dependencies {
     }
     implementation Deps.relinker
     /* CENO: End implement additional dependencies */
+
+    implementation 'ie.equalit.ouinet:ouisync-omni:0.7.2'
+    implementation 'net.java.dev.jna:jna:5.13.0@aar'
+    implementation 'org.msgpack:msgpack-core:0.9.5'
 
     androidTestImplementation Deps.uiautomator
     androidTestImplementation Deps.junit_ktx
