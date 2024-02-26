@@ -97,15 +97,6 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         default = TOP_SITES_MAX_COUNT
     )
 
-    var showCenoModeItem by booleanPreference(
-        appContext.getPreferenceKey(R.string.pref_key_show_ceno_mode_item),
-        default = true
-    )
-    var showThanksCard by booleanPreference(
-        appContext.getPreferenceKey(R.string.pref_key_show_thanks_card),
-        default = true
-    )
-
     var sharedPrefsReload by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_shared_prefs_reload),
         default = false
@@ -118,6 +109,16 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
 
     var showBridgeAnnouncementCard by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_bridge_announcement),
+        default = true
+    )
+
+    var isBridgeCardExpanded by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_bridge_card_expanded),
+        default = true
+    )
+
+    var isModeCardExpanded by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_mode_card_expanded),
         default = true
     )
 
