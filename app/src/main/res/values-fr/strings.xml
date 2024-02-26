@@ -163,4 +163,11 @@
     <string name="customize_add_bootstrap_save">Enregistrer</string>
     <string name="crash_report_sent">Rapport d\'erreur envoyé !</string>
     <string name="preferences_website_sources_summary">Sélectionnez l\'endroit d\'où vous souhaitez charger le contenu du site web</string>
+    <string name="customize_extra_bittorrent_bootstrap">Amorces de BitTorrent supplémentaires</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Ajouter des sources bootstraps personnalisées</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Séparer les adresses IP par des virgules</string>
+    <string name="select_extra_bt_source">Sélectionner une amorce BitTorrent supplémentaire</string>
+    <string name="set_default_search_engine">Définir le moteur de recherche par défaut</string>
+    <string name="not_applicable">Indisponible</string>
+    <string name="setting_item_selected">%s sélectionné</string>
 </resources>
