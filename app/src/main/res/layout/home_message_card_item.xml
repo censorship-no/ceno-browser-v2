@@ -24,13 +24,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/onboarding_thanks_title"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:drawableEndCompat="@drawable/ic_arrow_expanded" />
 
         <TextView
             android:id="@+id/tv_card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/onboarding_thanks_text" />
+
+        <TextView
+            android:id="@+id/btn_go_to_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="@string/home_go_to_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/ceno_home_card_public_text"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
