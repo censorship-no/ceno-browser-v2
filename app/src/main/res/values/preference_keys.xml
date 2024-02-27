@@ -36,7 +36,6 @@
     <string name="pref_key_delete_cookies_now" translatable="false">pref_key_delete_cookies_now</string>
     <string name="pref_key_delete_cache_now" translatable="false">pref_key_delete_cache_now</string>
     <string name="pref_key_delete_site_permissions" translatable="false">pref_key_delete_site_permissions</string>
-    <string name="pref_key_show_ceno_mode_item" translatable="false">pref_key_show_ceno_mode_item</string>
     <string name="pref_key_change_app_icon" translatable="false">pref_key_change_app_icon</string>
     <string name="pref_key_selected_app_icon" translatable="false">pref_key_selected_app_icon</string>
     <string name="pref_key_search_engine" translatable="false">pref_key_search_screen</string>
