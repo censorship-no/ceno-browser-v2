@@ -125,7 +125,7 @@ class SessionControlView(
 
         val messageCard = CenoMessageCard(
             text = ContextCompat.getString(view.context,R.string.enable_bridge_card_text),
-            title = ContextCompat.getString(view.context, R.string.bridge_announcement_dialog_title)
+            title = ContextCompat.getString(view.context, R.string.enable_bridge_card_title)
         )
         sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement, CenoSettings.isBridgeAnnouncementEnabled(view.context)))
         sessionControlAdapter.notifyDataSetChanged()

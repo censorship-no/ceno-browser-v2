@@ -62,7 +62,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
         val preferenceBridgeAnnouncement = getPreference(R.string.pref_key_bridge_announcement)
         preferenceBridgeAnnouncement?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncment()
-        preferenceBridgeAnnouncement?.summary = "Note that this will also make your IP publicly visible."
+        preferenceBridgeAnnouncement?.summary = getString(R.string.bridge_mode_ip_warning_text)
 
         val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
         preferenceExtraBitTorrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()

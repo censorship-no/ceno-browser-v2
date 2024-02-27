@@ -267,4 +267,6 @@
     <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings</string>
     <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge! You can enable Bridge Mode by going to Settings -> Network Details -> Enable Bridge Mode. Note that this will also make your IP publicly visible.</string>
     <string name="home_go_to_settings">Go to Settings</string>
+    <string name="enable_bridge_card_title">Enable Bridge Mode</string>
+    <string name="bridge_mode_ip_warning_text">Note that this will also make your IP publicly visible.</string>
 </resources>
