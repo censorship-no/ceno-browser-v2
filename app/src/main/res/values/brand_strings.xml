@@ -263,8 +263,8 @@
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
 
     <string name="log_export_cancelled">Log export cancelled</string>
-    <string name="bridge_announcement_dialog_text">Please wait while ceno browser service is restarted. This will only take a few seconds.</string>
-    <string name="bridge_announcement_dialog_title">Bridge Mode</string>
-    <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge. You can enable Bridge Mode by going to Settings -> Network Details -> Enable Bridge Mode. Note that this will also make your IP publicly visible.</string>
+    <string name="bridge_announcement_dialog_text">Please wait while &brandShortName; browser service is restarted for your changes to take effect.. This will only take a few seconds.</string>
+    <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings</string>
+    <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge! You can enable Bridge Mode by going to Settings -> Network Details -> Enable Bridge Mode. Note that this will also make your IP publicly visible.</string>
     <string name="home_go_to_settings">Go to Settings</string>
 </resources>
