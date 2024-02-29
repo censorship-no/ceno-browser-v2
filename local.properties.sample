@@ -2,8 +2,9 @@
 
 sdk.dir=/home/fdroid/android-sdk-linux
 
-versionName=2.0.9
-buildId=
+versionName=2.1.0
+revision=0
+fdroidBuild=false
 
 # Manually replace with your ouinet configuration parameters
 CACHE_PUB_KEY="c9fd85cfc331e9e958e749349f7902625ae6d7bb9ca77bd53e00a9ee485ed15b"
