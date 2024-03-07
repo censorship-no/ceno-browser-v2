@@ -59,7 +59,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Bridge Announcements"
+        android:title="@string/bridge_mode_category"
         android:layout="@layout/preference_category_style">
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
