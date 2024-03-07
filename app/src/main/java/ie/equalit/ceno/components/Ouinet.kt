@@ -1,7 +1,6 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
-import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
@@ -12,7 +11,6 @@ import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import mozilla.components.support.base.log.logger.Logger
-import java.util.HashSet
 
 class Ouinet (
         private val context : Context
@@ -27,10 +25,6 @@ class Ouinet (
             .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
             .setTlsCaCertStorePath(context.resources.getString(R.string.cacert_file_path))
             .setCacheType(context.resources.getString(R.string.cache_type))
-            .setLogLevel(
-                if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                        context.getString(R.string.pref_key_ceno_enable_log), false
-                    )) Config.LogLevel.DEBUG else Config.LogLevel.INFO)
             .setBtBootstrapExtras(getBtBootstrapExtras())
             .setListenOnTcp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
             .setFrontEndEp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)

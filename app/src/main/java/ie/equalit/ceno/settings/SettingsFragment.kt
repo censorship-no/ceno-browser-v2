@@ -596,11 +596,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 stringValue = null,
                 object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
-                        CenoSettings.setCenoEnableLog(requireContext(), newValue as Boolean)
-                        requireComponents.ouinet.setConfig()
                         requireComponents.cenoPreferences.sharedPrefsUpdate = true
                     }
                     override fun onError() {
+                        Log.e(TAG, "Failed to set log file to newValue: $newValue")
                     }
                 }
             )
