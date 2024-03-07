@@ -165,6 +165,7 @@ tasks.whenTaskAdded { task ->
 
 def baseBuildDate = generatedBuildDate
 def apkDate = generatedApkDate
+def revision = 0
 
 android.applicationVariants.all { variant ->
 
@@ -227,7 +228,8 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                 case 'x86_64': a = "2"; break
                 default: a = "3"; break
             }
-            def r = (localProperties['revision'] as Integer) * 2
+            revision = localProperties['revision'] as Integer
+            def r = revision * 2
             if (localProperties['fdroidBuild'].toBoolean()) {
                 r = r+1
             }
@@ -284,7 +286,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         def appId = applicationId.tokenize('.')
         def abi = output.getFilter(OutputFile.ABI)
         def version = output.versionNameOverride
-        outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
+        outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-r${revision}-${apkDate}.apk"
     }
 
     variant.assembleProvider.configure { assemble ->
