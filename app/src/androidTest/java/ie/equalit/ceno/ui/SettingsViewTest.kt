@@ -9,16 +9,16 @@ package ie.equalit.ceno.ui
 import android.os.Build
 import androidx.core.net.toUri
 import androidx.test.rule.GrantPermissionRule
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
+import ie.equalit.ceno.helpers.LogHelper
 import ie.equalit.ceno.helpers.RetryTestRule
-import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Before
 import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
 /**
  *   Tests for verifying the settings view options exist as expected:
@@ -113,7 +113,6 @@ class SettingsViewTest {
             verifyCenoBrowserServiceDisplay()
             verifyGeckoviewVersionDisplay()
             verifyOuinetVersionDisplay()
-            verifyOuinetProtocolDisplay()
             verifyAboutEqualitieButton()
             // TODO: check if that the displayed values match some patterns
         }
@@ -242,6 +241,79 @@ class SettingsViewTest {
             verifyPubliclySummary()
             verifySharedCheckbox()
             verifySharedSummary()
+        }
+    }
+
+    @Test
+    fun networkDetailsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            verifyCenoNetworkDetailsButton()
+            Thread.sleep(5000)
+        }.openSettingsViewNetworkDetails {
+            verifySourcesUpButton()
+            verifyNetworkDetailsSettings()
+            clickDownRecyclerView(3)
+            verifyGeneralHeading()
+            verifyOuinetProtocolDisplay()
+            verifyReachabilityStatusDisplay()
+            verifyUpnpStatusDisplay()
+            clickDownRecyclerView(3)
+            verifyUdpHeading()
+            verifyLocalUdpEndpointsDisplay()
+            verifyExternalUdpEndpointsDisplay()
+            verifyPublicUdpEndpointsDisplay()
+            clickDownRecyclerView(2)
+            verifyBridgeModeHeading()
+            verifyBridgeModeToggle()
+            verifyBridgeModeSummary()
+            verifyBtBootstrapsHeading()
+            verifyExtraBtBootstrapsButton()
+        }
+    }
+
+    @Test
+    fun enableLogFileTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            Thread.sleep(5000)
+            assert(LogHelper.findInLogs("[DEBUG]", 10000))
+        }
+    }
+
+    @Test
+    fun enableBridgeModeTest() {
+        /* This is a regression test for a bug found in MR !127, see this comment for more info
+        * https://gitlab.com/censorship-no/ceno-browser/-/merge_requests/127#note_1795759444
+        * */
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            verifyCenoNetworkDetailsButton()
+        }.openSettingsViewNetworkDetails {
+            clickDownRecyclerView(8)
+            Thread.sleep(2000)
+            verifyBridgeModeToggle()
+            clickBridgeModeToggle()
+            waitForBridgeModeDialog()
+            Thread.sleep(5000)
+            assert(LogHelper.findInLogs("[DEBUG] Bep5Client: Got pong from injectors, announcing as helper (bridge)"))
         }
     }
 }
