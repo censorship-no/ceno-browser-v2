@@ -313,7 +313,7 @@ object CenoSettings {
             context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
         )
 
-    private fun setCenoEnableLog(context: Context, value: Boolean) {
+    fun setCenoEnableLog(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_enable_log)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
@@ -417,6 +417,8 @@ object CenoSettings {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
                             updateOuinetStatus(context, response, shouldRefresh)
+                        else
+                            ouinetResponseListener?.onError()
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
@@ -433,6 +435,8 @@ object CenoSettings {
                     OuinetKey.EXTRA_BOOTSTRAPS -> {
                         if(response != null)
                             ouinetResponseListener?.onSuccess(stringValue ?: "")
+                        else
+                            ouinetResponseListener?.onError()
                     }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
@@ -447,16 +451,17 @@ object CenoSettings {
                                 context.resources.getString(R.string.ouinet_client_fetch_fail),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            ouinetResponseListener?.onError()
                         }
                         else {
-                            if (key == OuinetKey.LOGFILE) {
-                                context.components.cenoPreferences.sharedPrefsUpdate = true
-                            }
+                            ouinetResponseListener?.onSuccess(stringValue ?: "")
                         }
                     }
                     OuinetKey.GROUPS_TXT -> {
                         if (response != null)
                             updateCenoGroups(context, response)
+                        else
+                            ouinetResponseListener?.onError()
                     }
                 }
             }

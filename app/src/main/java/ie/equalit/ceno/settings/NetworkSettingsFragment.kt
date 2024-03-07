@@ -17,6 +17,7 @@ import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,8 +28,11 @@ import java.util.Locale
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     private var hasOuinetStopped: Boolean = false
+    private var wasLogEnabled: Boolean = false
     private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
+    private var logFileReset:Boolean = false
+    private var logLevelReset:Boolean = false
 
     // This variable stores a map of all the sources from local.properties
     private val btSourcesMap = mutableMapOf<String, String>()
@@ -61,7 +65,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val preferenceUpnpStatus = getPreference(R.string.pref_key_ouinet_upnp_status)
         val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
         val preferenceBridgeAnnouncement = getPreference(R.string.pref_key_bridge_announcement)
-        preferenceBridgeAnnouncement?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncment()
+        preferenceBridgeAnnouncement?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
         preferenceBridgeAnnouncement?.summary = getString(R.string.bridge_mode_ip_warning_text)
 
         val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
@@ -92,26 +96,81 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun setLogFileAndLevel (newValue : Boolean) {
+        // network request to update preference value
+        CenoSettings.ouinetClientRequest(
+            context = requireContext(),
+            key = OuinetKey.LOGFILE,
+            newValue = if(newValue) OuinetValue.ENABLED else OuinetValue.DISABLED,
+            null,
+            object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    logFileReset = !newValue
+                }
+                override fun onError() {
+                    /* Still flag reset complete on error, since not flagging will cause dialog to hang */
+                    logFileReset = !newValue
+                }
+            }
+        )
+        // network request to update log level based on preference value
+        CenoSettings.ouinetClientRequest(
+            context = requireContext(),
+            key = OuinetKey.LOG_LEVEL,
+            newValue = null,
+            stringValue = if(newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
+            object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    logLevelReset = !newValue
+                }
+                override fun onError() {
+                    /* Still flag reset complete on error, since not flagging will cause dialog to hang */
+                    logLevelReset = !newValue
+                }
+            }
+        )
+    }
+
     private fun monitorOuinet() {
         lifecycleScope.launch {
             while (!hasOuinetStopped) {
                 delay(DELAY_ONE_SECOND)
             }
-            if (hasOuinetStopped) {
-                requireComponents.ouinet.setConfig()
-                requireComponents.ouinet.setBackground(requireContext())
-                requireComponents.ouinet.background.startup {
-                    hasOuinetStopped = false
+            requireComponents.ouinet.setConfig()
+            requireComponents.ouinet.setBackground(requireContext())
+            requireComponents.ouinet.background.startup {
+                hasOuinetStopped = false
+                /* if debug log previously enabled, re-enable it after startup completes */
+                if (wasLogEnabled) {
+                    CenoSettings.setCenoEnableLog(requireContext(), true)
+                    setLogFileAndLevel(true)
                 }
             }
         }
     }
 
-    private fun getChangeListenerForBridgeAnnouncment(): Preference.OnPreferenceChangeListener? {
-        return Preference.OnPreferenceChangeListener { _, newValue ->
+    private fun getChangeListenerForBridgeAnnouncement(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, _ ->
+            /* Resetting the log settings is a workaround for ouinet logs disappearing after toggling bridge mode,
+            * https://gitlab.com/censorship-no/ceno-browser/-/merge_requests/127#note_1795759444
+            * TODO: identify root cause of this behavior and remove workaround
+            * */
+            wasLogEnabled = CenoSettings.isCenoLogEnabled(requireContext())
+            if (wasLogEnabled) {
+                CenoSettings.setCenoEnableLog(requireContext(), false)
+                setLogFileAndLevel(false)
+            }
             monitorOuinet()
-            requireComponents.ouinet.background.shutdown(false) {
-                hasOuinetStopped = true
+            lifecycleScope.launch {
+                if (wasLogEnabled) {
+                    while (!(logFileReset && logLevelReset)) {
+                        delay(DELAY_ONE_SECOND)
+                        println("logFileReset && logLevelReset = $logFileReset && $logLevelReset")
+                    }
+                }
+                requireComponents.ouinet.background.shutdown(false) {
+                    hasOuinetStopped = true
+                }
             }
             bridgeModeChanged = true
             bridgeAnnouncementDialog.show()

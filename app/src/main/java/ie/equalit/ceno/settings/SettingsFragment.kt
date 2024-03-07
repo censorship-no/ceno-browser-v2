@@ -55,7 +55,6 @@ import ie.equalit.ceno.utils.isExternalStorageAvailable
 import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
-import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -67,7 +66,6 @@ import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
-import mozilla.components.concept.fetch.Request
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.lib.state.ext.consumeFrom
@@ -592,9 +590,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             // network request to update preference value
             CenoSettings.ouinetClientRequest(
-                requireContext(),
-                OuinetKey.LOGFILE,
-                if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED
+                context = requireContext(),
+                key = OuinetKey.LOGFILE,
+                newValue = if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED,
+                stringValue = null,
+                object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        CenoSettings.setCenoEnableLog(requireContext(), newValue as Boolean)
+                        requireComponents.ouinet.setConfig()
+                        requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                    }
+                    override fun onError() {
+                    }
+                }
             )
 
             // network request to update log level based on preference value
