@@ -16,12 +16,12 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import org.mozilla.fenix.ui.robots.ReaderViewRobot
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.waitAndInteract
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
+import org.mozilla.fenix.ui.robots.ReaderViewRobot
 
 /**
  * Implementation of Robot Pattern for the navigation toolbar menu.
@@ -57,7 +57,6 @@ class NavigationToolbarRobot {
 
         fun openThreeDotMenu(interact: ThreeDotMenuRobot.() -> Unit): ThreeDotMenuRobot.Transition {
             /* TODO: A short wait is required in case HTTPS-by-default is not finished installing yet */
-            Thread.sleep(2000)
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_menu"),
@@ -90,6 +89,18 @@ class NavigationToolbarRobot {
             ReaderViewRobot().interact()
             return ReaderViewRobot.Transition()
         }
+
+        // TODO: this should return Robot for testings the content sources sheet
+        fun  openContentSourcesSheet(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            mDevice.findObject(
+                UiSelector()
+                    .resourceId("$packageName:id/mozac_browser_toolbar_tracking_protection_indicator"),
+            ).waitForExists(waitingTime)
+            contentSourcesButton().click()
+
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
+        }
     }
 }
 
@@ -106,6 +117,8 @@ private fun awesomeBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
 private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
 private fun readerViewButton() = onView(withId(R.id.mozac_browser_toolbar_page_actions))
+
+private fun contentSourcesButton() = onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
 
 private fun assertNoTabAddressText() {
     mDevice.waitAndInteract(Until.findObject(By.text("Search or enter address"))) {}
