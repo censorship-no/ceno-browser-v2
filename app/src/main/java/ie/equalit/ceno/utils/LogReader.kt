@@ -37,7 +37,7 @@ object LogReader {
             val timestampRegex = Regex("\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
 
             // Run logcat command
-            val process = ProcessBuilder("logcat", "-d", "*:D").start()
+            val process = ProcessBuilder("logcat", "-d", "*:V").start()
 
             // Read the output
             val reader = BufferedReader(InputStreamReader(process.inputStream))
@@ -100,7 +100,7 @@ object LogReader {
 
         try {
             // Fetch logs without timestamp filtering
-            val process = ProcessBuilder("logcat", "-d", "*:D").start()
+            val process = ProcessBuilder("logcat", "-d", "*:V").start()
 
             // Read the output
             val reader = BufferedReader(InputStreamReader(process.inputStream))
