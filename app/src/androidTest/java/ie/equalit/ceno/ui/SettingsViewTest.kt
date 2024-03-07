@@ -287,7 +287,27 @@ class SettingsViewTest {
             verifyEnableLogFile()
             clickEnableLogFile()
             Thread.sleep(5000)
+        }.goBack {
             assert(LogHelper.findInLogs("[DEBUG]", 10000))
+        }
+    }
+
+    @Test
+    fun disableLogFileTest() {
+        enableLogFileTest()
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            Thread.sleep(5000)
+        }.goBack {
+            Thread.sleep(5000)
+            assert(!LogHelper.findInLogs("[DEBUG]", 10000))
         }
     }
 
@@ -315,5 +335,25 @@ class SettingsViewTest {
             Thread.sleep(5000)
             assert(LogHelper.findInLogs("[DEBUG] Bep5Client: Got pong from injectors, announcing as helper (bridge)"))
         }
+    }
+
+    @Test
+    fun logLevelDebugAfterConnectivityChangeTest() {
+        enableLogFileTest()
+        mDevice.executeShellCommand("svc wifi disable")
+        Thread.sleep(5000)
+        mDevice.executeShellCommand("svc wifi enable")
+        Thread.sleep(15000)
+        assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
+    }
+
+    @Test
+    fun logLevelInfoAfterConnectivityChangeTest() {
+        disableLogFileTest()
+        mDevice.executeShellCommand("svc wifi disable")
+        Thread.sleep(5000)
+        mDevice.executeShellCommand("svc wifi enable")
+        Thread.sleep(15000)
+        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 20000))
     }
 }
