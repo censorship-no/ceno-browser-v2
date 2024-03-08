@@ -151,7 +151,12 @@
         android:id="@+id/homeFragment"
         android:name="ie.equalit.ceno.home.HomeFragment"
         android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_networkSettingsFragment"
+            app:destination="@id/networkSettingsFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/browserFragment"
@@ -334,7 +339,12 @@
     <fragment
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
-        android:label="NetworkSettingsFragment" />
+        android:label="NetworkSettingsFragment" >
+        <argument
+            android:name="showBridgeMode"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/websiteSourceSettingsFragment"

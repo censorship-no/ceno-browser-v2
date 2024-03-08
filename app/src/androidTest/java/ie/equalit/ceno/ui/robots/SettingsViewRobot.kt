@@ -13,15 +13,22 @@ import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import org.hamcrest.CoreMatchers.allOf
 import ie.equalit.ceno.R
-import ie.equalit.ceno.helpers.*
+import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
+import ie.equalit.ceno.helpers.assertIsChecked
+import ie.equalit.ceno.helpers.click
+import ie.equalit.ceno.helpers.hasCousin
+import org.hamcrest.CoreMatchers.allOf
 
 /**
  * Implementation of Robot Pattern for the settings menu.
@@ -70,8 +77,6 @@ class SettingsViewRobot {
     fun verifyCenoBrowserServiceDisplay(): ViewInteraction = assertCenoBrowserServiceDisplay()
     fun verifyGeckoviewVersionDisplay(): ViewInteraction = assertGeckoviewVersionDisplay()
     fun verifyOuinetVersionDisplay(): ViewInteraction = assertOuinetVersionDisplay()
-    fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
-
     fun verifyAboutEqualitieButton() = assertAboutEqualitieButton()
     fun verifySettingsRecyclerViewToExist() = waitForSettingsRecyclerViewToExist()
 
@@ -79,6 +84,8 @@ class SettingsViewRobot {
     fun verifyCustomAddonCollectionPanelExist() = assertCustomAddonCollectionPanel()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
+
+    fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
@@ -144,6 +151,13 @@ class SettingsViewRobot {
             websiteSourcesButton().click()
             SettingsViewSourcesRobot().interact()
             return SettingsViewSourcesRobot.Transition()
+        }
+
+        fun openSettingsViewNetworkDetails(interact: SettingsViewNetworkDetailsRobot.() -> Unit):
+                SettingsViewNetworkDetailsRobot.Transition {
+            cenoNetworkDetailsButton().click()
+            SettingsViewNetworkDetailsRobot().interact()
+            return SettingsViewNetworkDetailsRobot.Transition()
         }
 
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
@@ -213,8 +227,6 @@ private fun aboutHeading() = Espresso.onView(withText(R.string.about_category))
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
-private fun ouinetProtocolDisplay() = onView(withText(R.string.preferences_about_ouinet_protocol))
-
 private fun aboutEqualitieButton() = Espresso.onView(withText(R.string.preferences_about_page))
 
 private fun assertGeneralHeading() = generalHeading()
@@ -286,7 +298,6 @@ private fun assertAboutHeading() { aboutHeading()
 private fun assertCenoBrowserServiceDisplay() = cenoBrowserServiceDisplay()
 private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
-private fun assertOuinetProtocolDisplay() = ouinetProtocolDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCustomAddonCollectionPanel() {

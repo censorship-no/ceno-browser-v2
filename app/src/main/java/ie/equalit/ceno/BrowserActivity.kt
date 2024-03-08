@@ -15,6 +15,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -45,6 +46,7 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
+import ie.equalit.ceno.settings.NetworkSettingsFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
@@ -257,7 +259,7 @@ open class BrowserActivity : BaseActivity() {
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                     }
-                    delay(2000)
+                    delay(DELAY_TWO_SECONDS)
                 }
             }
         }
@@ -577,5 +579,14 @@ open class BrowserActivity : BaseActivity() {
             Logger.debug("${components.core.store.state.search.selectedOrDefaultSearchEngine}")
             Settings.setUpdateSearchEngines(this, false)
         }
+    }
+
+    fun openSettings() {
+        val bundle = bundleOf(NetworkSettingsFragment.scrollToBridge to true)
+        navHost.navController.navigate(R.id.action_homeFragment_to_networkSettingsFragment, bundle)
+    }
+
+    companion object {
+        const val DELAY_TWO_SECONDS = 2000L
     }
 }

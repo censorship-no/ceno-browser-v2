@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.CenoModeItemBinding
+import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 
 
@@ -88,13 +89,24 @@ class CenoModeViewHolder(
                 binding.tvHomeCardPublicText.visibility = View.GONE
                 binding.tvHomeCardPersonalText.visibility = View.GONE
                 binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_collapsed), null)
+                itemView.context.cenoPreferences().isModeCardExpanded = false
             } else {
                 //expand
                 binding.tvHomeCardPublicText.visibility = View.VISIBLE
                 binding.tvHomeCardPersonalText.visibility = View.VISIBLE
                 binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_expanded), null)
+                itemView.context.cenoPreferences().isModeCardExpanded = true
             }
+        }
 
+        if (itemView.context.cenoPreferences().isModeCardExpanded) {
+            binding.tvHomeCardPublicText.visibility = View.VISIBLE
+            binding.tvHomeCardPersonalText.visibility = View.VISIBLE
+            binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_expanded), null)
+        } else {
+            binding.tvHomeCardPublicText.visibility = View.GONE
+            binding.tvHomeCardPersonalText.visibility = View.GONE
+            binding.cenoModeTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(itemView.context, R.drawable.ic_arrow_collapsed), null)
         }
     }
 
