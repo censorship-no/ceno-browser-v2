@@ -236,12 +236,6 @@ class Core(private val context: Context) {
                     context.getString(R.string.default_top_site_4_url)
                 )
             )
-            defaultTopSites.add(
-                Pair(
-                    context.getString(R.string.default_top_site_5_title),
-                    context.getString(R.string.default_top_site_5_url)
-                )
-            )
         context.cenoPreferences().defaultTopSitesAdded = true
         }
 
