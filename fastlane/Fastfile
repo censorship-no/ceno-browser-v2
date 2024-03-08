@@ -27,13 +27,11 @@ platform :android do
     upload_to_play_store(
         track: 'internal',
         release_status: 'draft',
-        skip_upload_apk: 'true',
         skip_upload_aab: 'true',
         skip_upload_metadata: 'true',
         skip_upload_changelogs: 'true',
         skip_upload_images: 'true',
         skip_upload_screenshots: 'true',
-        validate_only: 'true'
     )
   
     # sh "your_script.sh"
