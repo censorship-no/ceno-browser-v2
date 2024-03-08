@@ -21,10 +21,18 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
+  desc "Upload a build to Play Store internal testing track"
+  lane :internal do
     gradle(task: "clean assembleRelease")
-    crashlytics
+    upload_to_play_store(
+        track: 'internal',
+        release_status: 'draft',
+        skip_upload_aab: 'true',
+        skip_upload_metadata: 'true',
+        skip_upload_changelogs: 'true',
+        skip_upload_images: 'true',
+        skip_upload_screenshots: 'true',
+    )
   
     # sh "your_script.sh"
     # You can also use other beta testing services here
