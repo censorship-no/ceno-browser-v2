@@ -41,7 +41,6 @@ import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.session.SessionFeature
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.ActivityResultHandler
@@ -261,16 +260,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             toolbar.displayMode()
             (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
         }
-
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
-        )
 
         tabConterView = TabCounterView(
             toolbar = binding.toolbar,

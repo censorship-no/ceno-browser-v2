@@ -150,16 +150,22 @@
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
-            android:key="@string/pref_key_privacy"
-            android:summary="@string/preferences_privacy_summary"
-            android:title="@string/tracker_category"
-            android:layout="@layout/ceno_clickable_preference"
+            android:defaultValue="false"
+            android:key="@string/pref_key_ceno_download_android_log"
+            android:title="@string/preferences_ceno_export_android_logs"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:defaultValue="false"
             android:key="@string/pref_key_ceno_download_log"
             android:title="@string/preferences_ceno_download_log"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="@string/pref_key_privacy"
+            android:summary="@string/preferences_privacy_summary"
+            android:title="@string/tracker_category"
+            android:layout="@layout/ceno_clickable_preference"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference

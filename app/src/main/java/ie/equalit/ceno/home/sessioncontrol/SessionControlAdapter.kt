@@ -34,7 +34,14 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
 
-    data class CenoAnnouncementItem(val response: RssAnnouncementResponse) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType)
+    data class CenoAnnouncementItem(val response: RssAnnouncementResponse, var mode:BrowsingMode) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType) {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newItem = (other as? CenoAnnouncementItem) ?: return false
+            if (newItem.mode != this.mode) return false
+            if (newItem.response.title != this.response.title) return false
+            return super.contentsSameAs(other)
+        }
+    }
 
     object PersonalModeDescriptionItem : AdapterItem(PersonalModeDescriptionViewHolder.homepageCardType)
 
@@ -179,7 +186,9 @@ class SessionControlAdapter internal constructor(
             }
 
             is CenoRSSAnnouncementViewHolder -> {
-                holder.bind((item as AdapterItem.CenoAnnouncementItem).response)
+                (item as AdapterItem.CenoAnnouncementItem).apply {
+                    holder.bind(this.response, this.mode)
+                }
             }
             /*
             is OnboardingSectionHeaderViewHolder -> holder.bind(

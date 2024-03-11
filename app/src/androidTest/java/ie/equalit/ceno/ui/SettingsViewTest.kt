@@ -9,15 +9,16 @@ package ie.equalit.ceno.ui
 import android.os.Build
 import androidx.core.net.toUri
 import androidx.test.rule.GrantPermissionRule
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
+import ie.equalit.ceno.helpers.LogHelper
 import ie.equalit.ceno.helpers.RetryTestRule
-import ie.equalit.ceno.helpers.TestHelper.scrollToElementByText
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
 /**
  *   Tests for verifying the settings view options exist as expected:
@@ -53,8 +54,6 @@ class SettingsViewTest {
             verifySettingsRecyclerViewToExist()
             verifyNavigateUp()
             verifyGeneralHeading()
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
             verifySearchButton()
             verifySearchSummary()
             verifyCustomizationButton()
@@ -63,22 +62,30 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
+            verifyAddOnsButton()
+            clickDownRecyclerView(6)
+            Thread.sleep(5000)
+            verifyShowOnboarding()
+            verifyCrashReportingButton()
             verifyDeleteBrowsingData()
+            clickDownRecyclerView(3)
+            Thread.sleep(5000)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                clickDownRecyclerView(1)
+                Thread.sleep(5000)
                 verifyDisableBatteryOptimization()
             }
-            verifyShowOnboarding()
-            // TODO: should make this smarter and click down list until matches some text
-            clickDownRecyclerView(13)
-            verifySourcesHeading()
-            verifyWebsiteCheckbox()
-            verifyWebsiteSummary()
-            verifyPrivatelyCheckbox()
-            verifyPrivatelySummary()
-            verifyPubliclyCheckbox()
-            verifyPubliclySummary()
-            verifySharedCheckbox()
-            verifySharedSummary()
+            //clickDownRecyclerView(5)
+            //Thread.sleep(5000)
+            //verifySourcesHeading()
+            //verifyWebsiteCheckbox()
+            //verifyWebsiteSummary()
+            //verifyPrivatelyCheckbox()
+            //verifyPrivatelySummary()
+            //verifyPubliclyCheckbox()
+            //verifyPubliclySummary()
+            //verifySharedCheckbox()
+            //verifySharedSummary()
             clickDownRecyclerView(3)
             Thread.sleep(5000)
             verifyDataHeading()
@@ -88,7 +95,7 @@ class SettingsViewTest {
             verifyContentsSharedDefaultValue()
             verifyClearCachedContentButton()
             verifyClearCachedContentSummary()
-            clickDownRecyclerView(4)
+            clickDownRecyclerView(6)
             Thread.sleep(5000)
             verifyDeveloperToolsHeading()
             verifyRemoteDebugging()
@@ -96,13 +103,16 @@ class SettingsViewTest {
             verifyCenoNetworkDetailsButton()
             verifyCenoNetworkDetailsSummary()
             verifyEnableLogFile()
-            clickDownRecyclerView(6)
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
+            clickDownRecyclerView(5)
             Thread.sleep(5000)
             verifyAboutHeading()
             verifyCenoBrowserServiceDisplay()
             verifyGeckoviewVersionDisplay()
             verifyOuinetVersionDisplay()
-            verifyOuinetProtocolDisplay()
             verifyAboutEqualitieButton()
             // TODO: check if that the displayed values match some patterns
         }
@@ -152,7 +162,10 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("Remote debugging")
+            Thread.sleep(5000)
+            clickDownRecyclerView(13)
+            Thread.sleep(5000)
+            verifyRemoteDebugging()
             toggleRemoteDebuggingOn()
             toggleRemoteDebuggingOff()
             toggleRemoteDebuggingOn()
@@ -164,7 +177,9 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About eQualitie")
+            Thread.sleep(5000)
+            clickDownRecyclerView(23)
+            Thread.sleep(5000)
         }.openAboutReferenceBrowser {
             verifyAboutBrowser()
         }
@@ -180,7 +195,9 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            scrollToElementByText("About Reference Browser")
+            Thread.sleep(5000)
+            clickDownRecyclerView(14)
+            Thread.sleep(5000)
             verifyCustomAddonCollectionButton()
             clickCustomAddonCollectionButton()
             verifyCustomAddonCollectionPanelExist()
@@ -188,6 +205,7 @@ class SettingsViewTest {
     }
 
     @Test
+    @Ignore("Disabled - too dependent on third-party UI, find some other not terrible app to test against")
     fun openLinksInAppsTest() {
         val url = "m.youtube.com"
         navigationToolbar {
@@ -202,5 +220,140 @@ class SettingsViewTest {
             verifyYouTubeApp()
         }
         mDevice.pressHome()
+    }
+
+    @Test
+    fun sourcesSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(18)
+            Thread.sleep(5000)
+        }.openSettingsViewSources {
+            verifySourcesUpButton()
+            verifySourcesSettings()
+            verifyWebsiteCheckbox()
+            verifyWebsiteSummary()
+            verifyPrivatelyCheckbox()
+            verifyPrivatelySummary()
+            verifyPubliclyCheckbox()
+            verifyPubliclySummary()
+            verifySharedCheckbox()
+            verifySharedSummary()
+        }
+    }
+
+    @Test
+    fun networkDetailsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            verifyCenoNetworkDetailsButton()
+            Thread.sleep(5000)
+        }.openSettingsViewNetworkDetails {
+            verifySourcesUpButton()
+            verifyNetworkDetailsSettings()
+            clickDownRecyclerView(3)
+            verifyGeneralHeading()
+            verifyOuinetProtocolDisplay()
+            verifyReachabilityStatusDisplay()
+            verifyUpnpStatusDisplay()
+            clickDownRecyclerView(3)
+            verifyUdpHeading()
+            verifyLocalUdpEndpointsDisplay()
+            verifyExternalUdpEndpointsDisplay()
+            verifyPublicUdpEndpointsDisplay()
+            clickDownRecyclerView(2)
+            verifyBridgeModeHeading()
+            verifyBridgeModeToggle()
+            verifyBridgeModeSummary()
+            verifyBtBootstrapsHeading()
+            verifyExtraBtBootstrapsButton()
+        }
+    }
+
+    @Test
+    fun enableLogFileTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            Thread.sleep(5000)
+        }.goBack {
+            assert(LogHelper.findInLogs("[DEBUG]", 10000))
+        }
+    }
+
+    @Test
+    fun disableLogFileTest() {
+        enableLogFileTest()
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            Thread.sleep(5000)
+        }.goBack {
+            Thread.sleep(5000)
+            assert(!LogHelper.findInLogs("[DEBUG]", 10000))
+        }
+    }
+
+    @Test
+    fun enableBridgeModeTest() {
+        /* This is a regression test for a bug found in MR !127, see this comment for more info
+        * https://gitlab.com/censorship-no/ceno-browser/-/merge_requests/127#note_1795759444
+        * */
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(16)
+            Thread.sleep(5000)
+            verifyEnableLogFile()
+            clickEnableLogFile()
+            verifyCenoNetworkDetailsButton()
+        }.openSettingsViewNetworkDetails {
+            clickDownRecyclerView(8)
+            Thread.sleep(2000)
+            verifyBridgeModeToggle()
+            clickBridgeModeToggle()
+            waitForBridgeModeDialog()
+            Thread.sleep(5000)
+            assert(LogHelper.findInLogs("[DEBUG] Bep5Client: Got pong from injectors, announcing as helper (bridge)"))
+        }
+    }
+
+    @Test
+    fun logLevelDebugAfterConnectivityChangeTest() {
+        enableLogFileTest()
+        mDevice.executeShellCommand("svc wifi disable")
+        Thread.sleep(5000)
+        mDevice.executeShellCommand("svc wifi enable")
+        Thread.sleep(15000)
+        assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
+    }
+
+    @Test
+    fun logLevelInfoAfterConnectivityChangeTest() {
+        disableLogFileTest()
+        mDevice.executeShellCommand("svc wifi disable")
+        Thread.sleep(5000)
+        mDevice.executeShellCommand("svc wifi enable")
+        Thread.sleep(15000)
+        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 20000))
     }
 }
