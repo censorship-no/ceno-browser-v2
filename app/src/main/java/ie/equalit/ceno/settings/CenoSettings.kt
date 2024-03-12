@@ -27,6 +27,7 @@ data class OuinetStatus(val auto_refresh : Boolean,
                         val injector_access : Boolean,
                         val is_upnp_active : String,
                         val local_cache_size : Int? = null,
+                        val bridge_announcement : Boolean,
                         val local_udp_endpoints : Array<String>? = null,
                         val logfile : Boolean,
                         val max_cached_age : Int,
@@ -50,6 +51,7 @@ enum class OuinetKey(val command : String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
+    LOG_LEVEL("log_level")
 }
 
 enum class OuinetValue(val string: String) {
@@ -65,17 +67,17 @@ object CenoSettings {
 
     fun getRSSAnnouncementUrl(locale: String) = "https://censorship.no/${locale}/rss-announce.xml"
 
-    private fun log2(n: Int): Double {
-        return ln(n.toDouble()) / ln(2.0)
+    private fun log2(n: Double): Double {
+        return ln(n) / ln(2.0)
     }
 
-    private fun bytesToString(b: Int): String {
+    private fun bytesToString(b: Long): String {
         // originally from <https://stackoverflow.com/a/42408230>
         // ported from extension JS code to kotlin
-        if (b == 0) {
+        if (b == 0L) {
             return "0 B"
         }
-        val i = floor(log2(b) / 10).toInt()
+        val i = floor(log2(b.toDouble()) / 10).toInt()
         val v = b / 1024.0.pow(i)
         val u =
             if (i > 0)
@@ -308,16 +310,21 @@ object CenoSettings {
 
     fun isCenoLogEnabled(context: Context) : Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_enable_log), false
+            context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
         )
 
-    private fun setCenoEnableLog(context: Context, value: Boolean) {
+    fun setCenoEnableLog(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_enable_log)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putBoolean(key, value)
             .apply()
     }
+
+    fun isBridgeAnnouncementEnabled(context: Context) : Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_bridge_announcement), false
+        )
 
     fun getCenoVersionString(context: Context) : String {
         return try {
@@ -367,7 +374,7 @@ object CenoSettings {
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)
         setCenoSourcesShared(context, status.distributed_cache)
-        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
+        setCenoCacheSize(context, bytesToString(status.local_cache_size?.toLong()!!))
         setOuinetVersion(context, status.ouinet_version)
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
@@ -410,6 +417,8 @@ object CenoSettings {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
                             updateOuinetStatus(context, response, shouldRefresh)
+                        else
+                            ouinetResponseListener?.onError()
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
@@ -426,11 +435,14 @@ object CenoSettings {
                     OuinetKey.EXTRA_BOOTSTRAPS -> {
                         if(response != null)
                             ouinetResponseListener?.onSuccess(stringValue ?: "")
+                        else
+                            ouinetResponseListener?.onError()
                     }
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
+                    OuinetKey.LOG_LEVEL,
                     OuinetKey.LOGFILE
                     -> {
                         if (response == null) {
@@ -439,16 +451,17 @@ object CenoSettings {
                                 context.resources.getString(R.string.ouinet_client_fetch_fail),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            ouinetResponseListener?.onError()
                         }
                         else {
-                            if (key == OuinetKey.LOGFILE) {
-                                context.components.cenoPreferences.sharedPrefsUpdate = true
-                            }
+                            ouinetResponseListener?.onSuccess(stringValue ?: "")
                         }
                     }
                     OuinetKey.GROUPS_TXT -> {
                         if (response != null)
                             updateCenoGroups(context, response)
+                        else
+                            ouinetResponseListener?.onError()
                     }
                 }
             }

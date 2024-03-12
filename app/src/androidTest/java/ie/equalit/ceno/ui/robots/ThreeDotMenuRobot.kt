@@ -13,13 +13,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiSelector
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
-import junit.framework.AssertionFailedError
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
+import junit.framework.Assert.assertFalse
+import junit.framework.Assert.assertTrue
+import junit.framework.AssertionFailedError
 
 /**
  * Implementation of Robot Pattern for three dot menu.
@@ -178,6 +178,19 @@ class ThreeDotMenuRobot {
 
             AddToHomeScreenRobot().interact()
             return AddToHomeScreenRobot.Transition()
+        }
+
+        // TODO: these should return Robots for testing the extension popups
+        fun openUblockOrigin(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            ublockOriginButton().click()
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
+        }
+
+        fun openHttpsByDefault(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            httpsByDefaultButton().click()
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
         }
     }
 }

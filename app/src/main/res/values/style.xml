@@ -131,6 +131,9 @@
         <item name="mozac_widget_favicon_border_color">@color/fx_mobile_border_color_primary</item>
 
         <item name="tabCounterTintColor">?attr/textPrimary</item>
+
+        <item name="announcementIconFill">@color/ceno_home_announcement_icon_fill</item>
+        <item name="announcementIconStroke">@color/ceno_home_announcement_icon_stroke</item>
     </style>
 
     <style name="BaseDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
@@ -290,6 +293,9 @@
         <item name="iconPrimary">@color/fx_mobile_private_icon_color_primary</item>
 
         <item name="tabCounterTintColor">?attr/textPrimary</item>
+
+        <item name="announcementIconFill">@color/ceno_orange_300</item>
+        <item name="announcementIconStroke">@color/ceno_orange_800</item>
     </style>
 
 </resources>

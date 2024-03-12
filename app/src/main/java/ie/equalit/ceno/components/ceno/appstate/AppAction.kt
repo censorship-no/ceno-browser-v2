@@ -9,6 +9,7 @@ import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.Action
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.home.CenoMessageCard
+import ie.equalit.ouinet.Ouinet.RunningState
 
 /** CENO: Ported from Fenix, significantly stripped down
  *  since TopSites is the only currently supported AppState
@@ -17,15 +18,12 @@ import ie.equalit.ceno.home.CenoMessageCard
 sealed class AppAction : Action {
 
     data class Change(
-        val topSites: List<TopSite>,
-        val showCenoModeItem: Boolean,
-        val showThanksCard: Boolean
+        val topSites: List<TopSite>
     ) : AppAction()
 
     data class TopSitesChange(val topSites: List<TopSite>) : AppAction()
-    object RemoveCenoModeItem : AppAction()
-
-    data class RemoveThanksCard(val showThanksCard: Boolean) : AppAction()
-
     data class ModeChange(val mode: BrowsingMode) : AppAction()
+    data class OuinetStatusChange(val status: RunningState) : AppAction()
+
+    data class BridgeCardChange(val showCard: Boolean) : AppAction()
 }

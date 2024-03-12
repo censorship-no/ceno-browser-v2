@@ -7,22 +7,26 @@ package ie.equalit.ceno.home.announcements
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.RssAnnouncementSubItemBinding
 import ie.equalit.ceno.ext.click
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.ext.getContentFromATag
-import ie.equalit.ceno.ext.replace
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.XMLParser
-import mozilla.components.support.base.log.logger.Logger
 
-class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteractor) : ListAdapter<RssItem, RssAnnouncementSubAdapter.RssSubItemViewHolder>(RssItemDiffCallback) {
+class RssAnnouncementSubAdapter(
+    private val homePageInteractor: HomePageInteractor,
+    var mode: BrowsingMode
+) : ListAdapter<RssItem, RssAnnouncementSubAdapter.RssSubItemViewHolder>(RssItemDiffCallback) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -32,7 +36,7 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
     }
 
     override fun onBindViewHolder(holder: RssSubItemViewHolder, position: Int) {
-        holder.bind(getItem(position), homePageInteractor)
+        holder.bind(getItem(position), homePageInteractor, mode)
     }
 
     internal object RssItemDiffCallback : DiffUtil.ItemCallback<RssItem>() {
@@ -47,7 +51,15 @@ class RssAnnouncementSubAdapter(private val homePageInteractor: HomePageInteract
         val binding: RssAnnouncementSubItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(rssItem: RssItem, homePageInteractor: HomePageInteractor) {
+        fun bind(rssItem: RssItem, homePageInteractor: HomePageInteractor, mode: BrowsingMode) {
+            if (mode.isPersonal) {
+                binding.itemDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_300))
+                binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_200))
+            } else {
+                binding.itemDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_timestamp_color))
+                binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_message))
+            }
+
             binding.itemDate.text = rssItem.pubDate
 
             var descriptionText = rssItem.description

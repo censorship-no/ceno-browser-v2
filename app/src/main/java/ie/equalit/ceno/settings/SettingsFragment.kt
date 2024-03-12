@@ -7,19 +7,29 @@ package ie.equalit.ceno.settings
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -27,16 +37,30 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getAutofillPreference
+import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getSizeInMB
+import ie.equalit.ceno.ext.getSwitchPreferenceCompat
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
+import ie.equalit.ceno.utils.LogReader
+import ie.equalit.ceno.utils.isExternalStorageAvailable
+import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
+import ie.equalit.ouinet.Config
 import io.sentry.android.core.SentryAndroid
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
@@ -44,20 +68,22 @@ import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
+import java.io.File
 import kotlin.system.exitProcess
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs: CenoPreferences
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
 
-    private lateinit var runnable: Runnable
-    private var handler = Handler(Looper.getMainLooper())
+    private var job: Job? = null
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -90,6 +116,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     it.isEnabled = !(it.isEnabled)
                 }
                 getPreference(pref_key_ceno_download_log)?.let {
+                    it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+                    it.isEnabled = !(it.isEnabled)
+                    it.isEnabled = !(it.isEnabled)
+                }
+                getPreference(pref_key_ceno_download_android_log)?.let {
                     it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
                     it.isEnabled = !(it.isEnabled)
                     it.isEnabled = !(it.isEnabled)
@@ -131,6 +162,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
+
+        view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
+            getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
+                CenoSettings.getOuinetState(requireContext())
+            }
+        }
+
+
     }
 
     override fun onRequestPermissionsResult(
@@ -138,6 +178,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
         permissions: Array<String>,
         grantResults: IntArray,
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CODE_STORAGE_PERMISSIONS) {
+            if (grantResults.isNotEmpty()) {
+                val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                if (read && write) {
+                    // Permission granted!
+                    exportAndroidLogs()
+                } else {
+                    // show toast for permission denied
+                    Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+                }
+            }
+            return
+        }
+
         val feature: PermissionsFeature? = when (requestCode) {
             AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
             else -> null
@@ -147,54 +204,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
-        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
+        cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(
+            sharedPreferencesChangeListener
+        )
         setupPreferences()
         setupCenoSettings()
         getActionBar().apply {
             show()
             setTitle(settings)
             setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
-        }
-
-        runnable = Runnable {
-            viewLifecycleOwner.lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    /* Fetch ouinet status without refreshing... */
-                    CenoSettings.ouinetClientRequest(
+            setBackgroundDrawable(
+                ColorDrawable(
+                    ContextCompat.getColor(
                         requireContext(),
-                        OuinetKey.API_STATUS,
-                        ouinetResponseListener = object : OuinetResponseListener {
-                            override fun onSuccess(message: String, data: Any?) {
-                            }
-                            override fun onError() {
-                                CenoSettings.setOuinetState(requireContext(), "stopped")
-                            }
-                        },
-                        shouldRefresh = false
+                        R.color.ceno_action_bar
                     )
-                    withContext(Dispatchers.Main) {
-
-                        /* Update summary text for Browser Service */
-                        getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
-                            CenoSettings.getOuinetState(requireContext())
-                        }
-
-                        Logger.debug("Browser Service status updated via ${BROWSER_SERVICE_REFRESH_DELAY / 1000} second background refresh")
-                        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
-                    }
-                }
-            }
+                )
+            )
         }
-
-        handler.postDelayed(runnable, BROWSER_SERVICE_REFRESH_DELAY)
     }
 
     override fun onPause() {
         super.onPause()
         cenoPrefs.preferences.unregisterOnSharedPreferenceChangeListener(sharedPreferencesChangeListener)
         cenoPrefs.sharedPrefsReload = false
-        handler.removeCallbacks(runnable)
     }
 
     private fun setupPreferences() {
@@ -261,6 +294,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+        getPreference(pref_key_ceno_download_android_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         getPreference(pref_key_about_ceno)?.summary = CenoSettings.getCenoVersionString(requireContext())
         getPreference(pref_key_about_geckoview)?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
 
@@ -272,6 +306,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_log), false)
+            setPreference(getPreference(pref_key_ceno_download_android_log), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
         } else {
@@ -304,12 +339,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(
                 getPreference(pref_key_ceno_enable_log),
                 true,
-                changeListener = getChangeListenerForCenoSetting(OuinetKey.LOGFILE)
+                changeListener = getChangeListenerForLogFileToggle()
             )
             setPreference(
                 getPreference(pref_key_ceno_download_log),
                 true,
-                clickListener = getClickListenerForCenoDownloadLog()
+                clickListener = getClickListenerForOuinetLogExport()
+            )
+            setPreference(
+                getPreference(pref_key_ceno_download_android_log),
+                true,
+                clickListener = getClickListenerForAndroidLogExport()
             )
             getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                 CenoSettings.getOuinetBuildId(requireContext())
@@ -418,6 +458,40 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
+    private fun getClickListenerForAndroidLogExport(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+
+            when {
+                !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
+
+                    // storage not available
+                    Toast.makeText(requireContext(), getString(no_external_storage), Toast.LENGTH_LONG).show()
+                }
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
+                    || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
+
+                    // permission not granted, dynamically request for permission
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(getString(onboarding_battery_title))
+                        setMessage(getString(write_storage_permission_text))
+                        setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ ->
+                            // show toast for permission denied
+                            Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+                        }
+                        setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                            requireComponents.permissionHandler.requestPermissionForExternalStorage(this@SettingsFragment, storageActivityResultLauncher)
+                        }
+                        create()
+                    }.show()
+                }
+                else -> {
+                    exportAndroidLogs()
+                }
+            }
+            true
+        }
+    }
+
     private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             val context = requireContext()
@@ -511,14 +585,32 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getChangeListenerForCenoSetting(key: OuinetKey): OnPreferenceChangeListener {
+    private fun getChangeListenerForLogFileToggle(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
-            val value = if (newValue == true) {
-                OuinetValue.ENABLED
-            } else {
-                OuinetValue.DISABLED
-            }
-            CenoSettings.ouinetClientRequest(requireContext(), key, value)
+
+            // network request to update preference value
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.LOGFILE,
+                newValue = if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED,
+                stringValue = null,
+                object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                    }
+                    override fun onError() {
+                        Log.e(TAG, "Failed to set log file to newValue: $newValue")
+                    }
+                }
+            )
+
+            // network request to update log level based on preference value
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.LOG_LEVEL,
+                stringValue = if(newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
+            )
+
             true
         }
     }
@@ -550,22 +642,191 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForCenoDownloadLog(): OnPreferenceClickListener {
+    private fun getClickListenerForOuinetLogExport(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             val store = requireComponents.core.store
             val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
             val download = DownloadState(logUrl)
-            createTab(logUrl).apply {
-                store.dispatch(TabListAction.AddTabAction(this, select = true))
-                store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
-            }
-            (activity as BrowserActivity).openToBrowser()
+
+            // prompt the user to view or download
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(context.getString(preferences_ceno_download_log))
+                setMessage(context.getString(ouinet_log_file_prompt_desc))
+                setNegativeButton(getString(download_logs)) { _, _ ->
+                    createTab(logUrl).apply {
+                        store.dispatch(TabListAction.AddTabAction(this, select = true))
+                        store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
+                    }
+                    (activity as BrowserActivity).openToBrowser()
+                }
+                setPositiveButton(getString(view_logs)) { _, _ ->
+                    createTab(logUrl).apply {
+                        store.dispatch(TabListAction.AddTabAction(this, select = true))
+                    }
+                    (activity as BrowserActivity).openToBrowser()
+                }
+                create()
+            }.show()
             true
+        }
+    }
+
+    private fun exportAndroidLogs() {
+        /*
+        To test the scrubbing locally, uncomment the lines below
+        These test logs would be in the last lines of the generated logs and can thus be analyzed
+        */
+
+//                    val logTag = "test"
+//
+//                    Log.d(logTag,"Phone number: 123-456-7890")
+//                    Log.d(logTag,"Email address: sample@samplemail.com")
+//                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
+//                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
+//                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
+//                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
+
+        // Ask user to choose log filter
+        val logTimeFilterDialogView = View.inflate(context, R.layout.select_logtime_filter, null)
+        val radio5Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_5_minutes)
+        val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
+
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(select_log_scope_header)
+            setMessage(select_log_scope_message)
+            setView(logTimeFilterDialogView)
+            setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setPositiveButton(onboarding_battery_button) { _, _ ->
+
+                // Initialize Android logs
+
+                var logs: MutableList<String>
+                var logString: String
+                var file: File?
+
+                val progressDialogView = View.inflate(context, R.layout.progress_dialog, null)
+                val progressView = progressDialogView.findViewById<ProgressBar>(R.id.progress_bar)
+
+                val progressDialog = AlertDialog.Builder(requireContext())
+                    .setView(progressDialogView)
+                    .create()
+                    .apply {
+                        setOnDismissListener {
+                            Toast.makeText(requireContext(), getString(R.string.log_export_cancelled), Toast.LENGTH_LONG).show()
+                            job?.cancel()
+                            dismiss()
+                        }
+                        progressDialogView.findViewById<ImageButton>(R.id.cancel).setOnClickListener { dismiss() }
+                    }
+
+                job = viewLifecycleOwner.lifecycleScope.launch {
+
+                    withContext(Dispatchers.Main) {
+
+                        progressDialog.show()
+                        withContext(Dispatchers.IO) {
+                            logs = LogReader.getLogEntries(
+                                when {
+                                    radio5Button.isChecked -> LOGS_LAST_5_MINUTES
+                                    radio10Button.isChecked -> LOGS_LAST_10_MINUTES
+                                    else -> null
+                                }
+                            ) { p ->
+                                run {
+                                    try {
+                                        progressView.progress = p
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                            }.toMutableList()
+
+                            logString = logs.joinToString("\n")
+
+                            Log.d(TAG, "Log content size: ${logString.getSizeInMB()} MB")
+
+                            // save file to external storage
+                            file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
+
+                            file?.writeText(logString)
+
+                            withContext(Dispatchers.Main) {
+
+                                progressDialog.setOnDismissListener {  } // reset dismissListener
+
+                                progressView.progress = 100
+                                delay(200)
+
+                                progressDialog.dismiss()
+
+                                // prompt the user to view or share
+                                AlertDialog.Builder(requireContext()).apply {
+                                    setTitle(context.getString(ceno_log_file_saved))
+                                    setMessage(context.getString(ceno_log_file_saved_desc))
+                                    setNegativeButton(getString(share_logs)) { _, _ ->
+                                        if (file?.exists() == true) {
+
+                                            val uri = FileProvider.getUriForFile(
+                                                requireContext(),
+                                                ie.equalit.ceno.BuildConfig.APPLICATION_ID + ".provider",
+                                                file!!
+                                            )
+                                            val intent = Intent(Intent.ACTION_SEND)
+                                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                            intent.setType("*/*")
+                                            intent.putExtra(Intent.EXTRA_STREAM, uri)
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent)
+                                        }
+                                    }
+                                    setPositiveButton(getString(view_logs)) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.action_settingsFragment_to_androidLogFragment,
+                                            bundleOf().apply {
+                                                putStringArrayList(LOG, ArrayList(logs))
+                                            }
+                                        )
+                                    }
+                                    create()
+                                }.show()
+                            }
+                        }
+                    }
+                }
+            }
+            create()
+            show()
+        }
+    }
+
+    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                // Permission granted!
+                exportAndroidLogs()
+            } else {
+                // show toast for permission denied
+                Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            //Below android 11
+            if(requireComponents.permissionHandler.isStoragePermissionGranted()) {
+                // Permission granted!
+                exportAndroidLogs()
+            }
         }
     }
 
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
-        private const val BROWSER_SERVICE_REFRESH_DELAY = 5000L
+        private const val TAG = "SettingsFragment"
+        const val LOG = "log"
+
+        const val LOG_FILE_SIZE_LIMIT_MB = 20.0
+
+        const val LOGS_LAST_5_MINUTES = 300000L
+        const val LOGS_LAST_10_MINUTES = 600000L
+
+        const val AVERAGE_TOTAL_LOGS = 3000F
     }
 }

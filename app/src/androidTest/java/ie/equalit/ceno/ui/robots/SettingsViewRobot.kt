@@ -13,15 +13,22 @@ import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import org.hamcrest.CoreMatchers.allOf
 import ie.equalit.ceno.R
-import ie.equalit.ceno.helpers.*
+import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
+import ie.equalit.ceno.helpers.assertIsChecked
+import ie.equalit.ceno.helpers.click
+import ie.equalit.ceno.helpers.hasCousin
+import org.hamcrest.CoreMatchers.allOf
 
 /**
  * Implementation of Robot Pattern for the settings menu.
@@ -42,19 +49,11 @@ class SettingsViewRobot {
     fun verifyMakeDefaultBrowserButton() = assertMakeDefaultBrowserButton()
     fun verifyAutofillAppsButton() = assertAutofillAppsButton()
     fun verifyAutofillAppsSummary() = assertAutofillAppsSummary()
+    fun verifyAddOnsButton() = assertAddOnsButton()
     fun verifyDeleteBrowsingData(): ViewInteraction = assertDeleteBrowsingData()
     fun verifyDisableBatteryOptimization(): Unit = assertDisableBatteryOptimizationButton()
     fun verifyShowOnboarding(): ViewInteraction = assertShowOnboarding()
-
-    fun verifySourcesHeading(): ViewInteraction = assertSourcesHeading()
-    fun verifyWebsiteCheckbox(): ViewInteraction = assertWebsiteCheckbox()
-    fun verifyWebsiteSummary(): ViewInteraction = assertWebsiteSummary()
-    fun verifyPrivatelyCheckbox(): ViewInteraction = assertPrivatelyCheckbox()
-    fun verifyPrivatelySummary(): ViewInteraction = assertPrivatelySummary()
-    fun verifyPubliclyCheckbox(): ViewInteraction = assertPubliclyCheckbox()
-    fun verifyPubliclySummary(): ViewInteraction = assertPubliclySummary()
-    fun verifySharedCheckbox(): ViewInteraction = assertSharedCheckbox()
-    fun verifySharedSummary(): ViewInteraction = assertSharedSummary()
+    fun verifyCrashReportingButton() = assertCrashReportingButton()
 
     fun verifyDataHeading(): ViewInteraction = assertDataHeading()
     fun verifyLocalCacheDisplay(): ViewInteraction = assertLocalCacheDisplay()
@@ -70,14 +69,14 @@ class SettingsViewRobot {
     fun verifyCenoNetworkDetailsButton(): ViewInteraction = assertCenoNetworkDetailsButton()
     fun verifyCenoNetworkDetailsSummary(): ViewInteraction = assertCenoNetworkDetailsSummary()
     fun verifyEnableLogFile(): ViewInteraction = assertEnableLogFile()
+    fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
+    fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
 
     fun verifyAboutHeading() = assertAboutHeading()
 
     fun verifyCenoBrowserServiceDisplay(): ViewInteraction = assertCenoBrowserServiceDisplay()
     fun verifyGeckoviewVersionDisplay(): ViewInteraction = assertGeckoviewVersionDisplay()
     fun verifyOuinetVersionDisplay(): ViewInteraction = assertOuinetVersionDisplay()
-    fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
-
     fun verifyAboutEqualitieButton() = assertAboutEqualitieButton()
     fun verifySettingsRecyclerViewToExist() = waitForSettingsRecyclerViewToExist()
 
@@ -85,6 +84,8 @@ class SettingsViewRobot {
     fun verifyCustomAddonCollectionPanelExist() = assertCustomAddonCollectionPanel()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
+
+    fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
@@ -118,6 +119,13 @@ class SettingsViewRobot {
         }
         */
 
+        fun openSettingsViewSearch(interact: SettingsViewSearchRobot.() -> Unit):
+                SettingsViewSearchRobot.Transition {
+            searchButton().click()
+            SettingsViewSearchRobot().interact()
+            return SettingsViewSearchRobot.Transition()
+        }
+
         fun makeDefaultBrowser(interact: ExternalAppsRobot.() -> Unit):
                 ExternalAppsRobot.Transition {
             makeDefaultBrowserButton().click()
@@ -136,6 +144,20 @@ class SettingsViewRobot {
             aboutEqualitieButton().click()
             BrowserRobot().interact()
             return BrowserRobot.Transition()
+        }
+
+        fun openSettingsViewSources(interact: SettingsViewSourcesRobot.() -> Unit):
+                SettingsViewSourcesRobot.Transition {
+            websiteSourcesButton().click()
+            SettingsViewSourcesRobot().interact()
+            return SettingsViewSourcesRobot.Transition()
+        }
+
+        fun openSettingsViewNetworkDetails(interact: SettingsViewNetworkDetailsRobot.() -> Unit):
+                SettingsViewNetworkDetailsRobot.Transition {
+            cenoNetworkDetailsButton().click()
+            SettingsViewNetworkDetailsRobot().interact()
+            return SettingsViewNetworkDetailsRobot.Transition()
         }
 
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
@@ -165,26 +187,23 @@ private fun recycleView() = onView(withId(R.id.recycler_view))
 private fun generalHeading() = onView(withText(R.string.general_category))
 private fun trackingProtectionButton() = onView(withText(R.string.tracker_category))
 private fun trackingProtectionSummary() = onView(withText(R.string.preferences_privacy_summary))
-private fun searchButton() = onView(withText(R.string.preference_category_search))
-private fun searchSummary() = onView(withText(R.string.preference_search_summary))
+private fun searchButton() = onView(withText(R.string.set_default_search_engine))
+private fun searchSummary() = onView(withText("DuckDuckGo selected"))
+//TODO: check for different search engines when they are set
 private fun customizationButton() = onView(withText(R.string.preferences_customization))
 private fun customizationSummary() = onView(withText(R.string.preferences_customization_summary))
 private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
 private fun makeDefaultBrowserButton() = Espresso.onView(withText(R.string.preferences_make_default_browser))
 private fun autofillAppsButton() = onView(withText("Autofill apps"))
 private fun autofillAppsSummary() = onView(withText("Autofill logins and passwords in other apps"))
+
+private fun addOnsButton() = onView(withText(R.string.preferences_add_ons))
 private fun deleteBrowsingDataButton() =  onView(withText(R.string.preferences_delete_browsing_data))
 private fun showOnboardingToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_show_onboarding))))
 
+private fun crashReportingButton() = onView(withText(R.string.preferences_allow_crash_reporting))
+
 private fun sourcesHeading() = onView(withText(R.string.ceno_sources_category))
-private fun websiteCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_origin))))
-private fun websiteSummary() = onView(withText(R.string.preferences_ceno_sources_origin_summary))
-private fun privatelyCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_private))))
-private fun privatelySummary() = onView(withText(R.string.preferences_ceno_sources_private_summary))
-private fun publiclyCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_public))))
-private fun publiclySummary() = onView(withText(R.string.preferences_ceno_sources_public_summary))
-private fun sharedCheckbox() = onView(allOf(withId(android.R.id.checkbox), hasCousin(withText(R.string.preferences_ceno_sources_peers))))
-private fun sharedSummary() = onView(withText(R.string.preferences_ceno_sources_peers_summary))
 
 private fun dataHeading() = onView(withText(R.string.ceno_data_category))
 private fun localCacheDisplay() = onView(withText(R.string.preferences_ceno_cache_size))
@@ -201,12 +220,13 @@ private fun cenoNetworkDetailsButton() = onView(withText(R.string.preferences_ce
 private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_ceno_network_config_summary))
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
 
+private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
+private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
+
 private fun aboutHeading() = Espresso.onView(withText(R.string.about_category))
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
-private fun ouinetProtocolDisplay() = onView(withText(R.string.preferences_about_ouinet_protocol))
-
 private fun aboutEqualitieButton() = Espresso.onView(withText(R.string.preferences_about_page))
 
 private fun assertGeneralHeading() = generalHeading()
@@ -234,6 +254,8 @@ private fun assertAutofillAppsButton() = autofillAppsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAutofillAppsSummary() = autofillAppsSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAddOnsButton() = addOnsButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDeleteBrowsingData() = deleteBrowsingDataButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDisableBatteryOptimizationButton() {
@@ -241,24 +263,7 @@ private fun assertDisableBatteryOptimizationButton() {
 }
 private fun assertShowOnboarding() = showOnboardingToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertSourcesHeading() = sourcesHeading()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertWebsiteCheckbox() = websiteCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertWebsiteSummary() = websiteSummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPrivatelyCheckbox() = privatelyCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPrivatelySummary() = privatelySummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPubliclyCheckbox() = publiclyCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertPubliclySummary() = publiclySummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertSharedCheckbox() = sharedCheckbox()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertSharedSummary() = sharedSummary()
+private fun assertCrashReportingButton() = crashReportingButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertDataHeading() = dataHeading()
@@ -282,6 +287,10 @@ private fun assertCenoNetworkDetailsSummary() = cenoNetworkDetailsSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertEnableLogFile() = enableLogFile()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertWebsiteSourcesButton() = websiteSourcesButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertAboutHeading() { aboutHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
@@ -289,7 +298,6 @@ private fun assertAboutHeading() { aboutHeading()
 private fun assertCenoBrowserServiceDisplay() = cenoBrowserServiceDisplay()
 private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
-private fun assertOuinetProtocolDisplay() = ouinetProtocolDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCustomAddonCollectionPanel() {

@@ -5,28 +5,30 @@ import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
+import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import mozilla.components.support.base.log.logger.Logger
-import java.util.HashSet
 
 class Ouinet (
         private val context : Context
     ) {
 
-    val config: Config by lazy {
-        Config.ConfigBuilder(context)
+    lateinit var config: Config
+
+    fun setConfig() {
+        config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
             .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
             .setTlsCaCertStorePath(context.resources.getString(R.string.cacert_file_path))
             .setCacheType(context.resources.getString(R.string.cache_type))
-            .setLogLevel(Config.LogLevel.DEBUG)
             .setBtBootstrapExtras(getBtBootstrapExtras())
             .setListenOnTcp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
             .setFrontEndEp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
+            .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .build()
     }
 

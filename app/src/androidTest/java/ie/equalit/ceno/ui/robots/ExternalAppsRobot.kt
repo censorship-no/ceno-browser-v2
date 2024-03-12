@@ -4,16 +4,10 @@
 
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import junit.framework.Assert.assertTrue
-import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTimeShort
 import ie.equalit.ceno.helpers.TestHelper.packageName
@@ -24,7 +18,6 @@ import ie.equalit.ceno.helpers.TestHelper.packageName
 class ExternalAppsRobot {
     fun verifyAndroidDefaultApps() = assertDefaultAppsLayout()
     fun verifyAndroidAutofillServices() = assertAutofillServices()
-    //fun verifyFxAQrCode() = assertFXAQrCode()
     fun verifyYouTubeApp() = assertYouTubeApp()
 
     class Transition {
@@ -68,12 +61,3 @@ private fun assertYouTubeApp() {
         )
     }
 }
-
-/*
-private fun assertFXAQrCode() {
-    onView(withText(R.string.pair_preferences))
-        .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-    onView(withText(R.string.pair_instructions))
-        .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-}
-*/

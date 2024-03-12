@@ -20,6 +20,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
@@ -40,7 +41,6 @@ import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.session.SessionFeature
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
 import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.ActivityResultHandler
@@ -261,16 +261,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
         }
 
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
-        )
-
         tabConterView = TabCounterView(
             toolbar = binding.toolbar,
             sessionId = sessionId,
@@ -320,11 +310,35 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
 
     fun applyTheme() {
         //modify clear ceno button color
-        clearCenoAction.updateIconColor(themeManager.getContext())
+        if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+            clearCenoAction.updateIconColor(themeManager.getContext())
+        }
         //modify tab counter icon color
         tabConterView.update()
         //modify rest of the toolbar
         themeManager.applyTheme(binding.toolbar)
+    }
+
+    internal fun updateSearch(mode: BrowsingMode) {
+        if (Settings.shouldShowSearchSuggestions(requireContext())) {
+            awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
+            awesomeBar.addProviders(
+                SearchSuggestionProvider(
+                    requireContext(),
+                    requireComponents.core.store,
+                    searchUseCase = if (themeManager.currentMode.isPersonal) {
+                        requireComponents.useCases.searchUseCases.newPrivateTabSearch
+                    } else {
+                        requireComponents.useCases.searchUseCases.newTabSearch
+                    },
+                    fetchClient = requireComponents.core.client,
+                    limit = 5,
+                    mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
+                    engine = requireComponents.core.engine,
+                    filterExactMatch = true,
+                )
+            )
+        }
     }
 
     @CallSuper

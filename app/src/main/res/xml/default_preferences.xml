@@ -33,4 +33,7 @@
     <androidx.preference.CheckBoxPreference
         android:key="@string/pref_key_ceno_sources_origin"
         android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_ceno_enable_log"
+        android:defaultValue="false" />
 </PreferenceScreen>

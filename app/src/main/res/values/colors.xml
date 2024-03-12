@@ -5,29 +5,42 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
     <!-- TODO: A lot of these colors are unused, hence blanket ignore, 
             need to remove all unused colors -->
-    <color name="placeholder_grey">#777777</color>
+
     <color name="accent">#ff00BCD4</color>
 
     <color name="icons">#ffffffff</color>
 
-    <!-- Overriding color of tab counter icon in toolbar -->
-    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
+    <!-- Home -->
+    <color name="ceno_home_background">@color/ceno_grey_800</color>
+    <color name="ceno_home_card_background_tint">@color/ceno_grey_700</color>
+    <color name="ceno_home_card_public_text">@color/ceno_blue_300</color>
+    <color name="ceno_home_card_personal_text">@color/ceno_purple_300</color>
+    <color name="ceno_home_card_text_color">@color/ceno_grey_300</color>
+    <color name="ceno_mode_selected_green">#23AB01</color>
+    <color name="ceno_browsing_mode_card_border">@color/ceno_grey_500</color>
 
-    <color name="ceno_home_background">#F0F0F4</color>
-    <color name="ceno_home_card_public_text">@color/ceno_blue_600</color>
-    <color name="ceno_home_card_personal_text">@color/ceno_purple_600</color>
-    <color name="ceno_home_card_background_tint">@color/photonWhite</color>
-    <color name="ceno_home_card_text_color">@color/photonBlack</color>
-    <color name="ceno_home_card_announcement_title_color">#FB923C</color>
-    <color name="ceno_home_card_announcement_timestamp_color">#B5B5B5</color>
+
+    <color name="ceno_home_card_announcement_title_color">@color/ceno_orange_200</color>
+    <color name="ceno_home_card_announcement_title_background">@color/ceno_orange_800</color>
+    <color name="ceno_home_card_announcement_timestamp_color">@color/ceno_orange_300</color>
+    <color name="ceno_home_card_announcement_message">@color/ceno_orange_200</color>
+    <color name="home_card_announcements_background">@color/ceno_orange_900</color>
+    <color name="ceno_home_announcement_icon_fill">@color/ceno_orange_300</color>
+    <color name="ceno_home_announcement_icon_stroke">@color/ceno_orange_800</color>
+
     <color name="ceno_onboarding_button_text_color">@color/photonWhite</color>
-    <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
-    <color name="ceno_onboarding_background">#F0F9FF</color>
-    <color name="ceno_onboarding_text">#5F5F5F</color>
-    <color name="ceno_onboarding_button">#027DBD</color>
-    <color name="home_card_close_button">@color/photonDarkGrey70</color>
-    <color name="home_card_announcements_background">#FFF7ED</color>
 
+    <color name="ceno_action_bar">@color/fx_mobile_layer_color_1</color>
+
+    <color name="ceno_onboarding_background">@color/ceno_blue_50</color>
+    <color name="ceno_onboarding_text">@color/ceno_grey_700</color>
+    <color name="ceno_onboarding_button">@color/ceno_blue_600</color>
+
+    <color name="ceno_standby_background">@color/ceno_grey_800</color>
+    <color name="ceno_standby_logo_color">@color/ceno_blue_300</color>
+
+
+    <color name="ceno_blue_50">#F0F9FF</color>
     <color name="ceno_blue_100">#E0F2FE</color>
     <color name="ceno_blue_200">#BAE6FD</color>
     <color name="ceno_blue_300">#7DD3FC</color>
@@ -35,12 +48,31 @@
 
     <color name="ceno_purple_100">#E1BEE7</color>
     <color name="ceno_purple_200">#D698E0</color>
+    <color name="ceno_purple_300">#C47DD0</color>
     <color name="ceno_purple_600">#9826AB</color>
     <color name="ceno_purple_700">#751A85</color>
     <color name="ceno_purple_800">#53115F</color>
     <color name="ceno_purple_900">#320B39</color>
 
+    <color name="ceno_grey_50">#F3F3F3</color>
+    <color name="ceno_grey_100">#E7E7E7</color>
     <color name="ceno_grey_200">#D2D2D2</color>
+    <color name="ceno_grey_300">#B5B5B5</color>
+    <color name="ceno_grey_400">#9C9C9D</color>
+    <color name="ceno_grey_500">#848384</color>
+    <color name="ceno_grey_700">#525253</color>
+    <color name="ceno_grey_800">#39393B</color>
+    <color name="ceno_grey_900">#08080A</color>
+
+    <color name="ceno_orange_50">#FFF7ED</color>
+    <color name="ceno_orange_100">#FFEDD5</color>
+    <color name="ceno_orange_200">#FED7AA</color>
+    <color name="ceno_orange_300">#FDBA74</color>
+    <color name="ceno_orange_400">#FB923C</color>
+    <color name="ceno_orange_500">#F97316</color>
+    <color name="ceno_orange_700">#C2410C</color>
+    <color name="ceno_orange_800">#9A3412</color>
+    <color name="ceno_orange_900">#7C2D12</color>
 
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
@@ -49,11 +81,11 @@
 
     <!-- Layers -->
     <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->
-    <color name="fx_mobile_layer_color_1">@color/photonDarkGrey60</color>
+    <color name="fx_mobile_layer_color_1">@color/ceno_grey_700</color>
     <!-- Card background, Menu background, Dialog, Banner -->
-    <color name="fx_mobile_layer_color_2">@color/photonDarkGrey30</color>
+    <color name="fx_mobile_layer_color_2">@color/ceno_grey_800</color>
     <!-- Search -->
-    <color name="fx_mobile_layer_color_3">@color/photonDarkGrey80</color>
+    <color name="fx_mobile_layer_color_3">@color/ceno_grey_900</color>
     <!-- App Bar Top (edit), Text Cursor, Selected Tab Check -->
     <color name="fx_mobile_layer_color_accent">@color/accent</color>
     <!-- Selected tab -->
@@ -365,6 +397,11 @@
     <color name="ic_launcher_white_background">#FDFDFD</color>
     <color name="ic_launcher_blue_background">#0EA5E9</color>
     <color name="ic_launcher_red_background">#F0412F</color>
+    
+    <!--  Ceno sources count label colors  -->
+    <color name="ceno_sources_green">#18CA08</color>
+<!--    <color name="ceno_sources_yellow">#FFEB3B</color>-->
+    <color name="ceno_sources_orange">#F97316</color>
 
 
     <!-- Private Browsing Mode Persistent Notification -->
