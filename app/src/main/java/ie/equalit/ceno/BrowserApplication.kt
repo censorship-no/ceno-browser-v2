@@ -63,76 +63,6 @@ open class BrowserApplication : Application() {
             )
         }
 
-        //------------------------------------------------------------
-        // Ouinet
-        //------------------------------------------------------------
-
-        /*
-        var btBootstrapExtras: Set<String>? = null
-
-        var countryIsoCode = ""
-        val locationUtils = CenoLocationUtils(application)
-        countryIsoCode = locationUtils.currentCountry
-
-        // Attempt getting country-specific `BT_BOOTSTRAP_EXTRAS` entry from BuildConfig,
-        // fall back to empty BT bootstrap extras otherwise.
-        var btbsxsStr= ""
-        if (countryIsoCode.isNotEmpty()) {
-            // Country code found, try getting bootstrap extras resource for this country
-            for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
-                if (countryIsoCode == entry[0]) {
-                    btbsxsStr = entry[1]
-                }
-            }
-        }
-
-        if (btbsxsStr != "") {
-            // Bootstrap extras resource found
-            val btbsxs: HashSet<String> = HashSet()
-            for (x in btbsxsStr.split(" ").toTypedArray()) {
-                if (x.isNotEmpty()) {
-                    btbsxs.add(x)
-                }
-            }
-            if (btbsxs.size > 0) {
-                btBootstrapExtras = btbsxs
-            }
-        }
-        // else no bootstrap extras included, leave null
-
-        mOuinetConfig = Config.ConfigBuilder(this)
-                .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
-                .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
-                .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
-                .setTlsCaCertStorePath("file:///android_asset/cacert.pem")
-                .setCacheType("bep5-http")
-                .setLogLevel(Config.LogLevel.DEBUG)
-                .setBtBootstrapExtras(btBootstrapExtras)
-                .setListenOnTcp("127.0.0.1:${BuildConfig.PROXY_PORT}")
-                .setFrontEndEp("127.0.0.1:${BuildConfig.FRONTEND_PORT}")
-                .build()
-
-        mNotificationConfig = NotificationConfig.Builder(this)
-            .setHomeActivity("ie.equalit.ceno.BrowserActivity")
-            .setNotificationIcons(
-                statusIcon = R.drawable.ic_notification,
-                //homeIcon = R.drawable.ic_globe_pm,
-                //clearIcon = R.drawable.ic_cancel_pm
-            )
-            .setChannelName(getString(R.string.ceno_notification_channel_name))
-            .setNotificationText (
-                title = getString(R.string.ceno_notification_title),
-                description = getString(R.string.ceno_notification_description),
-                homeText = getString(R.string.ceno_notification_home_description),
-                clearText = getString(R.string.ceno_notification_clear_description),
-                confirmText = getString(R.string.ceno_notification_clear_do_description),
-            )
-            .build()
-         */
-
-        //------------------------------------------------------------
-
-
         if (!isMainProcess()) {
             // If this is not the main process then do not continue with the initialization here. Everything that
             // follows only needs to be done in our app's main process and should not be done in other processes like
@@ -142,6 +72,7 @@ open class BrowserApplication : Application() {
         }
 
         /* CENO: Must add root cert prior to startup of Gecko Engine, so it is installed during GeckoViewStartup */
+        components.ouinet.setConfig()
         components.core.setRootCertificate(components.ouinet.config.caRootCertPath)
 
         components.core.engine.warmUp()
@@ -194,9 +125,6 @@ open class BrowserApplication : Application() {
 
             // WebPush integration to observe and deliver push messages to engine.
             WebPushEngineIntegration(components.core.engine, it).start()
-
-            // Perform a one-time initialization of the account manager if a message is received.
-            PushFxaIntegration(it, lazy { components.backgroundServices.accountManager }).launch()
 
             // Initialize the push feature and service.
             it.initialize()

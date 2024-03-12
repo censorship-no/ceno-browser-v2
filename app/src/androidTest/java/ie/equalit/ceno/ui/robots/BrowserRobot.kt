@@ -40,8 +40,13 @@ class BrowserRobot {
         )
     }
 
-    fun verifyFXAUrl() {
-        verifyUrl("https://accounts.firefox.com")
+    fun verifyPageLoaded() {
+        mDevice.waitForObjects(mDevice.findObject(UiSelector().resourceId("android.webkit.WebView")))
+        assertTrue(
+            mDevice.findObject(
+                UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_progress")
+            ).waitUntilGone(waitingTime),
+        )
     }
 
     fun verifyGithubUrl() {
@@ -156,7 +161,7 @@ class BrowserRobot {
                 .waitForExists(waitingTime),
         )
         assertTrue(
-            mDevice.findObject(UiSelector().textContains("Open link in private tab"))
+            mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
                 .waitForExists(waitingTime),
         )
         assertTrue(
@@ -204,10 +209,10 @@ class BrowserRobot {
     fun clickContextOpenLinkInPrivateTab() {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains("Open link in private tab"))
+        mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
             .waitForExists(waitingTime)
 
-        val contextMenuOpenInNewPrivateTab = mDevice.findObject(UiSelector().textContains("Open link in private tab"))
+        val contextMenuOpenInNewPrivateTab = mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
         contextMenuOpenInNewPrivateTab.click()
     }
 

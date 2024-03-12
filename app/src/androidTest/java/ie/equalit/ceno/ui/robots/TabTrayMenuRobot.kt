@@ -59,7 +59,7 @@ class TabTrayMenuRobot {
     }
 
     fun openPrivateBrowsing() {
-        mDevice.waitAndInteract(Until.findObject(By.desc("Private tabs"))) {
+        mDevice.waitAndInteract(Until.findObject(By.desc("Personal tabs"))) {
             click()
         }
     }
@@ -102,7 +102,7 @@ class TabTrayMenuRobot {
 }
 
 private fun regularTabs() = onView(ViewMatchers.withContentDescription("Tabs"))
-private fun privateTabs() = onView(ViewMatchers.withContentDescription("Private tabs"))
+private fun privateTabs() = onView(ViewMatchers.withContentDescription("Personal tabs"))
 private fun goBackButton() = onView(ViewMatchers.withContentDescription("back"))
 private fun newTabButton() = onView(ViewMatchers.withContentDescription("Add New Tab"))
 private fun closeTabButtonTabTray(text : String): ViewInteraction {

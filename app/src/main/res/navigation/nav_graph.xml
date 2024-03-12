@@ -54,6 +54,14 @@
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out" />
 
+    <action
+        android:id="@+id/action_global_onboardingWarningFragment"
+        app:destination="@id/onboardingWarningFragment"
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/slide_out"
+        app:popEnterAnim="@anim/slide_back_in"
+        app:popExitAnim="@anim/slide_back_out" />
+
     <fragment
         android:id="@+id/startupFragment"
         android:name="ie.equalit.ceno.StartupFragment"
@@ -143,7 +151,12 @@
         android:id="@+id/homeFragment"
         android:name="ie.equalit.ceno.home.HomeFragment"
         android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_networkSettingsFragment"
+            app:destination="@id/networkSettingsFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/browserFragment"
@@ -207,6 +220,14 @@
         <action
             android:id="@+id/action_settingsFragment_to_websiteSourceSettingsFragment"
             app:destination="@id/websiteSourceSettingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_androidLogFragment"
+            app:destination="@id/androidLogFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
@@ -318,11 +339,29 @@
     <fragment
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
-        android:label="NetworkSettingsFragment" />
+        android:label="NetworkSettingsFragment" >
+        <argument
+            android:name="showBridgeMode"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/websiteSourceSettingsFragment"
         android:name="ie.equalit.ceno.settings.WebsiteSourceSettingsFragment"
         android:label="WebsiteSourceSettingsFragment" />
 
+    <fragment
+        android:id="@+id/androidLogFragment"
+        android:name="ie.equalit.ceno.settings.AndroidLogFragment"
+        android:label="AndroidLogFragment" />
+
+    <fragment
+        android:id="@+id/standbyFragment"
+        android:name="ie.equalit.ceno.standby.StandbyFragment"
+        android:label="fragment_standby"
+        tools:layout="@layout/fragment_standby" />
+    <action
+        android:id="@+id/action_global_standbyFragment"
+        app:destination="@id/standbyFragment" />
 </navigation>

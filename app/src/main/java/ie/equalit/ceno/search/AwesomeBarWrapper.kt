@@ -16,6 +16,7 @@ import mozilla.components.compose.browser.awesomebar.AwesomeBarOrientation
 import mozilla.components.concept.awesomebar.AwesomeBar
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import ie.equalit.ceno.ext.components
+import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 
 /**
  * This wrapper wraps the `AwesomeBar()` composable and exposes it as a `View` and `concept-awesomebar`
@@ -27,6 +28,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : AbstractComposeView(context, attrs, defStyleAttr), AwesomeBar {
+    lateinit var searchSuggestionProvider: SearchSuggestionProvider
     private val providers = mutableStateOf(emptyList<AwesomeBar.SuggestionProvider>())
     private val text = mutableStateOf("")
     private var onEditSuggestionListener: ((String) -> Unit)? = null
@@ -62,6 +64,9 @@ class AwesomeBarWrapper @JvmOverloads constructor(
     }
 
     override fun addProviders(vararg providers: AwesomeBar.SuggestionProvider) {
+        if(providers.first() is SearchSuggestionProvider) {
+            searchSuggestionProvider = providers.first() as SearchSuggestionProvider
+        }
         val newProviders = this.providers.value.toMutableList()
         newProviders.addAll(providers)
         this.providers.value = newProviders

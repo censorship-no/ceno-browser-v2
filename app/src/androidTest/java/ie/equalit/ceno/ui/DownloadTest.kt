@@ -41,6 +41,7 @@ class DownloadTest {
         mockWebServer.shutdown()
     }
 
+    @Ignore("Disabled - Some versions of android request permission to allow access to files")
     @Test
     fun cancelFileDownloadTest() {
         val downloadPage = TestAssetHelper.getDownloadAsset(mockWebServer)

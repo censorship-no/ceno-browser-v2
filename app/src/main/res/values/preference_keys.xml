@@ -36,7 +36,6 @@
     <string name="pref_key_delete_cookies_now" translatable="false">pref_key_delete_cookies_now</string>
     <string name="pref_key_delete_cache_now" translatable="false">pref_key_delete_cache_now</string>
     <string name="pref_key_delete_site_permissions" translatable="false">pref_key_delete_site_permissions</string>
-    <string name="pref_key_show_ceno_mode_item" translatable="false">pref_key_show_ceno_mode_item</string>
     <string name="pref_key_change_app_icon" translatable="false">pref_key_change_app_icon</string>
     <string name="pref_key_selected_app_icon" translatable="false">pref_key_selected_app_icon</string>
     <string name="pref_key_search_engine" translatable="false">pref_key_search_screen</string>
@@ -61,6 +60,7 @@
     <string name="pref_key_ceno_network_config" translatable="false">pref_key_ceno_network_config</string>
     <string name="pref_key_ceno_enable_log" translatable="false">pref_key_ceno_enable_log</string>
     <string name="pref_key_ceno_download_log" translatable="false">pref_key_ceno_download_log</string>
+    <string name="pref_key_ceno_download_android_log" translatable="false">pref_key_ceno_download_android_logs</string>
     <string name="pref_key_ceno_website_sources" translatable="false">pref_key_ceno_website_sources</string>
     <string name="pref_key_about_ceno" translatable="false">pref_key_about_ceno</string>
     <string name="pref_key_about_geckoview" translatable="false">pref_key_about_geckoview</string>
@@ -78,7 +78,9 @@
     <string name="pref_key_ouinet_extra_bittorrent_bootstraps" translatable="false">pref_key_ouinet_extra_buttorrent_bootstraps</string>
     <string name="pref_key_ouinet_state" translatable="false">pref_key_ouinet_state</string>
     <string name="pref_key_show_home_button" translatable="false">pref_key_show_home_button</string>
-    <string name="pref_key_show_thanks_card" translatable="false">pref_key_show_thanks_card</string>
+    <string name="pref_key_bridge_announcement" translatable="false">pref_key_bridge_announcement</string>
+    <string name="pref_key_mode_card_expanded" translatable="false">pref_key_mode_card_expanded</string>
+    <string name="pref_key_bridge_card_expanded" translatable="false">pref_key_bridge_card_expanded</string>
 
     <string name="pref_last_known_browsing_mode_personal" translatable="false">pref_last_known_browsing_mode_personal</string>
 

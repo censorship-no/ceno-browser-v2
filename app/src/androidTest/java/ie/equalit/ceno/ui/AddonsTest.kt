@@ -10,7 +10,9 @@ import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import org.junit.Ignore
 
+@Ignore("Disabled - will probably remove/disable Add-ons menu soon")
 class AddonsTest {
 
     private lateinit var mockWebServer: MockWebServer

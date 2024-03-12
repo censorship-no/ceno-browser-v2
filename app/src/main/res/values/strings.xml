@@ -189,9 +189,9 @@
     <!-- Ceno: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
-    <string name="close_mode_item">Close notification</string>
+    <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
     <!-- Ceno: COPIED FROM FOCUS -->
-    <string name="preference_category_search">Search</string>
+    <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <!-- Used to indicate the value of a setting item-->
     <string name="setting_item_selected">%s selected</string>
     <!-- Title key for search engine setting -->
@@ -224,5 +224,5 @@
     <string name="crash_report_sent">Crash report sent!</string>
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
-    <string name="green_check_mark_in_a_circle">Green check mark in a circle</string>
+    <string name="bridge_mode_category">Bridge Announcements</string>
 </resources>

@@ -106,15 +106,6 @@ class TopSiteItemViewHolder(
                 resources.getString(R.string.suggestedsites_reuters_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_reuters))
                 }
-                resources.getString(R.string.suggestedsites_bbc_en_url),
-                resources.getString(R.string.suggestedsites_bbc_es_url),
-                resources.getString(R.string.suggestedsites_bbc_fa_url),
-                resources.getString(R.string.suggestedsites_bbc_my_url),
-                resources.getString(R.string.suggestedsites_bbc_ru_url),
-                resources.getString(R.string.suggestedsites_bbc_uk_url),
-                resources.getString(R.string.suggestedsites_bbc_zh_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_bbc))
-                }
                 resources.getString(R.string.suggestedsites_elpais_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_elpais))
                 }
@@ -169,9 +160,6 @@ class TopSiteItemViewHolder(
                 }
                 resources.getString(R.string.default_top_site_4_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_4_favicon))
-                }
-                resources.getString(R.string.default_top_site_5_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_5_favicon))
                 }
                 else -> {
                     itemView.context.components.core.icons.loadIntoView(binding.faviconImage, topSite.url)

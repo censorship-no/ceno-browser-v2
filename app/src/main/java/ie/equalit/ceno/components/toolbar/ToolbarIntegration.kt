@@ -12,6 +12,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BaseBrowserFragment
+import ie.equalit.ceno.browser.FindInPageIntegration
+import ie.equalit.ceno.components.ceno.ClearButtonFeature
+import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
+import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -21,6 +30,7 @@ import mozilla.components.browser.menu2.BrowserMenuController
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.browser.storage.sync.PlacesHistoryStorage
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.concept.menu.MenuController
@@ -31,7 +41,6 @@ import mozilla.components.concept.menu.candidate.MenuCandidate
 import mozilla.components.concept.menu.candidate.RowMenuCandidate
 import mozilla.components.concept.menu.candidate.SmallMenuCandidate
 import mozilla.components.concept.menu.candidate.TextMenuCandidate
-import mozilla.components.browser.storage.sync.PlacesHistoryStorage
 import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
@@ -41,17 +50,7 @@ import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
-/* CENO: ifAnyChanged used for observing changes to extensions in addition to selectedTab*/
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
-import ie.equalit.ceno.browser.FindInPageIntegration
-import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
-import ie.equalit.ceno.components.ceno.ClearButtonFeature
-import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
-import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
-import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.settings.CenoSettings
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -76,6 +75,10 @@ class ToolbarIntegration(
     private val cenoToolbarFeature = WebExtensionToolbarFeature(context, toolbar)
 
     private var isCurrentUrlPinned = false
+
+    private val navHost by lazy {
+        activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+    }
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tintEnabled = ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary)
@@ -194,11 +197,6 @@ class ToolbarIntegration(
     }
 
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
-
-        // navController for fragment navigation
-        // Nullable just in case - the library behaviour is still a bit quirky as at July, 2023
-        val navController = (activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)?.navController
-
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
         if (sessionState != null) {
@@ -264,7 +262,7 @@ class ToolbarIntegration(
 
         menuItemsList += TextMenuCandidate(text = context.getString(R.string.browser_menu_settings)) {
             CenoSettings.setStatusUpdateRequired(context, true)
-            navController?.navigate(R.id.action_global_settings)
+            navHost.navController.navigate(R.id.action_global_settings)
         }
 
         return menuItemsList
@@ -333,7 +331,8 @@ class ToolbarIntegration(
                 .collect { state ->
                     menuController.submitList(menuItems(state.selectedTab))
                     toolbar.display.setOnTrackingProtectionClickedListener {
-                        cenoToolbarFeature.getPageAction(CENO_EXTENSION_ID)?.invoke()
+                        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
+                        fragment?.showWebExtensionPopupPanel()
                     }
                 }
         }
