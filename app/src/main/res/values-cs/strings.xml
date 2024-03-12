@@ -40,7 +40,7 @@
     <string name="shortcut_max_limit_content">Pro přidání nového zástupce předchozího odstraňte. Dotkněte se a přidržte a zvolte možnost \"Odstranit\" (nebo podobné).</string>
     <string name="browser_menu_find_in_page">Najít na stránce</string>
     <string name="delete_browsing_data_prompt_cancel">Zrušit</string>
-    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle" tools:ignore="MissingQuantity">
         <item quantity="one">%d karta</item>
         <item quantity="few">%d karet</item>
         <item quantity="other">%d karet</item>
@@ -78,7 +78,7 @@
     <string name="button_content_readerview">Zobrazení čtenáře</string>
     <string name="preferences_delete_browsing_data">Smazat data prohlížení</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">Historie prohlížení a data stránek</string>
-    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle" tools:ignore="MissingQuantity">
         <item quantity="one">%d adresa</item>
         <item quantity="few">%d adres</item>
         <item quantity="other">%d adres</item>
