@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="private_browsing_title">Soukromé prohlížení</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="private_browsing_title">Osobní prohlížení</string>
     <string name="menu_share_with">Sdílet s…</string>
     <string name="customize_addon_collection_user_hint">Vlastník kolekce (ID uživatele)</string>
-    <string name="content_description_private_browsing_button">Povolit soukromé prohlížení</string>
+    <string name="content_description_private_browsing_button">Povolit osobní prohlížení</string>
     <string name="rename_top_site">Přejmenovat</string>
     <string name="shortcut_max_limit_title">Byl dosažen limit zástupců</string>
     <string name="toast_copied">Zkopírováno!</string>
@@ -20,7 +20,7 @@
     <string name="preferences_autofill_summary">Automaticky vyplnit přihlašovací údaje a hesla v jiných aplikacích</string>
     <string name="preferences_remote_debugging">Vzdálené debugování přes USB</string>
     <string name="privacy">Soukromí</string>
-    <string name="preferences_delete_browsing_data_cached_files_subtitle">Uvolní úložný prostor</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Uvolní prostor v úložišti zařízení</string>
     <string name="theme_category">Vzhled</string>
     <string name="customization_settings">Přizpůsobení</string>
     <string name="crash_report_non_fatal_message">Omlouváme se, aplikace spadla.</string>
@@ -29,10 +29,78 @@
     <string name="customize_addon_collection_cancel">Zrušit</string>
     <string name="customize_addon_collection_hint">Název kolekce</string>
     <string name="toast_customize_addon_collection_done">Kolekce doplňků byla upravena. Ukončení aplikace za účelem provedení změn…</string>
-    <string name="bookmark_menu_open_in_private_tab_button">Otevřít v soukromé záložce</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Otevřít v osobní záložce</string>
     <string name="general_category">Obecné</string>
     <string name="tracker_category">Ochrana proti sledování</string>
     <string name="toolbar_category">Možnosti panelu nástrojů</string>
     <string name="clear_button_category">Tlačítko Vymazat</string>
     <string name="settings">Nastavení</string>
+    <string name="customize_extra_bittorrent_bootstrap">Další BitTorrent samozaváděcí programy (bootstraps)</string>
+    <string name="browser_menu_back">Zpět</string>
+    <string name="shortcut_max_limit_content">Pro přidání nového zástupce předchozího odstraňte. Dotkněte se a přidržte a zvolte možnost \"Odstranit\" (nebo podobné).</string>
+    <string name="browser_menu_find_in_page">Najít na stránce</string>
+    <string name="delete_browsing_data_prompt_cancel">Zrušit</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle" tools:ignore="MissingQuantity">
+        <item quantity="one">%d karta</item>
+        <item quantity="few">%d karet</item>
+        <item quantity="other">%d karet</item>
+    </plurals>
+    <string name="delete_browsing_data_prompt_message_3">%s smaže zvolená data prohlížení.</string>
+    <string name="preference_show_search_suggestions">Našeptávat při vyhledávání</string>
+    <string name="preference_search_summary">Nastavit výchozí</string>
+    <string name="preferences_add_ons">Doplňky</string>
+    <string name="secure_connection">Spojení je zabezpečené</string>
+    <string name="shortcut_name_hint">Jméno zástupce</string>
+    <string name="browser_menu_stop">Zastavit načítání momentální stránky</string>
+    <string name="preferences_tracking_protection_private">Zapnout v osobním prohlížecím módu</string>
+    <string name="close_mode_item">Zavřít oznámení</string>
+    <string name="preferences_tracking_protection_normal">Zapnout v normálním prohlížecím módu</string>
+    <string name="browser_menu_library">Knihovna</string>
+    <string name="delete_browsing_data_prompt_allow">Smazat</string>
+    <string name="preferences_delete_browsing_data_snackbar">Data prohlížení smazána</string>
+    <string name="preferences_delete_browsing_data_cookies">Cookies</string>
+    <string name="preferences_delete_browsing_data_site_permissions">Oprávnění stránek</string>
+    <string name="preference_choose_search_engine">Výběr vyhledávače</string>
+    <string name="preference_category_search">Hledat</string>
+    <string name="browser_menu_remove_from_shortcuts">Odstranit ze zástupců</string>
+    <string name="preferences_privacy_summary">Zapnout pro osobní a veřejné prohlížení</string>
+    <string name="top_sites_max_limit_confirmation_button">OK, chápu</string>
+    <string name="deleting_browsing_data_in_progress">Mazání dat prohlížení…</string>
+    <string name="top_sites_rename_dialog_title">Jméno</string>
+    <string name="top_sites_rename_dialog_cancel">Zrušit</string>
+    <string name="top_sites_sponsored_label">Sponzorováno</string>
+    <string name="browser_menu_forward">Vpřed</string>
+    <string name="browser_menu_refresh">Obnovit</string>
+    <string name="browser_menu_settings">Nastavení</string>
+    <string name="browser_menu_desktop_site">Stránka pro počítač</string>
+    <string name="browser_menu_add_to_homescreen">Přidat na domovskou obrazovku</string>
+    <string name="browser_menu_add_to_shortcuts">Přidat do zástupců</string>
+    <string name="button_content_readerview">Zobrazení čtenáře</string>
+    <string name="preferences_delete_browsing_data">Smazat data prohlížení</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Historie prohlížení a data stránek</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle" tools:ignore="MissingQuantity">
+        <item quantity="one">%d adresa</item>
+        <item quantity="few">%d adres</item>
+        <item quantity="other">%d adres</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Budete odhlášeni z většiny webových stránek</string>
+    <string name="preferences_delete_browsing_data_cached_files">Soubory a obrázky v mezipaměti</string>
+    <string name="preferences_delete_browsing_data_button">Smazat data prohlížení</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">Otevřené karty</string>
+    <string name="preference_select_preferred_engine">Zvolte svůj preferovaný vyhledávač:</string>
+    <string name="insecure_connection">Spojení je nezabezpečené</string>
+    <string name="browser_toolbar_home">Domů</string>
+    <string name="customize_add_bootstrap_save">Uložit</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Přidat vlastní samozaváděcí programy (bootstraps)</string>
+    <string name="not_applicable">N/A</string>
+    <string name="crash_report_sent">Hlášení o pádu aplikace odesláno!</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Otevřít odkaz v osobní kartě</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Oddělit IP adresy čárkami</string>
+    <string name="select_extra_bt_source">Zvolit další BitTorrent samozaváděcí program (bootstrap)</string>
+    <string name="setting_item_selected">%s zvoleno</string>
+    <string name="set_default_search_engine">Nastavit výchozí vyhledávač</string>
+    <string name="top_sites_rename_dialog_ok">OK</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent samozaváděcí programy (bootstraps)</string>
+    <string name="preferences_website_sources_summary">Zvolte odkud chcete načítat obsah webových stránek</string>
 </resources>
