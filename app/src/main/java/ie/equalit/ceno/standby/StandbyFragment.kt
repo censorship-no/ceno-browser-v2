@@ -9,6 +9,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings.ACTION_WIRELESS_SETTINGS
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,8 +103,13 @@ class StandbyFragment : Fragment() {
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             currentStatus = it.ouinetStatus
+            updateDisplayText()
+            Log.d("STANDBY", currentStatus.name)
+            if (currentStatus == RunningState.Stopped) {
+                tryAgain()
+            }
         }
-        updateDisplayText()
+
     }
 
     private fun displayTimeoutDialog() {
@@ -159,19 +165,22 @@ class StandbyFragment : Fragment() {
 
     private fun updateDisplayText() {
         viewLifecycleOwner.lifecycleScope.launch{
-            while (currentStatus == RunningState.Starting) {
-                if (isNetworkAvailable()) {
-                    binding.llNoInternet.visibility = View.INVISIBLE
-                } else
-                    binding.llNoInternet.visibility = View.VISIBLE
-                if (index < displayText.size)
-                {
-                    binding.tvStatus.text = getString(displayText[index])
-                    index += 1
-                } else {
-                    break
+            if (currentStatus == RunningState.Starting) {
+                while (currentStatus == RunningState.Starting) {
+                    if (isNetworkAvailable()) {
+                        binding.llNoInternet.visibility = View.INVISIBLE
+                    } else
+                        binding.llNoInternet.visibility = View.VISIBLE
+                    if (index < displayText.size)
+                    {
+                        binding.tvStatus.text = getString(displayText[index])
+                        index += 1
+                    } else {
+                        displayTimeoutDialog()
+                        break
+                    }
+                    delay(refreshIntervalMS)
                 }
-                delay(refreshIntervalMS)
             }
             if (currentStatus == RunningState.Started) {
                 //Navigate away
@@ -181,8 +190,10 @@ class StandbyFragment : Fragment() {
                     findNavController().navigate(R.id.action_global_home)
                 else
                     findNavController().navigate((R.id.action_global_browser))
-            } else {
-                displayTimeoutDialog()
+            }
+            if (currentStatus == RunningState.Stopping) {
+                binding.tvStatus.text = getString(R.string.standby_restarting_text)
+                binding.llNoInternet.visibility = View.INVISIBLE
             }
             cancel()
         }
