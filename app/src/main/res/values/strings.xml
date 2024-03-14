@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Search or enter address</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -142,7 +142,7 @@
     <!-- Browser menu button that opens a user's library -->
     <string name="browser_menu_library">Library</string>
     <!--suppress CheckTagEmptyBody This is a default value for places where we don't want a string set-->
-    <string name="empty_string" translatable="false" />
+    <string name="empty_string" translatable="false"/>
     <!-- Text for the cancel button for the data deletion dialog -->
     <string name="delete_browsing_data_prompt_cancel">Cancel</string>
     <!-- Text for the allow button for the data deletion dialog -->
@@ -224,4 +224,5 @@
     <string name="crash_report_sent">Crash report sent!</string>
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
+    <string name="bridge_mode_category">Bridge Announcements</string>
 </resources>

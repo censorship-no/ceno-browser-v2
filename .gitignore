@@ -81,3 +81,5 @@ app_branded
 app/src/main/assets/addons/uBlock
 app/src/main/assets/addons/*.zip
 scenario.yaml
+fastlane-key.json
+fastlane/report.xml

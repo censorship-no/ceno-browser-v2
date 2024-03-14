@@ -1,49 +1,40 @@
 package ie.equalit.ceno.addons
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import ie.equalit.ceno.ext.createSegment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import org.json.JSONObject
-import org.mozilla.geckoview.WebExtension
 
-@SuppressWarnings("LongParameterList")
+
 class WebExtensionActionPopupPanel(
     context: Context,
     private val lifecycleOwner: LifecycleOwner,
     private val tabUrl: String,
     private val isConnectionSecure: Boolean,
-    cachedSourceCounts: JSONObject?,
-    private val sourceCountFetchListener: SourceCountFetchListener?
+    cachedSourceCounts: JSONObject?
 ) : BottomSheetDialog(context), EngineSession.Observer {
 
     private var binding: DialogWebExtensionPopupSheetBinding =
         DialogWebExtensionPopupSheetBinding.inflate(layoutInflater, null, false)
-
-    private lateinit var runnable: Runnable
-    private var handler = Handler(Looper.getMainLooper())
 
     init {
         initWindow()
@@ -51,67 +42,7 @@ class WebExtensionActionPopupPanel(
         expand()
         updateTitle()
         updateConnectionState()
-        updateStats()
-
-        // load previously cached source counts
-        cachedSourceCounts?.let { response ->
-            if (response.has("url") && response.getString("url") == tabUrl.tryGetHostFromUrl()) {
-                binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
-                binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
-                binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
-
-                val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
-                val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
-                binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
-            }
-        }
-
-        // start runnable to continiously fetch new source counts
-        runnable = Runnable {
-            lifecycleOwner.lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    updateStats()
-                    handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
-                }
-            }
-        }
-
-        handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
-    }
-
-    private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
-        override fun onPortMessage(
-            message: Any, port: WebExtension.Port
-        ) {
-            Log.d("PortDelegate", "Received message from extension: $message")
-
-            // `message` returns as undefined sometimes. This check handles that
-            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
-                binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
-
-                val response = JSONObject(message)
-
-                binding.tvDirectFromWebsiteCount.text = if (response.has("origin")) response.getString("origin") else "0"
-                binding.tvSharedByOthersCount.text = if (response.has("dist-cache")) response.getString("dist-cache") else "0"
-                binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
-
-                val proxy = if (response.has("proxy")) response.getString("proxy").toInt() else 0
-                val injector = if (response.has("injector")) response.getString("injector").toInt() else 0
-
-                binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toString()
-
-                // cache the values gotten; caching is done through SourceCountFetchListener interface
-                response.put("url", tabUrl.tryGetHostFromUrl())
-                sourceCountFetchListener?.onCountsFetched(response)
-            }
-        }
-
-        override fun onDisconnect(port: WebExtension.Port) {
-            // This port is not usable anymore.
-            if (port === context.components.webExtensionPort.mPort) {
-                context.components.webExtensionPort.mPort = null
-            }
-        }
+        cachedSourceCounts?.let { c -> onCountsFetched(c) }
     }
 
     private fun initWindow() {
@@ -161,29 +92,30 @@ class WebExtensionActionPopupPanel(
         )
     }
 
-    private fun updateStats() {
+    fun onCountsFetched(response: JSONObject) {
 
-        Log.d("Message", "Updating stats?")
-        context.components.webExtensionPort.mPort?.let {
-            it.setDelegate(portDelegate)
-            val message = JSONObject()
-            message.put("requestSources", "true")
-            Log.d("Message", "Sending message: $message")
-            it.postMessage(message)
+        if (response.has(BaseBrowserFragment.URL) && response.getString(BaseBrowserFragment.URL) == tabUrl.tryGetHostFromUrl()) {
+            binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
+
+//            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
+
+            val distCache = if (response.has(BaseBrowserFragment.DIST_CACHE)) response.getString(BaseBrowserFragment.DIST_CACHE).toFloat() else 0F
+            val proxy = if (response.has(BaseBrowserFragment.PROXY)) response.getString(BaseBrowserFragment.PROXY).toFloat() else 0F
+            val injector = if (response.has(BaseBrowserFragment.INJECTOR)) response.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
+            val origin = if (response.has(BaseBrowserFragment.ORIGIN)) response.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
+
+            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toInt().toString()
+            binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
+
+
+            val sum = distCache + origin + injector + proxy
+            binding.sourcesProgressBar.isVisible = sum != 0F
+
+            binding.sourcesProgressBar.removeAllViews()
+
+            if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
+            if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector + distCache) / sum) * 100), R.color.ceno_sources_orange))
+//                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
         }
-    }
-
-    // interface for listening for successful count fetches
-    interface SourceCountFetchListener {
-        fun onCountsFetched(jsonObject: JSONObject)
-    }
-
-    override fun dismiss() {
-        super.dismiss()
-        handler.removeCallbacks(runnable)
-    }
-
-    companion object {
-        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
     }
 }

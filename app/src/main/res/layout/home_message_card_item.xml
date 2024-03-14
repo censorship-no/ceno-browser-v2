@@ -1,69 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_homepage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
-    android:layout_marginLeft="@dimen/ceno_mode_margin_horizontal"
-    android:layout_marginRight="@dimen/ceno_mode_margin_horizontal"
-    android:layout_marginTop="@dimen/ceno_mode_margin_top"
-    >
+    android:layout_margin="16dp"
+    android:backgroundTint="@color/ceno_home_card_background_tint"
+    android:importantForAccessibility="noHideDescendants"
+    app:cardCornerRadius="8dp"
+    tools:layout_editor_absoluteX="16dp"
+    tools:layout_editor_absoluteY="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_homepage"
-        style="@style/CenoMode.Card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/ceno_home_card_background_tint"
-        android:importantForAccessibility="noHideDescendants"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_card_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:text="@string/onboarding_thanks_title"
+            android:textSize="18sp"
+            app:drawableEndCompat="@drawable/ic_arrow_expanded" />
+
+        <TextView
+            android:id="@+id/tv_card_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/onboarding_thanks_text" />
+
+        <TextView
+            android:id="@+id/btn_go_to_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:text="@string/home_go_to_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/ceno_home_card_public_text"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/iv_message_icon"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:scaleType="center"
-                app:srcCompat="@drawable/ic_launcher_white_foreground"
-                app:tint="@color/ceno_onboarding_button" />
+    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_card_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/onboarding_thanks_title"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ceno_home_card_public_text" />
-
-                <TextView
-                    android:id="@+id/tv_card_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:alpha="0.5"
-                    android:text="@string/onboarding_thanks_text"
-                    android:textColor="@color/ceno_home_card_text_color" />
-            </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

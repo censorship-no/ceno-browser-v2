@@ -53,8 +53,6 @@
     <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_paskooceh_url</string>
     <string name="default_top_site_4_title" translatable="false">فکت‌نامه</string>
     <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_factnameh_url</string>
-    <string name="default_top_site_5_title" translatable="false">صفحه اول - BBC News</string>
-    <string name="default_top_site_5_url" translatable="false">@string/suggestedsites_bbc_fa_url</string>
     <!-- Snackbar action button when a non fatal crash happen-->
     <string name="crash_report_non_fatal_action">برای گزارش به &vendorShortName; ضربه بزنید</string>
     <string name="ceno_home_mode_link_text">این‌جا بیشتر بخوانید.</string>

@@ -32,7 +32,6 @@ import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
-import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
@@ -40,7 +39,6 @@ import ie.equalit.ceno.browser.CrashIntegration
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
 import ie.equalit.ceno.components.PermissionHandler
-import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.onboardingToHome
@@ -48,11 +46,12 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
+import ie.equalit.ceno.settings.NetworkSettingsFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
-import ie.equalit.ouinet.Ouinet.RunningState
+import ie.equalit.ouinet.Ouinet
 import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -62,7 +61,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.browser.state.state.*
+import mozilla.components.browser.state.state.SessionState
+import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.state.state.WebExtensionState
+import mozilla.components.browser.state.state.searchEngines
+import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
@@ -293,10 +296,10 @@ open class BrowserActivity : BaseActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 while (true) {
-                    val status = RunningState.valueOf(components.ouinet.background.getState())
+                    val status = Ouinet.RunningState.valueOf(components.ouinet.background.getState())
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
-                        if(!hasOuinetStarted && status == RunningState.Started) {
+                        if(!hasOuinetStarted && status == Ouinet.RunningState.Started) {
                             trackDataViaCleanInsights()
                             hasOuinetStarted = true
                         }
@@ -324,7 +327,7 @@ open class BrowserActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != RunningState.Started.toString())) {
+        if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != Ouinet.RunningState.Started.toString())) {
             navHost.navController.popBackStack()
             navHost.navController.navigate(R.id.action_global_standbyFragment)
         }
@@ -357,7 +360,6 @@ open class BrowserActivity : BaseActivity() {
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -486,17 +488,11 @@ open class BrowserActivity : BaseActivity() {
     }
 
     private fun openPopup(webExtensionState: WebExtensionState) {
-        if (webExtensionState.id == CENO_EXTENSION_ID && navHost.navController.currentDestination?.id == R.id.browserFragment) {
-            val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
-            fragment?.showWebExtensionPopupPanel(webExtensionState.id)
-        }
-        else {
-            val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
-            intent.putExtra("web_extension_id", webExtensionState.id)
-            intent.putExtra("web_extension_name", webExtensionState.name)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-        }
+        val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
+        intent.putExtra("web_extension_id", webExtensionState.id)
+        intent.putExtra("web_extension_name", webExtensionState.name)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
@@ -628,5 +624,14 @@ open class BrowserActivity : BaseActivity() {
             Logger.debug("${components.core.store.state.search.selectedOrDefaultSearchEngine}")
             Settings.setUpdateSearchEngines(this, false)
         }
+    }
+
+    fun openSettings() {
+        val bundle = bundleOf(NetworkSettingsFragment.scrollToBridge to true)
+        navHost.navController.navigate(R.id.action_homeFragment_to_networkSettingsFragment, bundle)
+    }
+
+    companion object {
+        const val DELAY_TWO_SECONDS = 2000L
     }
 }

@@ -6,18 +6,18 @@ package ie.equalit.ceno.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Ignore
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
 /**
  *  Tests for verifying the main three dot menu options
@@ -47,7 +47,7 @@ class ThreeDotMenuTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
 
     @Before
     fun setUp() {
@@ -318,5 +318,61 @@ class ThreeDotMenuTest {
         }.openHomeScreenShortcut(defaultWebPage.title) {
             verifyUrl(defaultWebPage.displayUrl)
         }
+    }
+
+    @Test
+    fun uBlockOriginTest() {
+        /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
+        val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
+            verifyPageContent("Page content: 1")
+        }
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyUblockOriginButtonExists()
+        }.openUblockOrigin {
+            verifyPageContent("Blocked on this page")
+        }.goBack{}
+
+        navigationToolbar {
+        }.openContentSourcesSheet {
+        }.goBack{}
+
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyUblockOriginButtonExists()
+        }.openUblockOrigin {
+            verifyPageContent("Blocked on this page")
+        }.goBack{}
+    }
+
+    @Test
+    fun httpsByDefaultTest() {
+        /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
+        val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
+            verifyPageContent("Page content: 1")
+        }
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyHttpsByDefaultButtonExists()
+        }.openHttpsByDefault {
+            verifyPageContent("HTTPS is enabled by default for all navigations")
+        }.goBack{}
+
+        navigationToolbar {
+        }.openContentSourcesSheet {
+        }.goBack{}
+
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyHttpsByDefaultButtonExists()
+        }.openHttpsByDefault {
+            verifyPageContent("HTTPS is enabled by default for all navigations")
+        }.goBack{}
     }
 }

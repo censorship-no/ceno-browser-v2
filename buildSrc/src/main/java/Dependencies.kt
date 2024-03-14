@@ -56,7 +56,7 @@ object Versions {
     }
 
     /* CENO: Versions for additional dependencies */
-    const val ouinet_version = "0.22.0"
+    const val ouinet_version = "0.23.0"
     const val relinker_version = "1.4.4"
     const val snakeyaml_version = "2.0"
 

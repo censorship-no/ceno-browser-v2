@@ -225,6 +225,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 CenoSettings.getOuinetState(requireContext())
             }
         }
+
+
     }
 
     override fun onRequestPermissionsResult(
@@ -666,9 +668,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             // network request to update preference value
             CenoSettings.ouinetClientRequest(
-                requireContext(),
-                OuinetKey.LOGFILE,
-                if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED
+                context = requireContext(),
+                key = OuinetKey.LOGFILE,
+                newValue = if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED,
+                stringValue = null,
+                object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                    }
+                    override fun onError() {
+                        Log.e(TAG, "Failed to set log file to newValue: $newValue")
+                    }
+                }
             )
 
             // network request to update log level based on preference value
@@ -886,7 +897,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
-        private const val BROWSER_SERVICE_REFRESH_DELAY = 5000L
         private const val TAG = "SettingsFragment"
         const val LOG = "log"
 

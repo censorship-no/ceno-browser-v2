@@ -59,6 +59,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/bridge_mode_category"
+        android:layout="@layout/preference_category_style">
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_key_bridge_announcement"
+            android:title="@string/preferences_ceno_bridge_announcement"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/bit_torrent_bootstraps_category"
         android:layout="@layout/preference_category_style">
 
