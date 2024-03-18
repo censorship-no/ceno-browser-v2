@@ -63,7 +63,9 @@ class SettingsViewTest {
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
             verifyAddOnsButton()
-            clickDownRecyclerView(6)
+            verifyBridgeModeToggle()
+            verifyBridgeModeSummary()
+            clickDownRecyclerView(8)
             Thread.sleep(5000)
             verifyShowOnboarding()
             verifyCrashReportingButton()
@@ -163,7 +165,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(13)
+            clickDownRecyclerView(14)
             Thread.sleep(5000)
             verifyRemoteDebugging()
             toggleRemoteDebuggingOn()
@@ -178,7 +180,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(23)
+            clickDownRecyclerView(24)
             Thread.sleep(5000)
         }.openAboutReferenceBrowser {
             verifyAboutBrowser()
@@ -196,7 +198,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(14)
+            clickDownRecyclerView(15)
             Thread.sleep(5000)
             verifyCustomAddonCollectionButton()
             clickCustomAddonCollectionButton()
@@ -228,7 +230,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(19)
             Thread.sleep(5000)
         }.openSettingsViewSources {
             verifySourcesUpButton()
@@ -267,9 +269,6 @@ class SettingsViewTest {
             verifyExternalUdpEndpointsDisplay()
             verifyPublicUdpEndpointsDisplay()
             clickDownRecyclerView(2)
-            verifyBridgeModeHeading()
-            verifyBridgeModeToggle()
-            verifyBridgeModeSummary()
             verifyBtBootstrapsHeading()
             verifyExtraBtBootstrapsButton()
         }
@@ -282,7 +281,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(17)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -300,7 +299,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(17)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -321,15 +320,14 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(17)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
-            verifyCenoNetworkDetailsButton()
-        }.openSettingsViewNetworkDetails {
-            clickDownRecyclerView(8)
+            clickUpRecyclerView(8)
             Thread.sleep(2000)
             verifyBridgeModeToggle()
+            verifyBridgeModeSummary()
             clickBridgeModeToggle()
             waitForBridgeModeDialog()
             Thread.sleep(5000)
