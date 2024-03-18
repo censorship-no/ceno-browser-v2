@@ -267,4 +267,5 @@
     <string name="home_go_to_settings">Go to Settings</string>
     <string name="enable_bridge_card_title">Enable Bridge Mode</string>
     <string name="bridge_mode_ip_warning_text">Note that this will make your public IP address visible to other Ceno users.</string>
+    <string name="learn_more_title">Learn More</string>
 </resources>

@@ -58,7 +58,7 @@
             android:id="@+id/btn_learn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Learn More"
+            android:text="@string/learn_more_title"
             android:textAllCaps="false"
             android:textColor="@color/ceno_home_card_public_text"
             android:textStyle="bold"
