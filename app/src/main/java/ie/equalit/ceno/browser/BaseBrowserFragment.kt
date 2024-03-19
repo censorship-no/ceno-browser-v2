@@ -664,7 +664,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     companion object {
         private const val SESSION_ID = "session_id"
-        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
+        private const val SOURCES_COUNT_FETCH_DELAY = 500L
 
         const val DIST_CACHE = "dist-cache"
         const val ORIGIN = "origin"
