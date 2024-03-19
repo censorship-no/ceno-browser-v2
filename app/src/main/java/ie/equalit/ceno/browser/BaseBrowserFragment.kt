@@ -496,6 +496,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         val toolBarCoordinatorLayoutParams = binding.toolbar.layoutParams as CoordinatorLayout.LayoutParams
 
+        val progressBarShieldLayoutParams = binding.progressBarShield.layoutParams as CoordinatorLayout.LayoutParams
+
         val sourcesProgressCoordinatorLayoutParams = binding.sourcesProgressBar.layoutParams as CoordinatorLayout.LayoutParams
         sourcesProgressCoordinatorLayoutParams.anchorId = binding.toolbar.id
 
@@ -505,7 +507,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
             // reset constraint of the sources progress bar
             sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.BOTTOM
-            DisplayToolbar.Gravity.BOTTOM
+
+            // reset constraint of the progress bar shield
+            progressBarShieldLayoutParams.anchorGravity = Gravity.TOP
+
+            DisplayToolbar.Gravity.TOP
         }
         else {
             // reset layout_gravity of toolbar layout
@@ -513,7 +519,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
             // reset constraint of the sources progress bar
             sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.TOP
-            DisplayToolbar.Gravity.TOP
+
+            // reset constraint of the progress bar shield
+            progressBarShieldLayoutParams.anchorGravity = Gravity.BOTTOM
+
+            DisplayToolbar.Gravity.BOTTOM
         }
 
         binding.sourcesProgressBar.requestLayout()
