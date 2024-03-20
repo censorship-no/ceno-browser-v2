@@ -14,12 +14,14 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -151,6 +153,13 @@ class SettingsViewRobot {
             return SettingsViewSearchRobot.Transition()
         }
 
+        fun openSettingsViewCustomization(interact: SettingsViewCustomizationRobot.() -> Unit):
+                SettingsViewCustomizationRobot.Transition {
+            customizationButton().click()
+            SettingsViewCustomizationRobot().interact()
+            return SettingsViewCustomizationRobot.Transition()
+        }
+
         fun makeDefaultBrowser(interact: ExternalAppsRobot.() -> Unit):
                 ExternalAppsRobot.Transition {
             makeDefaultBrowserButton().click()
@@ -165,10 +174,18 @@ class SettingsViewRobot {
             return ExternalAppsRobot.Transition()
         }
 
-        fun openAboutReferenceBrowser(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+        fun openSettingsViewDeleteBrowsingData(interact: SettingsViewDeleteBrowsingDataRobot.() -> Unit):
+                SettingsViewDeleteBrowsingDataRobot.Transition {
+            deleteBrowsingDataButton().click()
+            SettingsViewDeleteBrowsingDataRobot().interact()
+            return SettingsViewDeleteBrowsingDataRobot.Transition()
+        }
+
+        fun openSettingsViewAboutPage(interact: SettingsViewAboutPageRobot.() -> Unit):
+                SettingsViewAboutPageRobot.Transition {
             aboutEqualitieButton().click()
-            BrowserRobot().interact()
-            return BrowserRobot.Transition()
+            SettingsViewAboutPageRobot().interact()
+            return SettingsViewAboutPageRobot.Transition()
         }
 
         fun openSettingsViewSources(interact: SettingsViewSourcesRobot.() -> Unit):
@@ -186,9 +203,7 @@ class SettingsViewRobot {
         }
 
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            val navigateUpButton = mDevice.findObject(UiSelector().descriptionContains("Navigate up"))
-            navigateUpButton.clickAndWaitForNewWindow()
-
+            mDevice.pressBack()
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
@@ -255,7 +270,9 @@ private fun aboutHeading() = Espresso.onView(withText(R.string.about_category))
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
-private fun aboutEqualitieButton() = Espresso.onView(withText(R.string.preferences_about_page))
+
+private val aboutButtonString = getInstrumentation().targetContext.getString(R.string.about_category) + " eQualitie"
+private fun aboutEqualitieButton() = onView(withText(aboutButtonString))
 
 private fun assertGeneralHeading() = generalHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
@@ -333,7 +350,7 @@ private fun assertCenoBrowserServiceDisplay() = cenoBrowserServiceDisplay()
 private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCustomAddonCollectionPanel() {
     mDevice.waitForIdle()
     mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
