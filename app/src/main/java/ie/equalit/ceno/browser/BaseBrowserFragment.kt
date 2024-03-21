@@ -688,11 +688,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
-            Log.d("PortDelegate", "Received message from extension: $message")
-
             // the percentage progress for the webpage
             val webPageLoadProgress = requireComponents.core.store.state.selectedTab?.content?.progress ?: 0
-            Log.d("WebPageLoadProgress", "Webpage loaded $webPageLoadProgress%")
 
             // `message` returns as undefined sometimes. This check handles that
             if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
@@ -771,12 +768,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun updateStats() {
 
-        Log.d("Message", "Updating stats?")
         context?.components?.webExtensionPort?.mPort?.let {
             it.setDelegate(portDelegate)
             val message = JSONObject()
             message.put("requestSources", "true")
-            Log.d("Message", "Sending message: $message")
             it.postMessage(message)
         }
     }
