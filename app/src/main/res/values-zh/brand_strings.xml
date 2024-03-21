@@ -26,18 +26,18 @@
     -->
     <!-- TODO: Translations needed for zh-CN? -->
     <!-- Home page browsing mode reminder. -->
-    <string name="ceno_home_mode_description">使用普通标签与其他 &brandShortName; 分享内容用户。使用私人标签以避免共享，或用于需要登录的页面。</string>
+    <string name="ceno_home_mode_description">使用普通标签与其他用户 &brandShortName; 分享内容。使用私人标签以避免共享，或用于需要登录的页面。</string>
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;隐私浏览&lt;/h1&gt; &lt;p&gt;Ceno 不会与其他用户共享来自私人标签的内容。您可以安全地访问需要登录的站点。不过您需要连接互联网。&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;想了解更多信息？&lt;/p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;隐私浏览&lt;/h1&gt; &lt;p&gt;Ceno 将不会与其他用户共享来自私人标签的内容。您可以安全地访问需要登录的站点。但您仍需连接互联网。&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;想了解更多信息？&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; 浏览器服务</string>
-    <string name="ceno_notification_home_description">Home</string>
+    <string name="ceno_notification_home_description">主页</string>
     <!-- "On mobile data" dialog -->
     <!-- Default suggested site title and urls -->
-    <string name="default_top_site_1_title">Ceno Manual</string>
+    <string name="default_top_site_1_title">&brandShortName; 指南</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
     <string name="default_top_site_2_title">Wikipedia</string>
     <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
@@ -55,14 +55,59 @@
     <string name="ceno_clear_dialog_cancel">取消</string>
     <string name="about_content"><p>%1$s - 分享网络！</p> <p>Ceno （censorship.no!的缩写）是世界上首个能够避开当前互联网审查方法的移动浏览器。它的点对点骨干网允许人们在连接中断或受到影响的地区访问和共享网络信息。</p> <p>%1$s 是 eQualitie 的一个项目，eQualitie 是一个加拿大组织，其使命是促进和捍卫基本自由和人权，包括网上信息的自由流动。我们的目标是创造无障碍技术，提高在数字时代捍卫人权和自由所需的技能。</p></string>
     <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">不再显示</string>
-    <string name="ceno_clear_dialog_clear_cache_only">只清除 &brandShortName; cache</string>
+    <string name="ceno_clear_dialog_clear_cache_only">只清除 &brandShortName; 的缓存</string>
     <string name="ceno_home_mode_link_text">点击此处了解更多信息。</string>
     <string name="ceno_notification_description">点击此处停止</string>
     <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; 浏览器注意</string>
-    <string name="ceno_clear_dialog_title">清除&brandShortName;</string>
-    <string name="ceno_clear_dialog_clear_entire_app">清除 &brandShortName; cache和应用程序数据</string>
+    <string name="ceno_clear_dialog_title">清除 &brandShortName;</string>
+    <string name="ceno_clear_dialog_clear_entire_app">清除 &brandShortName; 缓存和应用程序数据</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">建议在使用 Wi-Fi 连接时使用 &brandShortName;，因为它可能会消耗比你预期更多的数据。 使用移动数据时，可能需要停止使用 &brandShortName;。</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">继续</string>
     <string name="ceno_notification_clear_do_description">是</string>
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">立即停止 &brandShortName;</string>
+    <string name="crash_reporting_dialog_description">给我们发送崩溃报告，以帮助我们让 &brandShortName; 更易于使用.</string>
+    <string name="crash_reporting_always_send">始终发送以改进 &brandShortName;</string>
+    <string name="crash_reporting_never_send">从不发送</string>
+    <string name="crash_reporting_send_once">立即发送</string>
+    <string name="crash_reporting_dont_send_this_time">现在不要发送</string>
+    <string name="crash_reporting_dont_ask_again">不再询问</string>
+    <string name="crash_reporting_dialog_title">对不起，貌似 &amp;bransShortName; 已崩溃！</string>
+    <string name="ceno_clear_dialog_description">【警告】：清理缓存和应用数据会重置 &brandShortName; 就像从未使用过一样.</string>
+    <string name="ceno_clear_action_description">清理</string>
+    <string name="onboarding_fragment">欢迎来到 &brandShortName;</string>
+    <string name="onboarding_warning_button">好</string>
+    <string name="crash_reporting_opt_out">你选择了不发送崩溃报告. 你可以在 设置 &gt; 崩溃报告 中打开它.</string>
+    <string name="crash_reporting_opt_in">感谢向我们发送崩溃报告以改进 &brandShortName; ！你可以在 设置 &gt; 崩溃报告 中禁用它.</string>
+    <string name="onboarding_battery_text">系统将向您请求以下权限：
+\n
+\n• 禁用电池优化.
+\n
+\n以当应用在后台运行时继续分享网站</string>
+    <string name="onboarding_warning_text_v33_2">未允许通知，且电池优化未禁用.
+\n
+\n前往“设置”以给予权限</string>
+    <string name="onboarding_button">入门</string>
+    <string name="onboarding_skip_button">跳过</string>
+    <string name="onboarding_info_title">可不是一般的浏览器</string>
+    <string name="onboarding_warning_text_v33_1">未允许通知.
+\n
+\n您将来可以前往“设置&gt;允许通知”以给予权限</string>
+    <string name="onboarding_warning_text">电池优化仍未禁用.
+\n
+\n您将来可以前往“设置&gt;禁用电池优化”以给予权限</string>
+    <string name="onboarding_battery_text_v33">系统将向您请求以下权限：
+\n
+\n• 允许通知
+\n• 禁用电池优化
+\n
+\n以当应用在后台运行时继续分享网站</string>
+    <string name="onboarding_warning_title">权限不足</string>
+    <string name="bt_sources_none">无</string>
+    <string name="bt_sources_custom">自定义</string>
+    <string name="bt_invalid_ip_error">无效 IP</string>
+    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&brandShortName; 设置</string>
+    <string name="onboarding_info_text">&brandShortName; 使用点对点技术分享能被其他 &brandShortName; 用户访问的Web内容</string>
+    <string name="onboarding_info_button">酷！</string>
+    <string name="onboarding_battery_title">需要许可</string>
+    <string name="onboarding_battery_button">继续</string>
 </resources>
