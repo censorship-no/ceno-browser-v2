@@ -203,4 +203,11 @@
 \nDieses ist notwendig, um Logs auf deinem Gerät zu speichern.</string>
     <string name="progress_dialog_log_export_header">Bitte warten…</string>
     <string name="select_log_scope_header">Wähle deinen bevorzugten Anwendungsbereich aus</string>
+    <string name="select_log_scope_message">Die Auswahl längerer Zeitfenster kann eine längere Wartezeit bedeuten</string>
+    <string name="log_export_cancelled">Log-Export abgebrochen</string>
+    <string name="bridge_announcement_dialog_text">Bitte warten Sie, während der &brandShortName; Browserdienst neu gestartet wird, damit Ihre Änderungen wirksam werden. Dies dauert nur ein paar Sekunden.</string>
+    <string name="bridge_announcement_dialog_title">Aktualisieren der Einstellungen für den Bridge-Modus</string>
+    <string name="home_go_to_settings">Gehen Sie zu den Einstellungen</string>
+    <string name="enable_bridge_card_title">Bridge-Modus einschalten</string>
+    <string name="bridge_mode_ip_warning_text">Beachten Sie, dass dadurch auch Ihre IP öffentlich sichtbar wird.</string>
 </resources>
