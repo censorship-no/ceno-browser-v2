@@ -158,9 +158,11 @@ class StandbyFragment : Fragment() {
 
     private fun tryAgain() {
         //restart progressbar indicator
-        binding.progressBar.isActivated = true
-        index = 0
-        updateDisplayText()
+        view?.let {
+            binding.progressBar.isActivated = true
+            index = 0
+            updateDisplayText()
+        }
     }
 
     private fun updateDisplayText() {
