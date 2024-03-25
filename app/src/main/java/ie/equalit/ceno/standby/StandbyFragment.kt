@@ -120,7 +120,7 @@ class StandbyFragment : Fragment() {
 
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
-            setPositiveButton(getString(R.string.standby_try_again)) { dialogInterface, i ->
+            setPositiveButton(getString(R.string.standby_try_again)) { _, _ ->
                 isDialogVisible = false
                 tryAgain()
             }
