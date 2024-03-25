@@ -224,7 +224,7 @@
     <string name="last_5_minutes">Últimos 5 minutos</string>
     <string name="home_go_to_settings">Ir a la configuración</string>
     <string name="enable_bridge_card_title">Activar el modo puente</string>
-    <string name="bridge_mode_ip_warning_text">Tenga en cuenta que esto también hará que su IP sea visible públicamente.</string>
+    <string name="bridge_mode_ip_warning_text">Tenga en cuenta que esto hará que su IP sea visible públicamente para los otros usuarios de Ceno.</string>
     <string name="ouinet_timeout_dialog_text">Ceno requiere una conexión a Internet para funcionar. Comprueba la configuración de tu red.</string>
     <string name="ceno_ouinet_disconnected">Desconexión de la red Ceno</string>
     <string name="public_browsing_mode_selected">modo de navegación pública seleccionado</string>
@@ -242,7 +242,9 @@
     <string name="select_log_scope_message">Seleccionar franjas horarias más largas puede suponer una espera más larga</string>
     <string name="log_export_cancelled">Cancelada la exportación de registros</string>
     <string name="preferences_ceno_export_android_logs">Exportar el registro completo de la aplicación</string>
-    <string name="bridge_announcement_dialog_text">Por favor, espere mientras &brandShortName; servicio de navegador se reinicia para que sus cambios surtan efecto.. Esto sólo tardará unos segundos.</string>
-    <string name="bridge_announcement_dialog_title">Actualizando la configuración del modo puente</string>
+    <string name="bridge_announcement_dialog_text">Por favor, espere mientras el servicio del navegador &brandShortName; se reinicie para que sus cambios surtan efecto.</string>
+    <string name="bridge_announcement_dialog_title">Actualizando la configuración del modo puente…</string>
     <string name="enable_bridge_card_text">Haga que &brandShortName; ¡La red se fortalece convirtiéndonos en un puente! Puede habilitar el Modo Puente yendo a Configuración -&gt; Detalles de la red -&gt; Habilite el modo puente. Tenga en cuenta que esto también hará que su IP sea públicamente visible.</string>
+    <string name="standby_restarting_text">Reiniciando…</string>
+    <string name="learn_more_title">Más información</string>
 </resources>
