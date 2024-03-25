@@ -197,11 +197,11 @@
     <string name="all_logs">Todos os registros</string>
     <string name="select_log_scope_header">Selecione seu escopo preferido</string>
     <string name="select_log_scope_message">Selecionar intervalos de tempo mais longos pode significar uma espera mais longa</string>
-    <string name="bridge_announcement_dialog_title">Atualizando as configurações do modo Ponte</string>
-    <string name="enable_bridge_card_text">Fortaleça a rede &brandShortName; tornando-se uma ponte! Você pode ativar o modo Ponte acessando Configurações -&gt; Detalhes da rede -&gt; Ativar modo Ponte. Observe que isso também tornará seu IP publicamente visível.</string>
+    <string name="bridge_announcement_dialog_title">Atualizando as configurações do modo Ponte…</string>
+    <string name="enable_bridge_card_text">Fortaleça a rede &brandShortName; tornando-se uma ponte! Você pode ativar o modo Ponte acessando Configurações -&gt; Ativar modo Ponte.</string>
     <string name="home_go_to_settings">Ir para as configurações</string>
     <string name="enable_bridge_card_title">Ativar modo Ponte</string>
-    <string name="bridge_mode_ip_warning_text">Observe que isso também tornará seu IP publicamente visível.</string>
+    <string name="bridge_mode_ip_warning_text">Observe que isso tornará seu endereço IP público visível para outros usuários do Ceno.</string>
     <string name="standby_no_internet_text">Sem conexão com a internet.
 \n
 \nO desempenho do Ceno pode ser limitado.
@@ -212,5 +212,7 @@
 \n• Permitir acesso ao armazenamento
 \n
 \nIsso é necessário para salvar o arquivo de log no seu dispositivo.</string>
-    <string name="bridge_announcement_dialog_text">Aguarde enquanto o serviço do navegador &brandShortName; é reiniciado para que as alterações tenham efeito. Isso levará apenas alguns segundos.</string>
+    <string name="bridge_announcement_dialog_text">Aguarde enquanto o serviço do navegador &brandShortName; é reiniciado para que as alterações tenham efeito.</string>
+    <string name="learn_more_title">Saiba mais</string>
+    <string name="standby_restarting_text">Reiniciando…</string>
 </resources>
