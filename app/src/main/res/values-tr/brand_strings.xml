@@ -201,9 +201,9 @@
     <string name="select_log_scope_header">Tercih ettiğiniz kapsamı seçin</string>
     <string name="select_log_scope_message">Daha uzun zaman aralıklarının seçilmesi daha uzun bir bekleme anlamına gelebilir</string>
     <string name="log_export_cancelled">Günlük dışa aktarımı iptal edildi</string>
-    <string name="bridge_announcement_dialog_text">&brandShortName; sırasında lütfen bekleyin. Değişikliklerinizin etkili olması için tarayıcı hizmeti yeniden başlatıldı. Bu işlem yalnızca birkaç saniye sürecektir.</string>
-    <string name="bridge_announcement_dialog_title">Köprü Modu ayarlarını güncellemek</string>
-    <string name="enable_bridge_card_text">&brandShortName; ögesini yapın. Ağınız köprü haline gelerek güçlensin! Ayarlar -&gt; seçeneğine giderek Köprü Modunu etkinleştirebilirsiniz. Ağ Ayrıntıları -&gt; Köprü Modunu etkinleştirin. Bunun aynı zamanda IP\'nizi herkese açık hale getireceğini unutmayın.</string>
+    <string name="bridge_announcement_dialog_text">&brandShortName; görüntülenirken lütfen bekleyin. Değişikliklerinizin etkili olması için tarayıcı hizmeti yeniden başlatıldı.</string>
+    <string name="bridge_announcement_dialog_title">Köprü Modu ayarları güncelleniyor…</string>
+    <string name="enable_bridge_card_text">&brandShortName; ögesini yapın. Ağınız köprü haline gelerek güçlensin! Ayarlar -&gt; seçeneğine giderek Köprü Modunu etkinleştirebilirsiniz.</string>
     <string name="home_go_to_settings">Ayarlara Git</string>
     <string name="enable_bridge_card_title">Köprü Modunu Etkinleştir</string>
     <string name="ceno_sources_header">İçerik kaynakları</string>
@@ -211,5 +211,7 @@
     <string name="browsing_mode_card_title">Tarama Modu</string>
     <string name="personal_browsing_mode_selected">kişisel tarama modu seçildi</string>
     <string name="ceno_log_file_saved_desc">Gizliliğinize öncelik vermek için, kişisel olarak tanımlanabilecek tüm bilgiler bu günlükten dikkatlice kaldırıldı.</string>
-    <string name="bridge_mode_ip_warning_text">Bunun aynı zamanda IP\'nizi herkese açık hale getireceğini unutmayın.</string>
+    <string name="bridge_mode_ip_warning_text">Bunun genel IP adresinizi diğer Ceno kullanıcıları tarafından görülebileceğini unutmayın.</string>
+    <string name="learn_more_title">Daha fazla bilgi edin</string>
+    <string name="standby_restarting_text">Yeniden başlatılıyor…</string>
 </resources>
