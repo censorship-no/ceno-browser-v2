@@ -34,22 +34,11 @@ class SettingsViewNetworkDetailsRobot {
     fun verifyExternalUdpEndpointsDisplay(): ViewInteraction = assertExternalUdpEndpointsDisplay()
     fun verifyPublicUdpEndpointsDisplay(): ViewInteraction = assertPublicUdpEndpointsDisplay()
 
-    fun verifyBridgeModeHeading(): ViewInteraction = assertBridgeModeHeading()
-    fun verifyBridgeModeToggle(): ViewInteraction = assertBridgeModeToggle()
-    fun verifyBridgeModeSummary(): ViewInteraction = assertBridgeModeSummary()
+//    fun verifyBridgeModeHeading(): ViewInteraction = assertBridgeModeHeading()
+
 
     fun verifyBtBootstrapsHeading(): ViewInteraction = assertBtBootstrapsHeading()
     fun verifyExtraBtBootstrapsButton(): ViewInteraction = assertExtraBtBootstrapsButton()
-
-
-    fun clickBridgeModeToggle() = bridgeModeToggle().click()
-
-    fun waitForBridgeModeDialog() {
-        mDevice.findObject(
-            UiSelector()
-                .textContains("Updating Bridge Mode settings"),
-        ).waitUntilGone(TestAssetHelper.waitingTime)
-    }
 
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
@@ -87,8 +76,6 @@ private fun externalUdpEndpointsDisplay() = Espresso.onView(ViewMatchers.withTex
 private fun publicUdpEndpointsDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_public_udp))
 
 private fun bridgeModeHeading() = Espresso.onView(ViewMatchers.withText(R.string.bridge_mode_category))
-private fun bridgeModeToggle() = Espresso.onView(allOf(ViewMatchers.withId(R.id.switchWidget), hasCousin(ViewMatchers.withText(R.string.preferences_ceno_bridge_announcement))))
-private fun bridgeModeSummary() = Espresso.onView(ViewMatchers.withText(R.string.bridge_mode_ip_warning_text))
 
 private fun btBootstrapsHeading() = Espresso.onView(ViewMatchers.withText(R.string.bit_torrent_bootstraps_category))
 private fun extraBtBootstrapsButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_extra_bitTorrent_bootstraps))
@@ -124,12 +111,6 @@ private fun assertPublicUdpEndpointsDisplay() = publicUdpEndpointsDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBridgeModeHeading() = bridgeModeHeading()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertBridgeModeToggle() = bridgeModeToggle()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertBridgeModeSummary() = bridgeModeSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBtBootstrapsHeading() = btBootstrapsHeading()

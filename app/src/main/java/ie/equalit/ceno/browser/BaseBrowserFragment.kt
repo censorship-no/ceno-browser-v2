@@ -496,6 +496,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         val toolBarCoordinatorLayoutParams = binding.toolbar.layoutParams as CoordinatorLayout.LayoutParams
 
+        val progressBarShieldLayoutParams = binding.progressBarShield.layoutParams as CoordinatorLayout.LayoutParams
+
         val sourcesProgressCoordinatorLayoutParams = binding.sourcesProgressBar.layoutParams as CoordinatorLayout.LayoutParams
         sourcesProgressCoordinatorLayoutParams.anchorId = binding.toolbar.id
 
@@ -505,7 +507,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
             // reset constraint of the sources progress bar
             sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.BOTTOM
-            DisplayToolbar.Gravity.BOTTOM
+
+            // reset constraint of the progress bar shield
+            progressBarShieldLayoutParams.anchorGravity = Gravity.TOP
+
+            DisplayToolbar.Gravity.TOP
         }
         else {
             // reset layout_gravity of toolbar layout
@@ -513,7 +519,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
             // reset constraint of the sources progress bar
             sourcesProgressCoordinatorLayoutParams.anchorGravity = Gravity.TOP
-            DisplayToolbar.Gravity.TOP
+
+            // reset constraint of the progress bar shield
+            progressBarShieldLayoutParams.anchorGravity = Gravity.BOTTOM
+
+            DisplayToolbar.Gravity.BOTTOM
         }
 
         binding.sourcesProgressBar.requestLayout()
@@ -654,7 +664,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     companion object {
         private const val SESSION_ID = "session_id"
-        private const val SOURCES_COUNT_FETCH_DELAY = 1000L
+        private const val SOURCES_COUNT_FETCH_DELAY = 500L
 
         const val DIST_CACHE = "dist-cache"
         const val ORIGIN = "origin"
@@ -678,11 +688,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
-            Log.d("PortDelegate", "Received message from extension: $message")
-
             // the percentage progress for the webpage
             val webPageLoadProgress = requireComponents.core.store.state.selectedTab?.content?.progress ?: 0
-            Log.d("WebPageLoadProgress", "Webpage loaded $webPageLoadProgress%")
 
             // `message` returns as undefined sometimes. This check handles that
             if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
@@ -761,12 +768,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun updateStats() {
 
-        Log.d("Message", "Updating stats?")
         context?.components?.webExtensionPort?.mPort?.let {
             it.setDelegate(portDelegate)
             val message = JSONObject()
             message.put("requestSources", "true")
-            Log.d("Message", "Sending message: $message")
             it.postMessage(message)
         }
     }

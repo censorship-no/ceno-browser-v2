@@ -38,7 +38,6 @@ class WebExtensionPort (private val context : Context) {
 
                 val message = JSONObject()
                 message.put("init", "true")
-                Log.d("Message", "Sending message: $message")
                 mPort!!.postMessage(message)
 
             }
