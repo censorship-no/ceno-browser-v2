@@ -288,7 +288,11 @@ class ToolbarIntegration(
 
         toolbar.display.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.hint = context.getString(R.string.toolbar_hint)
-        toolbar.edit.setOnEditFocusChangeListener {  }
+        toolbar.edit.setOnEditFocusChangeListener {
+            if(it) {
+                toolbar.edit.updateUrl(context.components.core.store.state.selectedTab?.content?.url ?: "")
+            }
+        }
 
         ToolbarAutocompleteFeature(toolbar).apply {
             updateAutocompleteProviders(

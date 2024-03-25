@@ -55,6 +55,7 @@ import ie.equalit.ceno.utils.isExternalStorageAvailable
 import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
+import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -84,6 +85,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
 
     private var job: Job? = null
+
+    private var hasOuinetStopped: Boolean = false
+    private var wasLogEnabled: Boolean = false
+    private var bridgeModeChanged: Boolean = false
+    private lateinit var bridgeAnnouncementDialog: AlertDialog
+    private var logFileReset:Boolean = false
+    private var logLevelReset:Boolean = false
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -162,11 +170,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
+        bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
+
 
         view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
             getPreference(pref_key_ouinet_state)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 CenoSettings.getOuinetState(requireContext())
+            }
+            if (it.ouinetStatus == Ouinet.RunningState.Started) {
+                bridgeAnnouncementDialog.dismiss()
+            }
+        }
+        if (arguments?.getBoolean(scrollToBridge) == true) {
+            getPreference(R.string.pref_key_bridge_announcement)?.let {
+                scrollToPreference(it)
             }
         }
 
@@ -249,8 +267,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
-
+        getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
         getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
+
+        getPreference(pref_key_bridge_announcement)?.summary = getString(bridge_mode_ip_warning_text)
+
 
         // Update notifications
         when {
@@ -671,6 +692,88 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getChangeListenerForBridgeAnnouncement(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, _ ->
+            /* Resetting the log settings is a workaround for ouinet logs disappearing after toggling bridge mode,
+            * https://gitlab.com/censorship-no/ceno-browser/-/merge_requests/127#note_1795759444
+            * TODO: identify root cause of this behavior and remove workaround
+            * */
+            wasLogEnabled = CenoSettings.isCenoLogEnabled(requireContext())
+            if (wasLogEnabled) {
+                CenoSettings.setCenoEnableLog(requireContext(), false)
+                setLogFileAndLevel(false)
+            }
+            monitorOuinet()
+            lifecycleScope.launch {
+                if (wasLogEnabled) {
+                    while (!(logFileReset && logLevelReset)) {
+                        delay(DELAY_ONE_SECOND)
+                        println("logFileReset && logLevelReset = $logFileReset && $logLevelReset")
+                    }
+                }
+                requireComponents.ouinet.background.shutdown(false) {
+                    hasOuinetStopped = true
+                }
+            }
+            bridgeModeChanged = true
+            bridgeAnnouncementDialog.show()
+            true
+        }
+    }
+
+    private fun setLogFileAndLevel (newValue : Boolean) {
+        // network request to update preference value
+        CenoSettings.ouinetClientRequest(
+            context = requireContext(),
+            key = OuinetKey.LOGFILE,
+            newValue = if(newValue) OuinetValue.ENABLED else OuinetValue.DISABLED,
+            null,
+            object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    logFileReset = !newValue
+                }
+                override fun onError() {
+                    /* Still flag reset complete on error, since not flagging will cause dialog to hang */
+                    logFileReset = !newValue
+                }
+            }
+        )
+        // network request to update log level based on preference value
+        CenoSettings.ouinetClientRequest(
+            context = requireContext(),
+            key = OuinetKey.LOG_LEVEL,
+            newValue = null,
+            stringValue = if(newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
+            object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    logLevelReset = !newValue
+                }
+                override fun onError() {
+                    /* Still flag reset complete on error, since not flagging will cause dialog to hang */
+                    logLevelReset = !newValue
+                }
+            }
+        )
+    }
+
+    private fun monitorOuinet() {
+        lifecycleScope.launch {
+            while (!hasOuinetStopped) {
+                delay(DELAY_ONE_SECOND)
+            }
+            requireComponents.ouinet.setConfig()
+            requireComponents.ouinet.setBackground(requireContext())
+            requireComponents.ouinet.background.startup {
+                hasOuinetStopped = false
+                /* if debug log previously enabled, re-enable it after startup completes */
+                if (wasLogEnabled) {
+                    CenoSettings.setCenoEnableLog(requireContext(), true)
+                    setLogFileAndLevel(true)
+                }
+            }
+        }
+    }
+
     private fun exportAndroidLogs() {
         /*
         To test the scrubbing locally, uncomment the lines below
@@ -828,5 +931,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val LOGS_LAST_10_MINUTES = 600000L
 
         const val AVERAGE_TOTAL_LOGS = 3000F
+
+        const val scrollToBridge = "scrollToBridge"
+        const val DELAY_ONE_SECOND = 1000L
     }
 }
