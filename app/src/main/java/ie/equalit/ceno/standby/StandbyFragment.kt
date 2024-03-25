@@ -39,7 +39,6 @@ import java.util.Locale
  */
 class StandbyFragment : Fragment() {
 
-    private var isDialogVisible: Boolean = false
     private val refreshIntervalMS: Long = 1000
 
     private var status: Flow<String>? = null
@@ -62,6 +61,8 @@ class StandbyFragment : Fragment() {
         R.string.standby_message_three,
         R.string.standby_message_three
     )
+
+    private var dialog: AlertDialog? = null
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
@@ -113,7 +114,6 @@ class StandbyFragment : Fragment() {
     }
 
     private fun displayTimeoutDialog() {
-        isDialogVisible = true
 
         val timeoutDialogBuilder = AlertDialog.Builder(requireContext())
         val timeoutDialogView = View.inflate(requireContext(), R.layout.layout_standby_timeout, null)
@@ -121,7 +121,6 @@ class StandbyFragment : Fragment() {
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
             setPositiveButton(getString(R.string.standby_try_again)) { _, _ ->
-                isDialogVisible = false
                 tryAgain()
             }
         }
@@ -130,29 +129,27 @@ class StandbyFragment : Fragment() {
             tryAgain()
         }
 
-        val dialog = timeoutDialogBuilder.create()
+        dialog = timeoutDialogBuilder.create()
 
         val btnNetwork = timeoutDialogView.findViewById<Button>(R.id.btn_network_settings)
         btnNetwork?.setOnClickListener {
-            isDialogVisible = false
-            dialog.dismiss()
+            dialog?.dismiss()
             val intent = Intent(ACTION_WIRELESS_SETTINGS)
             startActivity(intent)
         }
         val btnExtraBTBootstraps = timeoutDialogView.findViewById<Button>(R.id.btn_extra_bt_bootstraps)
         btnExtraBTBootstraps.setOnClickListener{
-            dialog.dismiss()
+            dialog?.dismiss()
             val btSourcesMap = mutableMapOf<String, String>()
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
             val extraBTDialog = ExtraBTBootstrapsDialog(requireContext(), btSourcesMap).getDialog()
             extraBTDialog.setOnDismissListener {
-                isDialogVisible = false
                 tryAgain()
             }
             extraBTDialog.show()
 
         }
-        dialog.show()
+        dialog?.show()
 
     }
 
@@ -187,6 +184,7 @@ class StandbyFragment : Fragment() {
             if (currentStatus == RunningState.Started) {
                 //Navigate away
                 //go to home or browser
+                dialog?.dismiss()
                 findNavController().popBackStack(R.id.standbyFragment, true)
                 if (requireComponents.core.store.state.selectedTab == null)
                     findNavController().navigate(R.id.action_global_home)
