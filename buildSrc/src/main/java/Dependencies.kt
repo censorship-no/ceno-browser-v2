@@ -26,7 +26,7 @@ object Versions {
     }
 
     object Gradle {
-        const val android_plugin = "7.4.2"
+        const val android_plugin = "8.2.1"
         const val kotlin_plugin = Kotlin.compiler
     }
 
