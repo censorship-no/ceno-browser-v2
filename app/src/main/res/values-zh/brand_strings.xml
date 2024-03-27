@@ -110,4 +110,22 @@
     <string name="onboarding_info_button">酷！</string>
     <string name="onboarding_battery_title">需要许可</string>
     <string name="onboarding_battery_button">继续</string>
+    <string name="shutdown_clear_title">正在清除应用数据并 
+\n关闭 &brandShortName; 浏览器</string>
+    <string name="shutdown_stop_title">正在关闭 &amp;bramdShortName; 浏览器</string>
+    <string name="preferences_toolbar_hide">滚动以隐藏</string>
+    <string name="preferences_allow_crash_reporting">崩溃报告</string>
+    <string name="preferences_allow_notifications">允许通知</string>
+    <string name="preferences_theme_summary">深色，浅色，省电模式</string>
+    <string name="preferences_theme_default">2</string>
+    <string name="onboarding_thanks_button">让我们开始吧！</string>
+    <string name="preferences_clear_in_toolbar">在工具栏显示</string>
+    <string name="preferences_clear_in_menu">在菜单中显示</string>
+    <string name="preferences_disable_battery_opt">禁用电池优化</string>
+    <string name="preferences_customization">自定义</string>
+    <string name="preferences_change_app_icon">改变应用图标</string>
+    <string name="preferences_theme">设置应用主题</string>
+    <string name="preferences_clear_behavior">默认行为</string>
+    <string name="preferences_clear_behavior_summary">设置点击清除按钮时的行为</string>
+    <string name="preferences_clear_behavior_default">0</string>
 </resources>
