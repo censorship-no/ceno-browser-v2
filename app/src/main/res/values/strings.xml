@@ -227,4 +227,13 @@
     <string name="bridge_mode_category">Bridge Announcements</string>
     <string name="shutdown_message_one">Clearing app data</string>
     <string name="shutdown_message_two">Shutting down Ceno</string>
+    <!-- Text for the button to export profile -->
+    <string name="preferences_export_profile_button">Export profile</string>
+    <!-- Text for the button to import profile -->
+    <string name="preferences_import_profile_button">Import profile</string>
+    <string name="preferences_profile_customization_title">Customizations</string>
+    <string name="preferences_profile_customization_subtitle">Theme, toolbar options, etc.</string>
+    <string name="preferences_profile_top_sites_title">Top Sites</string>
+    <string name="preferences_profile_top_sites_subtitle">Links displayed on homepage</string>
+    <string name="preference_enable_ouisync">Enable Ouisync</string>
 </resources>

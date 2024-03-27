@@ -297,6 +297,8 @@
     <string name="confirm_clear_cached_content">Clear cached content?</string>
     <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
 
+    <string name="enable_ouisync_title">Enable Ouisync</string>
+    <string name="enable_ouisync_message">&brandShortName; settings backup is powered by Ouisync. Enabling this may consume more battery.</string>
     <string name="settings_backup_header">Backup your &brandShortName; settings</string>
-    <string name="settings_backup_message">All of your customizations will be exported to a file.</string>
+    <string name="settings_backup_message">All of your customizations will be stored in a Ouisync repository.</string>
 </resources>

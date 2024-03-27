@@ -198,6 +198,14 @@
             app:popExitAnim="@anim/slide_back_out" />
 
         <action
+            android:id="@+id/action_settingsFragment_to_profileBackupFragment"
+            app:destination="@id/profileBackupFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
+        <action
             android:id="@+id/action_settingsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
             app:enterAnim="@anim/slide_in"
@@ -323,6 +331,12 @@
         android:name="ie.equalit.ceno.settings.deletebrowsingdata.DeleteBrowsingDataFragment"
         android:label="@string/preferences_delete_browsing_data"
         tools:layout="@layout/fragment_delete_browsing_data" />
+
+    <fragment
+        android:id="@+id/profileBackupFragment"
+        android:name="ie.equalit.ceno.settings.profilebackup.ProfileBackupFragment"
+        android:label="@string/preferences_export_settings"
+        tools:layout="@layout/fragment_profile_backup" />
 
     <fragment
         android:id="@+id/aboutFragment"

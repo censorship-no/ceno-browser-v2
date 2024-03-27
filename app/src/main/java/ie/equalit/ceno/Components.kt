@@ -15,6 +15,7 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.Analytics
 import ie.equalit.ceno.components.Core
 import ie.equalit.ceno.components.Ouinet
+import ie.equalit.ceno.components.Ouisync
 import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
@@ -95,6 +96,9 @@ class Components(private val context: Context) {
         )
     }
     val ouinet by lazy { Ouinet(context) }
+
+    val ouisync by lazy { Ouisync(context) }
+
     val permissionHandler by lazy { PermissionHandler(context) }
 
     val webExtensionPort by lazy { WebExtensionPort(context) }

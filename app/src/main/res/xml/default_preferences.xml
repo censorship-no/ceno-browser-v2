@@ -57,4 +57,13 @@
     <androidx.preference.ListPreference
         android:key="@string/pref_key_selected_app_icon"
         android:defaultValue="ie.equalit.ceno.Launcher" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_ouisync_enabled"
+        android:defaultValue="false" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_backup_customizations"
+        android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_backup_top_sites"
+        android:defaultValue="false" />
 </PreferenceScreen>

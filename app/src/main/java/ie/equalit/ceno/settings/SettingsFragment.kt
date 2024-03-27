@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.settings
 
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -16,17 +17,21 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.view.View.OnLongClickListener
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
+import androidx.core.view.marginStart
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -44,6 +49,8 @@ import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
 import ie.equalit.ceno.R.string.download_logs
+import ie.equalit.ceno.R.string.enable_ouisync_message
+import ie.equalit.ceno.R.string.enable_ouisync_title
 import ie.equalit.ceno.R.string.no_external_storage
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.onboarding_battery_title
@@ -82,6 +89,7 @@ import ie.equalit.ceno.R.string.preferences_about_page
 import ie.equalit.ceno.R.string.preferences_ceno_download_log
 import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
+import ie.equalit.ceno.R.string.preferences_export_settings
 import ie.equalit.ceno.R.string.select_log_scope_header
 import ie.equalit.ceno.R.string.select_log_scope_message
 import ie.equalit.ceno.R.string.setting_item_selected
@@ -101,6 +109,8 @@ import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings.isOuisyncEnabled
+import ie.equalit.ceno.settings.Settings.setOuisyncEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -303,7 +313,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
         getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
-        getPreference(pref_key_export_settings)?.onPreferenceClickListener = getClickListenerForSettingsExport()
+        getPreference(pref_key_export_settings)?.onPreferenceClickListener = getClickListenerForProfileBackup()
 
         getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
 
@@ -464,6 +474,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
+            true
+        }
+    }
+
+    private fun getClickListenerForProfileBackup(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_profileBackupFragment
+            )
+            getActionBar().setTitle(preferences_export_settings)
             true
         }
     }

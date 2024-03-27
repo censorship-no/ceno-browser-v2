@@ -115,6 +115,11 @@
         <attr name="deleteBrowsingDataItemIcon" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ProfileBackupItem">
+        <attr name="profileBackupItemTitle" format="reference" />
+        <attr name="profileBackupItemSubtitle" format="reference" />
+        <attr name="profileBackupItemIcon" format="reference" />
+    </declare-styleable>
 
     <declare-styleable name="OnboardingRadioButton">
             <attr name="onboardingKey" format="reference" />

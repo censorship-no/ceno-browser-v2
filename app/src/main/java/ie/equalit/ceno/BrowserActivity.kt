@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.Composable
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -58,6 +59,7 @@ import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
@@ -148,6 +150,22 @@ open class BrowserActivity : BaseActivity() {
         }
 
         components.ouinet.background.startup()
+
+        /* TODO: if ouisync enabled... */
+        if (Settings.isOuisyncEnabled(this)) {
+            Logger.info("OUISYNC ENABLED")
+            MainScope().launch {
+                components.ouisync.apply {
+                    createSession()
+                    session.initNetwork(true,true)
+                    session.bindNetwork(quicV4 = "0.0.0.0:0", quicV6 = "[::]:0")
+                    openRepositories()
+                    getProtocolVersion().let {
+                        Logger.info("OUSIYNC PROTO VERSION: $it")
+                    }
+                }
+            }
+        }
 
         /* CENO: Set default behavior for AppBar */
         supportActionBar!!.apply {
