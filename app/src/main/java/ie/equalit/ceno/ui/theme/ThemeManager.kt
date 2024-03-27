@@ -2,29 +2,19 @@ package ie.equalit.ceno.ui.theme
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
-import android.util.Log
-import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.Window
-import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.ExternalAppBrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
-import ie.equalit.ceno.ext.cenoPreferences
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.createWindowInsetsController
-import java.util.logging.Logger
 
 abstract class ThemeManager {
     abstract var currentMode: BrowsingMode

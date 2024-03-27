@@ -81,6 +81,7 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
+import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
@@ -476,6 +477,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         binding.toolbar.private = themeManager.currentMode.isPersonal
         themeManager.applyTheme(binding.toolbar)
+
+        binding.progressBarShield.background = ContextCompat.getDrawable(
+            requireContext(),
+            if (themeManager.currentMode.isPersonal) {
+                R.color.fx_mobile_private_layer_color_1
+            } else {
+                requireContext().theme.resolveAttribute(
+                    R.attr.toolbarBackground
+                )
+            }
+        )
 
         val statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
 
