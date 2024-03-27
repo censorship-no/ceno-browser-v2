@@ -95,4 +95,11 @@
     <string name="not_applicable">Kullanılamaz</string>
     <string name="udp_category">UDP</string>
     <string name="crash_report_sent">Çökme bildirimi gönderildi!</string>
+    <string name="preferences_website_sources_summary">Web sitesi içeriğini nereden yüklemek istediğinizi seçin</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Özel önyüklemeler ekleyin</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">IP\'leri virgülle ayırın</string>
+    <string name="select_extra_bt_source">Ekstra BitTorrent önyüklemesini seçin</string>
+    <string name="setting_item_selected">%s seçildi</string>
+    <string name="set_default_search_engine">Varsayılan arama motorunu ayarla</string>
+    <string name="bridge_mode_category">Köprü Duyuruları</string>
 </resources>

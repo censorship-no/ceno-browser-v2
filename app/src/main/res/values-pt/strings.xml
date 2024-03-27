@@ -103,4 +103,5 @@
     <string name="preferences_website_sources_summary">Selecione de onde deseja carregar o conteúdo do site</string>
     <string name="set_default_search_engine">Definir motor de pesquisa padrão</string>
     <string name="select_extra_bt_source">Selecione bootstrap extra do BitTorrent</string>
+    <string name="bridge_mode_category">Anúncios de pontes</string>
 </resources>
