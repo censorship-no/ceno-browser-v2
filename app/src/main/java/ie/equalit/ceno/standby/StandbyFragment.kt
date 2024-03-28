@@ -8,6 +8,8 @@ import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings.ACTION_WIRELESS_SETTINGS
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,9 +23,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.databinding.FragmentStandbyBinding
+import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.ExtraBTBootstrapsDialog
+import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -41,7 +46,11 @@ class StandbyFragment : Fragment() {
 
     private val refreshIntervalMS: Long = 1000
 
-    private var status: Flow<String>? = null
+    protected var isCenoStopping : Boolean? = false
+        get() = arguments?.getBoolean(shutdownCeno)
+
+    protected val doClear: Boolean?
+        get() = arguments?.getBoolean(DO_CLEAR)
 
     private var currentStatus = RunningState.Starting
 
@@ -67,9 +76,12 @@ class StandbyFragment : Fragment() {
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        initiateStatusUpdate()
+    private var isTaskInBack = false
+    private val mHandler = Handler(Looper.myLooper()!!)
+    private val timeoutCallback = Runnable {
+        if (!isTaskInBack) {
+            isTaskInBack = requireActivity().moveTaskToBack(false)
+        }
     }
 
     private fun isNetworkAvailable(): Boolean {
@@ -101,16 +113,32 @@ class StandbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            currentStatus = it.ouinetStatus
-            updateDisplayText()
-            Log.d("STANDBY", currentStatus.name)
-            if (currentStatus == RunningState.Stopped) {
-                tryAgain()
+        if (isCenoStopping == true) {
+            mHandler.postDelayed(
+                timeoutCallback,
+                5000L
+            )
+            binding.root.let {
+                it.alpha = 0f
+                it.visibility = View.VISIBLE
+                it.animate()
+                    .alpha(1f)
+                    .setDuration(1000L)
+            }
+        } else {
+            binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                currentStatus = it.ouinetStatus
+                Log.d("STANDBY", "$currentStatus on standby")
+                updateDisplayText()
+                if (currentStatus == RunningState.Stopped){
+                    if(isCenoStopping == true) {
+                        //kill app
+                    } else {
+                        tryAgain()
+                    }
+                }
             }
         }
-
     }
 
     private fun displayTimeoutDialog() {
@@ -153,6 +181,11 @@ class StandbyFragment : Fragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacks(timeoutCallback)
+    }
+
     private fun tryAgain() {
         //restart progressbar indicator
         view?.let {
@@ -164,22 +197,20 @@ class StandbyFragment : Fragment() {
 
     private fun updateDisplayText() {
         viewLifecycleOwner.lifecycleScope.launch{
-            if (currentStatus == RunningState.Starting) {
-                while (currentStatus == RunningState.Starting) {
-                    if (isNetworkAvailable()) {
-                        binding.llNoInternet.visibility = View.INVISIBLE
-                    } else
-                        binding.llNoInternet.visibility = View.VISIBLE
-                    if (index < displayText.size)
-                    {
-                        binding.tvStatus.text = getString(displayText[index])
-                        index += 1
-                    } else {
-                        displayTimeoutDialog()
-                        break
-                    }
-                    delay(refreshIntervalMS)
+            while (currentStatus == RunningState.Starting) {
+                if (isNetworkAvailable()) {
+                    binding.llNoInternet.visibility = View.INVISIBLE
+                } else
+                    binding.llNoInternet.visibility = View.VISIBLE
+                if (index < displayText.size)
+                {
+                    binding.tvStatus.text = getString(displayText[index])
+                    index += 1
+                } else {
+                    displayTimeoutDialog()
+                    break
                 }
+                delay(refreshIntervalMS)
             }
             if (currentStatus == RunningState.Started) {
                 //Navigate away
@@ -192,11 +223,22 @@ class StandbyFragment : Fragment() {
                     findNavController().navigate((R.id.action_global_browser))
             }
             if (currentStatus == RunningState.Stopping) {
-                binding.tvStatus.text = getString(R.string.standby_restarting_text)
-                binding.llNoInternet.visibility = View.INVISIBLE
+                if (isCenoStopping == true) {
+                    binding.tvStatus.text = getString(R.string.shutdown_clear_title)
+                    binding.llNoInternet.visibility = View.INVISIBLE
+                    Log.d("STANDBY", "stopping on standby")
+                } else {
+                    binding.tvStatus.text = getString(R.string.standby_restarting_text)
+                    binding.llNoInternet.visibility = View.INVISIBLE
+                }
             }
             cancel()
         }
+    }
+
+    companion object {
+        const val shutdownCeno = "shutdownCeno"
+        const val DO_CLEAR = "do_clear"
     }
 
 }
