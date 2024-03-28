@@ -1,0 +1,1 @@
+Upstream Ceno kaynak kodu, tümüyle özgür olmayan hazır Mozilla kitaplıklarını kullanır. Ceno Browser F-Droid sürümü için özgür olmayan parçaları değiştirerek bu kitaplıkları sıfırdan oluşturuyoruz.
