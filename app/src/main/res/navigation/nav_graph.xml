@@ -233,6 +233,14 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
+        <action
+            android:id="@+id/action_settingsFragment_to_siteContentGroupFragment"
+            app:destination="@id/siteContentGroupFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
@@ -364,4 +372,10 @@
     <action
         android:id="@+id/action_global_standbyFragment"
         app:destination="@id/standbyFragment" />
+
+    <fragment
+        android:id="@+id/siteContentGroupFragment"
+        android:name="ie.equalit.ceno.settings.SiteContentGroupFragment"
+        android:label="SiteContentGroupFragment" />
+
 </navigation>
