@@ -708,52 +708,55 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 // set sources progress bar
 
                 val response = JSONObject(message)
-                val tabUrl = requireContext().components.core.store.state.selectedTab!!.content.url
+                requireContext().components.core.store.state.selectedTab?.content?.url?.let { tabUrl ->
 
-                // cache the values gotten; caching is done through SourceCountFetchListener interface
-                response.put(URL, tabUrl.tryGetHostFromUrl())
-                cachedSourceCounts = response
+                    // cache the values gotten; caching is done through SourceCountFetchListener interface
+                    response.put(URL, tabUrl.tryGetHostFromUrl())
+                    cachedSourceCounts = response
 
-                // update sources BottomSheet if the reference is not null
-                webExtensionActionPopupPanel?.onCountsFetched(response)
+                    // update sources BottomSheet if the reference is not null
+                    webExtensionActionPopupPanel?.onCountsFetched(response)
 
-                val distCache = if(response.has(DIST_CACHE)) response.getString(DIST_CACHE).toFloat() else 0F
-                val origin = if(response.has(ORIGIN)) response.getString(ORIGIN).toFloat() else 0F
-                val injector = if(response.has(INJECTOR)) response.getString(INJECTOR).toFloat() else 0F
-                val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
+                    val distCache = if(response.has(DIST_CACHE)) response.getString(DIST_CACHE).toFloat() else 0F
+                    val origin = if(response.has(ORIGIN)) response.getString(ORIGIN).toFloat() else 0F
+                    val injector = if(response.has(INJECTOR)) response.getString(INJECTOR).toFloat() else 0F
+                    val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
 //                val localCache = if(response.has(LOCAL_CACHE)) response.getString(LOCAL_CACHE).toFloat() else 0F
 
-                val sum = distCache + origin + injector + proxy
+                    val sum = distCache + origin + injector + proxy
 
-                binding.sourcesProgressBar.removeAllViews()
+                    binding.sourcesProgressBar.removeAllViews()
 
-                // Add direct-from-website source
-                if(origin > 0) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        origin.div(sum).times(100).run {
-                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
-                        },
-                        R.color.ceno_sources_green
+                    // Add direct-from-website source
+                    if(origin > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            origin.div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_green
+                        )
                     )
-                )
 
-                // Add via-ceno-network source
-                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        (proxy + injector + distCache).div(sum).times(100).run {
-                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
-                        },
-                        R.color.ceno_sources_orange
+                    // Add via-ceno-network source
+                    if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            (proxy + injector + distCache).div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_orange
+                        )
                     )
-                )
 
-                // Add progressbar if the webpage hasn't loaded completely
-                if(webPageLoadProgress < 100) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        (100 - webPageLoadProgress).toFloat(),
-                        R.color.ceno_grey_300
+                    // Add progressbar if the webpage hasn't loaded completely
+                    if(webPageLoadProgress < 100) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            (100 - webPageLoadProgress).toFloat(),
+                            R.color.ceno_grey_300
+                        )
                     )
-                )
+                }
+
+
             } else {
                 // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
 
