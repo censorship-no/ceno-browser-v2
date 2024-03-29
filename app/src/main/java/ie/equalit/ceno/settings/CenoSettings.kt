@@ -458,8 +458,10 @@ object CenoSettings {
                         }
                     }
                     OuinetKey.GROUPS_TXT -> {
-                        if (response != null)
+                        if (response != null) {
                             updateCenoGroups(context, response)
+                            ouinetResponseListener?.onSuccess(response)
+                        }
                         else
                             ouinetResponseListener?.onError()
                     }

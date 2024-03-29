@@ -646,9 +646,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoGroupsCounts(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            (activity as BrowserActivity).openToBrowser(
-                "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
-                newTab = true
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.GROUPS_TXT,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        findNavController().navigate(
+                            R.id.action_settingsFragment_to_siteContentGroupFragment,
+                            bundleOf("groups" to message)
+                        )
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(
+                            requireContext(),
+                            ContextCompat.getString(requireContext(), ouinet_client_fetch_fail),
+                            LENGTH_SHORT
+                        ).show()
+                    }
+                },
+                shouldRefresh = false
             )
             true
         }
