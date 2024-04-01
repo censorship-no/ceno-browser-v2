@@ -121,7 +121,7 @@
     <string name="source_code_button_text">Вихідний код</string>
     <string name="website_button_text">Вебсайт</string>
     <string name="donate_button_text">Задонатьте</string>
-    <string name="onboarding_battery_text_v33">Незабаром операційна система запитає у вас дозвіл 
+    <string name="onboarding_battery_text_v33">Незабаром операційна система запитає у вас дозвіл
 \n
 \n• Дозволити сповіщення
 \n• Вимкнути оптимізацію батареї
@@ -134,7 +134,7 @@
 \n
 \nПерейдіть у «Налаштування», щоб надати дозвіл пізніше</string>
     <string name="shutdown_stop_title">Зупинити &brandShortName; браузер</string>
-    <string name="shutdown_clear_title">Очистити дані застосунку та
+    <string name="shutdown_clear_title">Очистити дані застосунку та 
 \nзупинити &brandShortName; Браузер</string>
     <string name="preferences_show_home_button">Показати кнопку Home</string>
     <string name="preferences_allow_notifications">Дозволити сповіщення</string>
