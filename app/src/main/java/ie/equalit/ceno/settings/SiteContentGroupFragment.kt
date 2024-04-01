@@ -50,7 +50,8 @@ class SiteContentGroupFragment : Fragment() {
                 CachedGroupAdapter(
                     requireContext(),
                     convertToMap(
-                        it.trim()
+//                        it.trim()
+                        "bbc.co.uk/jahsd\nbbc.co.uk/hsdfn\nbbc.co.uk/ryuw\nfacebook.com\ntwitter.com\ntwitter.com/jfk"
                     )
                 )
             )
@@ -61,14 +62,21 @@ class SiteContentGroupFragment : Fragment() {
     private fun convertToMap(groups: String): List<CachedGroupAdapter.GroupItem> {
 
         val urls = groups.split("\n")
-        val result = mutableListOf<CachedGroupAdapter.GroupItem>()
+
+        val map = mutableMapOf<String, MutableList<String>>()
 
         for (url in urls) {
             val parts = url.split("/")
             val baseUrl = parts.first()
-            val subUrls = parts.drop(1)
-            result.add(CachedGroupAdapter.GroupItem(baseUrl, subUrls))
+            val subUrls = mutableListOf<String>()
+            parts.drop(1).forEach { subUrls.add("$baseUrl/$it") }
+            if (subUrls.isEmpty()) subUrls.add(baseUrl)
+
+            map[baseUrl] = if (map[baseUrl].isNullOrEmpty()) subUrls else map[baseUrl].apply { this!!.addAll(subUrls) }!!
         }
+
+        val result = mutableListOf<CachedGroupAdapter.GroupItem>()
+        map.keys.forEach { result.add(CachedGroupAdapter.GroupItem(it, map[it]!!.toList())) }
 
         return result
     }
