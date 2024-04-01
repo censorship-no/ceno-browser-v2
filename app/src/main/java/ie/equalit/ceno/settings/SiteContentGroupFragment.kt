@@ -11,11 +11,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
+import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 
 class SiteContentGroupFragment : Fragment() {
 
@@ -44,8 +46,48 @@ class SiteContentGroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.groupListing.text = arguments?.getString("groups")
+        arguments?.getString("groups")?.let {
+//            binding.groupListing.setAdapter(CachedGroupAdapter(convertToMap(it)))
 
+            binding.groupListing.setOnGroupExpandListener { _ ->
+                Toast.makeText(
+                    requireContext(),
+                    " List Expanded.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            binding.groupListing.setOnGroupCollapseListener { _ ->
+                Toast.makeText(
+                    requireContext(),
+                    " List Collapsed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            binding.groupListing.setOnChildClickListener { _, _, _, _, _ ->
+                Toast.makeText(
+                    requireContext(),
+                    "Clicked:",
+                    Toast.LENGTH_SHORT
+                ).show()
+                false
+            }
+        }
+
+    }
+
+    private fun convertToMap(groups: String): List<CachedGroupAdapter.GroupItem> {
+
+        val urls = groups.split("\n")
+        val result = mutableListOf<CachedGroupAdapter.GroupItem>()
+
+        for (url in urls) {
+            val parts = url.split("/")
+            val baseUrl = parts.first()
+            val subUrls = parts.drop(1)
+            result.add(CachedGroupAdapter.GroupItem(baseUrl, subUrls))
+        }
+
+        return result
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
