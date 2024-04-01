@@ -23,16 +23,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.ShutdownFragment
 import ie.equalit.ceno.databinding.FragmentStandbyBinding
-import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.ExtraBTBootstrapsDialog
-import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.lib.state.ext.consumeFrom
@@ -69,6 +65,15 @@ class StandbyFragment : Fragment() {
         R.string.standby_message_three,
         R.string.standby_message_three,
         R.string.standby_message_three
+    )
+
+    private val displayTextStopping: List<Int> = listOf(
+        R.string.shutdown_message_one,
+        R.string.shutdown_message_one,
+        R.string.shutdown_message_one,
+        R.string.shutdown_message_two,
+        R.string.shutdown_message_two,
+        R.string.shutdown_message_two,
     )
 
     private var dialog: AlertDialog? = null
@@ -114,21 +119,18 @@ class StandbyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (isCenoStopping == true) {
-            mHandler.postDelayed(
-                timeoutCallback,
-                5000L
-            )
-            binding.root.let {
-                it.alpha = 0f
-                it.visibility = View.VISIBLE
-                it.animate()
-                    .alpha(1f)
-                    .setDuration(1000L)
+            binding.llNoInternet.visibility = View.GONE
+            lifecycleScope.launch{
+                while (index < displayTextStopping.size) {
+                    binding.tvStatus.text = ContextCompat.getString(requireContext(), displayTextStopping[index])
+                    index += 1
+                    delay(refreshIntervalMS)
+                }
             }
+
         } else {
             binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
                 currentStatus = it.ouinetStatus
-                Log.d("STANDBY", "$currentStatus on standby")
                 updateDisplayText()
                 if (currentStatus == RunningState.Stopped){
                     if(isCenoStopping == true) {
@@ -226,7 +228,6 @@ class StandbyFragment : Fragment() {
                 if (isCenoStopping == true) {
                     binding.tvStatus.text = getString(R.string.shutdown_clear_title)
                     binding.llNoInternet.visibility = View.INVISIBLE
-                    Log.d("STANDBY", "stopping on standby")
                 } else {
                     binding.tvStatus.text = getString(R.string.standby_restarting_text)
                     binding.llNoInternet.visibility = View.INVISIBLE
