@@ -5,6 +5,9 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isGone
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.RssAnnouncementItemBinding
@@ -84,9 +87,24 @@ class CenoRSSAnnouncementViewHolder(
             }
         }
 
-        binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter(interactor, mode).apply {
-            submitList(response.items)
+        binding.rssAnnouncementsRecyclerView.apply {
+            adapter = RssAnnouncementSubAdapter(interactor, mode).apply {
+                submitList(response.items)
+            }
+            layoutManager = object : LinearLayoutManager(binding.root.context) {
+                override fun onLayoutCompleted(state: RecyclerView.State?) {
+                    super.onLayoutCompleted(state)
+                }
+            }
         }
+
+        ItemTouchHelper(
+            AnnouncementCardSwipeCallback(
+                swipeDirs = ItemTouchHelper.LEFT,
+                dragDirs = 0,
+                interactor = interactor
+            )
+        ).attachToRecyclerView(binding.rssAnnouncementsRecyclerView)
     }
 
     companion object {

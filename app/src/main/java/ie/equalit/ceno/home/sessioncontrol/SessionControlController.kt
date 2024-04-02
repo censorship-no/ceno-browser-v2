@@ -70,6 +70,8 @@ interface SessionControlController {
     fun handleRemoveCard(homepageCardType: HomepageCardType)
 
     fun handleUrlClicked(homepageCardType: HomepageCardType, url: String)
+
+    fun handleAnnouncementSwiped(position: Int)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -227,5 +229,10 @@ class DefaultSessionControlController(
 
     override fun handleUrlClicked(homepageCardType: HomepageCardType, url: String) {
         activity.openToBrowser(url, newTab = true)
+    }
+
+    override fun handleAnnouncementSwiped(position: Int) {
+        // update state of index
+        // refresh recycler view
     }
 }
