@@ -25,6 +25,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**
@@ -232,7 +233,7 @@ class DefaultSessionControlController(
     }
 
     override fun handleAnnouncementSwiped(position: Int) {
-        // update state of index
-        // refresh recycler view
+        val guid = Settings.getAnnouncementData(activity.applicationContext)?.items?.get(position)?.guid
+        guid?.let { Settings.addSwipedAnnouncementGuid(activity.applicationContext, it) }
     }
 }

@@ -203,10 +203,10 @@ class HomeFragment : BaseHomeFragment() {
                         rssResponse?.let { Settings.saveAnnouncementData(context, it) }
 
                         // check for null and refresh homepage adapter if necessary
-                        if(rssResponse != null) {
+                        if(Settings.getAnnouncementData(context) != null) {
                             withContext(Dispatchers.Main) {
                                 val state = context.components.appStore.state
-                                sessionControlView?.update(state, rssResponse)
+                                sessionControlView?.update(state, Settings.getAnnouncementData(context))
                             }
                         }
                     }

@@ -275,11 +275,54 @@ object Settings {
             .commit()
     }
 
+    fun getSwipedAnnouncementGuids(context: Context): List<String>? {
+        val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_rss_past_announcement_data), null
+        ) ?: return null
+
+        return guids.split(" ")
+    }
+
+    fun addSwipedAnnouncementGuid(context: Context, guid : String) {
+        val key = context.getString(R.string.pref_key_rss_past_announcement_data)
+
+        val list = (getSwipedAnnouncementGuids(context)?.toMutableList() ?: mutableListOf())
+        list.add(guid)
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, list.joinToString(" "))
+            .apply()
+    }
+
     fun getAnnouncementData(context: Context) : RssAnnouncementResponse? {
         val localValue = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_rss_announcement_data), null
         )
-        return Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
+
+        val swipedGuids = getSwipedAnnouncementGuids(context)
+
+        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)?.apply {
+            val response = RssAnnouncementResponse(
+                title = title,
+                link = link,
+                text = text,
+                items = buildList {
+                    this@apply.items.forEach {
+                        if(swipedGuids?.contains(it.guid) == false
+//                            || > 30 days
+                            ) {
+                            add(it)
+                        }
+                    }
+                }
+            )
+            return if(response.items.isEmpty()) null else response
+
+        }
+
+        return null
+
     }
 
     fun saveAnnouncementData(context: Context, announcementData: RssAnnouncementResponse?) {
