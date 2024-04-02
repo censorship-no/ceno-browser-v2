@@ -45,6 +45,8 @@ import ie.equalit.ceno.R.string.ceno_android_logs_file_name
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.ceno_log_file_saved
 import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
+import ie.equalit.ceno.R.string.confirm_clear_cached_content
+import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
 import ie.equalit.ceno.R.string.download_logs
@@ -696,8 +698,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
-            //ClearButtonFeature.createClearDialog(requireContext()).show()
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(confirm_clear_cached_content))
+                setMessage(getString(confirm_clear_cached_content_desc))
+                setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
+                setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
+                    //ClearButtonFeature.createClearDialog(requireContext()).show()
+                }
+                create()
+            }.show()
             true
         }
     }
