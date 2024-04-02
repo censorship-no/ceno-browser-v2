@@ -39,4 +39,5 @@
     <string name="rename_top_site">שנה שם</string>
     <string name="preferences_autofill">אפליקציות למילוי אוטומטי</string>
     <string name="toolbar_hint">חפש או הזן כתובת</string>
+    <string name="menu_action_add_tab">הוסף כרטיסיה חדשה</string>
 </resources>
