@@ -286,6 +286,7 @@
     <string name="standby_restarting_text">Restarting…</string>
 
     <string name="download_site_content">Download site content</string>
+    <string name="no_content_shared">Currently, you\'re not sharing any content</string>
     <string name="dismiss">Dismiss</string>
 
 </resources>
