@@ -302,14 +302,15 @@ object Settings {
 
         val swipedGuids = getSwipedAnnouncementGuids(context)
 
-        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)?.apply {
+        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)?.let { rssAnnouncementResponse ->
+
             val response = RssAnnouncementResponse(
-                title = title,
-                link = link,
-                text = text,
+                title = rssAnnouncementResponse.title,
+                link = rssAnnouncementResponse.link,
+                text = rssAnnouncementResponse.text,
                 items = buildList {
-                    this@apply.items.forEach {
-                        if(swipedGuids?.contains(it.guid) == false
+                    rssAnnouncementResponse.items.forEach {
+                        if(swipedGuids == null || !swipedGuids.contains(it.guid)
 //                            || > 30 days
                             ) {
                             add(it)
