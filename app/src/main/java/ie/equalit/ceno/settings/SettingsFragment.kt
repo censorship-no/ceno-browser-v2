@@ -709,10 +709,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 key = OuinetKey.GROUPS_TXT,
                 ouinetResponseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
-                        findNavController().navigate(
-                            R.id.action_settingsFragment_to_siteContentGroupFragment,
-                            bundleOf("groups" to message)
-                        )
+                        if (message.trim().isEmpty()) {
+                            Toast.makeText(requireContext(), getString(R.string.no_content_shared), Toast.LENGTH_LONG).show()
+                        } else {
+                            findNavController().navigate(
+                                R.id.action_settingsFragment_to_siteContentGroupFragment,
+                                bundleOf("groups" to message)
+                            )
+                        }
                     }
 
                     override fun onError() {
