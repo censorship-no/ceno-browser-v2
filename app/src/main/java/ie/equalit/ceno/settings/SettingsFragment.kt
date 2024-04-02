@@ -36,64 +36,7 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
-import ie.equalit.ceno.R.string.ceno_android_logs_file_name
-import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
-import ie.equalit.ceno.R.string.ceno_log_file_saved
-import ie.equalit.ceno.R.string.ceno_log_file_saved_desc
-import ie.equalit.ceno.R.string.confirm_clear_cached_content
-import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
-import ie.equalit.ceno.R.string.customize_addon_collection_cancel
-import ie.equalit.ceno.R.string.customize_addon_collection_ok
-import ie.equalit.ceno.R.string.download_logs
-import ie.equalit.ceno.R.string.no_external_storage
-import ie.equalit.ceno.R.string.onboarding_battery_button
-import ie.equalit.ceno.R.string.onboarding_battery_title
-import ie.equalit.ceno.R.string.onboarding_warning_title
-import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
-import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
-import ie.equalit.ceno.R.string.pref_key_about_ceno
-import ie.equalit.ceno.R.string.pref_key_about_geckoview
-import ie.equalit.ceno.R.string.pref_key_about_ouinet
-import ie.equalit.ceno.R.string.pref_key_about_page
-import ie.equalit.ceno.R.string.pref_key_add_ons
-import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
-import ie.equalit.ceno.R.string.pref_key_allow_notifications
-import ie.equalit.ceno.R.string.pref_key_autofill
-import ie.equalit.ceno.R.string.pref_key_bridge_announcement
-import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
-import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
-import ie.equalit.ceno.R.string.pref_key_ceno_download_log
-import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
-import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
-import ie.equalit.ceno.R.string.pref_key_ceno_network_config
-import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
-import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
-import ie.equalit.ceno.R.string.pref_key_customization
-import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
-import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
-import ie.equalit.ceno.R.string.pref_key_make_default_browser
-import ie.equalit.ceno.R.string.pref_key_ouinet_state
-import ie.equalit.ceno.R.string.pref_key_override_amo_collection
-import ie.equalit.ceno.R.string.pref_key_privacy
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
-import ie.equalit.ceno.R.string.pref_key_search_engine
-import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
-import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
-import ie.equalit.ceno.R.string.preference_choose_search_engine
-import ie.equalit.ceno.R.string.preferences_about_page
-import ie.equalit.ceno.R.string.preferences_ceno_download_log
-import ie.equalit.ceno.R.string.preferences_customize_amo_collection
-import ie.equalit.ceno.R.string.preferences_delete_browsing_data
-import ie.equalit.ceno.R.string.select_log_scope_header
-import ie.equalit.ceno.R.string.select_log_scope_message
-import ie.equalit.ceno.R.string.setting_item_selected
-import ie.equalit.ceno.R.string.settings
-import ie.equalit.ceno.R.string.share_logs
-import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
-import ie.equalit.ceno.R.string.tracker_category
-import ie.equalit.ceno.R.string.view_logs
-import ie.equalit.ceno.R.string.write_storage_permission_text
+import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
@@ -141,8 +84,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var wasLogEnabled: Boolean = false
     private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
-    private var logFileReset: Boolean = false
-    private var logLevelReset: Boolean = false
+    private var logFileReset:Boolean = false
+    private var logLevelReset:Boolean = false
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -622,13 +565,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
                 key = OuinetKey.LOGFILE,
-                newValue = if (newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED,
+                newValue = if(newValue == true) OuinetValue.ENABLED else OuinetValue.DISABLED,
                 stringValue = null,
                 object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
                         requireComponents.cenoPreferences.sharedPrefsUpdate = true
                     }
-
                     override fun onError() {
                         Log.e(TAG, "Failed to set log file to newValue: $newValue")
                     }
@@ -639,7 +581,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
+                stringValue = if(newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
 
             true
@@ -760,18 +702,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun setLogFileAndLevel(newValue: Boolean) {
+    private fun setLogFileAndLevel (newValue : Boolean) {
         // network request to update preference value
         CenoSettings.ouinetClientRequest(
             context = requireContext(),
             key = OuinetKey.LOGFILE,
-            newValue = if (newValue) OuinetValue.ENABLED else OuinetValue.DISABLED,
+            newValue = if(newValue) OuinetValue.ENABLED else OuinetValue.DISABLED,
             null,
             object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     logFileReset = !newValue
                 }
-
                 override fun onError() {
                     /* Still flag reset complete on error, since not flagging will cause dialog to hang */
                     logFileReset = !newValue
@@ -783,12 +724,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             context = requireContext(),
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
-            stringValue = if (newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
+            stringValue = if(newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
             object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     logLevelReset = !newValue
                 }
-
                 override fun onError() {
                     /* Still flag reset complete on error, since not flagging will cause dialog to hang */
                     logLevelReset = !newValue
@@ -856,7 +796,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     .create()
                     .apply {
                         setOnDismissListener {
-                            Toast.makeText(requireContext(), getString(R.string.canceled), Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), getString(canceled), Toast.LENGTH_LONG).show()
                             job?.cancel()
                             dismiss()
                         }
@@ -896,7 +836,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                             withContext(Dispatchers.Main) {
 
-                                progressDialog.setOnDismissListener { } // reset dismissListener
+                                progressDialog.setOnDismissListener {  } // reset dismissListener
 
                                 progressView.progress = 100
                                 delay(200)
