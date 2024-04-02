@@ -9,6 +9,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings.ACTION_WIRELESS_SETTINGS
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,6 @@ import java.util.Locale
  */
 class StandbyFragment : Fragment() {
 
-    private var isDialogVisible: Boolean = false
     private val refreshIntervalMS: Long = 1000
 
     private var status: Flow<String>? = null
@@ -61,6 +61,8 @@ class StandbyFragment : Fragment() {
         R.string.standby_message_three,
         R.string.standby_message_three
     )
+
+    private var dialog: AlertDialog? = null
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
@@ -102,20 +104,23 @@ class StandbyFragment : Fragment() {
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             currentStatus = it.ouinetStatus
+            updateDisplayText()
+            Log.d("STANDBY", currentStatus.name)
+            if (currentStatus == RunningState.Stopped) {
+                tryAgain()
+            }
         }
-        updateDisplayText()
+
     }
 
     private fun displayTimeoutDialog() {
-        isDialogVisible = true
 
         val timeoutDialogBuilder = AlertDialog.Builder(requireContext())
         val timeoutDialogView = View.inflate(requireContext(), R.layout.layout_standby_timeout, null)
 
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
-            setPositiveButton(getString(R.string.standby_try_again)) { dialogInterface, i ->
-                isDialogVisible = false
+            setPositiveButton(getString(R.string.standby_try_again)) { _, _ ->
                 tryAgain()
             }
         }
@@ -124,65 +129,71 @@ class StandbyFragment : Fragment() {
             tryAgain()
         }
 
-        val dialog = timeoutDialogBuilder.create()
+        dialog = timeoutDialogBuilder.create()
 
         val btnNetwork = timeoutDialogView.findViewById<Button>(R.id.btn_network_settings)
         btnNetwork?.setOnClickListener {
-            isDialogVisible = false
-            dialog.dismiss()
+            dialog?.dismiss()
             val intent = Intent(ACTION_WIRELESS_SETTINGS)
             startActivity(intent)
         }
         val btnExtraBTBootstraps = timeoutDialogView.findViewById<Button>(R.id.btn_extra_bt_bootstraps)
         btnExtraBTBootstraps.setOnClickListener{
-            dialog.dismiss()
+            dialog?.dismiss()
             val btSourcesMap = mutableMapOf<String, String>()
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
             val extraBTDialog = ExtraBTBootstrapsDialog(requireContext(), btSourcesMap).getDialog()
             extraBTDialog.setOnDismissListener {
-                isDialogVisible = false
                 tryAgain()
             }
             extraBTDialog.show()
 
         }
-        dialog.show()
+        dialog?.show()
 
     }
 
     private fun tryAgain() {
         //restart progressbar indicator
-        binding.progressBar.isActivated = true
-        index = 0
-        updateDisplayText()
+        view?.let {
+            binding.progressBar.isActivated = true
+            index = 0
+            updateDisplayText()
+        }
     }
 
     private fun updateDisplayText() {
         viewLifecycleOwner.lifecycleScope.launch{
-            while (currentStatus == RunningState.Starting) {
-                if (isNetworkAvailable()) {
-                    binding.llNoInternet.visibility = View.INVISIBLE
-                } else
-                    binding.llNoInternet.visibility = View.VISIBLE
-                if (index < displayText.size)
-                {
-                    binding.tvStatus.text = getString(displayText[index])
-                    index += 1
-                } else {
-                    break
+            if (currentStatus == RunningState.Starting) {
+                while (currentStatus == RunningState.Starting) {
+                    if (isNetworkAvailable()) {
+                        binding.llNoInternet.visibility = View.INVISIBLE
+                    } else
+                        binding.llNoInternet.visibility = View.VISIBLE
+                    if (index < displayText.size)
+                    {
+                        binding.tvStatus.text = getString(displayText[index])
+                        index += 1
+                    } else {
+                        displayTimeoutDialog()
+                        break
+                    }
+                    delay(refreshIntervalMS)
                 }
-                delay(refreshIntervalMS)
             }
             if (currentStatus == RunningState.Started) {
                 //Navigate away
                 //go to home or browser
+                dialog?.dismiss()
                 findNavController().popBackStack(R.id.standbyFragment, true)
                 if (requireComponents.core.store.state.selectedTab == null)
                     findNavController().navigate(R.id.action_global_home)
                 else
                     findNavController().navigate((R.id.action_global_browser))
-            } else {
-                displayTimeoutDialog()
+            }
+            if (currentStatus == RunningState.Stopping) {
+                binding.tvStatus.text = getString(R.string.standby_restarting_text)
+                binding.llNoInternet.visibility = View.INVISIBLE
             }
             cancel()
         }

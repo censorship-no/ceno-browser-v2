@@ -48,6 +48,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.NetworkSettingsFragment
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -582,8 +583,8 @@ open class BrowserActivity : BaseActivity() {
     }
 
     fun openSettings() {
-        val bundle = bundleOf(NetworkSettingsFragment.scrollToBridge to true)
-        navHost.navController.navigate(R.id.action_homeFragment_to_networkSettingsFragment, bundle)
+        val bundle = bundleOf(SettingsFragment.scrollToBridge to true)
+        navHost.navController.navigate(R.id.action_global_settings, bundle)
     }
 
     companion object {

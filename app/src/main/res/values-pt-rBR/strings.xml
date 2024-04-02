@@ -103,4 +103,5 @@
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adicionar bootstraps personalizados</string>
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
     <string name="select_extra_bt_source">Selecionar bootstrap extra do BitTorrent</string>
+    <string name="bridge_mode_category">Ponte de Anúncios</string>
 </resources>

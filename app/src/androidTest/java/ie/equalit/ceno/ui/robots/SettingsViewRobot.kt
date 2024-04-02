@@ -11,6 +11,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
@@ -50,6 +51,9 @@ class SettingsViewRobot {
     fun verifyAutofillAppsButton() = assertAutofillAppsButton()
     fun verifyAutofillAppsSummary() = assertAutofillAppsSummary()
     fun verifyAddOnsButton() = assertAddOnsButton()
+
+    fun verifyBridgeModeToggle(): ViewInteraction = assertBridgeModeToggle()
+    fun verifyBridgeModeSummary(): ViewInteraction = assertBridgeModeSummary()
     fun verifyDeleteBrowsingData(): ViewInteraction = assertDeleteBrowsingData()
     fun verifyDisableBatteryOptimization(): Unit = assertDisableBatteryOptimizationButton()
     fun verifyShowOnboarding(): ViewInteraction = assertShowOnboarding()
@@ -87,9 +91,24 @@ class SettingsViewRobot {
 
     fun clickEnableLogFile() = enableLogFile().click()
 
+    fun clickBridgeModeToggle() = bridgeModeToggle().click()
+
+    fun waitForBridgeModeDialog() {
+        mDevice.findObject(
+            UiSelector()
+                .textContains("Updating Bridge Mode settings"),
+        ).waitUntilGone(waitingTime)
+    }
+
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
             recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
+        }
+    }
+
+    fun clickUpRecyclerView(count: Int) {
+        for (i in 1..count) {
+            recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_UP))
         }
     }
 
@@ -198,10 +217,13 @@ private fun autofillAppsButton() = onView(withText("Autofill apps"))
 private fun autofillAppsSummary() = onView(withText("Autofill logins and passwords in other apps"))
 
 private fun addOnsButton() = onView(withText(R.string.preferences_add_ons))
+
+private fun bridgeModeToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_bridge_announcement))))
+private fun bridgeModeSummary() = onView(withText(R.string.bridge_mode_ip_warning_text))
 private fun deleteBrowsingDataButton() =  onView(withText(R.string.preferences_delete_browsing_data))
 private fun showOnboardingToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_show_onboarding))))
 
-private fun crashReportingButton() = onView(withText(R.string.preferences_allow_crash_reporting))
+private fun crashReportingButton() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_allow_crash_reporting))))
 
 private fun sourcesHeading() = onView(withText(R.string.ceno_sources_category))
 
@@ -256,6 +278,12 @@ private fun assertAutofillAppsSummary() = autofillAppsSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAddOnsButton() = addOnsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertBridgeModeToggle() = bridgeModeToggle()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertBridgeModeSummary() = bridgeModeSummary()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDeleteBrowsingData() = deleteBrowsingDataButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDisableBatteryOptimizationButton() {
