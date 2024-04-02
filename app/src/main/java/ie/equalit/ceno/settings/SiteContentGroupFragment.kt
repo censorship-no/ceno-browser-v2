@@ -62,20 +62,18 @@ class SiteContentGroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getString("groups").let {
+        arguments?.getString("groups")?.let { groups ->
             binding.groupListing.setAdapter(
                 CachedGroupAdapter(
                     requireContext(),
                     convertToMap(
-//                        it.trim()
-                        "bbc.co.uk/jahsd\nbbc.co.uk/hsdfn\nbbc.co.uk/ryuw\nfacebook.com\ntwitter.com\ntwitter.com/jfk"
+                        groups.trim()
                     )
                 )
             )
             binding.downloadButton.isGone = false
             binding.downloadButton.setOnClickListener {
-//                downloadGroups(it)
-                downloadGroups("bbc.co.uk/jahsd\nbbc.co.uk/hsdfn\nbbc.co.uk/ryuw\nfacebook.com\ntwitter.com\ntwitter.com/jfk")
+                downloadGroups(groups)
             }
         }
 
