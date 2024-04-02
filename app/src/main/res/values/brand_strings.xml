@@ -292,4 +292,7 @@
     <string name="confirm_groups_file_download_desc">A txt file will be saved to your local storage.</string>
     <string name="write_storage_permission_text_content_group">Shortly the OS will ask you for permission to\n\n\u2022 Allow access to storage\n\nThis is needed to save the website listing file on your device.</string>
 
+    <string name="confirm_clear_cached_content">Clear cached content?</string>
+    <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
+
 </resources>
