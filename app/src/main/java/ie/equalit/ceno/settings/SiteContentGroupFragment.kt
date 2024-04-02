@@ -8,6 +8,7 @@ package ie.equalit.ceno.settings
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -27,7 +30,10 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
+import ie.equalit.ceno.utils.isExternalStorageAvailable
+import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -75,7 +81,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             )
             binding.downloadButton.isGone = false
             binding.downloadButton.setOnClickListener {
-                downloadGroups(groups)
+                checkPermissions()
             }
         }
 
@@ -103,8 +109,50 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
         return result
     }
 
-    private fun downloadGroups(groups: String) {
+    private fun checkPermissions() {
 
+        when {
+            !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
+
+                // storage not available
+                Toast.makeText(requireContext(), getString(R.string.no_external_storage), Toast.LENGTH_LONG).show()
+            }
+
+            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
+                || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
+
+                // permission not granted, dynamically request for permission
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle(getString(R.string.onboarding_battery_title))
+                    setMessage(getString(R.string.write_storage_permission_text_content_group))
+                    setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
+                        // show toast for permission denied
+                        Toast.makeText(requireContext(), getString(R.string.onboarding_warning_title), Toast.LENGTH_LONG).show()
+                    }
+                    setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                        requireComponents.permissionHandler.requestPermissionForExternalStorage(this@SiteContentGroupFragment, storageActivityResultLauncher)
+                    }
+                    create()
+                }.show()
+            }
+
+            else -> {
+                // confirmation nudge
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle(getString(R.string.confirm_groups_file_download))
+                    setMessage(getString(R.string.confirm_groups_file_download_desc))
+                    setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ -> }
+                    setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                        downloadGroups()
+                    }
+                    create()
+                }.show()
+            }
+        }
+
+    }
+
+    private fun downloadGroups() {
         var file: File?
 
         val progressDialogView = View.inflate(context, R.layout.progress_dialog, null)
@@ -130,7 +178,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
 
                 // save file to external storage
                 file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path + "/${getString(R.string.ceno_android_content_group_file_name)}.txt")
-                file?.writeText(groups)
+                file?.writeText(arguments?.getString("groups")!!)
 
                 withContext(Dispatchers.Main) {
 
@@ -165,7 +213,24 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
                 }
             }
         }
+    }
 
+    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                // Permission granted!
+                downloadGroups()
+            } else {
+                // show toast for permission denied
+                Toast.makeText(requireContext(), getString(R.string.onboarding_warning_title), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            //Below android 11
+            if (requireComponents.permissionHandler.isStoragePermissionGranted()) {
+                // Permission granted!
+                downloadGroups()
+            }
+        }
     }
 
     override fun onLinkClicked(url: String) {
