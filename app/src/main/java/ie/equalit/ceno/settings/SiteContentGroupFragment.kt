@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
@@ -34,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class SiteContentGroupFragment : Fragment() {
+class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListener {
 
     private var _binding: FragmentSiteContentGroupBinding? = null
     private val binding get() = _binding!!
@@ -68,7 +69,8 @@ class SiteContentGroupFragment : Fragment() {
                     requireContext(),
                     convertToMap(
                         groups.trim()
-                    )
+                    ),
+                    this
                 )
             )
             binding.downloadButton.isGone = false
@@ -164,6 +166,10 @@ class SiteContentGroupFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onLinkClicked(url: String) {
+        (activity as BrowserActivity).openToBrowser(url = url, newTab = true)
     }
 
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
