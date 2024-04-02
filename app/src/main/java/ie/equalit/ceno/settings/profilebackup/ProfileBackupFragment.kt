@@ -6,10 +6,15 @@ package ie.equalit.ceno.settings.profilebackup
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +26,8 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentProfileBackupBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.utils.isExternalStorageAvailable
+import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import mozilla.components.support.base.log.logger.Logger
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
@@ -64,9 +71,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
             }
         }
 
-        binding.exportProfile.setOnClickListener {
-            askToExport()
-        }
+        binding.exportProfile.setOnClickListener(getOnClickListenerForExportProfile())
         updateCheckboxes()
         updateButtons()
     }
@@ -115,7 +120,6 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     viewLifecycleOwner.lifecycleScope.launch {
                         session.initNetwork(true,true)
                         session.bindNetwork(quicV4 = "0.0.0.0:0", quicV6 = "[::]:0")
-                        createRepository("cenoProfile")
                         getProtocolVersion().let {
                             Logger.info("OUISYNC PROTO VERSION: $it")
                         }
@@ -156,15 +160,25 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     }
                 }
                 viewLifecycleOwner.lifecycleScope.launch {
-                    requireComponents.ouisync.writeToRepo(backupPrefs.toString())
+                    requireComponents.ouisync.apply {
+                        createAndWriteToRepo("cenoProfile", backupPrefs.toString())
+                    }
                 }
-                val showText = TextView(requireContext())
-                showText.text = "${requireComponents.ouisync.writeToken}"
-                showText.setTextIsSelectable(true)
+                /* TODO: intermediate dialog is workaround to wait for writeToken to be set
+                 *   instead should use a callback or coroutine */
                 AlertDialog.Builder(requireContext()).apply {
-                    setTitle("Here's your share token!")
-                    setView(showText)
+                    setTitle("Get your share token!")
                     setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                        val showText = TextView(requireContext())
+                        showText.text = "${requireComponents.ouisync.writeToken}"
+                        showText.setTextIsSelectable(true)
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle("Here's your share token!")
+                            setView(showText)
+                            setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                            }
+                            create()
+                        }.show()
                     }
                     create()
                 }.show()
@@ -274,6 +288,72 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
             binding.customizationItem,
             binding.topSitesItem,
         )
+    }
+
+    /* TODO: this was copied directly from the Settings Fragment
+     *   for exporting the logs, we should make this reusable */
+    private fun getOnClickListenerForExportProfile(): View.OnClickListener {
+        return View.OnClickListener {
+            when {
+                !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
+
+                    // storage not available
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.no_external_storage),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
+                        || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
+
+                    // permission not granted, dynamically request for permission
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(getString(R.string.onboarding_battery_title))
+                        setMessage(getString(R.string.write_storage_permission_text))
+                        setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
+                            // show toast for permission denied
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.onboarding_warning_title),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                            requireComponents.permissionHandler.requestPermissionForExternalStorage(
+                                this@ProfileBackupFragment,
+                                storageActivityResultLauncher
+                            )
+                        }
+                        create()
+                    }.show()
+                }
+
+                else -> {
+                    askToExport()
+                }
+            }
+        }
+    }
+
+    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                // Permission granted!
+                askToExport()
+            } else {
+                // show toast for permission denied
+                Toast.makeText(requireContext(), getString(R.string.onboarding_warning_title), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            //Below android 11
+            if(requireComponents.permissionHandler.isStoragePermissionGranted()) {
+                // Permission granted!
+                askToExport()
+            }
+        }
     }
 
     companion object {

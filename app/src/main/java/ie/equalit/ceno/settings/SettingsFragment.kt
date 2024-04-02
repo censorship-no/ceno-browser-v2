@@ -42,6 +42,7 @@ import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.array.prefs_included_in_backup
+import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
 import ie.equalit.ceno.R.string.ceno_android_logs_file_name
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.ceno_log_file_saved
@@ -64,6 +65,7 @@ import ie.equalit.ceno.R.string.pref_key_add_ons
 import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
 import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_autofill
+import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
 import ie.equalit.ceno.R.string.pref_key_ceno_download_log

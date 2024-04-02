@@ -1,6 +1,7 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
+import android.os.Environment
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,12 +18,13 @@ class Ouisync (
     context : Context
 ) {
     lateinit var session : Session
-    lateinit var writeToken : ShareToken
+    var writeToken : ShareToken? = null
     private var sessionError by mutableStateOf<String?>(null)
     private var protocolVersion by mutableStateOf<Int>(0)
     private val rootDir : File? = context.filesDir
     private var configDir : String = "$rootDir/config"
-    private var storeDir : String = "$rootDir/store"
+    //TODO: allow storeDir to be chosen by user
+    private var storeDir : String = Environment.getExternalStorageDirectory().path + "/Download/store"
     private var repositories by mutableStateOf<Map<String, Repository>>(mapOf())
 
     fun createSession() {
@@ -45,12 +47,12 @@ class Ouisync (
         return protocolVersion
     }
 
-    suspend fun createRepository(name: String, token: String = "") {
-        val session = this.session ?: return
+    suspend fun createOrOpenRepository(name: String, token: String = "") : Repository {
+        val session = this.session
 
         if (repositories.containsKey(name)) {
             Log.e(TAG, "repository named \"$name\" already exists")
-            return
+            return openRepository(name)
         }
 
         var shareToken: ShareToken? = null
@@ -72,6 +74,15 @@ class Ouisync (
         Log.d(TAG, writeToken.toString())
 
         repositories = repositories + (name to repo)
+        return repo
+    }
+
+    suspend fun openRepository(name: String) : Repository {
+        val session = this.session
+        val file = File("$storeDir/$name.$DB_EXTENSION")
+        val repo = Repository.open(session, file.path)
+        Log.i(TAG, "Opened repository $name")
+        return repo
     }
 
     suspend fun openRepositories() {
@@ -121,6 +132,15 @@ class Ouisync (
                 }
             }
         }
+    }
+
+    suspend fun createAndWriteToRepo(name: String, contentW : String, charset: Charset = Charsets.UTF_8) {
+        val repo = createOrOpenRepository(name)
+        Log.i(TAG, "Opened repository $name")
+        val fileW = ouiFile.create(repo, "prefs.txt")
+        fileW.write(0, contentW.toByteArray(charset))
+        fileW.flush()
+        fileW.close()
     }
 
     companion object {
