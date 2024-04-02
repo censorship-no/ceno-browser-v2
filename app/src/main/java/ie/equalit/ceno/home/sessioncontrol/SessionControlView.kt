@@ -16,6 +16,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ceno.home.HomeCardSwipeCallback
 import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.announcements.AnnouncementCardSwipeCallback
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
 
@@ -85,13 +86,15 @@ private fun AppState.toAdapterList(
 class SessionControlView(
     val containerView: View,
     viewLifecycleOwner: LifecycleOwner,
-    internal val interactor: SessionControlInteractor
+    internal val interactor: SessionControlInteractor,
+    listener: AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener
 ) {
     val view: RecyclerView = containerView as RecyclerView
 
     private val sessionControlAdapter = SessionControlAdapter(
         interactor,
-        viewLifecycleOwner
+        viewLifecycleOwner,
+        listener
     )
 
     init {

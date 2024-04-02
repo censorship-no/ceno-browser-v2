@@ -23,6 +23,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.announcements.AnnouncementCardSwipeCallback
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -116,7 +117,15 @@ class HomeFragment : BaseHomeFragment() {
         sessionControlView = SessionControlView(
             binding.sessionControlRecyclerView,
             viewLifecycleOwner,
-            sessionControlInteractor
+            sessionControlInteractor,
+            object : AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener {
+                override fun onSwipe(position: Int) {
+                    val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(position)?.guid
+                    guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
+
+                    updateSessionControlView()
+                }
+            }
         )
 
 

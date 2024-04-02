@@ -18,7 +18,8 @@ import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 
 class CenoRSSAnnouncementViewHolder(
     itemView: View,
-    interactor: HomePageInteractor
+    interactor: HomePageInteractor,
+    var listener: AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener?
 ) : BaseHomeCardViewHolder(itemView, interactor) {
 
     private val binding = RssAnnouncementItemBinding.bind(itemView)
@@ -87,10 +88,13 @@ class CenoRSSAnnouncementViewHolder(
             }
         }
 
+        val items = response.items.toMutableList()
+
+        val subAdapter = RssAnnouncementSubAdapter(interactor, mode).apply {
+            submitList(items)
+        }
         binding.rssAnnouncementsRecyclerView.apply {
-            adapter = RssAnnouncementSubAdapter(interactor, mode).apply {
-                submitList(response.items)
-            }
+            adapter = subAdapter
             layoutManager = object : LinearLayoutManager(binding.root.context) {
                 override fun onLayoutCompleted(state: RecyclerView.State?) {
                     super.onLayoutCompleted(state)
@@ -102,7 +106,7 @@ class CenoRSSAnnouncementViewHolder(
             AnnouncementCardSwipeCallback(
                 swipeDirs = ItemTouchHelper.LEFT,
                 dragDirs = 0,
-                interactor = interactor
+                listener = listener
             )
         ).attachToRecyclerView(binding.rssAnnouncementsRecyclerView)
     }

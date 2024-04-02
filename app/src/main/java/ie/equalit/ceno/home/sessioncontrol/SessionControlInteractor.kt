@@ -76,8 +76,6 @@ interface HomePageInteractor {
     fun onMenuItemClicked(homepageCardType: HomepageCardType)
 
     fun onUrlClicked(homepageCardType: HomepageCardType, url: String)
-
-    fun onAnnouncementSwiped(position: Int)
 }
 
 /**
@@ -191,9 +189,5 @@ class SessionControlInteractor(
 
     override fun onUrlClicked(homepageCardType: HomepageCardType, url: String) {
         controller.handleUrlClicked(homepageCardType, url)
-    }
-
-    override fun onAnnouncementSwiped(position: Int) {
-        controller.handleAnnouncementSwiped(position)
     }
 }

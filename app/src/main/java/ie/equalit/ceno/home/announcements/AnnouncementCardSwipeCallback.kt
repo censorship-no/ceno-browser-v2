@@ -2,12 +2,11 @@ package ie.equalit.ceno.home.announcements
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 
 class AnnouncementCardSwipeCallback(
     dragDirs: Int,
     swipeDirs: Int,
-    val interactor: HomePageInteractor
+    val listener: RssAnnouncementSwipeListener?
 ) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
 
     override fun getMovementFlags(
@@ -29,6 +28,10 @@ class AnnouncementCardSwipeCallback(
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        interactor.onAnnouncementSwiped(viewHolder.absoluteAdapterPosition)
+        listener?.onSwipe(viewHolder.absoluteAdapterPosition)
+    }
+
+    interface RssAnnouncementSwipeListener {
+        fun onSwipe(position: Int)
     }
 }

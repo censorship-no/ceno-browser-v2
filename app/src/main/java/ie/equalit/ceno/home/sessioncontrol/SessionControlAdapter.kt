@@ -15,6 +15,7 @@ import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.announcements.AnnouncementCardSwipeCallback
 import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
@@ -127,7 +128,8 @@ class AdapterItemDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
 
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
-    private val viewLifecycleOwner: LifecycleOwner
+    private val viewLifecycleOwner: LifecycleOwner,
+    private val listener: AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener?,
     ) :
     ListAdapter<AdapterItem, RecyclerView.ViewHolder>(AdapterItemDiffCallback())
     {
@@ -156,7 +158,7 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
-            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor)
+            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor, listener)
 
             PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,
