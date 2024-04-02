@@ -60,6 +60,8 @@ class RssAnnouncementSubAdapter(
                 binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_message))
             }
 
+            binding.rssTitle.text = rssItem.title
+
             binding.itemDate.text = rssItem.pubDate
 
             var descriptionText = rssItem.description

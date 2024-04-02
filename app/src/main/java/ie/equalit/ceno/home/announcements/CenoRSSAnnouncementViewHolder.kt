@@ -1,6 +1,5 @@
 package ie.equalit.ceno.home.announcements
 
-import android.content.ContextWrapper
 import android.view.ContextThemeWrapper
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -20,7 +19,7 @@ class CenoRSSAnnouncementViewHolder(
 ) : BaseHomeCardViewHolder(itemView, interactor) {
 
     private val binding = RssAnnouncementItemBinding.bind(itemView)
-    private var mode:BrowsingMode = BrowsingMode.Normal
+    private var mode: BrowsingMode = BrowsingMode.Normal
         get() {
             return field
         }
@@ -59,7 +58,7 @@ class CenoRSSAnnouncementViewHolder(
     fun bind(response: RssAnnouncementResponse, mode: BrowsingMode) {
         this@CenoRSSAnnouncementViewHolder.mode = mode
 
-        binding.rssTitle.text = response.items.getOrNull(0)?.title ?: response.title
+        binding.rssTitle.text = itemView.context.getString(R.string.announcement_header, response.title, response.items.size)
 
         val personalContext = ContextThemeWrapper(itemView.context, R.style.PersonalTheme)
 

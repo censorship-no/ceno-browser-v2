@@ -7,9 +7,19 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rss_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center|start"
+        android:textColor="@color/ceno_home_card_announcement_timestamp_color"
+        tools:text="Announcement title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/item_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:textColor="@color/ceno_home_card_announcement_timestamp_color"
         android:textStyle="italic"
         tools:text="Wed, 6 Nov 2023" />
