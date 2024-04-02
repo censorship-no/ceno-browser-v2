@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CenoMode.Card"
     android:id="@+id/rss_announcements_card"
+    style="@style/CenoMode.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/ceno_mode_margin_horizontal"
@@ -22,6 +22,7 @@
             android:id="@+id/rss_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/annoncements_title_background"
             android:clickable="true"
             android:drawableStart="@drawable/ic_announcement_collapsed"
             android:drawableEnd="@drawable/ic_arrow_collapsed"
@@ -29,10 +30,9 @@
             android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
+            android:padding="8dp"
             android:textColor="@color/ceno_home_card_announcement_title_color"
-            tools:text="Announcements"
-            android:background="@drawable/annoncements_title_background"
-            android:padding="8dp"/>
+            tools:text="Announcements" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rssAnnouncementsRecyclerView"
