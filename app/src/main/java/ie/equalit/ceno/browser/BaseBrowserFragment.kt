@@ -700,18 +700,18 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
-            // the percentage progress for the webpage
-            val webPageLoadProgress = requireComponents.core.store.state.selectedTab?.content?.progress ?: 0
+            if (context == null)
+                return
+            requireContext().components.core.store.state.selectedTab?.let { tab ->
+                // the percentage progress for the webpage
+                val webPageLoadProgress = tab.content.progress ?: 0
 
-            // `message` returns as undefined sometimes. This check handles that
-            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
-                // set sources progress bar
-
-                val response = JSONObject(message)
-                requireContext().components.core.store.state.selectedTab?.content?.url?.let { tabUrl ->
-
+                // `message` returns as undefined sometimes. This check handles that
+                if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                    // set sources progress bar
+                    val response = JSONObject(message)
                     // cache the values gotten; caching is done through SourceCountFetchListener interface
-                    response.put(URL, tabUrl.tryGetHostFromUrl())
+                    response.put(URL, tab.content.url.tryGetHostFromUrl())
                     cachedSourceCounts = response
 
                     // update sources BottomSheet if the reference is not null
@@ -754,22 +754,21 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                             R.color.ceno_grey_300
                         )
                     )
-                }
 
+                } else {
+                    // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
 
-            } else {
-                // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
-
-                // compare the URL key in `cachedSourceCounts` with the current tab's URL.
-                // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
-                if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
-                    binding.sourcesProgressBar.removeAllViews()
-                    binding.sourcesProgressBar.addView(
-                        requireContext().createSegment(
-                            webPageLoadProgress.toFloat(),
-                            R.color.accent
+                    // compare the URL key in `cachedSourceCounts` with the current tab's URL.
+                    // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
+                    if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
+                        binding.sourcesProgressBar.removeAllViews()
+                        binding.sourcesProgressBar.addView(
+                            requireContext().createSegment(
+                                webPageLoadProgress.toFloat(),
+                                R.color.accent
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
