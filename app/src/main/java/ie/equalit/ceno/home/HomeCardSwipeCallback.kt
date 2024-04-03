@@ -32,11 +32,10 @@ class HomeCardSwipeCallback(
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        if (viewHolder.itemViewType == HomepageCardType.BASIC_MESSAGE_CARD.value)
-            interactor.onCardSwipe(HomepageCardType.BASIC_MESSAGE_CARD)
-        else if (viewHolder.itemViewType == HomepageCardType.ANNOUNCEMENTS_CARD.value)
-            interactor.onCardSwipe(HomepageCardType.ANNOUNCEMENTS_CARD)
-        else
-            interactor.onCardSwipe(HomepageCardType.MODE_MESSAGE_CARD)
+        when (viewHolder.itemViewType) {
+            HomepageCardType.BASIC_MESSAGE_CARD.value -> interactor.onCardSwipe(HomepageCardType.BASIC_MESSAGE_CARD)
+            HomepageCardType.ANNOUNCEMENTS_CARD.value -> interactor.onCardSwipe(HomepageCardType.ANNOUNCEMENTS_CARD, index = viewHolder.absoluteAdapterPosition)
+            else -> interactor.onCardSwipe(HomepageCardType.MODE_MESSAGE_CARD)
+        }
     }
 }

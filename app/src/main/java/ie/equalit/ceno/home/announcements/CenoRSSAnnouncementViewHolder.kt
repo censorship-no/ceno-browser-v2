@@ -128,6 +128,10 @@ class CenoRSSAnnouncementViewHolder(
 
     }
 
+    interface RssAnnouncementSwipeListener {
+        fun onSwipeCard(index: Int)
+    }
+
     companion object {
         val homepageCardType = HomepageCardType.ANNOUNCEMENTS_CARD
     }

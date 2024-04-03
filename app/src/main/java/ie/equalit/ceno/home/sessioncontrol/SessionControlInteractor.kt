@@ -69,7 +69,7 @@ interface CustomizeHomeIteractor {
 interface HomePageInteractor {
     fun onRemoveCard(homepageCardType: HomepageCardType)
 
-    fun onCardSwipe(homepageCardType: HomepageCardType)
+    fun onCardSwipe(homepageCardType: HomepageCardType, index: Int? = null)
 
     fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode)
 
@@ -175,8 +175,8 @@ class SessionControlInteractor(
         controller.handleRemoveCard(homepageCardType)
     }
 
-    override fun onCardSwipe(homepageCardType: HomepageCardType) {
-        controller.handleRemoveCard(homepageCardType)
+    override fun onCardSwipe(homepageCardType: HomepageCardType, index: Int?) {
+        controller.handleRemoveCard(homepageCardType, index)
     }
 
     override fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {

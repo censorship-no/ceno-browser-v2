@@ -25,7 +25,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**
@@ -68,7 +68,7 @@ interface SessionControlController {
 
     fun handleMenuItemClicked(homepageCardType: HomepageCardType)
 
-    fun handleRemoveCard(homepageCardType: HomepageCardType)
+    fun handleRemoveCard(homepageCardType: HomepageCardType, index: Int? = null)
 
     fun handleUrlClicked(homepageCardType: HomepageCardType, url: String)
 }
@@ -84,6 +84,7 @@ class DefaultSessionControlController(
     private val addTabUseCase: TabsUseCases.AddNewTabUseCase,
      */
     private val viewLifecycleScope: CoroutineScope,
+    private val rssAnnouncementSwipeListener: CenoRSSAnnouncementViewHolder.RssAnnouncementSwipeListener?
 ) : SessionControlController {
 
     override fun handleMenuOpened() {
@@ -219,13 +220,12 @@ class DefaultSessionControlController(
         }
     }
 
-    override fun handleRemoveCard(homepageCardType: HomepageCardType) {
+    override fun handleRemoveCard(homepageCardType: HomepageCardType, index: Int?) {
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             preferences.showBridgeAnnouncementCard = false
             appStore.dispatch(AppAction.BridgeCardChange(false))
         } else if (homepageCardType == HomepageCardType.ANNOUNCEMENTS_CARD) {
-//            val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(position)?.guid
-//            guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
+            index?.let { rssAnnouncementSwipeListener?.onSwipeCard(it) }
         }
     }
 
