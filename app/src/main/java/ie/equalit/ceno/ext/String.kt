@@ -93,7 +93,7 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
         val date: Date = dateFormat.parse(this) ?: return false
 
         val differenceDays: Int = ((date.time - Calendar.getInstance().time.time) / (1000 * 60 * 60 * 24)).toInt()
-        return numberOfDays > abs(differenceDays)
+        return numberOfDays < abs(differenceDays)
     } catch (e: Exception) {
         e.printStackTrace()
         return false
