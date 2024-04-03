@@ -223,6 +223,9 @@ class DefaultSessionControlController(
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             preferences.showBridgeAnnouncementCard = false
             appStore.dispatch(AppAction.BridgeCardChange(false))
+        } else if (homepageCardType == HomepageCardType.ANNOUNCEMENTS_CARD) {
+//            val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(position)?.guid
+//            guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
         }
     }
 
