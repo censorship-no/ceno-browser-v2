@@ -34,7 +34,7 @@ class HomeCardSwipeCallback(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         when (viewHolder.itemViewType) {
             HomepageCardType.BASIC_MESSAGE_CARD.value -> interactor.onCardSwipe(HomepageCardType.BASIC_MESSAGE_CARD)
-            HomepageCardType.ANNOUNCEMENTS_CARD.value -> interactor.onCardSwipe(HomepageCardType.ANNOUNCEMENTS_CARD, index = viewHolder.absoluteAdapterPosition)
+            HomepageCardType.ANNOUNCEMENTS_CARD.value -> interactor.onAnnouncementCardSwiped(viewHolder.absoluteAdapterPosition)
             else -> interactor.onCardSwipe(HomepageCardType.MODE_MESSAGE_CARD)
         }
     }

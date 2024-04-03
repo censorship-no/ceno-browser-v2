@@ -25,7 +25,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
+import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**
@@ -68,7 +68,9 @@ interface SessionControlController {
 
     fun handleMenuItemClicked(homepageCardType: HomepageCardType)
 
-    fun handleRemoveCard(homepageCardType: HomepageCardType, index: Int? = null)
+    fun handleRemoveCard(homepageCardType: HomepageCardType)
+
+    fun handleRemoveAnnouncementCard(index: Int)
 
     fun handleUrlClicked(homepageCardType: HomepageCardType, url: String)
 }
@@ -84,7 +86,7 @@ class DefaultSessionControlController(
     private val addTabUseCase: TabsUseCases.AddNewTabUseCase,
      */
     private val viewLifecycleScope: CoroutineScope,
-    private val rssAnnouncementSwipeListener: CenoRSSAnnouncementViewHolder.RssAnnouncementSwipeListener?
+    private val rssAnnouncementSwipeListener: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener?
 ) : SessionControlController {
 
     override fun handleMenuOpened() {
@@ -220,13 +222,15 @@ class DefaultSessionControlController(
         }
     }
 
-    override fun handleRemoveCard(homepageCardType: HomepageCardType, index: Int?) {
+    override fun handleRemoveCard(homepageCardType: HomepageCardType) {
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             preferences.showBridgeAnnouncementCard = false
             appStore.dispatch(AppAction.BridgeCardChange(false))
-        } else if (homepageCardType == HomepageCardType.ANNOUNCEMENTS_CARD) {
-            index?.let { rssAnnouncementSwipeListener?.onSwipeCard(it) }
         }
+    }
+
+    override fun handleRemoveAnnouncementCard(index: Int) {
+        rssAnnouncementSwipeListener?.onSwipeCard(index)
     }
 
     override fun handleUrlClicked(homepageCardType: HomepageCardType, url: String) {

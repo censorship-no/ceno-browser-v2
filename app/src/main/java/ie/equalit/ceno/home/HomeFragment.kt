@@ -23,7 +23,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
+import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -111,7 +111,7 @@ class HomeFragment : BaseHomeFragment() {
                 preferences = components.cenoPreferences,
                 appStore = components.appStore,
                 viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
-                object: CenoRSSAnnouncementViewHolder.RssAnnouncementSwipeListener {
+                object: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener {
                     override fun onSwipeCard(index: Int) {
                         // Using the minus() function below because announcement is actually the second item in the adapter items.
                         // AdapterItem.TopPlaceholderItem is the first item in SessionControlView.kt
@@ -214,6 +214,7 @@ class HomeFragment : BaseHomeFragment() {
                         rssResponse?.let { Settings.saveAnnouncementData(context, it) }
 
                         // check for null and refresh homepage adapter if necessary
+                        // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
                         if(Settings.getAnnouncementData(context) != null) {
                             withContext(Dispatchers.Main) {
                                 val state = context.components.appStore.state

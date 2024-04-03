@@ -10,16 +10,12 @@ import androidx.core.view.isGone
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.RssAnnouncementItemBinding
-import ie.equalit.ceno.ext.click
-import ie.equalit.ceno.ext.extractATags
-import ie.equalit.ceno.ext.getContentFromATag
-import ie.equalit.ceno.home.BaseHomeCardViewHolder
-import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.home.RssItem
+import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.home.*
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 import ie.equalit.ceno.utils.XMLParser
 
-class CenoRSSAnnouncementViewHolder(
+class RSSAnnouncementViewHolder(
     itemView: View,
     interactor: HomePageInteractor
 ) : BaseHomeCardViewHolder(itemView, interactor) {
@@ -62,7 +58,7 @@ class CenoRSSAnnouncementViewHolder(
     }
 
     fun bind(response: RssItem, mode: BrowsingMode) {
-        this@CenoRSSAnnouncementViewHolder.mode = mode
+        this@RSSAnnouncementViewHolder.mode = mode
 
         binding.rssTitle.text = response.title
 
