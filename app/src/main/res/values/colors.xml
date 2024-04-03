@@ -45,6 +45,9 @@
     <color name="logo_icon_color">@color/ceno_blue_400</color>
     <color name="logo_accent">@color/ceno_orange_500</color>
 
+    <color name="tooltip_focal_color">#E60C4A6E</color>
+    <color name="tooltip_prompt_color">#990C4A6E</color>
+
 
     <color name="ceno_blue_50">#F0F9FF</color>
     <color name="ceno_blue_100">#E0F2FE</color>
