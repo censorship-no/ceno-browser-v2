@@ -113,6 +113,8 @@ class HomeFragment : BaseHomeFragment() {
                 viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
                 object: CenoRSSAnnouncementViewHolder.RssAnnouncementSwipeListener {
                     override fun onSwipeCard(index: Int) {
+                        // Using the minus() function below because announcement is actually the second item in the adapter items.
+                        // AdapterItem.TopPlaceholderItem is the first item in SessionControlView.kt
                         val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(index.minus(1))?.guid
                         guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
 
