@@ -34,6 +34,7 @@ internal fun normalModeAdapterItems(
     val items = mutableListOf<AdapterItem>()
 
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
+    // IF THIS EVER CHANGES, REMEMBER TO UPDATE THE [_sessionControlInteractor : SessionControlInteractor] constructor in HomeFragment.kt.
     items.add(AdapterItem.TopPlaceholderItem)
 
     // Show announcements at the top
