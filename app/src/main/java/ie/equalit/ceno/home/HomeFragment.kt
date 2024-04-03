@@ -23,7 +23,6 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.home.announcements.AnnouncementCardSwipeCallback
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -117,15 +116,15 @@ class HomeFragment : BaseHomeFragment() {
         sessionControlView = SessionControlView(
             binding.sessionControlRecyclerView,
             viewLifecycleOwner,
-            sessionControlInteractor,
-            object : AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener {
-                override fun onSwipe(position: Int) {
-                    val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(position)?.guid
-                    guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
-
-                    updateSessionControlView()
-                }
-            }
+            sessionControlInteractor
+//            object : AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener {
+//                override fun onSwipe(position: Int) {
+//                    val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(position)?.guid
+//                    guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
+//
+//                    updateSessionControlView()
+//                }
+//            }
         )
 
 
@@ -175,7 +174,7 @@ class HomeFragment : BaseHomeFragment() {
             context?.let { context ->
                 sessionControlView?.update(
                     it,
-                    Settings.getAnnouncementData(context) /* From local storage */
+                    Settings.getAnnouncementData(context)?.items /* From local storage */
                 )
                 updateUI(it.mode)
                 updateSearch(it.mode)
@@ -206,7 +205,41 @@ class HomeFragment : BaseHomeFragment() {
                     }
 
                     response?.let { result ->
-                        val rssResponse = XMLParser.parseRssXml(result)
+                        val rssResponse = XMLParser.parseRssXml("<rss version=\"2.0\">\n" +
+                            "<channel>\n" +
+                            "<title>Ceno Browser Announcements</title>\n" +
+                            "<link>https://censorship.no/</link>\n" +
+                            "<description>\n" +
+                            "RSS feed of announcements from the team behind Ceno Browser\n" +
+                            "</description>\n" +
+                            "<item>\n" +
+                            "<title>New version of Ceno Browser (v2.1.0) released!</title>\n" +
+                            "<link>announcements/01-04-2024.html</link>\n" +
+                            "<guid>announcements/01-04-2024.html</guid>\n" +
+                            "<pubDate>Mon, 01 April 2024 15:25:32 PST</pubDate>\n" +
+                            "<description>\n" +
+                            "Please update to the latest version of Ceno Browser by visiting our\n" +
+                            "<a href=\"https://censorship.no/download\">download page</a>\n" +
+                            "! You can now choose to enable Bridge Mode on the homepage and help make the Ceno network stronger. A progress bar has been added to show whether a website is being accessed directly (green) or via the Ceno network (orange). A loading screen has been added to indicate what's happening \"under the hood\" when first starting Ceno.\n" +
+                            "</description>\n" +
+                            "</item>\n" +
+                            "<item>\n" +
+                            "<title>\n" +
+                            "Take a look at Ceno's two browsing modes: Public and Personal:\n" +
+                            "</title>\n" +
+                            "<link>announcements/22-11-2023.html</link>\n" +
+                            "<guid>announcements/22-11-2023.html</guid>\n" +
+                            "<pubDate>Wed, 22 Nov 2023 15:25:32 PST</pubDate>\n" +
+                            "<description>\n" +
+                            "You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly-accessible registry (BitTorrent). Personal mode eliminates this record but may be slower and less efficient at retrieving content. See the\n" +
+                            "<a href=\"https://censorship.no/en/support.html\">FAQ</a>\n" +
+                            "or\n" +
+                            "<a href=\"https://censorship.no/user-manual\">User Manual</a>\n" +
+                            "for more details on Ceno usage.\n" +
+                            "</description>\n" +
+                            "</item>\n" +
+                            "</channel>\n" +
+                            "</rss>")
 
                         // perform null-check and save announcement data in local
                         rssResponse?.let { Settings.saveAnnouncementData(context, it) }
@@ -215,7 +248,7 @@ class HomeFragment : BaseHomeFragment() {
                         if(Settings.getAnnouncementData(context) != null) {
                             withContext(Dispatchers.Main) {
                                 val state = context.components.appStore.state
-                                sessionControlView?.update(state, Settings.getAnnouncementData(context))
+                                sessionControlView?.update(state, Settings.getAnnouncementData(context)?.items)
                             }
                         }
                     }

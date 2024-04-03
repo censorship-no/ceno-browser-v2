@@ -14,7 +14,7 @@ import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.announcements.AnnouncementCardSwipeCallback
 import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
@@ -35,7 +35,7 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
 
-    data class CenoAnnouncementItem(val response: RssAnnouncementResponse, var mode:BrowsingMode) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType) {
+    data class CenoAnnouncementItem(val response: RssItem, var mode:BrowsingMode) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType) {
         override fun contentsSameAs(other: AdapterItem): Boolean {
             val newItem = (other as? CenoAnnouncementItem) ?: return false
             if (newItem.mode != this.mode) return false
@@ -128,8 +128,7 @@ class AdapterItemDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
 
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
-    private val viewLifecycleOwner: LifecycleOwner,
-    private val listener: AnnouncementCardSwipeCallback.RssAnnouncementSwipeListener?,
+    private val viewLifecycleOwner: LifecycleOwner
     ) :
     ListAdapter<AdapterItem, RecyclerView.ViewHolder>(AdapterItemDiffCallback())
     {
@@ -158,7 +157,7 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
-            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor, listener)
+            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor)
 
             PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,

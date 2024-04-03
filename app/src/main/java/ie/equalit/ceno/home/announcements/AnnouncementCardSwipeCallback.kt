@@ -5,8 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AnnouncementCardSwipeCallback(
     dragDirs: Int,
-    swipeDirs: Int,
-    val listener: RssAnnouncementSwipeListener?
+    swipeDirs: Int
 ) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
 
     override fun getMovementFlags(
@@ -28,10 +27,6 @@ class AnnouncementCardSwipeCallback(
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        listener?.onSwipe(viewHolder.absoluteAdapterPosition)
-    }
-
-    interface RssAnnouncementSwipeListener {
-        fun onSwipe(position: Int)
+//        listener?.onSwipe(viewHolder.absoluteAdapterPosition)
     }
 }
