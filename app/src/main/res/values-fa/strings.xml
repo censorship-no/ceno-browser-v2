@@ -8,7 +8,7 @@
     <string name="menu_action_add_tab">زبانه جدید</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
-    <string name="menu_action_close_tabs_private">بستن زبانه‌های خصوصی</string>
+    <string name="menu_action_close_tabs_private">بستن زبانه‌های شخصی</string>
     <!-- <string name="preferences_autofill">Autofill apps</string> -->
     <!-- <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string> -->
     <!-- Preference enabling remote debugging -->
@@ -16,7 +16,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">فعال شده در حالت مرور خصوصی</string>
+    <string name="preferences_tracking_protection_private">فعال شده در حالت مرور شخصی</string>
     <!-- Preference for privacy -->
     <string name="privacy">حریم خصوصی</string>
     <!-- Preference summary for privacy -->
@@ -34,7 +34,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">حریم خصوصی تنظیمات</string> -->
     <!-- مرور خصوصی -->
-    <string name="private_browsing_title">مرور خصوصی</string>
+    <string name="private_browsing_title">مرور شخصی</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">مجموعه افزودنی سفارشی</string>
@@ -50,9 +50,9 @@
     <string name="toast_customize_addon_collection_done">مجموعه افزونه اصلاح شده است. ترک برنامه برای اعمال تغییرات…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">فعال کردن حالت خصوصی</string>
+    <string name="content_description_private_browsing_button">فعال‌سازی حالت شخصی</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه خصوصی</string>
+    <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه شخصی</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">تغییر نام</string>
@@ -160,4 +160,13 @@
     <string name="crash_report_sent">گذارش خرابی با موفقیت ارسال شد!</string>
     <string name="preferences_website_sources_summary">انتخاب کنید کجا میخواهید محتویات وبسایت را بارگیری کنید</string>
     <string name="browser_menu_back">بازگشت</string>
+    <string name="general_category">عمومی</string>
+    <string name="preference_choose_search_engine">موتور جستجو را انتخاب کنید</string>
+    <string name="customize_extra_bittorrent_bootstrap">بوت‌استرپ‌های اضافی بیت‌تورنت</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">بوت‌استرپ‌های سفارشی اضافه کنید</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">آی‌پی‌ها را با گذاشتن کاما (,) از هم جدا کنید</string>
+    <string name="select_extra_bt_source">بوت‌استرپ اضافی بیت‌تورنت را انتخاب کنید</string>
+    <string name="bit_torrent_bootstraps_category">بوت‌استرپ‌های بیت‌تورنت</string>
+    <string name="setting_item_selected">%sانتخاب شد</string>
+    <string name="bridge_mode_category">اعلان‌های مرتبط با پل (Bridge)</string>
 </resources>

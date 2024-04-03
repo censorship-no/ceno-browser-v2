@@ -172,4 +172,5 @@
     <string name="preferences_website_sources_summary">Оберіть, звідки ви хочете завантажити контент веб-сайту</string>
     <string name="select_extra_bt_source">Виберіть додаткову завантажувальну програму BitTorrent</string>
     <string name="set_default_search_engine">Встановіть пошукову систему за замовчуванням</string>
+    <string name="bridge_mode_category">Анонси мостів</string>
 </resources>

@@ -12,7 +12,7 @@
     <string name="toolbar_hint">Wyszukaj lub wprowadź adres</string>
     <string name="menu_action_add_tab">Dodaj nową kartę</string>
     <string name="menu_action_close_tabs">Zamknij wszystkie karty</string>
-    <string name="menu_action_close_tabs_private">Zamknij prywatne karty</string>
+    <string name="menu_action_close_tabs_private">Zamknij karty osobiste</string>
     <string name="preferences_remote_debugging">Zdalne debugowanie przez USB</string>
     <string name="preferences_tracking_protection_normal">Zezwalaj w normalnym trybie przeglądania</string>
     <string name="preferences_delete_browsing_data">Usuń historię przeglądania</string>

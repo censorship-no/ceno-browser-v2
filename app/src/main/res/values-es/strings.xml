@@ -166,4 +166,11 @@
     <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
     <string name="not_applicable">n/a</string>
     <string name="crash_report_sent">¡Informe de errores enviado!</string>
+    <string name="preferences_website_sources_summary">Seleccione de dónde desea cargar el contenido de la página web</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Agregar programas de arranque personalizados</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Separe las IPs con comas</string>
+    <string name="select_extra_bt_source">Seleccione un arranque BitTorrent adicional</string>
+    <string name="setting_item_selected">%s seleccionado</string>
+    <string name="set_default_search_engine">Establecer motor de búsqueda predeterminado</string>
+    <string name="bridge_mode_category">Anuncios de puentes</string>
 </resources>

@@ -4,8 +4,7 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
     <string name="app_name" translatable="false">&brandShortName;</string>
     <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Make &brandShortName; your default browser</string>
@@ -18,12 +17,7 @@
     <!-- Preference category for Mozilla about/legal etc. -->
     <string name="about_category">About</string>
     <!-- About content -->
-    <string name="about_content"><![CDATA[
-<p>%1$s - Share the Web!</p>
-<p>Ceno (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.
-</p>
-<p>%1$s is a project of eQualitie, a Canadian organization whose mission is to promote and defend fundamental freedoms and human rights, including the free flow of information online. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.</p>
-    ]]></string>
+    <string name="about_content"><p>%1$s - Share the Web!</p> <p>Ceno (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised. </p> <p>%1$s is a project of eQualitie, a Canadian organization whose mission is to promote and defend fundamental freedoms and human rights, including the free flow of information online. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.</p></string>
     <!-- Home page browsing mode reminder. -->
     <string name="ceno_home_mode_description">Use normal tabs to share content with other &brandShortName; users. Use private tabs to avoid sharing, or for pages that require login.</string>
     <string name="ceno_home_mode_link_text">Tap here to learn more.</string>
@@ -31,11 +25,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string> -->
-    <string name="ceno_private_browsing_body"><![CDATA[
-<h1>Personal Browsing</h1>
-<p>Ceno will not share content from personal tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</p>
-<p class="about-info"><a id="learnMore">Want to learn more?</p>
-     ]]></string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Personal Browsing&lt;/h1&gt; &lt;p&gt;Ceno will not share content from personal tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Want to learn more?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; Browser Service</string>
     <string name="ceno_notification_description">Tap to stop</string>
@@ -69,8 +59,8 @@
     <string name="crash_reporting_always_send">Always send, improve &brandShortName;</string>
     <string name="crash_reporting_never_send">Never send</string>
     <string name="crash_reporting_dont_ask_again">Don\'t ask again</string>
-    <string name="crash_reporting_opt_in">Thanks for sharing crash reports to help improve &brandShortName;! You can always disable this by going to Settings > Crash reporting.</string>
-    <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings > Crash reporting.</string>
+    <string name="crash_reporting_opt_in">Thanks for sharing crash reports to help improve &brandShortName;! You can always disable this by going to Settings &gt; Crash reporting.</string>
+    <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings &gt; Crash reporting.</string>
     <!--  BT Source menu items  -->
     <string name="bt_sources_none">None</string>
     <string name="bt_sources_custom">Custom</string>
@@ -97,18 +87,34 @@
     <string name="onboarding_info_text">&brandShortName; uses peer-to-peer technology to share web content that can be accessed by other &brandShortName; users</string>
     <string name="onboarding_info_button">Cool!</string>
     <string name="onboarding_battery_title">Permission needed</string>
-    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to\n\n\u2022 Disable battery optimization.\n\nThis is required to keep sharing websites while the app is in the background</string>
-    <string name="onboarding_battery_text_v33">Shortly the OS will ask you for permission to\n\n\u2022 Allow notifications\n\u2022 Disable battery optimization\n\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text">Shortly the OS will ask you for permission to
+\n
+\n• Disable battery optimization.
+\n
+\nThis is required to keep sharing websites while the app is in the background</string>
+    <string name="onboarding_battery_text_v33">Shortly the OS will ask you for permission to
+\n
+\n• Allow notifications
+\n• Disable battery optimization
+\n
+\nThis is required to keep sharing websites while the app is in the background</string>
     <string name="onboarding_battery_button">Continue</string>
     <string name="onboarding_warning_title">Permission denied</string>
-    <string name="onboarding_warning_text">Battery optimization is still enabled.\n\nGo to \"Settings &gt; Disable Battery Optimization\" to give permission later</string>
-    <string name="onboarding_warning_text_v33_1">Notifications are not allowed.\n\nGo to \"Settings &gt; Allow Notifications\" to give permission later</string>
-    <string name="onboarding_warning_text_v33_2">Notifications are not allowed and battery optimization is still enabled.\n\nGo to \"Settings\" to give permission later</string>
+    <string name="onboarding_warning_text">Battery optimization is still enabled.
+\n
+\nGo to \"Settings &gt; Disable Battery Optimization\" to give permission later</string>
+    <string name="onboarding_warning_text_v33_1">Notifications are not allowed.
+\n
+\nGo to \"Settings &gt; Allow Notifications\" to give permission later</string>
+    <string name="onboarding_warning_text_v33_2">Notifications are not allowed and battery optimization is still enabled.
+\n
+\nGo to \"Settings\" to give permission later</string>
     <string name="onboarding_warning_button">Okay</string>
     <string name="onboarding_thanks_title">Thanks for growing the network!</string>
     <string name="onboarding_thanks_text">As a &brandShortName; user, you\'re helping to grow the network of available bridges enabling access to censored content.</string>
     <string name="onboarding_thanks_button">Let\'s go!</string>
-    <string name="shutdown_clear_title">Clearing app data and\nstopping &brandShortName; Browser</string>
+    <string name="shutdown_clear_title">Clearing app data and
+\nstopping &brandShortName; Browser</string>
     <string name="shutdown_stop_title">Stopping &brandShortName; Browser</string>
     <string name="preferences_toolbar_position">Place at top of screen</string>
     <string name="preferences_toolbar_hide">Scroll to hide</string>
@@ -198,11 +204,15 @@
     <string name="source_code_button_link" translatable="false">https://gitlab.com/censorship-no/</string>
     <string name="donate_button_text">Donate</string>
     <string name="donate_button_link" translatable="false">https://censorship.no/en/donate</string>
-    <string name="ceno_onboarding_start_title">Share the web,\npeer-to-peer</string>
+    <string name="ceno_onboarding_start_title">Share the web,
+\npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">&brandShortName;’s peer-to-peer backbone allows people to access and share website content in and across regions where connectivity has been interrupted or compromised.</string>
     <string name="onboarding_public_or_personal_title">Public or Personal?</string>
-    <string name="onboarding_public_personal_text">Use Public tabs for reading news, watching videos and general web-surfing. Share web content with other Ceno users.\n\nPersonal tabs are better suited for social media accounts, online shopping, and browsing websites you don’t want to share with others.</string>
-    <string name="onboarding_cleanup_title">Clear everything,\neverywhere, all at once</string>
+    <string name="onboarding_public_personal_text">Use Public tabs for reading news, watching videos and general web-surfing. Share web content with other Ceno users.
+\n
+\nPersonal tabs are better suited for social media accounts, online shopping, and browsing websites you don’t want to share with others.</string>
+    <string name="onboarding_cleanup_title">Clear everything,
+\neverywhere, all at once</string>
     <string name="onboarding_cleanup_text">Clear your browser history, credentials and any trace you left on &brandShortName; with one single button.</string>
     <string name="ceno_home_card_public_title">PUBLIC</string>
     <string name="ceno_home_card_public_text">Best connectivity, less privacy. For reading news, watching videos, and sharing with others</string>
@@ -261,10 +271,12 @@
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
 
     <string name="log_export_cancelled">Log export cancelled</string>
-    <string name="bridge_announcement_dialog_text">Please wait while &brandShortName; browser service is restarted for your changes to take effect.. This will only take a few seconds.</string>
-    <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings</string>
-    <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge! You can enable Bridge Mode by going to Settings -> Network Details -> Enable Bridge Mode. Note that this will also make your IP publicly visible.</string>
+    <string name="bridge_announcement_dialog_text">Please wait while the &brandShortName; browser service is restarted for your changes to take effect.</string>
+    <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings…</string>
+    <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge! You can enable Bridge Mode by going to Settings -> Enable Bridge Mode.</string>
     <string name="home_go_to_settings">Go to Settings</string>
     <string name="enable_bridge_card_title">Enable Bridge Mode</string>
-    <string name="bridge_mode_ip_warning_text">Note that this will also make your IP publicly visible.</string>
+    <string name="bridge_mode_ip_warning_text">Note that this will make your public IP address visible to other Ceno users.</string>
+    <string name="learn_more_title">Learn More</string>
+    <string name="standby_restarting_text">Restarting…</string>
 </resources>

@@ -172,4 +172,5 @@
     <string name="preferences_website_sources_summary">Выберите откуда вы хотите загружать содержимое страниц</string>
     <string name="select_extra_bt_source">Выбрать дополнительный бутстрап для BitTorrent</string>
     <string name="set_default_search_engine">Поисковая система по умолчанию</string>
+    <string name="bridge_mode_category">Объявления о мостах</string>
 </resources>
