@@ -9,6 +9,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
 
@@ -310,8 +311,8 @@ object Settings {
                 text = rssAnnouncementResponse.text,
                 items = buildList {
                     rssAnnouncementResponse.items.forEach {
-                        if(swipedGuids == null || !swipedGuids.contains(it.guid)
-//                            || > 30 days
+                        if((swipedGuids == null || !swipedGuids.contains(it.guid))
+                            && !it.pubDate.isDateMoreThanXDaysAway(30)
                             ) {
                             add(it)
                         }
