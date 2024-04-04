@@ -15,7 +15,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
