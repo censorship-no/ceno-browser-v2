@@ -82,12 +82,6 @@ class StandbyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isTaskInBack = false
-    private val mHandler = Handler(Looper.myLooper()!!)
-    private val timeoutCallback = Runnable {
-        if (!isTaskInBack) {
-            isTaskInBack = requireActivity().moveTaskToBack(false)
-        }
-    }
 
     private fun isNetworkAvailable(): Boolean {
         val cm : ConnectivityManager = requireContext().getSystemService() ?: return false
@@ -120,22 +114,22 @@ class StandbyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (isCenoStopping == true) {
             binding.llNoInternet.visibility = View.GONE
-            lifecycleScope.launch{
+            lifecycleScope.launch {
                 while (index < displayTextStopping.size) {
-                    binding.tvStatus.text = ContextCompat.getString(requireContext(), displayTextStopping[index])
+                    binding.tvStatus.text =
+                        ContextCompat.getString(requireContext(), displayTextStopping[index])
                     index += 1
                     delay(refreshIntervalMS)
                 }
             }
-
         } else {
             binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+                if (getView() == null)
+                    return@consumeFrom
                 currentStatus = it.ouinetStatus
                 updateDisplayText()
-                if (currentStatus == RunningState.Stopped){
-                    if(isCenoStopping == true) {
-                        //kill app
-                    } else {
+                if (currentStatus == RunningState.Stopped) {
+                    if(isCenoStopping == false) {
                         tryAgain()
                     }
                 }
@@ -181,11 +175,6 @@ class StandbyFragment : Fragment() {
         }
         dialog?.show()
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mHandler.removeCallbacks(timeoutCallback)
     }
 
     private fun tryAgain() {
