@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.settings
 
+import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -488,8 +489,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     // storage not available
                     Toast.makeText(requireContext(), getString(no_external_storage), Toast.LENGTH_LONG).show()
                 }
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
-                    || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
+                (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
 
                     // permission not granted, dynamically request for permission
                     AlertDialog.Builder(requireContext()).apply {
@@ -904,7 +904,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
+            if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                 // Permission granted!
                 exportAndroidLogs()
             } else {
