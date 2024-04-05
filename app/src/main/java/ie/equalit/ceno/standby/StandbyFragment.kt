@@ -67,10 +67,7 @@ class StandbyFragment : Fragment() {
         R.string.standby_message_three
     )
 
-    private val displayTextStopping: List<Int> = listOf(
-        R.string.shutdown_message_one,
-        R.string.shutdown_message_one,
-        R.string.shutdown_message_one,
+    private var displayTextStopping: MutableList<Int> = mutableListOf(
         R.string.shutdown_message_two,
         R.string.shutdown_message_two,
         R.string.shutdown_message_two,
@@ -80,8 +77,6 @@ class StandbyFragment : Fragment() {
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
-
-    private var isTaskInBack = false
 
     private fun isNetworkAvailable(): Boolean {
         val cm : ConnectivityManager = requireContext().getSystemService() ?: return false
@@ -106,6 +101,15 @@ class StandbyFragment : Fragment() {
         _binding = FragmentStandbyBinding.inflate(inflater, container, false)
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_standby_background))
 
+        repeat(3){
+            displayTextStopping.add (0,
+                if (doClear == true) {
+                    R.string.shutdown_message_one
+                } else {
+                    R.string.shutdown_message_two
+                }
+            )
+        }
         return binding.root
     }
 
@@ -215,7 +219,7 @@ class StandbyFragment : Fragment() {
             }
             if (currentStatus == RunningState.Stopping) {
                 if (isCenoStopping == true) {
-                    binding.tvStatus.text = getString(R.string.shutdown_clear_title)
+                    binding.tvStatus.text = getString(R.string.shutdown_message_two)
                     binding.llNoInternet.visibility = View.INVISIBLE
                 } else {
                     binding.tvStatus.text = getString(R.string.standby_restarting_text)
