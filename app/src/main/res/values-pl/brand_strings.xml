@@ -80,7 +80,7 @@
     <string name="changeIconCtaAccept">Zastosuj</string>
     <string name="changeIconCtaCancel">Anuluj</string>
     <string name="changeIconDialogTitle">Zastosować nową ikonę\?</string>
-    <string name="changeIconDialogMessage">Aplikacja może samoczynnie się zamknąć, aby zastosować zmiany. Jak znudzi Ci się podziwianie nowej, kozackiej ikonki, wróć do nas.</string>
+    <string name="changeIconDialogMessage">Aplikacja może samoczynnie się zamknąć, aby zastosować zmiany. Jak skończysz podziwianie nowej, przepięknej ikony, wróć do nas.</string>
     <string name="website_button_text">Strona internetowa</string>
     <string name="source_code_button_text">Kod źródłowy</string>
     <string name="donate_button_text">Złóż darowiznę</string>
