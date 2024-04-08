@@ -753,7 +753,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                             distCache.div(sum).times(100).run {
                                 if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
                             },
-                            R.color.ceno_sources_purple
+                            R.color.ceno_sources_blue
                         )
                     )
 

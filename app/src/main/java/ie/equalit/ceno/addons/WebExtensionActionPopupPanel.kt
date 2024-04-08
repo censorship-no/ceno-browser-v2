@@ -116,7 +116,7 @@ class WebExtensionActionPopupPanel(
 
             if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
             if((proxy + injector) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector) / sum) * 100), R.color.ceno_sources_orange))
-            if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_purple))
+            if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_blue))
 //                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
         }
     }
