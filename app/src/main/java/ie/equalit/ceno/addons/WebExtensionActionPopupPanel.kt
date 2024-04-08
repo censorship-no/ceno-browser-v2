@@ -104,7 +104,8 @@ class WebExtensionActionPopupPanel(
             val injector = if (response.has(BaseBrowserFragment.INJECTOR)) response.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
             val origin = if (response.has(BaseBrowserFragment.ORIGIN)) response.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
 
-            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector).plus(distCache)).toInt().toString()
+            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toInt().toString()
+            binding.tvViaCenoCacheCount.text = distCache.toInt().toString()
             binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
 
 
@@ -114,7 +115,8 @@ class WebExtensionActionPopupPanel(
             binding.sourcesProgressBar.removeAllViews()
 
             if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
-            if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector + distCache) / sum) * 100), R.color.ceno_sources_orange))
+            if((proxy + injector) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector) / sum) * 100), R.color.ceno_sources_orange))
+            if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_purple))
 //                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
         }
     }

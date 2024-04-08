@@ -152,35 +152,35 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"
                 app:layout_constraintTop_toTopOf="@id/tv_via_ceno_network_count" />
 
-            <!--        <com.google.android.material.textview.MaterialTextView-->
-            <!--            android:id="@+id/tv_shared_by_others_count"-->
-            <!--            style="@style/PanelTitle"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginStart="24dp"-->
-            <!--            android:layout_marginTop="12dp"-->
-            <!--            android:gravity="center_vertical"-->
-            <!--            android:text="@string/preferences_clear_behavior_default"-->
-            <!--            android:textColor="@color/ceno_sources_orange"-->
-            <!--            android:textStyle="bold"-->
-            <!--            app:layout_constraintEnd_toEndOf="@+id/tv_via_ceno_network_count"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/tv_via_ceno_network_count" />-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_via_ceno_cache_count"
+                style="@style/PanelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:text="@string/preferences_clear_behavior_default"
+                android:textColor="@color/ceno_sources_purple"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_via_ceno_network_count"
+                app:layout_constraintTop_toBottomOf="@id/tv_via_ceno_network_count" />
 
-            <!--        <com.google.android.material.textview.MaterialTextView-->
-            <!--            android:id="@+id/tv_shared_by_others"-->
-            <!--            style="@style/PanelTitle"-->
-            <!--            android:layout_width="0dp"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:drawablePadding="8dp"-->
-            <!--            android:gravity="center_vertical"-->
-            <!--            android:text="@string/ceno_sources_shared_by_others"-->
-            <!--            android:textColor="@color/ceno_sources_orange"-->
-            <!--            app:drawableStartCompat="@drawable/shape_hexagon"-->
-            <!--            app:drawableTint="@color/ceno_sources_orange"-->
-            <!--            app:layout_constraintBottom_toBottomOf="@id/tv_shared_by_others_count"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"-->
-            <!--            app:layout_constraintTop_toTopOf="@id/tv_shared_by_others_count" />-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_via_ceno_cache"
+                style="@style/PanelTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/ceno_sources_shared_by_ceno_cache"
+                android:textColor="@color/ceno_sources_purple"
+                app:drawableStartCompat="@drawable/shape_hexagon"
+                app:drawableTint="@color/ceno_sources_purple"
+                app:layout_constraintBottom_toBottomOf="@id/tv_via_ceno_cache_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_direct_from_website"
+                app:layout_constraintTop_toTopOf="@id/tv_via_ceno_cache_count" />
 
             <!--        <com.google.android.material.textview.MaterialTextView-->
             <!--            android:id="@+id/tv_shared_by_you_count"-->
@@ -194,7 +194,7 @@
             <!--            android:textColor="@color/ceno_sources_yellow"-->
             <!--            android:textStyle="bold"-->
             <!--            app:layout_constraintEnd_toEndOf="@+id/tv_direct_from_website_count"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/tv_shared_by_others_count" />-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/tv_via_ceno_cache_count" />-->
 
             <!--        <com.google.android.material.textview.MaterialTextView-->
             <!--            android:id="@+id/tv_shared_by_you"-->

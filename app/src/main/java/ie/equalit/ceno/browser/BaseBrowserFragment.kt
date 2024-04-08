@@ -738,12 +738,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     )
 
                     // Add via-ceno-network source
-                    if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
+                    if((proxy + injector) > 0) binding.sourcesProgressBar.addView(
                         requireContext().createSegment(
-                            (proxy + injector + distCache).div(sum).times(100).run {
+                            (proxy + injector).div(sum).times(100).run {
                                 if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
                             },
                             R.color.ceno_sources_orange
+                        )
+                    )
+
+                    // Add via Ceno cache
+                    if(distCache > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            distCache.div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_purple
                         )
                     )
 
