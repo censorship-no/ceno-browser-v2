@@ -4,11 +4,9 @@
 
 package ie.equalit.ceno.settings
 
-import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -24,8 +22,6 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -38,7 +34,6 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
@@ -52,8 +47,6 @@ import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
-import ie.equalit.ceno.utils.isExternalStorageAvailable
-import ie.equalit.ceno.utils.isExternalStorageReadOnly
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -198,21 +191,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_CODE_STORAGE_PERMISSIONS) {
-            if (grantResults.isNotEmpty()) {
-                val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
-                val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
-                if (read && write) {
-                    // Permission granted!
-                    exportAndroidLogs()
-                } else {
-                    // show toast for permission denied
-                    Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
-                }
-            }
-            return
-        }
 
         val feature: PermissionsFeature? = when (requestCode) {
             AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
@@ -482,33 +460,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForAndroidLogExport(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-
-            when {
-                !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
-
-                    // storage not available
-                    Toast.makeText(requireContext(), getString(no_external_storage), Toast.LENGTH_LONG).show()
-                }
-                (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
-
-                    // permission not granted, dynamically request for permission
-                    AlertDialog.Builder(requireContext()).apply {
-                        setTitle(getString(onboarding_battery_title))
-                        setMessage(getString(write_storage_permission_text))
-                        setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ ->
-                            // show toast for permission denied
-                            Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
-                        }
-                        setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
-                            requireComponents.permissionHandler.requestPermissionForExternalStorage(this@SettingsFragment, storageActivityResultLauncher)
-                        }
-                        create()
-                    }.show()
-                }
-                else -> {
-                    exportAndroidLogs()
-                }
-            }
+            exportAndroidLogs()
             true
         }
     }
@@ -849,7 +801,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             Log.d(TAG, "Log content size: ${logString.getSizeInMB()} MB")
 
                             // save file to external storage
-                            file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
+                            file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.path +"/${getString(ceno_android_logs_file_name)}.txt")
 
                             file?.writeText(logString)
 
@@ -899,25 +851,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             create()
             show()
-        }
-    }
-
-    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                && (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                // Permission granted!
-                exportAndroidLogs()
-            } else {
-                // show toast for permission denied
-                Toast.makeText(requireContext(), getString(onboarding_warning_title), Toast.LENGTH_LONG).show()
-            }
-        } else {
-            //Below android 11
-            if(requireComponents.permissionHandler.isStoragePermissionGranted()) {
-                // Permission granted!
-                exportAndroidLogs()
-            }
         }
     }
 
