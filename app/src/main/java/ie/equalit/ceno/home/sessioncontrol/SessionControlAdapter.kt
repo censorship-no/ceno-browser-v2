@@ -14,8 +14,8 @@ import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.CenoMessageViewHolder
 import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.home.RssAnnouncementResponse
-import ie.equalit.ceno.home.announcements.CenoRSSAnnouncementViewHolder
+import ie.equalit.ceno.home.RssItem
+import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
@@ -34,7 +34,7 @@ sealed class AdapterItem(val type: HomepageCardType) {
 
     data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
 
-    data class CenoAnnouncementItem(val response: RssAnnouncementResponse, var mode:BrowsingMode) : AdapterItem(CenoRSSAnnouncementViewHolder.homepageCardType) {
+    data class CenoAnnouncementItem(val response: RssItem, var mode:BrowsingMode) : AdapterItem(RSSAnnouncementViewHolder.homepageCardType) {
         override fun contentsSameAs(other: AdapterItem): Boolean {
             val newItem = (other as? CenoAnnouncementItem) ?: return false
             if (newItem.mode != this.mode) return false
@@ -156,7 +156,7 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
-            CenoRSSAnnouncementViewHolder.homepageCardType.value -> CenoRSSAnnouncementViewHolder(view, interactor)
+            RSSAnnouncementViewHolder.homepageCardType.value -> RSSAnnouncementViewHolder(view, interactor)
 
             PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,
@@ -185,7 +185,7 @@ class SessionControlAdapter internal constructor(
                 holder.bind((item as AdapterItem.CenoMessageItem).message)
             }
 
-            is CenoRSSAnnouncementViewHolder -> {
+            is RSSAnnouncementViewHolder -> {
                 (item as AdapterItem.CenoAnnouncementItem).apply {
                     holder.bind(this.response, this.mode)
                 }

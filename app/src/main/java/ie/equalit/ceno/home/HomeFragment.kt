@@ -23,6 +23,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -109,7 +110,24 @@ class HomeFragment : BaseHomeFragment() {
                 activity = activity,
                 preferences = components.cenoPreferences,
                 appStore = components.appStore,
-                viewLifecycleScope = viewLifecycleOwner.lifecycleScope
+                viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
+                object: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener {
+                    override fun onSwipeCard(index: Int) {
+                        /**
+                         * Using minus(1) below because CenoAnnouncementItem is the second item in SessionControlView.kt
+                         * AdapterItem.TopPlaceholderItem is the first item
+                         * This should be updated if/when there's any change to the ordering in SessionControlView
+                         */
+
+                        // Using minus() below because CenoAnnouncementItem is the second item in SessionControlView.kt.
+                        // AdapterItem.TopPlaceholderItem is the first item in SessionControlView.kt
+                        // This should be updated if/when there's any change to the ordering in SessionControlView
+                        val guid = Settings.getAnnouncementData(binding.root.context)?.items?.get(index.minus(1))?.guid
+                        guid?.let { Settings.addSwipedAnnouncementGuid(binding.root.context, it) }
+
+                        updateSessionControlView()
+                    }
+                }
             )
         )
 
@@ -166,7 +184,7 @@ class HomeFragment : BaseHomeFragment() {
             context?.let { context ->
                 sessionControlView?.update(
                     it,
-                    Settings.getAnnouncementData(context) /* From local storage */
+                    Settings.getAnnouncementData(context)?.items /* From local storage */
                 )
                 updateUI(it.mode)
                 updateSearch(it.mode)
@@ -203,10 +221,11 @@ class HomeFragment : BaseHomeFragment() {
                         rssResponse?.let { Settings.saveAnnouncementData(context, it) }
 
                         // check for null and refresh homepage adapter if necessary
-                        if(rssResponse != null) {
+                        // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
+                        if(Settings.getAnnouncementData(context) != null) {
                             withContext(Dispatchers.Main) {
                                 val state = context.components.appStore.state
-                                sessionControlView?.update(state, rssResponse)
+                                sessionControlView?.update(state, Settings.getAnnouncementData(context)?.items)
                             }
                         }
                     }
