@@ -1,26 +1,27 @@
 package ie.equalit.ceno.home.announcements
 
-import android.content.ContextWrapper
+import android.text.method.LinkMovementMethod
 import android.view.ContextThemeWrapper
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.text.buildSpannedString
 import androidx.core.view.isGone
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.RssAnnouncementItemBinding
-import ie.equalit.ceno.home.BaseHomeCardViewHolder
-import ie.equalit.ceno.home.HomepageCardType
-import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.home.*
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
+import ie.equalit.ceno.utils.XMLParser
 
-class CenoRSSAnnouncementViewHolder(
+class RSSAnnouncementViewHolder(
     itemView: View,
     interactor: HomePageInteractor
 ) : BaseHomeCardViewHolder(itemView, interactor) {
 
     private val binding = RssAnnouncementItemBinding.bind(itemView)
-    private var mode:BrowsingMode = BrowsingMode.Normal
+    private var mode: BrowsingMode = BrowsingMode.Normal
         get() {
             return field
         }
@@ -30,7 +31,7 @@ class CenoRSSAnnouncementViewHolder(
         }
 
     fun update() {
-        val listIsHidden = binding.rssAnnouncementsRecyclerView.visibility == View.GONE
+        val listIsHidden = binding.rssAnnouncementsContent.visibility == View.GONE
         val personalContext = ContextThemeWrapper(itemView.context, R.style.PersonalTheme)
         if (mode.isPersonal) {
             binding.rssTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_200))
@@ -56,18 +57,18 @@ class CenoRSSAnnouncementViewHolder(
         }
     }
 
-    fun bind(response: RssAnnouncementResponse, mode: BrowsingMode) {
-        this@CenoRSSAnnouncementViewHolder.mode = mode
+    fun bind(response: RssItem, mode: BrowsingMode) {
+        this@RSSAnnouncementViewHolder.mode = mode
 
-        binding.rssTitle.text = response.items.getOrNull(0)?.title ?: response.title
+        binding.rssTitle.text = response.title
 
         val personalContext = ContextThemeWrapper(itemView.context, R.style.PersonalTheme)
 
         binding.rssTitle.setOnClickListener {
 
-            val listIsHidden = binding.rssAnnouncementsRecyclerView.visibility == View.GONE
+            val listIsHidden = binding.rssAnnouncementsContent.visibility == View.GONE
 
-            binding.rssAnnouncementsRecyclerView.isGone = !listIsHidden
+            binding.rssAnnouncementsContent.isGone = !listIsHidden
             if (mode.isPersonal) {
                 binding.rssTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     if (listIsHidden) ContextCompat.getDrawable(personalContext, R.drawable.ic_announcement_expanded) else ContextCompat.getDrawable(personalContext, R.drawable.ic_announcement_collapsed),
@@ -75,6 +76,8 @@ class CenoRSSAnnouncementViewHolder(
                     if (listIsHidden) ContextCompat.getDrawable(personalContext, R.drawable.ic_arrow_expanded) else ContextCompat.getDrawable(personalContext, R.drawable.ic_arrow_collapsed),
                     null
                 )
+                binding.itemDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_300))
+                binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_200))
             } else {
                 binding.rssTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     if (listIsHidden) R.drawable.ic_announcement_expanded else R.drawable.ic_announcement_collapsed,
@@ -82,12 +85,47 @@ class CenoRSSAnnouncementViewHolder(
                     if (listIsHidden) R.drawable.ic_arrow_expanded else R.drawable.ic_arrow_collapsed,
                     0
                 )
+                binding.itemDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_timestamp_color))
+                binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_message))
             }
         }
 
-        binding.rssAnnouncementsRecyclerView.adapter = RssAnnouncementSubAdapter(interactor, mode).apply {
-            submitList(response.items)
+        binding.itemDate.text = response.pubDate
+
+        var descriptionText = response.description
+        // Replace all a-tags in the description string with a placeholder string
+        val allATags = descriptionText.extractATags()
+        allATags.forEach { descriptionText = descriptionText.replaceFirst(it, XMLParser.CENO_CUSTOM_PLACEHOLDER) }
+
+        // split the new description string by the placeholder string to generate an array
+        val descriptionSubStringArray = descriptionText.split(XMLParser.CENO_CUSTOM_PLACEHOLDER)
+
+        // iteration variable for the list of a-tags
+        var index = 0
+
+        // Construct new HTML string to be displayed
+        val spannedString = buildSpannedString {
+            descriptionSubStringArray.forEach {
+                append(it)
+                if (index < allATags.size) {
+                    val pair = allATags[index].getContentFromATag()
+                    click(true, onClick = {
+                        interactor.onUrlClicked(homepageCardType, pair.first.toString())
+                    }) {
+                        append(pair.second)
+                    }
+                    index++
+                }
+            }
         }
+
+        binding.tvMessage.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvMessage.text = spannedString
+
+    }
+
+    interface RssAnnouncementSwipeListener {
+        fun onSwipeCard(index: Int)
     }
 
     companion object {
