@@ -10,6 +10,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import ie.equalit.ceno.R
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TopSitePagerPayload
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
@@ -22,7 +23,7 @@ class TopSitesPagerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSiteViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(TopSiteViewHolder.LAYOUT_ID, parent, false)
+            .inflate(R.layout.component_top_sites, parent, false)
         return TopSiteViewHolder(view, viewLifecycleOwner, interactor)
     }
 

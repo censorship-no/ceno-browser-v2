@@ -9,9 +9,5 @@ class AddonPlaceholderViewHolder(
 ) : CenoViewHolder(view) {
 
     fun bind() = Unit
-
-    companion object {
-        const val LAYOUT_ID = R.layout.addon_placeholder_item
-    }
 }
 

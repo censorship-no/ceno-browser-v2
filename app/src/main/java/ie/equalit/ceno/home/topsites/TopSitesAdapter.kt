@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import ie.equalit.ceno.R
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 
@@ -18,7 +19,7 @@ class TopSitesAdapter(
 ) : ListAdapter<TopSite, TopSiteItemViewHolder>(TopSitesDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSiteItemViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(TopSiteItemViewHolder.LAYOUT_ID, parent, false)
+            .inflate(R.layout.top_site_item, parent, false)
         return TopSiteItemViewHolder(view, viewLifecycleOwner, interactor)
     }
 
