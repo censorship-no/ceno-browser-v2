@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ceno_sources_background">
+        android:background="@drawable/toolbar_dark_background">
 
         <LinearLayout
             android:layout_width="0dp"

@@ -399,7 +399,6 @@
     <color name="ic_launcher_red_background">#F0412F</color>
     
     <!--  Ceno sources count label colors  -->
-    <color name="ceno_sources_background">#2B2A32</color>
     <color name="ceno_sources_green">#18CA08</color>
 <!--    <color name="ceno_sources_yellow">#FFEB3B</color>-->
     <color name="ceno_sources_orange">#F97316</color>
