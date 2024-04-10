@@ -96,7 +96,8 @@ class TopSitesPagerAdapter(
         }
 
         override fun areContentsTheSame(oldItem: List<TopSite>, newItem: List<TopSite>): Boolean {
-            return newItem.zip(oldItem).all { (new, old) -> new.id == old.id }
+            return newItem.zip(oldItem).all { (new, old) ->
+                (new.id == old.id) && (new.url == old.url) && (new.title == old.title) && (new.type == old.type)}
         }
 
         override fun getChangePayload(oldItem: List<TopSite>, newItem: List<TopSite>): Any? {
