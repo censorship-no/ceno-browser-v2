@@ -71,6 +71,8 @@ interface HomePageInteractor {
 
     fun onCardSwipe(homepageCardType: HomepageCardType)
 
+    fun onAnnouncementCardSwiped(index: Int)
+
     fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode)
 
     fun onMenuItemClicked(homepageCardType: HomepageCardType)
@@ -178,6 +180,10 @@ class SessionControlInteractor(
 
         override fun onCardSwipe(homepageCardType: HomepageCardType) {
             controller.handleRemoveCard(homepageCardType)
+        }
+
+        override fun onAnnouncementCardSwiped(index: Int) {
+            controller.handleRemoveAnnouncementCard(index)
         }
 
         override fun onClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {

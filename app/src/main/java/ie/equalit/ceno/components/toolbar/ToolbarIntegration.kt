@@ -5,8 +5,10 @@
 package ie.equalit.ceno.components.toolbar
 
 import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
@@ -291,6 +293,8 @@ class ToolbarIntegration(
         toolbar.edit.setOnEditFocusChangeListener {
             if(it) {
                 toolbar.edit.updateUrl(context.components.core.store.state.selectedTab?.content?.url ?: "")
+                //show keyboard
+                getSystemService(context, InputMethodManager::class.java)?.showSoftInput(toolbar.findViewById(R.id.mozac_browser_toolbar_edit_url_view), InputMethodManager.SHOW_IMPLICIT)
             }
         }
 
