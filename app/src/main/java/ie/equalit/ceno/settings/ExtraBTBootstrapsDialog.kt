@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.iterator
 import androidx.preference.Preference
@@ -79,6 +80,7 @@ class ExtraBTBootstrapsDialog(
                         text = Locale("", it.key).displayCountry
                         isChecked = CenoSettings.getLocalBTSources(context)?.contains(it.value) == true
                         isAllCaps = false
+                        setTextColor(ContextCompat.getColor(context, R.color.fx_mobile_text_color_primary))
                     }
                 )
             }
@@ -100,7 +102,7 @@ class ExtraBTBootstrapsDialog(
             tvCustomSource.setOnClickListener {
 
                 // This prevents the view from being added multiple times and causing a crash
-                (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
+//                (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
 
                 val alertDialog2 = AlertDialog.Builder(context).apply {
                     setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))

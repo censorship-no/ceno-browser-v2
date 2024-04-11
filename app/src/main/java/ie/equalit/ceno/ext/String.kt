@@ -7,6 +7,9 @@
 package ie.equalit.ceno.ext
 
 import android.util.Patterns
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.abs
 
 /**
  * Replaces the keys with the values with the map provided.
@@ -77,4 +80,22 @@ fun String.getContentFromATag(): Pair<String?, String?> {
  */
 fun String.getSizeInMB(): Double {
     return toByteArray(Charsets.UTF_8).size.toDouble() / (1024.0 * 1024.0)
+}
+
+/**
+ * Helper function to determine if a date string is more than x days away
+ */
+fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
+    val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US)
+    dateFormat.timeZone = TimeZone.getTimeZone("GMT") // for consistency
+
+    try {
+        val date: Date = dateFormat.parse(this) ?: return false
+
+        val differenceDays: Int = ((date.time - Calendar.getInstance().time.time) / (1000 * 60 * 60 * 24)).toInt()
+        return numberOfDays < abs(differenceDays)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return false
+    }
 }

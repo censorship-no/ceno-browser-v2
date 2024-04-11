@@ -4,7 +4,6 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ie.equalit.ceno"
     android:sharedUserId="ie.equalit.ceno.sharedID"
     android:sharedUserMaxSdkVersion="33"
     tools:targetApi="tiramisu">
@@ -26,14 +25,12 @@
         android:maxSdkVersion="28"
         />
 
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
@@ -302,7 +299,9 @@
             android:enabled="true"
             android:exported="false"
             android:isolatedProcess="false"
-            android:process=":ouinetService"/>
+            android:process=":ouinetService"
+            android:foregroundServiceType="specialUse"
+            />
 
         <provider
             android:name="androidx.core.content.FileProvider"

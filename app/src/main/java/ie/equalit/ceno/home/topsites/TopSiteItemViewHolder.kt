@@ -180,8 +180,4 @@ class TopSiteItemViewHolder(
         }
         return v.onTouchEvent(event)
     }
-
-    companion object {
-        const val LAYOUT_ID = R.layout.top_site_item
-    }
 }
