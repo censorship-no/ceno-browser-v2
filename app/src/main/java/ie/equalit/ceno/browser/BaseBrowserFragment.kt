@@ -546,6 +546,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun updateOuinetStatus() {
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            if (context == null) {
+                return@consumeFrom
+            }
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
                 val message = when (ouinetStatus) {
