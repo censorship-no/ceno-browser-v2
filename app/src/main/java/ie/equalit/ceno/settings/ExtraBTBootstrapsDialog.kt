@@ -74,7 +74,7 @@ class ExtraBTBootstrapsDialog(
                 )
             }
 
-            btSourcesMap.forEach {
+            btSourcesMap.iterator().forEach {
                 linearLayout.addView(
                     CheckBox(context).apply {
                         text = Locale("", it.key).displayCountry
