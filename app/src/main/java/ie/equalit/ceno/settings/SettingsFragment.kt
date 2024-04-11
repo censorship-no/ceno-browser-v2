@@ -39,6 +39,8 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BrowserApplication
+import ie.equalit.ceno.ConsentRequestUi
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
@@ -74,6 +76,7 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
+import org.cleaninsights.sdk.Feature
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
 import kotlin.system.exitProcess
@@ -264,6 +267,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
+        getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
@@ -459,6 +463,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+
+    private fun getClickListenerForCleanInsightsTracking(): OnPreferenceChangeListener {
+        return OnPreferenceChangeListener { _, newValue ->
+            // TODO: Add logic for revoking consent from CleanInsights
+
+            if((newValue as Boolean) && activity != null) {
+                val ui = ConsentRequestUi((activity as BrowserActivity))
+
+                BrowserApplication.cleanInsights.requestConsent("test", ui) { granted ->
+                    if (!granted) return@requestConsent
+                    BrowserApplication.cleanInsights.requestConsent(Feature.Lang, ui) {
+                        BrowserApplication.cleanInsights.requestConsent(Feature.Ua, ui)
+                    }
+                }
+            }
+//            Re-allow clean insights permission nudge
+//            This should ALWAYS be turned on when this permission state is toggled
+            ie.equalit.ceno.settings.Settings.setCleanInsightsPermissionNudgeValue(requireContext(), true)
+            true
+        }
+    }
+
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
