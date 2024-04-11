@@ -27,11 +27,24 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
+import org.matomo.sdk.Matomo
+import org.matomo.sdk.Tracker
+import org.matomo.sdk.TrackerBuilder
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
+
+    private var _tracker: Tracker? = null
+    @Synchronized
+    fun getTracker(): Tracker? {
+        if (_tracker == null) {
+            _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/matomo.php", 4).build(Matomo.getInstance(this))
+        }
+        return _tracker
+    }
+
 
     override fun onCreate() {
         super.onCreate()

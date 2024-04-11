@@ -412,6 +412,10 @@ dependencies {
 
     implementation Deps.google_material
 
+    implementation Deps.thirdparty_clean_insight
+    implementation Deps.thirdparty_matomo
+
+
     /* CENO: Begin implement additional dependencies */
     implementation Deps.mozilla_feature_top_sites
     implementation Deps.mozilla_ui_widgets
