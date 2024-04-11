@@ -546,9 +546,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     private fun updateOuinetStatus() {
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            if (context == null) {
-                return@consumeFrom
-            }
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
                 val message = when (ouinetStatus) {
@@ -562,7 +559,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                         getString(R.string.ceno_ouinet_connecting)
                     }
                 }
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                activity?.applicationContext?.let { c ->
+                    Toast.makeText(c, message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
