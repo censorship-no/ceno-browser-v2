@@ -25,6 +25,8 @@
     <string name="pref_key_crash_happened">pref_key_crash_happened</string>
     <string name="pref_key_crash_was_logged">pref_key_crash_was_logged</string>
     <string name="pref_key_allow_notifications" translatable="false">pref_key_allow_notifications</string>
+    <string name="pref_key_show_clean_insights_permission">pref_key_show_clean_insights_permission</string>
+    <string name="pref_key_allow_clean_insights_tracking" translatable="false">pref_key_allow_clean_insights_tracking</string>
     <string name="pref_key_disable_battery_opt" translatable="false">pref_key_disable_battery_opt</string>
     <string name="pref_key_customization" translatable="false">pref_key_customization</string>
     <string name="pref_key_clear_in_toolbar" translatable="false">pref_key_clear_in_toolbar</string>

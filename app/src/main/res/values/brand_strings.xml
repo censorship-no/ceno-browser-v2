@@ -70,6 +70,15 @@
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&brandShortName; Settings</string>
+    <!-- Clean Insights -->
+    <string name="clean_insights_header">Help make &brandShortName; better!</string>
+    <string name="clean_insights_sub_header">Would you like to opt-in to sharing privacy-preserving metrics (such as crash reports, load times, etc) to improve &brandShortName;? No personally identifiable information will be stored.</string>
+    <string name="clean_insights_opt_in">YES, OPT ME IN</string>
+    <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
+    <string name="clean_insights_no">NO</string>
+    <string name="clean_insights_feature_consent_explanation">In case you allow us to run measurements, are you OK that we record the following?\n\n%1$s</string>
+    <string name="clean_insights__locale">Your locale</string>
+    <string name="clean_insights_device_type">Your device type</string>
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; Manual</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
@@ -120,6 +129,7 @@
     <string name="preferences_toolbar_hide">Scroll to hide</string>
     <string name="preferences_show_home_button">Show home button</string>
     <string name="preferences_show_onboarding">Show onboarding on next launch</string>
+    <string name="preferences_allow_clean_insights_tracking">Allow background tracking</string>
     <string name="preferences_allow_crash_reporting">Crash reporting</string>
     <string name="preferences_allow_notifications">Allow Notifications</string>
     <string name="preferences_disable_battery_opt">Disable Battery Optimization</string>

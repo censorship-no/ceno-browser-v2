@@ -206,6 +206,20 @@ object Settings {
             .apply()
     }
 
+    fun showCleanInsightsPermissionNudge(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_clean_insights_permission), true
+        )
+
+    fun setCleanInsightsPermissionNudgeValue(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_clean_insights_permission)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+
     fun setCrashReportingPermissionValue(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_crash_reporting)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -214,6 +228,15 @@ object Settings {
             .apply()
     }
 
+    fun setCleanInsightsTrackingValue(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_allow_clean_insights_tracking)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -221,6 +244,13 @@ object Settings {
             .putBoolean(key, value)
             .apply()
     }
+
+    fun isCleanInsightsTrackingPermissionGranted(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_allow_clean_insights_tracking), false
+        )
+    }
+
 
     // duplicate function that uses commit() instead of apply()
     // This is necessary for the purpose of immediately saving crash logs locally when a crash happens

@@ -15,7 +15,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
@@ -30,6 +29,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BrowserFragment
@@ -46,7 +46,6 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
-import ie.equalit.ceno.settings.NetworkSettingsFragment
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
@@ -77,6 +76,9 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
+import org.cleaninsights.sdk.Feature
+import org.matomo.sdk.Tracker
+import org.matomo.sdk.extra.TrackHelper
 import kotlin.system.exitProcess
 
 /**
@@ -87,6 +89,8 @@ open class BrowserActivity : BaseActivity() {
     private lateinit var crashIntegration: CrashIntegration
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
+    private val screenStartTime = System.currentTimeMillis()
+    private var hasOuinetStarted = false
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -195,45 +199,83 @@ open class BrowserActivity : BaseActivity() {
 
         // Check for previous crashes
         if(Settings.showCrashReportingPermissionNudge(this)) {
-
-            // launch Sentry activation dialog
-            val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
-            val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
-            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
-
-            val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
-                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
-            } }
-
-            AlertDialog.Builder(this@BrowserActivity).apply {
-                setView(dialogView)
-                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    when {
-                        radio0.isChecked -> {
-                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
-                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
-
-                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
-                        }
-                        radio1.isChecked -> {
-                            Settings.neverAllowCrashReporting(this@BrowserActivity)
-                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
-                        }
-                    }
-                }
-                setOnDismissListener {
-                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-                }
-                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
-                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-                }
-                create()
-            }.show()
+            showCrashReportingPermission()
         } else {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+
+            if(Settings.showCleanInsightsPermissionNudge(this)
+                && !Settings.isCleanInsightsTrackingPermissionGranted(this)
+                && navHost.navController.currentDestination?.id == R.id.homeFragment) {
+                launchCleanInsightsPermissionDialog()
+            }
+
         }
 
         updateOuinetStatus()
+    }
+
+    private fun launchCleanInsightsPermissionDialog() {
+
+        val ui = ConsentRequestUi(this)
+
+        cleanInsights.requestConsent("test", ui) { granted ->
+            if (!granted) return@requestConsent
+            cleanInsights.requestConsent(Feature.Lang, ui) {
+                cleanInsights.requestConsent(Feature.Ua, ui)
+            }
+        }
+
+        Settings.setCleanInsightsPermissionNudgeValue(this@BrowserActivity, false)
+    }
+
+
+    private fun trackDataViaCleanInsights() {
+        val time = (System.currentTimeMillis() - screenStartTime) / 1000.0
+
+        cleanInsights.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
+//        cleanInsights.measureVisit(listOf("Main"), "test")
+
+        val tracker: Tracker? = (application as BrowserApplication).getTracker()
+
+        TrackHelper.track().screen("/BrowserActivity").title("BrowserActivity").with(tracker)
+        TrackHelper.track().download().with(tracker)
+    }
+
+
+    private fun showCrashReportingPermission() {
+        // launch Sentry activation dialog
+        val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
+        val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
+        val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+
+        val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
+            setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+        } }
+
+        AlertDialog.Builder(this@BrowserActivity).apply {
+            setView(dialogView)
+            setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                when {
+                    radio0.isChecked -> {
+                        Settings.alwaysAllowCrashReporting(this@BrowserActivity)
+                        SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
+                    }
+                    radio1.isChecked -> {
+                        Settings.neverAllowCrashReporting(this@BrowserActivity)
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                    }
+                }
+            }
+            setOnDismissListener {
+                Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+            }
+            setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+            }
+            create()
+        }.show()
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
@@ -259,6 +301,11 @@ open class BrowserActivity : BaseActivity() {
                     val status = RunningState.valueOf(components.ouinet.background.getState())
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                        if(!hasOuinetStarted && status == RunningState.Started) {
+                            trackDataViaCleanInsights()
+                            hasOuinetStarted = true
+                        }
+
                     }
                     delay(DELAY_TWO_SECONDS)
                 }
