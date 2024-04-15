@@ -15,6 +15,7 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -43,6 +44,8 @@ class SettingsViewTest {
     fun setUp() {
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     // This test verifies settings view items are all in place
