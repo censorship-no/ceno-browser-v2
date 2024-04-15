@@ -99,4 +99,11 @@
     <string name="preferences_delete_browsing_data_browsing_data_title">Historia przeglądania i dane witryny</string>
     <string name="browser_toolbar_home">Strona główna</string>
     <string name="preference_choose_search_engine">Wybierz wyszukiwarkę</string>
+    <string name="select_extra_bt_source">Wybierz dodatkowy pasek startowy BitTorrent</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Rozdziel adresy IP przecinkami</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Dodawanie niestandardowych pasków startowych</string>
+    <string name="preferences_website_sources_summary">Wybierz miejsce, z którego chcesz załadować zawartość witryny</string>
+    <string name="setting_item_selected">Wybrano %s</string>
+    <string name="set_default_search_engine">Wybierz domyślną wyszukiwarkę</string>
+    <string name="bridge_mode_category">Ogłoszenia o mostach</string>
 </resources>
