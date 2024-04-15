@@ -271,6 +271,14 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                 }
             }
         }
+        def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${variant.name.capitalize()}")
+        if (lintVitalAnalyzeTask) {
+            lintVitalAnalyzeTask.dependsOn(unzipUblockOrigin)
+        }
+        def lintVitalReportModelTask = tasks.findByName("generate${variant.name.capitalize()}LintVitalReportModel")
+        if (lintVitalReportModelTask) {
+            lintVitalReportModelTask.dependsOn(unzipUblockOrigin)
+        }
     }
 
 // -------------------------------------------------------------------------------------------------
