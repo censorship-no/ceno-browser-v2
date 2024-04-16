@@ -19,8 +19,6 @@ def scenarioFile = new File(project.hasProperty("testConfig") ? project.getPrope
 def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
 
 android {
-    namespace 'ie.equalit.ceno'
-
     compileSdkVersion Config.compileSdkVersion
 
     aaptOptions {
@@ -77,7 +75,6 @@ android {
         compose true
         /* CENO: set databinding true, required for building HomeFragment */
         viewBinding true
-        buildConfig = true
     }
 
     composeOptions {
