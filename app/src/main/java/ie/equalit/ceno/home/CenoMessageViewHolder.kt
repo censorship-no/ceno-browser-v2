@@ -33,7 +33,7 @@ class CenoMessageViewHolder (
             interactor.onClicked(cardType, BrowsingMode.Normal)
         }
         binding.btnLearnMore.setOnClickListener {
-            interactor.onUrlClicked(cardType, bridgeModeUrl)
+            interactor.onUrlClicked(cardType, ContextCompat.getString(itemView.context, R.string.bridge_mode_faq_url))
         }
 
         if (itemView.context.cenoPreferences().isBridgeCardExpanded) {
@@ -69,6 +69,5 @@ class CenoMessageViewHolder (
 
     companion object {
         val homepageCardType = HomepageCardType.BASIC_MESSAGE_CARD
-        val bridgeModeUrl = "https://censorship.no/en/support.html#bridgemode"
     }
 }

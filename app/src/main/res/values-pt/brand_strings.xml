@@ -215,4 +215,5 @@
     <string name="enable_bridge_card_text">Torne a rede &brandShortName; mais forte tornando-se uma ponte! Pode ativar o Modo de ponte acedendo a Definições -&gt; Ativar o Modo de ponte.</string>
     <string name="home_go_to_settings">Ir para Definições</string>
     <string name="enable_bridge_card_title">Ativar o modo Bridge</string>
+    <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
 </resources>

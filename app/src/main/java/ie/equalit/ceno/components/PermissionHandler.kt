@@ -10,12 +10,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.AppPermissionCodes
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_STORAGE_PERMISSIONS
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /* CENO: Handles checking which permissions have been granted,
@@ -36,32 +34,6 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         };
     }
     */
-
-    fun requestPermissionForExternalStorage(fragment: Fragment, activityResultLauncher: ActivityResultLauncher<Intent>) {
-        /// Android 11 and above
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            try {
-                val intent = Intent()
-                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                val uri = Uri.fromParts("package", context.packageName, null)
-                intent.setData(uri)
-                activityResultLauncher.launch(intent)
-            } catch (e: Exception) {
-                val intent = Intent()
-                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                activityResultLauncher.launch(intent)
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            //Below android 11
-            fragment.requestPermissions(
-                arrayOf<String>(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ),
-                REQUEST_CODE_STORAGE_PERMISSIONS
-            )
-        }
-    }
 
     fun isIgnoringBatteryOptimizations(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
