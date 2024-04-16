@@ -266,7 +266,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 store = requireComponents.core.store,
                 tabsUseCases = requireComponents.useCases.tabsUseCases,
                 customTabId = sessionId,
-                fileUploadsDirCleaner = requireComponents.core.fileUploadsDirCleaner,
                 fragmentManager = parentFragmentManager,
                 onNeedToRequestPermissions = { permissions ->
                     // The Fragment class wants us to use registerForActivityResult
@@ -377,6 +376,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
+                binding.swipeRefresh,
                 binding.engineView,
                 prefs.getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),

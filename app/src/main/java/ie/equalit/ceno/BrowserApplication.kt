@@ -116,10 +116,20 @@ open class BrowserApplication : Application() {
             onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest,
         )
 
-        @OptIn(DelicateCoroutinesApi::class)
-        GlobalScope.launch(Dispatchers.IO) {
-            components.core.fileUploadsDirCleaner.cleanUploadsDirectory()
+        /* CENO F-Droid: Not using firefox accounts, firebase push breaks f-droid build */
+        /*
+        components.push.feature?.let {
+            Logger.info("AutoPushFeature is configured, initializing it...")
+
+            PushProcessor.install(it)
+
+            // WebPush integration to observe and deliver push messages to engine.
+            WebPushEngineIntegration(components.core.engine, it).start()
+
+            // Initialize the push feature and service.
+            it.initialize()
         }
+        */
     }
 
     override fun onTrimMemory(level: Int) {
