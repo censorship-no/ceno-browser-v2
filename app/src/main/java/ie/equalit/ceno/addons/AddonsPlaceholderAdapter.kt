@@ -6,9 +6,10 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
 
 sealed class AdapterItem(@LayoutRes val viewType: Int) {
-    object AddonPlaceholderItem : AdapterItem(AddonPlaceholderViewHolder.LAYOUT_ID)
+    object AddonPlaceholderItem : AdapterItem(R.layout.addon_placeholder_item)
 
     /**
      * True if this item represents the same value as other. Used by [AdapterItemDiffCallback].
@@ -40,7 +41,7 @@ class AddonPlaceholderAdapter internal constructor() :
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-                AddonPlaceholderViewHolder.LAYOUT_ID,
+                R.layout.addon_placeholder_item,
                 parent,
                 false)
         return AddonPlaceholderViewHolder(view)

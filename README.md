@@ -70,6 +70,10 @@ Note: the use of Mozilla's prebuilt libraries in the official release of Ceno Br
 
 If your code has user-facing changes, follow [Android accessibility best practices](https://github.com/mozilla-mobile/shared-docs/blob/main/android/accessibility_guide.md).
 
+# Testing  
+
+This project is tested with [BrowserStack](https://www.browserstack.com/).
+
 # License
 
 This Source Code Form is subject to the terms of [the Mozilla Public License, v. 2.0](LICENSE). 
