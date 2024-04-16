@@ -19,6 +19,8 @@ def scenarioFile = new File(project.hasProperty("testConfig") ? project.getPrope
 def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
 
 android {
+    namespace 'ie.equalit.ceno'
+
     compileSdkVersion Config.compileSdkVersion
 
     aaptOptions {
