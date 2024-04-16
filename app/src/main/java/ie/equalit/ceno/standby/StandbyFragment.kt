@@ -103,6 +103,8 @@ class StandbyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
+            if (getView() == null)
+                return@consumeFrom
             currentStatus = it.ouinetStatus
             updateDisplayText()
             Log.d("STANDBY", currentStatus.name)

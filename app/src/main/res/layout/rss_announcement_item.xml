@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CenoMode.Card"
     android:id="@+id/rss_announcements_card"
+    style="@style/CenoMode.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/ceno_mode_margin_horizontal"
@@ -22,6 +22,7 @@
             android:id="@+id/rss_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/annoncements_title_background"
             android:clickable="true"
             android:drawableStart="@drawable/ic_announcement_collapsed"
             android:drawableEnd="@drawable/ic_arrow_collapsed"
@@ -29,27 +30,44 @@
             android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
+            android:padding="8dp"
             android:textColor="@color/ceno_home_card_announcement_title_color"
-            tools:text="Announcements"
-            android:background="@drawable/annoncements_title_background"
-            android:padding="8dp"/>
+            tools:text="Announcements" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rssAnnouncementsRecyclerView"
+        <LinearLayout
+            android:id="@+id/rssAnnouncementsContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="6dp"
             android:importantForAccessibility="yes"
+            android:orientation="vertical"
             android:paddingBottom="8dp"
-            android:scrollbars="none"
             android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            tools:itemCount="3"
-            tools:listitem="@layout/rss_announcement_sub_item"
-            tools:visibility="visible" />
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/ceno_home_card_announcement_timestamp_color"
+                android:textStyle="italic"
+                tools:text="Wed, 6 Nov 2023" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
+                android:alpha="0.7"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/ceno_home_card_announcement_message"
+                tools:text="Sample looooong text that will definitely span waaaaay more than a single lineee." />
+
+        </LinearLayout>
 
     </LinearLayout>
 

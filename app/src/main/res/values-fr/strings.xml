@@ -170,4 +170,5 @@
     <string name="set_default_search_engine">Définir le moteur de recherche par défaut</string>
     <string name="not_applicable">Indisponible</string>
     <string name="setting_item_selected">%s sélectionné</string>
+    <string name="bridge_mode_category">Annonces mise en avant</string>
 </resources>

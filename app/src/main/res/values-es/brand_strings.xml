@@ -119,7 +119,7 @@
     <string name="website_button_text">Sitio web</string>
     <string name="source_code_button_text">Código Fuente</string>
     <string name="donate_button_text">Donar</string>
-    <string name="preferences_ceno_download_log">Descargar el archivo del registro</string>
+    <string name="preferences_ceno_download_log">Exportar el registro de Ouinet</string>
     <string name="ceno_sources_category">Fuentes</string>
     <string name="preferences_about_ouinet_protocol">Protocolo Ouinet</string>
     <string name="about_category">Acerca de</string>
@@ -162,8 +162,8 @@
 \nen todas partes, todo a la vez</string>
     <string name="onboarding_cleanup_text">Borra el historial del navegador, las credenciales y cualquier rastro que hayas dejado en &brandShortName; con un solo botón.</string>
     <string name="ceno_home_card_public_text">La mejor conectividad, menos privacidad. Para leer noticias, ver vídeos y compartir con los demás</string>
-    <string name="ceno_home_card_personal_title">PESTAÑAS PERSONALES</string>
-    <string name="ceno_home_card_public_title">PESTAÑAS PÚBLICAS</string>
+    <string name="ceno_home_card_personal_title">PERSONAL</string>
+    <string name="ceno_home_card_public_title">PÚBLICA</string>
     <string name="ceno_home_card_personal_text">Buena conectividad, más privacidad. Para entrar en las cuentas, no dejar rastros y no compartir</string>
     <string name="preferences_ceno_sources_upnp">Estado del UPnP</string>
     <string name="preferences_ceno_sources_local_udp">Terminales UDP locales</string>
@@ -190,4 +190,63 @@
     <string name="preferences_ceno_website_sources">Fuentes de la página web</string>
     <string name="bt_sources_none">Ninguno</string>
     <string name="bt_sources_custom">Personalizado</string>
+    <string name="ceno_sources_header">Fuentes del contenido</string>
+    <string name="preferences_ceno_bridge_announcement">Activar el modo puente</string>
+    <string name="ouinet_taking_too_long_title">¿Tardando demasiado?</string>
+    <string name="network_settings">Configuración de la red</string>
+    <string name="standby_no_internet_text">Sin conexión a Internet.
+\n
+\nEl rendimiento de Ceno puede ser limitado.
+\nCompruebe sus conexiones de red e intente recargar Ceno.</string>
+    <string name="standby_message_one">Conectando a la red Ceno</string>
+    <string name="standby_message_two">Inicializar la caché</string>
+    <string name="standby_try_again">Inténtalo de nuevo</string>
+    <string name="standby_message_three">Encontrando nodos de arranque</string>
+    <string name="ceno_ouinet_connecting">Conectando a la red Ceno</string>
+    <string name="ceno_ouinet_connected">Conectado a la red Ceno</string>
+    <string name="ceno_sources_direct_from_website">Directamente de la página web</string>
+    <string name="ceno_sources_via_ceno_network">Usando &brandShortName; red</string>
+    <string name="ceno_sources_shared_by_others">Compartido por otros</string>
+    <string name="change_bt_bootstrap_server">Cambiar el servidor BT Bootstrap</string>
+    <string name="browsing_mode_card_title">Modo de navegación</string>
+    <string name="public_mode_icon">icono de modo público</string>
+    <string name="personal_browsing_mode_selected">modo de navegación privada seleccionada</string>
+    <string name="personal_mode_icon">icono del modo privado</string>
+    <string name="ceno_log_file_saved">Archivo de registro guardado correctamente</string>
+    <string name="ceno_android_logs_file_name">&brandShortName; Registros</string>
+    <string name="ouinet_log_file_prompt_desc">Tenga en cuenta que este registro puede contener información personal. Ten cuidado al compartirlo.</string>
+    <string name="view_logs">Ver</string>
+    <string name="share_logs">Compartir</string>
+    <string name="download_logs">Descargar</string>
+    <string name="no_external_storage">Almacenamiento no disponible</string>
+    <string name="empty_log_text">Parece que su registro está vacío</string>
+    <string name="progress_dialog_log_export_header">Espere, por favor…</string>
+    <string name="last_5_minutes">Últimos 5 minutos</string>
+    <string name="home_go_to_settings">Ir a la configuración</string>
+    <string name="enable_bridge_card_title">Activar el modo puente</string>
+    <string name="bridge_mode_ip_warning_text">Tenga en cuenta que esto hará que su IP sea visible públicamente para los otros usuarios de Ceno.</string>
+    <string name="ouinet_timeout_dialog_text">Ceno requiere una conexión a Internet para funcionar. Comprueba la configuración de tu red.</string>
+    <string name="ceno_ouinet_disconnected">Desconexión de la red Ceno</string>
+    <string name="public_browsing_mode_selected">modo de navegación pública seleccionado</string>
+    <string name="ceno_log_file_saved_desc">Para dar prioridad a su privacidad, toda la información personal identificable ha sido cuidadosamente eliminada de este registro.</string>
+    <string name="write_storage_permission_text">En breve, el sistema operativo le pedirá permiso para
+\n
+\n• Permitir el acceso al almacenamiento
+\n
+\nEsto es necesario para guardar el archivo de registro en su dispositivo.</string>
+    <string name="all_logs">Todos los registros</string>
+    <string name="ceno_sources_shared_by_you">Compartido por ti</string>
+    <string name="progress_dialog_log_export_message">Computando sus registros…</string>
+    <string name="select_log_scope_header">Seleccione su alcance preferido</string>
+    <string name="last_10_minutes">Últimos 10 minutos</string>
+    <string name="select_log_scope_message">Seleccionar franjas horarias más largas puede suponer una espera más larga</string>
+    <string name="log_export_cancelled">Cancelada la exportación de registros</string>
+    <string name="preferences_ceno_export_android_logs">Exportar el registro completo de la aplicación</string>
+    <string name="bridge_announcement_dialog_text">Por favor, espere mientras el servicio del navegador &brandShortName; se reinicie para que sus cambios surtan efecto.</string>
+    <string name="bridge_announcement_dialog_title">Actualizando la configuración del modo puente…</string>
+    <string name="enable_bridge_card_text">Haga que &brandShortName; ¡La red se fortalece convirtiéndonos en un puente! Puede habilitar el Modo Puente yendo a Configuración -&gt; Detalles de la red -&gt; Habilite el modo puente. Tenga en cuenta que esto también hará que su IP sea públicamente visible.</string>
+    <string name="standby_restarting_text">Reiniciando…</string>
+    <string name="learn_more_title">Más información</string>
+    <string name="ceno_sources_shared_by_ceno_cache">Desde &brandShortName; cache</string>
+    <string name="bridge_mode_faq_url">https://censorship.no/es/support.html#bridgemode</string>
 </resources>

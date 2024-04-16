@@ -548,18 +548,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
-                val message = when (ouinetStatus) {
-                    Ouinet.RunningState.Started -> {
-                        getString(R.string.ceno_ouinet_connected)
+                activity?.applicationContext?.let { ctx ->
+                    val message = when (ouinetStatus) {
+                        Ouinet.RunningState.Started -> {
+                            ctx.getString(R.string.ceno_ouinet_connected)
+                        }
+                        Ouinet.RunningState.Stopped -> {
+                            ctx.getString(R.string.ceno_ouinet_disconnected)
+                        }
+                        else -> {
+                            ctx.getString(R.string.ceno_ouinet_connecting)
+                        }
                     }
-                    Ouinet.RunningState.Stopped -> {
-                        getString(R.string.ceno_ouinet_disconnected)
-                    }
-                    else -> {
-                        getString(R.string.ceno_ouinet_connecting)
-                    }
+                    Toast.makeText(ctx, message, Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -700,73 +702,85 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
-            // the percentage progress for the webpage
-            val webPageLoadProgress = requireComponents.core.store.state.selectedTab?.content?.progress ?: 0
+            if (context == null)
+                return
+            requireContext().components.core.store.state.selectedTab?.let { tab ->
+                // the percentage progress for the webpage
+                val webPageLoadProgress = tab.content.progress ?: 0
 
-            // `message` returns as undefined sometimes. This check handles that
-            if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
-                // set sources progress bar
+                // `message` returns as undefined sometimes. This check handles that
+                if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                    // set sources progress bar
+                    val response = JSONObject(message)
+                    // cache the values gotten; caching is done through SourceCountFetchListener interface
+                    response.put(URL, tab.content.url.tryGetHostFromUrl())
+                    cachedSourceCounts = response
 
-                val response = JSONObject(message)
-                val tabUrl = requireContext().components.core.store.state.selectedTab!!.content.url
+                    // update sources BottomSheet if the reference is not null
+                    webExtensionActionPopupPanel?.onCountsFetched(response)
 
-                // cache the values gotten; caching is done through SourceCountFetchListener interface
-                response.put(URL, tabUrl.tryGetHostFromUrl())
-                cachedSourceCounts = response
-
-                // update sources BottomSheet if the reference is not null
-                webExtensionActionPopupPanel?.onCountsFetched(response)
-
-                val distCache = if(response.has(DIST_CACHE)) response.getString(DIST_CACHE).toFloat() else 0F
-                val origin = if(response.has(ORIGIN)) response.getString(ORIGIN).toFloat() else 0F
-                val injector = if(response.has(INJECTOR)) response.getString(INJECTOR).toFloat() else 0F
-                val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
+                    val distCache = if(response.has(DIST_CACHE)) response.getString(DIST_CACHE).toFloat() else 0F
+                    val origin = if(response.has(ORIGIN)) response.getString(ORIGIN).toFloat() else 0F
+                    val injector = if(response.has(INJECTOR)) response.getString(INJECTOR).toFloat() else 0F
+                    val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
 //                val localCache = if(response.has(LOCAL_CACHE)) response.getString(LOCAL_CACHE).toFloat() else 0F
 
-                val sum = distCache + origin + injector + proxy
+                    val sum = distCache + origin + injector + proxy
 
-                binding.sourcesProgressBar.removeAllViews()
-
-                // Add direct-from-website source
-                if(origin > 0) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        origin.div(sum).times(100).run {
-                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
-                        },
-                        R.color.ceno_sources_green
-                    )
-                )
-
-                // Add via-ceno-network source
-                if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        (proxy + injector + distCache).div(sum).times(100).run {
-                            if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
-                        },
-                        R.color.ceno_sources_orange
-                    )
-                )
-
-                // Add progressbar if the webpage hasn't loaded completely
-                if(webPageLoadProgress < 100) binding.sourcesProgressBar.addView(
-                    requireContext().createSegment(
-                        (100 - webPageLoadProgress).toFloat(),
-                        R.color.ceno_grey_300
-                    )
-                )
-            } else {
-                // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
-
-                // compare the URL key in `cachedSourceCounts` with the current tab's URL.
-                // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
-                if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
                     binding.sourcesProgressBar.removeAllViews()
-                    binding.sourcesProgressBar.addView(
+
+                    // Add direct-from-website source
+                    if(origin > 0) binding.sourcesProgressBar.addView(
                         requireContext().createSegment(
-                            webPageLoadProgress.toFloat(),
-                            R.color.accent
+                            origin.div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_green
                         )
                     )
+
+                    // Add via-ceno-network source
+                    if((proxy + injector) > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            (proxy + injector).div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_orange
+                        )
+                    )
+
+                    // Add via Ceno cache
+                    if(distCache > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            distCache.div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_blue
+                        )
+                    )
+
+                    // Add progressbar if the webpage hasn't loaded completely
+                    if(webPageLoadProgress < 100) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            (100 - webPageLoadProgress).toFloat(),
+                            R.color.ceno_grey_300
+                        )
+                    )
+
+                } else {
+                    // The main point of this check is to make the progressBar visible (color accent) when the sources haven't been fetched yet
+
+                    // compare the URL key in `cachedSourceCounts` with the current tab's URL.
+                    // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
+                    if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
+                        binding.sourcesProgressBar.removeAllViews()
+                        binding.sourcesProgressBar.addView(
+                            requireContext().createSegment(
+                                webPageLoadProgress.toFloat(),
+                                R.color.accent
+                            )
+                        )
+                    }
                 }
             }
         }

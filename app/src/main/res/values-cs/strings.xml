@@ -103,4 +103,5 @@
     <string name="udp_category">UDP</string>
     <string name="bit_torrent_bootstraps_category">BitTorrent samozaváděcí programy (bootstraps)</string>
     <string name="preferences_website_sources_summary">Zvolte odkud chcete načítat obsah webových stránek</string>
+    <string name="bridge_mode_category">Upozornění Bridge</string>
 </resources>

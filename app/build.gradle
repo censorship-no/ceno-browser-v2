@@ -19,6 +19,8 @@ def scenarioFile = new File(project.hasProperty("testConfig") ? project.getPrope
 def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
 
 android {
+    namespace 'ie.equalit.ceno'
+
     compileSdkVersion Config.compileSdkVersion
 
     aaptOptions {
@@ -75,6 +77,7 @@ android {
         compose true
         /* CENO: set databinding true, required for building HomeFragment */
         viewBinding true
+        buildConfig = true
     }
 
     composeOptions {
@@ -268,6 +271,14 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                 }
             }
         }
+        def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${variant.name.capitalize()}")
+        if (lintVitalAnalyzeTask) {
+            lintVitalAnalyzeTask.dependsOn(unzipUblockOrigin)
+        }
+        def lintVitalReportModelTask = tasks.findByName("generate${variant.name.capitalize()}LintVitalReportModel")
+        if (lintVitalReportModelTask) {
+            lintVitalReportModelTask.dependsOn(unzipUblockOrigin)
+        }
     }
 
 // -------------------------------------------------------------------------------------------------
@@ -416,27 +427,11 @@ dependencies {
     implementation Deps.mozilla_feature_top_sites
     implementation Deps.mozilla_ui_widgets
 
-    if (System.getenv('OUINET_LIBRARY')) {
-        project.logger.lifecycle('OUINET local AAR')
-        implementation(name: "${System.env.OUINET_LIBRARY}", ext: 'aar')
+    if (gradle.hasProperty('localProperties.dependencySubstitutions.ouinetLocalLib')) {
+        project.logger.lifecycle('Subtituting local AAR for Ouinet dependency')
+        implementation(files(gradle."localProperties.dependencySubstitutions.ouinetLocalLib"))
     } else {
         implementation Deps.ouinet_omni
-        /*
-        switch(localProperties['ABI']) {
-            case 'x86_64':
-                project.logger.lifecycle('OUINET_X86_64 from Maven')
-                implementation Deps.ouinet_x86_64
-                break
-            case 'arm64-v8a':
-                project.logger.lifecycle('OUINET_ARM64_V8A from Maven')
-                implementation Deps.ouinet_arm64_v8a
-                break
-            default:
-                project.logger.lifecycle('OUINET_ARMEABI_V7A from Maven')
-                implementation Deps.ouinet_armeabi_v7a
-                break
-        }
-         */
     }
     implementation Deps.relinker
     /* CENO: End implement additional dependencies */
@@ -479,6 +474,7 @@ task renameUblockXpi (type: Copy) {
 }
 
 task unzipUblockOrigin(type: Copy) {
+    dependsOn(renameUblockXpi)
     def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
     def outputDir = file("src/main/assets/addons/uBlock")
     from zipTree(zipFile)

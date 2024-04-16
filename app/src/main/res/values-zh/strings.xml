@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">搜索或输入网址</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">新建标签页</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">关闭所有标签页</string>
-    <string name="menu_action_close_tabs_private">关闭隐私标签页</string>
+    <string name="menu_action_close_tabs_private">关闭个人标签页</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
@@ -18,7 +18,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">在隐私浏览中启用</string>
+    <string name="preferences_tracking_protection_private">在私人浏览中启用</string>
     <!-- Preference for privacy -->
     <string name="privacy">私密</string>
     <!-- Preference summary for privacy -->
@@ -36,7 +36,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">私密 设置</string> -->
     <!-- 隐私浏览模式 -->
-    <string name="private_browsing_title">隐私浏览模式</string>
+    <string name="private_browsing_title">私人浏览模式</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">自定义附加组件收藏集</string>
@@ -52,9 +52,9 @@
     <string name="toast_customize_addon_collection_done">已更改附加组件收藏集设置。退出应用程序以应用更改…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">启用隐私浏览模式</string>
+    <string name="content_description_private_browsing_button">启用私人浏览模式</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">新建隐私标签页打开</string>
+    <string name="bookmark_menu_open_in_private_tab_button">新建私人标签页打开</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">重命名</string>
@@ -155,4 +155,18 @@
     <string name="preferences_delete_browsing_data_browsing_data_title">浏览历史记录和网站数据</string>
     <string name="preferences_delete_browsing_data_site_permissions">网站权限</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">打开选项卡</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">在个人标签页中打开链接</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">用逗号分隔 IP</string>
+    <string name="select_extra_bt_source">选择额外的 BitTorrent 引导</string>
+    <string name="setting_item_selected">%s 已选</string>
+    <string name="set_default_search_engine">设置默认搜索引擎</string>
+    <string name="not_applicable">不适用</string>
+    <string name="crash_report_sent">崩溃报告已发送！</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">添加自定义引导</string>
+    <string name="customize_extra_bittorrent_bootstrap">额外的 BitTorrent 引导</string>
+    <string name="customize_add_bootstrap_save">保存</string>
+    <string name="preferences_website_sources_summary">选择加载网站内容的位置</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent 引导</string>
+    <string name="udp_category">UDP</string>
+    <string name="bridge_mode_category">网桥通告</string>
 </resources>
