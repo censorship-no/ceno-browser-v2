@@ -9,6 +9,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
 
@@ -305,11 +306,55 @@ object Settings {
             .commit()
     }
 
+    fun getSwipedAnnouncementGuids(context: Context): List<String>? {
+        val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_rss_past_announcement_data), null
+        ) ?: return null
+
+        return guids.split(" ")
+    }
+
+    fun addSwipedAnnouncementGuid(context: Context, guid : String) {
+        val key = context.getString(R.string.pref_key_rss_past_announcement_data)
+
+        val list = (getSwipedAnnouncementGuids(context)?.toMutableList() ?: mutableListOf())
+        list.add(guid)
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, list.joinToString(" "))
+            .apply()
+    }
+
     fun getAnnouncementData(context: Context) : RssAnnouncementResponse? {
         val localValue = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_rss_announcement_data), null
         )
-        return Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
+
+        val swipedGuids = getSwipedAnnouncementGuids(context)
+
+        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)?.let { rssAnnouncementResponse ->
+
+            val response = RssAnnouncementResponse(
+                title = rssAnnouncementResponse.title,
+                link = rssAnnouncementResponse.link,
+                text = rssAnnouncementResponse.text,
+                items = buildList {
+                    rssAnnouncementResponse.items.forEach {
+                        if((swipedGuids == null || !swipedGuids.contains(it.guid))
+                            && !it.pubDate.isDateMoreThanXDaysAway(30)
+                            ) {
+                            add(it)
+                        }
+                    }
+                }
+            )
+            return if(response.items.isEmpty()) null else response
+
+        }
+
+        return null
+
     }
 
     fun saveAnnouncementData(context: Context, announcementData: RssAnnouncementResponse?) {

@@ -548,18 +548,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
-                val message = when (ouinetStatus) {
-                    Ouinet.RunningState.Started -> {
-                        getString(R.string.ceno_ouinet_connected)
+                activity?.applicationContext?.let { ctx ->
+                    val message = when (ouinetStatus) {
+                        Ouinet.RunningState.Started -> {
+                            ctx.getString(R.string.ceno_ouinet_connected)
+                        }
+                        Ouinet.RunningState.Stopped -> {
+                            ctx.getString(R.string.ceno_ouinet_disconnected)
+                        }
+                        else -> {
+                            ctx.getString(R.string.ceno_ouinet_connecting)
+                        }
                     }
-                    Ouinet.RunningState.Stopped -> {
-                        getString(R.string.ceno_ouinet_disconnected)
-                    }
-                    else -> {
-                        getString(R.string.ceno_ouinet_connecting)
-                    }
+                    Toast.makeText(ctx, message, Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -738,12 +740,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     )
 
                     // Add via-ceno-network source
-                    if((proxy + injector + distCache) > 0) binding.sourcesProgressBar.addView(
+                    if((proxy + injector) > 0) binding.sourcesProgressBar.addView(
                         requireContext().createSegment(
-                            (proxy + injector + distCache).div(sum).times(100).run {
+                            (proxy + injector).div(sum).times(100).run {
                                 if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
                             },
                             R.color.ceno_sources_orange
+                        )
+                    )
+
+                    // Add via Ceno cache
+                    if(distCache > 0) binding.sourcesProgressBar.addView(
+                        requireContext().createSegment(
+                            distCache.div(sum).times(100).run {
+                                if(webPageLoadProgress == 100) this else this.times((100 - webPageLoadProgress).div(100.0F))
+                            },
+                            R.color.ceno_sources_blue
                         )
                     )
 

@@ -21,17 +21,17 @@ object Versions {
     }
 
     object Google {
-        const val compose_compiler = "1.4.8"
+        const val compose_compiler = "1.5.11"
         const val material = "1.9.0"
     }
 
     object Gradle {
-        const val android_plugin = "7.4.2"
+        const val android_plugin = "8.2.1"
         const val kotlin_plugin = Kotlin.compiler
     }
 
     object Kotlin {
-        const val compiler = "1.8.22"
+        const val compiler = "1.9.23"
         const val coroutines = "1.7.2"
         const val serialization = "1.5.1"
     }

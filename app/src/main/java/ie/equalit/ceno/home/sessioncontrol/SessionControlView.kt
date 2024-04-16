@@ -15,7 +15,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ceno.home.HomeCardSwipeCallback
-import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
 
@@ -28,16 +28,17 @@ internal fun normalModeAdapterItems(
     topSites: List<TopSite>,
     messageCard: CenoMessageCard,
     mode: BrowsingMode,
-    announcement: RssAnnouncementResponse?,
+    announcements: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
 
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
+    // IF THIS EVER CHANGES, REMEMBER TO UPDATE THE [_sessionControlInteractor : SessionControlInteractor] constructor in HomeFragment.kt.
     items.add(AdapterItem.TopPlaceholderItem)
 
     // Show announcements at the top
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Normal)) }
+    announcements?.forEach { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Normal)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
 
@@ -51,12 +52,12 @@ internal fun normalModeAdapterItems(
     return items
 }
 
-internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnouncementResponse?): List<AdapterItem> {
+internal fun personalModeAdapterItems(mode: BrowsingMode, announcements: List<RssItem>?): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
     // Show announcements at the top
-    announcement?.let { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Personal)) }
+    announcements?.forEach { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Personal)) }
 
     items.add(AdapterItem.CenoModeItem(mode))
     items.add(AdapterItem.PersonalModeDescriptionItem)
@@ -66,7 +67,7 @@ internal fun personalModeAdapterItems(mode: BrowsingMode, announcement: RssAnnou
 private fun AppState.toAdapterList(
     prefs: CenoPreferences,
     messageCard: CenoMessageCard,
-    announcement: RssAnnouncementResponse?,
+    announcement: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
@@ -116,7 +117,7 @@ class SessionControlView(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun update(state: AppState, announcement: RssAnnouncementResponse?) {
+    fun update(state: AppState, announcements: List<RssItem>?) {
         /* TODO: add onboarding pages
         if (state.shouldShowHomeOnboardingDialog(view.context.settings())) {
             interactor.showOnboardingDialog()
@@ -128,7 +129,7 @@ class SessionControlView(
                     ContextCompat.getString(view.context,R.string.bridge_mode_ip_warning_text),
             title = ContextCompat.getString(view.context, R.string.enable_bridge_card_title)
         )
-        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcement, CenoSettings.isBridgeAnnouncementEnabled(view.context)))
+        sessionControlAdapter.submitList(state.toAdapterList(view.context.cenoPreferences(), messageCard, announcements, CenoSettings.isBridgeAnnouncementEnabled(view.context)))
         sessionControlAdapter.notifyDataSetChanged()
 
     }
