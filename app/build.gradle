@@ -75,6 +75,7 @@ android {
         compose true
         /* CENO: set databinding true, required for building HomeFragment */
         viewBinding true
+        buildConfig = true
     }
 
     composeOptions {
