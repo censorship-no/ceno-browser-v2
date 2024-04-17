@@ -252,6 +252,9 @@
     <string name="ceno_log_file_saved_desc">To prioritize your privacy, all personally identifiable information has been carefully removed from this log.</string>
     <string name="ceno_android_logs_file_name">&brandShortName; Logs</string>
 
+    <string name="ceno_log_content_group_file_saved">Shared content saved successfully</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; shared content</string>
+
     <string name="ouinet_log_file_prompt_desc">Be aware, this log may contain personally identifiable information. Exercise caution when sharing.</string>
 
     <string name="view_logs">View</string>
@@ -272,6 +275,7 @@
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
 
     <string name="log_export_cancelled">Log export cancelled</string>
+    <string name="canceled">Canceled</string>
     <string name="bridge_announcement_dialog_text">Please wait while the &brandShortName; browser service is restarted for your changes to take effect.</string>
     <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings…</string>
     <string name="enable_bridge_card_text">Make the &brandShortName; network stronger by becoming a bridge! You can enable Bridge Mode by going to Settings -> Enable Bridge Mode.</string>
@@ -281,4 +285,15 @@
     <string name="learn_more_title">Learn More</string>
     <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
     <string name="standby_restarting_text">Restarting…</string>
+
+    <string name="download_site_content">Download site content</string>
+    <string name="no_content_shared">Currently, you\'re not sharing any content</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="confirm_groups_file_download">Export list of shared content?</string>
+    <string name="confirm_groups_file_download_desc">A txt file will be saved to your local storage.</string>
+    <string name="write_storage_permission_text_content_group">Shortly the OS will ask you for permission to\n\n\u2022 Allow access to storage\n\nThis is needed to save the website listing file on your device.</string>
+
+    <string name="confirm_clear_cached_content">Clear cached content?</string>
+    <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
+
 </resources>
