@@ -274,6 +274,7 @@
     <string name="select_log_scope_header">Select your preferred scope</string>
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
 
+    <string name="log_export_cancelled">Log export cancelled</string>
     <string name="canceled">Canceled</string>
     <string name="bridge_announcement_dialog_text">Please wait while the &brandShortName; browser service is restarted for your changes to take effect.</string>
     <string name="bridge_announcement_dialog_title">Updating Bridge Mode settings…</string>
