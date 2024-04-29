@@ -1,7 +1,6 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
-import android.os.Environment
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,13 +17,13 @@ class Ouisync (
     context : Context
 ) {
     lateinit var session : Session
+    var storeDir : String? = null
     var writeToken : ShareToken? = null
     private var sessionError by mutableStateOf<String?>(null)
     private var protocolVersion by mutableStateOf<Int>(0)
     private val rootDir : File? = context.filesDir
     private var configDir : String = "$rootDir/config"
     //TODO: allow storeDir to be chosen by user
-    private var storeDir : String = Environment.getExternalStorageDirectory().path + "/Download/store"
     private var repositories by mutableStateOf<Map<String, Repository>>(mapOf())
 
     fun createSession() {
@@ -47,8 +46,9 @@ class Ouisync (
         return protocolVersion
     }
 
-    suspend fun createOrOpenRepository(name: String, token: String = "") : Repository {
+    private suspend fun createOrOpenRepository(name: String, token: String = "") : Repository {
         val session = this.session
+        Log.d(TAG, "creating repository named \"$name\" in $storeDir")
 
         if (repositories.containsKey(name)) {
             Log.e(TAG, "repository named \"$name\" already exists")
@@ -77,7 +77,7 @@ class Ouisync (
         return repo
     }
 
-    suspend fun openRepository(name: String) : Repository {
+    private suspend fun openRepository(name: String) : Repository {
         val session = this.session
         val file = File("$storeDir/$name.$DB_EXTENSION")
         val repo = Repository.open(session, file.path)
@@ -87,7 +87,7 @@ class Ouisync (
 
     suspend fun openRepositories() {
         val session = this.session
-        val files = File(storeDir).listFiles() ?: arrayOf()
+        val files = File(storeDir!!).listFiles() ?: arrayOf()
 
         for (file in files) {
             if (file.name.endsWith(".$DB_EXTENSION")) {
@@ -108,32 +108,6 @@ class Ouisync (
         }
     }
 
-    suspend fun writeToRepo(contentW : String, charset: Charset = Charsets.UTF_8) {
-        val session = this.session
-        val files = File(storeDir).listFiles() ?: arrayOf()
-
-        for (file in files) {
-            if (file.name.endsWith(".$DB_EXTENSION")) {
-                try {
-                    val name = file
-                        .name
-                        .substring(0, file.name.length - DB_EXTENSION.length - 1)
-                    val repo = Repository.open(session, file.path)
-
-                    Log.i(TAG, "Opened repository $name")
-
-                    val fileW = ouiFile.create(repo, "prefs.txt")
-                    fileW.write(0, contentW.toByteArray(charset))
-                    fileW.flush()
-                    fileW.close()
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to open repository at ${file.path}")
-                    continue
-                }
-            }
-        }
-    }
-
     suspend fun createAndWriteToRepo(name: String, contentW : String, charset: Charset = Charsets.UTF_8) {
         val repo = createOrOpenRepository(name)
         Log.i(TAG, "Opened repository $name")
@@ -142,6 +116,24 @@ class Ouisync (
         fileW.flush()
         fileW.close()
     }
+
+    suspend fun openAndReadFromRepo(name: String) : String {
+        Log.d(TAG, "Opening repository $storeDir/$name")
+        val session = this.session
+        val repo = Repository.open(
+            session,
+            "$storeDir/$name.$DB_EXTENSION",
+        )
+        Log.i(TAG, "Opened repository $name")
+        val fileR = ouiFile.open(repo, "prefs.txt")
+        val len = fileR.length()
+        Log.d(TAG, "prefs.txt is $len bytes long")
+        val contentR = fileR.read(0, len).toString(Charsets.UTF_8)
+        Log.d(TAG, "Got content: $contentR")
+        fileR.close()
+        return contentR
+    }
+
 
     companion object {
         private const val TAG = "OUISYNC"

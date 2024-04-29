@@ -4,31 +4,32 @@
 
 package ie.equalit.ceno.settings.profilebackup
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentProfileBackupBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.utils.isExternalStorageAvailable
-import ie.equalit.ceno.utils.isExternalStorageReadOnly
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import mozilla.components.support.base.log.logger.Logger
+import java.io.File
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
 class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
@@ -72,6 +73,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         }
 
         binding.exportProfile.setOnClickListener(getOnClickListenerForExportProfile())
+        binding.importProfile.setOnClickListener(getOnClickListenerForImportProfile())
         updateCheckboxes()
         updateButtons()
     }
@@ -187,6 +189,41 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         }.show()
     }
 
+    private fun importPrefsDialog(context : Context) {
+        AlertDialog.Builder(context).apply {
+            setTitle(R.string.settings_restore_header)
+            setMessage(R.string.settings_restore_message)
+            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                var content = ""
+                viewLifecycleOwner.lifecycleScope.launch {
+                    requireComponents.ouisync.apply {
+                        content = openAndReadFromRepo("cenoProfile")
+                    }
+                }
+                /* TODO: intermediate dialog is workaround to wait for content to be set
+                 *   instead should use a callback or coroutine */
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Backup found!")
+                    setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                        val showText = TextView(requireContext())
+                        showText.text = content
+                        showText.setTextIsSelectable(true)
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle("Here's the settings to be restored!")
+                            setView(showText)
+                            setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                            }
+                            create()
+                        }.show()
+                    }
+                    create()
+                }.show()
+            }
+            create()
+        }.show()
+    }
+
     private fun updateCheckboxes() {
         val enabled =  Settings.isOuisyncEnabled(requireContext())
 
@@ -211,6 +248,12 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
     private fun askToExport() {
         context?.let {
             exportPrefsDialog(it)
+        }
+    }
+
+    private fun askToImport() {
+        context?.let {
+            importPrefsDialog(it)
         }
     }
 
@@ -290,68 +333,83 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         )
     }
 
-    /* TODO: this was copied directly from the Settings Fragment
-     *   for exporting the logs, we should make this reusable */
+    private fun openDirectory(requestCode: Int) {
+        // Choose a directory using the system's file picker.
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+            // Optionally, specify a URI for the directory that should be opened in
+            // the system file picker when it loads.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                putExtra(DocumentsContract.EXTRA_INITIAL_URI, Environment.getExternalStorageDirectory())
+            }
+        }
+        startActivityForResult(intent, requestCode)
+    }
+
+
     private fun getOnClickListenerForExportProfile(): View.OnClickListener {
         return View.OnClickListener {
-            when {
-                !isExternalStorageAvailable() || isExternalStorageReadOnly() -> {
-
-                    // storage not available
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(R.string.export_profile_title))
+                setMessage(getString(R.string.export_profile_text))
+                setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
+                    // show toast for permission denied
                     Toast.makeText(
                         requireContext(),
-                        getString(R.string.no_external_storage),
+                        getString(R.string.export_profile_cancelled),
                         Toast.LENGTH_LONG
                     ).show()
                 }
-
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager())
-                        || (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !requireComponents.permissionHandler.isStoragePermissionGranted()) -> {
-
-                    // permission not granted, dynamically request for permission
-                    AlertDialog.Builder(requireContext()).apply {
-                        setTitle(getString(R.string.onboarding_battery_title))
-                        setMessage(getString(R.string.write_storage_permission_text))
-                        setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
-                            // show toast for permission denied
-                            Toast.makeText(
-                                requireContext(),
-                                getString(R.string.onboarding_warning_title),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                            requireComponents.permissionHandler.requestPermissionForExternalStorage(
-                                this@ProfileBackupFragment,
-                                storageActivityResultLauncher
-                            )
-                        }
-                        create()
-                    }.show()
+                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                    openDirectory(EXPORT_REQUEST_CODE)
                 }
-
-                else -> {
-                    askToExport()
-                }
-            }
+                create()
+            }.show()
         }
     }
 
-    private val storageActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                // Permission granted!
-                askToExport()
-            } else {
-                // show toast for permission denied
-                Toast.makeText(requireContext(), getString(R.string.onboarding_warning_title), Toast.LENGTH_LONG).show()
-            }
-        } else {
-            //Below android 11
-            if(requireComponents.permissionHandler.isStoragePermissionGranted()) {
-                // Permission granted!
-                askToExport()
+    private fun getOnClickListenerForImportProfile(): View.OnClickListener {
+        return View.OnClickListener {
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(R.string.import_profile_title))
+                setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
+                    // show toast for permission denied
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.import_profile_cancelled),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                    openDirectory(IMPORT_REQUEST_CODE)
+                }
+                create()
+            }.show()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK &&
+            (requestCode == EXPORT_REQUEST_CODE || requestCode == IMPORT_REQUEST_CODE)) {
+            Log.d("ProfileBackupFragment", "Got resultCode: $resultCode and requestCode: $requestCode")
+            if (data != null) {
+                val uri: Uri? = data.data
+                uri?.path?.let { path ->
+                    Log.d("ProfileBackupFragment", "uri.path $path")
+                    val split: List<String> = path.split(":".toRegex())
+                    // TODO: handle other possible storage locations/types
+                    val file = File(Environment.getExternalStorageDirectory(), split[1])
+                    requireComponents.ouisync.storeDir = file.path
+                    if (requestCode == EXPORT_REQUEST_CODE) {
+                        Log.d("ProfileBackupFragment", "export to ${file.path}")
+                        askToExport()
+                    }
+                    else {
+                        Log.d("ProfileBackupFragment", "import from ${file.path}")
+                        askToImport()
+                    }
+                }
             }
         }
     }
@@ -362,5 +420,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
         private const val CUSTOMIZATIONS_INDEX = 0
         private const val TOP_SITES_INDEX = 1
+        private const val EXPORT_REQUEST_CODE = 41
+        private const val IMPORT_REQUEST_CODE = 42
     }
 }

@@ -263,7 +263,6 @@
     <string name="download_logs">Download</string>
     <string name="no_external_storage">Storage is not available</string>
     <string name="empty_log_text">Looks like your log is empty</string>
-    <string name="write_storage_permission_text">Shortly the OS will ask you for permission to\n\n\u2022 Allow access to storage\n\nThis is needed to save the log file on your device.</string>
 
     <string name="progress_dialog_log_export_header">Please wait…</string>
     <string name="progress_dialog_log_export_message">Computing your logs…</string>
@@ -301,4 +300,13 @@
     <string name="enable_ouisync_message">&brandShortName; settings backup is powered by Ouisync. Enabling this may consume more battery.</string>
     <string name="settings_backup_header">Backup your &brandShortName; settings</string>
     <string name="settings_backup_message">All of your customizations will be stored in a Ouisync repository.</string>
+
+    <string name="export_profile_title">Select location for export</string>
+    <string name="export_profile_text"> &brandShortName; needs access to a directory where the profile backup will be stored.\n\nIt is recommended to create a new directory in your Documents folder and give access only to that folder.</string>
+    <string name="export_profile_cancelled">Profile export cancelled</string>
+
+    <string name="import_profile_title">Select folder containing profile backup</string>
+    <string name="import_profile_cancelled">Profile import cancelled</string>
+    <string name="settings_restore_header">Restore your &brandShortName; settings</string>
+    <string name="settings_restore_message">All customizations will be restored from the selected Ouisync repository. Any existing customizations will be overwritten.</string>
 </resources>

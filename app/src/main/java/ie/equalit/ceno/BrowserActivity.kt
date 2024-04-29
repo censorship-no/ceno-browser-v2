@@ -152,7 +152,7 @@ open class BrowserActivity : BaseActivity() {
         components.ouinet.background.startup()
 
         /* TODO: if ouisync enabled... */
-        if (Settings.isOuisyncEnabled(this)) {
+        if (Settings.isOuisyncEnabled(this) && components.ouisync.storeDir != null) {
             Logger.info("OUISYNC ENABLED")
             MainScope().launch {
                 components.ouisync.apply {
