@@ -29,8 +29,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
@@ -46,6 +45,10 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/NormalTheme"
         android:name="ie.equalit.ceno.BrowserApplication">
+
+        <meta-data
+            android:name="io.sentry.auto-init"
+            android:value="false" />
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
@@ -273,10 +276,6 @@
 
         <service android:name="ie.equalit.ceno.downloads.DownloadService" />
 
-        <activity
-            android:name="ie.equalit.ceno.CrashListActivity"
-            android:exported="false" />
-
         <activity android:name="ie.equalit.ceno.autofill.AutofillUnlockActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -300,7 +299,7 @@
             android:exported="false"
             android:isolatedProcess="false"
             android:process=":ouinetService"
-            android:foregroundServiceType="specialUse"
+            android:foregroundServiceType="dataSync"
             />
 
         <provider

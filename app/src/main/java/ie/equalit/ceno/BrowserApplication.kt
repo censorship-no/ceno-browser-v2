@@ -7,7 +7,6 @@ package ie.equalit.ceno
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
@@ -49,8 +48,6 @@ open class BrowserApplication : Application() {
             }
             exitProcess(0)
         }
-
-        setupCrashReporting(this)
 
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
@@ -156,13 +153,4 @@ private fun setupLogging() {
     // We want the log messages of all builds to go to Android logcat
     Log.addSink(AndroidLogSink())
     RustLog.enable()
-}
-
-private fun setupCrashReporting(application: BrowserApplication) {
-    if (isCrashReportActive) {
-        application
-            .components
-            .analytics
-            .crashReporter.install(application)
-    }
 }

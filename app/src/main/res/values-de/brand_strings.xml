@@ -212,4 +212,5 @@
     <string name="bridge_mode_ip_warning_text">Beachten Sie, dass dies Ihre öffentliche IP-Adresse für andere Ceno-Nutzer sichtbar macht.</string>
     <string name="learn_more_title">Mehr erfahren</string>
     <string name="standby_restarting_text">Startet neu…</string>
+    <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
 </resources>
