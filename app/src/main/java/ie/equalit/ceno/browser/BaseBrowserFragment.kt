@@ -19,6 +19,7 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -116,6 +117,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
     private lateinit var runnable: Runnable
+    private lateinit var progressBarTrackerRunnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
 
     private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
@@ -483,6 +485,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
 
+        progressBarTrackerRunnable = Runnable { binding.sourcesProgressBar.isGone = true }
+
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
@@ -708,6 +712,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     companion object {
         private const val SESSION_ID = "session_id"
         private const val SOURCES_COUNT_FETCH_DELAY = 500L
+        private const val HIDE_PROGRESS_BAR_DELAY = 1500L
 
         const val DIST_CACHE = "dist-cache"
         const val ORIGIN = "origin"
@@ -736,6 +741,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireContext().components.core.store.state.selectedTab?.let { tab ->
                 // the percentage progress for the webpage
                 val webPageLoadProgress = tab.content.progress ?: 0
+                var isFullyLoaded = false
+
+                if (webPageLoadProgress == 100 && !isFullyLoaded) {
+                    isFullyLoaded = true
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                    handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
+                } else if (webPageLoadProgress < 100) {
+                    isFullyLoaded = false
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                    binding.sourcesProgressBar.isGone = false
+                }
 
                 // `message` returns as undefined sometimes. This check handles that
                 if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
