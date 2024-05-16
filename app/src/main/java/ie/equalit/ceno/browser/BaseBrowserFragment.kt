@@ -4,24 +4,24 @@
 
 package ie.equalit.ceno.browser
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Gravity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -48,11 +48,11 @@ import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ouinet.Ouinet
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.Dispatchers
-import ie.equalit.ouinet.Ouinet
-import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -84,10 +84,10 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
+import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -116,6 +116,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
     private var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
     private lateinit var runnable: Runnable
+    private lateinit var progressBarTrackerRunnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
 
 
@@ -454,6 +455,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
 
+        progressBarTrackerRunnable = Runnable { binding.sourcesProgressBar.isGone = true }
+
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
@@ -679,6 +682,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     companion object {
         private const val SESSION_ID = "session_id"
         private const val SOURCES_COUNT_FETCH_DELAY = 500L
+        private const val HIDE_PROGRESS_BAR_DELAY = 1500L
 
         const val DIST_CACHE = "dist-cache"
         const val ORIGIN = "origin"
@@ -707,6 +711,17 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireContext().components.core.store.state.selectedTab?.let { tab ->
                 // the percentage progress for the webpage
                 val webPageLoadProgress = tab.content.progress ?: 0
+                var isFullyLoaded = false
+
+                if (webPageLoadProgress == 100 && !isFullyLoaded) {
+                    isFullyLoaded = true
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                    handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
+                } else if (webPageLoadProgress < 100) {
+                    isFullyLoaded = false
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                    binding.sourcesProgressBar.isGone = false
+                }
 
                 // `message` returns as undefined sometimes. This check handles that
                 if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
