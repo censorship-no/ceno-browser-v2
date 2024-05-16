@@ -745,11 +745,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                 if (webPageLoadProgress == 100 && !isFullyLoaded) {
                     isFullyLoaded = true
-                    handler.removeCallbacks(progressBarTrackerRunnable)
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
                     handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
                 } else if (webPageLoadProgress < 100) {
                     isFullyLoaded = false
-                    handler.removeCallbacks(progressBarTrackerRunnable)
+                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
                     binding.sourcesProgressBar.isGone = false
                 }
 
