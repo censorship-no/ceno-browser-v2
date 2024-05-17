@@ -624,10 +624,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         if (enabled) {
             activity?.enterImmersiveMode()
             binding.toolbar.visibility = View.GONE
+            binding.progressBarShield.visibility = View.GONE
             binding.engineView.setDynamicToolbarMaxHeight(0)
         } else {
             activity?.exitImmersiveMode()
             binding.toolbar.visibility = View.VISIBLE
+            binding.progressBarShield.visibility = View.VISIBLE
             binding.engineView.setDynamicToolbarMaxHeight(resources.getDimensionPixelSize(R.dimen.browser_toolbar_height))
         }
     }
