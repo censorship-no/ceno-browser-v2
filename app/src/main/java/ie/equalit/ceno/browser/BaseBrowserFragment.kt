@@ -776,6 +776,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                     binding.sourcesProgressBar.removeAllViews()
 
+                    val statusIcon = ContextCompat.getDrawable(
+                        themeManager.getContext(),
+                        determineToolbarIcon(
+                            directCount = origin,
+                            cenoNetwork = proxy + injector,
+                            cenoCache = distCache
+                        )
+                    )!!
+
+                    binding.toolbar.display.icons = DisplayToolbar.Icons(
+                        emptyIcon = null,
+                        trackingProtectionTrackersBlocked = statusIcon,
+                        trackingProtectionNothingBlocked = statusIcon,
+                        trackingProtectionException = statusIcon,
+                        highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
+                    )
+
                     // Add direct-from-website source
                     if(origin > 0) binding.sourcesProgressBar.addView(
                         requireContext().createSegment(
@@ -836,6 +853,18 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             if (port === context?.components?.webExtensionPort?.mPort) {
                 context?.components?.webExtensionPort?.mPort = null
             }
+        }
+    }
+
+    private fun determineToolbarIcon(directCount: Float, cenoNetwork: Float, cenoCache: Float): Int {
+        // if they all all zeroes, return the default icon
+        if(directCount + cenoNetwork + cenoCache == 0F) return R.drawable.ic_status
+
+        // check for highest count
+        return when {
+            directCount >= cenoNetwork && directCount >= cenoCache -> R.drawable.ic_status_green
+            cenoNetwork >= cenoCache -> R.drawable.ic_status_orange
+            else -> R.drawable.ic_status_blue
         }
     }
 
