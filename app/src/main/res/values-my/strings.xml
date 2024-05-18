@@ -171,4 +171,5 @@
     <string name="preferences_website_sources_summary">ဝဘ်ဆိုက် အကြောင်းအရာများကို မည်သည့်နေရာမှ ရယူမည့်အကြောင်း ရွေးချယ်ပါ</string>
     <string name="select_extra_bt_source">အပိုဆောင်း BitTorrent bootstrap ကို ရွေးချယ်ပါ</string>
     <string name="set_default_search_engine">ရှာဖွေရေး အင်ဂျင်ကို ပုံသေသတ်မှတ်ပါ</string>
+    <string name="bridge_mode_category">ပေါင်းကူး ကြေညာချက်များ</string>
 </resources>
