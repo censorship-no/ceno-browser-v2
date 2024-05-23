@@ -9,7 +9,6 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
@@ -67,8 +66,6 @@ open class BrowserApplication : Application() {
             }
             exitProcess(0)
         }
-
-        setupCrashReporting(this)
 
         RustHttpConfig.setClient(lazy { components.core.client })
         setupLogging()
@@ -134,20 +131,10 @@ open class BrowserApplication : Application() {
             onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest,
         )
 
-        /* CENO F-Droid: Not using firefox accounts, firebase push breaks f-droid build */
-        /*
-        components.push.feature?.let {
-            Logger.info("AutoPushFeature is configured, initializing it...")
-
-            PushProcessor.install(it)
-
-            // WebPush integration to observe and deliver push messages to engine.
-            WebPushEngineIntegration(components.core.engine, it).start()
-
-            // Initialize the push feature and service.
-            it.initialize()
+        @OptIn(DelicateCoroutinesApi::class)
+        GlobalScope.launch(Dispatchers.IO) {
+            components.core.fileUploadsDirCleaner.cleanUploadsDirectory()
         }
-        */
     }
 
     override fun onTrimMemory(level: Int) {
@@ -218,13 +205,4 @@ private fun setupLogging() {
     // We want the log messages of all builds to go to Android logcat
     Log.addSink(AndroidLogSink())
     RustLog.enable()
-}
-
-private fun setupCrashReporting(application: BrowserApplication) {
-    if (isCrashReportActive) {
-        application
-            .components
-            .analytics
-            .crashReporter.install(application)
-    }
 }
