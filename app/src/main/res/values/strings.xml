@@ -225,4 +225,6 @@
     <!-- Ceno: For context menu text-->
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
     <string name="bridge_mode_category">Bridge Announcements</string>
+    <string name="shutdown_message_one">Clearing app data</string>
+    <string name="shutdown_message_two">Shutting down Ceno</string>
 </resources>

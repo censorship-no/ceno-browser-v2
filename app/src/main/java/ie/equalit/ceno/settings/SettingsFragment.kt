@@ -616,17 +616,46 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
-            //ClearButtonFeature.createClearDialog(requireContext()).show()
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(confirm_clear_cached_content))
+                setMessage(getString(confirm_clear_cached_content_desc))
+                setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
+                setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
+                    //ClearButtonFeature.createClearDialog(requireContext()).show()
+                }
+                create()
+            }.show()
             true
         }
     }
 
     private fun getClickListenerForCenoGroupsCounts(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            (activity as BrowserActivity).openToBrowser(
-                "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
-                newTab = true
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.GROUPS_TXT,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        if (message.trim().isEmpty()) {
+                            Toast.makeText(requireContext(), getString(R.string.no_content_shared), Toast.LENGTH_LONG).show()
+                        } else {
+                            findNavController().navigate(
+                                R.id.action_settingsFragment_to_siteContentGroupFragment,
+                                bundleOf("groups" to message)
+                            )
+                        }
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(
+                            requireContext(),
+                            ContextCompat.getString(requireContext(), ouinet_client_fetch_fail),
+                            LENGTH_SHORT
+                        ).show()
+                    }
+                },
+                shouldRefresh = false
             )
             true
         }
@@ -793,7 +822,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     .create()
                     .apply {
                         setOnDismissListener {
-                            Toast.makeText(requireContext(), getString(R.string.log_export_cancelled), Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), getString(canceled), Toast.LENGTH_LONG).show()
                             job?.cancel()
                             dismiss()
                         }
