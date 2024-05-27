@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.components.toolbar
 
+/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +17,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.FindInPageIntegration
+import ie.equalit.ceno.browser.ReaderViewIntegration
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
@@ -26,6 +28,7 @@ import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.browser.menu2.BrowserMenuController
@@ -50,26 +53,11 @@ import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
 import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.ext.flow
+import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
-import ie.equalit.ceno.addons.AddonsActivity
-import ie.equalit.ceno.components.ceno.CenoWebExt.CENO_EXTENSION_ID
-import ie.equalit.ceno.components.ceno.ClearButtonFeature
-import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
-/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
-import ie.equalit.ceno.components.ceno.toolbar.ToolbarFeature
-import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
-import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.SettingsFragment
-import kotlinx.coroutines.flow.mapNotNull
-import mozilla.components.feature.readerview.ReaderViewFeature
-import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 
 //import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
@@ -85,8 +73,7 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
-    private val onTabUrlChange: (String) -> Unit,
-    private val readerViewIntegration: ReaderViewIntegration
+    private val readerViewIntegration: ReaderViewIntegration? = null
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -256,14 +243,14 @@ class ToolbarIntegration(
                     text = context.getString(R.string.browser_menu_disable_reader_view)
                 )
                 {
-                    readerViewIntegration.hideReaderView()
+                    readerViewIntegration?.hideReaderView()
                 }
             } else {
                 TextMenuCandidate(
                     text = context.getString(R.string.browser_menu_enable_reader_view)
                 )
                 {
-                    readerViewIntegration.showReaderView()
+                    readerViewIntegration?.showReaderView()
                 }
             }
         }

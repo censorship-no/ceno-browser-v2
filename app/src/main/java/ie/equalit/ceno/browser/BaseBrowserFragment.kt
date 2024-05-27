@@ -215,7 +215,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
-                ::onTabUrlChanged,
                 readerViewIntegration
             ),
             owner = this,
