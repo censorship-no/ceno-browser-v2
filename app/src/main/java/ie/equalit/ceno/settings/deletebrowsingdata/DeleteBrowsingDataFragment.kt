@@ -17,12 +17,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.lib.state.ext.flowScoped
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
 import ie.equalit.ceno.ext.requireComponents
@@ -97,7 +96,7 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
 
         scope = requireComponents.core.store.flowScoped(viewLifecycleOwner) { flow ->
             flow.map { state -> state.tabs.size }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect { openTabs -> updateTabCount(openTabs) }
         }
     }
@@ -106,7 +105,7 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
         super.onResume()
         //showToolbar(getString(R.string.preferences_delete_browsing_data))
 
-        getCheckboxes().forEach {
+        getCheckboxes().iterator().forEach {
             it.visibility = View.VISIBLE
         }
 

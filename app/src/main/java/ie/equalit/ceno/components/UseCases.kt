@@ -5,6 +5,8 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
+import mozilla.components.browser.state.action.TabListAction
+import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.Engine
 import mozilla.components.feature.contextmenu.ContextMenuUseCases
@@ -18,6 +20,7 @@ import mozilla.components.feature.tabs.CustomTabsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.top.sites.TopSitesStorage
 import mozilla.components.feature.top.sites.TopSitesUseCases
+import mozilla.components.support.ktx.util.URLStringUtils
 
 /**
  * Component group for all use cases. Use cases are provided by feature
@@ -29,7 +32,7 @@ class UseCases(
     private val store: BrowserStore,
     private val shortcutManager: WebAppShortcutManager,
     /* CENO: Copied from Fenix for CenoHomeFragment */
-    private val topSitesStorage: TopSitesStorage
+    private val topSitesStorage: TopSitesStorage,
 ) {
     /**
      * Use cases that provide engine interactions for a given browser session.
@@ -78,4 +81,9 @@ class UseCases(
      * Use cases that provide top sites management.
      */
     val cenoTopSitesUseCase by lazy { TopSitesUseCases(topSitesStorage) }
+
+    val customLoadUrlUseCase by lazy { CustomLoadUrlUseCase(store) { url ->
+            createTab(url).apply { store.dispatch(TabListAction.AddTabAction(this)) }
+        }
+    }
 }

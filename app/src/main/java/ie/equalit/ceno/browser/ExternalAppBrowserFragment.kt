@@ -14,7 +14,6 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.customtabs.CustomTabWindowFeature
 import mozilla.components.feature.pwa.ext.getWebAppManifest
-import mozilla.components.feature.pwa.ext.putWebAppManifest
 import mozilla.components.feature.pwa.feature.WebAppActivityFeature
 import mozilla.components.feature.pwa.feature.WebAppHideToolbarFeature
 import mozilla.components.feature.pwa.feature.WebAppSiteControlsFeature
@@ -58,22 +57,20 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
                 requireComponents.useCases.sessionUseCases,
                 requireComponents.useCases.customTabsUseCases,
                 sessionId!!,
-                activity
+                activity,
             ),
             owner = this,
-            view = view
+            view = view,
         )
 
         windowFeature.set(
             feature = CustomTabWindowFeature(
                 requireActivity(),
                 requireComponents.core.store,
-                sessionId
-            ) { uri ->
-                requireComponents.analytics.crashReporter.submitCaughtException(Exception("Unknown scheme error $uri"))
-            },
+                sessionId,
+            ),
             owner = this,
-            view = view
+            view = view,
         )
 
         hideToolbarFeature.set(
@@ -81,14 +78,14 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
                 requireComponents.core.store,
                 requireComponents.core.customTabsStore,
                 sessionId,
-                manifest
+                manifest,
             ) { toolbarVisible ->
                 toolbar.isVisible = toolbarVisible
                 webAppToolbarShouldBeVisible = toolbarVisible
                 if (!toolbarVisible) { engineView.setDynamicToolbarMaxHeight(0) }
             },
             owner = this,
-            view = toolbar
+            view = toolbar,
         )
 
         if (manifest != null) {
@@ -98,15 +95,16 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
                 WebAppActivityFeature(
                     activity,
                     requireComponents.core.icons,
-                    manifest
+                    manifest,
                 ),
                 WebAppSiteControlsFeature(
                     requireContext().applicationContext,
                     requireComponents.core.store,
                     requireComponents.useCases.sessionUseCases.reload,
                     sessionId,
-                    manifest
-                )
+                    manifest,
+                    notificationsDelegate = requireComponents.notificationsDelegate,
+                ),
             )
         }
     }
@@ -120,17 +118,5 @@ class ExternalAppBrowserFragment : BaseBrowserFragment(), UserInteractionHandler
 
     companion object {
         private const val ARG_TRUSTED_SCOPES = "org.mozilla.samples.browser.TRUSTED_SCOPES"
-
-        fun create(
-            sessionId: String,
-            manifest: WebAppManifest?,
-            trustedScopes: List<Uri>
-        ) = ExternalAppBrowserFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-                putWebAppManifest(manifest)
-                putParcelableArrayList(ARG_TRUSTED_SCOPES, ArrayList(trustedScopes))
-            }
-        }
     }
 }

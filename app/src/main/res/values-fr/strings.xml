@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
-    <string name="toolbar_hint">Rechercher ou saisir l\'adresse</string>
+    <string name="toolbar_hint">Cherchez ou saisissez l’adresse</string>
     <!-- Menu option on the toolbar to open a new tab-->
-    <string name="menu_action_add_tab">Nouvel onglet</string>
+    <string name="menu_action_add_tab">Ajouter un nouvel onglet</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Fermer tous les onglets</string>
-    <string name="menu_action_close_tabs_private">Fermer les onglets privés</string>
+    <string name="menu_action_close_tabs_private">Fermer les onglets personnels</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
     <!-- Preference enabling remote debugging -->
-    <string name="preferences_remote_debugging">Débogage distant par USB</string>
+    <string name="preferences_remote_debugging">Débogage à distance par USB</string>
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">Activée en navigation privée</string>
+    <string name="preferences_tracking_protection_private">Activer en mode de navigation personnelle</string>
     <!-- Preference for privacy -->
-    <string name="privacy">Vie privée</string>
+    <string name="privacy">Confidentialité</string>
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
     <!-- Preference for open links in apps -->
-    <string name="open_links_in_apps">Ouvrir les liens dans des applications</string>
+    <string name="open_links_in_apps">Ouvrir les liens dans des applis</string>
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Outils de développement</string>
     <!-- Preference category for tracking protection -->
@@ -36,68 +36,68 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">Vie privée Paramètres</string> -->
     <!-- Navigation privée -->
-    <string name="private_browsing_title">Navigation privée</string>
+    <string name="private_browsing_title">Navigation Personnelle</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
-    <string name="preferences_customize_amo_collection">Collection de modules personnalisée</string>
+    <string name="preferences_customize_amo_collection">Collection de modules complémentaires personnalisée</string>
     <!-- Button caption to confirm the add-on collection configuration -->
-    <string name="customize_addon_collection_ok">OK</string>
+    <string name="customize_addon_collection_ok">D’accord</string>
     <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">Annuler</string>
     <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Nom de la collection</string>
     <!-- Hint displayed on input field for custom collection user ID-->
-    <string name="customize_addon_collection_user_hint">Propriétaire de la collection (identifiant utilisateur)</string>
+    <string name="customize_addon_collection_user_hint">Propriétaire de la collection (ID de l’utilisateur)</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
-    <string name="toast_customize_addon_collection_done">Collection de modules complémentaires modifiée. Fermeture de l’application pour appliquer les modifications…</string>
+    <string name="toast_customize_addon_collection_done">La collection de modules complémentaires a été modifiée. Fermeture de l’appli pour appliquer les modifications…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">Activer la navigation privée</string>
+    <string name="content_description_private_browsing_button">Activer la navigation personnelle</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">Ouvrir dans un onglet privé</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Ouvrir dans un onglet personnel</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renommer</string>
     <!-- Text for the menu button to remove a top site -->
-    <string name="remove_top_site">Supprimer</string>
+    <string name="remove_top_site">Retirer</string>
     <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Supprimer de l’historique</string>
     <!-- Top Sites -->
     <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
-    <string name="shortcut_max_limit_title">Nombre maximal de raccourcis atteint</string>
+    <string name="shortcut_max_limit_title">Le nombre maximal de raccourcis a été atteint</string>
     <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
-    <string name="shortcut_max_limit_content">Pour ajouter un nouveau raccourci, supprimez-en un autre. Faites un appui long sur le site et sélectionnez supprimer.</string>
+    <string name="shortcut_max_limit_content">Pour ajouter un nouveau raccourci, supprimez-en un. Touchez et maintenez le site et sélectionnez Retirer.</string>
     <!-- Confirmation dialog button text when top sites limit is reached. -->
-    <string name="top_sites_max_limit_confirmation_button">J’ai compris</string>
+    <string name="top_sites_max_limit_confirmation_button">D’accord, j’ai compris</string>
     <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">Nom</string>
     <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">Nom du raccourci</string>
     <!-- Button caption to confirm the renaming of the top site. -->
-    <string name="top_sites_rename_dialog_ok">OK</string>
+    <string name="top_sites_rename_dialog_ok">D’accord</string>
     <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">Annuler</string>
     <!-- Label text displayed for a sponsored top site. -->
-    <string name="top_sites_sponsored_label">Sponsorisé</string>
+    <string name="top_sites_sponsored_label">Commandité</string>
     <!-- Browser Fragment -->
     <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <!-- <string name="browser_menu_back">Page précédente</string> -->
     <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
-    <string name="browser_menu_forward">Page suivante</string>
+    <string name="browser_menu_forward">Suivant</string>
     <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">Actualiser</string>
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Arrêter</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">Modules complémentaires</string>
+    <string name="preferences_add_ons">Modules complémentaires</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Paramètres</string>
     <!-- Browser menu toggle that requests a desktop site -->
-    <string name="browser_menu_desktop_site">Demander une version ordinateur</string>
+    <string name="browser_menu_desktop_site">Demander la version pour ordinateur</string>
     <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Ajouter à l’écran d’accueil</string>
     <!-- Browser menu button that opens the find in page menu -->
-    <string name="browser_menu_find_in_page">Rechercher dans la page</string>
+    <string name="browser_menu_find_in_page">Trouver dans la page</string>
     <!-- Browser menu button that open a share menu to share the current site -->
     <!--
     <string name="browser_menu_share">Partager</string>
@@ -109,5 +109,66 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Vue lecteur</string>
-    <string name="privacy_settings">Paramètres de confidentialité</string>
+    <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
+    <string name="toolbar_category">Options de la barre d’outils</string>
+    <string name="preferences_autofill">Remplissage automatique des applis</string>
+    <string name="preferences_autofill_summary">Remplir automatiquement les identifiants et mots de passe dans d’autres applis</string>
+    <string name="preferences_tracking_protection_normal">Activer en mode de navigation normal</string>
+    <string name="preferences_privacy_summary">Activer pour la navigation personnelle et publique</string>
+    <string name="theme_category">Thème</string>
+    <string name="preferences_customization_summary">Icône de l’appli, barre d’outils, bouton Effacer</string>
+    <string name="general_category">Général</string>
+    <string name="menu_share_with">Partager avec…</string>
+    <string name="insecure_connection">La connexion n’est pas sécurisée</string>
+    <string name="secure_connection">La connexion est sécurisée</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="one">%d onglet</item>
+        <item quantity="many">%d d’onglets</item>
+        <item quantity="other">%d onglets</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_cached_files">Images et fichiers mis en cache</string>
+    <string name="preference_choose_search_engine">Choisir un moteur de recherche</string>
+    <string name="toast_copied">A été copié</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="one">%d adresse</item>
+        <item quantity="many">%d d’adresses</item>
+        <item quantity="other">%d adresses</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_button">Supprimer les données de navigation</string>
+    <string name="browser_toolbar_home">Accueil</string>
+    <string name="close_mode_item">Fermer la notification</string>
+    <string name="clear_button_category">Bouton Effacer</string>
+    <string name="deleting_browsing_data_in_progress">Suppression des données de navigation…</string>
+    <string name="preferences_delete_browsing_data">Supprimer les données de navigation</string>
+    <string name="preferences_delete_browsing_data_site_permissions">Autorisations du site</string>
+    <string name="browser_menu_back">Précédent</string>
+    <string name="delete_browsing_data_prompt_cancel">Annuler</string>
+    <string name="delete_browsing_data_prompt_allow">Supprimer</string>
+    <string name="preferences_delete_browsing_data_snackbar">Les données de navigation ont été supprimées</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Parcourir l’historique et les données des sites</string>
+    <string name="preferences_delete_browsing_data_cookies">Témoins de connexion</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Libère de l’espace de stockage</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">Onglets ouverts</string>
+    <string name="preference_show_search_suggestions">Obtenir des suggestions de recherche</string>
+    <string name="preference_select_preferred_engine">Sélectionnez votre moteur préféré :</string>
+    <string name="browser_menu_library">Bibliothèque</string>
+    <string name="customization_settings">Personnalisation</string>
+    <string name="delete_browsing_data_prompt_message_3">%s supprimera les données de navigation sélectionnées.</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Vous serez déconnecté.e de la plupart des sites</string>
+    <string name="preference_category_search">Recherche</string>
+    <string name="preference_search_summary">Valeur par défaut</string>
+    <string name="udp_category">UDP</string>
+    <string name="bit_torrent_bootstraps_category">Bootstraps BitTorrent</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Ouvrir le lien dans un onglet personnel</string>
+    <string name="customize_add_bootstrap_save">Enregistrer</string>
+    <string name="crash_report_sent">Rapport d\'erreur envoyé !</string>
+    <string name="preferences_website_sources_summary">Sélectionnez l\'endroit d\'où vous souhaitez charger le contenu du site web</string>
+    <string name="customize_extra_bittorrent_bootstrap">Amorcages BitTorrent supplémentaires</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Ajouter des sources bootstraps personnalisées</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Séparer les adresses IP par des virgules</string>
+    <string name="select_extra_bt_source">Sélectionner une amorce BitTorrent supplémentaire</string>
+    <string name="set_default_search_engine">Définir le moteur de recherche par défaut</string>
+    <string name="not_applicable">Indisponible</string>
+    <string name="setting_item_selected">%s sélectionné</string>
+    <string name="bridge_mode_category">Annonces mise en avant</string>
 </resources>

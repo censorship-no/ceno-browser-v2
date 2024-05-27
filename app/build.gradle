@@ -4,19 +4,28 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 import com.android.build.gradle.internal.tasks.AppPreBuildTask
 import com.android.build.OutputFile
+import org.yaml.snakeyaml.Yaml
 
 Properties localProperties = new Properties()
 localProperties.load(rootProject.file('local.properties').newDataInputStream())
 
+def scenarioFile = new File(project.hasProperty("testConfig") ? project.getProperty("testConfig") : "scenario.yaml")
+def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInputStream()) : null
+
 android {
+    namespace 'ie.equalit.ceno'
+
     compileSdkVersion Config.compileSdkVersion
 
     aaptOptions {
         ignoreAssetsPattern '!._'
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
     }
 
     defaultConfig {
@@ -25,7 +34,9 @@ android {
         compileSdkVersion Config.compileSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
-        versionName localProperties['versionName']
+        versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
+
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -36,15 +47,19 @@ android {
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS",  localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
+
+        buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
+        buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
     }
 
     /* CENO: Add signing config for release builds */
     signingConfigs {
         release {
-            storeFile file(localProperties['RELEASE_STORE_FILE'] ?: "./debug.keystore-passwords")
-            storePassword localProperties['RELEASE_STORE_PASSWORD']
-            keyAlias localProperties['RELEASE_KEY_ALIAS']
-            keyPassword localProperties['RELEASE_KEY_PASSWORD']
+            def releaseStoreFile = System.getenv('STORE_FILE') ?: localProperties['STORE_FILE']
+            storeFile file(releaseStoreFile ?: "$project.rootDir/debug.keystore-passwords")
+            storePassword System.getenv('STORE_PASSWORD') ?: localProperties['STORE_PASSWORD']
+            keyAlias System.getenv('KEY_ALIAS') ?: localProperties['KEY_ALIAS']
+            keyPassword System.getenv('KEY_PASSWORD') ?: localProperties['KEY_PASSWORD']
 
             enableV1Signing true
             enableV2Signing true
@@ -62,6 +77,7 @@ android {
         compose true
         /* CENO: set databinding true, required for building HomeFragment */
         viewBinding true
+        buildConfig = true
     }
 
     composeOptions {
@@ -77,12 +93,17 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
+        beta {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "IS_RELEASED", "true"
+        }
         raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
             applicationIdSuffix ".raptor"
             manifestPlaceholders.isRaptorEnabled = "true"
             matchingFallbacks = ['release']
         }
-        nightly releaseTemplate >> {
+        nightly {
+            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
     }
@@ -108,8 +129,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     packagingOptions {
@@ -122,7 +143,8 @@ android {
 
             reset()
 
-            include "x86", "armeabi-v7a", "arm64-v8a", "x86_64"
+            //noinspection ChromeOsAbiSupport
+            include "armeabi-v7a", "arm64-v8a", "x86_64"
         }
     }
 }
@@ -131,11 +153,21 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-Xjvm-default=all"
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'mergeDebugAssets' ||
+            task.name == 'mergeBetaAssets' ||
+            task.name == 'mergeReleaseAssets') {
+        task.dependsOn renameUblockXpi
+        task.dependsOn unzipUblockOrigin
     }
 }
 
 def baseBuildDate = generatedBuildDate
+def apkDate = generatedApkDate
 
 android.applicationVariants.all { variant ->
 
@@ -182,8 +214,6 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
         // with ARM compatibility mode.
 
-        def versionName = localProperties['versionName']
-
         variant.outputs.each { output ->
             def abi = output.getFilter(OutputFile.ABI)
 
@@ -211,7 +241,12 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 
             println("versionCode for $abi = $versionCodeOverride")
 
-            output.versionNameOverride = versionName
+            if (variant.name == "nightly") {
+                output.versionNameOverride  = versionName + "-" + baseBuildDate
+            }
+            else {
+                output.versionNameOverride = versionName
+            }
             output.versionCodeOverride = versionCodeOverride
         }
 
@@ -236,6 +271,14 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                 }
             }
         }
+        def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${variant.name.capitalize()}")
+        if (lintVitalAnalyzeTask) {
+            lintVitalAnalyzeTask.dependsOn(unzipUblockOrigin)
+        }
+        def lintVitalReportModelTask = tasks.findByName("generate${variant.name.capitalize()}LintVitalReportModel")
+        if (lintVitalReportModelTask) {
+            lintVitalReportModelTask.dependsOn(unzipUblockOrigin)
+        }
     }
 
 // -------------------------------------------------------------------------------------------------
@@ -246,6 +289,25 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
     } else {
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
+    }
+
+// -------------------------------------------------------------------------------------------------
+// Set the name of the output apks and copy to project directory
+// -------------------------------------------------------------------------------------------------
+    variant.outputs.all { output ->
+        def appId = applicationId.tokenize('.')
+        def abi = output.getFilter(OutputFile.ABI)
+        def version = output.versionNameOverride
+        outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
+    }
+
+    variant.assembleProvider.configure { assemble ->
+        assemble.doLast {
+            copy {
+                from variant.outputs*.outputFile
+                into "$project.rootDir/output/${variant.name}/"
+            }
+        }
     }
 }
 
@@ -330,16 +392,14 @@ dependencies {
     implementation Deps.mozilla_support_rusthttp
     implementation Deps.mozilla_support_webextensions
 
-    implementation Deps.mozilla_lib_crash
-    implementation Deps.mozilla_lib_crash_sentry
-    /* CENO F-Droid: Remove firebase */
-    //implementation Deps.mozilla_lib_push_firebase
     implementation Deps.mozilla_lib_publicsuffixlist
     implementation Deps.mozilla_lib_dataprotect
 
     implementation Deps.thirdparty_sentry
+    implementation Deps.thirdparty_gson
 
     implementation Deps.kotlin_coroutines
+    implementation Deps.kotlin_serialization
 
     implementation Deps.androidx_appcompat
     implementation Deps.androidx_core_ktx
@@ -354,6 +414,8 @@ dependencies {
     implementation Deps.androidx_compose_ui_tooling
     implementation Deps.androidx_compose_foundation
     implementation Deps.androidx_compose_material
+    implementation Deps.androidx_navigation_fragment
+    implementation Deps.androidx_navigation_ui
 
     implementation Deps.google_material
 
@@ -361,27 +423,11 @@ dependencies {
     implementation Deps.mozilla_feature_top_sites
     implementation Deps.mozilla_ui_widgets
 
-    if (System.getenv('OUINET_LIBRARY')) {
-        project.logger.lifecycle('OUINET local AAR')
-        implementation(name: "${System.env.OUINET_LIBRARY}", ext: 'aar')
+    if (gradle.hasProperty('localProperties.dependencySubstitutions.ouinetLocalLib')) {
+        project.logger.lifecycle('Subtituting local AAR for Ouinet dependency')
+        implementation(files(gradle."localProperties.dependencySubstitutions.ouinetLocalLib"))
     } else {
         implementation Deps.ouinet_omni
-        /*
-        switch(localProperties['ABI']) {
-            case 'x86_64':
-                project.logger.lifecycle('OUINET_X86_64 from Maven')
-                implementation Deps.ouinet_x86_64
-                break
-            case 'arm64-v8a':
-                project.logger.lifecycle('OUINET_ARM64_V8A from Maven')
-                implementation Deps.ouinet_arm64_v8a
-                break
-            default:
-                project.logger.lifecycle('OUINET_ARMEABI_V7A from Maven')
-                implementation Deps.ouinet_armeabi_v7a
-                break
-        }
-         */
     }
     implementation Deps.relinker
     /* CENO: End implement additional dependencies */
@@ -416,6 +462,21 @@ dependencies {
     }
 }
 
+task renameUblockXpi (type: Copy) {
+    from ('src/main/assets/addons/')
+    include 'uBlock0@raymondhill.net.xpi'
+    destinationDir file('src/main/assets/addons/')
+    rename { 'uBlock0@raymondhill.net.zip' }
+}
+
+task unzipUblockOrigin(type: Copy) {
+    dependsOn(renameUblockXpi)
+    def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
+    def outputDir = file("src/main/assets/addons/uBlock")
+    from zipTree(zipFile)
+    into outputDir
+}
+
 // -------------------------------------------------------------------------------------------------
 // Task for printing APK information for the requested variant
 // Usage: ./gradlew printVariants
@@ -443,6 +504,53 @@ task printGeckoviewVersion {
     }
 }
 
+static def getScenarioList(o) {
+    def scenarioList = "new java.util.ArrayList<java.util.Map<String, String>>() {{"
+    if (o != null) {
+        for (s in o.scenarios) {
+            scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                    "{" +
+                    "put(\"website\", \"${s.website}\");" +
+                    "put(\"expextedText\", \"${s.expectedText}\");" +
+                    "}" +
+                    "}); "
+        }
+    } else {
+        scenarioList += "add(new java.util.HashMap<String, String>() {" +
+                "{" +
+                "put(\"website\", \"https://example.com\");" +
+                "}" +
+                "}); "
+    }
+    scenarioList += "}}"
+    return scenarioList
+}
+
+static def getConfigMap(o) {
+    def configMap = " new java.util.HashMap<String, String>() {"
+    if (o != null) {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"${o.config.website}\");" +
+                        "put(\"private\", \"${o.config.private}\");" +
+                        "put(\"public\", \"${o.config.public}\");" +
+                        "put(\"shared\", \"${o.config.shared}\");" +
+                        "put(\"personalTab\", \"${o.config.personalTab}\");" +
+                        "}"
+    } else {
+        configMap +=
+                "{" +
+                        "put(\"website\", \"false\");" +
+                        "put(\"private\", \"true\");" +
+                        "put(\"public\", \"true\");" +
+                        "put(\"shared\", \"true\");" +
+                        "put(\"personalTab\", \"false\");" +
+                        "}"
+    }
+    configMap += "}"
+    return configMap
+}
+
 if (gradle.hasProperty('localProperties.dependencySubstitutions.geckoviewTopsrcdir')) {
     if (gradle.hasProperty('localProperties.dependencySubstitutions.geckoviewTopobjdir')) {
         ext.topobjdir = gradle."localProperties.dependencySubstitutions.geckoviewTopobjdir"
@@ -459,4 +567,8 @@ if (gradle.hasProperty('localProperties.autoPublish.android-components.dir')) {
 if (gradle.hasProperty('localProperties.autoPublish.application-services.dir')) {
     ext.appServicesSrcDir = gradle."localProperties.autoPublish.application-services.dir"
     apply from: "../${appServicesSrcDir}/build-scripts/substitute-local-appservices.gradle"
+}
+
+clean {
+  delete 'build', 'target', fileTree("$project.rootDir/output/") { include '**/*.apk' }
 }

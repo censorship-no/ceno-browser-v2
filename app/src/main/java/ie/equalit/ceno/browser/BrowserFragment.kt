@@ -6,40 +6,30 @@ package ie.equalit.ceno.browser
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
-import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.awesomebar.AwesomeBarFeature
-import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.readerview.view.ReaderViewControlsBar
-import mozilla.components.feature.syncedtabs.SyncedTabsStorageSuggestionProvider
-import mozilla.components.feature.tabs.toolbar.TabsToolbarFeature
 //import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 //import ie.equalit.ceno.getComponents
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.search.AwesomeBarWrapper
-import ie.equalit.ceno.tabs.TabsTrayFragment
+import ie.equalit.ceno.settings.Settings
 
 /**
  * Fragment used for browsing the web within the main app.
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
-    private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
     private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
     /* Removing WebExtension toolbar feature, see below for more details
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
      */
 
-    private val awesomeBar: AwesomeBarWrapper
-        get() = requireView().findViewById(R.id.awesomeBar)
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
-    private val engineView: EngineView
-        get() = requireView().findViewById<View>(R.id.engineView) as EngineView
     private val readerViewBar: ReaderViewControlsBar
         get() = requireView().findViewById(R.id.readerViewBar)
     private val readerViewAppearanceButton: FloatingActionButton
@@ -49,62 +39,27 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     override val shouldUseComposeUI: Boolean
         get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
             getString(R.string.pref_key_compose_ui),
-            false
+            false,
         )
      */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        AwesomeBarFeature(awesomeBar, toolbar, engineView)
-            .addSearchProvider(
-                requireContext(),
-                requireComponents.core.store,
-                requireComponents.useCases.searchUseCases.defaultSearch,
-                fetchClient = requireComponents.core.client,
-                mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                engine = requireComponents.core.engine,
-                limit = 5,
-                filterExactMatch = true
-            )
-            .addSessionProvider(
+        val homeAction = BrowserToolbar.Button(
+            imageDrawable = ResourcesCompat.getDrawable(
                 resources,
-                requireComponents.core.store,
-                requireComponents.useCases.tabsUseCases.selectTab
-            )
-            .addHistoryProvider(
-                requireComponents.core.historyStorage,
-                requireComponents.useCases.sessionUseCases.loadUrl
-            )
-            .addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
-
-        // We cannot really add a `addSyncedTabsProvider` to `AwesomeBarFeature` coz that would create
-        // a dependency on feature-syncedtabs (which depends on Sync).
-        awesomeBar.addProviders(
-            SyncedTabsStorageSuggestionProvider(
-                requireComponents.backgroundServices.syncedTabsStorage,
-                requireComponents.useCases.tabsUseCases.addTab,
-                requireComponents.core.icons
-            )
+                R.drawable.mozac_ic_home_24,
+                null
+            )!!,
+            contentDescription = requireContext().getString(R.string.browser_toolbar_home),
+            iconTintColorResource = themeManager.getIconColor(),
+            listener = ::onHomeButtonClicked,
         )
 
-        TabsToolbarFeature(
-            toolbar = toolbar,
-            sessionId = sessionId,
-            store = requireComponents.core.store,
-            showTabs = ::showTabs,
-            lifecycleOwner = this
-        )
 
-        thumbnailsFeature.set(
-            feature = BrowserThumbnails(
-                requireContext(),
-                engineView,
-                requireComponents.core.store
-            ),
-            owner = this,
-            view = view
-        )
+        if (Settings.shouldShowHomeButton(requireContext())) {
+            toolbar.addNavigationAction(homeAction)
+        }
 
         /*
         readerViewFeature.set(
@@ -114,10 +69,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 requireComponents.core.store,
                 toolbar,
                 readerViewBar,
-                readerViewAppearanceButton
+                readerViewAppearanceButton,
             ),
             owner = this,
-            view = view
+            view = view,
         )
          */
 
@@ -130,37 +85,20 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         webExtToolbarFeature.set(
             feature = WebExtensionToolbarFeature(
                 toolbar,
-                requireContext().components.core.store
+                requireContext().components.core.store,
             ),
             owner = this,
-            view = view
+            view = view,
         )
         */
-        binding.homeAppBar.visibility = View.GONE
         binding.sessionControlRecyclerView.visibility = View.GONE
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 
-    private fun showTabs() {
-        // For now we are performing manual fragment transactions here. Once we can use the new
-        // navigation support library we may want to pass navigation graphs around.
-        /* CENO: Add this transaction to back stack to go back to correct fragment on back pressed */
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.container, TabsTrayFragment(), TabsTrayFragment.TAG)
-            commit()
-        }
+    private fun onHomeButtonClicked() {
+        findNavController().navigate(R.id.action_global_home)
     }
 
     override fun onBackPressed(): Boolean =
         readerViewFeature.onBackPressed() || super.onBackPressed()
-
-    companion object {
-        /* CENO: Add a tag to keep track of whether this fragment is open */
-        const val TAG = "BROWSER"
-        fun create(sessionId: String? = null) = BrowserFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
-        }
-    }
 }

@@ -10,11 +10,29 @@
     <dimen name="ceno_mode_margin_horizontal">24dp</dimen>
     <dimen name="ceno_mode_margin_top">8dp</dimen>
     <dimen name="ceno_mode_margin_bottom">12dp</dimen>
-    <dimen name="ceno_onboarding_title">32sp</dimen>
-    <dimen name="ceno_onboarding_text">22sp</dimen>
+    <dimen name="ceno_onboarding_title">28sp</dimen>
+    <dimen name="ceno_onboarding_text">16sp</dimen>
+    <dimen name="ceno_onboarding_text_margin_end">50dp</dimen>
+    <dimen name="ceno_onboarding_text_margin_start">50dp</dimen>
+
+    <dimen name="ceno_about_fragment_text_size">16sp</dimen>
+    <dimen name="ceno_about_fragment_margin_top">16dp</dimen>
+    <dimen name="ceno_about_fragment_margin_horizontal">16dp</dimen>
+
+    <dimen name="ceno_shutdown_title">24sp</dimen>
 
     <dimen name="preference_margin_start">62dp</dimen>
     <dimen name="radio_button_text_size">16sp</dimen>
+
+    <dimen name="addon_placeholder_padding_start">72dp</dimen>
+    <dimen name="addon_placeholder_height">54dp</dimen>
+    <dimen name="addon_placeholder_text_size">14sp</dimen>
+
+    <dimen name="panel_horizontal_margin">16dp</dimen>
+    <dimen name="panel_vertical_margin">16dp</dimen>
+    <dimen name="panel_item_margin_top">28dp</dimen>
+    <dimen name="panel_item_drawable_padding">20dp</dimen>
+    <dimen name="panel_engine_view_height">250dp</dimen>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
@@ -206,6 +224,7 @@
     <!-- COPIED FROM DUCKDUCKGO -->
     <dimen name="changeAppIconPadding">16dp</dimen>
     <dimen name="changeAppIconSize">75dp</dimen>
+    <dimen name="changeAppIconListPadding">4dp</dimen>
     <!-- END COPIED FROM DUCKDUCKGO -->
 
     <!-- COPIED FROM FOCUS -->

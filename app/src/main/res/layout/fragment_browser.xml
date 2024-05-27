@@ -30,60 +30,6 @@
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ie.equalit.ceno.search.AwesomeBarWrapper
-        android:id="@+id/awesomeBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:visibility="gone" />
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/homeAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/photonWhite"
-        app:elevation="0dp"
-        android:fitsSystemWindows="false">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll">
-
-            <ImageButton
-                android:id="@+id/privateBrowsingButton"
-                android:layout_width="@dimen/glyph_button_height"
-                android:layout_height="@dimen/glyph_button_height"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="12dp"
-                android:layout_gravity="end"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_description_private_browsing_button"
-                app:srcCompat="@drawable/private_browsing_button"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier=".167"/>
-            <!-- This value needs to be 1.67 * the wordmark parallax value as its 24dp vs 40 -->
-
-            <ImageView
-                android:id="@+id/wordmark"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="32dp"
-                android:adjustViewBounds="true"
-                android:clickable="false"
-                android:contentDescription="@string/app_name"
-                android:focusable="false"
-                android:importantForAccessibility="no"
-                app:srcCompat="@drawable/brand_logo"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier=".1"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sessionControlRecyclerView"
         android:layout_width="match_parent"
@@ -97,8 +43,17 @@
         android:overScrollMode="never"
         tools:listitem="@layout/collection_home_list_row"
         tools:itemCount="3"
-        android:background="@drawable/home_background"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        android:background="@color/ceno_onboarding_background"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    <ie.equalit.ceno.search.AwesomeBarWrapper
+        android:id="@+id/awesomeBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true" />
 
     <mozilla.components.feature.findinpage.view.FindInPageBar
         android:id="@+id/findInPageBar"
@@ -112,16 +67,6 @@
         mozac:findInPageButtonsTint="#ff88ff"
         android:visibility="gone"
         app:layout_behavior="ie.equalit.ceno.browser.FindInPageBarBehavior" />
-
-    <mozilla.components.browser.toolbar.BrowserToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/browser_toolbar_height"
-        android:layout_gravity="bottom"
-        android:background="@color/toolbarBackgroundColor"
-        mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
-        mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
-        mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />
 
     <mozilla.components.feature.readerview.view.ReaderViewControlsBar
         android:id="@+id/readerViewBar"
@@ -144,5 +89,32 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/button_content_readerview"
         app:layout_behavior="ie.equalit.ceno.browser.ReaderViewAppearanceButtonBehavior" />
+
+    <mozilla.components.browser.toolbar.BrowserToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/browser_toolbar_height"
+        android:background="?toolbarBackground"
+        android:layout_gravity="bottom"
+        mozac:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="@color/photonWhite"
+        mozac:browserToolbarSuggestionForegroundColor="@color/toolbarSuggestionForeground"
+        mozac:browserToolbarSuggestionBackgroundColor="@color/toolbarSuggestionBackground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:id="@+id/sourcesProgressBar"
+        android:orientation="horizontal"
+        android:background="@color/ceno_grey_300"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="top" />
+
+    <View
+        android:id="@+id/progressBarShield"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="?toolbarBackground"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

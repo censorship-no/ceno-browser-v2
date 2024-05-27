@@ -14,6 +14,7 @@ import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ext.getPreferenceKey
 import java.security.InvalidParameterException
 
@@ -96,9 +97,58 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
         default = TOP_SITES_MAX_COUNT
     )
 
-    var showCenoModeItem by booleanPreference(
-        appContext.getPreferenceKey(R.string.pref_key_show_ceno_mode_item),
+    var sharedPrefsReload by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_shared_prefs_reload),
+        default = false
+    )
+
+    var sharedPrefsUpdate by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_shared_prefs_update),
+        default = false
+    )
+
+    var showBridgeAnnouncementCard by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_bridge_announcement),
         default = true
     )
 
+    var isBridgeCardExpanded by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_bridge_card_expanded),
+        default = true
+    )
+
+    var isModeCardExpanded by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_mode_card_expanded),
+        default = true
+    )
+
+    /**
+     * Save browsing mode in preferences
+     * From Fenix
+     */
+    var lastKnownBrowsingMode: BrowsingMode = BrowsingMode.Normal
+        get() {
+            val lastKnownModeWasPersonal = preferences.getBoolean(
+                appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
+                false,
+            )
+
+            return if (lastKnownModeWasPersonal) {
+                BrowsingMode.Personal
+            } else {
+                BrowsingMode.Normal
+            }
+        }
+        set(value) {
+            val lastKnownModeWasPersonal = (value == BrowsingMode.Personal)
+
+            preferences.edit()
+                .putBoolean(
+                    appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
+                    lastKnownModeWasPersonal,
+                )
+                .apply()
+
+            field = value
+        }
 }

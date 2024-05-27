@@ -4,13 +4,18 @@
 
 package ie.equalit.ceno.addons
 
-import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +44,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return inflater.inflate(R.layout.fragment_add_ons, container, false)
     }
@@ -66,39 +71,48 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private fun bindRecyclerView(rootView: View) {
         recyclerView = rootView.findViewById(R.id.add_ons_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val placeholderAdapter = AddonPlaceholderAdapter().apply {
+            submitList(listOf(AdapterItem.AddonPlaceholderItem))
+        }
+        recyclerView.adapter = placeholderAdapter
         scope.launch {
             try {
                 val addons = requireContext().components.core.addonManager.getAddons()
 
                 scope.launch(Dispatchers.Main) {
-                    val adapter = AddonsManagerAdapter(
-                        requireContext().components.core.addonCollectionProvider,
-                        this@AddonsFragment,
-                        addons
-                    )
-                    recyclerView.adapter = adapter
+                    try {
+                        val adapter = AddonsManagerAdapter(
+                                this@AddonsFragment,
+                                addons,
+                                store = requireContext().components.core.store,
+                        )
+                        recyclerView.adapter = adapter
+                    }
+                    catch(e : AddonManagerException) {
+                        Log.d(TAG, "Failed to get AddonsManagerAdapter $e")
+                    }
                 }
             } catch (e: AddonManagerException) {
-                scope.launch(Dispatchers.Main) {
-                    Toast.makeText(
-                        activity,
-                        R.string.mozac_feature_addons_failed_to_query_add_ons,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Log.d(TAG, "Failed to query addons: $e")
             }
         }
     }
 
     override fun onAddonItemClicked(addon: Addon) {
         if (addon.isInstalled()) {
-            val intent = Intent(context, InstalledAddonDetailsActivity::class.java)
-            intent.putExtra("add_on", addon)
-            startActivity(intent)
+            findNavController().navigate(
+                R.id.action_addonsFragment_to_installedAddonDetailsFragment,
+                bundleOf(
+                    "add_on" to addon
+                )
+            )
         } else {
-            val intent = Intent(context, AddonDetailsActivity::class.java)
-            intent.putExtra("add_on", addon)
-            startActivity(intent)
+            findNavController().navigate(
+                R.id.action_addonsFragment_to_addonDetailsFragment,
+                bundleOf(
+                    "add_on" to addon
+                )
+            )
         }
     }
 
@@ -121,7 +135,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         val dialog = PermissionsDialogFragment.newInstance(
             addon = addon,
-            onPositiveButtonClicked = onPositiveButtonClicked
+            onPositiveButtonClicked = onPositiveButtonClicked,
         )
 
         if (!isAlreadyADialogCreated()) {
@@ -136,15 +150,14 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         val dialog = AddonInstallationDialogFragment.newInstance(
             addon = addon,
-            addonCollectionProvider = requireContext().components.core.addonCollectionProvider,
             onConfirmButtonClicked = { _, allowInPrivateBrowsing ->
                 if (allowInPrivateBrowsing) {
                     requireContext().components.core.addonManager.setAddonAllowedInPrivateBrowsing(
                         addon,
-                        allowInPrivateBrowsing
+                        allowInPrivateBrowsing,
                     )
                 }
-            }
+            },
         )
 
         if (!isAlreadyADialogCreated()) {
@@ -156,7 +169,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         addonProgressOverlay.visibility = View.VISIBLE
         isInstallationInProgress = true
         requireContext().components.core.addonManager.installAddon(
-            addon,
+            url = addon.downloadUrl,
             onSuccess = {
                 runIfFragmentIsAttached {
                     isInstallationInProgress = false
@@ -168,20 +181,31 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                     addonProgressOverlay.visibility = View.GONE
                 }
             },
-            onError = { _, _ ->
+            onError = { _ ->
                 runIfFragmentIsAttached {
                     context?.let {
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.mozac_feature_addons_failed_to_install, addon.translateName(it)),
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_SHORT,
                         ).show()
                     }
                     addonProgressOverlay.visibility = View.GONE
                     isInstallationInProgress = false
                 }
-            }
+            },
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            show()
+            setTitle(R.string.preferences_add_ons)
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
+        }
     }
 
     /**
@@ -190,6 +214,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private var isInstallationInProgress = false
 
     companion object {
+        private const val TAG = "AddonsFragment"
         private const val PERMISSIONS_DIALOG_FRAGMENT_TAG = "ADDONS_PERMISSIONS_DIALOG_FRAGMENT"
         private const val INSTALLATION_DIALOG_FRAGMENT_TAG = "ADDONS_INSTALLATION_DIALOG_FRAGMENT"
     }

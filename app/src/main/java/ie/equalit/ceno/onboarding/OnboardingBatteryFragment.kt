@@ -1,94 +1,97 @@
 package ie.equalit.ceno.onboarding
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentOnboardingBatteryBinding
+import ie.equalit.ceno.ext.ceno.onboardingToHome
+import ie.equalit.ceno.ext.requireComponents
 import mozilla.components.support.base.feature.ActivityResultHandler
 
 /**
  * A simple [Fragment] subclass.
- * Use the [OnboardingBatteryFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class OnboardingBatteryFragment : Fragment(), ActivityResultHandler {
     private var _binding: FragmentOnboardingBatteryBinding? = null
     private val binding get() = _binding!!
 
-    protected val sessionId: String?
-        get() = arguments?.getString(SESSION_ID)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentOnboardingBatteryBinding.inflate(inflater, container,false);
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
+        container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_onboarding_background))
         return binding.root
     }
 
-    @SuppressLint("BatteryLife")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener {
-            if(!PermissionHandler(requireContext()).requestBatteryOptimizationsOff(requireActivity())) {
-                binding.root.background = ContextCompat.getDrawable(requireContext(), R.drawable.onboarding_splash_background)
-                OnboardingFragment.transitionToHomeFragment(requireContext(), requireActivity(), sessionId)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text_v33)
+            binding.button.setOnClickListener {
+                allowPostNotifications()
             }
         }
+        else {
+            /* This is NOT Android 13, just ask to disable battery optimization */
+            binding.tvOnboardingPermissionText.text = getString(R.string.onboarding_battery_text)
+            binding.button.setOnClickListener {
+                disableBatteryOptimization()
+            }
+        }
+    }
 
-        binding.button2.setOnClickListener {
-            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
+    private fun disableBatteryOptimization() {
+        if (!requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())) {
+            findNavController().onboardingToHome(requireComponents)
         }
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
         super.onActivityResult(requestCode, resultCode, data)
-        if (PermissionHandler(requireContext()).onActivityResult(requestCode, data, resultCode)) {
-            OnboardingThanksFragment.transitionToFragment(requireActivity(), sessionId)
-        }
-        else {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.slide_out,
-                    R.anim.slide_back_in,
-                    R.anim.slide_back_out
-                )
-                replace(
-                    R.id.container,
-                    OnboardingWarningFragment.create(sessionId),
-                    OnboardingWarningFragment.TAG
-                )
-                addToBackStack(null)
-                commit()
+        if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
+            findNavController().onboardingToHome(requireComponents)
+        } else {
+            (activity as BrowserActivity).updateView {
+                findNavController().navigate(R.id.action_onboardingBatteryFragment_to_onboardingWarningFragment)
             }
         }
         return true
     }
 
-    companion object {
-        private const val SESSION_ID = "session_id"
-
-        @JvmStatic
-        protected fun Bundle.putSessionId(sessionId: String?) {
-            putString(SESSION_ID, sessionId)
-        }
-
-        const val TAG = "ONBOARD_BATTERY"
-        fun create(sessionId: String? = null) = OnboardingBatteryFragment().apply {
-            arguments = Bundle().apply {
-                putSessionId(sessionId)
-            }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun allowPostNotifications() {
+        if (!requireComponents.permissionHandler.requestPostNotificationsPermission(this)) {
+            findNavController().onboardingToHome(requireComponents)
         }
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == REQUEST_CODE_NOTIFICATION_PERMISSIONS) {
+            requireComponents.ouinet.background.start()
+            disableBatteryOptimization()
+        }
+        else {
+            Log.e(TAG, "Unknown request code received: $requestCode")
+            findNavController().onboardingToHome(requireComponents)
+        }
+    }
+
+    companion object {
+        const val TAG = "ONBOARD_BATTERY"
+    }
 }

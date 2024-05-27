@@ -1,0 +1,27 @@
+Ceno (Censorship.No !) !) est un navigateur Web mobile décentralisé. Il utilise la technologie pair à pair pour présenter des sites Web sur votre appareil mobile et met en cache le contenu populaire auprès de pairs coopérants. Ceno peut être utilisé pour contourner la censure sur Internet et aider les autres à récupérer les pages bloquées.
+
+Dites NON à la censure ! Installez le Navigateur Ceno dès aujourd’hui et soyez prêt.e la prochaine fois que vous serez 🔌 débranché.e.
+
+🚫🌴 <strong>Hors ligne avant tout.</strong>
+Ceno est conçu avec des scénarios de coupure d’Internet à l’esprit. Les sites Web sont partagés par un réseau mondial de pairs et stockés dans un cache distribué pour être accessibles si les réseaux traditionnels sont bloqués ou tombent en panne.
+
+🔓👀 <strong>Déverrouiller le Web.</strong>
+Accédez à n’importe quel site Web. Les contenus demandés fréquemment sont mis en cache sur le réseau et ne peuvent pas être supprimés de force.
+
+💲🌐 <strong>Réduire les coûts de données.</strong>
+En acheminant le trafic des utilisateurs par des réseaux pair à pair, le Navigateur Ceno entraîne moins de coûts de données tout en offrant aux utilisateurs une capacité de contournement.
+
+📖👐 <strong>Libre et ouvert.</strong>
+Le Navigateur Ceno est propulsé par Ouinet, une bibliothèque ouverte qui permet aux développeurs tiers d’intégrer le réseau Ceno dans leurs applis pour une connectivité pair à pair.
+
+<strong>Note :</strong> Ceno n’est pas un outil d’anonymisation : des renseignements sur votre navigation pourraient être divulgués à d’autres utilisateurs de Ceno, ainsi que le fait que votre application fournit un contenu Web particulier à d’autres. Le contenu accessible avec l’application peut rester stocké en clair pendant un certain temps. Vous pouvez cependant purger tout le contenu stocké n’importe quand grâce à la fonction « Purger maintenant ».
+
+<strong>À propos d’eQualit.ie</strong>
+eQualit.ie développe des systèmes ouverts et réutilisables axés sur la confidentialité et la protection des données personnelles, la sécurité en ligne et la gestion de l’information. Notre objectif est de créer une technologie accessible et d’améliorer les compétences nécessaires pour défendre les droits de la personne et les libertés à l’ère numérique.
+
+Pour en apprendre davantage sur le Navigateur Ceno et sa bibliothèque distribuée, Ouinet, visitez https://censorship.no/fr/
+
+<strong>Questions, besoin d’assistance ?</strong>
+Consultez le <a href="https://censorship.no/user-manual/fr/">manuel d’utilisation de Ceno</a> ou contactez-nous par courriel à l’adresse support@censorship.no . Nous aimons recevoir des commentaires et améliorons continuellement Ceno pour ses utilisateurs.
+
+Restez connecté et aidez à garder le Web ouvert et accessible à tous.

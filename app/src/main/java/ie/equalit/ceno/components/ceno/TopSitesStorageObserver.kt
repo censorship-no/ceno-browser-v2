@@ -23,8 +23,7 @@ class TopSitesStorageObserver(
             storage.getTopSites(preferences.topSitesMaxLimit)
             store.dispatch(
                 AppAction.Change(
-                    topSites = storage.cachedTopSites.sort(),
-                    showCenoModeItem = preferences.showCenoModeItem
+                    topSites = storage.cachedTopSites.sort()
                 )
             )
         }

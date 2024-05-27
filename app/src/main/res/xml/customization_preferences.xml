@@ -6,40 +6,70 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.preference.Preference
-        android:key="@string/pref_key_change_app_icon"
-        android:title="@string/preferences_change_app_icon"
-        />
+    <PreferenceCategory
+        android:title="@string/theme_category"
+        android:layout="@layout/preference_category_style">
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_change_app_icon"
+            android:title="@string/preferences_change_app_icon"
+            />
+
+        <!-- TODO: Replace ListPreferences with real radio groups like Fenix-->
+        <ListPreference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_theme"
+            android:title="@string/preferences_theme"
+            android:summary="@string/preferences_theme_summary"
+            android:defaultValue="@string/preferences_theme_default"
+            android:entryValues="@array/preferences_theme_values"
+            android:entries="@array/preferences_theme_options"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/toolbar_category">
+        android:title="@string/toolbar_category"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_toolbar_position"
             android:defaultValue="false"
             android:title="@string/preferences_toolbar_position"/>
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_toolbar_hide"
             android:defaultValue="true"
             android:title="@string/preferences_toolbar_hide"/>
 
+        <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_show_home_button"
+            android:defaultValue="false"
+            android:title="@string/preferences_show_home_button"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/clear_button_category">
+        android:title="@string/clear_button_category"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_clear_in_toolbar"
             android:defaultValue="true"
             android:title="@string/preferences_clear_in_toolbar"/>
 
         <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_clear_in_menu"
             android:defaultValue="true"
             android:title="@string/preferences_clear_in_menu"/>
 
         <ListPreference
+            app:iconSpaceReserved="false"
             android:key="@string/pref_key_clear_behavior"
             android:title="@string/preferences_clear_behavior"
             android:summary="@string/preferences_clear_behavior_summary"

@@ -23,4 +23,10 @@ search_engine_settings.xml -->
         android:key="@string/pref_key_manual_add_search_engine"
         android:title="@string/preference_search_add3" />
         -->
+    <androidx.preference.SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        android:defaultValue="true"
+        android:key="@string/pref_key_show_search_suggestions"
+        android:title="@string/preference_show_search_suggestions"
+        android:summary="@string/preference_show_search_suggestions_summary"/>
 </androidx.preference.PreferenceScreen>

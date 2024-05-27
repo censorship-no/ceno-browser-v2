@@ -8,50 +8,55 @@
 // Synchronized version numbers for dependencies used by (some) modules
 object Versions {
     object AndroidX {
-        const val activity_compose = "1.6.1"
-        const val appcompat = "1.5.1"
-        const val compose = "1.3.0"
+        const val activity_compose = "1.7.2"
+        const val appcompat = "1.6.1"
+        const val compose = "1.5.4"
         const val constraintlayout = "2.1.4"
-        const val core = "1.9.0"
-        const val lifecycle = "2.5.1"
-        const val preference = "1.2.0"
+        const val core = "1.12.0"
+        const val lifecycle = "2.6.2"
+        const val navigation = "2.5.3"
+        const val preference = "1.2.1"
         const val swiperefreshlayout = "1.1.0"
         const val work = "2.7.1"
     }
 
     object Google {
-        const val compose_compiler = "1.3.2"
-        const val material = "1.7.0"
+        const val compose_compiler = "1.5.11"
+        const val material = "1.9.0"
     }
 
     object Gradle {
-        const val android_plugin = "7.3.0"
+        const val android_plugin = "8.2.1"
         const val kotlin_plugin = Kotlin.compiler
     }
 
     object Kotlin {
-        const val compiler = "1.7.20"
-        const val coroutines = "1.6.4"
+        const val compiler = "1.9.23"
+        const val coroutines = "1.7.2"
+        const val serialization = "1.5.1"
     }
 
     object Testing {
         const val androidx_core = "1.5.0"
-        const val androidx_espresso = "3.5.0"
-        const val androidx_ext_junit = "1.1.4"
+        const val androidx_espresso = "3.5.1"
+        const val androidx_ext_junit = "1.1.5"
         const val androidx_orchestrator = "1.4.2"
+        const val androidx_runner = "1.5.2"
         const val androidx_uiautomator = "2.2.0"
-        const val jacoco = "0.8.8"
-        const val ktlint = "0.47.1"
+        const val jacoco = "0.8.10"
+        const val ktlint = "0.49.1"
         const val mockwebserver = "4.10.0"
     }
 
     object ThirdParty {
-        const val sentry = "6.6.0"
+        const val sentry = "6.27.0"
+        const val gson = "2.10.1"
     }
 
     /* CENO: Versions for additional dependencies */
-    const val ouinet_version = "0.21.5"
+    const val ouinet_version = "0.24.0"
     const val relinker_version = "1.4.4"
+    const val snakeyaml_version = "2.0"
 
     // Workaround for a Gradle parsing bug that prevents using nested objects directly in Gradle files.
     // These might be removable if we switch to kts files instead.
@@ -64,6 +69,7 @@ object Versions {
 // Synchronized dependencies used by (some) modules
 object Deps {
     const val kotlin_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}"
+    const val kotlin_serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}"
 
     const val mozilla_concept_awesomebar = "org.mozilla.components:concept-awesomebar:${AndroidComponents.VERSION}"
     const val mozilla_concept_engine = "org.mozilla.components:concept-engine:${AndroidComponents.VERSION}"
@@ -103,7 +109,7 @@ object Deps {
     const val mozilla_feature_intent = "org.mozilla.components:feature-intent:${AndroidComponents.VERSION}"
     const val mozilla_feature_search = "org.mozilla.components:feature-search:${AndroidComponents.VERSION}"
     const val mozilla_feature_session = "org.mozilla.components:feature-session:${AndroidComponents.VERSION}"
-    const val mozilla_feature_toolbar = "org.mozilla.components:feature-toolbar:${AndroidComponents.VERSION}"
+    const val mozilla_feature_toolbar = "ie.equalit.ouinet:feature-toolbar-ceno:${AndroidComponents.VERSION}"
     const val mozilla_feature_tabs = "org.mozilla.components:feature-tabs:${AndroidComponents.VERSION}"
     const val mozilla_feature_downloads = "org.mozilla.components:feature-downloads:${AndroidComponents.VERSION}"
     const val mozilla_feature_storage = "org.mozilla.components:feature-storage:${AndroidComponents.VERSION}"
@@ -133,14 +139,11 @@ object Deps {
     const val mozilla_support_rusthttp = "org.mozilla.components:support-rusthttp:${AndroidComponents.VERSION}"
     const val mozilla_support_webextensions = "org.mozilla.components:support-webextensions:${AndroidComponents.VERSION}"
 
-    const val mozilla_lib_crash = "org.mozilla.components:lib-crash:${AndroidComponents.VERSION}"
-    const val mozilla_lib_crash_sentry = "org.mozilla.components:lib-crash-sentry:${AndroidComponents.VERSION}"
-    /* CENO F-Droid: Remove firebase */
-    //const val mozilla_lib_push_firebase = "org.mozilla.components:lib-push-firebase:${AndroidComponents.VERSION}"
     const val mozilla_lib_dataprotect = "org.mozilla.components:lib-dataprotect:${AndroidComponents.VERSION}"
     const val mozilla_lib_publicsuffixlist = "org.mozilla.components:lib-publicsuffixlist:${AndroidComponents.VERSION}"
 
     const val thirdparty_sentry = "io.sentry:sentry-android:${Versions.ThirdParty.sentry}"
+    const val thirdparty_gson = "com.google.code.gson:gson:${Versions.ThirdParty.gson}"
 
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
@@ -154,6 +157,9 @@ object Deps {
     const val androidx_compose_material = "androidx.compose.material:material:${Versions.AndroidX.compose}"
     const val androidx_activity_compose = "androidx.activity:activity-compose:${Versions.AndroidX.activity_compose}"
     const val androidx_swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swiperefreshlayout}"
+    const val androidx_safeargs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.AndroidX.navigation}"
+    const val androidx_navigation_ui = "androidx.navigation:navigation-ui:${Versions.AndroidX.navigation}"
 
     const val google_material = "com.google.android.material:material:${Versions.Google.material}"
 
@@ -167,16 +173,14 @@ object Deps {
     const val mockwebserver = "com.squareup.okhttp3:mockwebserver:${Versions.Testing.mockwebserver}"
     const val orchestrator =  "androidx.test:orchestrator:${Versions.Testing.androidx_orchestrator}"
     const val tools_test_rules = "androidx.test:rules:${Versions.Testing.androidx_core}"
-    const val tools_test_runner = "androidx.test:runner:${Versions.Testing.androidx_core}"
+    const val tools_test_runner = "androidx.test:runner:${Versions.Testing.androidx_runner}"
     const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.Testing.androidx_uiautomator}"
     const val junit_ktx = "androidx.test.ext:junit-ktx:${Versions.Testing.androidx_ext_junit}"
 
     /* CENO: Additional dependencies required */
     const val mozilla_feature_top_sites = "org.mozilla.components:feature-top-sites:${AndroidComponents.VERSION}"
     const val mozilla_ui_widgets = "org.mozilla.components:ui-widgets:${AndroidComponents.VERSION}"
-    const val ouinet_arm64_v8a = "ie.equalit.ouinet:ouinet-arm64-v8a:${Versions.ouinet_version}"
-    const val ouinet_armeabi_v7a = "ie.equalit.ouinet:ouinet-armeabi-v7a:${Versions.ouinet_version}"
-    const val ouinet_x86_64 = "ie.equalit.ouinet:ouinet-x86_64:${Versions.ouinet_version}"
     const val ouinet_omni = "ie.equalit.ouinet:ouinet-omni:${Versions.ouinet_version}"
     const val relinker = "com.getkeepsafe.relinker:relinker:${Versions.relinker_version}"
+    const val snakeyaml = "org.yaml:snakeyaml:${Versions.snakeyaml_version}"
 }

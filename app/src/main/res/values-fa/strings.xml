@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">زبانه جدید</string>
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
-    <string name="menu_action_close_tabs_private">بستن زبانه‌های خصوصی</string>
+    <string name="menu_action_close_tabs_private">بستن زبانه‌های شخصی</string>
     <!-- <string name="preferences_autofill">Autofill apps</string> -->
     <!-- <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string> -->
     <!-- Preference enabling remote debugging -->
@@ -16,7 +16,7 @@
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">فعال شده در حالت مرور خصوصی</string>
+    <string name="preferences_tracking_protection_private">فعال شده در حالت مرور شخصی</string>
     <!-- Preference for privacy -->
     <string name="privacy">حریم خصوصی</string>
     <!-- Preference summary for privacy -->
@@ -34,7 +34,7 @@
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">حریم خصوصی تنظیمات</string> -->
     <!-- مرور خصوصی -->
-    <string name="private_browsing_title">مرور خصوصی</string>
+    <string name="private_browsing_title">مرور شخصی</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">مجموعه افزودنی سفارشی</string>
@@ -50,9 +50,9 @@
     <string name="toast_customize_addon_collection_done">مجموعه افزونه اصلاح شده است. ترک برنامه برای اعمال تغییرات…</string>
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">فعال کردن حالت خصوصی</string>
+    <string name="content_description_private_browsing_button">فعال‌سازی حالت شخصی</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه خصوصی</string>
+    <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه شخصی</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">تغییر نام</string>
@@ -89,7 +89,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">توقف</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">افزونه‌ها</string>
+    <string name="preferences_add_ons">افزونه‌ها</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">تنظیمات عمومی</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -111,7 +111,6 @@
     <string name="button_content_readerview">نمای خواننده</string>
     <string name="menu_share_with">به‌اشتراک‌گذاری با …</string>
     <string name="toast_copied">کپی شد!</string>
-    <string name="privacy_settings">تنظیمات حریم خصوصی</string>
     <string name="close_mode_item">بستن اعلان‌‌ها</string>
     <string name="preferences_customization_summary">تنظیمات نوار ابزار</string>
     <string name="toolbar_category">گزینه‌های نوار ابزار</string>
@@ -145,4 +144,29 @@
     <string name="preferences_tracking_protection_normal">فعال در حالت مرور عادی</string>
     <string name="preferences_privacy_summary">ردیابی، کوکی‌ها، انتخاب داده‌ها</string>
     <string name="crash_report_non_fatal_message">متاسفیم. دچار مشکل شدیم</string>
+    <string name="browser_toolbar_home">خانه</string>
+    <string name="preference_category_search">جستوجو</string>
+    <string name="preference_select_preferred_engine">موتور جستوجو دلخواه هور را انتخاب کنید:</string>
+    <string name="theme_category">شخصی سازی</string>
+    <string name="preference_show_search_suggestions">پیشنهادات جستوجو بگیرید</string>
+    <string name="insecure_connection">ارطتاب امن نیست</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">باز کردن لینک در صفحه شخصی</string>
+    <string name="set_default_search_engine">لطفا موتور جستوگر اصلی خود را انتخاب کنید</string>
+    <string name="udp_category">یو دی پی</string>
+    <string name="customize_add_bootstrap_save">ذخیره</string>
+    <string name="preference_search_summary">عصلی باشد</string>
+    <string name="secure_connection">ارتباط امن است</string>
+    <string name="not_applicable">وجود ندارد</string>
+    <string name="crash_report_sent">گذارش خرابی با موفقیت ارسال شد!</string>
+    <string name="preferences_website_sources_summary">انتخاب کنید کجا میخواهید محتویات وبسایت را بارگیری کنید</string>
+    <string name="browser_menu_back">بازگشت</string>
+    <string name="general_category">عمومی</string>
+    <string name="preference_choose_search_engine">موتور جستجو را انتخاب کنید</string>
+    <string name="customize_extra_bittorrent_bootstrap">بوت‌استرپ‌های اضافی بیت‌تورنت</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">بوت‌استرپ‌های سفارشی اضافه کنید</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">آی‌پی‌ها را با گذاشتن کاما (,) از هم جدا کنید</string>
+    <string name="select_extra_bt_source">بوت‌استرپ اضافی بیت‌تورنت را انتخاب کنید</string>
+    <string name="bit_torrent_bootstraps_category">بوت‌استرپ‌های بیت‌تورنت</string>
+    <string name="setting_item_selected">%sانتخاب شد</string>
+    <string name="bridge_mode_category">اعلان‌های مرتبط با پل (Bridge)</string>
 </resources>

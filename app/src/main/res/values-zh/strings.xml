@@ -1,59 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources>
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">搜索或输入网址</string>
-
     <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">新建标签页</string>
-
     <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">关闭所有标签页</string>
-    <string name="menu_action_close_tabs_private">关闭隐私标签页</string>
-
+    <string name="menu_action_close_tabs_private">关闭个人标签页</string>
     <!--
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
     -->
-
     <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">通过 USB 远程调试</string>
-
     <!-- Preference for enabling tracking protection in normal mode -->
     <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-
     <!-- Preference for enabling tracking protection in private mode -->
-    <string name="preferences_tracking_protection_private">在隐私浏览中启用</string>
-
+    <string name="preferences_tracking_protection_private">在私人浏览中启用</string>
     <!-- Preference for privacy -->
     <string name="privacy">私密</string>
-
     <!-- Preference summary for privacy -->
     <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-
     <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">用外部应用打开链接</string>
-
     <!-- Preference category for developer tools -->
     <string name="developer_tools_category">开发者工具</string>
-
     <!-- Preference category for tracking protection -->
     <string name="tracker_category">跟踪保护</string>
-
     <!-- Preference category for data choices e.g. usage data -->
     <!-- <string name="data_choices_category">数据反馈</string> -->
-
     <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">设置</string>
-
     <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <!-- <string name="privacy_settings">私密 设置</string> -->
-
     <!-- 隐私浏览模式 -->
-    <string name="private_browsing_title">隐私浏览模式</string>
-
+    <string name="private_browsing_title">私人浏览模式</string>
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">自定义附加组件收藏集</string>
@@ -67,13 +50,11 @@
     <string name="customize_addon_collection_user_hint">收藏集所有者（用户 ID）</string>
     <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">已更改附加组件收藏集设置。退出应用程序以应用更改…</string>
-
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
-    <string name="content_description_private_browsing_button">启用隐私浏览模式</string>
+    <string name="content_description_private_browsing_button">启用私人浏览模式</string>
     <!-- Bookmark overflow menu open in private tab button -->
-    <string name="bookmark_menu_open_in_private_tab_button">新建隐私标签页打开</string>
-
+    <string name="bookmark_menu_open_in_private_tab_button">新建私人标签页打开</string>
     <!-- Sessions -->
     <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">重命名</string>
@@ -81,7 +62,6 @@
     <string name="remove_top_site">移除</string>
     <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">删除历史记录</string>
-
     <!-- Top Sites -->
     <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">超出快捷方式限制</string>
@@ -99,7 +79,6 @@
     <string name="top_sites_rename_dialog_cancel">取消</string>
     <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">赞助项目</string>
-
     <!-- Browser Fragment -->
     <!-- TODO: these are from Fenix values-zh-rCN, values-zh-rTW looked different,
             should check differences, maybe include values for both regions -->
@@ -112,7 +91,7 @@
     <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">停止</string>
     <!-- Browser menu button that opens the addon manager -->
-    <string name="browser_menu_add_ons">附加组件</string>
+    <string name="preferences_add_ons">附加组件</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">设置</string>
     <!-- Browser menu toggle that requests a desktop site -->
@@ -130,7 +109,64 @@
     <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">已从快捷方式删除</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
-
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
+    <string name="menu_share_with">分享给…</string>
+    <string name="toast_copied">已复制！</string>
+    <string name="preferences_autofill">自动填充应用</string>
+    <string name="customization_settings">个性化</string>
+    <string name="toolbar_category">工具栏选项</string>
+    <string name="preferences_autofill_summary">在其他应用程序中自动填写登录名和密码</string>
+    <string name="preferences_tracking_protection_normal">在正常浏览模式下启用</string>
+    <string name="browser_menu_back">返回</string>
+    <string name="browser_menu_library">库</string>
+    <string name="delete_browsing_data_prompt_cancel">取消</string>
+    <string name="delete_browsing_data_prompt_allow">删除</string>
+    <string name="preferences_delete_browsing_data_snackbar">浏览数据已删除</string>
+    <string name="deleting_browsing_data_in_progress">删除浏览数据中…</string>
+    <string name="preferences_delete_browsing_data">删除浏览数据</string>
+    <string name="clear_button_category">清除按钮</string>
+    <string name="preferences_privacy_summary">启用个人和公共浏览</string>
+    <string name="general_category">常规设置</string>
+    <string name="crash_report_non_fatal_message">抱歉，我们崩溃了</string>
+    <string name="preferences_customization_summary">应用图标、工具栏、清除按钮</string>
+    <string name="theme_category">主题</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="other">%d 标签</item>
+    </plurals>
+    <string name="secure_connection">连接是安全的</string>
+    <string name="insecure_connection">连接不安全</string>
+    <string name="browser_toolbar_home">主页</string>
+    <string name="preferences_delete_browsing_data_button">删除浏览数据</string>
+    <string name="close_mode_item">关闭通知</string>
+    <string name="preferences_delete_browsing_data_cookies">Cookies</string>
+    <string name="preferences_delete_browsing_data_cached_files">缓存图像和文件</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">您将从大部分网站中注销</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">释放存储空间</string>
+    <string name="preference_category_search">搜索</string>
+    <string name="preference_show_search_suggestions">获取搜索建议</string>
+    <string name="delete_browsing_data_prompt_message_3">%s 将删除选定的浏览数据。</string>
+    <string name="preference_search_summary">设置默认值</string>
+    <string name="preference_choose_search_engine">选择搜索引擎</string>
+    <string name="preference_select_preferred_engine">选择你的首选引擎:</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="other">%d 网址</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_browsing_data_title">浏览历史记录和网站数据</string>
+    <string name="preferences_delete_browsing_data_site_permissions">网站权限</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">打开选项卡</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">在个人标签页中打开链接</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">用逗号分隔 IP</string>
+    <string name="select_extra_bt_source">选择额外的 BitTorrent 引导</string>
+    <string name="setting_item_selected">%s 已选</string>
+    <string name="set_default_search_engine">设置默认搜索引擎</string>
+    <string name="not_applicable">不适用</string>
+    <string name="crash_report_sent">崩溃报告已发送！</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">添加自定义引导</string>
+    <string name="customize_extra_bittorrent_bootstrap">额外的 BitTorrent 引导</string>
+    <string name="customize_add_bootstrap_save">保存</string>
+    <string name="preferences_website_sources_summary">选择加载网站内容的位置</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent 引导</string>
+    <string name="udp_category">UDP</string>
+    <string name="bridge_mode_category">网桥通告</string>
 </resources>

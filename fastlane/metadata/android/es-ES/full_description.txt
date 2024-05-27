@@ -1,0 +1,29 @@
+Ceno (Censorship.No!) es un navegador web móvil descentralizado. Usa tecnología punto a punto para enviar sitios web a tu dispositivo móvil y cachea contenido popular con pares cooperativos. Ceno puede ser usado para evadir la censura de Internet y ayudar a otra(o)s a descargar páginas bloqueadas.
+
+¡Dile NO a la censura! Instala el Navegador Ceno hoy para estar preparada(o) para la próxima vez que te 🔌 desconecten. 
+
+🚫🌴<strong> Primero fuera de línea.</strong>
+Ceno está diseñado con escenarios de apagones de internet en mente. Los sitios web son compartidos por una red global de pares, y almacenados en una caché distribuida para su disponibilidad cuando las redes tradicionales están bloqueadas o caídas.
+
+🔓👀<strong> Desbloquea la web.</strong>
+Accede cualquier sitio web. El contenido solicitado frecuentemente es cacheado en la red y no puede ser removido a la fuerza.
+
+💲🌐<strong> Reduce el Costo de Datos.</strong>
+Al enrutar el tráfico de usuario a través de redes punto a punto, el Navegador Ceno incurre en menores costos de datos, mientras que aún les da a sus usuaria(o)s la capacidad de evasión.
+
+📖👐 <strong> Código libre y abierto.</strong>
+El Navegador Ceno está potenciado por Ouinet, una biblioteca de código abierto que habilita a desarrolladora(e)s de terceros a incorporar la red Ceno dentro de sus apps para conectividad punto a punto.
+
+<strong> Por favor ten en cuenta:</strong> Ceno no es una herramienta de anonimización: la información acerca de tu navegación podría ser filtrada a otra(o)s usuaria(o)s de Ceno, como así también el hecho de que tu aplicación está proveyendo contenido web particular a otra(o)s. El contenido accedido con la aplicación puede permanecer almacenado en texto sin cifrar por algún tiempo, de todas formas, puedes purgar todo el contenido almacenado en cualquier momento usando la opción "Purgar Ahora".
+
+<strong>Anticaracterísticas de F-Droid:</strong> El código fuente de Ceno utiliza bibliotecas pre-construidas de Mozilla que no son totalmente libres. Para la versión F-Droid de Ceno Browser, parcheamos las partes no libres y construimos estas bibliotecas desde cero.
+
+<strong>Acerca de eQualit.ie</strong>
+eQualit.ie desarrolla sistemas abiertos y reutilizables con enfoque en la privacidad, seguridad en línea, y gestión de la información. Nuestro objetivo es crear tecnología accesible y mejorar el conjunto de habilidades necesario para defender los derechos y libertades humanas en la era digital.
+
+Para aprender más acerca del Navegador Ceno y su biblioteca distribuida, Ouinet, por favor visita https://censorship.no
+
+<strong>Preguntas / ¿Neceitas ayuda?</strong>
+Lee más en el <a href="https://censorship.no/user-manual/en/">Manual de usuario de Ceno</a>, o contáctanos a support@censorship.no. ¡Nos encanta recibir comentarios, y estamos mejorando continuamente a Ceno para sus usuaria(o)s!
+
+¡Permanece conectada(o), y ayuda a mantener la web abierta y accesible para todos!

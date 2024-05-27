@@ -7,18 +7,15 @@ package ie.equalit.ceno
 import android.content.Context
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
-//import mozilla.components.browser.engine.gecko.glean.GeckoAdapter
 import mozilla.components.concept.engine.DefaultSettings
 import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.webcompat.WebCompatFeature
-import mozilla.components.lib.crash.handler.CrashHandlerService
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
 import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt
-import ie.equalit.ceno.ext.isCrashReportActive
 
 object EngineProvider {
 
@@ -30,19 +27,16 @@ object EngineProvider {
         if (runtime == null) {
             val builder = GeckoRuntimeSettings.Builder()
 
-            if (isCrashReportActive) {
-                builder.crashHandler(CrashHandlerService::class.java)
-            }
-
-            /* Don't allow telemetry data to be reported
-             * builder.telemetryDelegate(GeckoAdapter())
-             */
-
             // About config it's no longer enabled by default
             builder.aboutConfigEnabled(true)
 
             // Set the root certificate for ouinet proxy
             builder.rootCertificate(rootCertificate)
+
+            // Set proxy configuration to local ouinet client
+            builder.proxyType("manual")
+            builder.httpProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
+            builder.sslProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
 
             runtime = GeckoRuntime.create(context, builder.build())
         }
@@ -57,7 +51,7 @@ object EngineProvider {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
             HttpsByDefaultWebExt.install(it)
-            UblockOriginWebExt.installFromXpi(runtime)
+            UblockOriginWebExt.install(it)
         }
     }
 

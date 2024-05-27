@@ -1,6 +1,6 @@
 [submodule "app/src/main/assets/addons/ceno"]
 	path = app/src/main/assets/addons/ceno
-	url = https://github.com/censorship-no/ceno-ext-settings
+	url = https://gitlab.com/censorship-no/ceno-ext-settings
 [submodule "app/src/main/assets/addons/https-by-default"]
 	path = app/src/main/assets/addons/https-by-default
 	url = https://github.com/censorship-no/https-by-default

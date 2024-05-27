@@ -6,22 +6,24 @@ package ie.equalit.ceno
 
 import android.content.Context
 import android.os.Build
+import androidx.core.app.NotificationManagerCompat
 import mozilla.components.feature.autofill.AutofillConfiguration
 import ie.equalit.ceno.autofill.AutofillConfirmActivity
 import ie.equalit.ceno.autofill.AutofillSearchActivity
-import ie.equalit.ceno.R
 import ie.equalit.ceno.autofill.AutofillUnlockActivity
-import ie.equalit.ceno.components.Analytics
-import ie.equalit.ceno.components.BackgroundServices
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.Core
-//import ie.equalit.ceno.components.Push
+import ie.equalit.ceno.components.Ouinet
+import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.components.Services
 import ie.equalit.ceno.components.UseCases
 import ie.equalit.ceno.components.Utilities
+import ie.equalit.ceno.components.WebExtensionPort
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
+import mozilla.components.support.base.android.NotificationsDelegate
 
 /**
  * Provides access to all components.
@@ -38,17 +40,6 @@ class Components(private val context: Context) {
         )
     }
 
-    // Background services are initiated eagerly; they kick off periodic tasks and setup an accounts system.
-    val backgroundServices by lazy {
-        BackgroundServices(
-            context,
-            //push,
-            core.lazyHistoryStorage,
-            core.lazyRemoteTabsStorage,
-            core.lazyLoginsStorage
-        )
-    }
-    val analytics by lazy { Analytics(context) }
     val utils by lazy {
         Utilities(
             context,
@@ -59,7 +50,7 @@ class Components(private val context: Context) {
             useCases.customTabsUseCases
         )
     }
-    val services by lazy { Services(context, backgroundServices.accountManager, useCases.tabsUseCases) }
+    val services by lazy { Services(context) }
     /* CENO F-Droid: Do not use firebase push */
     //val push by lazy { Push(context, analytics.crashReporter) }
 
@@ -80,6 +71,15 @@ class Components(private val context: Context) {
         }
     }
 
+
+    private val notificationManagerCompat = NotificationManagerCompat.from(context)
+
+    val notificationsDelegate: NotificationsDelegate by lazy {
+        NotificationsDelegate(
+            notificationManagerCompat,
+        )
+    }
+
     /* CENO: Allow access to CENO SharedPreference wrapper through components*/
     val cenoPreferences by lazy { CenoPreferences(context) }
 
@@ -88,8 +88,12 @@ class Components(private val context: Context) {
         AppStore(
             initialState = AppState(
                 topSites = core.cenoTopSitesStorage.cachedTopSites.sort(),
-                showCenoModeItem = cenoPreferences.showCenoModeItem
+                mode = BrowsingMode.Normal
             )
         )
     }
+    val ouinet by lazy { Ouinet(context) }
+    val permissionHandler by lazy { PermissionHandler(context) }
+
+    val webExtensionPort by lazy { WebExtensionPort(context) }
 }

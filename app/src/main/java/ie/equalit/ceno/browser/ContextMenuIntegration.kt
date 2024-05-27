@@ -17,9 +17,9 @@ import mozilla.components.feature.contextmenu.ContextMenuCandidate.Companion.cre
 import mozilla.components.feature.contextmenu.ContextMenuCandidate.Companion.createShareLinkCandidate
 import mozilla.components.feature.contextmenu.ContextMenuFeature
 import mozilla.components.feature.contextmenu.ContextMenuUseCases
-import mozilla.components.feature.contextmenu.DefaultSnackbarDelegate
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.support.base.feature.LifecycleAwareFeature
+import mozilla.components.ui.widgets.DefaultSnackbarDelegate
 
 @Suppress("LongParameterList")
 class ContextMenuIntegration(
@@ -30,7 +30,7 @@ class ContextMenuIntegration(
     contextMenuUseCases: ContextMenuUseCases,
     engineView: EngineView,
     parentView: View,
-    sessionId: String? = null
+    sessionId: String? = null,
 ) : LifecycleAwareFeature {
 
     private val candidates = run {
@@ -41,7 +41,7 @@ class ContextMenuIntegration(
                 createShareLinkCandidate(context),
                 createOpenImageInNewTabCandidate(context, tabsUseCases, parentView, snackbarDelegate),
                 createSaveImageCandidate(context, contextMenuUseCases),
-                createCopyImageLocationCandidate(context, parentView, snackbarDelegate)
+                createCopyImageLocationCandidate(context, parentView, snackbarDelegate),
             )
         } else {
             ContextMenuCandidate.defaultCandidates(context, tabsUseCases, contextMenuUseCases, parentView)
@@ -53,7 +53,7 @@ class ContextMenuIntegration(
         browserStore,
         candidates,
         engineView,
-        contextMenuUseCases
+        contextMenuUseCases,
     )
 
     override fun start() {

@@ -2,22 +2,48 @@ package ie.equalit.ceno.home.sessioncontrol
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.home.CenoMessageCard
 import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.home.CenoModeViewHolder
 import ie.equalit.ceno.home.TopPlaceholderViewHolder
+import ie.equalit.ceno.home.CenoMessageViewHolder
+import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.home.RssItem
+import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
+import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
-import ie.equalit.ceno.settings.Settings
 
-sealed class AdapterItem(@LayoutRes val viewType: Int) {
+sealed class AdapterItem(val type: HomepageCardType) {
 
-    object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.LAYOUT_ID)
+    object TopPlaceholderItem : AdapterItem(TopPlaceholderViewHolder.homepageCardType)
 
-    object CenoModeItem : AdapterItem(CenoModeViewHolder.LAYOUT_ID)
+    data class CenoModeItem(val mode: BrowsingMode) : AdapterItem(CenoModeViewHolder.homepageCardType)
+    {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newCenoMode = (other as? CenoModeItem) ?: return false
+            if (newCenoMode.mode != this.mode) return false
+            return super.contentsSameAs(other)
+        }
+    }
+
+    data class CenoMessageItem(val message: CenoMessageCard) : AdapterItem(CenoMessageViewHolder.homepageCardType)
+
+    data class CenoAnnouncementItem(val response: RssItem, var mode:BrowsingMode) : AdapterItem(RSSAnnouncementViewHolder.homepageCardType) {
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newItem = (other as? CenoAnnouncementItem) ?: return false
+            if (newItem.mode != this.mode) return false
+            if (newItem.response.title != this.response.title) return false
+            return super.contentsSameAs(other)
+        }
+    }
+
+    object PersonalModeDescriptionItem : AdapterItem(PersonalModeDescriptionViewHolder.homepageCardType)
 
     /**
      * Contains a set of [Pair]s where [Pair.first] is the index of the changed [TopSite] and
@@ -28,7 +54,7 @@ sealed class AdapterItem(@LayoutRes val viewType: Int) {
     )
 
     data class TopSitePager(val topSites: List<TopSite>) :
-        AdapterItem(TopSitePagerViewHolder.LAYOUT_ID) {
+        AdapterItem(TopSitePagerViewHolder.homepageCardType) {
         override fun sameAs(other: AdapterItem): Boolean {
             return other is TopSitePager
         }
@@ -109,57 +135,38 @@ class SessionControlAdapter internal constructor(
     // This method triggers the ComplexMethod lint error when in fact it's quite simple.
     @SuppressWarnings("ComplexMethod", "LongMethod", "ReturnCount")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+
+        val layout = when (viewType) {
+            HomepageCardType.TOP_PLACE_CARD.value -> R.layout.top_placeholder_item
+            HomepageCardType.MODE_MESSAGE_CARD.value -> R.layout.ceno_mode_item
+            HomepageCardType.BASIC_MESSAGE_CARD.value -> R.layout.home_message_card_item
+            HomepageCardType.TOPSITES_CARD.value -> R.layout.component_top_sites_pager
+            HomepageCardType.PERSONAL_MODE_CARD.value -> R.layout.personal_mode_description
+            HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_announcement_item
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+
+        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return when (viewType) {
-            TopPlaceholderViewHolder.LAYOUT_ID -> TopPlaceholderViewHolder(view)
-            CenoModeViewHolder.LAYOUT_ID -> CenoModeViewHolder(view, interactor)
-            TopSitePagerViewHolder.LAYOUT_ID -> TopSitePagerViewHolder(
+            TopPlaceholderViewHolder.homepageCardType.value -> TopPlaceholderViewHolder(view)
+            CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
+            CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view, interactor)
+            TopSitePagerViewHolder.homepageCardType.value -> TopSitePagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
-            /*
-            OnboardingHeaderViewHolder.LAYOUT_ID -> OnboardingHeaderViewHolder(view)
-            OnboardingSectionHeaderViewHolder.LAYOUT_ID -> OnboardingSectionHeaderViewHolder(view)
-            OnboardingManualSignInViewHolder.LAYOUT_ID -> OnboardingManualSignInViewHolder(view)
-            OnboardingThemePickerViewHolder.LAYOUT_ID -> OnboardingThemePickerViewHolder(view)
-            OnboardingTrackingProtectionViewHolder.LAYOUT_ID -> OnboardingTrackingProtectionViewHolder(
-                view
-            )
-            OnboardingPrivacyNoticeViewHolder.LAYOUT_ID -> OnboardingPrivacyNoticeViewHolder(
+            RSSAnnouncementViewHolder.homepageCardType.value -> RSSAnnouncementViewHolder(view, interactor)
+
+            PersonalModeDescriptionViewHolder.homepageCardType.value -> PersonalModeDescriptionViewHolder(
                 view,
                 interactor
             )
-            OnboardingFinishViewHolder.LAYOUT_ID -> OnboardingFinishViewHolder(view, interactor)
-            OnboardingToolbarPositionPickerViewHolder.LAYOUT_ID -> OnboardingToolbarPositionPickerViewHolder(
-                view
-            )
-            BottomSpacerViewHolder.LAYOUT_ID -> BottomSpacerViewHolder(view)
-             */
             else -> throw IllegalStateException()
         }
     }
 
-    override fun getItemViewType(position: Int) = getItem(position).viewType
-
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isNullOrEmpty()) {
-            onBindViewHolder(holder, position)
-        } else {
-            when (holder) {
-                is TopSitePagerViewHolder -> {
-                    if (payloads[0] is AdapterItem.TopSitePagerPayload) {
-                        val payload = payloads[0] as AdapterItem.TopSitePagerPayload
-                        holder.update(payload)
-                    }
-                }
-            }
-        }
-    }
+    override fun getItemViewType(position: Int) = getItem(position).type.value
 
     @SuppressWarnings("ComplexMethod")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -169,10 +176,19 @@ class SessionControlAdapter internal constructor(
                 holder.bind()
             }
             is CenoModeViewHolder -> {
-                holder.bind()
+                holder.bind((item as AdapterItem.CenoModeItem).mode)
             }
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)
+            }
+            is CenoMessageViewHolder -> {
+                holder.bind((item as AdapterItem.CenoMessageItem).message)
+            }
+
+            is RSSAnnouncementViewHolder -> {
+                (item as AdapterItem.CenoAnnouncementItem).apply {
+                    holder.bind(this.response, this.mode)
+                }
             }
             /*
             is OnboardingSectionHeaderViewHolder -> holder.bind(
