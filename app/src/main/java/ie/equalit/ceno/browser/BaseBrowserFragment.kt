@@ -157,7 +157,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private lateinit var browsingModeManager: BrowsingModeManager
     internal lateinit var themeManager: ThemeManager
 
-    private var cachedSourceCounts: JSONObject? = null
+    private var cachedSourceCounts: MutableMap<String, JSONObject?> = mutableMapOf()
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
@@ -485,7 +485,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         handler.postDelayed(runnable, SOURCES_COUNT_FETCH_DELAY)
 
-        progressBarTrackerRunnable = Runnable { binding.sourcesProgressBar.isGone = true }
+        progressBarTrackerRunnable = Runnable {
+            binding.sourcesProgressBar.isGone = true
+            setStatusIconFromCachedData()
+        }
 
         /* CENO: not using Jetpack ComposeUI anywhere yet */
         /*
@@ -521,19 +524,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 )
             }
         )
+        // set Ceno icon as status icon
+        setStatusIconFromCachedData()
 
-        val statusIcon = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.ic_status)!!
-
-        /* CENO: this is replaces the shield icon in the address bar
-         * with the ceno logo, regardless of tracking protection state
-         */
-        binding.toolbar.display.icons = DisplayToolbar.Icons(
-            emptyIcon = null,
-            trackingProtectionTrackersBlocked = statusIcon,
-            trackingProtectionNothingBlocked = statusIcon,
-            trackingProtectionException = statusIcon,
-            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
-        )
         val isToolbarPositionTop = prefs.getBoolean(
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
@@ -603,11 +596,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         val tab = requireContext().components.core.store.state.selectedTab!!
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
-                context = requireContext(),
-                lifecycleOwner = this,
-                tabUrl = tab.content.url,
-                isConnectionSecure = tab.content.securityInfo.secure,
-                cachedSourceCounts
+            context = requireContext(),
+            lifecycleOwner = this,
+            tabUrl = tab.content.url,
+            isConnectionSecure = tab.content.securityInfo.secure,
+            cachedSourceCounts[tab.content.url.tryGetHostFromUrl()]
         ).also { currentEtp -> currentEtp.show() }
     }
 
@@ -672,6 +665,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     @CallSuper
     override fun onBackPressed(): Boolean {
+        handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+        handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
         return backButtonHandler.any { it.onBackPressed() }
     }
 
@@ -740,28 +735,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         ) {
             if (context == null)
                 return
+
             requireContext().components.core.store.state.selectedTab?.let { tab ->
                 // the percentage progress for the webpage
                 val webPageLoadProgress = tab.content.progress ?: 0
+
+                // introduced this for efficiency, so that the runnable is called only as at when needed
                 var isFullyLoaded = false
 
-                if (webPageLoadProgress == 100 && !isFullyLoaded) {
-                    isFullyLoaded = true
-                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
-                    handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
-                } else if (webPageLoadProgress < 100) {
-                    isFullyLoaded = false
-                    handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
-                    binding.sourcesProgressBar.isGone = false
-                }
-
                 // `message` returns as undefined sometimes. This check handles that
-                if ((message as String?) != null && message.isNotEmpty() && message != "undefined") {
+                if (!(message as String?).isNullOrEmpty() && message != "undefined" && JSONObject(message).length() != 0) {
                     // set sources progress bar
                     val response = JSONObject(message)
-                    // cache the values gotten; caching is done through SourceCountFetchListener interface
+
                     response.put(URL, tab.content.url.tryGetHostFromUrl())
-                    cachedSourceCounts = response
+
+                    // cache the values gotten; caching is done through SourceCountFetchListener interface
+                    cachedSourceCounts[tab.content.url.tryGetHostFromUrl()] = response
 
                     // update sources BottomSheet if the reference is not null
                     webExtensionActionPopupPanel?.onCountsFetched(response)
@@ -772,26 +762,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     val proxy = if(response.has(PROXY)) response.getString(PROXY).toFloat() else 0F
 //                val localCache = if(response.has(LOCAL_CACHE)) response.getString(LOCAL_CACHE).toFloat() else 0F
 
+                    if (webPageLoadProgress == 100 && !isFullyLoaded) {
+                        isFullyLoaded = true
+                        handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                        handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
+                    } else if (webPageLoadProgress < 100) {
+                        isFullyLoaded = false
+                        handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
+                        binding.sourcesProgressBar.isGone = false
+
+                        // reset the status icon
+                        setStatusIcon()
+                    }
+
                     val sum = distCache + origin + injector + proxy
 
                     binding.sourcesProgressBar.removeAllViews()
-
-                    val statusIcon = ContextCompat.getDrawable(
-                        themeManager.getContext(),
-                        determineToolbarIcon(
-                            directCount = origin,
-                            cenoNetwork = proxy + injector,
-                            cenoCache = distCache
-                        )
-                    )!!
-
-                    binding.toolbar.display.icons = DisplayToolbar.Icons(
-                        emptyIcon = null,
-                        trackingProtectionTrackersBlocked = statusIcon,
-                        trackingProtectionNothingBlocked = statusIcon,
-                        trackingProtectionException = statusIcon,
-                        highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
-                    )
 
                     // Add direct-from-website source
                     if(origin > 0) binding.sourcesProgressBar.addView(
@@ -836,12 +822,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                     // compare the URL key in `cachedSourceCounts` with the current tab's URL.
                     // The URL key in `cachedSourceCounts` is only set when sources have been successfully fetched at least once
-                    if (cachedSourceCounts?.getString(URL) == context?.components?.core?.store?.state?.selectedTab!!.content.url.tryGetHostFromUrl()) {
+                    if (cachedSourceCounts[tab.content.url.tryGetHostFromUrl()] == null) {
                         binding.sourcesProgressBar.removeAllViews()
                         binding.sourcesProgressBar.addView(
                             requireContext().createSegment(
                                 webPageLoadProgress.toFloat(),
-                                R.color.accent
+                                R.color.ceno_grey_300
                             )
                         )
                     }
@@ -866,6 +852,45 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             cenoNetwork >= cenoCache -> R.drawable.ic_status_orange
             else -> R.drawable.ic_status_blue
         }
+    }
+
+    private fun setStatusIcon(icon: Int? = R.drawable.ic_status) {
+
+        val statusIcon = ContextCompat.getDrawable(
+            themeManager.getContext(),
+            icon!!
+        )!!
+
+        /* CENO: this is replaces the shield icon in the address bar
+         * with the ceno logo, regardless of tracking protection state
+         */
+
+        binding.toolbar.display.icons = DisplayToolbar.Icons(
+            emptyIcon = null,
+            trackingProtectionTrackersBlocked = statusIcon,
+            trackingProtectionNothingBlocked = statusIcon,
+            trackingProtectionException = statusIcon,
+            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
+        )
+    }
+
+    private fun setStatusIconFromCachedData() {
+        context?.components?.core?.store?.state?.selectedTab?.content?.url?.tryGetHostFromUrl()?.let { tabUrl ->
+            cachedSourceCounts[tabUrl]?.let { cache ->
+                val distCache = if(cache.has(DIST_CACHE)) cache.getString(DIST_CACHE).toFloat() else 0F
+                val origin = if(cache.has(ORIGIN)) cache.getString(ORIGIN).toFloat() else 0F
+                val injector = if(cache.has(INJECTOR)) cache.getString(INJECTOR).toFloat() else 0F
+                val proxy = if(cache.has(PROXY)) cache.getString(PROXY).toFloat() else 0F
+
+                setStatusIcon(
+                    determineToolbarIcon(
+                        directCount = origin,
+                        cenoNetwork = proxy + injector,
+                        cenoCache = distCache
+                    )
+                )
+            } ?: setStatusIcon()
+        } ?: setStatusIcon()
     }
 
     private fun updateStats() {
