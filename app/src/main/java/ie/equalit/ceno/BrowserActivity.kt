@@ -43,6 +43,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
+import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -270,7 +271,8 @@ open class BrowserActivity : BaseActivity() {
         super.onResume()
         if (!Settings.shouldShowOnboarding(this) && (components.ouinet.background.getState() != RunningState.Started.toString())) {
             navHost.navController.popBackStack()
-            navHost.navController.navigate(R.id.action_global_standbyFragment)
+            val bundle = bundleOf(StandbyFragment.shutdownCeno to false)
+            navHost.navController.navigate(R.id.action_global_standbyFragment, bundle)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             /* CENO: in Android 9 or later, it is possible that the
@@ -495,8 +497,9 @@ open class BrowserActivity : BaseActivity() {
             callback.run()
         }
         updateView {
-            navHost.navController.navigate(R.id.action_global_shutDown, bundleOf(
-                "do_clear" to doClear
+            navHost.navController.navigate(R.id.action_global_standbyFragment, bundleOf(
+                StandbyFragment.DO_CLEAR to doClear,
+                StandbyFragment.shutdownCeno to true
             ))
         }
     }

@@ -165,6 +165,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
         bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
+        bridgeAnnouncementDialog.setOnDismissListener {
+            showThankyouDialog()
+        }
 
 
         view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
@@ -174,15 +177,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             if (it.ouinetStatus == Ouinet.RunningState.Started) {
                 bridgeAnnouncementDialog.dismiss()
+                bridgeModeChanged = false
+                getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
             }
         }
         if (arguments?.getBoolean(scrollToBridge) == true) {
-            getPreference(R.string.pref_key_bridge_announcement)?.let {
+            getPreference(pref_key_bridge_announcement)?.let {
                 scrollToPreference(it)
             }
         }
 
 
+    }
+
+    private fun showThankyouDialog() {
+        if (CenoSettings.isBridgeAnnouncementEnabled(requireContext())) {
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(R.string.title_success))
+                setMessage(getString(R.string.thank_you_bridge_mode_enabled))
+                setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+
+                }
+                show()
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -590,17 +608,46 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
-            //ClearButtonFeature.createClearDialog(requireContext()).show()
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(getString(confirm_clear_cached_content))
+                setMessage(getString(confirm_clear_cached_content_desc))
+                setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
+                setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
+                    //ClearButtonFeature.createClearDialog(requireContext()).show()
+                }
+                create()
+            }.show()
             true
         }
     }
 
     private fun getClickListenerForCenoGroupsCounts(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            (activity as BrowserActivity).openToBrowser(
-                "${CenoSettings.SET_VALUE_ENDPOINT}/${OuinetKey.GROUPS_TXT.command}",
-                newTab = true
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                key = OuinetKey.GROUPS_TXT,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        if (message.trim().isEmpty()) {
+                            Toast.makeText(requireContext(), getString(R.string.no_content_shared), Toast.LENGTH_LONG).show()
+                        } else {
+                            findNavController().navigate(
+                                R.id.action_settingsFragment_to_siteContentGroupFragment,
+                                bundleOf("groups" to message)
+                            )
+                        }
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(
+                            requireContext(),
+                            ContextCompat.getString(requireContext(), ouinet_client_fetch_fail),
+                            LENGTH_SHORT
+                        ).show()
+                    }
+                },
+                shouldRefresh = false
             )
             true
         }
@@ -650,25 +697,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
             * https://gitlab.com/censorship-no/ceno-browser/-/merge_requests/127#note_1795759444
             * TODO: identify root cause of this behavior and remove workaround
             * */
-            wasLogEnabled = CenoSettings.isCenoLogEnabled(requireContext())
-            if (wasLogEnabled) {
-                CenoSettings.setCenoEnableLog(requireContext(), false)
-                setLogFileAndLevel(false)
-            }
-            monitorOuinet()
-            lifecycleScope.launch {
+            if (!bridgeModeChanged) {
+                bridgeModeChanged = true
+                getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = null
+                wasLogEnabled = CenoSettings.isCenoLogEnabled(requireContext())
                 if (wasLogEnabled) {
-                    while (!(logFileReset && logLevelReset)) {
-                        delay(DELAY_ONE_SECOND)
-                        println("logFileReset && logLevelReset = $logFileReset && $logLevelReset")
+                    CenoSettings.setCenoEnableLog(requireContext(), false)
+                    setLogFileAndLevel(false)
+                }
+                monitorOuinet()
+                lifecycleScope.launch {
+                    if (wasLogEnabled) {
+                        while (!(logFileReset && logLevelReset)) {
+                            delay(DELAY_ONE_SECOND)
+                            println("logFileReset && logLevelReset = $logFileReset && $logLevelReset")
+                        }
+                    }
+                    requireComponents.ouinet.background.shutdown(false) {
+                        hasOuinetStopped = true
                     }
                 }
-                requireComponents.ouinet.background.shutdown(false) {
-                    hasOuinetStopped = true
-                }
+                bridgeAnnouncementDialog.show()
             }
-            bridgeModeChanged = true
-            bridgeAnnouncementDialog.show()
             true
         }
     }
@@ -767,7 +817,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     .create()
                     .apply {
                         setOnDismissListener {
-                            Toast.makeText(requireContext(), getString(R.string.log_export_cancelled), Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), getString(canceled), Toast.LENGTH_LONG).show()
                             job?.cancel()
                             dismiss()
                         }
