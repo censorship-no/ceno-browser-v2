@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_about_ceno">&brandShortName; Böngésző</string>
     <string name="preferences_about_ouinet_protocol">Ouinet protokoll</string>
