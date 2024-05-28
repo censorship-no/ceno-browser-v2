@@ -128,8 +128,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
         fullScreenFeature,
         findInPageIntegration,
+        readerViewFeature,
         toolbarIntegration,
-        sessionFeature,
+        sessionFeature
     )
 
     private val activityResultHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
