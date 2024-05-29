@@ -80,6 +80,7 @@ class ThreeDotMenuTest {
             verifyAddToHomescreenButtonDoesntExist()
             verifyAddToShortcutsButtonDoesntExist()
             verifyFindInPageButtonDoesntExist()
+            verifyReaderViewButtonDoesntExist()
             // Only these items should exist in the home screen menu
             verifyClearCenoButtonExists()
             //TODO: Https-by-default currently disabled on homepage, add back when needed
@@ -119,6 +120,7 @@ class ThreeDotMenuTest {
             //verifySyncedTabsButtonExists()
             //verifyReportIssueExists()
             verifyOpenSettingsExists()
+            verifyReaderViewButtonDoesntExist()
         }
     }
 
