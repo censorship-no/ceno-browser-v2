@@ -254,12 +254,6 @@ class ToolbarIntegration(
                 }
             }
         }
-
-        menuItemsList += TextMenuCandidate(
-            text = context.getString(R.string.browser_menu_find_in_page)
-        ) {
-            FindInPageIntegration.launch?.invoke()
-        }
         if (sessionState != null) {
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(
