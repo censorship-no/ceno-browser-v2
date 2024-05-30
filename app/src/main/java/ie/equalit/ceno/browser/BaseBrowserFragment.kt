@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
@@ -877,10 +878,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private fun setStatusIconFromCachedData() {
         context?.components?.core?.store?.state?.selectedTab?.content?.url?.tryGetHostFromUrl()?.let { tabUrl ->
             cachedSourceCounts[tabUrl]?.let { cache ->
+                Log.d("BaseBrowserLogger", "Now displaying $tabUrl and that's: $cache")
                 val distCache = if(cache.has(DIST_CACHE)) cache.getString(DIST_CACHE).toFloat() else 0F
                 val origin = if(cache.has(ORIGIN)) cache.getString(ORIGIN).toFloat() else 0F
                 val injector = if(cache.has(INJECTOR)) cache.getString(INJECTOR).toFloat() else 0F
                 val proxy = if(cache.has(PROXY)) cache.getString(PROXY).toFloat() else 0F
+//                val localCache = if(response.has(LOCAL_CACHE)) response.getString(LOCAL_CACHE).toFloat() else 0F
 
                 setStatusIcon(
                     determineToolbarIcon(
