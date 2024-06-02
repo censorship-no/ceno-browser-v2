@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
@@ -378,4 +378,20 @@
     <string name="bridge_announcement_dialog_text">Merci d\'attendre pendant que le service du navigateur &brandShortName; redémarre avant que vos changements prennent effet.</string>
     <string name="enable_bridge_card_text">Fortifiez le réseau &brandShortName; en devenant un pont ! Vous pouvez activer le Mode Pont en allant dans les Paramètres-&gt; Activer le Mode Pont.</string>
     <string name="bridge_mode_faq_url">https://censorship.no/fr/support.html#bridgemode</string>
+    <string name="shutdown_message_one">Effacer les données de l\'application</string>
+    <string name="shutdown_message_two">Fermez Ceno</string>
+    <string name="title_success">Succès</string>
+    <string name="thank_you_bridge_mode_enabled">Merci d\'être devenu un pont et de développer le réseau Ceno !</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="canceled">Annulé</string>
+    <string name="confirm_groups_file_download">Exporter la liste des contenus partagés ?</string>
+    <string name="confirm_groups_file_download_desc">Un fichier txt sera sauvegardé dans votre stockage local.</string>
+    <string name="confirm_clear_cached_content_desc">Votre contenu mis en cache sera supprimé immédiatement</string>
+    <string name="confirm_clear_cached_content">Vider le cache ?</string>
+    <string name="learn_more_title">En savoir plus</string>
+    <string name="download_site_content">Télécharger le contenu du site</string>
+    <string name="standby_restarting_text">Redémarrage…</string>
+    <string name="no_content_shared">Actuellement, vous ne partagez aucun contenu</string>
+    <string name="ceno_log_content_group_file_saved">Contenu partagé sauvegardé avec succès</string>
+    <string name="dismiss">Fermer</string>
 </resources>
