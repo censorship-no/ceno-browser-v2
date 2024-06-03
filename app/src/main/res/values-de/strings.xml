@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="top_sites_max_limit_confirmation_button">OK, verstanden.</string>
     <string name="shortcut_max_limit_content">Um eine neue Verknüpfung hinzuzufügen, entfernen Sie eine. Berühren und halten Sie die Seite und wählen Sie Entfernen.</string>
