@@ -133,7 +133,7 @@
     <string name="preferences_ceno_network_config">&brandShortName; ağ bilgileri</string>
     <string name="preferences_ceno_enable_log">Günlük tutulsun</string>
     <string name="preferences_ceno_download_log">Ouinet günlüğünü dışa aktar</string>
-    <string name="changeIconDialogTitle">Yeni simge uygulansın mı\?</string>
+    <string name="changeIconDialogTitle">Yeni simge uygulansın mı?</string>
     <string name="source_code_button_text">Kaynak kodu</string>
     <string name="preferences_about_ouinet_protocol">Ouinet iletişim kuralı</string>
     <string name="preferences_about_ouinet">Ouinet</string>
