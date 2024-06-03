@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="top_sites_max_limit_confirmation_button">OK, verstanden.</string>
     <string name="shortcut_max_limit_content">Um eine neue Verknüpfung hinzuzufügen, entfernen Sie eine. Berühren und halten Sie die Seite und wählen Sie Entfernen.</string>
@@ -255,7 +255,7 @@
     <string name="standby_message_one">Verbinde zum Ceno Netzwerk</string>
     <string name="standby_message_two">Initialisiere Cache</string>
     <string name="standby_message_three">Suche bootstrap Knoten</string>
-    <string name="ceno_sources_via_ceno_network">Via &brandShortName; Netzwerk</string>
+    <string name="ceno_sources_via_ceno_network">Über das &brandShortName; Netzwerk</string>
     <string name="change_bt_bootstrap_server">Wechsle BT Bootstrap Server</string>
     <string name="browsing_mode_card_title">Entdecken Modus</string>
     <string name="public_browsing_mode_selected">Öffentlichen Entdeckungs Modus ausgewählt</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_autofill_summary">Automatycznie uzupełniaj loginy i hasła w innych aplikacjach</string>
     <string name="privacy" tools:ignore="UnusedResources">Prywatność</string>

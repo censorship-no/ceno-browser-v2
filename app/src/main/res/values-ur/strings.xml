@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY brandShortName "Ceno">
-    <!ENTITY brandFullName "eQualitie Ceno">
-    <!ENTITY vendorShortName "eQualitie">
-    ]>
+<!ENTITY brandShortName "Ceno">
+<!ENTITY brandFullName "eQualitie Ceno">
+<!ENTITY vendorShortName "eQualitie">
+]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toast_customize_addon_collection_done">ایڈ آن کلیکشن میں ترمیم کی گئی۔ تبدیلیاں لاگو کرنے کے لیے ایپلیکیشن چھوڑ رہے ہیں…</string>
     <string name="top_sites_max_limit_confirmation_button">ٹھیک ہے، سمجھ آیا</string>
