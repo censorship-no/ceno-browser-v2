@@ -6,8 +6,7 @@
 ]>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">搜索或输入网址</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -191,7 +190,7 @@
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; 指南</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable" >Wikipedia</string>
+    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title" tools:ignore="Untranslatable">自由時報</string>
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_ltn_url</string>
