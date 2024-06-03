@@ -193,7 +193,7 @@
     <string name="preferences_ceno_cache_size">Cache local</string>
     <string name="preferences_ceno_groups_count">Conteúdo compartilhado por si</string>
     <string name="changeIconCtaCancel">Cancelar</string>
-    <string name="changeIconDialogTitle">Aplicar novo ícone\?</string>
+    <string name="changeIconDialogTitle">Aplicar novo ícone?</string>
     <string name="changeIconDialogMessage">O app pode fechar para aplicar as mudanças. Volte depois de admirar os seus belos ícones novos.</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; irá enviar o que digita na barra de endereços para o motor de procura</string>
     <string name="ouinet_client_fetch_fail">Falha em mudar a configuração &brandShortName;</string>
