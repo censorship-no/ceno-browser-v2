@@ -80,6 +80,7 @@ object Deps {
     const val mozilla_concept_sync = "org.mozilla.components:concept-sync:${AndroidComponents.VERSION}"
     const val mozilla_concept_push = "org.mozilla.components:concept-push:${AndroidComponents.VERSION}"
 
+
     const val mozilla_compose_awesomebar = "org.mozilla.components:compose-awesomebar:${AndroidComponents.VERSION}"
 
     const val mozilla_browser_engine_gecko = "ie.equalit.ouinet:browser-engine-gecko-ceno:${AndroidComponents.VERSION}"
@@ -122,6 +123,7 @@ object Deps {
     const val mozilla_feature_webauthn = "org.mozilla.components:feature-webauthn:${AndroidComponents.VERSION}"
     const val mozilla_feature_webcompat = "org.mozilla.components:feature-webcompat:${AndroidComponents.VERSION}"
     const val mozilla_feature_webnotifications = "org.mozilla.components:feature-webnotifications:${AndroidComponents.VERSION}"
+    const val mozilla_feature_share = "org.mozilla.components:feature-share:${AndroidComponents.VERSION}"
 
     const val mozilla_ui_autocomplete = "org.mozilla.components:ui-autocomplete:${AndroidComponents.VERSION}"
     const val mozilla_ui_colors = "org.mozilla.components:ui-colors:${AndroidComponents.VERSION}"

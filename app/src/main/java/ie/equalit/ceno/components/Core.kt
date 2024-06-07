@@ -57,6 +57,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.settings.Settings
+import ie.equalit.ceno.share.SaveToPDFMiddleware
 import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -105,6 +106,7 @@ class Core(private val context: Context) {
                 ),
                 SearchMiddleware(context),
                 RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
+                SaveToPDFMiddleware(context)
             ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)

@@ -138,9 +138,7 @@
     <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">Find in page</string>
     <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
     <string name="browser_menu_share">Share</string>
-    -->
     <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <!-- Browser menu button that removes a shortcut from the home fragment -->
@@ -192,6 +190,22 @@
     <string name="preferences_delete_browsing_data_tabs_title_2">Open tabs</string>
     <!-- Dialog message to the user asking to delete browsing data. Parameter will be replaced by app name. -->
     <string name="delete_browsing_data_prompt_message_3">%s will delete the selected browsing data.</string>
+    <!-- Content description (not visible, for screen readers etc.): "Close button for library settings" -->
+    <string name="content_description_close_button">Close</string>
+    <!-- Share -->
+    <!-- Share screen header -->
+    <string name="share_header_2">Share</string>
+    <!-- Content description (not visible, for screen readers etc.):
+        "Share" button. Opens the share menu when pressed. -->
+    <string name="share_button_content_description">Share</string>
+    <!-- Text for the copy link action in the share screen. -->
+    <string name="share_copy_link_to_clipboard">Copy to clipboard</string>
+    <!-- Sub-header in the dialog to share a link to an app from the full list -->
+    <string name="share_link_all_apps_subheader">All actions</string>
+    <!-- Sub-header in the dialog to share a link to an app from the most-recent sorted list -->
+    <string name="share_link_recent_apps_subheader">Recently used</string>
+    <!-- Text for the Save to PDF feature in the share menu -->
+    <string name="share_save_to_pdf">Save as PDF</string>
     <!-- Ceno: END OF COPIED FROM FENIX -->
     <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
