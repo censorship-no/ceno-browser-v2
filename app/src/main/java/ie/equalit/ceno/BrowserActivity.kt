@@ -27,8 +27,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
@@ -44,7 +42,6 @@ import ie.equalit.ceno.ext.ceno.onboardingToHome
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -87,6 +84,8 @@ open class BrowserActivity : BaseActivity() {
 
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
+    private val screenStartTime = System.currentTimeMillis()
+    private var hasOuinetStarted = false
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
