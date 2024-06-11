@@ -197,7 +197,7 @@
     <string name="share_header_2">Share</string>
     <!-- Content description (not visible, for screen readers etc.):
         "Share" button. Opens the share menu when pressed. -->
-    <string name="share_button_content_description">Share</string>
+<!--    <string name="share_button_content_description">Share</string>-->
     <!-- Text for the copy link action in the share screen. -->
     <string name="share_copy_link_to_clipboard">Copy to clipboard</string>
     <!-- Sub-header in the dialog to share a link to an app from the full list -->
