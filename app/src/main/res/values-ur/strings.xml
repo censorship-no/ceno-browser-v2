@@ -91,13 +91,12 @@
     <string name="ceno_notification_clear_do_description">جی ہاں</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">سنو؛ استعمال کرنے کی سفارش کی جاتی ہے جب آپ کے پاس Wi-Fi کنکشن ہو، کیونکہ یہ آپ کی توقع سے زیادہ ڈیٹا استعمال کر سکتا ہے۔ آپ موبائل ڈیٹا استعمال کرتے وقت سنو کو روکنا چاہیں گے۔</string>
     <string name="onboarding_info_title">آپ کا اوسط براؤزر نہیں ہے</string>
-    <string name="onboarding_fragment">سنو میں خوش آمدید</string>
+    <string name="onboarding_welcome_title">سنو میں خوش آمدید</string>
     <string name="ceno_notification_home_description">ہوم</string>
     <string name="onboarding_thanks_title">نیٹ ورک کو بڑھانے کا شکریہ!</string>
     <string name="default_top_site_1_title">سنو مینوئل</string>
-    <string name="onboarding_button">شروع کریں</string>
+    <string name="onboarding_btn_get_started">شروع کریں</string>
     <string name="preferences_about_page">eQualitie کے بارے میں</string>
-    <string name="onboarding_battery_title">اجازت درکار ہے</string>
     <string name="changeIconDialogTitle">نیا آئیکن کا اطلاق کریں؟</string>
     <string name="changeIconDialogMessage">تبدیلیوں کا اطلاق کرنے کے لیے ایپ بند ہو سکتی ہے۔ اپنے خوبصورت نئے آئیکن کی تعریف کرنے کے بعد واپس آجائیں۔</string>
     <string name="preferences_about_ceno">سنو براؤزر</string>

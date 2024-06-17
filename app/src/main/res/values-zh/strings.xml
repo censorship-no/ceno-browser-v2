@@ -137,7 +137,7 @@
     <string name="crash_reporting_dialog_title">对不起，貌似Ceno已崩溃！</string>
     <string name="ceno_clear_dialog_description">【警告】：清理缓存和应用数据会重置Ceno，就像从未使用过一样。</string>
     <string name="ceno_clear_action_description">清理</string>
-    <string name="onboarding_fragment">欢迎来到Ceno</string>
+    <string name="onboarding_welcome_title">欢迎来到Ceno</string>
     <string name="onboarding_warning_button">好</string>
     <string name="crash_reporting_opt_out">你选择了不发送崩溃报告. 你可以在 设置 &gt; 崩溃报告 中打开它.</string>
     <string name="crash_reporting_opt_in">感谢向我们发送崩溃报告以改进Ceno！你可以在 设置 -&gt; 崩溃报告 中禁用它.</string>
@@ -149,7 +149,7 @@
     <string name="onboarding_warning_text_v33_2">未允许通知，且电池优化未禁用.
 \n
 \n前往“设置”以给予权限</string>
-    <string name="onboarding_button">入门</string>
+    <string name="onboarding_btn_get_started">入门</string>
     <string name="onboarding_skip_button">跳过</string>
     <string name="onboarding_info_title">可不是一般的浏览器</string>
     <string name="onboarding_warning_text_v33_1">未允许通知.
@@ -168,7 +168,6 @@
     <string name="bt_sources_none">无</string>
     <string name="bt_invalid_ip_error">无效 IP</string>
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Ceno设置</string>
-    <string name="onboarding_battery_title">需要许可</string>
     <string name="onboarding_battery_button">继续</string>
     <string name="preferences_toolbar_hide">滚动以隐藏</string>
     <string name="preferences_allow_crash_reporting">崩溃报告</string>

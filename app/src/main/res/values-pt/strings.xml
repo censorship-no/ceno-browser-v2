@@ -117,7 +117,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Interromper Ceno agora</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Continuar</string>
     <string name="ceno_clear_dialog_clear_entire_app">Limpar o cache e dados da app Ceno</string>
-    <string name="onboarding_fragment">Boas-vindas ao Ceno</string>
+    <string name="onboarding_welcome_title">Boas-vindas ao Ceno</string>
     <string name="onboarding_skip_button">Pular</string>
     <string name="preferences_clear_ceno_cache">Limpar conteúdo em cache</string>
     <string name="preferences_clear_ceno_cache_summary">Limpar conteúdo armazenado em cache local</string>
@@ -140,7 +140,6 @@
     <string name="preferences_clear_behavior_summary">Definir comportamento ao tocar o botão Limpar</string>
     <string name="preferences_change_app_icon">Mudar ícone do app</string>
     <string name="onboarding_battery_button">Continuar</string>
-    <string name="onboarding_battery_title">Autorização necessária</string>
     <string name="onboarding_thanks_title">Agradecemos por ajudar a rede a crescer!</string>
     <string name="onboarding_thanks_text">Como utilizador do Ceno, ajuda a fazer crescer a rede de pontes disponíveis que possibilitam o acesso a conteúdo censurado.</string>
     <string name="ceno_clear_dialog_cancel">Cancelar</string>
@@ -154,7 +153,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/pt_BR/concepts/public-private.html</string>
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Configurações Ceno</string>
     <string name="default_top_site_1_title">Manual Ceno</string>
-    <string name="onboarding_button">Começar</string>
+    <string name="onboarding_btn_get_started">Começar</string>
     <string name="preferences_toolbar_position">Pôr no topo do ecrã</string>
     <string name="preferences_customization">Personalização</string>
     <string name="preferences_clear_in_toolbar">Mostrar na barra de ferramentas</string>

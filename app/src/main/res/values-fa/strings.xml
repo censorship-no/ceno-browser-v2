@@ -126,15 +126,14 @@
     <string name="default_top_site_4_title" tools:ignore="Untranslatable">فکت‌نامه</string>
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_factnameh_url</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="onboarding_battery_title">نیازمند مجوز</string>
-    <string name="onboarding_fragment">به سنو خوش آمدید</string>
+    <string name="onboarding_welcome_title">به سنو خوش آمدید</string>
     <string name="onboarding_thanks_text">به عنوان یک کاربر سنو شما به رشد شبکه پل‌های موجود کمک می‌کنید که امکان دسترسی به محتوای سانسورشده را فراهم می‌کند.</string>
     <string name="onboarding_info_title">مرورگر معمولی شما نیست</string>
     <string name="onboarding_skip_button">رد کردن</string>
     <string name="onboarding_warning_button">باشه</string>
     <string name="preferences_show_onboarding">نمایش صفحات آشناسازی در اجرای بعدی</string>
     <string name="preferences_disable_battery_opt">غیرفعال کردن بهینه‌سازی باتری</string>
-    <string name="onboarding_button">شروع کنید</string>
+    <string name="onboarding_btn_get_started">شروع کنید</string>
     <string name="onboarding_battery_text">به زودی سیستم‌عامل از شما این مجوز را می‌خواهد
 \n
 \n• غیرفعال کردن سیستم بهینه‌سازی باتری.
