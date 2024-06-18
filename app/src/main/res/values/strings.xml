@@ -513,6 +513,6 @@
     </plurals>
     <!-- CENO: END OF COPIED FROM FOCUS -->
 
-    <string name="browser_menu_enable_reader_view">Enable Reader View</string>
-    <string name="browser_menu_disable_reader_view">Disable Reader View</string>
+    <string name="browser_menu_enable_reader_view">Show Reader View</string>
+    <string name="browser_menu_disable_reader_view">Hide Reader View</string>
 </resources>
