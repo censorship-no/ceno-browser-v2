@@ -107,6 +107,7 @@ mozilla-featuresyncedtabs = { group = "org.mozilla.components", name = "feature-
 mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
 mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
 mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
+mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components"}
 
 mozilla-uiautocomplete = { group = "org.mozilla.components", name = "ui-autocomplete", version.ref = "android_components" }
 mozilla-uicolors = { group = "org.mozilla.components", name = "ui-colors", version.ref = "android_components" }
