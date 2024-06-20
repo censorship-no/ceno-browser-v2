@@ -521,4 +521,8 @@
 
     <string name="confirm_clear_cached_content">Clear cached content?</string>
     <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
 </resources>
