@@ -465,16 +465,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceChangeListener { _, newValue ->
             // TODO: Add logic for revoking consent from CleanInsights
 
+            Log.d("PPPPPP", newValue.toString())
+
+            // TODO: Handle case where application clean insights is null 
+
             if((newValue as Boolean) && activity != null) {
                 val ui = ConsentRequestUi((activity as BrowserActivity))
 
-                BrowserApplication.cleanInsights.requestConsent("test", ui) { granted ->
+                Log.d("PPPPPP", "G hereee")
+//                BrowserApplication.cleanInsights.store.consents.features.remove(feature)
+
+                BrowserApplication.cleanInsights?.requestConsent("test", ui) { granted ->
                     if (!granted) return@requestConsent
-                    BrowserApplication.cleanInsights.requestConsent(Feature.Lang, ui) {
-                        BrowserApplication.cleanInsights.requestConsent(Feature.Ua, ui)
+                    BrowserApplication.cleanInsights?.requestConsent(Feature.Lang, ui) {
+                        BrowserApplication.cleanInsights?.requestConsent(Feature.Ua, ui)
                     }
                 }
+            } else {
+                Log.d("PPPPPP", "oiujnou")
+                BrowserApplication.cleanInsights?.deny("test")
             }
+
 //            Re-allow clean insights permission nudge
 //            This should ALWAYS be turned on when this permission state is toggled
             ie.equalit.ceno.settings.Settings.setCleanInsightsPermissionNudgeValue(requireContext(), true)

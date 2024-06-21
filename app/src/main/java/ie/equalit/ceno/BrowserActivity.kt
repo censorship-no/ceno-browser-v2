@@ -85,6 +85,7 @@ open class BrowserActivity : BaseActivity() {
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
     private val screenStartTime = System.currentTimeMillis()
+    private var ouinetStartupTime = 0.0
     private var hasOuinetStarted = false
 
     private val sessionId: String?
@@ -185,18 +186,18 @@ open class BrowserActivity : BaseActivity() {
             Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
         }
 
-        // Check for previous crashes
+        // reset the value of lastCrash if permission nudge won't be shown
+        if(!Settings.showCrashReportingPermissionNudge(this)) {
+            Settings.setCrashHappened(this@BrowserActivity, false)
+        }
+
+        // Check for previous crashes for users that have not enabled crash reporting
         if(Settings.showCrashReportingPermissionNudge(this)) {
             showCrashReportingPermission()
-        } else {
-            Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-
-            if(Settings.showCleanInsightsPermissionNudge(this)
-                && !Settings.isCleanInsightsTrackingPermissionGranted(this)
-                && navHost.navController.currentDestination?.id == R.id.homeFragment) {
-                launchCleanInsightsPermissionDialog()
-            }
-
+        } else if(Settings.showCleanInsightsPermissionNudge(this)
+            && !Settings.isCleanInsightsTrackingPermissionGranted(this)
+            && navHost.navController.currentDestination?.id == R.id.homeFragment) {
+            launchCleanInsightsPermissionDialog()
         }
 
         updateOuinetStatus()
@@ -209,7 +210,10 @@ open class BrowserActivity : BaseActivity() {
         cleanInsights?.requestConsent("test", ui) { granted ->
             if (!granted) return@requestConsent
             cleanInsights?.requestConsent(Feature.Lang, ui) {
-                cleanInsights?.requestConsent(Feature.Ua, ui)
+                cleanInsights?.requestConsent(Feature.Ua, ui) {
+                    // log Ouinet startup time if it already has a value
+                    if(ouinetStartupTime != 0.0) trackDataViaCleanInsights(ouinetStartupTime)
+                }
             }
         }
 
@@ -217,8 +221,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
 
-    private fun trackDataViaCleanInsights() {
-        val time = (System.currentTimeMillis() - screenStartTime) / 1000.0
+    private fun trackDataViaCleanInsights(time: Double) {
 
         cleanInsights?.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
 //        cleanInsights.measureVisit(listOf("Main"), "test")
@@ -290,7 +293,8 @@ open class BrowserActivity : BaseActivity() {
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if(!hasOuinetStarted && status == RunningState.Started) {
-                            trackDataViaCleanInsights()
+                            ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
+                            if(Settings.isCleanInsightsTrackingPermissionGranted(this@BrowserActivity)) trackDataViaCleanInsights(ouinetStartupTime)
                             hasOuinetStarted = true
                         }
 

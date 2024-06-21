@@ -35,7 +35,7 @@ class ConsentRequestUi(private val activity: BaseActivity) : org.cleaninsights.s
             .setMessage(msg)
             .setNegativeButton(R.string.clean_insights_no) { _, _ -> complete(false) }
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
-                BrowserApplication.cleanInsights.grant(feature)
+                BrowserApplication.cleanInsights?.grant(feature)
                 complete(true)
             }
             .create()
