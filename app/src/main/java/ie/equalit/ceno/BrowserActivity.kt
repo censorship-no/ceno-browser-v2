@@ -206,10 +206,10 @@ open class BrowserActivity : BaseActivity() {
 
         val ui = ConsentRequestUi(this)
 
-        cleanInsights.requestConsent("test", ui) { granted ->
+        cleanInsights?.requestConsent("test", ui) { granted ->
             if (!granted) return@requestConsent
-            cleanInsights.requestConsent(Feature.Lang, ui) {
-                cleanInsights.requestConsent(Feature.Ua, ui)
+            cleanInsights?.requestConsent(Feature.Lang, ui) {
+                cleanInsights?.requestConsent(Feature.Ua, ui)
             }
         }
 
@@ -220,7 +220,7 @@ open class BrowserActivity : BaseActivity() {
     private fun trackDataViaCleanInsights() {
         val time = (System.currentTimeMillis() - screenStartTime) / 1000.0
 
-        cleanInsights.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
+        cleanInsights?.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
 //        cleanInsights.measureVisit(listOf("Main"), "test")
 
         val tracker: Tracker? = (application as BrowserApplication).getTracker()
