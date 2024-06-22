@@ -13,9 +13,10 @@ import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.Campaign
 import org.cleaninsights.sdk.ConsentRequestUiComplete
 import org.cleaninsights.sdk.Feature
+import org.cleaninsights.sdk.ConsentRequestUi
 
 class ConsentRequestUi(private val activity: BaseActivity) :
-    org.cleaninsights.sdk.ConsentRequestUi {
+    ConsentRequestUi {
 
     override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
 
@@ -66,8 +67,8 @@ class ConsentRequestUi(private val activity: BaseActivity) :
 }
 
 fun Feature.localized(context: Context): String {
-    when (this) {
-        Feature.Lang -> return context.getString(R.string.clean_insights__locale)
-        Feature.Ua -> return context.getString(R.string.clean_insights_device_type)
+    return when (this) {
+        Feature.Lang -> context.getString(R.string.clean_insights__locale)
+        Feature.Ua -> context.getString(R.string.clean_insights_device_type)
     }
 }
