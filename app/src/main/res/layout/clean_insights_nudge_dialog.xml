@@ -34,7 +34,131 @@
         android:importantForAutofill="no"
         android:text="@string/clean_insights_sub_header"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bullet1"
+        app:tint="?attr/textPrimary" />
+
+    <TextView
+        android:id="@+id/bullet1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/crash_reports"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bullet2"
+        app:tint="?attr/textPrimary" />
+
+    <TextView
+        android:id="@+id/bullet2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/load_times"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintTop_toBottomOf="@+id/bullet1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bullet3"
+        app:tint="?attr/textPrimary" />
+
+    <TextView
+        android:id="@+id/bullet3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/device_locale"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintTop_toBottomOf="@+id/bullet2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bullet4"
+        app:tint="?attr/textPrimary" />
+
+    <TextView
+        android:id="@+id/bullet4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/freq_app_usage"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintTop_toBottomOf="@+id/bullet3" />
+
+    <TextView
+        android:id="@+id/explainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/clean_insights_explainer"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bullet4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

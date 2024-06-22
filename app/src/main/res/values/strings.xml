@@ -511,16 +511,18 @@
 
     <!-- Clean Insights -->
     <string name="clean_insights_header">Help make &brandShortName; better!</string>
-    <string name="clean_insights_sub_header">Help us improve &brandShortName; Browser! This study measures 4 things for 2 weeks:\n\nCrash reports
-Load times
-Device locale (language)
-Frequency of app usage
+    <string name="clean_insights_sub_header">Help us improve &brandShortName; Browser! This study measures 4 things for 2 weeks:</string>
+    <string name="clean_insights_explainer">Your contribution will be anonymous, and you can opt out at any time.</string>
 
-Your contribution will be anonymous, and you can opt out at any time. Learn more.</string>
+    <string name="crash_reports">Crash reports</string>
+    <string name="load_times">Load times</string>
+    <string name="device_locale">Device locale (language)</string>
+    <string name="freq_app_usage">Frequency of app usage</string>
+
     <string name="clean_insights_opt_in">YES, OPT ME IN</string>
     <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
     <string name="clean_insights_no">NO</string>
-    <string name="clean_insights_feature_consent_explanation">In case you allow us to run measurements, are you OK that we record the following?\n\n%1$s</string>
+    <string name="clean_insights_feature_consent_explanation">Can we record the following?\n%1$s</string>
     <string name="clean_insights__locale">Your locale</string>
     <string name="clean_insights_device_type">Your device type</string>
 </resources>
