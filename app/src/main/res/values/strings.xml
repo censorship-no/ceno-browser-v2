@@ -525,4 +525,18 @@
     <string name="clean_insights_feature_consent_explanation">Can we record the following?\n%1$s</string>
     <string name="clean_insights__locale">Your locale</string>
     <string name="clean_insights_device_type">Your device type</string>
+
+    <string name="ouinet_startup_time_header">How long do you feel it took &brandShortName; to startup?</string>
+    <string name="ouinet_startup_time_too_long">Too long</string>
+    <string name="ouinet_startup_time_quick">Quick</string>
+
+    <string name="ouinet_startup_time_1">1</string>
+    <string name="ouinet_startup_time_2">2</string>
+    <string name="ouinet_startup_time_3">3</string>
+    <string name="ouinet_startup_time_4">4</string>
+    <string name="ouinet_startup_time_5">5</string>
+
+    <string name="thank_you_for_feedback">Thank you for your feedback!</string>
+
+    <string name="submit">Submit</string>
 </resources>

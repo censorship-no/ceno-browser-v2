@@ -237,6 +237,21 @@ object Settings {
             .apply()
     }
 
+    fun getLaunchCountWithCleanInsightsEnabled(context: Context) : Int {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(
+            context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking), 0
+        )
+    }
+
+    fun incrementLaunchCountWithCleanInsightsEnabled(context: Context) {
+        val key = context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking)
+        val currentValue = getLaunchCountWithCleanInsightsEnabled(context)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putInt(key, currentValue + 1)
+            .apply()
+    }
+
 
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)

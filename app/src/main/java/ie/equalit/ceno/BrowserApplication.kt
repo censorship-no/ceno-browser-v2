@@ -38,16 +38,6 @@ import kotlin.system.exitProcess
 open class BrowserApplication : Application() {
     val components by lazy { Components(this) }
 
-    private var _tracker: Tracker? = null
-    @Synchronized
-    fun getTracker(): Tracker? {
-        if (_tracker == null) {
-            _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/matomo.php", 4).build(Matomo.getInstance(this))
-        }
-        return _tracker
-    }
-
-
     override fun onCreate() {
         super.onCreate()
 
@@ -202,6 +192,20 @@ open class BrowserApplication : Application() {
                 e.printStackTrace()
                 null
             }
+        }
+
+        private var _tracker: Tracker? = null
+        @Synchronized
+        fun getTracker(): Tracker? {
+            if (_tracker == null) {
+                _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/matomo.php", 4).build(
+                    context?.let {
+                        Matomo.getInstance(
+                            it
+                        )
+                    })
+            }
+            return _tracker
         }
 
     }

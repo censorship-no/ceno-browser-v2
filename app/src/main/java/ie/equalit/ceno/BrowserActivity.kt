@@ -73,8 +73,6 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.cleaninsights.sdk.Feature
-import org.matomo.sdk.Tracker
-import org.matomo.sdk.extra.TrackHelper
 import kotlin.system.exitProcess
 
 /**
@@ -198,6 +196,9 @@ open class BrowserActivity : BaseActivity() {
             && !Settings.isCleanInsightsTrackingPermissionGranted(this)
             && navHost.navController.currentDestination?.id == R.id.homeFragment) {
             launchCleanInsightsPermissionDialog()
+        } else if(Settings.isCleanInsightsTrackingPermissionGranted(this)) {
+            Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
+            Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
         }
 
         updateOuinetStatus()
@@ -212,24 +213,19 @@ open class BrowserActivity : BaseActivity() {
             cleanInsights?.requestConsent(Feature.Lang, ui) {
                 cleanInsights?.requestConsent(Feature.Ua, ui) {
                     // log Ouinet startup time if it already has a value
-                    if(ouinetStartupTime != 0.0) trackDataViaCleanInsights(ouinetStartupTime)
+                    if(ouinetStartupTime != 0.0) CleanInsightTrackerHelper.trackData(
+                        activity = "BrowserActivity",
+                        category = "app-state",
+                        action = "ouinet-startup-success",
+                        campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                        name = "actual_ouinet_startup_time",
+                        value = ouinetStartupTime
+                    )
                 }
             }
         }
 
         Settings.setCleanInsightsPermissionNudgeValue(this@BrowserActivity, false)
-    }
-
-
-    private fun trackDataViaCleanInsights(time: Double) {
-
-        cleanInsights?.measureEvent("app-state", "ouinet-startup-success", "test", "time-needed", time)
-//        cleanInsights.measureVisit(listOf("Main"), "test")
-
-        val tracker: Tracker? = (application as BrowserApplication).getTracker()
-
-        TrackHelper.track().screen("/BrowserActivity").title("BrowserActivity").with(tracker)
-        TrackHelper.track().download().with(tracker)
     }
 
 
@@ -294,7 +290,21 @@ open class BrowserActivity : BaseActivity() {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
-                            if(Settings.isCleanInsightsTrackingPermissionGranted(this@BrowserActivity)) trackDataViaCleanInsights(ouinetStartupTime)
+                            if(Settings.isCleanInsightsTrackingPermissionGranted(this@BrowserActivity)) {
+                                CleanInsightTrackerHelper.trackData(
+                                    activity = "BrowserActivity",
+                                    category = "app-state",
+                                    action = "ouinet-startup-success",
+                                    campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                                    name = "actual_ouinet_startup_time",
+                                    value = ouinetStartupTime
+                                )
+
+                                // check if this is the (n % 10 == 0)th launch and show the Ouinet prompt if true
+                                if(Settings.getLaunchCountWithCleanInsightsEnabled(this@BrowserActivity) % 10 == 0) {
+                                    CleanInsightTrackerHelper.showStartupTimePrompt(this@BrowserActivity)
+                                }
+                            }
                             hasOuinetStarted = true
                         }
 
