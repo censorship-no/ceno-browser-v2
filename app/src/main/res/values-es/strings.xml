@@ -6,8 +6,7 @@
 ]>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Buscar o introducir dirección</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -187,7 +186,7 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
     <!-- <string name="ceno_private_tab_panel_description">&brandShortName; no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puedes visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más\?&lt;/p&gt; &lt;p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puedes visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más?&lt;/p&gt; &lt;p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">Servicio del Navegador &brandShortName;</string>
     <string name="ceno_notification_description">Toca para detener</string>
@@ -249,7 +248,7 @@
     <string name="ceno_clear_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la app restablecerá la aplicación &brandShortName; como si nunca se hubiera utilizado.</string>
     <string name="changeIconCtaCancel">Cancelar</string>
     <string name="changeIconCtaAccept">Aceptar</string>
-    <string name="changeIconDialogTitle">¿Aplicar el nuevo icono\?</string>
+    <string name="changeIconDialogTitle">¿Aplicar el nuevo icono?</string>
     <string name="changeIconDialogMessage">La app puede cerrarse para aplicar los cambios. Vuelve después de que hayas admirado tu atractivo nuevo icono.</string>
     <string name="preferences_change_app_icon">Cambiar el icono de la app</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; enviará lo que escribas en la barra de direcciones a su motor de búsqueda</string>
@@ -303,7 +302,7 @@
     <string name="ceno_onboarding_start_title">Comparte la web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de &brandShortName; permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
-    <string name="onboarding_public_or_personal_title">¿Pública o personal\?</string>
+    <string name="onboarding_public_or_personal_title">¿Pública o personal?</string>
     <string name="onboarding_public_personal_text">Utilice las pestañas públicas para leer noticias, ver vídeos y navegar por Internet en general. Comparte contenidos web con otros usuarios de Ceno.
 \n
 \nLas pestañas personales son más adecuadas para las sociales, compras en línea y navegación por páginas web que no desea compartir con otros.</string>
@@ -395,7 +394,7 @@
     <string name="download_site_content">Descargar contenido de la página</string>
     <string name="confirm_groups_file_download_desc">Se guardará un archivo txt en tu almacenamiento local.</string>
     <string name="confirm_groups_file_download">¿Exportar lista de contenido compartido?</string>
-    <string name="ceno_android_content_group_file_name">&amp;brandShortName; contenido compartido</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; contenido compartido</string>
     <string name="canceled">Cancelado</string>
     <string name="dismiss">Desechar</string>
     <string name="confirm_clear_cached_content">¿Borrar contenido de la caché?</string>

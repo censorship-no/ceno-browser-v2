@@ -6,8 +6,9 @@
 ]>
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">搜索或输入网址</string>
     <!-- Menu option on the toolbar to open a new tab-->
@@ -191,7 +192,7 @@
     <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; 指南</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable" >Wikipedia</string>
+    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title" tools:ignore="Untranslatable">自由時報</string>
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_ltn_url</string>
@@ -374,4 +375,25 @@
     <string name="browsing_mode_card_title">浏览模式</string>
     <string name="public_browsing_mode_selected">选择公共浏览模式</string>
     <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
+    <string name="shutdown_message_one">正在清理app数据</string>
+    <string name="shutdown_message_two">正在关闭Ceno</string>
+    <string name="title_success">大功告成</string>
+    <string name="thank_you_bridge_mode_enabled">感谢你成为一座桥,为Ceno网络作出了贡献!</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_ceno_sources_origin">网页</string>
+    <string name="ceno_home_card_public_title">公开</string>
+    <string name="ceno_sources_shared_by_ceno_cache">来自&amp;brandShortName;的缓存</string>
+    <string name="ceno_support_link_url">https://censorship.no/zh_CN/support.html</string>
+    <string name="ceno_log_content_group_file_saved">共享内容保存成功</string>
+    <string name="ceno_android_content_group_file_name">&amp;brandShortName; 共享内容</string>
+    <string name="view_logs">查看</string>
+    <string name="canceled">已取消</string>
+    <string name="download_site_content">下载页面内容</string>
+    <string name="no_content_shared">目前,你没有分享任何内容</string>
+    <string name="dismiss">结束</string>
+    <string name="confirm_groups_file_download">导出共享内容的清单?</string>
+    <string name="confirm_groups_file_download_desc">一个txt文本将会保存到你的存储空间。</string>
+    <string name="confirm_clear_cached_content">清理缓存内容？</string>
+    <string name="confirm_clear_cached_content_desc">你的缓存内容将被删除</string>
 </resources>

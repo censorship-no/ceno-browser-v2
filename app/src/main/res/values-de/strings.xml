@@ -107,7 +107,7 @@
     <string name="preferences_customization">Anpassung</string>
     <string name="changeIconCtaAccept">Anwenden</string>
     <string name="changeIconCtaCancel">Abbrechen</string>
-    <string name="changeIconDialogTitle">Neues Symbol anwenden\?</string>
+    <string name="changeIconDialogTitle">Neues Symbol anwenden?</string>
     <string name="ceno_clear_action_description">Leeren</string>
     <string name="preferences_clear_in_toolbar">In der Symbolleiste anzeigen</string>
     <string name="preferences_clear_in_menu">Im Menü anzeigen</string>
