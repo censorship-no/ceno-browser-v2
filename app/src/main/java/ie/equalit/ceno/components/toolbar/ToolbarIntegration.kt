@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.components.toolbar
 
+/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +17,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.FindInPageIntegration
+import ie.equalit.ceno.browser.ReaderViewIntegration
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
@@ -26,6 +28,7 @@ import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.browser.menu2.BrowserMenuController
@@ -50,9 +53,13 @@ import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
 import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.ext.flow
+import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
+
+//import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
 
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
@@ -66,6 +73,7 @@ class ToolbarIntegration(
     private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
+    private val readerViewIntegration: ReaderViewIntegration? = null
 ) : LifecycleAwareFeature, UserInteractionHandler {
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
@@ -227,6 +235,25 @@ class ToolbarIntegration(
                 }
             )
         }
+
+        if (context.components.core.store.state.selectedTab?.readerState?.readerable == true) {
+            val readerViewActive = context.components.core.store.state.selectedTab?.readerState?.active
+            menuItemsList += if (readerViewActive == true) {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_disable_reader_view)
+                )
+                {
+                    readerViewIntegration?.hideReaderView()
+                }
+            } else {
+                TextMenuCandidate(
+                    text = context.getString(R.string.browser_menu_enable_reader_view)
+                )
+                {
+                    readerViewIntegration?.showReaderView()
+                }
+            }
+        }
         if (sessionState != null) {
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(
@@ -343,6 +370,25 @@ class ToolbarIntegration(
                         fragment?.showWebExtensionPopupPanel()
                     }
                 }
+        }
+
+
+        scope.launch {
+            store.flowScoped { flow ->
+                flow.mapNotNull { state -> state.tabs }
+                    .filterChanged {
+                        it.readerState
+                    }
+                    .collect { tab ->
+                        if (tab.id == store.state.selectedTabId) {
+                            menuController.submitList(menuItems(store.state.selectedTab))
+                            //maybeNotifyReaderStatusChange(
+                            //    tab.readerState.readerable,
+                            //    tab.readerState.active
+                            //)
+                        }
+                    }
+            }
         }
     }
 

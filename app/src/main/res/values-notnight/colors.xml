@@ -31,6 +31,8 @@
     <color name="ceno_standby_background">@color/ceno_blue_50</color>
     <color name="ceno_standby_logo_color">@color/ceno_blue_600</color>
 
+    <color name="reader_view_floating_btn">@color/ceno_blue_200</color>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <!-- Design system color variables -->

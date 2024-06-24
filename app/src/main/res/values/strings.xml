@@ -511,4 +511,8 @@
         <item quantity="one">%d site</item>
         <item quantity="other">%d sites</item>
     </plurals>
+    <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <string name="browser_menu_enable_reader_view">Show Reader View</string>
+    <string name="browser_menu_disable_reader_view">Hide Reader View</string>
 </resources>
