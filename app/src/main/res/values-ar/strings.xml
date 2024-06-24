@@ -4,8 +4,6 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="customize_addon_collection_user_hint">مالك المجموعة (معرًف المستخدم)</string>
     <string name="bookmark_menu_open_in_private_tab_button">افتح في علامة تبويب شخصية</string>

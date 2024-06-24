@@ -4,115 +4,48 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
+ <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">زبانه جدید</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
     <string name="menu_action_close_tabs_private">بستن زبانه‌های شخصی</string>
-    <!-- <string name="preferences_autofill">Autofill apps</string> -->
-    <!-- <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string> -->
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">اشکال‌زدایی از راه دور به‌وسیله USB</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
-    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">فعال شده در حالت مرور شخصی</string>
-    <!-- Preference for privacy -->
     <string name="privacy">حریم خصوصی</string>
-    <!-- Preference summary for privacy -->
-    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">پیوندها را در برنامه ها باز کنید</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">ابزارهای توسعه‌دهندگان</string>
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">محافظت در برابر ردگیری</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">انتخاب داده‌ها</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">تنظیمات</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">حریم خصوصی تنظیمات</string> -->
-    <!-- مرور خصوصی -->
     <string name="private_browsing_title">مرور شخصی</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">مجموعه افزودنی سفارشی</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">تایید</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">لغو</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">نام مجموعه</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">مالک مجموعه (شناسه کاربری)</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">مجموعه افزونه اصلاح شده است. ترک برنامه برای اعمال تغییرات…</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">فعال‌سازی حالت شخصی</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه شخصی</string>
-    <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">تغییر نام</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">حذف</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">حذف از تاریخچه</string>
-    <!-- Top Sites -->
-    <!-- TODO: strings with "shortcut" in them were changed as of Firefox 101 release,
-            but are not yet updated for FA or MY, check later for new strings -->
-    <!-- Title text displayed in the dialog when top sites limit is reached. -->
     <string name="shortcut_max_limit_title">حد نصاب سایت‌های برتر شما پر شده است</string>
-    <!-- Content description text displayed in the dialog when top sites limit is reached. -->
     <string name="shortcut_max_limit_content">برای افزودن یک سایت برتر جدید، یکی را حذف کنید. سایت را لمس و نگه دارید و سپس حذف را انتخاب کنید.</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">باشه،‌ متوجه شدم</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">نام</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">نامِ سایتِ برتر</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">تایید</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">انصراف</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">حمایت مالی‌شده</string>
-    <!-- Browser Fragment -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">عقب</string> -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">جلو</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">نوسازی</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">توقف</string>
-    <!-- Browser menu button that opens the addon manager -->
     <string name="preferences_add_ons">افزونه‌ها</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">تنظیمات عمومی</string>
-    <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">درخواست برای سایت دسک‌تاپ</string>
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">افزودن به صفحه خانگی</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
-    <string name="browser_menu_share">اشتراک‌گذاری</string>
-    -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">به میان‌برها اضافه کنید</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">از میان‌برها حذف کنید</string>
-    <!-- CENO: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">نمای خواننده</string>
     <string name="menu_share_with">به‌اشتراک‌گذاری با …</string>
     <string name="toast_copied">کپی شد!</string>
@@ -174,29 +107,21 @@
     <string name="bit_torrent_bootstraps_category">بوت‌استرپ‌های بیت‌تورنت</string>
     <string name="setting_item_selected">%sانتخاب شد</string>
     <string name="bridge_mode_category">اعلان‌های مرتبط با پل (Bridge)</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">&brandShortName; را مرورگر پیش فرض خود قرار دهید</string>
-    <!-- Preference about page -->
     <string name="preferences_about_page">درباره &vendorShortName;</string>
-    <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/fa/concepts/public-private.html</string>
-    <!-- Extra paragraph in private tab panel. -->
-    <!-- <string name="ceno_private_tab_panel_description">«سنو» محتوای برگه‌های خصوصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.</string> -->
     <string name="ceno_private_browsing_body">&lt;h1&gt;مرور شخصی&lt;/h1&gt; &lt;p&gt;«Ceno» محتوای برگه‌های شخصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;مایلید بیشتر بدانید؟&lt;/p&gt;</string>
-    <!-- Service notification and actions -->
     <string name="ceno_notification_title">خدمات مرورگر &brandShortName;</string>
     <string name="ceno_notification_description">برای توقف ضربه بزنید</string>
     <string name="ceno_notification_home_description">خانه</string>
     <string name="ceno_notification_clear_description">پاک کردن⚠</string>
     <string name="ceno_notification_clear_do_description">بله</string>
     <string name="ceno_notification_channel_name">سرویس &brandShortName;</string>
-    <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">اطلاعیه مرورگر &brandShortName;</string>
     <string name="ceno_on_mobile_data_dialog_description">توصیه می‌شود هنگام اتصال Wi-Fi از &brandShortName; استفاده کنید، زیرا ممکن است مصرف داده بیش از حد انتظارتان باشد. شاید بخواهید هنگام استفاده از داده تلفن همراه، &brandShortName; را متوقف کنید.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">&brandShortName; را همین حالا متوقف کنید</string>
     <string name="ceno_on_mobile_data_dialog_continue">ادامه</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
-    <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">دفترچه راهنمای Ceno</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_fa_url</string>
     <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>

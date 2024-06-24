@@ -4,117 +4,48 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">Buscar o introducir dirección</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Agregar Nueva Pestaña</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
     <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
-    <!--
-    <string name="preferences_autofill">Autofill apps</string>
-    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-    -->
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Depuración remota vía USB</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
-    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Activar en modo de navegación personal</string>
-    <!-- Preference for privacy -->
     <string name="privacy">Privacidad</string>
-    <!-- Preference summary for privacy -->
-    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Abrir enlaces en apps</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Herramientas de desarrollo</string>
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">Protección de Rastreo</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">Elección de datos</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Configuración</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">Privacidad Configuración</string> -->
-    <!-- Navegación privada -->
     <string name="private_browsing_title">Navegación personal</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Colección de Complementos personalizada</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">Cancelar</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Nombre de la colección</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Dueño de la colección (ID de usuaria(o))</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Colección de complementos modificada. Cerrando la aplicación para aplicar los cambios…</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Activar la navegación personal</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña personal</string>
-    <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Renombrar</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">Eliminar</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Eliminar del historial</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Top Sites -->
-    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">Límite de accesos directos alcanzado</string>
-    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
     <string name="shortcut_max_limit_content">Para añadir un nuevo acceso directo, elimina uno. Toca y mantén presionado el sitio y selecciona eliminar.</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">Ok, Entendido</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">Nombre</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">Nombre de acceso directo</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">OK</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">Cancelar</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Patrocinado</string>
-    <!-- Browser Fragment -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">Atrás</string> -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Avanzar</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">Actualizar</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Detener</string>
-    <!-- Browser menu button that opens the addon manager -->
     <string name="preferences_add_ons">Complementos</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Configuración</string>
-    <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Solicitar sitio de escritorio</string>
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Agregar a la Pantalla de inicio</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">Buscar en la página</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
-    <string name="browser_menu_share">Compartir</string>
-    -->
-    <!-- NOTE: strings below are from Fenix values-es-rES. Values in es-rAR and rMX are different -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Añadir a accesos directos</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Eliminar de los accesos directos</string>
-    <!-- CENO: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Vista de lectura</string>
     <string name="toast_copied">¡Copiado!</string>
     <string name="preferences_customization_summary">Icono de la App, Barra de Herramientas, botón de Borrar</string>
@@ -178,29 +109,21 @@
     <string name="setting_item_selected">%s seleccionado</string>
     <string name="set_default_search_engine">Establecer motor de búsqueda predeterminado</string>
     <string name="bridge_mode_category">Anuncios de puentes</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Haz &brandShortName; tu navegador predeterminado</string>
-    <!-- Preference about page -->
     <string name="preferences_about_page">Acerca de &vendorShortName;</string>
-    <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/es/concepts/public-private.html</string>
-    <!-- Extra paragraph in private tab panel. -->
-    <!-- <string name="ceno_private_tab_panel_description">&brandShortName; no compartirá contenido de pestañas privadas con otros usuarios. Puedes visitar sitios con contraseña sin riesgo, pero es necesaria una vía hacia Internet.</string> -->
     <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puedes visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más?&lt;/p&gt; &lt;p&gt;</string>
-    <!-- Service notification and actions -->
     <string name="ceno_notification_title">Servicio del Navegador &brandShortName;</string>
     <string name="ceno_notification_description">Toca para detener</string>
     <string name="ceno_notification_home_description">Inicio</string>
     <string name="ceno_notification_clear_description">Borrar⚠</string>
     <string name="ceno_notification_clear_do_description">Sí</string>
     <string name="ceno_notification_channel_name">Servicio &brandShortName;</string>
-    <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">Aviso del Navegador &brandShortName;</string>
     <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar &brandShortName; cuando tengas una conexión de Wi-Fi, ya que puedes consumir más datos de los que esperas. Tal vez prefiera detener &brandShortName; cuando use datos móviles.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Detener &brandShortName; ahora</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuar</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
-    <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Manual &brandShortName;</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_es_url</string>
     <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
@@ -209,7 +132,6 @@
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_elpais_url</string>
     <string name="default_top_site_4_title" tools:ignore="Untranslatable">Infobae</string>
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_infobae_url</string>
-    <!-- Snackbar action button when a non fatal crash happen-->
     <string name="onboarding_fragment">Bienvenida(o) a &brandShortName;</string>
     <string name="onboarding_battery_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve el sistema operativo te pedirá permiso para
