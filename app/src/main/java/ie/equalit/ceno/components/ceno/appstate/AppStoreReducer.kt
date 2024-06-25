@@ -25,5 +25,10 @@ internal object AppStoreReducer {
         is AppAction.OuinetStatusChange -> state.copy(ouinetStatus = action.status)
 
         is AppAction.BridgeCardChange -> state.copy(showBridgeCard = action.showCard)
+
+        is AppAction.SourceCountsChange -> state.copy(
+            sourceCounts = action.sourceCounts
+        )
+
     }
 }
