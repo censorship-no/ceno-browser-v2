@@ -45,6 +45,7 @@ import ie.equalit.ceno.ext.disableDynamicBehavior
 import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.withoutScheme
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
@@ -86,12 +87,9 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
-import mozilla.components.support.ktx.kotlin.sanitizeFileName
-import mozilla.components.support.ktx.kotlin.sanitizeURL
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -715,7 +713,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireContext().components.core.store.state.selectedTab?.let { tab ->
                 // the percentage progress for the webpage
                 val webPageLoadProgress = tab.content.progress ?: 0
-                val url = tab.content.url.sanitizeURL()
+                val url = tab.content.url.withoutScheme()
                 val sourceCounts = requireContext().components.appStore.state.sourceCounts
 
                 // introduced this for efficiency, so that the runnable is called only as at when needed
@@ -726,13 +724,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     // set sources progress bar
                     val response = JSONObject(message)
 
-                    val extTabUrl = if(response.has(URL)) response.getString(URL).sanitizeURL() else "0"
+                    val extTabUrl = if(response.has(URL)) response.getString(URL).withoutScheme() else "0"
                     if (url == extTabUrl) {
                         // Only update counts if the url included in the response matches the current tab url
                         sourceCounts[url] = response
                         requireContext().components.appStore.dispatch(AppAction.SourceCountsChange(sourceCounts))
                     }
-
                     sourceCounts[url]?.let { counts ->
                         // update sources BottomSheet if the reference is not null
                         webExtensionActionPopupPanel?.onCountsFetched(counts)
@@ -865,7 +862,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     }
 
     private fun setStatusIconFromCachedData() {
-        val url = context?.components?.core?.store?.state?.selectedTab?.content?.url?.sanitizeURL()
+        val url = context?.components?.core?.store?.state?.selectedTab?.content?.url?.withoutScheme()
         context?.components?.appStore?.state?.sourceCounts?.let { counts ->
             counts[url]?.let {
                 val distCache = if (it.has(DIST_CACHE)) it.getString(DIST_CACHE).toFloat() else 0F
