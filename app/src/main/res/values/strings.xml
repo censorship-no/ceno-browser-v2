@@ -8,217 +8,117 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Search or enter address</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Add New Tab</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
-    <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
-    <!-- Preference summary for settings related to send telemetry data -->
-    <!-- <string name="preferences_use_telemetry_summary">Send usage data</string> -->
     <string name="preferences_autofill">Autofill apps</string>
     <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
     <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Enable in Personal Browsing Mode</string>
-    <!-- Preference for privacy -->
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
-    <!-- Preference summary for privacy -->
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
-    <!-- Preference summary for website sources -->
     <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
-    <!-- Preference summary for customizaton -->
     <string name="preferences_customization_summary">App Icon, Toolbar, Clear button</string>
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Open links in apps</string>
-    <!-- Preference category for developer tools -->
     <string name="general_category">General</string>
-    <!-- Preference category for Bit Torrent bootstraps -->
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Developer tools</string>
-    <!-- Ceno: Telemetry is disabled by default, not possible to enable -->
-    <!-- Preference for settings related turn on telemetry data-->
-    <!-- <string name="use_telemetry">Use Telemetry</string> -->
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">Tracking Protection</string>
-    <!-- Preference category for tracking protection -->
     <string name="theme_category">Theme</string>
-    <!-- Preference category for tracking protection -->
     <string name="toolbar_category">Toolbar Options</string>
-    <!-- Preference category for UDP -->
     <string name="udp_category">UDP</string>
-    <!-- Preference category for tracking protection -->
     <string name="clear_button_category">Clear Button</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">Data Choices</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Settings</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
     <string name="customization_settings">Customization</string>
-    <!-- Snackbar message when a non fatal crash happen-->
     <string name="crash_report_non_fatal_message" tools:ignore="UnusedResources">Sorry. We crashed</string>
-    <!-- Private Browsing -->
     <string name="private_browsing_title">Personal Browsing</string>
-    <!-- <string name="default_notification_channel">Browser</string> -->
     <string name="menu_share_with">Share with…</string>
     <string name="toast_copied">Copied!</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Custom Add-on collection</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
-    <!-- Button caption to save BitTorrent bootstrap -->
     <string name="customize_add_bootstrap_save">Save</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">Cancel</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Collection name</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Collection owner (User ID)</string>
-    <!-- Hint displayed on input field for Extra-BitTorrent-Bootstraps -->
     <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
-    <!-- CTA for adding custom BT sources -->
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Add custom bootstraps</string>
-    <!-- Hint displayed on input field for entering custom Extra-BitTorrent-Bootstraps -->
     <string name="customize_custom_extra_bittorrent_bootstrap">Separate IPs with commas</string>
-    <!-- Selection prompt for choosing BT sources -->
     <string name="select_extra_bt_source">Select extra BitTorrent bootstrap</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Add-on collection modified. Quitting the application to apply changes…</string>
-    <!-- Ceno: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button" tools:ignore="UnusedResources">Enable Personal browsing</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
     <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Rename</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">Remove</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Delete from history</string>
     <!-- Top Sites -->
-    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">Shortcut limit reached</string>
-    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
     <string name="shortcut_max_limit_content">To add a new shortcut, remove one. Touch and hold the site and select remove.</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">OK, Got It</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">Name</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">Shortcut name</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">OK</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">Cancel</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Sponsored</string>
     <!-- Browser Fragment -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
     <string name="browser_menu_back">Back</string>
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Forward</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">Refresh</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Stop</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Settings</string>
-    <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Request desktop site</string>
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">Add to Home screen</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">Find in page</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
     <string name="browser_menu_share">Share</string>
-    -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
-    <!-- Browser menu button that opens a user's library -->
     <string name="browser_menu_library">Library</string>
-    <!--suppress CheckTagEmptyBody This is a default value for places where we don't want a string set-->
     <string name="empty_string" translatable="false"/>
-    <!-- Text for the cancel button for the data deletion dialog -->
     <string name="delete_browsing_data_prompt_cancel">Cancel</string>
-    <!-- Text for the allow button for the data deletion dialog -->
     <string name="delete_browsing_data_prompt_allow">Delete</string>
-    <!-- Text for the snackbar confirmation that the data was deleted -->
     <string name="preferences_delete_browsing_data_snackbar">Browsing data deleted</string>
-    <!-- Text for the snackbar to show the user that the deletion of browsing data is in progress -->
     <string name="deleting_browsing_data_in_progress">Deleting browsing data…</string>
-    <!-- Title for the Delete browsing data preference -->
     <string name="preferences_delete_browsing_data">Delete browsing data</string>
-    <!-- Subtitle for the tabs item in Delete browsing data, parameter will be replaced with the number of open tabs -->
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="one">%d tab</item>
         <item quantity="other">%d tabs</item>
     </plurals>
-    <!-- Title for the data and history items in Delete browsing data -->
     <string name="preferences_delete_browsing_data_browsing_data_title">Browsing history and site data</string>
-    <!-- Subtitle for the data and history items in delete browsing data, parameter will be replaced with the
         number of history items the user has -->
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
         <item quantity="one">%d address</item>
         <item quantity="other">%d addresses</item>
     </plurals>
-    <!-- Title for the cookies item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
-    <!-- Subtitle for the cookies item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_cookies_subtitle">You’ll be logged out of most sites</string>
-    <!-- Title for the cached images and files item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_cached_files">Cached images and files</string>
-    <!-- Subtitle for the cached images and files item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Frees up storage space</string>
-    <!-- Title for the site permissions item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_site_permissions">Site permissions</string>
-    <!-- Title for the downloads item in Delete browsing data -->
-    <!--
-    <string name="preferences_delete_browsing_data_downloads">Downloads</string>
-    -->
-    <!-- Text for the button to delete browsing data -->
     <string name="preferences_delete_browsing_data_button">Delete browsing data</string>
-    <!-- Title for the tabs item in Delete browsing data -->
     <string name="preferences_delete_browsing_data_tabs_title_2">Open tabs</string>
-    <!-- Dialog message to the user asking to delete browsing data. Parameter will be replaced by app name. -->
     <string name="delete_browsing_data_prompt_message_3">%s will delete the selected browsing data.</string>
-    <!-- Ceno: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
+    <string name="content_description_close_button">Close</string>
+    <!-- Share -->
+    <string name="share_header_2">Share</string>
+    <string name="share_copy_link_to_clipboard">Copy to clipboard</string>
+    <string name="share_link_all_apps_subheader">All actions</string>
+    <string name="share_link_recent_apps_subheader">Recently used</string>
+    <string name="share_save_to_pdf">Save as PDF</string>
     <string name="button_content_readerview">Reader view</string>
     <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
-    <!-- Ceno: COPIED FROM FOCUS -->
     <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
-    <!-- Used to indicate the value of a setting item-->
     <string name="setting_item_selected">%s selected</string>
-    <!-- Title key for search engine setting -->
     <string name="set_default_search_engine">Set default search engine</string>
-    <!-- Title of "switch" preference that enables/disables search suggestions -->
     <string name="preference_show_search_suggestions">Get search suggestions</string>
-    <!-- Preference category description for settings related to search, set default
-    and autocomplete are settings a user can find and change inside the "search" settings screen -->
     <string name="preference_search_summary">Set default</string>
-    <!-- Header for the list of installed search engines -->
     <string name="preference_choose_search_engine">Choose search engine</string>
-    <!-- Explanation text above the list of search engines-->
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
-    <!-- Preference title text that launches the addon manager -->
     <string name="preferences_add_ons">Add-ons</string>
-    <!-- Label that indicates a site is using a secure connection -->
     <string name="secure_connection">Connection is secure</string>
-    <!-- Label that indicates a site is using a insecure connection -->
     <string name="insecure_connection">Connection is not secure</string>
-    <!-- Ceno: END OF COPIED FROM FOCUS -->
-    <!-- Label that indicates that an item doesn't have a relevant value -->
+
     <string name="not_applicable">N/A</string>
     <string name="remove_search_engine_id_1" translatable="false">amazondotcom</string>
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
@@ -238,7 +138,6 @@
     <string name="dialog_btn_positive_ok">OK</string>
 
     <string name="app_name" translatable="false">&brandShortName;</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Make &brandShortName; your default browser</string>
     <!-- Preference about page -->
     <string name="preferences_about_ceno">&brandShortName; Browser</string>
@@ -253,7 +152,6 @@
     <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
     <!-- Extra paragraph in private tab panel. -->
-    <!-- <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string> -->
     <string name="ceno_private_browsing_body">&lt;h1&gt;Personal Browsing&lt;/h1&gt; &lt;p&gt;Ceno will not share content from personal tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Want to learn more?&lt;/p&gt;</string>
     <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; Browser Service</string>
@@ -262,11 +160,6 @@
     <string name="ceno_notification_clear_description">Erase⚠</string>
     <string name="ceno_notification_clear_do_description">Yes</string>
     <string name="ceno_notification_channel_name">&brandShortName; Service</string>
-    <!--
-    <string name="preferences_mobile_data" translatable="false">Do not show mobile data warning</string>
-    <string name="preferences_mobile_data_warning_disabled" translatable="false">Mobile data warning disabled</string>
-    <string name="preferences_mobile_data_warning_enabled" translatable="false">Mobile data warning enabled</string>
-    -->
     <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; Browser notice</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">It is recommended to use &brandShortName; when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop &brandShortName; when using mobile data.</string>
@@ -291,7 +184,6 @@
     <string name="bt_sources_none">None</string>
     <string name="bt_invalid_ip_error">Invalid IP</string>
     <!-- Menu options -->
-    <!-- <string name="browser_menu_report_issue" translatable="false">Report issue</string> -->
     <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&brandShortName; Settings</string>
@@ -401,15 +293,12 @@
     <string name="preferences_ceno_website_sources">Website sources</string>
     <string name="preferences_ceno_bridge_announcement">Enable bridge mode</string>
 
-    <!-- Snackbar action button when a non fatal crash happen-->
-    <!-- COPIED FROM DUCKDUCKGO -->
     <!-- Change Icon Activity -->
     <string name="changeIconCtaAccept">Apply</string>
     <string name="changeIconCtaCancel">Cancel</string>
     <string name="changeIconDialogTitle">Apply new icon?</string>
     <string name="changeIconDialogMessage">The app may close to apply changes. Come on back after you\'ve admired your handsome new icon.</string>
-    <!-- END COPIED FROM DUCKDUCKGO -->
-    <!-- Description of the preference that enables/disables search suggestions -->
+
     <string name="preference_show_search_suggestions_summary">&brandShortName; will send what you type in the address bar to your search engine</string>
     <string name="clear_cache_success">Cache cleared successfully</string>
     <string name="clear_cache_fail">Cache clear failed, try again soon</string>
@@ -449,7 +338,6 @@
     <string name="ceno_ouinet_connected">Connected to Ceno Network</string>
     <string name="ceno_ouinet_disconnected">Disconnected from Ceno Network</string>
 
-    <!--  Ceno sources categories  -->
     <string name="ceno_sources_direct_from_website">Direct from website</string>
     <string name="ceno_sources_via_ceno_network">Using &brandShortName; network</string>
     <string name="ceno_sources_shared_by_ceno_cache">From &brandShortName; cache</string>
@@ -507,4 +395,12 @@
 
     <string name="confirm_clear_cached_content">Clear cached content?</string>
     <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
+    <!-- CENO: END OF COPIED FROM FOCUS -->
+
+    <string name="browser_menu_enable_reader_view">Show Reader View</string>
+    <string name="browser_menu_disable_reader_view">Hide Reader View</string>
 </resources>

@@ -27,4 +27,10 @@
     <string name="ceno_notification_clear_description">Törlés⚠</string>
     <string name="about_content"><p>%1$s – Oszd meg az internetet!</p> <p>A Ceno (a censorship.no! rövidítése) a világ első mobilböngészője, amely megkerüli a jelenlegi internetes cenzúra módszereit. Peer-to-peer gerinchálózata lehetővé teszi az emberek számára a webes információk elérését és megosztását olyan régiókban és régiók között, ahol a kapcsolat megszakadt vagy veszélybe került. </p> <p>A %1$s az eQualitie, egy kanadai szervezet projektje, amelynek küldetése az alapvető szabadságjogok és emberi jogok előmozdítása és védelme, beleértve az információ szabad online áramlását. Célunk, hogy hozzáférhető technológiát hozzunk létre, és fejlesszük az emberi jogok és szabadságjogok védelméhez szükséges készségeket a digitális korban.</p></string>
     <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
+    <string name="browser_menu_share">Megosztás</string>
+    <string name="share_header_2">Megosztás</string>
+    <string name="share_copy_link_to_clipboard">Vágólapra másolás</string>
+    <string name="share_link_all_apps_subheader">Összes művelet</string>
+    <string name="share_link_recent_apps_subheader">Nemrég használt</string>
+    <string name="share_save_to_pdf">Mentés PDF-ként</string>
 </resources>
