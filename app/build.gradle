@@ -374,6 +374,7 @@ dependencies {
     implementation libs.mozilla.featurewebauthn
     implementation libs.mozilla.featurewebcompat
     implementation libs.mozilla.featurewebnotifications
+    implementation libs.mozilla.featureshare
 
     implementation libs.mozilla.uiautocomplete
     implementation libs.mozilla.uicolors

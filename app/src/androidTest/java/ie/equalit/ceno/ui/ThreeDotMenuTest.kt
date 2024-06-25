@@ -108,7 +108,7 @@ class ThreeDotMenuTest {
             verifyReloadButtonExists()
             //TODO: stop button only appears during load, needs special test case
             //verifyStopButtonExists()
-            //verifyShareButtonExists()
+            verifyShareButtonExists()
             verifyRequestDesktopSiteToggleExists()
             verifyClearCenoButtonExists()
             verifyAddToHomescreenButtonExists()
@@ -193,7 +193,6 @@ class ThreeDotMenuTest {
         }
     }
 
-    /* TODO: Implement "share" button in Ceno
     @Test
     fun doShareTest() {
         val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -203,11 +202,15 @@ class ThreeDotMenuTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openShare {
-            verifyShareContentPanel()
+        }.clickShareButton {
+            verifyShareTabLayout()
+            verifyRecentAppsContainer()
+            verifyShareApps()
+            verifyRecentAppsContainerHeader()
+            verifyShareAppsHeader()
+            verifyShareToPdf()
         }
     }
-    */
 
     @Test
     fun findInPageTest() {

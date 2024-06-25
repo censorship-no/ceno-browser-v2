@@ -90,11 +90,11 @@ class ThreeDotMenuRobot {
             return NavigationToolbarRobot.Transition()
         }
 
-        fun openShare(interact: ContentPanelRobot.() -> Unit): ContentPanelRobot.Transition {
+        fun clickShareButton(interact: ShareOverlayRobot.() -> Unit): ShareOverlayRobot.Transition {
             shareButton().click()
             mDevice.waitForIdle()
-            ContentPanelRobot().interact()
-            return ContentPanelRobot.Transition()
+            ShareOverlayRobot().interact()
+            return ShareOverlayRobot.Transition()
         }
 
         @Suppress("SwallowedException")
@@ -222,7 +222,7 @@ private fun backButton() = onView(ViewMatchers.withContentDescription("Back"))
 private fun forwardButton() = onView(ViewMatchers.withContentDescription("Forward"))
 private fun refreshButton() = onView(ViewMatchers.withContentDescription("Refresh"))
 private fun stopButton() = onView(ViewMatchers.withContentDescription("Stop"))
-private fun shareButton() = onView(ViewMatchers.withText("Share"))
+private fun shareButton() = onView(ViewMatchers.withText(R.string.browser_menu_share))
 private fun requestDesktopSiteToggle() = onView(ViewMatchers.withText("Request desktop site"))
 private fun findInPageButton() = onView(ViewMatchers.withText("Find in page"))
 private fun reportIssueButton() = onView(ViewMatchers.withText("Report issue"))

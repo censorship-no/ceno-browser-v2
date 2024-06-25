@@ -301,4 +301,10 @@
     <string name="bridge_mode_ip_warning_text">Pamiętaj, że spowoduje to, że Twój publiczny adres IP będzie widoczny dla innych użytkowników Ceno.</string>
     <string name="ceno_sources_shared_by_ceno_cache">Z &brandShortName; Pamięć podręczna</string>
     <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
+    <string name="browser_menu_share">Udostępnij</string>
+    <string name="share_header_2">Udostępnij</string>
+    <string name="share_copy_link_to_clipboard">Kopiuj do schowka</string>
+    <string name="share_link_all_apps_subheader">Wszystkie działania</string>
+    <string name="share_link_recent_apps_subheader">Ostatnio używane</string>
+    <string name="share_save_to_pdf">Zapisz jako PDF</string>
 </resources>

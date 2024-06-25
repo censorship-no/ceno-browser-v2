@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.FindInPageIntegration
@@ -24,6 +25,7 @@ import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSIO
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.getUrl
 import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -32,12 +34,14 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.browser.menu2.BrowserMenuController
+import mozilla.components.browser.state.selector.findTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.storage.sync.PlacesHistoryStorage
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
+import mozilla.components.concept.engine.prompt.ShareData
 import mozilla.components.concept.menu.MenuController
 import mozilla.components.concept.menu.candidate.CompoundMenuCandidate
 import mozilla.components.concept.menu.candidate.ContainerStyle
@@ -255,6 +259,28 @@ class ToolbarIntegration(
             }
         }
         if (sessionState != null) {
+            menuItemsList += TextMenuCandidate(
+                text = context.getString(R.string.browser_menu_share),
+            ) {
+                val sessionId = sessionState.id
+                val url = sessionId.let {
+                    context.components.core.store.state.findTab(it)?.getUrl()
+                }
+                val directions = NavGraphDirections.actionGlobalShareFragment(
+                     arrayOf(
+                        ShareData(
+                            url = url,
+                            title = sessionState?.content?.title,
+                        ),
+                    )
+                ).apply {
+                    setSessionId(sessionId)
+                    setShowPage(true)
+                }
+
+                navHost.navController.navigate(directions)
+            }
+
             if (webAppUseCases.isPinningSupported()) {
                 menuItemsList += TextMenuCandidate(
                     text = context.getString(R.string.browser_menu_add_to_homescreen),
