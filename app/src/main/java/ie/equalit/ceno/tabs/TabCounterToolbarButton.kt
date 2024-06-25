@@ -77,7 +77,6 @@ class TabCounterToolbarButton(
                 android.R.attr.selectableItemBackgroundBorderless,
             ),
         )
-        tabCounter.id = R.id.tab_counter_box
 
         return tabCounter
     }

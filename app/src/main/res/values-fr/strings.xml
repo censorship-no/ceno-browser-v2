@@ -395,10 +395,4 @@
     <string name="no_content_shared">Actuellement, vous ne partagez aucun contenu</string>
     <string name="ceno_log_content_group_file_saved">Contenu partagé sauvegardé avec succès</string>
     <string name="dismiss">Fermer</string>
-    <string name="browser_menu_share">Partager</string>
-    <string name="share_header_2">Partager</string>
-    <string name="share_copy_link_to_clipboard">Copier dans le presse-papiers</string>
-    <string name="share_link_all_apps_subheader">Toutes les actions</string>
-    <string name="share_link_recent_apps_subheader">Récemment utilisés</string>
-    <string name="share_save_to_pdf">Enregistrer en PDF</string>
 </resources>

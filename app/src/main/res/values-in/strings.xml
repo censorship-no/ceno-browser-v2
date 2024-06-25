@@ -193,10 +193,4 @@
     <string name="empty_log_text">Sepertinya log anda kosong</string>
     <string name="share_logs">Berbagi</string>
     <string name="bridge_mode_ip_warning_text">Perhatikan bahwa ini akan membuat alamat IP publik Anda terlihat oleh pengguna Ceno lainnya.</string>
-    <string name="browser_menu_share">Bagikan</string>
-    <string name="share_header_2">Bagikan</string>
-    <string name="share_copy_link_to_clipboard">Salin ke papan klip</string>
-    <string name="share_link_all_apps_subheader">Semua tindakan</string>
-    <string name="share_link_recent_apps_subheader">Baru saja digunakan</string>
-    <string name="share_save_to_pdf">Simpan sebagai PDF</string>
 </resources>

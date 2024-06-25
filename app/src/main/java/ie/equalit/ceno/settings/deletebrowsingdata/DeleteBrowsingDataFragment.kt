@@ -219,6 +219,7 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
     }
 
     private fun updateHistoryCount() {
+        binding.browsingDataItem.subtitleView.text = ""
 
         viewLifecycleOwner.lifecycleScope.launch(IO) {
             val historyCount = requireComponents.core.historyStorage.getVisited().size

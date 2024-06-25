@@ -106,10 +106,4 @@
     <string name="customize_custom_extra_bittorrent_bootstrap">Separar le IP con virgulas</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adder lanceamentos personalisate</string>
     <string name="select_extra_bt_source">Seliger un lanceamento extra pro BitTorrent</string>
-    <string name="browser_menu_share">Compartir</string>
-    <string name="share_header_2">Compartir</string>
-    <string name="share_copy_link_to_clipboard">Copiar al area de transferentia</string>
-    <string name="share_link_all_apps_subheader">Tote le actiones</string>
-    <string name="share_link_recent_apps_subheader">Usate recentemente</string>
-    <string name="share_save_to_pdf">Salvar como PDF</string>
 </resources>

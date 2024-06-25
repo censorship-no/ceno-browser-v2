@@ -14,7 +14,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
-import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
@@ -85,7 +84,7 @@ object CenoSettings {
                 "KMGTPEZY"[i - 1] + "iB"
             else
                 "B"
-        return String.format(Locale.getDefault(), "%.2f %s", v, u)
+        return String.format("%.2f %s", v, u)
     }
 
     fun isStatusUpdateRequired(context: Context): Boolean =

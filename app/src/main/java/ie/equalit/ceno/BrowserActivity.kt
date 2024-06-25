@@ -368,15 +368,15 @@ open class BrowserActivity : BaseActivity() {
     }
 
     /* CENO: Handle intent sent to BrowserActivity to open to Homepage or open a homescreen shortcut link */
-    override fun onNewIntent(intent: Intent) {
+    override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        val safeIntent = SafeIntent(intent)
-        if(safeIntent.action == Intent.ACTION_MAIN &&
+        val safeIntent = intent?.let { SafeIntent(it) }
+        if(safeIntent?.action == Intent.ACTION_MAIN &&
             safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
         ){
             navHost.navController.navigate(R.id.action_global_home)
         }
-        if(safeIntent.action == Intent.ACTION_VIEW) {
+        if(safeIntent?.action == Intent.ACTION_VIEW) {
             navHost.navController.navigate(R.id.action_global_browser)
         }
     }

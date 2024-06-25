@@ -400,10 +400,4 @@
     <string name="dismiss">Desechar</string>
     <string name="confirm_clear_cached_content">¿Borrar contenido de la caché?</string>
     <string name="confirm_clear_cached_content_desc">El contenido almacenado en la caché se eliminará inmediatamente</string>
-    <string name="browser_menu_share">Compartir</string>
-    <string name="share_header_2">Compartir</string>
-    <string name="share_copy_link_to_clipboard">Copiar al portapapeles</string>
-    <string name="share_link_all_apps_subheader">Todas las acciones</string>
-    <string name="share_link_recent_apps_subheader">Usado recientemente</string>
-    <string name="share_save_to_pdf">Guardar como PDF</string>
 </resources>

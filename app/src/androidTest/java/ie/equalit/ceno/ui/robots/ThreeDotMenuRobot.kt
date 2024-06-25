@@ -20,7 +20,6 @@ import ie.equalit.ceno.helpers.click
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import junit.framework.AssertionFailedError
-import org.mozilla.fenix.ui.robots.ReaderViewRobot
 
 /**
  * Implementation of Robot Pattern for three dot menu.
@@ -60,9 +59,6 @@ class ThreeDotMenuRobot {
     fun verifyRemoveFromShortcutsButtonExists() = assertRemoveFromShortcutsButton()
     fun verifyHttpsByDefaultButtonExists() = assertHttpsByDefaultButton()
     fun verifyUblockOriginButtonExists() = assertUblockOriginButton()
-    fun verifyEnableReaderViewButton() = assertEnableReaderViewButton()
-    fun verifyDisableReaderViewButton() = assertDisableReaderViewButton()
-    fun verifyReaderViewButtonDoesntExist() = assertReaderViewButtonDoesntExist()
 
     class Transition {
 
@@ -90,11 +86,11 @@ class ThreeDotMenuRobot {
             return NavigationToolbarRobot.Transition()
         }
 
-        fun clickShareButton(interact: ShareOverlayRobot.() -> Unit): ShareOverlayRobot.Transition {
+        fun openShare(interact: ContentPanelRobot.() -> Unit): ContentPanelRobot.Transition {
             shareButton().click()
             mDevice.waitForIdle()
-            ShareOverlayRobot().interact()
-            return ShareOverlayRobot.Transition()
+            ContentPanelRobot().interact()
+            return ContentPanelRobot.Transition()
         }
 
         @Suppress("SwallowedException")
@@ -196,20 +192,6 @@ class ThreeDotMenuRobot {
             BrowserRobot().interact()
             return BrowserRobot.Transition()
         }
-
-        fun clickReaderViewButton(interact: ReaderViewRobot.() -> Unit): ReaderViewRobot.Transition {
-            enableReaderViewButton().click()
-            mDevice.waitForWindowUpdate(packageName, waitingTime)
-            ReaderViewRobot().interact()
-            return ReaderViewRobot.Transition()
-        }
-
-        fun clickDisableReaderViewButton(interact: ReaderViewRobot.() -> Unit): ReaderViewRobot.Transition {
-            disableReaderViewButton().click()
-            mDevice.waitForWindowUpdate(packageName, waitingTime)
-            ReaderViewRobot().interact()
-            return ReaderViewRobot.Transition()
-        }
     }
 }
 
@@ -222,7 +204,7 @@ private fun backButton() = onView(ViewMatchers.withContentDescription("Back"))
 private fun forwardButton() = onView(ViewMatchers.withContentDescription("Forward"))
 private fun refreshButton() = onView(ViewMatchers.withContentDescription("Refresh"))
 private fun stopButton() = onView(ViewMatchers.withContentDescription("Stop"))
-private fun shareButton() = onView(ViewMatchers.withText(R.string.browser_menu_share))
+private fun shareButton() = onView(ViewMatchers.withText("Share"))
 private fun requestDesktopSiteToggle() = onView(ViewMatchers.withText("Request desktop site"))
 private fun findInPageButton() = onView(ViewMatchers.withText("Find in page"))
 private fun reportIssueButton() = onView(ViewMatchers.withText("Report issue"))
@@ -236,9 +218,6 @@ private fun removeFromShortcutsButton() = onView(ViewMatchers.withText("Remove f
 private fun httpsByDefaultButton() = onView(ViewMatchers.withText("HTTPS by default"))
 private fun ublockOriginButton() = onView(ViewMatchers.withText("uBlock Origin"))
 
-private fun enableReaderViewButton() = onView(ViewMatchers.withText(R.string.browser_menu_enable_reader_view))
-private fun disableReaderViewButton() = onView(ViewMatchers.withText(R.string.browser_menu_disable_reader_view))
-
 private fun assertShareButtonDoesntExist() = shareButton().check(ViewAssertions.doesNotExist())
 private fun assertRequestDesktopSiteToggleDoesntExist() =
     requestDesktopSiteToggle().check(ViewAssertions.doesNotExist())
@@ -250,8 +229,6 @@ private fun assertAddToHomescreenButtonDoesntExist() = addToHomescreenButton()
     .check(ViewAssertions.doesNotExist())
 
 private fun assertAddToShortcutsButtonDoesntExist() = addToShortcutsButton()
-    .check(ViewAssertions.doesNotExist())
-private fun assertReaderViewButtonDoesntExist() = enableReaderViewButton()
     .check(ViewAssertions.doesNotExist())
 
 private fun assertBackButton() = backButton()
@@ -297,8 +274,4 @@ private fun assertRemoveFromShortcutsButton() = removeFromShortcutsButton()
 private fun assertHttpsByDefaultButton() = httpsByDefaultButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertUblockOriginButton() = ublockOriginButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertEnableReaderViewButton() = enableReaderViewButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertDisableReaderViewButton() = disableReaderViewButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
