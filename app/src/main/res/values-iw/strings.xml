@@ -4,7 +4,7 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">הגדרות</string>
     <string name="delete_from_history">הסר מההסטוריה</string>
     <string name="shortcut_max_limit_title">הגעת למגבלת קיצורי הדרך</string>
@@ -45,4 +45,31 @@
     <string name="preferences_autofill">אפליקציות למילוי אוטומטי</string>
     <string name="toolbar_hint">חפש או הזן כתובת</string>
     <string name="menu_action_add_tab">הוסף כרטיסיה חדשה</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">הוסף רצועות אתחול מותאמות אישית</string>
+    <string name="toast_customize_addon_collection_done">אוסף תוספים שונה. יוצא מהאפליקציה כדי להחיל שינויים…</string>
+    <string name="shortcut_name_hint">שם קיצור</string>
+    <string name="clear_button_category">כפתור נקה</string>
+    <string name="customize_addon_collection_ok">בסדר</string>
+    <string name="browser_menu_library">ספריה</string>
+    <string name="confirm_clear_cached_content_desc">התוכן השמור שלך יוסר באופן מיידי</string>
+    <string name="preferences_customize_amo_collection">אוסף תוספות מותאם אישית</string>
+    <string name="preferences_autofill_summary">מילוי אוטומטי של כניסות וסיסמאות באפליקציות אחרות</string>
+    <string name="preferences_privacy_summary">אפשר לגלישה אישית וציבורית</string>
+    <string name="top_sites_rename_dialog_ok">בסדר</string>
+    <string name="crash_report_non_fatal_message" tools:ignore="UnusedResources">"מצטער.  התרסקנו"</string>
+    <string name="delete_browsing_data_prompt_cancel">לבטל</string>
+    <string name="delete_browsing_data_prompt_allow">למחוק</string>
+    <string name="preferences_delete_browsing_data_snackbar">נתוני הגלישה נמחקו</string>
+    <string name="theme_category">נושא</string>
+    <string name="general_category">כללי</string>
+    <string name="browser_menu_back">חזור</string>
+    <string name="bit_torrent_bootstraps_category">אתחול של BitTorrent</string>
+    <string name="preferences_website_sources_summary">בחר מאיפה ברצונך לטעון את תוכן האתר</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">הפרד כתובות IP באמצעות פסיקים</string>
+    <string name="select_extra_bt_source">בחר אתחול BitTorrent נוסף</string>
+    <string name="browser_menu_desktop_site">בקש אתר למחשב שולחני</string>
+    <string name="deleting_browsing_data_in_progress">מוחק נתוני גלישה…</string>
+    <string name="customize_add_bootstrap_save">לשמור</string>
+    <string name="customize_addon_collection_user_hint">בעל האוסף (זיהוי משתמש)</string>
+    <string name="customize_extra_bittorrent_bootstrap">רצועות אתחול נוספות של BitTorrent</string>
 </resources>
