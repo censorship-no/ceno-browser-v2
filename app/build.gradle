@@ -168,6 +168,26 @@ tasks.whenTaskAdded { task ->
 
 def baseBuildDate = generatedBuildDate
 def apkDate = generatedApkDate
+def appId = android.defaultConfig.applicationId.tokenize('.')
+
+// -------------------------------------------------------------------------------------------------
+// Copy and rename AAB - adapted from https://stackoverflow.com/a/54010142
+// -------------------------------------------------------------------------------------------------
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("bundle")) {
+        def renameTaskName = "rename${task.name.capitalize()}"
+        def variantName = task.name.substring("bundle".length()).uncapitalize()
+        def versionName = android.defaultConfig.versionName
+        tasks.register(renameTaskName, Copy) {
+            def path = "${buildDir}/outputs/bundle/${variantName}/"
+            from(path)
+            include "app-${variantName}.aab"
+            destinationDir file("$project.rootDir/output/${variantName}/")
+            rename "app-${variantName}.aab", "${appId[2]}-${variantName}-${versionName}-${apkDate}.aab"
+        }
+        task.finalizedBy renameTaskName
+    }
+}
 
 android.applicationVariants.all { variant ->
 
@@ -295,7 +315,6 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // Set the name of the output apks and copy to project directory
 // -------------------------------------------------------------------------------------------------
     variant.outputs.all { output ->
-        def appId = applicationId.tokenize('.')
         def abi = output.getFilter(OutputFile.ABI)
         def version = output.versionNameOverride
         outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
