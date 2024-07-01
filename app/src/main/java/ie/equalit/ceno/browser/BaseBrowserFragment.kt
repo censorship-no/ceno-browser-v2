@@ -175,6 +175,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = SessionFeature(
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases.goBack,
+                requireComponents.useCases.sessionUseCases.goForward,
                 binding.engineView,
                 sessionId
             ),
