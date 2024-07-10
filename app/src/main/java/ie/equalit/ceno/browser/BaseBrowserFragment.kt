@@ -766,7 +766,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                         val distCache = if(counts.has(DIST_CACHE)) counts.getString(DIST_CACHE).toFloat() else 0F
 //                val localCache = if(currentCounts?.has(LOCAL_CACHE) == true) currentCounts.getString(LOCAL_CACHE).toFloat() else 0F
 
-                        if (webPageLoadProgress == 100 && !isFullyLoaded) {
+                        if ((webPageLoadProgress == 100 && !isFullyLoaded) || tab.content.fullScreen) {
                             isFullyLoaded = true
                             handler.removeCallbacksAndMessages(progressBarTrackerRunnable)
                             handler.postDelayed(progressBarTrackerRunnable, HIDE_PROGRESS_BAR_DELAY)
