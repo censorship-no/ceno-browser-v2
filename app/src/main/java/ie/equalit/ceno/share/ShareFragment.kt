@@ -21,9 +21,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.selector.findTabOrCustomTab
-import mozilla.components.concept.base.crash.Breadcrumb
 import mozilla.components.concept.engine.prompt.PromptRequest
-import mozilla.components.feature.accounts.push.SendTabUseCases
 import mozilla.components.feature.share.RecentAppsStorage
 
 class ShareFragment : BottomSheetDialogFragment() {
