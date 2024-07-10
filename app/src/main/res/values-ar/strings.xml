@@ -272,4 +272,8 @@
     <string name="progress_dialog_log_export_message">جارٍ حساب سجلاتك…</string>
     <string name="last_5_minutes">آخر 5 دقائق</string>
     <string name="last_10_minutes">آخر 10 دقائق</string>
+    <string name="browser_menu_share">شارِك</string>
+    <string name="share_header_2">شارِك</string>
+    <string name="share_link_all_apps_subheader">كل الإجراءات</string>
+    <string name="share_link_recent_apps_subheader">المستخدمة حديثًا</string>
 </resources>

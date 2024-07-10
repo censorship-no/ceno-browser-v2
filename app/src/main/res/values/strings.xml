@@ -65,6 +65,7 @@
     <string name="browser_menu_desktop_site">Request desktop site</string>
     <string name="browser_menu_add_to_homescreen">Add to Home screen</string>
     <string name="browser_menu_find_in_page">Find in page</string>
+    <string name="browser_menu_share">Share</string>
     <string name="browser_menu_add_to_shortcuts">Add to shortcuts</string>
     <string name="browser_menu_remove_from_shortcuts">Remove from shortcuts</string>
     <string name="browser_menu_library">Library</string>
@@ -91,6 +92,12 @@
     <string name="preferences_delete_browsing_data_button">Delete browsing data</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Open tabs</string>
     <string name="delete_browsing_data_prompt_message_3">%s will delete the selected browsing data.</string>
+    <string name="content_description_close_button">Close</string>
+    <string name="share_header_2">Share</string>
+    <string name="share_copy_link_to_clipboard">Copy to clipboard</string>
+    <string name="share_link_all_apps_subheader">All actions</string>
+    <string name="share_link_recent_apps_subheader">Recently used</string>
+    <string name="share_save_to_pdf">Save as PDF</string>
     <string name="button_content_readerview">Reader view</string>
     <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
     <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
@@ -353,4 +360,10 @@
     <string name="confirm_groups_file_download_desc">A txt file will be saved to your local storage.</string>
     <string name="confirm_clear_cached_content">Clear cached content?</string>
     <string name="confirm_clear_cached_content_desc">Your cached content will be removed immediately</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
+    <string name="browser_menu_enable_reader_view">Show Reader View</string>
+    <string name="browser_menu_disable_reader_view">Hide Reader View</string>
 </resources>

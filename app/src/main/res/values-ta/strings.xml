@@ -311,4 +311,7 @@
     <string name="ceno_android_logs_file_name">&amp; பிராண்ட்சார்ட் பெயர்; பதிவுகள்</string>
     <string name="ceno_log_content_group_file_saved">பகிரப்பட்ட உள்ளடக்கம் வெற்றிகரமாக சேமிக்கப்பட்டது</string>
     <string name="ceno_android_content_group_file_name">&amp; பிராண்ட்சார்ட் பெயர்; பகிரப்பட்ட உள்ளடக்கம்</string>
+    <string name="browser_menu_share">பகிர்</string>
+    <string name="share_header_2">பகிர்</string>
+    <string name="share_link_recent_apps_subheader">சமீபத்தில் பாவித்தவை</string>
 </resources>

@@ -76,4 +76,23 @@ class DownloadTest {
             verifyDownloadNotificationExist("Download completed", downloadFileName)
         }.closeNotification {}
     }
+
+    // TestRail link: https://testrail.stage.mozaws.net/index.php?/cases/view/2048448
+    // Save edited PDF file from the share overlay
+    @Test
+    fun saveAsPdfFunctionalityTest() {
+        val genericURL =
+            TestAssetHelper.getGenericAsset(mockWebServer, 1)
+
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser (genericURL.url) {
+            verifyPageContent("Page content: 1")
+        }
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.clickShareButton {
+        }.clickSaveAsPDF {
+            verifyDownloadPrompt("Page content: 1")
+        }.clickDownload ()
+    }
 }

@@ -58,6 +58,10 @@
         app:popEnterAnim="@anim/slide_back_in"
         app:popExitAnim="@anim/slide_back_out" />
 
+    <action
+        android:id="@+id/action_global_shareFragment"
+        app:destination="@id/shareFragment" />
+
     <fragment
         android:id="@+id/startupFragment"
         android:name="ie.equalit.ceno.StartupFragment"
@@ -369,5 +373,28 @@
         android:id="@+id/siteContentGroupFragment"
         android:name="ie.equalit.ceno.settings.SiteContentGroupFragment"
         android:label="SiteContentGroupFragment" />
+
+    <dialog
+        android:id="@+id/shareFragment"
+        android:name="ie.equalit.ceno.share.ShareFragment"
+        tools:layout="@layout/fragment_share">
+        <argument
+            android:name="data"
+            app:argType="mozilla.components.concept.engine.prompt.ShareData[]" />
+        <argument
+            android:name="showPage"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="sessionId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="shareSubject"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
 
 </navigation>
