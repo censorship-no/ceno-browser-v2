@@ -30,7 +30,7 @@ class WebExtensionActionPopupPanel(
     private val lifecycleOwner: LifecycleOwner,
     private val tabUrl: String,
     private val isConnectionSecure: Boolean,
-    cachedSourceCounts: JSONObject?
+    sourceCounts: JSONObject?
 ) : BottomSheetDialog(context), EngineSession.Observer {
 
     private var binding: DialogWebExtensionPopupSheetBinding =
@@ -42,7 +42,7 @@ class WebExtensionActionPopupPanel(
         expand()
         updateTitle()
         updateConnectionState()
-        cachedSourceCounts?.let { c -> onCountsFetched(c) }
+        sourceCounts?.let { c -> onCountsFetched(c) }
     }
 
     private fun initWindow() {
@@ -92,32 +92,28 @@ class WebExtensionActionPopupPanel(
         )
     }
 
-    fun onCountsFetched(response: JSONObject) {
+    fun onCountsFetched(counts : JSONObject) {
+        binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
 
-        if (response.has(BaseBrowserFragment.URL) && response.getString(BaseBrowserFragment.URL) == tabUrl.tryGetHostFromUrl()) {
-            binding.progressBar.isGone = context.components.core.store.state.selectedTab?.content?.loading == false
+        val distCache = if (counts.has(BaseBrowserFragment.DIST_CACHE)) counts.getString(BaseBrowserFragment.DIST_CACHE).toFloat() else 0F
+        val proxy = if (counts.has(BaseBrowserFragment.PROXY)) counts.getString(BaseBrowserFragment.PROXY).toFloat() else 0F
+        val injector = if (counts.has(BaseBrowserFragment.INJECTOR)) counts.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
+        val origin = if (counts.has(BaseBrowserFragment.ORIGIN)) counts.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
 
-//            binding.tvSharedByYouCount.text = if (response.has("local-cache")) response.getString("local-cache") else "0"
-
-            val distCache = if (response.has(BaseBrowserFragment.DIST_CACHE)) response.getString(BaseBrowserFragment.DIST_CACHE).toFloat() else 0F
-            val proxy = if (response.has(BaseBrowserFragment.PROXY)) response.getString(BaseBrowserFragment.PROXY).toFloat() else 0F
-            val injector = if (response.has(BaseBrowserFragment.INJECTOR)) response.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
-            val origin = if (response.has(BaseBrowserFragment.ORIGIN)) response.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
-
-            binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toInt().toString()
-            binding.tvViaCenoCacheCount.text = distCache.toInt().toString()
-            binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
+        binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toInt().toString()
+        binding.tvViaCenoCacheCount.text = distCache.toInt().toString()
+        binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
 
 
-            val sum = distCache + origin + injector + proxy
-            binding.sourcesProgressBar.isVisible = sum != 0F
+        val sum = distCache + origin + injector + proxy
+        binding.sourcesProgressBar.isVisible = sum != 0F
 
-            binding.sourcesProgressBar.removeAllViews()
+        binding.sourcesProgressBar.removeAllViews()
 
-            if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
-            if((proxy + injector) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector) / sum) * 100), R.color.ceno_sources_orange))
-            if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_blue))
+        if(origin > 0) binding.sourcesProgressBar.addView(context.createSegment(((origin / sum) * 100), R.color.ceno_sources_green))
+        if((proxy + injector) > 0) binding.sourcesProgressBar.addView(context.createSegment((((proxy + injector) / sum) * 100), R.color.ceno_sources_orange))
+        if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_blue))
 //                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
-        }
+        //}
     }
 }
