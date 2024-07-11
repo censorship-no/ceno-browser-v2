@@ -47,6 +47,7 @@ import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings as AppSettings
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -264,7 +265,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
-        getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
+        if (AppSettings.isCleanInsightsTrackingPermissionGranted(requireContext())){
+            getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.let{
+                it.isVisible = true
+                it.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
+            }
+        }
+        else {
+            getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.isVisible = false
+        }
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
