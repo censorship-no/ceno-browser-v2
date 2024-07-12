@@ -140,7 +140,8 @@
         <androidx.preference.Preference
             android:key="@string/pref_key_override_amo_collection"
             android:title="@string/preferences_customize_amo_collection"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"/>
 
         <androidx.preference.Preference
             android:defaultValue="false"
