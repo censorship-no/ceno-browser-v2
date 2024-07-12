@@ -31,6 +31,8 @@
     <color name="ceno_standby_background">@color/ceno_blue_50</color>
     <color name="ceno_standby_logo_color">@color/ceno_blue_600</color>
 
+    <color name="reader_view_floating_btn">@color/ceno_blue_200</color>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <!-- Design system color variables -->
@@ -39,7 +41,7 @@
     <!-- Default Screen background, Frontlayer background, App Bar Top, App Bar Bottom, Frontlayer header -->
     <color name="fx_mobile_layer_color_1">@color/photonWhite</color>
     <!-- Card background, Menu background, Dialog, Banner -->
-    <color name="fx_mobile_layer_color_2">@color/photonWhite</color>
+    <color name="fx_mobile_layer_color_2">@color/ceno_grey_50</color>
     <!-- Search -->
     <color name="fx_mobile_layer_color_3">@color/ceno_grey_100</color>
     <!-- App Bar Top (edit), Text Cursor, Selected Tab Check -->

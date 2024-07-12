@@ -8,6 +8,7 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.State
+import org.json.JSONObject
 
 /** CENO: Ported from Fenix, significantly stripped down
  *  since TopSites is the only currently supported AppState
@@ -21,5 +22,6 @@ data class AppState(
     val topSites: List<TopSite> = emptyList(),
     val mode: BrowsingMode = BrowsingMode.Normal,
     val ouinetStatus: RunningState = RunningState.Started,
-    val showBridgeCard: Boolean = true
+    val showBridgeCard: Boolean = true,
+    val sourceCounts: MutableMap<String, JSONObject?> = mutableMapOf()
 ) : State

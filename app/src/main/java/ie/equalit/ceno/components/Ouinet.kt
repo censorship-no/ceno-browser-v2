@@ -6,11 +6,16 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.tabs.FailedToRetrieveResource
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
 import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import mozilla.components.support.base.log.logger.Logger
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 class Ouinet (
         private val context : Context
@@ -19,6 +24,7 @@ class Ouinet (
     lateinit var config: Config
 
     fun setConfig() {
+
         config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -28,6 +34,7 @@ class Ouinet (
             .setBtBootstrapExtras(getBtBootstrapExtras())
             .setListenOnTcp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
             .setFrontEndEp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
+            .setErrorPagePath(getErrorPagePath())
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .build()
     }
@@ -105,5 +112,25 @@ class Ouinet (
         // else no bootstrap extras included, leave null
         Logger.debug("No extra BT bootstraps required")
         return null
+    }
+
+    private fun getErrorPagePath(): String {
+        return try {
+            writeToFile("server500.html", FailedToRetrieveResource.createErrorPage(context), context)
+            "file://${File(context.filesDir, "server500.html").absolutePath}"
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun writeToFile(fileName: String, fileContent: String, context: Context) {
+        val file = File(context.filesDir, fileName)
+        try {
+            val outputStream = FileOutputStream(file)
+            outputStream.write(fileContent.toByteArray())
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

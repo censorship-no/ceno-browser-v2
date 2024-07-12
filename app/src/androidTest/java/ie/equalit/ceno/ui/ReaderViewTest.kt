@@ -13,7 +13,6 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 
-@Ignore("Disabled - ")
 class ReaderViewTest {
 
     private lateinit var mockWebServer: MockWebServer
@@ -48,7 +47,8 @@ class ReaderViewTest {
         }.enterUrlAndEnterToBrowser(readerViewPage.url) {
         }
         navigationToolbar {
-            verifyReaderViewButton()
+        }.openThreeDotMenu {
+            verifyEnableReaderViewButton()
         }.clickReaderViewButton {
             verifyAppearanceButtonExists()
             clickAppearanceButton()
@@ -56,7 +56,9 @@ class ReaderViewTest {
         }.dismissAppearanceMenu {
         }
         navigationToolbar {
-        }.clickReaderViewButton {
+        }.openThreeDotMenu {
+            verifyDisableReaderViewButton()
+        }.clickDisableReaderViewButton {
             verifyAppearanceButtonDoesntExists()
         }
     }
@@ -69,7 +71,8 @@ class ReaderViewTest {
         }.enterUrlAndEnterToBrowser(readerViewPage.url) {
         }
         navigationToolbar {
-            verifyReaderViewButton()
+        }.openThreeDotMenu {
+            verifyEnableReaderViewButton()
         }.clickReaderViewButton {
             verifyAppearanceButtonExists()
             clickAppearanceButton()
@@ -90,7 +93,8 @@ class ReaderViewTest {
         }.enterUrlAndEnterToBrowser(readerViewPage.url) {
         }
         navigationToolbar {
-            verifyReaderViewButton()
+        }.openThreeDotMenu {
+            verifyEnableReaderViewButton()
         }.clickReaderViewButton {
             verifyAppearanceButtonExists()
             clickAppearanceButton()
@@ -113,7 +117,8 @@ class ReaderViewTest {
         }.enterUrlAndEnterToBrowser(readerViewPage.url) {
         }
         navigationToolbar {
-            verifyReaderViewButton()
+        }.openThreeDotMenu {
+            verifyEnableReaderViewButton()
         }.clickReaderViewButton {
             verifyAppearanceButtonExists()
             clickAppearanceButton()

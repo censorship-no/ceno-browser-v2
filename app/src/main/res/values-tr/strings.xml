@@ -312,4 +312,10 @@
     <string name="confirm_groups_file_download_desc">Yerel depolama alanınıza bir txt dosyası kaydedilecektir.</string>
     <string name="confirm_clear_cached_content">Önbelleğe alınmış içeriği temizleyin?</string>
     <string name="confirm_clear_cached_content_desc">Önbelleğe alınan içeriğiniz hemen kaldırılacaktır</string>
+    <string name="browser_menu_share">Paylaş</string>
+    <string name="share_header_2">Paylaş</string>
+    <string name="share_copy_link_to_clipboard">Panoya kopyala</string>
+    <string name="share_link_all_apps_subheader">Tüm eylemler</string>
+    <string name="share_link_recent_apps_subheader">Son kullanılanlar</string>
+    <string name="share_save_to_pdf">PDF olarak kaydet</string>
 </resources>

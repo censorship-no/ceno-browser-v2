@@ -45,6 +45,12 @@
     <string name="preferences_autofill">אפליקציות למילוי אוטומטי</string>
     <string name="toolbar_hint">חפש או הזן כתובת</string>
     <string name="menu_action_add_tab">הוסף כרטיסיה חדשה</string>
+    <string name="browser_menu_share">שיתוף</string>
+    <string name="share_header_2">שיתוף</string>
+    <string name="share_copy_link_to_clipboard">העתקה ללוח העריכה</string>
+    <string name="share_link_all_apps_subheader">כל הפעולות</string>
+    <string name="share_link_recent_apps_subheader">בשימוש לאחרונה</string>
+    <string name="share_save_to_pdf">שמירה כ־PDF</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">הוסף רצועות אתחול מותאמות אישית</string>
     <string name="toast_customize_addon_collection_done">אוסף תוספים שונה. יוצא מהאפליקציה כדי להחיל שינויים…</string>
     <string name="shortcut_name_hint">שם קיצור</string>

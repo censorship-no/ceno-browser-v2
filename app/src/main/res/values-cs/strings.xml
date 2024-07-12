@@ -109,4 +109,10 @@
     <string name="bit_torrent_bootstraps_category">BitTorrent samozaváděcí programy (bootstraps)</string>
     <string name="preferences_website_sources_summary">Zvolte odkud chcete načítat obsah webových stránek</string>
     <string name="bridge_mode_category">Upozornění Bridge</string>
+    <string name="browser_menu_share">Sdílet</string>
+    <string name="share_header_2">Sdílet</string>
+    <string name="share_copy_link_to_clipboard">Zkopírovat do schránky</string>
+    <string name="share_link_all_apps_subheader">Všechny akce</string>
+    <string name="share_link_recent_apps_subheader">Naposledy použité</string>
+    <string name="share_save_to_pdf">Uložit jako PDF</string>
 </resources>
