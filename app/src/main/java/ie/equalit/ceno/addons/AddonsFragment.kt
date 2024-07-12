@@ -135,6 +135,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         val dialog = PermissionsDialogFragment.newInstance(
             addon = addon,
+            permissions = emptyList(), // TODO: which permissions?
             onPositiveButtonClicked = onPositiveButtonClicked,
         )
 

@@ -45,7 +45,8 @@
             android:key="@string/pref_key_add_ons"
             android:title="@string/preferences_add_ons"
             android:layout="@layout/ceno_clickable_preference"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false" />
 
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
