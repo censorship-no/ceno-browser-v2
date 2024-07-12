@@ -10,6 +10,7 @@ import mozilla.components.lib.state.Action
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ouinet.Ouinet.RunningState
+import org.json.JSONObject
 
 /** CENO: Ported from Fenix, significantly stripped down
  *  since TopSites is the only currently supported AppState
@@ -26,4 +27,8 @@ sealed class AppAction : Action {
     data class OuinetStatusChange(val status: RunningState) : AppAction()
 
     data class BridgeCardChange(val showCard: Boolean) : AppAction()
+
+    data class SourceCountsChange(
+        val sourceCounts: MutableMap<String, JSONObject?>
+    ) : AppAction()
 }
