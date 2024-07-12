@@ -307,4 +307,12 @@
     <string name="share_link_all_apps_subheader">Wszystkie działania</string>
     <string name="share_link_recent_apps_subheader">Ostatnio używane</string>
     <string name="share_save_to_pdf">Zapisz jako PDF</string>
+    <string name="canceled">Anulowano</string>
+    <string name="download_site_content">Pobierz zawartość strony</string>
+    <string name="dismiss">Odmów</string>
+    <string name="confirm_clear_cached_content">Usuń zawartość pamięci podręcznej?</string>
+    <string name="title_success">Sukces</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="shutdown_message_one">Czyszczenie danych aplikacji</string>
+    <string name="shutdown_message_two">Wyłączanie Ceno</string>
 </resources>

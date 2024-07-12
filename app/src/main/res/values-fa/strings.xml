@@ -4,7 +4,7 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
- <resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
     <string name="menu_action_add_tab">زبانه جدید</string>
     <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
@@ -310,4 +310,19 @@
     <string name="share_link_all_apps_subheader">همه عمل‌ها</string>
     <string name="share_link_recent_apps_subheader">به تازگی استفاده شده</string>
     <string name="share_save_to_pdf">ذخیره به صورت PDF</string>
+    <string name="shutdown_message_one">پاک کردن داده‌های اپ</string>
+    <string name="shutdown_message_two">خاموش کردن سنو</string>
+    <string name="title_success">موفقیت‌آمیز</string>
+    <string name="dialog_btn_positive_ok">خب</string>
+    <string name="ceno_log_content_group_file_saved">محتوای به اشتراک گذاشته شده با موفقیت ذخیره شد</string>
+    <string name="ceno_android_content_group_file_name">محتوای به اشتراک گذاشته شده</string>
+    <string name="canceled">لغو شد</string>
+    <string name="download_site_content">دانلود محتوای سایت</string>
+    <string name="no_content_shared">در حال حاضر محتوایی به اشتراک نگذاشته‌اید</string>
+    <string name="dismiss">رد کردن</string>
+    <string name="confirm_groups_file_download">گرفتن خروجی از لیست محتوای به اشتراک گذاشته شده؟</string>
+    <string name="confirm_groups_file_download_desc">یک فایل متنی در فضای محلی شما ذخیره می‌شود</string>
+    <string name="confirm_clear_cached_content">پاک کردن محتوا کش؟</string>
+    <string name="confirm_clear_cached_content_desc">محتوای کش شما بلافاصله حذف می‌شود</string>
+    <string name="thank_you_bridge_mode_enabled">ممنون که تبدیل به یک پل شدید و به رشد شبکه سنو کمک کردید!</string>
 </resources>
