@@ -305,4 +305,35 @@
     <string name="share_link_all_apps_subheader">Todas as ações</string>
     <string name="share_link_recent_apps_subheader">Recentemente utilizadas</string>
     <string name="share_save_to_pdf">Guardar como PDF</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; conteúdo compartilhado</string>
+    <string name="ceno_log_content_group_file_saved">Conteúdo compartilhado salvo com sucesso</string>
+    <string name="download_site_content">Baixe o conteúdo do site</string>
+    <string name="no_content_shared">Atualmente, você não está compartilhando nenhum conteúdo</string>
+    <string name="dismiss">Liberar</string>
+    <string name="shutdown_message_two">Shutting down Ceno</string>
+    <string name="thank_you_bridge_mode_enabled">Obrigado por se tornar uma ponte e fazer crescer a rede Ceno!</string>
+    <string name="confirm_clear_cached_content">Limpar conteúdo em cache?</string>
+    <string name="confirm_clear_cached_content_desc">Seu conteúdo em cache será removido imediatamente</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="many">%d sites</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
+    <string name="browser_menu_enable_reader_view">Mostrar visualização do leitor</string>
+    <string name="error_page_learn_more_1">Você está executando uma versão recente do Ceno Browser. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Verifique a <a href="#">página de download</a> para saber onde obter novas versões.</string>
+    <string name="error_page_learn_more_2">Todos os mecanismos de acesso nas Configurações estão habilitados. Caso contrário, o Ceno não conseguirá contornar alguns problemas de conectividade ao acessar o conteúdo.</string>
+    <string name="error_page_learn_more_3">Seu dispositivo tem uma conexão ativa com a rede, ou seja, seu navegador normal é capaz de abrir alguns sites. Ceno e Ouinet não funcionam quando toda a conectividade de rede é desligada.</string>
+    <string name="content_description_close_button">Fechar</string>
+    <string name="shutdown_message_one">Limpando dados do aplicativo</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="title_success">Sucesso</string>
+    <string name="canceled">Cancelado</string>
+    <string name="confirm_groups_file_download">Exportar lista de conteúdo compartilhado?</string>
+    <string name="confirm_groups_file_download_desc">Um arquivo txt será salvo em seu armazenamento local.</string>
+    <string name="browser_menu_disable_reader_view">Ocultar visualização do leitor</string>
+    <string name="error_page_title">Página de erro</string>
+    <string name="error_page_header">Ops! Falha ao carregar a página da web.</string>
+    <string name="error_page_sub_header">Isso significa que Ceno tentou todos os mecanismos disponíveis para acessar o conteúdo, mas nenhum deles teve sucesso:</string>
+    <string name="error_page_learn_more">Saber mais</string>
+    <string name="error_page_learn_more_header">Você deve certificar-se de que os seguintes requisitos sejam atendidos para que o Ceno funcione</string>
 </resources>
