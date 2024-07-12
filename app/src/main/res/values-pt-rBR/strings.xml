@@ -320,4 +320,20 @@
     <string name="share_link_all_apps_subheader">Todas as ações</string>
     <string name="share_link_recent_apps_subheader">Usado recentemente</string>
     <string name="share_save_to_pdf">Salvar como PDF</string>
+    <string name="browser_menu_enable_reader_view">Mostrar visualização do leitor</string>
+    <string name="browser_menu_disable_reader_view">Ocultar visualização do leitor</string>
+    <string name="error_page_header">Ops! Falha ao carregar a página da web.</string>
+    <string name="error_page_learn_more_1">Você está executando uma versão recente do Navegador Ceno. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Verifique a <a href="#">página de download</a> para saber onde obter novas versões.</string>
+    <string name="error_page_learn_more_2">Todos os mecanismos de acesso nas Configurações estão habilitados. Caso contrário, o Ceno não conseguirá evitar alguns problemas de conectividade ao acessar o conteúdo.</string>
+    <string name="content_description_close_button">Fechar</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="many">%d sites</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
+    <string name="error_page_title">Alguma coisa deu errado</string>
+    <string name="error_page_sub_header">Isso significa que o Ceno tentou todos os mecanismos disponíveis para acessar o conteúdo, mas nenhum deles foi bem-sucedido:</string>
+    <string name="error_page_learn_more">Saiba mais</string>
+    <string name="error_page_learn_more_header">Você deve certificar-se de que os seguintes requisitos sejam atendidos para que o Ceno funcione</string>
+    <string name="error_page_learn_more_3">Seu dispositivo tem uma conexão ativa com a rede, ou seja, seu navegador normal é capaz de abrir alguns sites. Ceno e Ouimet não podem funcionar quando toda a conectividade de rede está desligada.</string>
 </resources>
