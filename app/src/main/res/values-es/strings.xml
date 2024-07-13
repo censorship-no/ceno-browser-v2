@@ -327,4 +327,20 @@
     <string name="share_link_all_apps_subheader">Todas las acciones</string>
     <string name="share_link_recent_apps_subheader">Usado recientemente</string>
     <string name="share_save_to_pdf">Guardar como PDF</string>
+    <string name="content_description_close_button">Cerrar</string>
+    <string name="browser_menu_disable_reader_view">Ocultar la vista del lector</string>
+    <string name="error_page_header">¡Ups! No se ha podido cargar la página web.</string>
+    <string name="error_page_learn_more">Más información</string>
+    <string name="error_page_learn_more_header">Debes asegurarte de que se cumplen los siguientes requisitos para que Ceno funcione</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d lugar</item>
+        <item quantity="many">%d lugares</item>
+        <item quantity="other">%d lugares</item>
+    </plurals>
+    <string name="error_page_title">Página de error</string>
+    <string name="browser_menu_enable_reader_view">Mostrar la vista del lector</string>
+    <string name="error_page_sub_header">Esto significa que Ceno intentó todos los mecanismos disponibles para acceder al contenido, pero ninguno de ellos tuvo éxito:</string>
+    <string name="error_page_learn_more_1">Estás ejecutando una versión reciente del Navegador Ceno. Es posible que las versiones obsoletas no puedan comunicarse con inyectores más nuevos u otros clientes. Revisa la página de <a href="#">descargas</a> para saber dónde obtener nuevas versiones.</string>
+    <string name="error_page_learn_more_2">Todos los mecanismos de acceso de los Ajustes están activados. De lo contrario, Ceno no podrá sortear algunos problemas de conectividad al acceder a los contenidos.</string>
+    <string name="error_page_learn_more_3">Tu dispositivo tiene una conexión a la red, es decir, su navegador Web normal es capaz de abrir algunas páginas web. Ceno y Ouinet no pueden funcionar cuando toda la conectividad a la red está desconectada.</string>
 </resources>
