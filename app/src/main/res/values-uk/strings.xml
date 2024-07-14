@@ -312,4 +312,5 @@
     <string name="share_link_all_apps_subheader">Усі дії</string>
     <string name="share_link_recent_apps_subheader">Недавно використані</string>
     <string name="share_save_to_pdf">Зберегти як PDF</string>
+    <string name="shutdown_message_one">Видалення даних застосунку</string>
 </resources>
