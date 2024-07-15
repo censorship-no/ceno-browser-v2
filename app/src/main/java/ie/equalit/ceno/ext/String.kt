@@ -7,6 +7,7 @@
 package ie.equalit.ceno.ext
 
 import android.util.Patterns
+import mozilla.components.support.ktx.kotlin.sanitizeURL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -98,4 +99,11 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
         e.printStackTrace()
         return false
     }
+}
+
+/**
+ * Helper function to sanitize a URL-formatted string and remove the protocol scheme
+ */
+fun String.withoutScheme(): String {
+    return sanitizeURL().substringAfter("://")
 }

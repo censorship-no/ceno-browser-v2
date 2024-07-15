@@ -70,7 +70,7 @@ class AddonDetailsFragment : Fragment() {
             val ratingView = rootView.findViewById<RatingBar>(R.id.rating_view)
             val userCountView = rootView.findViewById<TextView>(R.id.users_count)
 
-            val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description)
+            val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description_2)
             ratingView.contentDescription = String.format(ratingContentDescription, it.average)
             ratingView.rating = it.average
 
