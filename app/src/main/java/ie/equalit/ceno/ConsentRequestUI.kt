@@ -40,7 +40,6 @@ class ConsentRequestUi(private val activity: BaseActivity) :
             .setView(dialogView)
             .setNegativeButton(R.string.clean_insights_maybe_later) { _, _ -> complete(false) }
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
-                Settings.setCleanInsightsTrackingValue(activity, true)
                 complete(true)
             }
             .create()

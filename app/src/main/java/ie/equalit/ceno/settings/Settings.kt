@@ -215,14 +215,6 @@ object Settings {
             .apply()
     }
 
-    fun setCleanInsightsTrackingValue(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_allow_clean_insights_tracking)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
     fun getLaunchCountWithCleanInsightsEnabled(context: Context) : Int {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt(
             context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking), 0
