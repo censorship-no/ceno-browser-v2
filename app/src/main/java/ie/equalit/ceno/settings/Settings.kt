@@ -239,7 +239,6 @@ object Settings {
             .apply()
     }
 
-
     // duplicate function that uses commit() instead of apply()
     // This is necessary for the purpose of immediately saving crash logs locally when a crash happens
     @SuppressLint("ApplySharedPref")
