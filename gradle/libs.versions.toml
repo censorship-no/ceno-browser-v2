@@ -20,7 +20,7 @@ google_composecompiler = "1.5.11"
 google_material = "1.12.0"
 
 # Gradle
-gradle_android_plugin = "8.5.0"
+gradle_android_plugin = "8.5.1"
 gradle_kotlin_plugin = "1.9.23"
 
 # Kotlin

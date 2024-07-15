@@ -207,20 +207,6 @@ object Settings {
             .apply()
     }
 
-    fun showCleanInsightsPermissionNudge(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_clean_insights_permission), true
-        )
-
-    fun setCleanInsightsPermissionNudgeValue(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_show_clean_insights_permission)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
-    }
-
-
     fun setCrashReportingPermissionValue(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_crash_reporting)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -259,12 +245,6 @@ object Settings {
             .edit()
             .putBoolean(key, value)
             .apply()
-    }
-
-    fun isCleanInsightsTrackingPermissionGranted(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_allow_clean_insights_tracking), false
-        )
     }
 
 

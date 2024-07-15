@@ -72,6 +72,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
+import org.cleaninsights.sdk.Consent
 import org.cleaninsights.sdk.Feature
 import kotlin.system.exitProcess
 
@@ -192,11 +193,10 @@ open class BrowserActivity : BaseActivity() {
         // Check for previous crashes for users that have not enabled crash reporting
         if(Settings.showCrashReportingPermissionNudge(this)) {
             showCrashReportingPermission()
-        } else if(Settings.showCleanInsightsPermissionNudge(this)
-            && !Settings.isCleanInsightsTrackingPermissionGranted(this)
+        } else if(cleanInsights?.state("test") == Consent.State.Unknown
             && navHost.navController.currentDestination?.id == R.id.homeFragment) {
             launchCleanInsightsPermissionDialog()
-        } else if(Settings.isCleanInsightsTrackingPermissionGranted(this)) {
+        } else if(cleanInsights?.state("test") == Consent.State.Granted) {
             Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
             Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
         }
@@ -224,8 +224,6 @@ open class BrowserActivity : BaseActivity() {
                 }
             }
         }
-
-        Settings.setCleanInsightsPermissionNudgeValue(this@BrowserActivity, false)
     }
 
 
@@ -290,7 +288,7 @@ open class BrowserActivity : BaseActivity() {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
-                            if(Settings.isCleanInsightsTrackingPermissionGranted(this@BrowserActivity)) {
+                            if(cleanInsights?.state("test") == Consent.State.Granted) {
                                 CleanInsightTrackerHelper.trackData(
                                     activity = "BrowserActivity",
                                     category = "app-state",

@@ -266,15 +266,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
-        if (AppSettings.isCleanInsightsTrackingPermissionGranted(requireContext())){
-            getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.let{
-                it.isVisible = true
-                it.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
-            }
-        }
-        else {
-            getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.isVisible = false
-        }
+        getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
@@ -515,13 +507,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
             }
-
-//            Re-allow clean insights permission nudge
-//            This should ALWAYS be turned on when this permission state is toggled
-            ie.equalit.ceno.settings.Settings.setCleanInsightsPermissionNudgeValue(
-                requireContext(),
-                true
-            )
             true
         }
     }
