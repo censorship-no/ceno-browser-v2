@@ -313,4 +313,35 @@
     <string name="share_link_recent_apps_subheader">Недавно використані</string>
     <string name="share_save_to_pdf">Зберегти як PDF</string>
     <string name="shutdown_message_one">Видалення даних застосунку</string>
+    <string name="thank_you_bridge_mode_enabled">Дякуємо, що стали мостом і розвиваєте мережу Ceno!</string>
+    <string name="dialog_btn_positive_ok">Добре</string>
+    <string name="shutdown_message_two">Закриття Ceno</string>
+    <string name="title_success">Успішно</string>
+    <string name="ceno_log_content_group_file_saved">Контент спільного доступу збережено успішно</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; cпільного доступу content</string>
+    <string name="dismiss">Проігнорувати</string>
+    <string name="confirm_groups_file_download_desc">Файл у форматі txt буде збережено у вашому локальному сховищі.</string>
+    <string name="download_site_content">Завантажити контент сайту</string>
+    <string name="no_content_shared">Наразі ви не ділитесь жодним контентом</string>
+    <string name="confirm_groups_file_download">Експортувати список спільного контенту?</string>
+    <string name="confirm_clear_cached_content_desc">Ваш кешований контент буде негайно видалений</string>
+    <string name="error_page_title">Cторінка помилок</string>
+    <string name="error_page_header">Ого! Не вдалося завантажити веб-сторінку.</string>
+    <string name="error_page_learn_more_header">Для того, щоб Ceno працював, ви повинні переконатися, що наступні вимоги є виконаними</string>
+    <string name="error_page_learn_more_2">Всі механізми доступу в Налаштуваннях увімкнені. Інакше Ceno не зможе обійти деякі проблеми з підключенням при доступі до контенту.</string>
+    <string name="browser_menu_enable_reader_view">Показати перегляд читача</string>
+    <string name="browser_menu_disable_reader_view">Приховати перегляд читача</string>
+    <string name="preferences_about_geckoview">Вигляд Gecko</string>
+    <string name="canceled">Відмінено</string>
+    <string name="confirm_clear_cached_content">Очистити кешований контент?</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">Один</item>
+        <item quantity="few">Кілька</item>
+        <item quantity="many">Багато</item>
+        <item quantity="other">Багато</item>
+    </plurals>
+    <string name="error_page_sub_header">Це означає, що Ceno спробувала всі доступні механізми доступу до контенту, але жоден з них не був успішним:</string>
+    <string name="error_page_learn_more">Дізнайтесь більше</string>
+    <string name="error_page_learn_more_1">Ви використовуєте останню версію Ceno Browser. Застарілі версії можуть не взаємодіяти з новими інжекторами або іншими клієнтами. Перевірте <a href="#">Сторінку завантажень</a> аби дізнатися, де отримати нові версії.</string>
+    <string name="error_page_learn_more_3">Ваш пристрій має робоче з\'єднання з мережею, тобто звичайний веб-браузер може відкривати деякі веб-сайти. Ceno та Ouinet не можуть працювати, якщо всі підключення до мережі вимкнено.</string>
 </resources>
