@@ -315,4 +315,35 @@
     <string name="share_link_all_apps_subheader">Все действия</string>
     <string name="share_link_recent_apps_subheader">Недавно использованные</string>
     <string name="share_save_to_pdf">Сохранить как PDF</string>
+    <string name="ceno_log_content_group_file_saved">Разданный контент успешно сохранен</string>
+    <string name="canceled">Отменен</string>
+    <string name="download_site_content">Скачать содержимое сайта</string>
+    <string name="confirm_groups_file_download">Экспортировать список разданного контента?</string>
+    <string name="confirm_groups_file_download_desc">На вашем устройстве будет сохранен txt файл</string>
+    <string name="no_content_shared">Сейчас вы не раздаете контент</string>
+    <string name="dismiss">Закрыть</string>
+    <string name="confirm_clear_cached_content">Очистить кэшированный контент?</string>
+    <string name="confirm_clear_cached_content_desc">Ваш кэшированный контент будет немедленно удален</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d сайт</item>
+        <item quantity="few">%d сайтов</item>
+        <item quantity="many">%d сайтов</item>
+        <item quantity="other">%d сайтов</item>
+    </plurals>
+    <string name="browser_menu_enable_reader_view">Показать режим чтения</string>
+    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на <a href="#">Download page</a> чтобы скачать последнюю версию.</string>
+    <string name="error_page_learn_more_2">Все механизмы доступа в Настройках включены. Иначе Ceno не сможет обойти некоторые проблемы связности при попытке доступа к контенту.</string>
+    <string name="error_page_learn_more_3">У вашего устройства рабочее подключение к сети, ваш обычный веб-браузер может открыть некоторые сайты. Ceno и Ouinet не смогут работать если вся сетевая связность отсутствует.</string>
+    <string name="content_description_close_button">Закрыть</string>
+    <string name="shutdown_message_two">Закрыть Ceno</string>
+    <string name="title_success">Успешно</string>
+    <string name="thank_you_bridge_mode_enabled">Спасибо что стали мостом и помогли сделать сеть Ceno больше</string>
+    <string name="shutdown_message_one">Стереть данные приложения</string>
+    <string name="browser_menu_disable_reader_view">Скрыть режим чтения</string>
+    <string name="error_page_learn_more_header">Убедитесь что требования необходимые Ceno для работы выполнены</string>
+    <string name="error_page_title">Страница ошибки</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; разданный контент</string>
+    <string name="error_page_header">Ой! Не удалось загрузить страницу.</string>
+    <string name="error_page_sub_header">Это значит что Ceno попытался использовать все доступные механизмы чтобы загрузить контент, но ни один не сработал:</string>
+    <string name="error_page_learn_more">Узнать больше</string>
 </resources>
