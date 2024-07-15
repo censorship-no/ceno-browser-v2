@@ -414,6 +414,9 @@
     <string name="clean_insights__locale">Your locale</string>
     <string name="clean_insights_device_type">Your device type</string>
 
+    <string name="clean_insights_successful_opt_in">Enabled background analytics</string>
+    <string name="clean_insights_successful_opt_out">Disabled background analytics</string>
+
     <string name="ouinet_startup_time_header">How long do you feel it took &brandShortName; to startup?</string>
     <string name="ouinet_startup_time_too_long">Too long</string>
     <string name="ouinet_startup_time_quick">Quick</string>

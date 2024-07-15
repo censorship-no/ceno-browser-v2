@@ -494,14 +494,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }
 
                     // every other grant request
-                    (BrowserApplication.cleanInsights?.state("test") == Consent.State.Unknown
-                        && (newValue as Boolean)) -> {
+                    (newValue as Boolean) -> {
                         BrowserApplication.cleanInsights?.grant("test")
+                        Toast.makeText(
+                            context,
+                            getString(clean_insights_successful_opt_in),
+                            Toast.LENGTH_LONG,
+                        ).show()
                     }
 
                     // deny request
                     else -> {
                         BrowserApplication.cleanInsights?.deny("test")
+                        Toast.makeText(
+                            context,
+                            getString(clean_insights_successful_opt_out),
+                            Toast.LENGTH_LONG,
+                        ).show()
                     }
                 }
 
