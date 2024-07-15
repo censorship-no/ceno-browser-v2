@@ -335,10 +335,10 @@
     <string name="canceled">Відмінено</string>
     <string name="confirm_clear_cached_content">Очистити кешований контент?</string>
     <plurals name="preferences_ceno_groups_count_subtitle">
-        <item quantity="one">Один</item>
-        <item quantity="few">Кілька</item>
-        <item quantity="many">Багато</item>
-        <item quantity="other">Багато</item>
+        <item quantity="one">%d cайт</item>
+        <item quantity="few">%d сайтів</item>
+        <item quantity="many">%d сайтів</item>
+        <item quantity="other">%d сайтів</item>
     </plurals>
     <string name="error_page_sub_header">Це означає, що Ceno спробувала всі доступні механізми доступу до контенту, але жоден з них не був успішним:</string>
     <string name="error_page_learn_more">Дізнайтесь більше</string>
