@@ -13,13 +13,14 @@ androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.9.0"
 
 # Android Components
-android_components = "127.0.1"
+android_components = "128.0"
 
 # Google
 google_composecompiler = "1.5.11"
 google_material = "1.12.0"
 
 # Gradle
+#noinspection AndroidGradlePluginVersion
 gradle_android_plugin = "8.5.0"
 gradle_kotlin_plugin = "1.9.23"
 
@@ -73,6 +74,7 @@ mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "brow
 mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
 mozilla-browsertabstray = { group = "org.mozilla.components", name = "browser-tabstray", version.ref = "android_components" }
 mozilla-browsertoolbar = { group = "org.mozilla.components", name = "browser-toolbar", version.ref = "android_components" }
+mozilla-browsertoolbar2 = { group = "org.mozilla.components", name = "browser-toolbar2", version.ref = "android_components" }
 mozilla-browsermenu = { group = "org.mozilla.components", name = "browser-menu", version.ref = "android_components" }
 mozilla-browsermenu2 = { group = "org.mozilla.components", name = "browser-menu2", version.ref = "android_components" }
 mozilla-browserstoragesync = { group = "org.mozilla.components", name = "browser-storage-sync", version.ref = "android_components" }
