@@ -64,8 +64,6 @@ mozilla-conceptmenu = { group = "org.mozilla.components", name = "concept-menu",
 mozilla-concepttabstray = { group = "org.mozilla.components", name = "concept-tabstray", version.ref = "android_components" }
 mozilla-concepttoolbar = { group = "org.mozilla.components", name = "concept-toolbar", version.ref = "android_components" }
 mozilla-conceptstorage = { group = "org.mozilla.components", name = "concept-storage", version.ref = "android_components" }
-mozilla-conceptsync = { group = "org.mozilla.components", name = "concept-sync", version.ref = "android_components" }
-mozilla-conceptpush = { group = "org.mozilla.components", name = "concept-push", version.ref = "android_components" }
 
 mozilla-composeawesomebar = { group = "org.mozilla.components", name = "compose-awesomebar", version.ref = "android_components" }
 
@@ -81,8 +79,6 @@ mozilla-browserstoragesync = { group = "org.mozilla.components", name = "browser
 mozilla-browsericons = { group = "org.mozilla.components", name = "browser-icons", version.ref = "android_components" }
 mozilla-browserthumbnails = { group = "org.mozilla.components", name = "browser-thumbnails", version.ref = "android_components" }
 
-mozilla-featureaccounts = { group = "org.mozilla.components", name = "feature-accounts", version.ref = "android_components" }
-mozilla-featureaccountspush = { group = "org.mozilla.components", name = "feature-accounts-push", version.ref = "android_components" }
 mozilla-featureaddons = { group = "org.mozilla.components", name = "feature-addons", version.ref = "android_components" }
 mozilla-featureapplinks = { group = "org.mozilla.components", name = "feature-app-links", version.ref = "android_components" }
 mozilla-featureautofill = { group = "org.mozilla.components", name = "feature-autofill", version.ref = "android_components" }
@@ -99,11 +95,8 @@ mozilla-featuretoolbar = { group = "ie.equalit.ouinet", name = "feature-toolbar-
 mozilla-featuretabs = { group = "org.mozilla.components", name = "feature-tabs", version.ref = "android_components" }
 mozilla-featuredownloads = { group = "org.mozilla.components", name = "feature-downloads", version.ref = "android_components" }
 mozilla-featureprompts = { group = "org.mozilla.components", name = "feature-prompts", version.ref = "android_components" }
-mozilla-featurepush = { group = "org.mozilla.components", name = "feature-push", version.ref = "android_components" }
 mozilla-featurepwa = { group = "org.mozilla.components", name = "feature-pwa", version.ref = "android_components" }
-mozilla-featureqr = { group = "org.mozilla.components", name = "feature-qr", version.ref = "android_components" }
 mozilla-featurereaderview = { group = "org.mozilla.components", name = "feature-readerview", version.ref = "android_components" }
-mozilla-featuresyncedtabs = { group = "org.mozilla.components", name = "feature-syncedtabs", version.ref = "android_components" }
 mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
 mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
 mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
@@ -114,18 +107,15 @@ mozilla-uicolors = { group = "org.mozilla.components", name = "ui-colors", versi
 mozilla-uiicons = { group = "org.mozilla.components", name = "ui-icons", version.ref = "android_components" }
 mozilla-uitabcounter = { group = "org.mozilla.components", name = "ui-tabcounter", version.ref = "android_components" }
 
-mozilla-servicefirefoxaccounts = { group = "org.mozilla.components", name = "service-firefox-accounts", version.ref = "android_components" }
 mozilla-servicelocation = { group = "org.mozilla.components", name = "service-location", version.ref = "android_components" }
 mozilla-servicesynclogins = { group = "org.mozilla.components", name = "service-sync-logins", version.ref = "android_components" }
 
-mozilla-supportimages = { group = "org.mozilla.components", name = "support-images", version.ref = "android_components" }
 mozilla-supportutils = { group = "org.mozilla.components", name = "support-utils", version.ref = "android_components" }
 mozilla-supportktx = { group = "org.mozilla.components", name = "support-ktx", version.ref = "android_components" }
 mozilla-supportrustlog = { group = "org.mozilla.components", name = "support-rustlog", version.ref = "android_components" }
 mozilla-supportrusthttp = { group = "org.mozilla.components", name = "support-rusthttp", version.ref = "android_components" }
 mozilla-supportwebextensions = { group = "org.mozilla.components", name = "support-webextensions", version.ref = "android_components" }
 
-mozilla-libdataprotect = { group = "org.mozilla.components", name = "lib-dataprotect", version.ref = "android_components" }
 mozilla-libpublicsuffixlist = { group = "org.mozilla.components", name = "lib-publicsuffixlist", version.ref = "android_components" }
 
 
