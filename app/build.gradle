@@ -438,8 +438,8 @@ dependencies {
 
     implementation libs.google.material
 
-    implementation Deps.thirdparty_clean_insight
-    implementation Deps.thirdparty_matomo
+    implementation libs.thirdparty.cleaninsights
+    implementation libs.thirdparty.matomo
 
 
     /* CENO: Begin implement additional dependencies */
