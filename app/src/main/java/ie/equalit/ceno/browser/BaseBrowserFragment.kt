@@ -4,27 +4,27 @@
 
 package ie.equalit.ceno.browser
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Gravity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
@@ -40,7 +40,6 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.createSegment
 import ie.equalit.ceno.ext.disableDynamicBehavior
-import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.pip.PictureInPictureIntegration
@@ -48,11 +47,11 @@ import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ouinet.Ouinet
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.Dispatchers
-import ie.equalit.ouinet.Ouinet
-import kotlinx.coroutines.flow.mapNotNull
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.store.BrowserStore
@@ -68,6 +67,7 @@ import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.findinpage.view.FindInPageView
 import mozilla.components.feature.prompts.PromptFeature
+import mozilla.components.feature.readerview.view.ReaderViewControlsBar
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
@@ -84,10 +84,10 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
+import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -118,12 +118,19 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private lateinit var runnable: Runnable
     private var handler = Handler(Looper.getMainLooper())
 
+    private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
+
+    private val readerViewBar: ReaderViewControlsBar
+        get() = requireView().findViewById(R.id.readerViewBar)
+    private val readerViewAppearanceButton: FloatingActionButton
+        get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
     private val backButtonHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
         fullScreenFeature,
         findInPageIntegration,
+        readerViewFeature,
         toolbarIntegration,
-        sessionFeature,
+        sessionFeature
     )
 
     private val activityResultHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
@@ -174,12 +181,29 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = SessionFeature(
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases.goBack,
+                requireComponents.useCases.sessionUseCases.goForward,
                 binding.engineView,
                 sessionId
             ),
             owner = this,
             view = view,
         )
+
+        val readerViewIntegration = ReaderViewIntegration(
+            requireContext(),
+            requireComponents.core.engine,
+            requireComponents.core.store,
+            binding.toolbar,
+            readerViewBar,
+            readerViewAppearanceButton
+        )
+
+        readerViewFeature.set(
+            feature = readerViewIntegration,
+            owner = this,
+            view = view
+        )
+
 
         /* CENO: Add onTabUrlChanged listener to toolbar, to handle fragment transactions */
         toolbarIntegration.set(
@@ -193,6 +217,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
+                readerViewIntegration
             ),
             owner = this,
             view = view,

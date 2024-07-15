@@ -1,0 +1,177 @@
+[versions]
+
+# AndroidX
+androidx_activity_compose = "1.9.0"
+androidx_appcompat = "1.7.0"
+androidx_compose = "1.6.8"
+androidx_constraintlayout = "2.1.4"
+androidx_core = "1.13.1"
+androidx_lifecycle = "2.8.2"
+androidx_navigation = "2.7.7"
+androidx_preference = "1.2.1"
+androidx_swiperefreshlayout = "1.1.0"
+androidx_work = "2.9.0"
+
+# Android Components
+android_components = "127.0.1"
+
+# Google
+google_composecompiler = "1.5.11"
+google_material = "1.12.0"
+
+# Gradle
+gradle_android_plugin = "8.5.0"
+gradle_kotlin_plugin = "1.9.23"
+
+# Kotlin
+kotlin_coroutines = "1.8.0"
+kotlin_serialization = "1.6.3"
+
+# Testing
+testing_androidx_core = "1.5.0"
+testing_androidx_espresso = "3.5.1"
+testing_androidx_ext_junit = "1.1.5"
+testing_androidx_orchestrator = "1.4.2"
+testing_androidx_runner = "1.5.2"
+testing_androidx_uiautomator = "2.3.0"
+testing_jacoco = "0.8.10"
+testing_mockwebserver = "4.10.0"
+
+# Third Party
+sentry = "7.3.0"
+gson = "2.10.1"
+
+# CENO: Versions for additional dependencies */
+ouinet_version = "0.25.1"
+relinker_version = "1.4.4"
+snakeyaml_version = "2.2"
+
+ktlint_version = "0.49.1"
+detekt = "1.23.6"
+jvm = "1.9.23"
+serialization = "1.9.23"
+
+
+[libraries]
+
+# Kotlin
+
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin_coroutines" }
+kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin_serialization" }
+mozilla-conceptawesomebar = { group = "org.mozilla.components", name = "concept-awesomebar", version.ref = "android_components" }
+mozilla-conceptengine = { group = "org.mozilla.components", name = "concept-engine", version.ref = "android_components" }
+mozilla-conceptmenu = { group = "org.mozilla.components", name = "concept-menu", version.ref = "android_components" }
+mozilla-concepttabstray = { group = "org.mozilla.components", name = "concept-tabstray", version.ref = "android_components" }
+mozilla-concepttoolbar = { group = "org.mozilla.components", name = "concept-toolbar", version.ref = "android_components" }
+mozilla-conceptstorage = { group = "org.mozilla.components", name = "concept-storage", version.ref = "android_components" }
+mozilla-conceptsync = { group = "org.mozilla.components", name = "concept-sync", version.ref = "android_components" }
+mozilla-conceptpush = { group = "org.mozilla.components", name = "concept-push", version.ref = "android_components" }
+
+mozilla-composeawesomebar = { group = "org.mozilla.components", name = "compose-awesomebar", version.ref = "android_components" }
+
+mozilla-browserenginegecko = { group = "ie.equalit.ouinet", name = "browser-engine-gecko-ceno", version.ref = "android_components" }
+mozilla-browserdomains = { group = "org.mozilla.components", name = "browser-domains", version.ref = "android_components" }
+mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "browser-session-storage", version.ref = "android_components" }
+mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
+mozilla-browsertabstray = { group = "org.mozilla.components", name = "browser-tabstray", version.ref = "android_components" }
+mozilla-browsertoolbar = { group = "org.mozilla.components", name = "browser-toolbar", version.ref = "android_components" }
+mozilla-browsermenu = { group = "org.mozilla.components", name = "browser-menu", version.ref = "android_components" }
+mozilla-browsermenu2 = { group = "org.mozilla.components", name = "browser-menu2", version.ref = "android_components" }
+mozilla-browserstoragesync = { group = "org.mozilla.components", name = "browser-storage-sync", version.ref = "android_components" }
+mozilla-browsericons = { group = "org.mozilla.components", name = "browser-icons", version.ref = "android_components" }
+mozilla-browserthumbnails = { group = "org.mozilla.components", name = "browser-thumbnails", version.ref = "android_components" }
+
+mozilla-featureaccounts = { group = "org.mozilla.components", name = "feature-accounts", version.ref = "android_components" }
+mozilla-featureaccountspush = { group = "org.mozilla.components", name = "feature-accounts-push", version.ref = "android_components" }
+mozilla-featureaddons = { group = "org.mozilla.components", name = "feature-addons", version.ref = "android_components" }
+mozilla-featureapplinks = { group = "org.mozilla.components", name = "feature-app-links", version.ref = "android_components" }
+mozilla-featureautofill = { group = "org.mozilla.components", name = "feature-autofill", version.ref = "android_components" }
+mozilla-featureawesomebar = { group = "org.mozilla.components", name = "feature-awesomebar", version.ref = "android_components" }
+mozilla-featurecontextmenu = { group = "org.mozilla.components", name = "feature-contextmenu", version.ref = "android_components" }
+mozilla-featurecustomtabs = { group = "org.mozilla.components", name = "feature-customtabs", version.ref = "android_components" }
+mozilla-featurefindinpage = { group = "org.mozilla.components", name = "feature-findinpage", version.ref = "android_components" }
+mozilla-featuremedia = { group = "org.mozilla.components", name = "feature-media", version.ref = "android_components" }
+mozilla-featuresitepermissions = { group = "org.mozilla.components", name = "feature-sitepermissions", version.ref = "android_components" }
+mozilla-featureintent = { group = "org.mozilla.components", name = "feature-intent", version.ref = "android_components" }
+mozilla-featuresearch = { group = "org.mozilla.components", name = "feature-search", version.ref = "android_components" }
+mozilla-featuresession = { group = "org.mozilla.components", name = "feature-session", version.ref = "android_components" }
+mozilla-featuretoolbar = { group = "ie.equalit.ouinet", name = "feature-toolbar-ceno", version.ref = "android_components" }
+mozilla-featuretabs = { group = "org.mozilla.components", name = "feature-tabs", version.ref = "android_components" }
+mozilla-featuredownloads = { group = "org.mozilla.components", name = "feature-downloads", version.ref = "android_components" }
+mozilla-featureprompts = { group = "org.mozilla.components", name = "feature-prompts", version.ref = "android_components" }
+mozilla-featurepush = { group = "org.mozilla.components", name = "feature-push", version.ref = "android_components" }
+mozilla-featurepwa = { group = "org.mozilla.components", name = "feature-pwa", version.ref = "android_components" }
+mozilla-featureqr = { group = "org.mozilla.components", name = "feature-qr", version.ref = "android_components" }
+mozilla-featurereaderview = { group = "org.mozilla.components", name = "feature-readerview", version.ref = "android_components" }
+mozilla-featuresyncedtabs = { group = "org.mozilla.components", name = "feature-syncedtabs", version.ref = "android_components" }
+mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
+mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
+mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
+mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components"}
+
+mozilla-uiautocomplete = { group = "org.mozilla.components", name = "ui-autocomplete", version.ref = "android_components" }
+mozilla-uicolors = { group = "org.mozilla.components", name = "ui-colors", version.ref = "android_components" }
+mozilla-uiicons = { group = "org.mozilla.components", name = "ui-icons", version.ref = "android_components" }
+mozilla-uitabcounter = { group = "org.mozilla.components", name = "ui-tabcounter", version.ref = "android_components" }
+
+mozilla-servicefirefoxaccounts = { group = "org.mozilla.components", name = "service-firefox-accounts", version.ref = "android_components" }
+mozilla-servicelocation = { group = "org.mozilla.components", name = "service-location", version.ref = "android_components" }
+mozilla-servicesynclogins = { group = "org.mozilla.components", name = "service-sync-logins", version.ref = "android_components" }
+
+mozilla-supportimages = { group = "org.mozilla.components", name = "support-images", version.ref = "android_components" }
+mozilla-supportutils = { group = "org.mozilla.components", name = "support-utils", version.ref = "android_components" }
+mozilla-supportktx = { group = "org.mozilla.components", name = "support-ktx", version.ref = "android_components" }
+mozilla-supportrustlog = { group = "org.mozilla.components", name = "support-rustlog", version.ref = "android_components" }
+mozilla-supportrusthttp = { group = "org.mozilla.components", name = "support-rusthttp", version.ref = "android_components" }
+mozilla-supportwebextensions = { group = "org.mozilla.components", name = "support-webextensions", version.ref = "android_components" }
+
+mozilla-libdataprotect = { group = "org.mozilla.components", name = "lib-dataprotect", version.ref = "android_components" }
+mozilla-libpublicsuffixlist = { group = "org.mozilla.components", name = "lib-publicsuffixlist", version.ref = "android_components" }
+
+
+thirdparty_sentry = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
+thirdparty_gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx_appcompat" }
+androidx-corektx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx_core" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx_constraintlayout" }
+androidx-lifecycleprocess = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidx_lifecycle" }
+androidx-preferencektx = { group = "androidx.preference", name = "preference-ktx", version.ref = "androidx_preference" }
+androidx-workruntimektx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx_work" }
+androidx-composeui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidx_compose" }
+androidx-composeuitooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidx_compose" }
+androidx-composefoundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidx_compose" }
+androidx-composematerial = { group = "androidx.compose.material", name = "material", version.ref = "androidx_compose" }
+androidx-activitycompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx_activity_compose" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidx_swiperefreshlayout" }
+androidx-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "androidx_navigation" }
+androidx-navigationfragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx_navigation" }
+androidx-navigationui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "androidx_navigation" }
+
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google_material" }
+
+tools-androidgradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle_android_plugin" }
+tools-kotlingradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "gradle_kotlin_plugin" }
+
+espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "testing_androidx_espresso" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "testing_androidx_espresso" }
+espresso-idlingresources = { group = "androidx.test.espresso", name = "espresso-idling-resource", version.ref = "testing_androidx_espresso" }
+espresso-web = { group = "androidx.test.espresso", name = "espresso-web", version.ref = "testing_androidx_espresso" }
+mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "testing_mockwebserver" }
+orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "testing_androidx_orchestrator" }
+tools-testrules = { group = "androidx.test", name = "rules", version.ref = "testing_androidx_core" }
+tools-testrunner = { group = "androidx.test", name = "runner", version.ref = "testing_androidx_runner" }
+uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "testing_androidx_uiautomator" }
+junit_ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "testing_androidx_ext_junit" }
+
+# CENO: Additional dependencies required */
+mozilla-featuretopsites = { group = "org.mozilla.components", name = "feature-top-sites", version.ref = "android_components" }
+mozilla-uiwidgets = { group = "org.mozilla.components", name = "ui-widgets", version.ref = "android_components" }
+ouinet-omni = { group = "ie.equalit.ouinet", name = "ouinet-omni", version.ref = "ouinet_version" }
+relinker = { group = "com.getkeepsafe.relinker", name = "relinker", version.ref = "relinker_version" }
+snakeyaml = { group = "org.yaml", name = "snakeyaml", version.ref = "snakeyaml_version" }
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jvm" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }

@@ -81,7 +81,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.google_compose_compiler
+        kotlinCompilerExtensionVersion = libs.versions.google.composecompiler.get()
     }
 
     buildTypes {
@@ -123,7 +123,7 @@ android {
     }
 
     lint {
-        disable 'IconDuplicates', 'MissingTranslation', 'UnusedQuantity'
+        disable 'IconDuplicates', 'MissingTranslation', 'UnusedQuantity', 'GradleDependency'
         lintConfig file("lint.xml")
         baseline file("lint-baseline.xml")
     }
@@ -168,6 +168,26 @@ tasks.whenTaskAdded { task ->
 
 def baseBuildDate = generatedBuildDate
 def apkDate = generatedApkDate
+def appId = android.defaultConfig.applicationId.tokenize('.')
+
+// -------------------------------------------------------------------------------------------------
+// Copy and rename AAB - adapted from https://stackoverflow.com/a/54010142
+// -------------------------------------------------------------------------------------------------
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("bundle")) {
+        def renameTaskName = "rename${task.name.capitalize()}"
+        def variantName = task.name.substring("bundle".length()).uncapitalize()
+        def versionName = android.defaultConfig.versionName
+        tasks.register(renameTaskName, Copy) {
+            def path = "${buildDir}/outputs/bundle/${variantName}/"
+            from(path)
+            include "app-${variantName}.aab"
+            destinationDir file("$project.rootDir/output/${variantName}/")
+            rename "app-${variantName}.aab", "${appId[2]}-${variantName}-${versionName}-${apkDate}.aab"
+        }
+        task.finalizedBy renameTaskName
+    }
+}
 
 android.applicationVariants.all { variant ->
 
@@ -295,7 +315,6 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // Set the name of the output apks and copy to project directory
 // -------------------------------------------------------------------------------------------------
     variant.outputs.all { output ->
-        def appId = applicationId.tokenize('.')
         def abi = output.getFilter(OutputFile.ABI)
         def version = output.versionNameOverride
         outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
@@ -325,125 +344,125 @@ project.configurations.all {
 }
 
 dependencies {
-    implementation Deps.mozilla_concept_awesomebar
-    implementation Deps.mozilla_concept_engine
-    implementation Deps.mozilla_concept_menu
-    implementation Deps.mozilla_concept_tabstray
-    implementation Deps.mozilla_concept_toolbar
-    implementation Deps.mozilla_concept_storage
-    implementation Deps.mozilla_concept_sync
-    implementation Deps.mozilla_concept_push
+    implementation libs.mozilla.conceptawesomebar
+    implementation libs.mozilla.conceptengine
+    implementation libs.mozilla.conceptmenu
+    implementation libs.mozilla.concepttabstray
+    implementation libs.mozilla.concepttoolbar
+    implementation libs.mozilla.conceptstorage
+    implementation libs.mozilla.conceptsync
+    implementation libs.mozilla.conceptpush
 
-    implementation Deps.mozilla_compose_awesomebar
+    implementation libs.mozilla.composeawesomebar
 
-    implementation Deps.mozilla_browser_engine_gecko
+    implementation libs.mozilla.browserenginegecko
+    implementation libs.mozilla.browserdomains
+    implementation libs.mozilla.browsertabstray
+    implementation libs.mozilla.browsertoolbar
+    implementation libs.mozilla.browsermenu
+    implementation libs.mozilla.browsermenu2
+    implementation libs.mozilla.browsersessionstorage
+    implementation libs.mozilla.browserstate
+    implementation libs.mozilla.browserstoragesync
+    implementation libs.mozilla.browsericons
+    implementation libs.mozilla.browserthumbnails
 
-    implementation Deps.mozilla_browser_domains
-    implementation Deps.mozilla_browser_tabstray
-    implementation Deps.mozilla_browser_toolbar
-    implementation Deps.mozilla_browser_menu
-    implementation Deps.mozilla_browser_menu2
-    implementation Deps.mozilla_browser_session_storage
-    implementation Deps.mozilla_browser_state
-    implementation Deps.mozilla_browser_storage_sync
-    implementation Deps.mozilla_browser_icons
-    implementation Deps.mozilla_browser_thumbnails
+    implementation libs.mozilla.featureaccounts
+    implementation libs.mozilla.featureaccountspush
+    implementation libs.mozilla.featureaddons
+    implementation libs.mozilla.featureapplinks
+    implementation libs.mozilla.featureawesomebar
+    implementation libs.mozilla.featureautofill
+    implementation libs.mozilla.featurecontextmenu
+    implementation libs.mozilla.featurecustomtabs
+    implementation libs.mozilla.featurefindinpage
+    implementation libs.mozilla.featuremedia
+    implementation libs.mozilla.featuresitepermissions
+    implementation libs.mozilla.featureintent
+    implementation libs.mozilla.featuresearch
+    implementation libs.mozilla.featuresession
+    implementation libs.mozilla.featuretoolbar
+    implementation libs.mozilla.featuretabs
+    implementation libs.mozilla.featuredownloads
+    implementation libs.mozilla.featureprompts
+    implementation libs.mozilla.featurepush
+    implementation libs.mozilla.featurepwa
+    implementation libs.mozilla.featureqr
+    implementation libs.mozilla.featurereaderview
+    implementation libs.mozilla.featuresyncedtabs
+    implementation libs.mozilla.featurewebauthn
+    implementation libs.mozilla.featurewebcompat
+    implementation libs.mozilla.featurewebnotifications
+    implementation libs.mozilla.featureshare
 
-    implementation Deps.mozilla_feature_accounts
-    implementation Deps.mozilla_feature_accounts_push
-    implementation Deps.mozilla_feature_addons
-    implementation Deps.mozilla_feature_app_links
-    implementation Deps.mozilla_feature_awesomebar
-    implementation Deps.mozilla_feature_autofill
-    implementation Deps.mozilla_feature_contextmenu
-    implementation Deps.mozilla_feature_customtabs
-    implementation Deps.mozilla_feature_findinpage
-    implementation Deps.mozilla_feature_media
-    implementation Deps.mozilla_feature_sitepermissions
-    implementation Deps.mozilla_feature_intent
-    implementation Deps.mozilla_feature_search
-    implementation Deps.mozilla_feature_session
-    implementation Deps.mozilla_feature_toolbar
-    implementation Deps.mozilla_feature_tabs
-    implementation Deps.mozilla_feature_downloads
-    implementation Deps.mozilla_feature_prompts
-    implementation Deps.mozilla_feature_push
-    implementation Deps.mozilla_feature_pwa
-    implementation Deps.mozilla_feature_qr
-    implementation Deps.mozilla_feature_readerview
-    implementation Deps.mozilla_feature_syncedtabs
-    implementation Deps.mozilla_feature_webauthn
-    implementation Deps.mozilla_feature_webcompat
-    implementation Deps.mozilla_feature_webnotifications
+    implementation libs.mozilla.uiautocomplete
+    implementation libs.mozilla.uicolors
+    implementation libs.mozilla.uiicons
+    implementation libs.mozilla.uitabcounter
 
-    implementation Deps.mozilla_ui_autocomplete
-    implementation Deps.mozilla_ui_colors
-    implementation Deps.mozilla_ui_icons
-    implementation Deps.mozilla_ui_tabcounter
+    implementation libs.mozilla.servicefirefoxaccounts
+    implementation libs.mozilla.servicelocation
+    implementation libs.mozilla.servicesynclogins
 
-    implementation Deps.mozilla_service_firefox_accounts
-    implementation Deps.mozilla_service_location
-    implementation Deps.mozilla_service_sync_logins
+    implementation libs.mozilla.supportimages
+    implementation libs.mozilla.supportutils
+    implementation libs.mozilla.supportktx
+    implementation libs.mozilla.supportrustlog
+    implementation libs.mozilla.supportrusthttp
+    implementation libs.mozilla.supportwebextensions
 
-    implementation Deps.mozilla_support_images
-    implementation Deps.mozilla_support_utils
-    implementation Deps.mozilla_support_ktx
-    implementation Deps.mozilla_support_rustlog
-    implementation Deps.mozilla_support_rusthttp
-    implementation Deps.mozilla_support_webextensions
+    implementation libs.mozilla.libpublicsuffixlist
+    implementation libs.mozilla.libdataprotect
 
-    implementation Deps.mozilla_lib_publicsuffixlist
-    implementation Deps.mozilla_lib_dataprotect
+    implementation libs.thirdparty.sentry
+    implementation libs.thirdparty.gson
 
-    implementation Deps.thirdparty_sentry
-    implementation Deps.thirdparty_gson
+    implementation libs.kotlin.coroutines
+    implementation libs.kotlin.serialization
 
-    implementation Deps.kotlin_coroutines
-    implementation Deps.kotlin_serialization
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.corektx
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.lifecycleprocess
+    implementation libs.androidx.preferencektx
+    implementation libs.androidx.swiperefreshlayout
+    implementation libs.androidx.workruntimektx
 
-    implementation Deps.androidx_appcompat
-    implementation Deps.androidx_core_ktx
-    implementation Deps.androidx_constraintlayout
-    implementation Deps.androidx_lifecycle_process
-    implementation Deps.androidx_preference_ktx
-    implementation Deps.androidx_swiperefreshlayout
-    implementation Deps.androidx_work_runtime_ktx
+    implementation libs.androidx.activitycompose
+    implementation libs.androidx.composeui
+    implementation libs.androidx.composeuitooling
+    implementation libs.androidx.composefoundation
+    implementation libs.androidx.composematerial
+    implementation libs.androidx.navigationfragment
+    implementation libs.androidx.navigationui
 
-    implementation Deps.androidx_activity_compose
-    implementation Deps.androidx_compose_ui
-    implementation Deps.androidx_compose_ui_tooling
-    implementation Deps.androidx_compose_foundation
-    implementation Deps.androidx_compose_material
-    implementation Deps.androidx_navigation_fragment
-    implementation Deps.androidx_navigation_ui
-
-    implementation Deps.google_material
+    implementation libs.google.material
 
     implementation Deps.thirdparty_clean_insight
     implementation Deps.thirdparty_matomo
 
 
     /* CENO: Begin implement additional dependencies */
-    implementation Deps.mozilla_feature_top_sites
-    implementation Deps.mozilla_ui_widgets
+    implementation libs.mozilla.featuretopsites
+    implementation libs.mozilla.uiwidgets
 
     if (gradle.hasProperty('localProperties.dependencySubstitutions.ouinetLocalLib')) {
         project.logger.lifecycle('Subtituting local AAR for Ouinet dependency')
         implementation(files(gradle."localProperties.dependencySubstitutions.ouinetLocalLib"))
     } else {
-        implementation Deps.ouinet_omni
+        implementation libs.ouinet.omni
     }
-    implementation Deps.relinker
+    implementation libs.relinker
     /* CENO: End implement additional dependencies */
 
-    androidTestImplementation Deps.uiautomator
-    androidTestImplementation Deps.junit_ktx
+    androidTestImplementation libs.uiautomator
+    androidTestImplementation libs.junit.ktx
 
-    androidTestImplementation Deps.espresso_core, {
+    androidTestImplementation libs.espresso.core, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
-    androidTestImplementation(Deps.espresso_contrib) {
+    androidTestImplementation(libs.espresso.contrib) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-v4'
         exclude module: 'support-annotations'
@@ -452,16 +471,16 @@ dependencies {
         exclude module: 'espresso-core'
     }
 
-    androidTestImplementation Deps.espresso_idling_resources
-    androidTestImplementation Deps.espresso_web, {
+    androidTestImplementation libs.espresso.idlingresources
+    androidTestImplementation libs.espresso.web, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
-    androidTestImplementation Deps.mockwebserver
-    androidTestImplementation Deps.tools_test_runner
-    androidTestImplementation Deps.tools_test_rules
-    androidTestUtil Deps.orchestrator
-    androidTestImplementation Deps.espresso_core, {
+    androidTestImplementation libs.mockwebserver
+    androidTestImplementation libs.tools.testrunner
+    androidTestImplementation libs.tools.testrules
+    androidTestUtil libs.orchestrator
+    androidTestImplementation libs.espresso.core, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }

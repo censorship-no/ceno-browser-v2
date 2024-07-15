@@ -23,17 +23,12 @@ import ie.equalit.ceno.settings.Settings
  * Fragment used for browsing the web within the main app.
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
-    private val readerViewFeature = ViewBoundFeatureWrapper<ReaderViewIntegration>()
     /* Removing WebExtension toolbar feature, see below for more details
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
      */
 
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
-    private val readerViewBar: ReaderViewControlsBar
-        get() = requireView().findViewById(R.id.readerViewBar)
-    private val readerViewAppearanceButton: FloatingActionButton
-        get() = requireView().findViewById(R.id.readerViewAppearanceButton)
 
     /*
     override val shouldUseComposeUI: Boolean
@@ -61,19 +56,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             toolbar.addNavigationAction(homeAction)
         }
 
-        readerViewFeature.set(
-            feature = ReaderViewIntegration(
-                requireContext(),
-                requireComponents.core.engine,
-                requireComponents.core.store,
-                toolbar,
-                readerViewBar,
-                readerViewAppearanceButton,
-            ),
-            owner = this,
-            view = view,
-        )
-
         /*
          * Remove WebExtension toolbar feature because
          * we don't want the browserAction button in toolbar and
@@ -96,7 +78,4 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private fun onHomeButtonClicked() {
         findNavController().navigate(R.id.action_global_home)
     }
-
-    override fun onBackPressed(): Boolean =
-        readerViewFeature.onBackPressed() || super.onBackPressed()
 }

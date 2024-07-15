@@ -113,6 +113,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
             feature = SessionFeature(
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases.goBack,
+                requireComponents.useCases.sessionUseCases.goForward,
                 binding.engineView,
                 sessionId
             ),

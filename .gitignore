@@ -1,6 +1,7 @@
 # Built application files
 *.apk
 *.ap_
+*.aab
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -76,7 +77,6 @@ google-cloud-sdk/
 _cache
 geckoview
 .build_date
-app_branded
 */lint
 app/src/main/assets/addons/uBlock
 app/src/main/assets/addons/*.zip
