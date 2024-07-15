@@ -59,7 +59,7 @@ class ScreenshotGenerator {
             Screengrab.screenshot("002_fragment_onboarding_info")
             clickContinue()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 waitForContinueButton()
                 Thread.sleep(1000)
                 Screengrab.screenshot("003_fragment_onboarding_battery")
@@ -79,12 +79,14 @@ class ScreenshotGenerator {
                 Thread.sleep(1000)
                 Screengrab.screenshot("006_fragment_home_threedot")
             }.openSettings {
+                // TODO: improve how all the settings are captured
                 Thread.sleep(1000)
                 Screengrab.screenshot("007_preferences_general")
                 clickDownRecyclerView(20)
                 Thread.sleep(1000)
                 Screengrab.screenshot("008_preferences_data")
                 clickDownRecyclerView(4)
+                Thread.sleep(1000)
                 Screengrab.screenshot("009_preferences_developertools")
             }.goBack {
             }.openThreeDotMenu {
@@ -109,19 +111,37 @@ class ScreenshotGenerator {
                 Screengrab.screenshot("014_customization_preferences_defaultbehavior")
                 clickCancelDialog()
             }.goBack {
+            }.goBack {
+            }.openThreeDotMenu {
+            }.openSettings {
+                clickDownRecyclerView(12)
+                Thread.sleep(1000)
             }.openSettingsViewDeleteBrowsingData {
                 Thread.sleep(1000)
                 Screengrab.screenshot("015_fragment_delete_browsing_data")
             }.goBack {
-                clickDownRecyclerView(24)
+            }.goBack {
+            }.openThreeDotMenu {
+            }.openSettings {
+                clickDownRecyclerView(17)
+                Thread.sleep(1000)
             }.openSettingsViewNetworkDetails {
                 Thread.sleep(1000)
                 Screengrab.screenshot("016_network_detail_preference")
             }.goBack {
+            }.goBack {
+            }.openThreeDotMenu {
+            }.openSettings {
+                clickDownRecyclerView(20)
+                Thread.sleep(1000)
             }.openSettingsViewSources {
                 Thread.sleep(1000)
                 Screengrab.screenshot("017_sources_preferences")
             }.goBack{
+            }.goBack {
+            }.openThreeDotMenu {
+            }.openSettings {
+                clickDownRecyclerView(25)
                 Thread.sleep(1000)
             }.openSettingsViewAboutPage {
                 Thread.sleep(1000)

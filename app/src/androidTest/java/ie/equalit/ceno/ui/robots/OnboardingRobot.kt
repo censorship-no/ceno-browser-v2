@@ -80,8 +80,10 @@ fun givePermissions() {
 
 fun denyPermissions() {
     //for allowing notifications
-    permissionDenyButton().waitForExists(TestAssetHelper.waitingTime)
-    permissionDenyButton().click()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        permissionDenyButton().waitForExists(TestAssetHelper.waitingTime)
+        permissionDenyButton().click()
+    }
     //for battery optimizations
     backgroundDenyButton().waitForExists(TestAssetHelper.waitingTime)
     backgroundDenyButton().click()

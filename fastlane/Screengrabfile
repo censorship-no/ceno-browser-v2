@@ -7,3 +7,5 @@ locales(['en-US', 'fr-FR', 'es-ES'])
 reinstall_app(true)
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots(true)
+use_timestamp_suffix(false)
+output_directory('fastlane/weblateScreenshots/android')

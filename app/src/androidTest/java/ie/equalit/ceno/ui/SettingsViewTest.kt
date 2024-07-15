@@ -16,6 +16,7 @@ import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
+import okhttp3.internal.wait
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -57,67 +58,100 @@ class SettingsViewTest {
             verifySettingsRecyclerViewToExist()
             verifyNavigateUp()
             verifyGeneralHeading()
+
+            // Get one item ahead of what we are verifying
+            // this is a workaround because the verify doesn't
+            // wait long enough for text to appear.
+            clickDownRecyclerView(2)
             verifySearchButton()
             verifySearchSummary()
+
+            clickDownRecyclerView(1)
             verifyCustomizationButton()
             verifyCustomizationSummary()
+
+            clickDownRecyclerView(1)
             verifyOpenLinksInApps()
+
+            clickDownRecyclerView(1)
             verifyMakeDefaultBrowserButton()
+
+            clickDownRecyclerView(1)
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
-            verifyAddOnsButton()
+
+            clickDownRecyclerView(1)
+            // extra click down for Add-ons option,
+            // which will be hidden soon
+
+            clickDownRecyclerView(1)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
-            clickDownRecyclerView(8)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyShowOnboarding()
+
+            clickDownRecyclerView(1)
             verifyCrashReportingButton()
+
+            clickDownRecyclerView(1)
             verifyDeleteBrowsingData()
-            clickDownRecyclerView(3)
-            Thread.sleep(5000)
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 clickDownRecyclerView(1)
                 Thread.sleep(5000)
                 verifyDisableBatteryOptimization()
             }
-            //clickDownRecyclerView(5)
-            //Thread.sleep(5000)
-            //verifySourcesHeading()
-            //verifyWebsiteCheckbox()
-            //verifyWebsiteSummary()
-            //verifyPrivatelyCheckbox()
-            //verifyPrivatelySummary()
-            //verifyPubliclyCheckbox()
-            //verifyPubliclySummary()
-            //verifySharedCheckbox()
-            //verifySharedSummary()
-            clickDownRecyclerView(3)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(2)
             verifyDataHeading()
             verifyLocalCacheDisplay()
             verifyLocalCacheDefaultValue()
             verifyContentsSharedButton()
             verifyContentsSharedDefaultValue()
+
+            clickDownRecyclerView(1)
             verifyClearCachedContentButton()
             verifyClearCachedContentSummary()
-            clickDownRecyclerView(6)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyDeveloperToolsHeading()
+
+            clickDownRecyclerView(1)
             verifyRemoteDebugging()
-            verifyCustomAddonCollectionButton()
+
+            clickDownRecyclerView(1)
+            // extra click down for Custom Add-on Collection option,
+            // which will be hidden soon
+
+            clickDownRecyclerView(1)
             verifyCenoNetworkDetailsButton()
             verifyCenoNetworkDetailsSummary()
+
+            clickDownRecyclerView(1)
             verifyEnableLogFile()
+
+            clickDownRecyclerView(1)
             verifyTrackingProtectionButton()
             verifyTrackingProtectionSummary()
+
+            clickDownRecyclerView(1)
             verifyWebsiteSourcesButton()
             verifyWebsiteSourcesSummary()
-            clickDownRecyclerView(5)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyAboutHeading()
+
+            clickDownRecyclerView(1)
             verifyCenoBrowserServiceDisplay()
+
+            clickDownRecyclerView(1)
             verifyGeckoviewVersionDisplay()
+
+            clickDownRecyclerView(1)
             verifyOuinetVersionDisplay()
+
+            clickDownRecyclerView(1)
             verifyAboutEqualitieButton()
             // TODO: check if that the displayed values match some patterns
         }

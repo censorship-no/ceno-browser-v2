@@ -271,8 +271,7 @@ private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notifica
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
 
-private val aboutButtonString = getInstrumentation().targetContext.getString(R.string.about_category) + " eQualitie"
-private fun aboutEqualitieButton() = onView(withText(aboutButtonString))
+private fun aboutEqualitieButton() = onView(withText(R.string.preferences_about_page))
 
 private fun assertGeneralHeading() = generalHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
