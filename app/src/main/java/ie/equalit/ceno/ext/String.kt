@@ -87,7 +87,7 @@ fun String.getSizeInMB(): Double {
  * Helper function to determine if a date string is more than x days away
  */
 fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
-    val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US)
+    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
     dateFormat.timeZone = TimeZone.getTimeZone("GMT") // for consistency
 
     try {
