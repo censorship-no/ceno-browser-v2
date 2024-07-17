@@ -19,9 +19,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.share.DefaultShareController.Companion.ACTION_COPY_LINK_TO_CLIPBOARD
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import mozilla.components.concept.sync.DeviceCapability
 import mozilla.components.feature.share.RecentAppsStorage
-import mozilla.components.service.fxa.manager.FxaAccountManager
 import mozilla.components.support.utils.ext.queryIntentActivitiesCompat
 
 class ShareViewModel(application: Application) : AndroidViewModel(application) {

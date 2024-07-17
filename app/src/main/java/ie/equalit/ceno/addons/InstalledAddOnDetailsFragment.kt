@@ -218,7 +218,7 @@ class InstalledAddOnDetailsFragment : Fragment() {
         val text = if (checked) {
             R.string.mozac_feature_addons_enabled
         } else {
-            R.string.mozac_feature_addons_disabled
+            R.string.mozac_feature_addons_disabled_section
         }
         setText(text)
         isChecked = checked
