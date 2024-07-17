@@ -4,118 +4,48 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">搜索或输入网址</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">新建标签页</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">关闭所有标签页</string>
     <string name="menu_action_close_tabs_private">关闭个人标签页</string>
-    <!--
-    <string name="preferences_autofill">Autofill apps</string>
-    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-    -->
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">通过 USB 远程调试</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
-    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">在私人浏览中启用</string>
-    <!-- Preference for privacy -->
     <string name="privacy">私密</string>
-    <!-- Preference summary for privacy -->
-    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">用外部应用打开链接</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">开发者工具</string>
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">跟踪保护</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">数据反馈</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">设置</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">私密 设置</string> -->
-    <!-- 隐私浏览模式 -->
     <string name="private_browsing_title">私人浏览模式</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">自定义附加组件收藏集</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">确定</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">取消</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">收藏集名称</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">收藏集所有者（用户 ID）</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">已更改附加组件收藏集设置。退出应用程序以应用更改…</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">启用私人浏览模式</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">新建私人标签页打开</string>
-    <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">重命名</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">移除</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">删除历史记录</string>
-    <!-- Top Sites -->
-    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">超出快捷方式限制</string>
-    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
     <string name="shortcut_max_limit_content">请先移除现有的快捷方式才能再添加。长按网站，然后选择移除。</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">我知道了</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">名称</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">快捷方式名称</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">确定</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">取消</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">赞助项目</string>
-    <!-- Browser Fragment -->
-    <!-- TODO: these are from Fenix values-zh-rCN, values-zh-rTW looked different,
-            should check differences, maybe include values for both regions -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">后退</string> -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">前进</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">刷新</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">停止</string>
-    <!-- Browser menu button that opens the addon manager -->
     <string name="preferences_add_ons">附加组件</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">设置</string>
-    <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">桌面版网站</string>
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">添加到主屏幕</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">在页面中查找</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
-    <string name="browser_menu_share">分享</string>
-    -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">添加快捷方式</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">已从快捷方式删除</string>
-    <!-- CENO: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Reader view</string>
     <string name="menu_share_with">分享给…</string>
     <string name="toast_copied">已复制！</string>
@@ -175,29 +105,20 @@
     <string name="bit_torrent_bootstraps_category">BitTorrent 引导</string>
     <string name="udp_category">UDP</string>
     <string name="bridge_mode_category">网桥通告</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">将 &brandShortName; 设为您的默认浏览器</string>
-    <!-- Preference about page -->
     <string name="preferences_about_page">关于 &vendorShortName;</string>
-    <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
-    <!-- Extra paragraph in private tab panel. -->
-    <!-- <string name="ceno_private_tab_panel_description">&brandShortName; will not share content from private tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.</string> -->
     <string name="ceno_private_browsing_body">&lt;h1&gt;隐私浏览&lt;/h1&gt; &lt;p&gt;Ceno 将不会与其他用户共享来自私人标签的内容。您可以安全地访问需要登录的站点。但您仍需连接互联网。&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;想了解更多信息？&lt;/p&gt;</string>
-    <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; 浏览器服务</string>
     <string name="ceno_notification_home_description">主页</string>
-    <!-- "On mobile data" dialog -->
-    <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">&brandShortName; 指南</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable" >Wikipedia</string>
+    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
     <string name="default_top_site_3_title" tools:ignore="Untranslatable">自由時報</string>
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_ltn_url</string>
     <string name="default_top_site_4_title" tools:ignore="Untranslatable">報導者</string>
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_twreporter_url</string>
-    <!-- Snackbar action button when a non fatal crash happen-->
     <string name="preferences_about_ceno">&brandShortName; 浏览器</string>
     <string name="preferences_about_ouinet_protocol">Ouinet 协议</string>
     <string name="about_category">关于</string>
@@ -374,6 +295,27 @@
     <string name="browsing_mode_card_title">浏览模式</string>
     <string name="public_browsing_mode_selected">选择公共浏览模式</string>
     <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
+    <string name="shutdown_message_one">正在清理app数据</string>
+    <string name="shutdown_message_two">正在关闭Ceno</string>
+    <string name="title_success">大功告成</string>
+    <string name="thank_you_bridge_mode_enabled">感谢你成为一座桥,为Ceno网络作出了贡献!</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_ceno_sources_origin">网页</string>
+    <string name="ceno_home_card_public_title">公开</string>
+    <string name="ceno_sources_shared_by_ceno_cache">来自&amp;brandShortName;的缓存</string>
+    <string name="ceno_support_link_url">https://censorship.no/zh_CN/support.html</string>
+    <string name="ceno_log_content_group_file_saved">共享内容保存成功</string>
+    <string name="ceno_android_content_group_file_name">&amp;brandShortName; 共享内容</string>
+    <string name="view_logs">查看</string>
+    <string name="canceled">已取消</string>
+    <string name="download_site_content">下载页面内容</string>
+    <string name="no_content_shared">目前,你没有分享任何内容</string>
+    <string name="dismiss">结束</string>
+    <string name="confirm_groups_file_download">导出共享内容的清单?</string>
+    <string name="confirm_groups_file_download_desc">一个txt文本将会保存到你的存储空间。</string>
+    <string name="confirm_clear_cached_content">清理缓存内容？</string>
+    <string name="confirm_clear_cached_content_desc">你的缓存内容将被删除</string>
     <string name="browser_menu_share">分享</string>
     <string name="share_header_2">分享</string>
     <string name="share_copy_link_to_clipboard">复制到剪贴板</string>

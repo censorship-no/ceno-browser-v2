@@ -107,7 +107,7 @@
     <string name="preferences_customization">Anpassung</string>
     <string name="changeIconCtaAccept">Anwenden</string>
     <string name="changeIconCtaCancel">Abbrechen</string>
-    <string name="changeIconDialogTitle">Neues Symbol anwenden\?</string>
+    <string name="changeIconDialogTitle">Neues Symbol anwenden?</string>
     <string name="ceno_clear_action_description">Leeren</string>
     <string name="preferences_clear_in_toolbar">In der Symbolleiste anzeigen</string>
     <string name="preferences_clear_in_menu">Im Menü anzeigen</string>
@@ -285,4 +285,5 @@
     <string name="share_link_all_apps_subheader">Alle Aktionen</string>
     <string name="share_link_recent_apps_subheader">Kürzlich verwendet</string>
     <string name="share_save_to_pdf">Enregistrer en PDF</string>
+    <string name="preferences_website_sources_summary">Wähle aus, von welcher Website du Inhalte laden willst</string>
 </resources>
