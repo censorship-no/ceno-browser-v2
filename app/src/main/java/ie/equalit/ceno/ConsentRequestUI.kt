@@ -41,6 +41,7 @@ class ConsentRequestUi(private val activity: BaseActivity) :
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
                 complete(true)
             }
+            .setOnDismissListener { complete(false) }
             .create()
             .show()
     }
