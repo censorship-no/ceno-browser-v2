@@ -5,14 +5,14 @@
 <!ENTITY vendorShortName "eQualitie">
 ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="toolbar_hint">جستجو کنید یا آدرسی را وارد کنید</string>
+    <string name="toolbar_hint">جست‌وجو کنید یا آدرسی را وارد کنید</string>
     <string name="menu_action_add_tab">زبانه جدید</string>
-    <string name="menu_action_close_tabs">بستن همه‌ی زبانه‌ها</string>
+    <string name="menu_action_close_tabs">بستن تمام زبانه‌ها</string>
     <string name="menu_action_close_tabs_private">بستن زبانه‌های شخصی</string>
     <string name="preferences_remote_debugging">اشکال‌زدایی از راه دور به‌وسیله USB</string>
     <string name="preferences_tracking_protection_private">فعال شده در حالت مرور شخصی</string>
     <string name="privacy">حریم خصوصی</string>
-    <string name="open_links_in_apps">پیوندها را در برنامه ها باز کنید</string>
+    <string name="open_links_in_apps">پیوندها را در برنامه‌ها باز کنید</string>
     <string name="developer_tools_category">ابزارهای توسعه‌دهندگان</string>
     <string name="tracker_category">محافظت در برابر ردگیری</string>
     <string name="settings">تنظیمات</string>
@@ -41,7 +41,7 @@
     <string name="browser_menu_stop">توقف</string>
     <string name="preferences_add_ons">افزونه‌ها</string>
     <string name="browser_menu_settings">تنظیمات عمومی</string>
-    <string name="browser_menu_desktop_site">درخواست برای سایت دسک‌تاپ</string>
+    <string name="browser_menu_desktop_site">درخواست برای سایت دسکتاپ</string>
     <string name="browser_menu_add_to_homescreen">افزودن به صفحه خانگی</string>
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
     <string name="browser_menu_add_to_shortcuts">به میان‌برها اضافه کنید</string>
@@ -62,12 +62,12 @@
     <string name="preferences_delete_browsing_data">داده‌های مرورگری را حذف کنید</string>
     <plurals name="preferences_delete_browsing_data_tabs_subtitle">
         <item quantity="one">%d برگه‌</item>
-        <item quantity="other">%d برگه‌ها</item>
+        <item quantity="other">%d برگه</item>
     </plurals>
     <string name="preferences_delete_browsing_data_browsing_data_title">تاریخچه مرورگری و داده‌های سایت</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
         <item quantity="one">%d آدرس</item>
-        <item quantity="other">%d آدرس‌ها</item>
+        <item quantity="other">%d آدرس</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">کوکی‌ها</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">شما از اکثر وب‌سایت‌ها خارج خواهید شد</string>
@@ -83,31 +83,31 @@
     <string name="preferences_privacy_summary">ردیابی، کوکی‌ها، انتخاب داده‌ها</string>
     <string name="crash_report_non_fatal_message">متاسفیم. دچار مشکل شدیم</string>
     <string name="browser_toolbar_home">خانه</string>
-    <string name="preference_category_search">جستوجو</string>
-    <string name="preference_select_preferred_engine">موتور جستوجو دلخواه هور را انتخاب کنید:</string>
-    <string name="theme_category">شخصی سازی</string>
-    <string name="preference_show_search_suggestions">پیشنهادات جستوجو بگیرید</string>
-    <string name="insecure_connection">ارطتاب امن نیست</string>
+    <string name="preference_category_search">جست‌وجو</string>
+    <string name="preference_select_preferred_engine">موتور جست‌وجو دلخواه‌تان را انتخاب کنید:</string>
+    <string name="theme_category">شخصی‌سازی</string>
+    <string name="preference_show_search_suggestions">پیشنهاد جست‌وجو بگیرید</string>
+    <string name="insecure_connection">ارتباط امن نیست</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">باز کردن لینک در صفحه شخصی</string>
-    <string name="set_default_search_engine">لطفا موتور جستوگر اصلی خود را انتخاب کنید</string>
+    <string name="set_default_search_engine">لطفا موتور جست‌وجوگر اصلی خود را انتخاب کنید</string>
     <string name="udp_category">یو دی پی</string>
     <string name="customize_add_bootstrap_save">ذخیره</string>
-    <string name="preference_search_summary">عصلی باشد</string>
+    <string name="preference_search_summary">اصلی باشد</string>
     <string name="secure_connection">ارتباط امن است</string>
     <string name="not_applicable">وجود ندارد</string>
-    <string name="crash_report_sent">گذارش خرابی با موفقیت ارسال شد!</string>
+    <string name="crash_report_sent">گزارش خرابی با موفقیت ارسال شد!</string>
     <string name="preferences_website_sources_summary">انتخاب کنید کجا میخواهید محتویات وبسایت را بارگیری کنید</string>
     <string name="browser_menu_back">بازگشت</string>
     <string name="general_category">عمومی</string>
-    <string name="preference_choose_search_engine">موتور جستجو را انتخاب کنید</string>
+    <string name="preference_choose_search_engine">موتور جست‌وجو را انتخاب کنید</string>
     <string name="customize_extra_bittorrent_bootstrap">بوت‌استرپ‌های اضافی بیت‌تورنت</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">بوت‌استرپ‌های سفارشی اضافه کنید</string>
     <string name="customize_custom_extra_bittorrent_bootstrap">آی‌پی‌ها را با گذاشتن کاما (,) از هم جدا کنید</string>
     <string name="select_extra_bt_source">بوت‌استرپ اضافی بیت‌تورنت را انتخاب کنید</string>
     <string name="bit_torrent_bootstraps_category">بوت‌استرپ‌های بیت‌تورنت</string>
-    <string name="setting_item_selected">%sانتخاب شد</string>
+    <string name="setting_item_selected">%s انتخاب شد</string>
     <string name="bridge_mode_category">اعلان‌های مرتبط با پل (Bridge)</string>
-    <string name="preferences_make_default_browser">&brandShortName; را مرورگر پیش فرض خود قرار دهید</string>
+    <string name="preferences_make_default_browser">&brandShortName; را مرورگر پیش‌فرض خود قرار دهید</string>
     <string name="preferences_about_page">درباره &vendorShortName;</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/fa/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;مرور شخصی&lt;/h1&gt; &lt;p&gt;«Ceno» محتوای برگه‌های شخصی را با کاربران دیگر به اشتراک نمی‌گذارد. شما همچنین می‌توانید به‌طور امن سایت‌هایی را بازدید کنید که نیاز به اطلاعات ورود دارند. در هرحال راهی برای دسترسی به اینترنت نیاز خواهد بود.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;مایلید بیشتر بدانید؟&lt;/p&gt;</string>
@@ -122,7 +122,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_now">&brandShortName; را همین حالا متوقف کنید</string>
     <string name="ceno_on_mobile_data_dialog_continue">ادامه</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
-    <string name="default_top_site_1_title">دفترچه راهنمای Ceno</string>
+    <string name="default_top_site_1_title">دفترچه راهنمای سنو</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_fa_url</string>
     <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
@@ -151,7 +151,7 @@
 \n
 \nبه بخش تنظیمات بروید. گزینه بهینه‌سازی باتری را برای دادن مجوز تا بعد، غیر فعال کنید</string>
     <string name="ceno_clear_dialog_cancel">لغو</string>
-    <string name="ceno_clear_dialog_description">هشدار: پاک کردن حافظه پنهان و داده‌های برنامه، &amp;brandShortName؛ برنامه را تنظیم مجدد خواهد کرد به گونه‌ای که گویی هرگز استفاده نشده است.</string>
+    <string name="ceno_clear_dialog_description">هشدار: پاک کردن کش و داده‌های برنامه، &amp;brandShortName؛ برنامه را تنظیم مجدد خواهد کرد طوری که انگار هرگز استفاده نشده.</string>
     <string name="ceno_clear_dialog_title">پاک کردن &brandShortName;</string>
     <string name="ceno_clear_dialog_clear_cache_only">پاک کردن &brandShortName; فقط کش</string>
     <string name="ceno_clear_action_description">حذف</string>
@@ -170,7 +170,7 @@
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>
     <string name="about_category">درباره</string>
-    <string name="preferences_about_ouinet_protocol">پروتکلOuinet</string>
+    <string name="preferences_about_ouinet_protocol">پروتکل Ouinet</string>
     <string name="ceno_support_link_url">https://censorship.no/fa/support.html</string>
     <string name="crash_reporting_dialog_description">با ارسال گزارش‌ اشکالات برنامه به ما در بهبود &brandShortName; کمک کنید.</string>
     <string name="crash_reporting_always_send">همیشه ارسال کنید، بهبود ;brandShortName&amp;</string>
@@ -179,7 +179,7 @@
     <string name="ceno_sources_category">منابع</string>
     <string name="preferences_show_home_button">نمایش دکمه خانه</string>
     <string name="preferences_ceno_sources_origin">وب‌سایت</string>
-    <string name="preferences_ceno_sources_origin_summary">محتوا را مستقیماً از وب‌سایت بارگیری کنید</string>
+    <string name="preferences_ceno_sources_origin_summary">محتوا را مستقیما از وب‌سایت بارگیری کنید</string>
     <string name="preferences_theme">تنظیم زمینه برنامه</string>
     <string name="preferences_theme_summary">تاریک، روشن، صرفه‌جویی در باتری</string>
     <string name="onboarding_battery_text_v33">به زودی سیستم‌عامل از شما مجوز می‌خواهد تا
@@ -190,7 +190,7 @@
 \nاین برای ادامه اشتراک‌گذاری وب‌سایت‌ها در حالی که برنامه در پس‌زمینه است، لازم است.</string>
     <string name="onboarding_warning_text_v33_1">اطلاع‌رسانی مجاز نیست.
 \n
-\nبرای دادن مجوز بعداً به «تنظیمات &gt; «اجازه‌دادن به اعلان‌ها» بروید</string>
+\nبرای دادن مجوز بعدا به «تنظیمات &gt; اجازه‌دادن به اعلان‌ها» بروید</string>
     <string name="crash_reporting_opt_out">شما از اشتراک‌گذاری گزارش‌ اشکالات انصراف داده‌اید. همیشه می‌توانید با رفتن به تنظیمات &gt; گزارش اشکالات، این بخش را فعال کنید.</string>
     <string name="bt_sources_none">هیچ‌کدام</string>
     <string name="bt_invalid_ip_error">آی‌پی نامعتبر</string>
@@ -198,9 +198,9 @@
     <string name="crash_reporting_opt_in">ممنون که برای کمک به بهبود ;brandShortName&amp; گزارش‌ اشکالات را با ما اشتراک گذاشتید! همیشه می توانید با رفتن به بخش تنظیمات &amp;gt; گزارش اشکالات، این را غیرفعال کنید.</string>
     <string name="onboarding_warning_text_v33_2">اطلاع‌رسانی مجاز نیست و سیستم بهینه‌سازی باتری همچنان فعال است.
 \n
-\nبرای دادن مجوز بعداً به «تنظیمات» بروید</string>
-    <string name="preferences_change_app_icon">تغییر نماد برنامه</string>
-    <string name="preferences_allow_notifications">اجازه‌دادن به اطلاعیه‌ها(اعلان‌ها)</string>
+\nبرای دادن مجوز بعدا به «تنظیمات» بروید</string>
+    <string name="preferences_change_app_icon">تغییر آیکون برنامه</string>
+    <string name="preferences_allow_notifications">اجازه‌دادن به اعلان‌ها</string>
     <string name="preferences_theme_default">۲</string>
     <string name="ceno_sources_header">منابع محتوا</string>
     <string name="changeIconCtaAccept">اعمال کردن</string>
@@ -209,33 +209,33 @@
     <string name="preferences_ceno_network_config_summary">وضعیت وی‌نت، نقاط پایانی UDP، بوت استرپ‌های بیت‌تورنت</string>
     <string name="donate_button_text">اهدای کمک</string>
     <string name="onboarding_cleanup_title">همه چیز را پاک کنید،
-\nهمه‌جا، همه را به یک‌باره</string>
+\nهمه‌جا و به یک‌باره</string>
     <string name="preferences_ceno_sources_peers_summary">محتوای به اشتراک گذاشته شده توسط سایر کاربران را بارگیری کنید</string>
-    <string name="enable_bridge_card_text">شبکه Ceno را با تبدیل شدن به یک پل قدرتمند‌تر سازید! می‌توانید با رفتن به تنظیمات -&gt; حالت پل را فعال کنید.</string>
+    <string name="enable_bridge_card_text">شبکه سنو را با تبدیل شدن به یک پل قدرتمند‌تر سازید! می‌توانید حالت پل را از اینجا فعال کنید: تنظیمات -&gt; فعال‌سازی حالت پل.</string>
     <string name="learn_more_title">بیشتر بدانید</string>
     <string name="standby_restarting_text">در حال راه‌اندازی مجدد…</string>
     <string name="website_button_text">وب‌سایت</string>
     <string name="source_code_button_text">کد منبع</string>
-    <string name="addon_placeholder">هیچ افزونه ای موجود نیست</string>
+    <string name="addon_placeholder">هیچ افزونه‌ای موجود نیست</string>
     <string name="preferences_ceno_website_sources">منابع وب‌سایت</string>
-    <string name="preference_show_search_suggestions_summary">&brandShortName; آنچه را که در نوار آدرس تایپ می‌کنید به موتور جستجوی شما ارسال می‌کند</string>
-    <string name="ceno_onboarding_start_text">ساختار همتا‌به‌همتای Ceno به افراد امکان می‌دهد به محتوای وب‌سایت در مناطقی که اتصال اینترنت قطع شده یا به خطر افتاده است، دسترسی داشته باشند و محتوا به اشتراک بگذارند.</string>
+    <string name="preference_show_search_suggestions_summary">&brandShortName; آنچه را که در نوار آدرس تایپ می‌کنید به موتور جست‌وجوی شما ارسال می‌کند</string>
+    <string name="ceno_onboarding_start_text">ساختار همتا‌به‌همتای سنو به افراد امکان می‌دهد به محتوای وب‌سایت در مناطقی که اتصال اینترنت قطع شده یا به خطر افتاده، دسترسی داشته باشند و محتوا را به اشتراک بگذارند.</string>
     <string name="ceno_onboarding_start_title">وب را به‌اشتراک بگذارید
 \nهمتا‌به‌همتا</string>
-    <string name="onboarding_public_personal_text">از برگه‌های عمومی برای خواندن اخبار، تماشای فیلم و به‌طور کلی وب‌گردی استفاده کنید. محتوای وب را با سایر کاربران Ceno به اشتراک بگذارید.
+    <string name="onboarding_public_personal_text">از برگه‌های عمومی برای خواندن اخبار، تماشای فیلم و به‌طور کلی وب‌گردی استفاده کنید. محتوای وب را با سایر کاربران سنو به اشتراک بگذارید.
 \n
 \nبرگه‌های شخصی برای حساب‌های شبکه‌های اجتماعی، خرید آنلاین و مرور وب‌سایت‌هایی که نمی‌خواهید با دیگران به اشتراک بگذارید، مناسب‌تر است.</string>
-    <string name="ouinet_timeout_dialog_text">Ceno برای کار کردن نیاز به اتصال به اینترنت دارد. لطفا تنظیمات شبکه خود را بررسی کنید.</string>
-    <string name="ceno_ouinet_connecting">در حال اتصال به شبکه Ceno</string>
-    <string name="ceno_personal_browsing_description">Ceno محتوای برگه‌های شخصی را با سایر کاربران به اشتراک نمی‌گذارد. می توانید از سایت‌هایی که نیاز به ورود به سیستم دارند، بازدید کنید.</string>
+    <string name="ouinet_timeout_dialog_text">سنو برای کار کردن نیاز به اتصال به اینترنت دارد. لطفا تنظیمات شبکه خود را بررسی کنید.</string>
+    <string name="ceno_ouinet_connecting">در حال اتصال به شبکه سنو</string>
+    <string name="ceno_personal_browsing_description">سنو محتوای برگه‌های شخصی را با سایر کاربران به اشتراک نمی‌گذارد. می توانید از سایت‌هایی که نیاز به ورود به سیستم دارند، بازدید کنید.</string>
     <string name="personal_home_learn_more">می‌خواهید بیشتر بدانید؟</string>
     <string name="change_bt_bootstrap_server">سرور بوت‌استرپ BT را تغییر دهید</string>
     <string name="browsing_mode_card_title">حالت مرورگری</string>
     <string name="public_browsing_mode_selected">حالت مرور عمومی انتخاب شده است</string>
-    <string name="public_mode_icon">نماد حالت عمومی</string>
-    <string name="bridge_announcement_dialog_text">لطفاً صبر کنید تا سرویس مرورگر Ceno برای اعمال تغییرات شما مجدداً راه‌اندازی می شود.</string>
-    <string name="bridge_mode_ip_warning_text">توجه داشته باشید که با این کار آدرس آی‌پی عمومی شما برای سایر کاربران Ceno قابل مشاهده است.</string>
-    <string name="preferences_clear_ceno_cache_summary">محتوای وب ذخیره شده به‌طور محلی را پاک کنید</string>
+    <string name="public_mode_icon">آیکون حالت عمومی</string>
+    <string name="bridge_announcement_dialog_text">لطفا صبر کنید تا سرویس مرورگر سنو برای اعمال تغییرات شما مجددا راه‌اندازی شود.</string>
+    <string name="bridge_mode_ip_warning_text">توجه داشته باشید که با این کار آدرس آی‌پی عمومی شما برای سایر کاربران سنو قابل مشاهده است.</string>
+    <string name="preferences_clear_ceno_cache_summary">محتوای وب ذخیره‌شده به‌طور محلی را پاک کنید</string>
     <string name="preferences_ceno_network_config">جزییات شبکه</string>
     <string name="preferences_ceno_sources_reachability">وضعیت دسترسی</string>
     <string name="preferences_ceno_sources_upnp">وضعیت UPnP</string>
@@ -247,22 +247,22 @@
     <string name="preferences_ceno_download_log">خروجی گزارش وی‌نت</string>
     <string name="preferences_ceno_export_android_logs">خروجی از گزارش کامل اپلیکیشن</string>
     <string name="preferences_ceno_bridge_announcement">فعال‌سازی حالت پل</string>
-    <string name="changeIconDialogTitle">نماد جدید اعمال شود؟</string>
-    <string name="changeIconDialogMessage">ممکن است اپلیکیشن برای اعمال تغییرات بسته شود. پس از اینکه نماد زیبای جدید خود را برگزیدید، برگردید.</string>
+    <string name="changeIconDialogTitle">آیکون جدید اعمال شود؟</string>
+    <string name="changeIconDialogMessage">ممکن است اپلیکیشن برای اعمال تغییرات بسته شود. پس از این که آیکون زیبای جدید خود را برگزیدید، برگردید.</string>
     <string name="clear_cache_success">پاکسازی کش با موفقیت انجام شد</string>
     <string name="ouinet_client_fetch_success">&brandShortName; تنظیمات به‌روز شد</string>
-    <string name="ouinet_client_fetch_fail">تغییر &amp;brandShortName موفقیت‌آمیز نبود; تنظیمات</string>
+    <string name="ouinet_client_fetch_fail">تغییر تنظیمات &brandShortName; موفقیت‌آمیز نبود</string>
     <string name="preferences_ceno_sources_private">خصوصی</string>
-    <string name="preferences_ceno_sources_private_summary">بارگیری محتوا از طریق شبکه خصوصی Ceno</string>
+    <string name="preferences_ceno_sources_private_summary">بارگیری محتوا از طریق شبکه خصوصی سنو</string>
     <string name="preferences_ceno_sources_public">به‌طور عمومی</string>
-    <string name="preferences_ceno_sources_public_summary">بارگیری محتوا از طریق شبکه عمومی Ceno</string>
+    <string name="preferences_ceno_sources_public_summary">بارگیری محتوا از طریق شبکه عمومی سنو</string>
     <string name="preferences_ceno_sources_peers">به اشتراک گذاشته شده است</string>
     <string name="ceno_data_category">داده</string>
     <string name="preferences_ceno_cache_size">حافظه کش محلی</string>
     <string name="preferences_ceno_groups_count">محتوای به اشتراک گذاشته شده توسط شما</string>
     <string name="preferences_clear_ceno_cache">محتوای حافظه کش را پاک کنید</string>
     <string name="onboarding_public_or_personal_title">عمومی یا شخصی؟</string>
-    <string name="onboarding_cleanup_text">تاریخچه مرورگر، اطلاعات کاربری و هر اثری را که در Ceno باقی گذاشته‌اید، با یک دکمه پاک کنید.</string>
+    <string name="onboarding_cleanup_text">تاریخچه مرورگر، اطلاعات کاربری و هر اثری را که در سنو باقی گذاشته‌اید، با یک دکمه پاک کنید.</string>
     <string name="ceno_home_card_public_title">عمومی</string>
     <string name="ceno_home_card_public_text">بهترین اتصال، حریم خصوصی کمتر. برای خواندن اخبار، تماشای ویدئو و اشتراک‌گذاری با دیگران</string>
     <string name="ceno_home_card_personal_title">شخصی</string>
@@ -272,21 +272,21 @@
     <string name="network_settings">تنظمیات شبکه</string>
     <string name="standby_no_internet_text">بدون اتصال به اینترنت
 \n
-\nممکن است عملکرد Ceno محدود باشد.
-\nلطفاً اتصالات شبکه خود را بررسی کنید و سعی کنید Ceno را دوباره بارگیری کنید.</string>
-    <string name="standby_message_one">اتصال به شبکه Ceno</string>
-    <string name="standby_message_two">در حال راه‌اندازی حافظه پنهان</string>
+\nممکن است عملکرد سنو محدود باشد.
+\nلطفا اتصالات شبکه خود را بررسی کنید و سعی کنید سنو را دوباره بارگیری کنید.</string>
+    <string name="standby_message_one">اتصال به شبکه سنو</string>
+    <string name="standby_message_two">در حال راه‌اندازی کش</string>
     <string name="standby_message_three">‪یافتن گره‌های بوت‌استرپ</string>
     <string name="standby_try_again">دوباره امتحان کنید</string>
-    <string name="ceno_ouinet_connected">به شبکه Ceno متصل شد</string>
-    <string name="ceno_ouinet_disconnected">از شبکه Ceno قطع شد</string>
+    <string name="ceno_ouinet_connected">به شبکه سنو متصل شد</string>
+    <string name="ceno_ouinet_disconnected">از شبکه سنو قطع شد</string>
     <string name="ceno_sources_direct_from_website">مستقیم از وب‌سایت</string>
-    <string name="ceno_sources_via_ceno_network">با استفاده از شبکه Ceno</string>
+    <string name="ceno_sources_via_ceno_network">با استفاده از شبکه سنو</string>
     <string name="personal_browsing_mode_selected">حالت مرور شخصی انتخاب شده است</string>
-    <string name="personal_mode_icon">نماد حالت شخصی</string>
+    <string name="personal_mode_icon">آیکون حالت شخصی</string>
     <string name="ceno_log_file_saved">فایل گزارش با موفقیت ذخیره شد</string>
     <string name="ceno_log_file_saved_desc">برای اولویت دادن به حریم خصوصی شما، تمام اطلاعات شناسایی شخصی به دقت از این گزارش حذف شده است.</string>
-    <string name="ceno_android_logs_file_name">Ceno، فایل‌های گزارش</string>
+    <string name="ceno_android_logs_file_name">سنو، فایل‌های گزارش</string>
     <string name="ouinet_log_file_prompt_desc">توجه داشته باشید، این گزارش ممکن است حاوی اطلاعات قابل شناسایی شخصی باشد. هنگام اشتراک‌گذاری احتیاط کنید.</string>
     <string name="view_logs">چشم‌انداز</string>
     <string name="share_logs">به‌اشتراک‌گذاری</string>
@@ -294,7 +294,7 @@
     <string name="empty_log_text">به نظر می‌رسد فایل گزارش شما خالی است</string>
     <string name="progress_dialog_log_export_header">لطفا صبر کنید…</string>
     <string name="progress_dialog_log_export_message">در حال محاسبه گزارش‌های شما…</string>
-    <string name="last_5_minutes">5 دقیقه گذشته</string>
+    <string name="last_5_minutes">۵ دقیقه گذشته</string>
     <string name="last_10_minutes">۱۰ دقیقه گذشته</string>
     <string name="all_logs">تمام فایل‌های گزارش</string>
     <string name="select_log_scope_header">محدوده مورد نظر خود را انتخاب کنید</string>
@@ -302,7 +302,7 @@
     <string name="bridge_announcement_dialog_title">در حال به‌روزرسانی تنظیمات حالت پل…</string>
     <string name="home_go_to_settings">به قسمت تنظیمات بروید</string>
     <string name="enable_bridge_card_title">حالت پل را فعال کنید</string>
-    <string name="ceno_sources_shared_by_ceno_cache">از حافظه کش Ceno</string>
+    <string name="ceno_sources_shared_by_ceno_cache">از حافظه کش سنو</string>
     <string name="bridge_mode_faq_url">https://censorship.no/fa/support.html#bridgemode</string>
     <string name="browser_menu_share">اشتراک‌گذاری</string>
     <string name="share_header_2">اشتراک‌گذاری</string>
@@ -329,12 +329,12 @@
     <string name="error_page_header">اوه! بارگذاری صفحه وب ناموفق بود.</string>
     <string name="error_page_sub_header">این یعنی سنو تمام روش‌های موجود را برای دسترسی به محتوا امتحان کرد، اما هیچ کدام موفق نبودند:</string>
     <string name="error_page_learn_more_header">برای این که سنو کار کند باید مطمئن شوید که الزامات زیر فراهم شده‌اند</string>
-    <string name="error_page_learn_more_3">دستگاه شما دارای اتصال فعال به شبکه است، به عبارت دیگر مرورگر وب معمولی شما می‌تواند برخی از وب‌سایت‌ها را باز کند. سنو و Ouinet نمی‌توانند زمانی که تمام اتصالات شبکه قطع شده کار کنند.</string>
+    <string name="error_page_learn_more_3">دستگاه شما دارای اتصال فعال به شبکه است، به عبارت دیگر مرورگر وب معمولی شما می‌تواند برخی از وب‌سایت‌ها را باز کند. سنو و وی‌نت نمی‌توانند زمانی که تمام اتصالات شبکه قطع شده کار کنند.</string>
     <string name="error_page_learn_more_1">شما دارید از نسخه اخیر مرورگر سنو استفاده می‌کنید. ممکن است نسخه‌های قدیمی نتوانند با تزریق‌کننده‌ها یا سرویس‌گیرنده‌های جدیدتر ارتباط برقرار کنند. برای یافتن آخرین نسخه به &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;صفحه دانلود&lt;/a&gt; مراجعه کنید.</string>
     <string name="content_description_close_button">بستن</string>
     <plurals name="preferences_ceno_groups_count_subtitle">
-        <item quantity="one">%dسایت</item>
-        <item quantity="other">%dسایت‌ها</item>
+        <item quantity="one">%d سایت</item>
+        <item quantity="other">%d سایت</item>
     </plurals>
     <string name="browser_menu_disable_reader_view">پنهان‌سازی حالت خواندن</string>
     <string name="browser_menu_enable_reader_view">نمایش حالت خواندن</string>
