@@ -5,15 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
+import ie.equalit.ceno.CleanInsightTrackerHelper
+import ie.equalit.ceno.ConsentRequestUi
 import ie.equalit.ceno.R
+import ie.equalit.ceno.R.string.clean_insights_successful_opt_in
 import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.appstate.AppAction
@@ -33,7 +39,9 @@ import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
+import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
+import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -46,6 +54,9 @@ import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
 import mozilla.components.feature.top.sites.TopSitesProviderConfig
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.base.log.logger.Logger
+import org.cleaninsights.sdk.Consent
+import org.cleaninsights.sdk.Feature
 import java.util.Locale
 
 /**
@@ -151,7 +162,104 @@ class HomeFragment : BaseHomeFragment() {
             ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
+        // call permissions
+
+        // Check for previous crashes for users that have not enabled crash reporting
+        if(Settings.showCrashReportingPermissionNudge(requireContext())) {
+            showCrashReportingPermission()
+        } else if(Settings.shouldShowCleanInsightsPermissionNudge(requireContext())) {
+            Settings.setCleanInsightsEnabled(requireContext(), false)
+            Settings.toggleShowCleanInsightsPermissionNudge(requireContext(), false)
+            launchCleanInsightsPermissionDialog()
+        } else if(cleanInsights?.state("test") == Consent.State.Granted) {
+            Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(requireContext())}th launch with clean insights tracking")
+            Settings.incrementLaunchCountWithCleanInsightsEnabled(requireContext())
+        }
+
+
         return binding.root
+    }
+
+    /* This function displays the popup that asks users if they want to opt in for
+    the crash reporting feature
+     */
+    private fun showCrashReportingPermission() {
+        // launch Sentry activation dialog
+        val dialogView = View.inflate(requireContext(), R.layout.crash_reporting_nudge_dialog, null)
+        val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
+        val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+
+        val sentryActionDialog by lazy { AlertDialog.Builder(requireContext()).apply {
+            setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+        } }
+
+        AlertDialog.Builder(requireContext()).apply {
+            setView(dialogView)
+            setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                when {
+                    radio0.isChecked -> {
+                        Settings.alwaysAllowCrashReporting(requireContext())
+                        SentryAndroid.init(requireContext(), SentryOptionsConfiguration.getConfig(requireContext()))
+
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
+                    }
+                    radio1.isChecked -> {
+                        Settings.neverAllowCrashReporting(requireContext())
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                    }
+                }
+            }
+            setOnDismissListener {
+                Settings.setCrashHappened(requireContext(), false) // reset the value of lastCrash
+            }
+            setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                Settings.setCrashHappened(requireContext(), false) // reset the value of lastCrash
+            }
+            create()
+        }.show()
+    }
+
+
+    /* This function displays the popup that asks users if they want to opt in for
+    the clean insights reporting
+     */
+    private fun launchCleanInsightsPermissionDialog() {
+
+        val ui = ConsentRequestUi(requireContext())
+
+        cleanInsights?.requestConsent("test", ui) { granted ->
+            if (!granted) {
+                Settings.setCleanInsightsEnabled(requireContext(), false)
+                return@requestConsent
+            }
+            cleanInsights?.requestConsent(Feature.Lang, ui) {
+                cleanInsights?.requestConsent(Feature.Ua, ui) {
+
+                    Settings.setCleanInsightsEnabled(requireContext(), true)
+
+                    // success toast message
+                    Toast.makeText(
+                        context,
+                        getString(clean_insights_successful_opt_in),
+                        Toast.LENGTH_LONG,
+                    ).show()
+
+                    // log Ouinet startup time if it already has a value
+                    (activity as BrowserActivity?)?.ouinetStartupTime?.let { startupTime ->
+                        if(startupTime > 0.0) {
+                            CleanInsightTrackerHelper.trackData(
+                                activity = "BrowserActivity",
+                                category = "app-state",
+                                action = "ouinet-startup-success",
+                                campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                                name = "actual_ouinet_startup_time",
+                                value = startupTime
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /** CENO: Copied from Fenix

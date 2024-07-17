@@ -36,7 +36,6 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BrowserApplication
-import ie.equalit.ceno.ConsentRequestUi
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.autofill.AutofillPreference
@@ -71,7 +70,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.cleaninsights.sdk.Consent
-import org.cleaninsights.sdk.Feature
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
 import kotlin.system.exitProcess
@@ -265,10 +263,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_customization)?.onPreferenceClickListener = getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener = getClickListenerForDeleteBrowsingData()
         getSwitchPreferenceCompat(pref_key_allow_crash_reporting)?.onPreferenceChangeListener = getClickListenerForCrashReporting()
-        getSwitchPreferenceCompat(pref_key_allow_clean_insights_tracking)?.apply {
-            isChecked = BrowserApplication.cleanInsights?.state("test") == Consent.State.Granted
-            onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
-        }
+        getSwitchPreferenceCompat(pref_key_clean_insights_enabled)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener = getClickListenerForSearch()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
@@ -475,34 +470,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                 when {
 
-                    // grant request from a user that has never given consent
-                    (BrowserApplication.cleanInsights?.state("test") == Consent.State.Unknown
-                        && (newValue as Boolean)) -> {
-                        val ui = ConsentRequestUi((activity as BrowserActivity))
-                        BrowserApplication.cleanInsights?.requestConsent("test", ui) { granted ->
-                            if (!granted) {
-                                BrowserApplication.cleanInsights?.deny("test")
-                                return@requestConsent
-                            }
-                            BrowserApplication.cleanInsights?.requestConsent(Feature.Lang, ui) {
-                                BrowserApplication.cleanInsights?.requestConsent(Feature.Ua, ui)
-                            }
-                        }
-                    }
-
-                    // every other grant request
-                    (newValue as Boolean) -> {
-                        BrowserApplication.cleanInsights?.grant("test")
-                        Toast.makeText(
-                            context,
-                            getString(clean_insights_successful_opt_in),
-                            Toast.LENGTH_LONG,
-                        ).show()
+                    // grant request
+                    BrowserApplication.cleanInsights?.state("test") == Consent.State.Denied
+                        && newValue as Boolean -> {
+                            BrowserApplication.cleanInsights?.grant("test")
+                            ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled(requireContext(), true)
+                            Toast.makeText(
+                                context,
+                                getString(clean_insights_successful_opt_in),
+                                Toast.LENGTH_LONG,
+                            ).show()
                     }
 
                     // deny request
-                    else -> {
+                    BrowserApplication.cleanInsights?.state("test") == Consent.State.Granted
+                        && !(newValue as Boolean) -> {
                         BrowserApplication.cleanInsights?.deny("test")
+                        ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled(requireContext(), false)
                         Toast.makeText(
                             context,
                             getString(clean_insights_successful_opt_out),
