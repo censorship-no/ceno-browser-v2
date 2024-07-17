@@ -14,9 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mozilla.components.concept.engine.prompt.ShareData
-import mozilla.components.concept.sync.FxAEntryPoint
 import mozilla.components.concept.sync.TabData
-import mozilla.components.feature.accounts.push.SendTabUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.share.RecentAppsStorage
 import mozilla.components.support.ktx.kotlin.isExtensionUrl
@@ -49,7 +47,6 @@ interface ShareController {
  * @param context [Context] used for various Android interactions.
  * @param shareSubject Desired message subject used when sharing through 3rd party apps, like email clients.
  * @param shareData The list of [ShareData]s that can be shared.
- * @param sendTabUseCases Instance of [SendTabUseCases] which allows sending tabs to account devices.
  * @param saveToPdfUseCase Instance of [SessionUseCases.SaveToPdfUseCase] to generate a PDF of a given tab.
  * @param printUseCase Instance of [SessionUseCases.PrintContentUseCase] to print content of a given tab.
  * @param snackbar Instance of [FenixSnackbar] for displaying styled snackbars.

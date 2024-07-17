@@ -350,8 +350,6 @@ dependencies {
     implementation libs.mozilla.concepttabstray
     implementation libs.mozilla.concepttoolbar
     implementation libs.mozilla.conceptstorage
-    implementation libs.mozilla.conceptsync
-    implementation libs.mozilla.conceptpush
 
     implementation libs.mozilla.composeawesomebar
 
@@ -359,6 +357,7 @@ dependencies {
     implementation libs.mozilla.browserdomains
     implementation libs.mozilla.browsertabstray
     implementation libs.mozilla.browsertoolbar
+    implementation libs.mozilla.browsertoolbar2
     implementation libs.mozilla.browsermenu
     implementation libs.mozilla.browsermenu2
     implementation libs.mozilla.browsersessionstorage
@@ -367,8 +366,6 @@ dependencies {
     implementation libs.mozilla.browsericons
     implementation libs.mozilla.browserthumbnails
 
-    implementation libs.mozilla.featureaccounts
-    implementation libs.mozilla.featureaccountspush
     implementation libs.mozilla.featureaddons
     implementation libs.mozilla.featureapplinks
     implementation libs.mozilla.featureawesomebar
@@ -385,11 +382,8 @@ dependencies {
     implementation libs.mozilla.featuretabs
     implementation libs.mozilla.featuredownloads
     implementation libs.mozilla.featureprompts
-    implementation libs.mozilla.featurepush
     implementation libs.mozilla.featurepwa
-    implementation libs.mozilla.featureqr
     implementation libs.mozilla.featurereaderview
-    implementation libs.mozilla.featuresyncedtabs
     implementation libs.mozilla.featurewebauthn
     implementation libs.mozilla.featurewebcompat
     implementation libs.mozilla.featurewebnotifications
@@ -400,11 +394,9 @@ dependencies {
     implementation libs.mozilla.uiicons
     implementation libs.mozilla.uitabcounter
 
-    implementation libs.mozilla.servicefirefoxaccounts
     implementation libs.mozilla.servicelocation
     implementation libs.mozilla.servicesynclogins
 
-    implementation libs.mozilla.supportimages
     implementation libs.mozilla.supportutils
     implementation libs.mozilla.supportktx
     implementation libs.mozilla.supportrustlog
@@ -412,7 +404,6 @@ dependencies {
     implementation libs.mozilla.supportwebextensions
 
     implementation libs.mozilla.libpublicsuffixlist
-    implementation libs.mozilla.libdataprotect
 
     implementation libs.thirdparty.sentry
     implementation libs.thirdparty.gson
