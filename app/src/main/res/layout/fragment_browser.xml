@@ -70,7 +70,7 @@
 
     <mozilla.components.feature.readerview.view.ReaderViewControlsBar
         android:id="@+id/readerViewBar"
-        android:background="#FFFFFFFF"
+        android:background="@color/fx_mobile_layer_color_1"
         android:elevation="10dp"
         android:visibility="gone"
         android:layout_gravity="bottom"
@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:src="@drawable/mozac_ic_font"
+        android:backgroundTint="@color/reader_view_floating_btn"
         android:visibility="gone"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"

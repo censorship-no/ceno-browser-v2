@@ -24,17 +24,17 @@ buildscript {
     }
 
     dependencies {
-        classpath Deps.tools_androidgradle
-        classpath Deps.tools_kotlingradle
-        classpath Deps.androidx_safeargs
-        classpath Deps.snakeyaml
+        classpath libs.tools.androidgradle
+        classpath libs.tools.kotlingradle
+        classpath libs.androidx.safeargs
+        classpath libs.snakeyaml
     }
 }
 
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.22.0" // Variables in plugins {} aren't supported
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.23'
+    alias libs.plugins.detekt
+    alias libs.plugins.jvm
+    alias libs.plugins.serialization
 }
 
 allprojects {
@@ -83,7 +83,7 @@ subprojects {
     afterEvaluate {
         if (it.hasProperty('android')) {
             jacoco {
-                toolVersion = Versions.jacoco_version
+                toolVersion = libs.versions.testing.jacoco
             }
 
             android {
@@ -162,7 +162,7 @@ configurations {
 }
 
 dependencies {
-    ktlint("com.pinterest:ktlint:${Versions.ktlint_version}") {
+    ktlint("com.pinterest:ktlint:${libs.versions.ktlint.version}") {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, getObjects().named(Bundling, Bundling.EXTERNAL))
         }

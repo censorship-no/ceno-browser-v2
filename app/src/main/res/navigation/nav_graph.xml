@@ -43,10 +43,6 @@
         app:destination="@id/tabsTrayFragment" />
 
     <action
-        android:id="@+id/action_global_shutDown"
-        app:destination="@id/shutdownFragment" />
-
-    <action
         android:id="@+id/action_global_external_browser"
         app:destination="@id/externalAppBrowserFragment"
         app:enterAnim="@anim/fade_in"
@@ -61,6 +57,10 @@
         app:exitAnim="@anim/slide_out"
         app:popEnterAnim="@anim/slide_back_in"
         app:popExitAnim="@anim/slide_back_out" />
+
+    <action
+        android:id="@+id/action_global_shareFragment"
+        app:destination="@id/shareFragment" />
 
     <fragment
         android:id="@+id/startupFragment"
@@ -233,6 +233,14 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
+        <action
+            android:id="@+id/action_settingsFragment_to_siteContentGroupFragment"
+            app:destination="@id/siteContentGroupFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
@@ -333,10 +341,6 @@
         tools:layout="@layout/fragment_change_icon" />
 
     <fragment
-        android:id="@+id/shutdownFragment"
-        android:name="ie.equalit.ceno.browser.ShutdownFragment"
-        tools:layout="@layout/fragment_shutdown" />
-    <fragment
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
         android:label="NetworkSettingsFragment" >
@@ -364,4 +368,33 @@
     <action
         android:id="@+id/action_global_standbyFragment"
         app:destination="@id/standbyFragment" />
+
+    <fragment
+        android:id="@+id/siteContentGroupFragment"
+        android:name="ie.equalit.ceno.settings.SiteContentGroupFragment"
+        android:label="SiteContentGroupFragment" />
+
+    <dialog
+        android:id="@+id/shareFragment"
+        android:name="ie.equalit.ceno.share.ShareFragment"
+        tools:layout="@layout/fragment_share">
+        <argument
+            android:name="data"
+            app:argType="mozilla.components.concept.engine.prompt.ShareData[]" />
+        <argument
+            android:name="showPage"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="sessionId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="shareSubject"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+
 </navigation>

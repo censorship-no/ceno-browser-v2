@@ -7,6 +7,7 @@
 package ie.equalit.ceno.ext
 
 import android.util.Patterns
+import mozilla.components.support.ktx.kotlin.sanitizeURL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -86,7 +87,7 @@ fun String.getSizeInMB(): Double {
  * Helper function to determine if a date string is more than x days away
  */
 fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
-    val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US)
+    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
     dateFormat.timeZone = TimeZone.getTimeZone("GMT") // for consistency
 
     try {
@@ -98,4 +99,11 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
         e.printStackTrace()
         return false
     }
+}
+
+/**
+ * Helper function to sanitize a URL-formatted string and remove the protocol scheme
+ */
+fun String.withoutScheme(): String {
+    return sanitizeURL().substringAfter("://")
 }
