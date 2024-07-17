@@ -480,7 +480,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         && (newValue as Boolean)) -> {
                         val ui = ConsentRequestUi((activity as BrowserActivity))
                         BrowserApplication.cleanInsights?.requestConsent("test", ui) { granted ->
-                            if (!granted) return@requestConsent
+                            if (!granted) {
+                                BrowserApplication.cleanInsights?.deny("test")
+                                return@requestConsent
+                            }
                             BrowserApplication.cleanInsights?.requestConsent(Feature.Lang, ui) {
                                 BrowserApplication.cleanInsights?.requestConsent(Feature.Ua, ui)
                             }

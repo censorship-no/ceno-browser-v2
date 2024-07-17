@@ -209,7 +209,10 @@ open class BrowserActivity : BaseActivity() {
         val ui = ConsentRequestUi(this)
 
         cleanInsights?.requestConsent("test", ui) { granted ->
-            if (!granted) return@requestConsent
+            if (!granted) {
+                cleanInsights?.deny("test")
+                return@requestConsent
+            }
             cleanInsights?.requestConsent(Feature.Lang, ui) {
                 cleanInsights?.requestConsent(Feature.Ua, ui) {
                     // log Ouinet startup time if it already has a value

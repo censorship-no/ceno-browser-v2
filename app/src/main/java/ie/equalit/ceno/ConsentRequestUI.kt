@@ -9,7 +9,6 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.ext.click
-import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.Campaign
 import org.cleaninsights.sdk.ConsentRequestUiComplete
 import org.cleaninsights.sdk.Feature
