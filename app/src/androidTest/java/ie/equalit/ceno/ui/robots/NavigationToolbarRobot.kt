@@ -112,7 +112,7 @@ fun navigationToolbar(interact: NavigationToolbarRobot.() -> Unit): NavigationTo
 private fun openTabTray() = mDevice.findObject(UiSelector().resourceId("$packageName:id/tab_counter_box"))
 private var numberOfOpenTabsTabCounter = onView(withId(R.id.counter_text))
 private fun urlBar() =
-    mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_url_view"))
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_origin_view"))
 private fun awesomeBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
 private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))

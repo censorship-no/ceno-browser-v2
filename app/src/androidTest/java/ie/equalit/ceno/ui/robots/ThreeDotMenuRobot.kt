@@ -12,6 +12,9 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.hasSibling
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.uiautomator.UiSelector
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
@@ -20,6 +23,7 @@ import ie.equalit.ceno.helpers.click
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import junit.framework.AssertionFailedError
+import org.hamcrest.CoreMatchers.allOf
 import org.mozilla.fenix.ui.robots.ReaderViewRobot
 
 /**
@@ -218,26 +222,26 @@ private fun threeDotMenuRecyclerViewExists() {
 }
 
 private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
-private fun backButton() = onView(ViewMatchers.withContentDescription("Back"))
-private fun forwardButton() = onView(ViewMatchers.withContentDescription("Forward"))
-private fun refreshButton() = onView(ViewMatchers.withContentDescription("Refresh"))
-private fun stopButton() = onView(ViewMatchers.withContentDescription("Stop"))
-private fun shareButton() = onView(ViewMatchers.withText(R.string.browser_menu_share))
-private fun requestDesktopSiteToggle() = onView(ViewMatchers.withText("Request desktop site"))
-private fun findInPageButton() = onView(ViewMatchers.withText("Find in page"))
-private fun reportIssueButton() = onView(ViewMatchers.withText("Report issue"))
-private fun settingsButton() = onView(ViewMatchers.withText(R.string.settings))
-private fun addToHomescreenButton() = onView(ViewMatchers.withText("Add to Home screen"))
-private fun addOnsButton() = onView(ViewMatchers.withText("Add-ons"))
-private fun syncedTabsButton() = onView(ViewMatchers.withText("Synced Tabs"))
-private fun clearCenoButton() = onView(ViewMatchers.withText("Clear Ceno"))
-private fun addToShortcutsButton() = onView(ViewMatchers.withText("Add to shortcuts"))
-private fun removeFromShortcutsButton() = onView(ViewMatchers.withText("Remove from shortcuts"))
-private fun httpsByDefaultButton() = onView(ViewMatchers.withText("HTTPS by default"))
-private fun ublockOriginButton() = onView(ViewMatchers.withText("uBlock Origin"))
+private fun backButton() = onView(allOf(withContentDescription("Back"), hasSibling(withContentDescription("Forward"))))
+private fun forwardButton() = onView(allOf(withContentDescription("Forward"), hasSibling(withContentDescription("Back"))))
+private fun refreshButton() = onView(withContentDescription("Refresh"))
+private fun stopButton() = onView(withContentDescription("Stop"))
+private fun shareButton() = onView(allOf(withId(R.id.label), withText(R.string.browser_menu_share)))
+private fun requestDesktopSiteToggle() = onView(withText("Request desktop site"))
+private fun findInPageButton() = onView(withText("Find in page"))
+private fun reportIssueButton() = onView(withText("Report issue"))
+private fun settingsButton() = onView(withText(R.string.settings))
+private fun addToHomescreenButton() = onView(withText("Add to Home screen"))
+private fun addOnsButton() = onView(withText("Add-ons"))
+private fun syncedTabsButton() = onView(withText("Synced Tabs"))
+private fun clearCenoButton() = onView(withText("Clear Ceno"))
+private fun addToShortcutsButton() = onView(withText("Add to shortcuts"))
+private fun removeFromShortcutsButton() = onView(withText("Remove from shortcuts"))
+private fun httpsByDefaultButton() = onView(withText("HTTPS by default"))
+private fun ublockOriginButton() = onView(withText("uBlock Origin"))
 
-private fun enableReaderViewButton() = onView(ViewMatchers.withText(R.string.browser_menu_enable_reader_view))
-private fun disableReaderViewButton() = onView(ViewMatchers.withText(R.string.browser_menu_disable_reader_view))
+private fun enableReaderViewButton() = onView(withText(R.string.browser_menu_enable_reader_view))
+private fun disableReaderViewButton() = onView(withText(R.string.browser_menu_disable_reader_view))
 
 private fun assertShareButtonDoesntExist() = shareButton().check(ViewAssertions.doesNotExist())
 private fun assertRequestDesktopSiteToggleDoesntExist() =

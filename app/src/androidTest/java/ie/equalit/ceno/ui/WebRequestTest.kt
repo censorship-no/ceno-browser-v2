@@ -51,7 +51,7 @@ class WebRequestTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyWebsiteSourcesButton()
             verifyWebsiteSourcesSummary()

@@ -5,6 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import ie.equalit.ceno.helpers.TestAssetHelper
+import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.settings.Settings
 
@@ -25,6 +26,7 @@ class OnboardingRobot {
                 skipOnboardingButton().waitForExists(TestAssetHelper.waitingTime)
                 skipOnboardingButton().click()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    clickContinue()
                     givePermissions()
                 }
             }
@@ -73,9 +75,15 @@ fun givePermissions() {
     //for allowing notifications
     permissionAllowButton().waitForExists(TestAssetHelper.waitingTime)
     permissionAllowButton().click()
+    val request1 = mDevice.findObject(UiSelector().textContains("Let app always run in background?"))
+        .waitForExists(waitingTime)
+    val request2 = mDevice.findObject(UiSelector().textContains("Stop optimising battery usage?"))
+        .waitForExists(waitingTime)
     //for battery optimizations
-    backgroundAllowButton().waitForExists(TestAssetHelper.waitingTime)
-    backgroundAllowButton().click()
+    if (request1 || request2) {
+        backgroundAllowButton().waitForExists(TestAssetHelper.waitingTime)
+        backgroundAllowButton().click()
+    }
 }
 
 fun denyPermissions() {

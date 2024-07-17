@@ -177,7 +177,7 @@ class ThreeDotMenuTest {
     // need to add clear cache setup to ensure correct starting page
     // also, investigate why this periodically causes mockWebServer to crash
     @Test
-    @Ignore("https://github.com/mozilla-mobile/reference-browser/issues/1314")
+    //@Ignore("https://github.com/mozilla-mobile/reference-browser/issues/1314")
     fun refreshPageTest() {
         val refreshWebPage = TestAssetHelper.getRefreshAsset(mockWebServer)
 
