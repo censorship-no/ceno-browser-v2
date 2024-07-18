@@ -105,7 +105,7 @@
     <string name="customize_custom_extra_bittorrent_bootstrap">آی‌پی‌ها را با گذاشتن کاما (,) از هم جدا کنید</string>
     <string name="select_extra_bt_source">بوت‌استرپ اضافی بیت‌تورنت را انتخاب کنید</string>
     <string name="bit_torrent_bootstraps_category">بوت‌استرپ‌های بیت‌تورنت</string>
-    <string name="setting_item_selected">%s انتخاب‌شده</string>
+    <string name="setting_item_selected">%s انتخاب شد</string>
     <string name="bridge_mode_category">اعلان‌های مرتبط با پل</string>
     <string name="preferences_make_default_browser">سنو را مرورگر پیش‌فرض خود قرار دهید</string>
     <string name="preferences_about_page">درباره &vendorShortName;</string>
