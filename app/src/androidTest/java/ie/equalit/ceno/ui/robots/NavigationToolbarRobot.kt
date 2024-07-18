@@ -21,7 +21,6 @@ import ie.equalit.ceno.ext.waitAndInteract
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
-import org.mozilla.fenix.ui.robots.ReaderViewRobot
 
 /**
  * Implementation of Robot Pattern for the navigation toolbar menu.
@@ -56,13 +55,13 @@ class NavigationToolbarRobot {
         }
 
         fun openThreeDotMenu(interact: ThreeDotMenuRobot.() -> Unit): ThreeDotMenuRobot.Transition {
-            /* TODO: A short wait is required in case HTTPS-by-default is not finished installing yet */
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_menu"),
             )
                 .waitForExists(waitingTime)
-            threeDotMenuButton().click()
+            navThreeDotMenuButton().click()
+            mDevice.waitForIdle()
 
             ThreeDotMenuRobot().interact()
             return ThreeDotMenuRobot.Transition()
@@ -115,7 +114,7 @@ private fun urlBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_origin_view"))
 private fun awesomeBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
-private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
+private fun navThreeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
 private fun readerViewButton() = onView(withId(R.id.mozac_browser_toolbar_page_actions))
 
 private fun contentSourcesButton() = onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))

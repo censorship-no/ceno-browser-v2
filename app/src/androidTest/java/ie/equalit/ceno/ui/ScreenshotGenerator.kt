@@ -85,7 +85,7 @@ class ScreenshotGenerator {
                 clickDownRecyclerView(20)
                 Thread.sleep(1000)
                 Screengrab.screenshot("008_preferences_data")
-                clickDownRecyclerView(4)
+                clickDownRecyclerView(6)
                 Thread.sleep(1000)
                 Screengrab.screenshot("009_preferences_developertools")
             }.goBack {
@@ -114,7 +114,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(12)
+                clickDownRecyclerView(13)
                 Thread.sleep(1000)
             }.openSettingsViewDeleteBrowsingData {
                 Thread.sleep(1000)
@@ -123,7 +123,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(17)
+                clickDownRecyclerView(18)
                 Thread.sleep(1000)
             }.openSettingsViewNetworkDetails {
                 Thread.sleep(1000)
@@ -132,7 +132,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(20)
+                clickDownRecyclerView(21)
                 Thread.sleep(1000)
             }.openSettingsViewSources {
                 Thread.sleep(1000)
@@ -141,7 +141,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(25)
+                clickDownRecyclerView(26)
                 Thread.sleep(1000)
             }.openSettingsViewAboutPage {
                 Thread.sleep(1000)

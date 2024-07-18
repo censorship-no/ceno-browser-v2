@@ -4,7 +4,7 @@
 
 @file:Suppress("TooManyFunctions")
 
-package org.mozilla.fenix.ui.robots
+package ie.equalit.ceno.ui.robots
 
 import android.content.Context
 import androidx.test.espresso.Espresso.onView
@@ -23,7 +23,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
-import ie.equalit.ceno.ui.robots.mDevice
 
 /**
  * Implementation of Robot Pattern for Reader View UI.
@@ -85,11 +84,11 @@ class ReaderViewRobot {
     }
 
     class Transition {
-        fun dismissAppearanceMenu(interact: ReaderViewRobot.() -> Unit): ReaderViewRobot.Transition {
+        fun dismissAppearanceMenu(interact: ReaderViewRobot.() -> Unit): Transition {
             mDevice.pressBack()
 
             ReaderViewRobot().interact()
-            return ReaderViewRobot.Transition()
+            return Transition()
         }
     }
 }

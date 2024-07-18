@@ -24,7 +24,6 @@ import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import junit.framework.AssertionFailedError
 import org.hamcrest.CoreMatchers.allOf
-import org.mozilla.fenix.ui.robots.ReaderViewRobot
 
 /**
  * Implementation of Robot Pattern for three dot menu.

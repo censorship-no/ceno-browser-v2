@@ -88,6 +88,6 @@ fun denyPermissions() {
     }
     //for battery optimizations
     if(backgroundDenyButton().waitForExists(waitingTime)) {
-        backgroundDenyButton().click()
+        backgroundDenyButton().clickAndWaitForNewWindow(waitingTime)
     }
 }
