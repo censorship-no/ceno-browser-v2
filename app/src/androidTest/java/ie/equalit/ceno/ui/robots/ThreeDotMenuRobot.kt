@@ -222,11 +222,11 @@ private fun threeDotMenuRecyclerViewExists() {
 }
 
 private fun threeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
-private fun backButton() = onView(allOf(withContentDescription("Back"), hasSibling(withContentDescription("Forward"))))
-private fun forwardButton() = onView(allOf(withContentDescription("Forward"), hasSibling(withContentDescription("Back"))))
+private fun backButton() = onView(allOf(withContentDescription("Back"), isDisplayed()))
+private fun forwardButton() = onView(allOf(withContentDescription("Forward"), isDisplayed()))
 private fun refreshButton() = onView(withContentDescription("Refresh"))
 private fun stopButton() = onView(withContentDescription("Stop"))
-private fun shareButton() = onView(allOf(withId(R.id.label), withText(R.string.browser_menu_share)))
+private fun shareButton() = onView(allOf(withText(R.string.browser_menu_share), isDisplayed()))
 private fun requestDesktopSiteToggle() = onView(withText("Request desktop site"))
 private fun findInPageButton() = onView(withText("Find in page"))
 private fun reportIssueButton() = onView(withText("Report issue"))

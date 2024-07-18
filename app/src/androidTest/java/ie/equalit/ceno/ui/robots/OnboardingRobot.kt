@@ -73,15 +73,9 @@ private fun backgroundDenyButton() = mDevice.findObject(
 
 fun givePermissions() {
     //for allowing notifications
-    permissionAllowButton().waitForExists(TestAssetHelper.waitingTime)
+    permissionAllowButton().waitForExists(waitingTime)
     permissionAllowButton().click()
-    val request1 = mDevice.findObject(UiSelector().textContains("Let app always run in background?"))
-        .waitForExists(waitingTime)
-    val request2 = mDevice.findObject(UiSelector().textContains("Stop optimising battery usage?"))
-        .waitForExists(waitingTime)
-    //for battery optimizations
-    if (request1 || request2) {
-        backgroundAllowButton().waitForExists(TestAssetHelper.waitingTime)
+    if(backgroundAllowButton().waitForExists(waitingTime)) {
         backgroundAllowButton().click()
     }
 }
@@ -89,10 +83,11 @@ fun givePermissions() {
 fun denyPermissions() {
     //for allowing notifications
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        permissionDenyButton().waitForExists(TestAssetHelper.waitingTime)
+        permissionDenyButton().waitForExists(waitingTime)
         permissionDenyButton().click()
     }
     //for battery optimizations
-    backgroundDenyButton().waitForExists(TestAssetHelper.waitingTime)
-    backgroundDenyButton().click()
+    if(backgroundDenyButton().waitForExists(waitingTime)) {
+        backgroundDenyButton().click()
+    }
 }
