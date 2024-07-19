@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui.robots
 
+import android.os.Build
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -52,9 +53,16 @@ class AwesomeBarRobot {
     }
 
     fun clickPasteText() {
-        mDevice.findObject(UiSelector().textContains("Paste")).waitForExists(waitingTime)
-        val pasteText = mDevice.findObject(By.textContains("Paste"))
-        pasteText.click()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            mDevice.findObject(UiSelector().textContains("Paste")).waitForExists(waitingTime)
+            val pasteText = mDevice.findObject(By.textContains("Paste"))
+            pasteText.click()
+        }
+        else {
+            mDevice.findObject(UiSelector().textContains("PASTE")).waitForExists(waitingTime)
+            val pasteText = mDevice.findObject(By.textContains("PASTE"))
+            pasteText.click()
+        }
     }
 
     fun pasteAndLoadCopiedLink() {

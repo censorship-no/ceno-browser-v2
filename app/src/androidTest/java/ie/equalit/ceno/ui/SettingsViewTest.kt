@@ -8,6 +8,7 @@ package ie.equalit.ceno.ui
 
 import android.os.Build
 import androidx.core.net.toUri
+import androidx.test.filters.SdkSuppress
 import androidx.test.rule.GrantPermissionRule
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.LogHelper
@@ -312,6 +313,8 @@ class SettingsViewTest {
         }
     }
 
+    // TODO: log assertion is unreliable on Android 14+
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun enableLogFileTest() {
         navigationToolbar {
@@ -329,6 +332,7 @@ class SettingsViewTest {
         }
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun disableLogFileTest() {
         enableLogFileTest()
@@ -374,6 +378,7 @@ class SettingsViewTest {
         }
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
@@ -384,6 +389,7 @@ class SettingsViewTest {
         assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()

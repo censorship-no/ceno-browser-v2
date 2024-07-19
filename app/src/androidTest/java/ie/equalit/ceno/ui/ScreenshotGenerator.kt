@@ -5,6 +5,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ui.robots.clickContinue
 import ie.equalit.ceno.ui.robots.denyPermissions
+import ie.equalit.ceno.ui.robots.givePermissions
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.waitForContinueButton
@@ -65,12 +66,17 @@ class ScreenshotGenerator {
                 Screengrab.screenshot("003_fragment_onboarding_battery")
                 clickContinue()
 
-                denyPermissions()
-
-                waitForContinueButton()
-                Thread.sleep(1000)
-                Screengrab.screenshot("004_fragment_onboarding_warning")
-                clickContinue()
+                // TODO: on Android 13, clicking deny double clicks the continue btn?
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
+                    givePermissions()
+                }
+                else {
+                    denyPermissions()
+                    waitForContinueButton()
+                    Thread.sleep(1000)
+                    Screengrab.screenshot("004_fragment_onboarding_warning")
+                    clickContinue()
+                }
             }
             navigationToolbar {
                 Thread.sleep(1000)

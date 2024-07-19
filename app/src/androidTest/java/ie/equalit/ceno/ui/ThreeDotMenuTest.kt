@@ -96,7 +96,6 @@ class ThreeDotMenuTest {
     }
 
     @Test
-    @Ignore("https://gitlab.com/censorship-no/ceno-browser/-/issues/170")
     fun threeDotMenuItemsTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         navigationToolbar {
@@ -151,7 +150,6 @@ class ThreeDotMenuTest {
     }
 
     @Test
-    @Ignore("https://gitlab.com/censorship-no/ceno-browser/-/issues/170")
     fun privateBrowsingTabNavigationTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         val nextWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
@@ -199,7 +197,6 @@ class ThreeDotMenuTest {
     }
 
     @Test
-    @Ignore("https://gitlab.com/censorship-no/ceno-browser/-/issues/170")
     fun doShareTest() {
         val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
 
