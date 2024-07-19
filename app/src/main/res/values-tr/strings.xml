@@ -318,4 +318,12 @@
     <string name="share_link_all_apps_subheader">Tüm eylemler</string>
     <string name="share_link_recent_apps_subheader">Son kullanılanlar</string>
     <string name="share_save_to_pdf">PDF olarak kaydet</string>
+    <string name="content_description_close_button">Kapat</string>
+    <string name="browser_menu_enable_reader_view">Okuyucu görünümünü göster</string>
+    <string name="browser_menu_disable_reader_view">Okuyucu görünümünü gizle</string>
+    <string name="error_page_title">Hata Sayfası</string>
+    <string name="error_page_header">Haydaa! Web sayfası yüklenirken hata oluştu.</string>
+    <string name="error_page_learn_more">Daha fazla öğren</string>
+    <string name="error_page_sub_header">Bunun anlamı Ceno içeriğe ulaşabilmek için tüm yöntemleri denedi, ama hiçbiri başarılı olamadı:</string>
+    <string name="error_page_learn_more_2">Ayarlardaki tüm erişim yöntemleri etkinleştirildi. Aksi takdirde Ceno</string>
 </resources>
