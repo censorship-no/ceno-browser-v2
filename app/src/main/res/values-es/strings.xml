@@ -127,7 +127,7 @@
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_elpais_url</string>
     <string name="default_top_site_4_title" tools:ignore="Untranslatable">Infobae</string>
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_infobae_url</string>
-    <string name="onboarding_fragment">Bienvenid@ a Ceno</string>
+    <string name="onboarding_welcome_title">Bienvenid@ a Ceno</string>
     <string name="onboarding_battery_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve el sistema operativo te pedirá permiso para
 \n
