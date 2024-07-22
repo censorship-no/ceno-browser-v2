@@ -137,7 +137,7 @@
     <string name="onboarding_info_title">مرورگر معمولی شما نیست</string>
     <string name="onboarding_skip_button">رد کردن</string>
     <string name="onboarding_warning_button">باشه</string>
-    <string name="preferences_show_onboarding">نمایش مقدمات در اجرای بعدی</string>
+    <string name="preferences_show_onboarding">نمایش صفحات آشناسازی در اجرای بعدی</string>
     <string name="preferences_disable_battery_opt">غیرفعال کردن بهینه‌سازی باتری</string>
     <string name="onboarding_button">شروع کنید</string>
     <string name="onboarding_battery_text">به زودی سیستم‌عامل از شما این مجوز را می‌خواهد
