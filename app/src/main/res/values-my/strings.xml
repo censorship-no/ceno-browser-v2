@@ -4,116 +4,47 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. --><resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">ရှာဖွေ (သို့) လိပ်စာ ထည့်သွင်းပါ</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">တပ်ဗ် အသစ်</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">စာအမှတ် အားလုံးကို ပိတ်ရန်</string>
     <string name="menu_action_close_tabs_private">တကိုယ်ရည်သုံးတပ်ဗ်များအား ပိတ်ပါ</string>
-    <!--
-    <string name="preferences_autofill">Autofill apps</string>
-    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-    -->
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">USB မှတဆင့် Remote debugging</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
-    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">တကိုယ်ရည်သုံးရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
-    <!-- Preference for privacy -->
     <string name="privacy">ကိုယ်ပိုင်လွတ်လပ်ခွင့်</string>
-    <!-- Preference summary for privacy -->
-    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">လင့်များကို အက်ပ်များတွင် ဖွင့်ပါ</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">ကျွမ်းကျင်သူသုံး ကိရိယာ</string>
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">ခြေရာခံခြင်း ကာကွယ်မှု</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">ဒေတာ အမျိုးအစား</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">အပြင်အဆင်များ</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">ကိုယ်ပိုင်လွတ်လပ်ခွင့် အပြင်အဆင်များ</string> -->
-    <!-- လုံခြုံစွာ ဝဘ်ဆိုက်ကြည့်ရှုခြင်း -->
     <string name="private_browsing_title">တကိုယ်ရည်သုံး ရှာဖွေခြင်း</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">စိတ်ကြိုက် အတ်-အွန်(Add-on) စုဆောင်းခြင်း</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">အိုကေ</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">ပယ်ဖျက်မည်</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">စုဆောင်းမှု အမည်</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">စုဆောင်းမှုပိုင်ရှင် (အသုံးပြုသူ အိုင်ဒီ)</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">အပို စုဆောင်းမှုကို ပြုပြင်ပြီး ဖြစ်သည်။ အပြောင်းအလဲများ လျှောက်ထားရန် လျှောက်လွှာ မှ ထွက်ပါ …</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">တကိုယ်ရည်သုံးရှာဖွေမှုကို ဖွင့်ပါ</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">တကိုယ်ရေသုံးတပ်ဗ်၌ ဖွင့်မည်</string>
-    <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">အမည်ပြောင်းပါ</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">ဖယ်ရှားပါ</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">မှတ်တမ်းမှ ဖျက်ပါ</string>
-    <!-- Top Sites -->
-    <!-- TODO: strings with "shortcut" in them were changed as of Firefox 101 release,
-            but are not yet updated for FA or MY, check later for new strings -->
-    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">ထိပ်တန်း ဆိုဒ် ကန့်သတ်ချက် သို့ ရောက်ပါပြီ</string>
-    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
     <string name="shortcut_max_limit_content">ထိပ်တန်း ဆိုက် အသစ် တစ်ခု ထည့်ရန်၊ တစ်ခုကို ဖယ်ရှားပါ။ ဆိုက်ကို နှိပ်ပြီး ဖိထားပါ၊ ပြီးနောက် ဖယ်ရှားပါ ကို ရွေးပါ။</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">အိုကေ၊ ရပြီ</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">အမည်</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">အတိုကောက်နာမည်</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">အိုကေ</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">ပယ်ဖျက်ပါ</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Sponsored</string>
-    <!-- Browser Fragment -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">နောက်သို့</string> -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">ရှေ့သို့</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">ပြန်စပါ</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">ရပ်ပါ</string>
-    <!-- Browser menu button that opens the addon manager -->
     <string name="preferences_add_ons">အတ်အွန်များ</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">အပြင်အဆင်များ</string>
-    <!-- Browser menu toggle that requests a desktop site -->
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">ပင်မစာမျက်နှာသို့ ထည့်ပါ</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">စာမျက်နှာထဲတွင် ရှာပါ</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
-    <string name="browser_menu_share">မျှဝေ</string>
-    -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Shortcuts ထဲ ထည့်ပါ</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Shortcuts မှ ပယ်ဖျက်ပါ</string>
-    <!-- CENO: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">ဖတ်ရှုသူ အမြင်</string>
     <string name="menu_share_with">မျှဝေရန် …</string>
     <string name="preferences_customization_summary">အပ်ပ် အိုင်ကွန်၊ Toolbar၊ ပယ်ဖျက်ခြင်းခလုတ်</string>
@@ -177,27 +108,21 @@
     <string name="select_extra_bt_source">အပိုဆောင်း BitTorrent bootstrap ကို ရွေးချယ်ပါ</string>
     <string name="set_default_search_engine">ရှာဖွေရေး အင်ဂျင်ကို ပုံသေသတ်မှတ်ပါ</string>
     <string name="bridge_mode_category">ပေါင်းကူး ကြေညာချက်များ</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">သင့်အမြဲသုံးဘရောက်ဇာအဖြစ် &brandShortName; ကို ပြုလုပ်ပါ</string>
-    <!-- Preference about page -->
     <string name="preferences_about_page">&vendorShortName; အကြောင်း</string>
-    <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/my/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;တကိုယ်ရည်သုံးရှာဖွေခြင်း&lt;/h1&gt; &lt;p&gt;Ceno သည် တကိုယ်ရည်သုံးတပ်ဗ်များမှ အကြောင်းအရာများကို အခြားသူများနှင့် မမျှဝေပါ။ လော့ဂ်အင်ပြုလုပ်ရန် လိုအပ်သော ဆိုက်များသို့ သင့်အနေဖြင့် လုံခြုံစွာ ဝင်ရောက်နိုင်ပါသည်။ သို့သော် အင်တာနက်ကို အသုံးပြုဖို့ လိုအပ်ပါသည်။&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;ပိုမိုသိရှိလိုပါသလား။&lt;/p&gt;</string>
-    <!-- Service notification and actions -->
     <string name="ceno_notification_title">&brandShortName; ဘရောက်ဇာ ဝန်ဆောင်မှု</string>
     <string name="ceno_notification_description">ရပ်ရန် နှိပ်ပါ</string>
     <string name="ceno_notification_home_description">ပင်မစာမျက်နှာ</string>
     <string name="ceno_notification_clear_description">ဖျက်မည်⚠</string>
     <string name="ceno_notification_clear_do_description">ဟုတ်သည်</string>
     <string name="ceno_notification_channel_name">&brandShortName; ဝန်ဆောင်မှု</string>
-    <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">&brandShortName; ဘရောက်ဇာ သတိပေးချက်</string>
     <string name="ceno_on_mobile_data_dialog_description">&brandShortName; သည် သင် မှန်းထားသည်ထက် ဒေတာ ပိုမိုအသုံးပြုနိုင်သောကြောင့် သင့်တွင် Wi-Fi ချိတ်ဆက်မှု ရှိချိန်တွင် ၎င်းကို အသုံးပြုရန် အကြံပြုထားသည်။ သင်သည် မိုဘိုင်းဒေတာ အသုံးပြုနေချိန်တွင် &brandShortName; ကို ရပ်လိုက ရပ်နိုင်သည်။</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">&brandShortName; ကို ယခု ရပ်ပါ</string>
     <string name="ceno_on_mobile_data_dialog_continue">ဆက်လုပ်မည်</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">ထပ်မပြပါနှင့်</string>
-    <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Ceno လက်စွဲ</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_my_url</string>
     <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>

@@ -4,116 +4,48 @@
 <!ENTITY brandFullName "eQualitie Ceno">
 <!ENTITY vendorShortName "eQualitie">
 ]>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Text shown in the toolbar if it is empty -->
     <string name="toolbar_hint">Выполните поиск или введите адрес</string>
-    <!-- Menu option on the toolbar to open a new tab-->
     <string name="menu_action_add_tab">Новая вкладка</string>
-    <!-- Menu option on the toolbar to close all tabs-->
     <string name="menu_action_close_tabs">Закрыть все вкладки</string>
     <string name="menu_action_close_tabs_private">Закрыть личные вкладки</string>
-    <!--
-    <string name="preferences_autofill">Autofill apps</string>
-    <string name="preferences_autofill_summary">Autofill logins and passwords in other apps</string>
-    -->
-    <!-- Preference enabling remote debugging -->
     <string name="preferences_remote_debugging">Удалённая отладка по USB</string>
-    <!-- Preference for enabling tracking protection in normal mode -->
-    <!-- <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string> -->
-    <!-- Preference for enabling tracking protection in private mode -->
     <string name="preferences_tracking_protection_private">Включить в режиме личного просмотра</string>
-    <!-- Preference for privacy -->
     <string name="privacy">Приватности</string>
-    <!-- Preference summary for privacy -->
-    <!-- <string name="preferences_privacy_summary">Tracking, cookies, data choices</string> -->
-    <!-- Preference for open links in apps -->
     <string name="open_links_in_apps">Открывать ссылки в приложениях</string>
-    <!-- Preference category for developer tools -->
     <string name="developer_tools_category">Инструменты разработчика</string>
-    <!-- Preference category for tracking protection -->
     <string name="tracker_category">Защита от отслеживания</string>
-    <!-- Preference category for data choices e.g. usage data -->
-    <!-- <string name="data_choices_category">Выбор данных</string> -->
-    <!-- Menu option on the toolbar that takes you to settings page-->
     <string name="settings">Параметры</string>
-    <!-- Menu option on the toolbar that takes you to privacy settings page-->
-    <!-- <string name="privacy_settings">Приватность Параметры</string> -->
-    <!-- Приватный просмотр -->
     <string name="private_browsing_title">Личный браузинг</string>
-    <!-- Add-on Preferences -->
-    <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->
     <string name="preferences_customize_amo_collection">Настраиваемая коллекция дополнений</string>
-    <!-- Button caption to confirm the add-on collection configuration -->
     <string name="customize_addon_collection_ok">OK</string>
-    <!-- Button caption to abort the add-on collection configuration -->
     <string name="customize_addon_collection_cancel">Отмена</string>
-    <!-- Hint displayed on input field for custom collection name -->
     <string name="customize_addon_collection_hint">Имя коллекции</string>
-    <!-- Hint displayed on input field for custom collection user ID-->
     <string name="customize_addon_collection_user_hint">Владелец коллекции (ID пользователя)</string>
-    <!-- Toast shown after confirming the custom add-on collection configuration -->
     <string name="toast_customize_addon_collection_done">Коллекция дополнений была изменена. Закрываем приложение, чтобы применить изменения…</string>
-    <!-- CENO: COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): "Private Browsing" menu button. -->
     <string name="content_description_private_browsing_button">Включить личный просмотр</string>
-    <!-- Bookmark overflow menu open in private tab button -->
     <string name="bookmark_menu_open_in_private_tab_button">Открыть в личной вкладке</string>
-    <!-- Sessions -->
-    <!-- Text for the menu button to rename a top site -->
     <string name="rename_top_site">Переименовать</string>
-    <!-- Text for the menu button to remove a top site -->
     <string name="remove_top_site">Удалить</string>
-    <!-- Text for the menu button to delete a top site from history -->
     <string name="delete_from_history">Удалить из истории</string>
-    <!-- Top Sites -->
-    <!-- Title text displayed in the dialog when shortcuts limit is reached. -->
     <string name="shortcut_max_limit_title">Достигнут лимит ярлыков</string>
-    <!-- Content description text displayed in the dialog when shortcut limit is reached. -->
     <string name="shortcut_max_limit_content">Чтобы добавить ярлык, удалите другой ярлык. Нажмите и удерживайте карточку с сайтом, а затем нажмите «Удалить».</string>
-    <!-- Confirmation dialog button text when top sites limit is reached. -->
     <string name="top_sites_max_limit_confirmation_button">OK, понятно</string>
-    <!-- Title text displayed in the rename top site dialog. -->
     <string name="top_sites_rename_dialog_title">Имя</string>
-    <!-- Hint for renaming title of a shortcut -->
     <string name="shortcut_name_hint">Название ярлыка</string>
-    <!-- Button caption to confirm the renaming of the top site. -->
     <string name="top_sites_rename_dialog_ok">OK</string>
-    <!-- Dialog button text for canceling the rename top site prompt. -->
     <string name="top_sites_rename_dialog_cancel">Отмена</string>
-    <!-- Label text displayed for a sponsored top site. -->
     <string name="top_sites_sponsored_label">Спонсировано</string>
-    <!-- Browser Fragment -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate backward (browsing history) -->
-    <!-- <string name="browser_menu_back">Назад</string> -->
-    <!-- Content description (not visible, for screen readers etc.): Navigate forward (browsing history) -->
     <string name="browser_menu_forward">Вперёд</string>
-    <!-- Content description (not visible, for screen readers etc.): Refresh current website -->
     <string name="browser_menu_refresh">Обновить</string>
-    <!-- Content description (not visible, for screen readers etc.): Stop loading current website -->
     <string name="browser_menu_stop">Остановить</string>
-    <!-- Browser menu button that opens the addon manager -->
     <string name="preferences_add_ons">Расширения</string>
-    <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Настройки</string>
-    <!-- Browser menu toggle that requests a desktop site -->
     <string name="browser_menu_desktop_site">Версия для ПК</string>
-    <!-- Browser menu toggle that adds a shortcut to the site on the device home screen. -->
     <string name="browser_menu_add_to_homescreen">На домашний экран</string>
-    <!-- Browser menu button that opens the find in page menu -->
     <string name="browser_menu_find_in_page">Найти на странице</string>
-    <!-- Browser menu button that open a share menu to share the current site -->
-    <!--
-    <string name="browser_menu_share">Поделиться</string>
-    -->
-    <!-- Browser menu button that adds a shortcut to the home fragment -->
     <string name="browser_menu_add_to_shortcuts">Добавить в ярлыки</string>
-    <!-- Browser menu button that removes a shortcut from the home fragment -->
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
-    <!-- CENO: END OF COPIED FROM FENIX -->
-    <!-- Content description (not visible, for screen readers etc.): Reader view -->
     <string name="button_content_readerview">Вид читателя</string>
     <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
     <string name="menu_share_with">Поделиться с …</string>
@@ -179,42 +111,29 @@
     <string name="select_extra_bt_source">Выбрать дополнительный бутстрап для BitTorrent</string>
     <string name="set_default_search_engine">Поисковая система по умолчанию</string>
     <string name="bridge_mode_category">Объявления о мостах</string>
-    <!-- Preference for settings related to changing the default browser -->
     <string name="preferences_make_default_browser">Сделайте &brandShortName; своим браузером по умолчанию</string>
-    <!-- Preference about page -->
     <string name="preferences_about_page">О &vendorShortName;</string>
-    <!-- TRANSLATORS: Keep the URL as is unless the section has been translated. -->
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
-    <!-- Extra paragraph in private tab panel. -->
-    <!-- <string name="ceno_private_tab_panel_description">&brandShortName; не будет распространять содержимое приватных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.</string> -->
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;Ceno не будет распространять содержимое личных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше\?&lt;/p&gt;</string>
-    <!-- Service notification and actions -->
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;Ceno не будет распространять содержимое личных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше?&lt;/p&gt;</string>
     <string name="ceno_notification_title">Сервис браузера &brandShortName;</string>
     <string name="ceno_notification_description">Нажмите, чтобы остановить</string>
     <string name="ceno_notification_home_description">Главная</string>
     <string name="ceno_notification_clear_description">Стереть⚠</string>
     <string name="ceno_notification_clear_do_description">Да</string>
     <string name="ceno_notification_channel_name">Сервис &brandShortName;</string>
-    <!-- "On mobile data" dialog -->
     <string name="ceno_on_mobile_data_dialog_title">Уведомление браузера &brandShortName;</string>
     <string name="ceno_on_mobile_data_dialog_description">Рекомендуется использовать &brandShortName; через Wi-Fi, так как вы можете потратить больше трафика, чем думаете. Вы можете остановить &brandShortName; во время работы через мобильный интернет.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Остановить &brandShortName;</string>
     <string name="ceno_on_mobile_data_dialog_continue">Продолжить</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Не показывать снова</string>
-    <!-- Default suggested site title and urls -->
     <string name="default_top_site_1_title">Ceno Мануал</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_ru_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
-    <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
+    <string name="default_top_site_2_title" tools:ignore="Untranslatable">The Moscow Times</string>
+    <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_moscowtimes_url</string>
     <string name="default_top_site_3_title" tools:ignore="Untranslatable">Медуза</string>
     <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_meduza_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">Медиазона</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_mediazona_url</string>
-    <!--
-    <string name="onboardingfragment">Welcome to &brandShortName; v2</string>
-    <string name="onboarding_button">Let's go!</string>
-    -->
-    <!-- Snackbar action button when a non fatal crash happen-->
+    <string name="default_top_site_4_title" tools:ignore="Untranslatable">The True Story</string>
+    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_truestory_url</string>
     <string name="onboarding_fragment">Добро пожаловать в &brandShortName;</string>
     <string name="onboarding_warning_button">Хорошо</string>
     <string name="ceno_clear_dialog_clear_entire_app">Очистить &brandShortName; кэш и данные приложения</string>
@@ -261,7 +180,7 @@
     <string name="preferences_ceno_sources_public_summary">Загружать содержимое через публичную сеть Ceno</string>
     <string name="website_button_text">Сайт</string>
     <string name="preferences_change_app_icon">Сменить иконку приложения</string>
-    <string name="changeIconDialogTitle">Применить новую иконку\?</string>
+    <string name="changeIconDialogTitle">Применить новую иконку?</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; будет отправлять текст, вводимый в адресную строку, вашей поисковой системе</string>
     <string name="preferences_show_home_button">Показать кнопку Домой</string>
     <string name="preferences_theme_summary">Тёмная, светлая, энергосберегающая</string>
@@ -389,10 +308,42 @@
     <string name="enable_bridge_card_title">Включить режим моста</string>
     <string name="ceno_sources_shared_by_ceno_cache">Из кэша &brandShortName;</string>
     <string name="bridge_mode_faq_url">https://censorship.no/ru/support.html#bridgemode</string>
+    <string name="dialog_btn_positive_ok">OK</string>
     <string name="browser_menu_share">Поделиться</string>
     <string name="share_header_2">Поделиться</string>
     <string name="share_copy_link_to_clipboard">Копировать в буфер обмена</string>
     <string name="share_link_all_apps_subheader">Все действия</string>
     <string name="share_link_recent_apps_subheader">Недавно использованные</string>
     <string name="share_save_to_pdf">Сохранить как PDF</string>
+    <string name="ceno_log_content_group_file_saved">Разданный контент успешно сохранен</string>
+    <string name="canceled">Отменен</string>
+    <string name="download_site_content">Скачать содержимое сайта</string>
+    <string name="confirm_groups_file_download">Экспортировать список разданного контента?</string>
+    <string name="confirm_groups_file_download_desc">На вашем устройстве будет сохранен txt файл</string>
+    <string name="no_content_shared">Сейчас вы не раздаете контент</string>
+    <string name="dismiss">Закрыть</string>
+    <string name="confirm_clear_cached_content">Очистить кэшированный контент?</string>
+    <string name="confirm_clear_cached_content_desc">Ваш кэшированный контент будет немедленно удален</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d сайт</item>
+        <item quantity="few">%d сайтов</item>
+        <item quantity="many">%d сайтов</item>
+        <item quantity="other">%d сайтов</item>
+    </plurals>
+    <string name="browser_menu_enable_reader_view">Показать режим чтения</string>
+    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на <a href="#">Download page</a> чтобы скачать последнюю версию.</string>
+    <string name="error_page_learn_more_2">Все механизмы доступа в Настройках включены. Иначе Ceno не сможет обойти некоторые проблемы связности при попытке доступа к контенту.</string>
+    <string name="error_page_learn_more_3">У вашего устройства рабочее подключение к сети, ваш обычный веб-браузер может открыть некоторые сайты. Ceno и Ouinet не смогут работать если вся сетевая связность отсутствует.</string>
+    <string name="content_description_close_button">Закрыть</string>
+    <string name="shutdown_message_two">Закрыть Ceno</string>
+    <string name="title_success">Успешно</string>
+    <string name="thank_you_bridge_mode_enabled">Спасибо что стали мостом и помогли сделать сеть Ceno больше</string>
+    <string name="shutdown_message_one">Стереть данные приложения</string>
+    <string name="browser_menu_disable_reader_view">Скрыть режим чтения</string>
+    <string name="error_page_learn_more_header">Убедитесь что требования необходимые Ceno для работы выполнены</string>
+    <string name="error_page_title">Страница ошибки</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; разданный контент</string>
+    <string name="error_page_header">Ой! Не удалось загрузить страницу.</string>
+    <string name="error_page_sub_header">Это значит что Ceno попытался использовать все доступные механизмы чтобы загрузить контент, но ни один не сработал:</string>
+    <string name="error_page_learn_more">Узнать больше</string>
 </resources>

@@ -353,7 +353,7 @@ object Settings {
                 items = buildList {
                     rssAnnouncementResponse.items.forEach {
                         if((swipedGuids == null || !swipedGuids.contains(it.guid))
-                            && !it.pubDate.isDateMoreThanXDaysAway(30)
+                            && it.guid.split("/").getOrNull(1)?.isDateMoreThanXDaysAway(30) == false
                             ) {
                             add(it)
                         }
