@@ -232,6 +232,7 @@ class SettingsViewTest {
     Confirming the custom add-on collection creation or trying to continue testing afterwards
     will cause the test instrumentation process to crash */
     @Test
+    @Ignore("Custom add-on are disabled right now due to breaking changes with android-component-v128")
     fun customAddonsCollectionTest() {
         navigationToolbar {
         }.openThreeDotMenu {
