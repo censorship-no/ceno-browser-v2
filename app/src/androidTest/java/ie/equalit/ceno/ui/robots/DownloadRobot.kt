@@ -25,6 +25,14 @@ class DownloadRobot {
         downloadButton.click()
     }
 
+    fun allowButtonExists() : Boolean {
+        return allowButton.waitForExists(waitingTime)
+    }
+
+    fun clickAllow() {
+        clickAllowButton()
+    }
+
     fun verifyDownloadPrompt(filename:String) {
         Espresso.onView(ViewMatchers.withText("Download"))
     }
@@ -67,11 +75,9 @@ private fun clickAllowButton() {
         waitingTime,
     )
 
-    val allowButton = mDevice.findObject(
-        By.res(getPermissionAllowID() + ":id/permission_allow_button"),
-    )
     allowButton.click()
 }
 
 private val closeDownloadButton = mDevice.findObject(UiSelector().resourceId("$packageName:id/close_button"))
 private val downloadButton = mDevice.findObject(UiSelector().resourceId("$packageName:id/download_button"))
+private val allowButton = mDevice.findObject(UiSelector().resourceId(getPermissionAllowID() + ":id/permission_allow_button"))
