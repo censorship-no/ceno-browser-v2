@@ -171,7 +171,7 @@ class HomeFragment : BaseHomeFragment() {
             Settings.setCleanInsightsEnabled(requireContext(), false)
             Settings.toggleShowCleanInsightsPermissionNudge(requireContext(), false)
             launchCleanInsightsPermissionDialog()
-        } else if(cleanInsights?.state("test") == Consent.State.Granted) {
+        } else if(cleanInsights?.state("test") == Consent.State.Granted && savedInstanceState == null) {
             Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(requireContext())}th launch with clean insights tracking")
             Settings.incrementLaunchCountWithCleanInsightsEnabled(requireContext())
         }
