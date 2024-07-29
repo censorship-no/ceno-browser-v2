@@ -303,7 +303,7 @@
     <string name="thank_you_bridge_mode_enabled">Köprü olduğunuz ve Ceno ağını büyüttüğünüz için teşekkür ederiz!</string>
     <string name="dialog_btn_positive_ok">Tamam</string>
     <string name="ceno_log_content_group_file_saved">Paylaşılan içerik başarıyla kaydedildi</string>
-    <string name="ceno_android_content_group_file_name">&amp;brandShortName; paylaşılan içerik</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; paylaşılan içerik</string>
     <string name="canceled">İptal edildi</string>
     <string name="download_site_content">Site içeriğini indirin</string>
     <string name="no_content_shared">Şu anda herhangi bir içerik paylaşmıyorsunuz</string>
