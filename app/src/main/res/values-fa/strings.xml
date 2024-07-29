@@ -46,7 +46,7 @@
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
     <string name="browser_menu_add_to_shortcuts">به سایت‌های برتر اضافه کنید</string>
     <string name="browser_menu_remove_from_shortcuts">از سایت‌های برتر حذف کنید</string>
-    <string name="button_content_readerview">حالت خواننده</string>
+    <string name="button_content_readerview">حالت خواندنی</string>
     <string name="menu_share_with">اشتراک‌گذاری با…</string>
     <string name="toast_copied">کپی شد!</string>
     <string name="close_mode_item">بستن اعلان‌</string>
@@ -336,8 +336,8 @@
         <item quantity="one">%d سایت</item>
         <item quantity="other">%d سایت</item>
     </plurals>
-    <string name="browser_menu_disable_reader_view">پنهان‌سازی حالت خواندن</string>
-    <string name="browser_menu_enable_reader_view">نمایش حالت خواندن</string>
+    <string name="browser_menu_disable_reader_view">پنهان‌سازی حالت خواندنی</string>
+    <string name="browser_menu_enable_reader_view">نمایش حالت خواندنی</string>
     <string name="error_page_learn_more">بیش‌تر بدانید</string>
     <string name="error_page_learn_more_2">تمامی روش‌های دسترسی در تنظیمات فعال هستند. در غیر این صورت سنو نمی‌تواند هنگام دسترسی به محتوا برخی از مشکلات اتصال به اینترنت را برطرف کند.</string>
 </resources>
