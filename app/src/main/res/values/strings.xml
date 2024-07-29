@@ -367,7 +367,6 @@
     <string name="browser_menu_enable_reader_view">Show Reader View</string>
     <string name="browser_menu_disable_reader_view">Hide Reader View</string>
     <!--  Failed to retrieve resource HTML strings  -->
-    <string name="zero">0</string>
     <string name="error_page_title">Error Page</string>
     <string name="error_page_header">Oops! Failed to load webpage.</string>
     <string name="error_page_sub_header">This means that Ceno tried all available mechanisms to access the content, but none of them succeeded:</string>
