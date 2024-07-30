@@ -23,15 +23,15 @@ class ConsentRequestUi(private val context: Context) :
 
             append(context.getString(R.string.clean_insights_explainer))
 
-            color(ContextCompat.getColor(context, R.color.accent)) {
-                click(false, onClick = {
-                    // todo: open popup?
-                }) {
-                    append(" ")
-                    append(context.getString(R.string.learn_more_title))
-                    append(".")
-                }
-            }
+//            color(ContextCompat.getColor(context, R.color.accent)) {
+//                click(false, onClick = {
+//                    // todo: open popup?
+//                }) {
+//                    append(" ")
+//                    append(context.getString(R.string.learn_more_title))
+//                    append(".")
+//                }
+//            }
         }
 
         AlertDialog.Builder(context)
