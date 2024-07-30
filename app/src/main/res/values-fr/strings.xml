@@ -325,4 +325,13 @@
     <string name="share_link_all_apps_subheader">Toutes les actions</string>
     <string name="share_link_recent_apps_subheader">Récemment utilisés</string>
     <string name="share_save_to_pdf">Enregistrer en PDF</string>
+    <string name="content_description_close_button">Fermer</string>
+    <string name="browser_menu_enable_reader_view">Afficher la vue lecteur</string>
+    <string name="error_page_title">Page d\'erreur</string>
+    <string name="browser_menu_disable_reader_view">Cacher la vue lecteur</string>
+    <string name="error_page_learn_more_2">Tous les mécanismes d\'accès dans les paramètres sont activés. Sinon, Ceno ne pourra pas contourner certains problèmes de connectivité lors de l\'accès au contenu.</string>
+    <string name="error_page_learn_more_header">Vous devez vous assurer que les exigences suivantes sont remplies pour que Ceno fonctionne</string>
+    <string name="error_page_learn_more">En savoir plus</string>
+    <string name="error_page_sub_header">Cela signifie que Ceno a essayé tous les mécanismes disponibles pour accéder au contenu, mais aucun n\'a réussi :</string>
+    <string name="error_page_header">Oups ! Échec du chargement de la page web.</string>
 </resources>

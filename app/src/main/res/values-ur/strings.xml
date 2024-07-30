@@ -202,4 +202,5 @@
     <string name="share_header_2">شیئر</string>
     <string name="share_link_all_apps_subheader">تمام اعمال</string>
     <string name="share_link_recent_apps_subheader">حال ہی میں استعمال کی گئی</string>
+    <string name="download_logs">ڈاؤن لوڈ کریں</string>
 </resources>

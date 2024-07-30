@@ -166,6 +166,10 @@
 \n
 \n
 \n
+\n
+\n
+\n
+\n
 \n تعد علامات التبويب الشخصية أكثر ملاءمة لحسابات الوسائط الاجتماعية والتسوق عبر الإنترنت وتصفح مواقع الويب التي لا ترغب في مشاركتها مع الآخرين."</string>
     <string name="onboarding_cleanup_title">امسح كل شيء،
 \nفي كل مكان، دفعة واحدة</string>
@@ -235,7 +239,7 @@
     <string name="ceno_home_card_personal_text">اتصال جيد، المزيد من الخصوصية لتسجيل الدخول إلى الحسابات، وعدم ترك آثار ، وعدم المشاركة</string>
     <string name="onboarding_finish_button">إنهاء</string>
     <string name="preferences_ceno_sources_upnp">حالة UPnP</string>
-    <string name="crash_reporting_dialog_description">المعذرة، يبدو أن &brandShortName; تعطّل! 
+    <string name="crash_reporting_dialog_description">المعذرة، يبدو أن &brandShortName; تعطّل! \u0020
 \nنرجو المساعدة لجعل &brandShortName; أفضل عبر إرسال تقرير العطل إلينا.</string>
     <string name="crash_reporting_never_send">لا ترسل أبداً</string>
     <string name="crash_reporting_always_send">قم دائمًا بإرسال وتحسين &amp;brandShortName</string>
