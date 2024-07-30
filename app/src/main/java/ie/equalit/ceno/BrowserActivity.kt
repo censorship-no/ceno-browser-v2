@@ -87,6 +87,7 @@ open class BrowserActivity : BaseActivity() {
     private val screenStartTime = System.currentTimeMillis()
     var ouinetStartupTime = 0.0
     private var hasOuinetStarted = false
+    private var hasRanChecksAndPermissions = false
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -131,6 +132,26 @@ open class BrowserActivity : BaseActivity() {
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.homeFragment && !hasRanChecksAndPermissions) {
+                hasRanChecksAndPermissions = true
+
+                when {
+                    Settings.showCrashReportingPermissionNudge(this) -> showCrashReportingPermission()
+                    Settings.shouldShowCleanInsightsPermissionNudge(this) -> {
+                        Settings.setCleanInsightsEnabled(this, false)
+                        Settings.toggleShowCleanInsightsPermissionNudge(this, false)
+                        launchCleanInsightsPermissionDialog()
+                    }
+                }
+
+                if(cleanInsights?.state("test") == Consent.State.Granted) {
+                    Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
+                    Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
+                }
+            }
+        }
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
             openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
@@ -184,18 +205,6 @@ open class BrowserActivity : BaseActivity() {
         if(Settings.wasCrashSuccessfullyLogged(this@BrowserActivity)) {
             Settings.logSuccessfulCrashEvent(this@BrowserActivity, false)
             Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
-        }
-
-        // Check for previous crashes
-        if(Settings.showCrashReportingPermissionNudge(this)) {
-            showCrashReportingPermission()
-        } else if(Settings.shouldShowCleanInsightsPermissionNudge(this)) {
-            Settings.setCleanInsightsEnabled(this, false)
-            Settings.toggleShowCleanInsightsPermissionNudge(this, false)
-            launchCleanInsightsPermissionDialog()
-        } else if(cleanInsights?.state("test") == Consent.State.Granted) {
-            Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
-            Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
         }
 
         // reset the value of lastCrash if permission nudge won't be shown
