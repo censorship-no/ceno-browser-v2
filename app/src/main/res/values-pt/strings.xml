@@ -310,7 +310,7 @@
     <string name="download_site_content">Baixe o conteúdo do site</string>
     <string name="no_content_shared">Atualmente, você não está compartilhando nenhum conteúdo</string>
     <string name="dismiss">Liberar</string>
-    <string name="shutdown_message_two">Shutting down Ceno</string>
+    <string name="shutdown_message_two">Desligando Ceno</string>
     <string name="thank_you_bridge_mode_enabled">Obrigado por se tornar uma ponte e fazer crescer a rede Ceno!</string>
     <string name="confirm_clear_cached_content">Limpar conteúdo em cache?</string>
     <string name="confirm_clear_cached_content_desc">Seu conteúdo em cache será removido imediatamente</string>
