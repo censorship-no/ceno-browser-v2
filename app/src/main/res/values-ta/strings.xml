@@ -314,4 +314,22 @@
     <string name="browser_menu_share">பகிர்</string>
     <string name="share_header_2">பகிர்</string>
     <string name="share_link_recent_apps_subheader">சமீபத்தில் பாவித்தவை</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d தளம்</item>
+        <item quantity="other">%d தளங்கள்</item>
+    </plurals>
+    <string name="error_page_learn_more">மேலும் அறிக</string>
+    <string name="error_page_learn_more_header">செனோ வேலை செய்ய பின்வரும் தேவைகள் பூர்த்தி செய்யப்பட்டுள்ளதா என்பதை உறுதிசெய்ய வேண்டும்</string>
+    <string name="error_page_learn_more_3">உங்கள் சாதனம் நெட்வொர்க்குடன் வேலை செய்யும் இணைப்பைக் கொண்டுள்ளது, அதாவது உங்கள் சாதாரண இணைய உலாவியால் சில இணையதளங்களைத் திறக்க முடியும். அனைத்து நெட்வொர்க் இணைப்புகளும் நிறுத்தப்படும் போது, செனோ மற்றும் ஓய்னெட் வேலை செய்யாது.</string>
+    <string name="error_page_learn_more_1">நீங்கள் செனோ உலாவியின் சமீபத்திய பதிப்பை இயக்குகிறீர்கள். காலாவதியான பதிப்புகள் புதிய இன்ஜெக்டர்கள் அல்லது பிற வாடிக்கையாளர்களுடன் தொடர்பு கொள்ள முடியாமல் போகலாம். சமீபத்திய பதிப்பைக் கண்டறிய, &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;பதிவிறக்கு பக்கத்தைப்&lt;/a&gt; பார்க்கவும்.</string>
+    <string name="error_page_learn_more_2">அமைப்புகளில் உள்ள அனைத்து அணுகல் வழிமுறைகளும் இயக்கப்பட்டுள்ளன. இல்லையெனில், உள்ளடக்கத்தை அணுகும்போது சில இணைப்புச் சிக்கல்களைத் தவிர்க்க செனோவால் முடியாது.</string>
+    <string name="content_description_close_button">மூடு</string>
+    <string name="share_copy_link_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கவும்</string>
+    <string name="share_link_all_apps_subheader">அனைத்து செயல்களும்</string>
+    <string name="share_save_to_pdf">PDF ஆக சேமிக்கவும்</string>
+    <string name="browser_menu_enable_reader_view">வாசகர் பார்வையைக் காட்டு</string>
+    <string name="browser_menu_disable_reader_view">வாசகர் பார்வையை மறை</string>
+    <string name="error_page_title">பிழை பக்கம்</string>
+    <string name="error_page_header">அச்சச்சோ! வலைப்பக்கத்தை ஏற்ற முடியவில்லை.</string>
+    <string name="error_page_sub_header">இதன் பொருள் செனோ உள்ளடக்கத்தை அணுக கிடைக்கக்கூடிய அனைத்து வழிமுறைகளையும் முயற்சித்தது, ஆனால் அவை எதுவும் வெற்றிபெறவில்லை:</string>
 </resources>

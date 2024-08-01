@@ -303,7 +303,7 @@
     <string name="standby_restarting_text">Перезагрузка…</string>
     <string name="personal_mode_icon">иконка личного браузинга</string>
     <string name="select_log_scope_header">Выберите глубину лога</string>
-    <string name="bridge_announcement_dialog_title">Обновление настроек моста</string>
+    <string name="bridge_announcement_dialog_title">Обновление настроек моста…</string>
     <string name="enable_bridge_card_text">Сделайте сеть &brandShortName; устойчивее, став мостом. Вы можете включить режим моста зайдя в Настройки -&gt; Включить режим моста.</string>
     <string name="enable_bridge_card_title">Включить режим моста</string>
     <string name="ceno_sources_shared_by_ceno_cache">Из кэша &brandShortName;</string>
@@ -319,7 +319,7 @@
     <string name="canceled">Отменен</string>
     <string name="download_site_content">Скачать содержимое сайта</string>
     <string name="confirm_groups_file_download">Экспортировать список разданного контента?</string>
-    <string name="confirm_groups_file_download_desc">На вашем устройстве будет сохранен txt файл</string>
+    <string name="confirm_groups_file_download_desc">На вашем устройстве будет сохранен txt файл.</string>
     <string name="no_content_shared">Сейчас вы не раздаете контент</string>
     <string name="dismiss">Закрыть</string>
     <string name="confirm_clear_cached_content">Очистить кэшированный контент?</string>
@@ -331,13 +331,13 @@
         <item quantity="other">%d сайтов</item>
     </plurals>
     <string name="browser_menu_enable_reader_view">Показать режим чтения</string>
-    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на <a href="#">Download page</a> чтобы скачать последнюю версию.</string>
+    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на &lt;a href=\"https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share\"&gt;Download page&lt;/a&gt; чтобы скачать последнюю версию.</string>
     <string name="error_page_learn_more_2">Все механизмы доступа в Настройках включены. Иначе Ceno не сможет обойти некоторые проблемы связности при попытке доступа к контенту.</string>
     <string name="error_page_learn_more_3">У вашего устройства рабочее подключение к сети, ваш обычный веб-браузер может открыть некоторые сайты. Ceno и Ouinet не смогут работать если вся сетевая связность отсутствует.</string>
     <string name="content_description_close_button">Закрыть</string>
     <string name="shutdown_message_two">Закрыть Ceno</string>
     <string name="title_success">Успешно</string>
-    <string name="thank_you_bridge_mode_enabled">Спасибо что стали мостом и помогли сделать сеть Ceno больше</string>
+    <string name="thank_you_bridge_mode_enabled">Спасибо что стали мостом и помогли сделать сеть Ceno больше!</string>
     <string name="shutdown_message_one">Стереть данные приложения</string>
     <string name="browser_menu_disable_reader_view">Скрыть режим чтения</string>
     <string name="error_page_learn_more_header">Убедитесь что требования необходимые Ceno для работы выполнены</string>

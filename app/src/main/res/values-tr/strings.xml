@@ -303,7 +303,7 @@
     <string name="thank_you_bridge_mode_enabled">Köprü olduğunuz ve Ceno ağını büyüttüğünüz için teşekkür ederiz!</string>
     <string name="dialog_btn_positive_ok">Tamam</string>
     <string name="ceno_log_content_group_file_saved">Paylaşılan içerik başarıyla kaydedildi</string>
-    <string name="ceno_android_content_group_file_name">&amp;brandShortName; paylaşılan içerik</string>
+    <string name="ceno_android_content_group_file_name">&brandShortName; paylaşılan içerik</string>
     <string name="canceled">İptal edildi</string>
     <string name="download_site_content">Site içeriğini indirin</string>
     <string name="no_content_shared">Şu anda herhangi bir içerik paylaşmıyorsunuz</string>
@@ -318,4 +318,19 @@
     <string name="share_link_all_apps_subheader">Tüm eylemler</string>
     <string name="share_link_recent_apps_subheader">Son kullanılanlar</string>
     <string name="share_save_to_pdf">PDF olarak kaydet</string>
+    <string name="content_description_close_button">Kapat</string>
+    <string name="browser_menu_enable_reader_view">Okuyucu görünümünü göster</string>
+    <string name="browser_menu_disable_reader_view">Okuyucu görünümünü gizle</string>
+    <string name="error_page_title">Hata Sayfası</string>
+    <string name="error_page_header">Haydaa! Web sayfası yüklenirken hata oluştu.</string>
+    <string name="error_page_learn_more">Daha fazla öğren</string>
+    <string name="error_page_sub_header">Bunun anlamı Ceno içeriğe ulaşabilmek için tüm yöntemleri denedi, ama hiçbiri başarılı olamadı:</string>
+    <string name="error_page_learn_more_2">Ayarlar\'daki tüm erişim mekanizmaları etkinleştirilmeli. Aksi takdirde, Ceno içerik erişimi sırasında bazı bağlantı sorunlarını yaşabilir.</string>
+    <string name="error_page_learn_more_header">Ceno\'nun çalışması için aşağıdaki gereksinimlerin karşılandığından emin olmalısınız</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="other">%d siteler</item>
+    </plurals>
+    <string name="error_page_learn_more_1">Ceno Browser\'ın son sürümünü kullanıyorsunuz. Eski sürümler yeni injectorler veya clientlar tarafından erişilemeyebilir. &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;Buradan&lt;/a&gt; son sürümü kontrol edebilirsiniz.</string>
+    <string name="error_page_learn_more_3">Cihazınızın ağ bağlantısı var, yani normal Web tarayıcınız bazı web sitelerini açabiliyor. Ceno ve Ouinet, ağ bağlantısı kapalı olduğunda çalışamaz.</string>
 </resources>
