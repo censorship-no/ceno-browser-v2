@@ -52,7 +52,7 @@ class SettingsViewNetworkDetailsRobot {
         }
 
         fun goBack(interact: SettingsViewRobot.() -> Unit): SettingsViewRobot.Transition {
-            networkDetailsUpButton().click()
+            mDevice.pressBack()
             SettingsViewRobot().interact()
             return SettingsViewRobot.Transition()
         }

@@ -885,7 +885,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             trackingProtectionTrackersBlocked = statusIcon,
             trackingProtectionNothingBlocked = statusIcon,
             trackingProtectionException = statusIcon,
-            highlight = ContextCompat.getDrawable(requireContext(), R.drawable.mozac_dot_notification)!!,
+            highlight = ContextCompat.getDrawable(themeManager.getContext(), R.drawable.mozac_dot_notification)!!
         )
     }
 

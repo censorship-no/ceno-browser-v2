@@ -314,10 +314,12 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // -------------------------------------------------------------------------------------------------
 // Set the name of the output apks and copy to project directory
 // -------------------------------------------------------------------------------------------------
-    variant.outputs.all { output ->
-        def abi = output.getFilter(OutputFile.ABI)
-        def version = output.versionNameOverride
-        outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
+    if (variant.name != 'debug') {
+        variant.outputs.all { output ->
+            def abi = output.getFilter(OutputFile.ABI)
+            def version = output.versionNameOverride
+            outputFileName = "${appId[2]}-${abi}-${variant.name}-${version}-${apkDate}.apk"
+        }
     }
 
     variant.assembleProvider.configure { assemble ->
@@ -470,6 +472,7 @@ dependencies {
     androidTestImplementation libs.espresso.core, {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+    androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
 }
 
 task renameUblockXpi (type: Copy) {

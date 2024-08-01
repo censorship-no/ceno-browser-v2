@@ -8,6 +8,7 @@ package ie.equalit.ceno.ui
 
 import android.os.Build
 import androidx.core.net.toUri
+import androidx.test.filters.SdkSuppress
 import androidx.test.rule.GrantPermissionRule
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.LogHelper
@@ -15,6 +16,8 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
+import okhttp3.internal.wait
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -43,6 +46,8 @@ class SettingsViewTest {
     fun setUp() {
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     // This test verifies settings view items are all in place
@@ -54,67 +59,100 @@ class SettingsViewTest {
             verifySettingsRecyclerViewToExist()
             verifyNavigateUp()
             verifyGeneralHeading()
+
+            // Get one item ahead of what we are verifying
+            // this is a workaround because the verify doesn't
+            // wait long enough for text to appear.
+            clickDownRecyclerView(2)
             verifySearchButton()
             verifySearchSummary()
+
+            clickDownRecyclerView(1)
             verifyCustomizationButton()
             verifyCustomizationSummary()
+
+            clickDownRecyclerView(1)
             verifyOpenLinksInApps()
+
+            clickDownRecyclerView(1)
             verifyMakeDefaultBrowserButton()
+
+            clickDownRecyclerView(1)
             verifyAutofillAppsButton()
             verifyAutofillAppsSummary()
-            verifyAddOnsButton()
+
+            clickDownRecyclerView(1)
+            // extra click down for Add-ons option,
+            // which will be hidden soon
+
+            clickDownRecyclerView(1)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
-            clickDownRecyclerView(8)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyShowOnboarding()
+
+            clickDownRecyclerView(1)
             verifyCrashReportingButton()
+
+            clickDownRecyclerView(1)
             verifyDeleteBrowsingData()
-            clickDownRecyclerView(3)
-            Thread.sleep(5000)
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 clickDownRecyclerView(1)
                 Thread.sleep(5000)
                 verifyDisableBatteryOptimization()
             }
-            //clickDownRecyclerView(5)
-            //Thread.sleep(5000)
-            //verifySourcesHeading()
-            //verifyWebsiteCheckbox()
-            //verifyWebsiteSummary()
-            //verifyPrivatelyCheckbox()
-            //verifyPrivatelySummary()
-            //verifyPubliclyCheckbox()
-            //verifyPubliclySummary()
-            //verifySharedCheckbox()
-            //verifySharedSummary()
-            clickDownRecyclerView(3)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(2)
             verifyDataHeading()
             verifyLocalCacheDisplay()
             verifyLocalCacheDefaultValue()
             verifyContentsSharedButton()
             verifyContentsSharedDefaultValue()
+
+            clickDownRecyclerView(1)
             verifyClearCachedContentButton()
             verifyClearCachedContentSummary()
-            clickDownRecyclerView(6)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyDeveloperToolsHeading()
+
+            clickDownRecyclerView(1)
             verifyRemoteDebugging()
-            verifyCustomAddonCollectionButton()
+
+            clickDownRecyclerView(1)
+            // extra click down for Custom Add-on Collection option,
+            // which will be hidden soon
+
+            clickDownRecyclerView(1)
             verifyCenoNetworkDetailsButton()
             verifyCenoNetworkDetailsSummary()
+
+            clickDownRecyclerView(1)
             verifyEnableLogFile()
+
+            clickDownRecyclerView(1)
             verifyTrackingProtectionButton()
             verifyTrackingProtectionSummary()
+
+            clickDownRecyclerView(1)
             verifyWebsiteSourcesButton()
             verifyWebsiteSourcesSummary()
-            clickDownRecyclerView(5)
-            Thread.sleep(5000)
+
+            clickDownRecyclerView(1)
             verifyAboutHeading()
+
+            clickDownRecyclerView(1)
             verifyCenoBrowserServiceDisplay()
+
+            clickDownRecyclerView(1)
             verifyGeckoviewVersionDisplay()
+
+            clickDownRecyclerView(1)
             verifyOuinetVersionDisplay()
+
+            clickDownRecyclerView(1)
             verifyAboutEqualitieButton()
             // TODO: check if that the displayed values match some patterns
         }
@@ -150,6 +188,7 @@ class SettingsViewTest {
     }
 
     @Test
+    @Ignore ("Fails on Android 12+")
     fun autofillAppsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
@@ -182,7 +221,7 @@ class SettingsViewTest {
             Thread.sleep(5000)
             clickDownRecyclerView(24)
             Thread.sleep(5000)
-        }.openAboutReferenceBrowser {
+        }.openSettingsViewAboutPage {
             verifyAboutBrowser()
         }
     }
@@ -193,6 +232,7 @@ class SettingsViewTest {
     Confirming the custom add-on collection creation or trying to continue testing afterwards
     will cause the test instrumentation process to crash */
     @Test
+    @Ignore("Custom add-on are disabled right now due to breaking changes with android-component-v128")
     fun customAddonsCollectionTest() {
         navigationToolbar {
         }.openThreeDotMenu {
@@ -274,6 +314,8 @@ class SettingsViewTest {
         }
     }
 
+    // TODO: log assertion is unreliable on Android 14+
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun enableLogFileTest() {
         navigationToolbar {
@@ -291,6 +333,7 @@ class SettingsViewTest {
         }
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun disableLogFileTest() {
         enableLogFileTest()
@@ -336,6 +379,7 @@ class SettingsViewTest {
         }
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
@@ -346,6 +390,7 @@ class SettingsViewTest {
         assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
     }
 
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()

@@ -12,6 +12,7 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -57,6 +58,8 @@ class ThreeDotMenuTest {
         }
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     @After
@@ -174,7 +177,7 @@ class ThreeDotMenuTest {
     // need to add clear cache setup to ensure correct starting page
     // also, investigate why this periodically causes mockWebServer to crash
     @Test
-    @Ignore("https://github.com/mozilla-mobile/reference-browser/issues/1314")
+    //@Ignore("https://github.com/mozilla-mobile/reference-browser/issues/1314")
     fun refreshPageTest() {
         val refreshWebPage = TestAssetHelper.getRefreshAsset(mockWebServer)
 
