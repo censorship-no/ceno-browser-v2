@@ -221,4 +221,16 @@
     <string name="share_header_2">မျှဝေ</string>
     <string name="share_link_all_apps_subheader">လုပ်ရပ်အားလုံး</string>
     <string name="share_link_recent_apps_subheader">မကြာသေးမီကအသုံးပြုခဲ့သည်</string>
+    <string name="shutdown_message_one">အက်ပ် အချက်အလက်များ ရှင်းလင်းခြင်း</string>
+    <string name="title_success">အောင်မြင်သည်</string>
+    <string name="shutdown_message_two">Ceno ပိတ်ချခြင်း</string>
+    <string name="thank_you_bridge_mode_enabled">တံတား တစ်ခု ဖြစ်လာပြီး Ceno ကွန်ရက်ကို တိုးတက် စေသည့်အတွက် ကျေးဇူးတင်ပါသည်။</string>
+    <string name="dialog_btn_positive_ok">အိုကေ</string>
+    <string name="bt_sources_none">None</string>
+    <string name="bt_invalid_ip_error">IP မမှန်ကန်</string>
+    <string name="content_description_close_button">ပိတ်</string>
+    <string name="share_copy_link_to_clipboard">ကလစ်ဘုတ် သို့ ကူးမည်</string>
+    <string name="share_save_to_pdf">PDF အဖြစ် သိမ်းမည်</string>
+    <string name="preferences_clear_behavior">ပုံသေ အပြုအမူ</string>
+    <string name="preferences_clear_in_toolbar">ကိရိယာဘား တွင် ပြပါ</string>
 </resources>
