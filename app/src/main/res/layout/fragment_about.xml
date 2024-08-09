@@ -11,66 +11,144 @@
     android:layout_height="wrap_content"
     tools:context="ie.equalit.ceno.settings.AboutFragment">
 
-    <TextView
-        android:id="@+id/about_content"
+    <ImageView
+        android:id="@+id/imageview_ceno_logo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
-        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
-        android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ceno_logo_colorful"
+        app:layout_constraintBottom_toTopOf="@+id/about_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/button1"
+        android:id="@+id/about_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
+        android:text="@string/about_content_para_1"
         android:textAlignment="center"
         android:textSize="@dimen/ceno_about_fragment_text_size"
-        android:backgroundTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        />
+        app:layout_constraintTop_toBottomOf="@id/imageview_ceno_logo" />
 
     <TextView
-        android:id="@+id/button2"
-        android:layout_width="0dp"
+        android:id="@+id/btn_website"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/website_button_text"
         android:textAlignment="center"
         android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sourcecode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_content" />
+
+    <TextView
+        android:id="@+id/btn_sourcecode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        />
-
-    <TextView
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:text="@string/source_code_button_text"
         android:textAlignment="center"
         android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website"
+        app:layout_constraintEnd_toStartOf="@+id/btn_support"
+        app:layout_constraintStart_toEndOf="@+id/btn_website"
+        app:layout_constraintTop_toTopOf="@+id/btn_website" />
+
+    <TextView
+        android:id="@+id/btn_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        android:text="@string/support_button_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/btn_sourcecode"
+        app:layout_constraintTop_toTopOf="@+id/btn_website" />
+
+    <ImageView
+        android:id="@+id/equalitie_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/equalitie_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_website" />
+
+    <TextView
+        android:id="@+id/about_equalitie_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/about_content_para_2"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/equalitie_logo" />
+
+    <TextView
+        android:id="@+id/btn_website_eq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/website_button_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sourcecode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_equalitie_content" />
+
+    <TextView
+        android:id="@+id/btn_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="@string/eq_news_button_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/btn_values"
+        app:layout_constraintStart_toEndOf="@+id/btn_website_eq"
+        app:layout_constraintTop_toTopOf="@+id/btn_website_eq" />
+
+    <TextView
+        android:id="@+id/btn_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/eq_values_button_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_news"
+        app:layout_constraintTop_toTopOf="@+id/btn_website_eq" />
 
     <TextView
         android:id="@+id/version_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
         android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
         android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
         android:textIsSelectable="true"
+        android:textSize="@dimen/ceno_about_fragment_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
+        app:layout_constraintTop_toBottomOf="@id/btn_website_eq" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
