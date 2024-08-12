@@ -342,6 +342,7 @@
     </plurals>
     <string name="error_page_sub_header">Це означає, що Ceno спробувала всі доступні механізми доступу до контенту, але жоден з них не був успішним:</string>
     <string name="error_page_learn_more">Дізнайтесь більше</string>
-    <string name="error_page_learn_more_1">Ви використовуєте останню версію Ceno Browser. Застарілі версії можуть не взаємодіяти з новими інжекторами або іншими клієнтами. Перевірте <a href="#">Сторінку завантажень</a> аби дізнатися, де отримати нові версії.</string>
-    <string name="error_page_learn_more_3">Ваш пристрій має робоче з\'єднання з мережею, тобто звичайний веб-браузер може відкривати деякі веб-сайти. Ceno та Ouinet не можуть працювати, якщо всі підключення до мережі вимкнено.</string>
+    <string name="error_page_learn_more_1">Ви використовуєте останню версію Ceno Browser. Застарілі версії можуть не взаємодіяти з новими інжекторами або іншими клієнтами. Перевірте &lt;a href=\"#https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share\"&gt;Сторінку завантажень&lt;/a&gt; аби отримати нову версію.</string>
+    <string name="error_page_learn_more_3">Ваш пристрій має робоче з\'єднання з мережею, тобто звичайний веб браузер може відкривати деякі вебсайти. Ceno та Ouinet не можуть працювати, якщо всі підключення до мережі вимкнено.</string>
+    <string name="content_description_close_button">Закрити</string>
 </resources>

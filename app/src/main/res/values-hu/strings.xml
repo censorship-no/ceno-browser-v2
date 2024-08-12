@@ -33,4 +33,8 @@
     <string name="share_link_all_apps_subheader">Összes művelet</string>
     <string name="share_link_recent_apps_subheader">Nemrég használt</string>
     <string name="share_save_to_pdf">Mentés PDF-ként</string>
+    <string name="toolbar_hint">Keressen vagy írjon be egy E-mail címet.</string>
+    <string name="menu_action_add_tab">Új ablak hozzáadása</string>
+    <string name="menu_action_close_tabs">Az összes ablak bezárása</string>
+    <string name="menu_action_close_tabs_private">A személyes ablakok bezárása</string>
 </resources>
