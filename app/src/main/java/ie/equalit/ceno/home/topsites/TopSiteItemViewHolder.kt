@@ -133,8 +133,11 @@ class TopSiteItemViewHolder(
                 resources.getString(R.string.suggestedsites_meduza_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_meduza))
                 }
-                resources.getString(R.string.suggestedsites_mediazona_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_mediazona))
+                resources.getString(R.string.suggestedsites_moscowtimes_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_moscowtimes))
+                }
+                resources.getString(R.string.suggestedsites_truestory_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_truestory))
                 }
                 resources.getString(R.string.suggestedsites_pravda_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_pravda))

@@ -24,6 +24,7 @@ import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 
 /**
  *  Tests for verifying tab tray menu:
@@ -54,6 +55,9 @@ class TabTrayMenuTest {
 
         onboarding {
         }.skipOnboardingIfNeeded()
+
+        standby {
+        }.waitForStandbyIfNeeded()
 
         fun optionsButton() = onView(ViewMatchers.withContentDescription("More options"))
         fun closeAllTabsButton() = onView(ViewMatchers.withText("Close All Tabs"))

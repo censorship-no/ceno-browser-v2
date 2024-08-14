@@ -16,6 +16,7 @@ import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 
 class WebRequestTest {
 
@@ -36,6 +37,8 @@ class WebRequestTest {
         }
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     @After
@@ -48,7 +51,7 @@ class WebRequestTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyWebsiteSourcesButton()
             verifyWebsiteSourcesSummary()
