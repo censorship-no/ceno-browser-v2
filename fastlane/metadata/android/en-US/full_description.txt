@@ -1,8 +1,8 @@
-Ceno (Censorship.No!) is a decentralized mobile web browser. It uses peer-to-peer technology to deliver websites to your mobile device and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages. 
+Ceno (Censorship.No!) is a decentralized mobile web browser. It uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages.
 
 Say NO to censorship! Install Ceno Browser today and be prepared for the next time you get 🔌 unplugged. 
 
-🚫🌴 <strong>Offline-first.</strong>
+🚫🌴 <strong>Resilient.</strong>
 Ceno is designed with internet shutdown scenarios in mind. Websites are shared by a global network of peers, and stored in a distributed cache for availability when traditional networks are blocked or go down.
 
 🔓👀 <strong>Unlock the web.</strong>
@@ -14,12 +14,10 @@ By routing user traffic through peer-to-peer networks, Ceno Browser incurs less 
 📖👐  <strong>Free and open source.</strong>
 Ceno Browser is powered by Ouinet, an open source library enabling third party developers to incorporate the Ceno network into their apps for peer-to-peer connectivity.
 
-<strong>Please note:</strong> Ceno is not an anonymity tool: information about your browsing might be leaked to other Ceno users, as well as the fact that your application is providing particular web content to others. Content accessed with the application may stay in storage in clear text for some time, however you can purge all stored content at any time using the 'Purge Now' feature.
-
-<strong>F-Droid Anti-Features:</strong> Upstream Ceno source code uses pre-built libraries from Mozilla which are not entirely free. For the F-Droid release of Ceno Browser, we patch the non-free parts and build these libraries from scratch.
+<strong>Important:</strong> Ceno has two modes of operation - public and personal. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. <strong>See the <a href="https://censorship.no/user-manual">User Manual</a> for more details on Ceno usage. </strong>
 
 <strong>About eQualit.ie</strong>
-eQualit.ie develops open and reusable systems with a focus on privacy, online security, and information management. Our goal is to create accessible technology and improve the skill set needed for defending human rights and freedoms in the digital age.
+eQualit.ie develops open and reusable systems with a focus on privacy, online security, and information management. Our goal is to create accessible technology and improve the skill-set needed for defending human rights and freedoms in the digital age.
 
 To learn more about Ceno Browser and its distributed library, Ouinet, please visit https://censorship.no
 
