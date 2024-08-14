@@ -747,7 +747,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         AppCompatDelegate.setApplicationLocales(
                             LocaleListCompat.create(Locale.forLanguageTag(locale.toLanguageTag()))
                         )
-
+                        ie.equalit.ceno.settings.Settings.clearAnnouncementData(requireContext())
                         // restart the activity to apply the new locale
                         activity?.recreate()
 
