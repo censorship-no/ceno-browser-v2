@@ -2,7 +2,7 @@ Ceno (Censorship.No!) es un navegador web móvil descentralizado. Usa tecnologí
 
 ¡Dile NO a la censura! Instala el Navegador Ceno hoy para estar preparad@ para la próxima vez que te 🔌 desconecten. 
 
-🚫🌴<strong> Sin conexión.</strong>
+🚫🌴<strong> Resiliencia o Flexibilidad</strong>
 Ceno está diseñado con escenarios de apagones de internet en mente. Las páginas web son compartidos por una red global de pares, y almacenados en una caché distribuida para su disponibilidad cuando las redes tradicionales están bloqueadas o caídas.
 
 🔓👀<strong> Desbloquea la web.</strong>
