@@ -102,7 +102,7 @@
 \nDies ist erforderlich, um das Teilen von Webseiten fortzusetzen, während die App im Hintergrund läuft.</string>
     <string name="onboarding_skip_button">Überspringen</string>
     <string name="onboarding_info_title">Nicht Ihr durchschnittlicher Browser</string>
-    <string name="ceno_clear_dialog_title">&brandShortName; löschen</string>
+    <string name="ceno_clear_dialog_title">Ceno löschen</string>
     <string name="preferences_disable_battery_opt">Batterieoptimierung deaktivieren</string>
     <string name="preferences_customization">Anpassung</string>
     <string name="changeIconCtaAccept">Anwenden</string>
@@ -117,8 +117,8 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">Nicht erneut anzeigen</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">&brandShortName; jetzt stoppen</string>
     <string name="onboarding_button">Los geht\'s</string>
-    <string name="preferences_about_page">Über &vendorShortName;</string>
-    <string name="ceno_notification_title">&brandShortName; Browser-Dienst</string>
+    <string name="preferences_about_page">Über eQualitie</string>
+    <string name="ceno_notification_title">Ceno Browser-Dienst</string>
     <string name="ceno_notification_clear_description">Löschen⚠</string>
     <string name="ceno_notification_clear_do_description">Ja</string>
     <string name="ceno_on_mobile_data_dialog_title">&brandShortName; Browser-Hinweis</string>
@@ -134,7 +134,7 @@
     <string name="preferences_about_ouinet_protocol">Ouinet Protokoll</string>
     <string name="about_category">Über</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/de/concepts/public-private.html</string>
-    <string name="preferences_make_default_browser">&brandShortName; als Standardbrowser verwenden</string>
+    <string name="preferences_make_default_browser">Ceno als Standardbrowser verwenden</string>
     <string name="onboarding_warning_button">Okay</string>
     <string name="donate_button_text">Spenden</string>
     <string name="about_content"><p>%1$sTeile das Web!</p><p>Ceno (kurz für censorship.no!) ist der weltweit erste mobile Browser, der die derzeitigen Methoden der Internet-Zensur umgeht. Sein Peer-to-Peer-Backbone ermöglicht es den Menschen, in Regionen, in denen die Internetverbindung unterbrochen oder beeinträchtigt ist, auf Webinformationen zuzugreifen und diese mit anderen zu teilen.</p><p>%1$s ist ein Projekt von eQualitie, einer kanadischen Organisation, deren Aufgabe es ist, die Grundfreiheiten und Menschenrechte zu fördern und zu verteidigen, einschließlich des freien Flusses von Informationen im Internet. Unser Ziel ist es, zugängliche Technologien zu schaffen und die Fähigkeiten zu verbessern, die für die Verteidigung der Menschenrechte und Freiheiten im digitalen Zeitalter erforderlich sind.</p></string>
@@ -160,7 +160,7 @@
     <string name="clear_cache_success">Zwischenspeicher erfolgreich gelöscht</string>
     <string name="preferences_ceno_sources_peers_summary">Lade geteilte Inhalte anderer Benutzer</string>
     <string name="ceno_notification_home_description">Home</string>
-    <string name="ceno_clear_dialog_clear_entire_app">Bereinige den &brandShortName; cache und Anwendungsdaten</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Bereinige den Ceno cache und Anwendungsdaten</string>
     <string name="preferences_theme_summary">Dunkel, Licht, Batteriesparen</string>
     <string name="preferences_toolbar_hide">Scrollen zum Ausblenden</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Zusätzliche BitTorrent-Bootstraps</string>
@@ -187,7 +187,7 @@
     <string name="onboarding_cleanup_title">Alles löschen,
 \nüberall, auf einmal</string>
     <string name="crash_reporting_dialog_title">Entschuldigung, &brandShortName; ist abgestürzt!</string>
-    <string name="ceno_clear_dialog_clear_cache_only">Löschen &brandShortName; nur Cache</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Löschen Ceno nur Cache</string>
     <string name="bt_invalid_ip_error">Ungültige IP</string>
     <string name="preferences_toolbar_position">Am oberen Bildschirmrand platzieren</string>
     <string name="onboarding_cleanup_text">Löschen Sie Ihren Browserverlauf, Ihre Anmeldedaten und alle Spuren, die Sie auf &brandShortName; hinterlassen haben, mit einer einzigen Taste.</string>
@@ -198,7 +198,7 @@
     <string name="crash_reporting_opt_out">Sie haben sich gegen die Freigabe von Absturzberichten entschieden. Sie können sich jederzeit unter Einstellungen &gt; Absturzberichte anmelden.</string>
     <string name="ceno_onboarding_start_text">Das Peer-to-Peer-Backbone von &brandShortName; ermöglicht den Zugriff auf und die gemeinsame Nutzung von Website-Inhalten in und über Regionen hinweg, in denen die Verbindung unterbrochen oder beeinträchtigt ist.</string>
     <string name="crash_reporting_opt_in">Vielen Dank für das Teilen von Fehlerberichten, die zur Verbesserung von &brandShortName; beitragen! Du kannst dies jederzeit deaktivieren, indem du zu Einstellungen &gt; Absturzberichte wechselst.</string>
-    <string name="ceno_clear_dialog_description">WARNUNG: Durch das Löschen von Cache und Anwendungsdaten wird die Anwendung &brandShortName; so zurückgesetzt, als ob sie nie benutzt worden wäre.</string>
+    <string name="ceno_clear_dialog_description">WARNUNG: Durch das Löschen von Cache und Anwendungsdaten wird die Anwendung Ceno so zurückgesetzt, als ob sie nie benutzt worden wäre.</string>
     <string name="preferences_ceno_sources_private">Privat</string>
     <string name="onboarding_battery_text_v33">In Kürze wird das System Sie um Erlaubnis bitten folgende Einstellungen vorzunehmen
 \n
