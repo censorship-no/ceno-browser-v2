@@ -194,8 +194,8 @@
     <string name="ceno_sources_category">来源</string>
     <string name="preferences_ceno_sources_public">公共</string>
     <string name="preferences_ceno_cache_size">本地缓存</string>
-    <string name="preference_show_search_suggestions_summary">&brandShortName; 会将您在地址栏中输入的内容发送到您的搜索引擎</string>
-    <string name="ouinet_client_fetch_fail">更改 &brandShortName; 环境失败</string>
+    <string name="preference_show_search_suggestions_summary">Ceno会将您在地址栏中输入的内容发送到您的搜索引擎</string>
+    <string name="ouinet_client_fetch_fail">更改Ceno环境失败</string>
     <string name="source_code_button_text">源代码</string>
     <string name="onboarding_cleanup_title">瞬息，
 \n全清除</string>
@@ -241,9 +241,9 @@
     <string name="preferences_ceno_export_android_logs">导出完整的应用程序日志</string>
     <string name="preferences_ceno_bridge_announcement">启用桥接模式</string>
     <string name="clear_cache_success">缓存清除成功</string>
-    <string name="ouinet_client_fetch_success">&brandShortName; 设置已更新</string>
+    <string name="ouinet_client_fetch_success">Ceno设置已更新</string>
     <string name="donate_button_text">捐赠</string>
-    <string name="onboarding_cleanup_text">只需一个按钮清除您的浏览器历史记录、凭据以及您在 &brandShortName; 上留下的任何痕迹。</string>
+    <string name="onboarding_cleanup_text">只需一个按钮清除您的浏览器历史记录、凭据以及您在Ceno上留下的任何痕迹。</string>
     <string name="ceno_home_card_personal_text">良好的连接性，更好的隐私性。用于登录账户、不留痕迹、不分享</string>
     <string name="ouinet_taking_too_long_title">花费太长时间？</string>
     <string name="ouinet_timeout_dialog_text">Ceno 需要连接到互联网才能工作。 请检查您的网络设置。</string>
@@ -260,9 +260,9 @@
     <string name="ceno_ouinet_connected">已连接到 Ceno 网络</string>
     <string name="ceno_ouinet_disconnected">与 Ceno 网络断开连接</string>
     <string name="ceno_sources_direct_from_website">直接从网站</string>
-    <string name="ceno_sources_via_ceno_network">使用&brandShortName; 网络</string>
+    <string name="ceno_sources_via_ceno_network">使用Ceno网络</string>
     <string name="preferences_ceno_sources_public_summary">通过公共 Ceno 网络加载内容</string>
-    <string name="ceno_onboarding_start_text">&brandShortName; 的点对点主干网使人们能够在连接中断或受损的区域内或跨区域访问和共享网站内容。</string>
+    <string name="ceno_onboarding_start_text">Ceno的点对点主干网使人们能够在连接中断或受损的区域内或跨区域访问和共享网站内容。</string>
     <string name="bridge_announcement_dialog_title">正在更新桥接模式设置…</string>
     <string name="learn_more_title">了解更多</string>
     <string name="public_mode_icon">公共模式图标</string>
@@ -270,7 +270,7 @@
     <string name="personal_mode_icon">个人模式图标</string>
     <string name="ceno_log_file_saved">日志文件保存成功</string>
     <string name="ceno_log_file_saved_desc">为了优先考虑您的隐私，所有个人身份信息已从该日志中仔细删除。</string>
-    <string name="ceno_android_logs_file_name">&brandShortName; 日志</string>
+    <string name="ceno_android_logs_file_name">Ceno日志</string>
     <string name="ouinet_log_file_prompt_desc">请注意，此日志可能包含个人身份信息。 分享时请务必小心。</string>
     <string name="share_logs">分享</string>
     <string name="download_logs">下载</string>
@@ -282,8 +282,8 @@
     <string name="all_logs">所有日志</string>
     <string name="select_log_scope_header">选择您的首选范围</string>
     <string name="select_log_scope_message">选择较长的时段可能意味着较长的等待时间</string>
-    <string name="bridge_announcement_dialog_text">&brandShortName; 正在运行，请稍候 浏览器服务将重新启动以使您的更改生效。</string>
-    <string name="enable_bridge_card_text">将 &brandShortName; 更改为桥接模式使网络更强！ 您可以通过转到“设置”-&gt;“桥接模式”来启用桥接模式。 启用桥接模式。</string>
+    <string name="bridge_announcement_dialog_text">Ceno正在运行，请稍候 浏览器服务将重新启动以使您的更改生效。</string>
+    <string name="enable_bridge_card_text">将Ceno更改为桥接模式使网络更强！ 您可以通过转到“设置”-&gt;“桥接模式”来启用桥接模式。 启用桥接模式。</string>
     <string name="home_go_to_settings">前往设置</string>
     <string name="enable_bridge_card_title">启用桥接模式</string>
     <string name="bridge_mode_ip_warning_text">请注意，这将使您的公共 IP 地址对其他 Ceno 用户可见。</string>
@@ -303,10 +303,10 @@
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_ceno_sources_origin">网页</string>
     <string name="ceno_home_card_public_title">公开</string>
-    <string name="ceno_sources_shared_by_ceno_cache">来自&brandShortName;的缓存</string>
+    <string name="ceno_sources_shared_by_ceno_cache">来自Ceno的缓存</string>
     <string name="ceno_support_link_url">https://censorship.no/zh_CN/support.html</string>
     <string name="ceno_log_content_group_file_saved">共享内容保存成功</string>
-    <string name="ceno_android_content_group_file_name">&brandShortName; 共享内容</string>
+    <string name="ceno_android_content_group_file_name">Ceno共享内容</string>
     <string name="view_logs">查看</string>
     <string name="canceled">已取消</string>
     <string name="download_site_content">下载页面内容</string>
@@ -325,4 +325,22 @@
     <string name="preferences_clear_behavior_option_1">提示</string>
     <string name="preferences_clear_behavior_option_2">仅清理Ceno的缓存</string>
     <string name="content_description_close_button">关闭</string>
+    <string name="preferences_clear_behavior_option_3">清理应用数据和Ceno缓存</string>
+    <string name="preferences_theme_option_1">暗色</string>
+    <string name="preferences_theme_option_2">亮色</string>
+    <string name="preferences_theme_option_3">依据电源选项</string>
+    <string name="browser_menu_enable_reader_view">打开阅读模式</string>
+    <string name="browser_menu_disable_reader_view">隐藏阅读模式</string>
+    <string name="error_page_learn_more_2">设置中的所有访问机制均已启用。否则，Ceno 在访问内容时将无法规避一些连接问题。</string>
+    <string name="error_page_learn_more_3">您的设备与网络的连接正常，即您的普通网络浏览器可以打开一些网站。当所有网络连接都关闭时，Ceno 和 Ouinet 将无法工作。</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">下载</string>
+    <string name="error_page_sub_header">这意味着 Ceno 尝试了所有可用机制来访问内容，但都没有成功：</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="other">%d个网站</item>
+    </plurals>
+    <string name="error_page_title">异常页</string>
+    <string name="error_page_header">Oops！无法加载页面。</string>
+    <string name="error_page_learn_more">了解更多</string>
+    <string name="error_page_learn_more_header">您应该确保满足以下要求，Ceno才能工作</string>
+    <string name="error_page_learn_more_1">您正在运行最新版本的 Ceno 浏览器。过时的版本可能无法与较新的注入器或其他客户端通信。请查看&lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;下载页面&lt;/a&gt;以查找最新版本。</string>
 </resources>
