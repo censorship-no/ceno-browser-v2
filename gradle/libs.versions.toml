@@ -43,7 +43,7 @@ sentry = "7.3.0"
 gson = "2.10.1"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "0.27.0"
+ouinet_version = "0.28.0"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 
