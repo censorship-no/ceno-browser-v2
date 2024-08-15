@@ -10,15 +10,15 @@
     <string name="about_category">Ról ről</string>
     <string name="ceno_notification_clear_do_description">Igen</string>
     <string name="ceno_notification_channel_name">&brandShortName; Szolgáltatás</string>
-    <string name="ceno_clear_dialog_clear_entire_app">&brandShortName; gyorsítótár és alkalmazásadatok üritése</string>
-    <string name="ceno_clear_dialog_title">Ürítsd &brandShortName;</string>
-    <string name="ceno_clear_dialog_description">FIGYELMEZTETÉS: A gyorsítótár és az alkalmazásadatok törlése visszaállítja a &brandShortName; alkalmazást, mintha soha nem használták volna.</string>
-    <string name="ceno_clear_dialog_clear_cache_only">&brandShortName; csak gyorsítótár ürítése</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Ceno gyorsítótár és alkalmazásadatok üritése</string>
+    <string name="ceno_clear_dialog_title">Ürítsd Ceno</string>
+    <string name="ceno_clear_dialog_description">FIGYELMEZTETÉS: A gyorsítótár és az alkalmazásadatok törlése visszaállítja a Ceno alkalmazást, mintha soha nem használták volna.</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Ceno csak gyorsítótár ürítése</string>
     <string name="ceno_clear_dialog_cancel">Megszünteti</string>
     <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&brandShortName; Böngésző megjegyzés</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Javasoljuk, hogy akkor használja a &brandShortName; ha van Wi-Fi kapcsolata, mivel az a vártnál több adatforgalmat igényelhet. Érdemes lehet leállítani a &brandShortName; mobil adatforgalom használatakor.</string>
-    <string name="preferences_make_default_browser">Legyen &brandShortName; az alapértelmezett böngésződ</string>
-    <string name="preferences_about_page">A &vendorShortName;</string>
+    <string name="preferences_make_default_browser">Legyen Ceno az alapértelmezett böngésződ</string>
+    <string name="preferences_about_page">A eQualitie</string>
     <string name="ceno_notification_description">Koppintson a leállításhoz</string>
     <string name="ceno_notification_home_description">Otthon</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Folytatni</string>
