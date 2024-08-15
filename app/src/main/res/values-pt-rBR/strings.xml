@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-<!ENTITY brandShortName "Ceno">
-<!ENTITY brandFullName "eQualitie Ceno">
-<!ENTITY vendorShortName "eQualitie">
-]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_customize_amo_collection">Coleção de Extensões personalizadas</string>
     <string name="content_description_private_browsing_button">Ativar Navegação Pessoal</string>

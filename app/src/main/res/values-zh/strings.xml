@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-<!ENTITY brandShortName "Ceno">
-<!ENTITY brandFullName "eQualitie Ceno">
-<!ENTITY vendorShortName "eQualitie">
-]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">搜索或输入网址</string>
     <string name="menu_action_add_tab">新建标签页</string>

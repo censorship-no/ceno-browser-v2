@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-<!ENTITY brandShortName "Ceno">
-<!ENTITY brandFullName "eQualitie Ceno">
-<!ENTITY vendorShortName "eQualitie">
-]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="toolbar_hint">جست‌وجو یا وارد کردن آدرس</string>
     <string name="menu_action_add_tab">افزودن زبانه جدید</string>
