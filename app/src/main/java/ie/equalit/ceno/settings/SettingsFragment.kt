@@ -24,8 +24,10 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.os.LocaleListCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -42,9 +44,12 @@ import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getAutofillPreference
 import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
+import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -58,6 +63,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
@@ -70,6 +76,7 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
+import java.util.Locale
 import kotlin.system.exitProcess
 
 
@@ -181,7 +188,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
             }
         }
-        if (arguments?.getBoolean(scrollToBridge) == true) {
+        if (arguments?.getBoolean(SCROLL_TO_BRIDGE) == true) {
             getPreference(pref_key_bridge_announcement)?.let {
                 scrollToPreference(it)
             }
@@ -193,9 +200,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun showThankyouDialog() {
         if (CenoSettings.isBridgeAnnouncementEnabled(requireContext())) {
             AlertDialog.Builder(requireContext()).apply {
-                setTitle(getString(R.string.title_success))
-                setMessage(getString(R.string.thank_you_bridge_mode_enabled))
-                setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                setTitle(getString(title_success))
+                setMessage(getString(thank_you_bridge_mode_enabled))
+                setPositiveButton(getString(dialog_btn_positive_ok)) { _, _ ->
 
                 }
                 show()
@@ -265,6 +272,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener = getClickListenerForWebsiteSources()
         getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener = getChangeListenerForBridgeAnnouncement()
+        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener = getClickListenerForLanguageChange()
+        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary = getCurrentLocale().displayLanguage
         getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
 
         getPreference(pref_key_bridge_announcement)?.summary = getString(bridge_mode_ip_warning_text)
@@ -634,7 +643,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 ouinetResponseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
                         if (message.trim().isEmpty()) {
-                            Toast.makeText(requireContext(), getString(R.string.no_content_shared), Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), getString(no_content_shared), Toast.LENGTH_LONG).show()
                         } else {
                             findNavController().navigate(
                                 R.id.action_settingsFragment_to_siteContentGroupFragment,
@@ -723,6 +732,35 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 bridgeAnnouncementDialog.show()
             }
+            true
+        }
+    }
+
+    private fun getClickListenerForLanguageChange(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val languageChangeDialog = LanguageChangeDialog(
+                requireContext(),
+                object : LanguageChangeDialog.SetLanguageListener {
+                    override fun onLanguageSelected(locale: Locale) {
+
+                        // update language
+                        AppCompatDelegate.setApplicationLocales(
+                            LocaleListCompat.create(Locale.forLanguageTag(locale.toLanguageTag()))
+                        )
+                        ie.equalit.ceno.settings.Settings.clearAnnouncementData(requireContext())
+                        // restart the activity to apply the new locale
+                        activity?.recreate()
+
+                        // reload the current tab
+                        requireComponents.core.store.state.selectedTab?.let {
+                            requireComponents.useCases.tabsUseCases.selectTab(requireComponents.core.store.state.selectedTab!!.id)
+                            requireComponents.useCases.sessionUseCases.reload.invoke()
+                        }
+                    }
+                }
+            )
+
+            languageChangeDialog.getDialog().show()
             true
         }
     }
@@ -884,7 +922,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                             intent.setType("*/*")
                                             intent.putExtra(Intent.EXTRA_STREAM, uri)
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                             startActivity(intent)
                                         }
                                     }
@@ -908,6 +946,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+    } else {
+        Locale.getDefault()
+    })
+
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         private const val TAG = "SettingsFragment"
@@ -920,7 +964,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val AVERAGE_TOTAL_LOGS = 3000F
 
-        const val scrollToBridge = "scrollToBridge"
+        const val SCROLL_TO_BRIDGE = "scrollToBridge"
         const val DELAY_ONE_SECOND = 1000L
     }
 }
