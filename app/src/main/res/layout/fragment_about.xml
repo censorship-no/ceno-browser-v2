@@ -29,6 +29,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/about_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_content_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/about_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_ceno_logo" />
+
+    <TextView
         android:id="@+id/about_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +54,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_website"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageview_ceno_logo" />
+        app:layout_constraintTop_toBottomOf="@id/about_title" />
 
     <TextView
         android:id="@+id/btn_website"
