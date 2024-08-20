@@ -335,4 +335,10 @@ object Settings {
             .apply()
     }
 
+    fun isPersonalModeOnlyEnabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_personal_mode_only), false
+        )
+    }
+
 }

@@ -377,4 +377,6 @@
     <string name="error_page_learn_more_2">All access mechanisms in the Settings are enabled. Otherwise Ceno will not be able to circumvent some connectivity issues when accessing content.</string>
     <string name="error_page_learn_more_3">Your device has a working connection to the network, i.e. your normal Web browser is able to open some websites. Ceno and Ouinet cannot work when all network connectivity is shut down.</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
+    <string name="preferences_personal_mode_only">Privacy features for public tabs</string>
+    <string name="preferences_personal_mode_only_summary">EXPERIMENTAL: Enabling this allows for authentication in public mode tabs</string>
 </resources>
