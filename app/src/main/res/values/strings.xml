@@ -391,13 +391,20 @@
     <string name="error_page_learn_more_3">Your device has a working connection to the network, i.e. your normal Web browser is able to open some websites. Ceno and Ouinet cannot work when all network connectivity is shut down.</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
     <string name="start_tooltip_title">Welcome to Ceno Tour</string>
-    <string name="start_tooltip_description">Unlock &brandShortName;\'s full potential - Take a guided tour to discover key features, and allow permissions to help share the web even when the app is in the background.</string>
+    <string name="start_tooltip_description">Unlock Ceno\'s full potential - Take a guided tour to discover key features, and allow permissions to help share the web even when the app is in the background.</string>
     <string name="skip_the_tour_button">Skip the tour</string>
     <string name="btn_next">Next</string>
     <string name="btn_exit">Exit</string>
     <string name="tooltip_shortcuts_description">Save your most visited sites to shortcuts for easy access</string>
     <string name="tooltip_toolbar_title">Let\'s get browsing!</string>
     <string name="tooltip_toolbar_description">Type in a website address to start browsing</string>
-    <string name="tooltip_sources_title">&brandShortName; Sources</string>
+    <string name="tooltip_sources_title">Ceno Sources</string>
     <string name="tooltip_sources_description">Easily see where the webpage content is fetched from - directly from the website, via the &brandShortName; network, or &brandShortName; cache</string>
+    <string name="tooltip_permission_text">To keep sharing websites seamlessly even when the app is in the background, Ceno requires you to allow notifications and disable battery optimizations. You can always adjust these permissions later in your phone\'s settings</string>
+
+    <string name="standby_tip_title">Tip</string>
+    <string name="standby_tip_bridge">Make the Ceno network stronger by becoming a bridge and helping others access more websites</string>
+    <string name="standby_tip_icon">Easily change the app icon as per your preference to keep Ceno hidden</string>
+    <string name="standby_tip_pdf">Share webpages as pdf files</string>
+    <string name="standby_tip_announcements">Use the announcements section on the homepage to check for latest updates in Ceno</string>
 </resources>

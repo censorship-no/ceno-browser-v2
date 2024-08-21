@@ -40,7 +40,7 @@ class CenoTourStartOverlay(
             val title = tooltipOverlay.findViewById<TextView>(R.id.tv_start_tooltip_title)
             val description = tooltipOverlay.findViewById<TextView>(R.id.tv_start_tooltip_description)
             title.text = fragment.getString(R.string.onboarding_permissions_title)
-            description.text = fragment.getString(R.string.onboarding_battery_text_v33)
+            description.text = fragment.getString(R.string.tooltip_permission_text)
             btnStartTour.text = fragment.getString(R.string.onboarding_battery_button)
             //hide skip button
             btnSkipTour.visibility = View.GONE

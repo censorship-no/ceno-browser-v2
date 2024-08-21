@@ -96,10 +96,11 @@
             android:id="@+id/tv_extra_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/onboarding_public_or_personal_title"
             android:textAlignment="center"
+            android:text="@string/standby_tip_title"
             android:textColor="@color/fx_mobile_text_color_secondary"
             android:textStyle="bold" />
 
@@ -107,9 +108,9 @@
             android:id="@+id/tv_extra_info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/onboarding_public_personal_text"
             android:textAlignment="center"
             android:textColor="@color/fx_mobile_text_color_secondary" />
     </LinearLayout>

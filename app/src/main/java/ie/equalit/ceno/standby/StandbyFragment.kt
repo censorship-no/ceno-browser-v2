@@ -70,9 +70,11 @@ class StandbyFragment : Fragment() {
         R.string.shutdown_message_two,
     )
 
-    private var extraInfoList: List<Pair<Int, Int>> = listOf(
-        Pair(R.string.onboarding_public_or_personal_title, R.string.onboarding_public_personal_text),
-        Pair(R.string.onboarding_cleanup_title, R.string.onboarding_cleanup_text)
+    private var extraInfoList: List<Int> = listOf(
+        R.string.standby_tip_bridge,
+        R.string.standby_tip_icon,
+        R.string.standby_tip_announcements,
+        R.string.standby_tip_pdf
     )
 
     private var dialog: AlertDialog? = null
@@ -118,7 +120,7 @@ class StandbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var infoIndex = (System.currentTimeMillis() % 2).toInt()
+        var infoIndex = (System.currentTimeMillis() % 4).toInt()
         if (isCenoStopping == true) {
             binding.llStandbyExtraInfo.visibility = View.GONE
             lifecycleScope.launch {
@@ -202,8 +204,7 @@ class StandbyFragment : Fragment() {
                     binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_standby_logo_color))
                     binding.tvExtraInfoTitle.visibility = View.VISIBLE
                     //randomly select text
-                    binding.tvExtraInfoTitle.text = getString(extraInfoList[infoIndex].first)
-                    binding.tvExtraInfoText.text = getString(extraInfoList[infoIndex].second)
+                    binding.tvExtraInfoText.text = getString(extraInfoList[infoIndex])
                 } else {
                     binding.ivExtraInfo.setImageDrawable(ContextCompat
                         .getDrawable(requireContext(), R.drawable.ic_no_internet))
