@@ -218,11 +218,11 @@
 \nAccédez à « Paramètres &gt; Autoriser les notifications » pour les autoriser</string>
     <string name="onboarding_public_or_personal_title">Public ou Personnel ?</string>
     <string name="onboarding_cleanup_text">Effacez l\'historique de votre navigateur, vos identifiants et toute trace que vous avez laissée sur Ceno avec un seul bouton.</string>
-    <string name="crash_reporting_dialog_description">Aidez-nous à améliorer &amp;brandShortName ; en nous envoyant les rapports d\'incident.</string>
+    <string name="crash_reporting_dialog_description">Aidez-nous à améliorer Ceno en nous envoyant les rapports d\'accident.</string>
     <string name="crash_reporting_never_send">Ne jamais envoyez</string>
-    <string name="crash_reporting_always_send">Toujours envoyer, améliore Ceno</string>
+    <string name="crash_reporting_always_send">Toujours envoyer, aider à améliorer Ceno</string>
     <string name="crash_reporting_opt_out">Vous avez choisi de ne plus partagez les rapports d\'accident. Vous pouvez toujours le faire en allant dans « Paramètre &gt; Rapports d\'incident ».</string>
-    <string name="crash_reporting_opt_in">Merci d\'avoir partagé les rapports d\'accidents pour aider à améliorer Ceno ! Vous pouvez toujours désactiver cette fonction en allant dans les paramètres &gt; Rapport d\'accident.</string>
+    <string name="crash_reporting_opt_in">Merci d\'avoir partagé les rapports d\'accident et d\'aider à améliorer Ceno ! Vous pouvez désactiver cette fonction à tout moment en allant dans Paramètres &gt; Rapport d\'accident.</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps BitTorrent supplémentaires</string>
     <string name="preferences_ceno_sources_upnp">Statut UPnP</string>
     <string name="ceno_home_card_public_text">Meilleure connectivité, moins d\'intimité. Pour lire des nouvelles, regarder des vidéos, et partager avec les autres</string>
@@ -245,9 +245,9 @@
     <string name="preferences_ceno_sources_public_udp">Points de terminaison UDP publics</string>
     <string name="ceno_support_link_url">https://censorship.no/fr/support.html</string>
     <string name="personal_home_learn_more">Voulez-vous en savoir plus ?</string>
-    <string name="ouinet_client_fetch_success">&amp;brandShortName ; paramètre mise à jour</string>
+    <string name="ouinet_client_fetch_success">Paramètre Ceno mis à jour</string>
     <string name="ceno_personal_browsing_description">Ceno ne partagera pas le contenu des onglets personnels avec d’autres utilisateurs. Vous pouvez visiter des sites qui requièrent la connexion.</string>
-    <string name="crash_reporting_dialog_title">Désolé, on dirait que &amp;brandShortName ; a planté !</string>
+    <string name="crash_reporting_dialog_title">Désolé, il semblerait que Ceno ait planté !</string>
     <string name="bt_invalid_ip_error">IP Invalide</string>
     <string name="preferences_ceno_website_sources">Sources du site-web</string>
     <string name="bt_sources_none">Rien</string>
@@ -329,4 +329,20 @@
     <string name="error_page_learn_more">En savoir plus</string>
     <string name="error_page_sub_header">Cela signifie que Ceno a essayé tous les mécanismes disponibles pour accéder au contenu, mais aucun n\'a réussi :</string>
     <string name="error_page_header">Oups ! Échec du chargement de la page web.</string>
+    <string name="preferences_clear_behavior_option_1">Invite</string>
+    <string name="preferences_clear_behavior_option_2">Effacer uniquement le cache Ceno</string>
+    <string name="preferences_clear_behavior_option_3">Effacer les données de l\'appli et le cache Ceno</string>
+    <string name="preferences_theme_option_1">Sombre</string>
+    <string name="preferences_theme_option_2">Clair</string>
+    <string name="preferences_theme_option_3">Défini par l\'économiseur de batterie</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Télécharger</string>
+    <string name="ceno_android_content_group_file_name">Contenu partagé Ceno</string>
+    <string name="ceno_sources_shared_by_ceno_cache">À partir du cache Ceno</string>
+    <string name="error_page_learn_more_1">Vous utilisez actuellement une version récente du navigateur Ceno. Les versions obsolètes pourraient ne pas être en mesure de communiquer avec les injecteurs plus récents ou avec les autres clients. Consultez la &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;page de téléchargement&lt;/a&gt; pour obtenir la dernière version.</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d site</item>
+        <item quantity="many">%d sites</item>
+        <item quantity="other">%d sites</item>
+    </plurals>
+    <string name="error_page_learn_more_3">Votre appareil est connecté au réseau et votre navigateur Web standard peut ouvrir des sites Web. Ceno et Ouinet ne peuvent pas fonctionner sans connectivité réseau.</string>
 </resources>
