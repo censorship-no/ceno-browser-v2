@@ -103,15 +103,6 @@ class AboutFragment : Fragment() {
         )
 
         binding.versionInfo.text = versionInfo
-
-        binding.versionInfo.setOnTouchListener { v, _ ->
-            val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipBoard.setPrimaryClip(ClipData.newPlainText(versionInfo, versionInfo))
-
-            Toast.makeText(requireContext(), getString(R.string.toast_copied), Toast.LENGTH_SHORT).show()
-
-            v.performClick()
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
