@@ -316,17 +316,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         getPreference(pref_key_ceno_download_android_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
-        getPreference(pref_key_about_ceno)?.let { preference ->
+        (getPreference(pref_key_about_ceno) as LongClickPreference).let { preference ->
             preference.summary = CenoSettings.getCenoVersionString(requireContext())
-            preference.setOnPreferenceClickListener {
+            preference.onLongClick {
                 //copy to clipboard
                 copyToClipboard(preference.title, preference.summary)
                 true
             }
         }
-        getPreference(pref_key_about_geckoview)?.let { preference ->
+        (getPreference(pref_key_about_geckoview) as LongClickPreference).let { preference ->
             preference.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
-            preference.setOnPreferenceClickListener {
+            preference.onLongClick {
                 copyToClipboard(preference.title, preference.summary)
                 true
             }
@@ -389,10 +389,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
             )
-            getPreference(pref_key_about_ouinet)?.let { preference ->
+            (getPreference(pref_key_about_ouinet) as LongClickPreference).let { preference ->
                 preference.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
                         CenoSettings.getOuinetBuildId(requireContext())
-                preference.setOnPreferenceClickListener {
+                preference.onLongClick {
                     copyToClipboard(preference.title, preference.summary)
                     true
                 }
