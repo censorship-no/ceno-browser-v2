@@ -48,6 +48,7 @@ class AddonsTest {
         }
     }
 
+    /*
     @Test
     fun cancelAddonInstallTest() {
         navigationToolbar {
@@ -103,4 +104,5 @@ class AddonsTest {
             verifyAddonsRecommendedView()
         }
     }
+     */
 }

@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui
 
+import android.os.Build
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -16,7 +17,7 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.browser
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
-import org.junit.Ignore
+import ie.equalit.ceno.ui.robots.standby
 
 class ContextMenusTest {
 
@@ -37,6 +38,8 @@ class ContextMenusTest {
         }
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     @After
@@ -104,6 +107,11 @@ class ContextMenusTest {
             clickContextCopyLink()
             waitUntilCopyLinkSnackbarIsGone()
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // TODO: Android 14+ has annoy QuickShare auto pop-up
+            // should write a better check, for now just wait 10s for it to disappear
+            Thread.sleep(10000)
+        }
         navigationToolbar {
         }.clickToolbar {
             pasteAndLoadCopiedLink()
@@ -114,7 +122,6 @@ class ContextMenusTest {
         }
     }
 
-    @Ignore("Disabled - Share option behaves oddly in redroid-11 instance")
     @Test
     fun contextShareLinkTest() {
         val pageLinks = TestAssetHelper.getGenericAsset(mockWebServer, 4)
@@ -135,6 +142,11 @@ class ContextMenusTest {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
             longClickAndCopyText("content")
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // TODO: Android 14+ has annoying QuickShare auto pop-up
+            // should write a better check, for now just wait 10s for it to disappear
+            Thread.sleep(10000)
+        }
         navigationToolbar {
         }.clickToolbar {
             clickClearToolbarButton()
@@ -151,6 +163,11 @@ class ContextMenusTest {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericURL.url) {
             longClickAndCopyText("content", true)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // TODO: Android 14+ has annoy QuickShare auto pop-up
+            // should write a better check, for now just wait 10s for it to disappear
+            Thread.sleep(10000)
         }
         navigationToolbar {
         }.clickToolbar {

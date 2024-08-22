@@ -15,6 +15,7 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 
 class SearchTest {
 
@@ -35,6 +36,8 @@ class SearchTest {
         }
         onboarding {
         }.skipOnboardingIfNeeded()
+        standby {
+        }.waitForStandbyIfNeeded()
     }
 
     @After

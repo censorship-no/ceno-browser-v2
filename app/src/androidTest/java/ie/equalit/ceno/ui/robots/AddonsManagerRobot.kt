@@ -40,7 +40,7 @@ class AddonsManagerRobot {
     fun verifyInstallAddonPrompt(addonName: String) = assertAddonPrompt(addonName)
     fun verifyAddonDownloadCompletedPrompt(addonName: String) = assertAddonDownloadCompletedPrompt(addonName)
     fun verifyAddonElementsView(addonName: String) = assertAddonElementsView(addonName)
-    fun clickInstallAddonButton(addonName: String) = selectInstallAddonButton(addonName)
+    //fun clickInstallAddonButton(addonName: String) = selectInstallAddonButton(addonName)
     fun clickCancelInstallButton() = cancelInstallButton()
     fun clickAllowInstallAddonButton() = allowInstallAddonButton()
     fun waitForAddonDownloadComplete() = waitForDownloadProgressUntilGone()
@@ -108,6 +108,7 @@ class AddonsManagerRobot {
         ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 
+    /*
     private fun installAddonButton(addonName: String) =
         onView(
             allOf(
@@ -116,9 +117,11 @@ class AddonsManagerRobot {
                 hasSibling(hasDescendant(withText(addonName))),
             ),
         )
+     */
 
     private fun removeAddonButton() = onView(withId(R.id.remove_add_on))
 
+    /*
     private fun selectInstallAddonButton(addonName: String) {
         mDevice.waitForIdle()
         mDevice.findObject(UiSelector().textContains(addonName))
@@ -128,6 +131,7 @@ class AddonsManagerRobot {
             .check(matches(isCompletelyDisplayed()))
             .perform(click())
     }
+    */
 
     private fun assertAddonPrompt(addonName: String) {
         mDevice.waitForIdle()

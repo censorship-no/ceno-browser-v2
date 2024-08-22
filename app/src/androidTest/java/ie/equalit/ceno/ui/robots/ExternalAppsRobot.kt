@@ -4,6 +4,10 @@
 
 package ie.equalit.ceno.ui.robots
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -39,7 +43,6 @@ private fun assertAutofillServices() {
     )
 }
 
-@Suppress("SwallowedException")
 private fun assertYouTubeApp() {
     try {
         // Check youtube's home buttons

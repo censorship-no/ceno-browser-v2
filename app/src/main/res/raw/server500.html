@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="%language%" dir="%direction%">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>%page_title%</title>
     <style>
+        html, body {
+          height: 100%;
+          margin: 0;
+        }
         body {
           font-family: Arial, sans-serif;
           padding: 20px;
           padding-top: 30px;
-          padding-bottom: 40px;
+          padding-bottom: 120px;
           background-color: %body_theme%;
           color: %text_theme%;
         }
@@ -19,6 +23,7 @@
           margin: 0 auto;
           background-color: %body_theme%;
           padding: 0;
+          min-height: 100%;
         }
 
         .logo, .error-icon, .error-message, .learn-more-container, p, ul {
@@ -90,9 +95,9 @@
         <h2 class="error-message">%error_page_header%</h2>
         <p>%error_page_sub_header%</p>
         <ul>
-            <li>%direct_from_website%<span class="exclamation">!</span></li>
-            <li>%using_ceno_network%<span class="exclamation">!</span></li>
-            <li>%from_ceno_cache%<span class="exclamation">!</span></li>
+            <li>%direct_from_website%<span class="exclamation">%zero%</span></li>
+            <li>%using_ceno_network%<span class="exclamation">%zero%</span></li>
+            <li>%from_ceno_cache%<span class="exclamation">%zero%</span></li>
         </ul>
         <div class="learn-more-container" onclick="toggleVisibility()">
             <div class="learn-more">%learn_more%</div>

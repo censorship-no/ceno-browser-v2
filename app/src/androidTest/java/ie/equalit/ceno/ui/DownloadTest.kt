@@ -92,6 +92,9 @@ class DownloadTest {
         }.openThreeDotMenu {
         }.clickShareButton {
         }.clickSaveAsPDF {
+            if (allowButtonExists()) {
+                clickAllow()
+            }
             verifyDownloadPrompt("Page content: 1")
         }.clickDownload ()
     }
