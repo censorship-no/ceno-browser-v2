@@ -24,7 +24,7 @@
     </plurals>
     <string name="preferences_delete_browsing_data_cached_files">الصور والملفات المخزنة مؤقتًا</string>
     <string name="preferences_delete_browsing_data_button">احذف بيانات التصفح</string>
-    <string name="delete_browsing_data_prompt_message_3"> سيحذف بيانات التصفح المحددة.</string>
+    <string name="delete_browsing_data_prompt_message_3">سيحذف بيانات التصفح المحددة.</string>
     <string name="customize_addon_collection_ok">موافق</string>
     <string name="preference_choose_search_engine">اختر محرك البحث</string>
     <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصاراً قديماً. المس اسم الموقع واستمر ثم حدد إزالة.</string>
@@ -165,6 +165,14 @@
 \n
 \n
 \n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
 \n تعد علامات التبويب الشخصية أكثر ملاءمة لحسابات الوسائط الاجتماعية والتسوق عبر الإنترنت وتصفح مواقع الويب التي لا ترغب في مشاركتها مع الآخرين."</string>
     <string name="onboarding_cleanup_title">امسح كل شيء،
 \nفي كل مكان، دفعة واحدة</string>
@@ -234,8 +242,8 @@
     <string name="ceno_home_card_personal_text">اتصال جيد، المزيد من الخصوصية لتسجيل الدخول إلى الحسابات، وعدم ترك آثار ، وعدم المشاركة</string>
     <string name="onboarding_finish_button">إنهاء</string>
     <string name="preferences_ceno_sources_upnp">حالة UPnP</string>
-    <string name="crash_reporting_dialog_description">المعذرة، يبدو أن سنو تعطّل! \u0020
-\nنرجو المساعدة لجعل سنو أفضل عبر إرسال تقرير العطل إلينا.</string>
+    <string name="crash_reporting_dialog_description">"المعذرة، يبدو أن سنو تعطّل!  
+\nنرجو المساعدة لجعل سنو أفضل عبر إرسال تقرير العطل إلينا."</string>
     <string name="crash_reporting_never_send">لا ترسل أبداً</string>
     <string name="crash_reporting_always_send">قم دائمًا بإرسال وتحسين &amp;brandShortName</string>
     <string name="preferences_allow_crash_reporting">الإبلاغ عن الأعطال</string>
