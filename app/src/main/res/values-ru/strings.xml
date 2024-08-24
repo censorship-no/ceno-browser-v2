@@ -341,4 +341,6 @@
     <string name="error_page_header">Ой! Не удалось загрузить страницу.</string>
     <string name="error_page_sub_header">Это значит что Ceno попытался использовать все доступные механизмы чтобы загрузить контент, но ни один не сработал:</string>
     <string name="error_page_learn_more">Узнать больше</string>
+    <string name="preferences_clear_behavior_option_1">Промпт</string>
+    <string name="preferences_clear_behavior_option_2">Очистить только Ceno кэш</string>
 </resources>
