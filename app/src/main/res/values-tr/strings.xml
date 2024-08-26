@@ -328,4 +328,11 @@
     </plurals>
     <string name="error_page_learn_more_1">Ceno Browser\'ın son sürümünü kullanıyorsunuz. Eski sürümler yeni injectorler veya clientlar tarafından erişilemeyebilir. &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;Buradan&lt;/a&gt; son sürümü kontrol edebilirsiniz.</string>
     <string name="error_page_learn_more_3">Cihazınızın ağ bağlantısı var, yani normal Web tarayıcınız bazı web sitelerini açabiliyor. Ceno ve Ouinet, ağ bağlantısı kapalı olduğunda çalışamaz.</string>
+    <string name="preferences_clear_behavior_option_3">Uygulama verilerini ve Ceno önbelleğini temizleyin</string>
+    <string name="preferences_theme_option_1">Koyu</string>
+    <string name="preferences_clear_behavior_option_1">İstem</string>
+    <string name="preferences_clear_behavior_option_2">Yalnızca Ceno önbelleğini temizle</string>
+    <string name="preferences_theme_option_2">Açık</string>
+    <string name="preferences_theme_option_3">Pil Tasarrufu tarafından ayarlanır</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">İndir</string>
 </resources>
