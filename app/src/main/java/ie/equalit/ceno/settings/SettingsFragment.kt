@@ -4,6 +4,9 @@
 
 package ie.equalit.ceno.settings
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -313,8 +316,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         getPreference(pref_key_ceno_download_android_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
-        getPreference(pref_key_about_ceno)?.summary = CenoSettings.getCenoVersionString(requireContext())
-        getPreference(pref_key_about_geckoview)?.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
+        (getPreference(pref_key_about_ceno) as LongClickPreference).let { preference ->
+            preference.summary = CenoSettings.getCenoVersionString(requireContext())
+            preference.onLongClick {
+                //copy to clipboard
+                copyToClipboard(preference.title, preference.summary)
+                true
+            }
+        }
+        (getPreference(pref_key_about_geckoview) as LongClickPreference).let { preference ->
+            preference.summary = BuildConfig.MOZ_APP_VERSION + "-" + BuildConfig.MOZ_APP_BUILDID
+            preference.onLongClick {
+                copyToClipboard(preference.title, preference.summary)
+                true
+            }
+        }
 
         if (CenoSettings.isStatusUpdateRequired(requireContext())) {
             /* Ouinet status not yet updated */
@@ -373,9 +389,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
             )
-            getPreference(pref_key_about_ouinet)?.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
-                CenoSettings.getOuinetBuildId(requireContext())
+            (getPreference(pref_key_about_ouinet) as LongClickPreference).let { preference ->
+                preference.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
+                        CenoSettings.getOuinetBuildId(requireContext())
+                preference.onLongClick {
+                    copyToClipboard(preference.title, preference.summary)
+                    true
+                }
+
+            }
         }
+    }
+
+    private fun copyToClipboard(label: CharSequence?, text: CharSequence?) {
+        //copy to clipboard
+        val clipBoard =
+            requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipBoard.setPrimaryClip(
+            ClipData.newPlainText(
+                label,
+                text
+            )
+        )
+
+        Toast.makeText(requireContext(), getString(toast_copied), LENGTH_SHORT).show()
     }
 
 

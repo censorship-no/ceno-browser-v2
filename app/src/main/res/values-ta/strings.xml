@@ -177,7 +177,6 @@
     <string name="clear_cache_success">கேச் வெற்றிகரமாக அழிக்கப்பட்டது</string>
     <string name="ouinet_client_fetch_fail">மாற்றத் தவறிவிட்டது Ceno அமைத்தல்</string>
     <string name="addon_placeholder">துணை நிரல்கள் எதுவும் கிடைக்கவில்லை</string>
-    <string name="donate_button_text">நன்கொடை</string>
     <string name="ceno_onboarding_start_title">வலையைப் பகிரவும்,
 \n பியர்-டு-பியர்</string>
     <string name="onboarding_public_or_personal_title">பொது அல்லது தனிப்பட்டதா?</string>

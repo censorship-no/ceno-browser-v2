@@ -30,18 +30,23 @@ import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.databinding.FragmentAboutBinding
 import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
 
 
 class AboutFragment : Fragment() {
+
+    private var _binding: FragmentAboutBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        _binding = FragmentAboutBinding.inflate(inflater, container,false)
+        return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,43 +73,36 @@ class AboutFragment : Fragment() {
             Build.gitHash,
             Build.applicationServicesVersion,
         )
-        val content = HtmlCompat.fromHtml(
-            resources.getString(R.string.about_content, appName),
-            FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM,
-        )
 
-        val aboutView = view.findViewById<TextView>(R.id.about_content)
-        aboutView.text = content
-
-        val websiteButton = view.findViewById<TextView>(R.id.button1)
-        setLinkTextView(websiteButton, resources.getString(R.string.website_button_text))
-        websiteButton.setOnClickListener(
+        setLinkTextView(binding.btnWebsite, resources.getString(R.string.website_button_text))
+        binding.btnWebsite.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.website_button_link))
         )
 
-        val sourceCodeButton = view.findViewById<TextView>(R.id.button2)
-        setLinkTextView(sourceCodeButton, resources.getString(R.string.source_code_button_text))
-        sourceCodeButton.setOnClickListener(
+        setLinkTextView(binding.btnSourcecode, resources.getString(R.string.source_code_button_text))
+        binding.btnSourcecode.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.source_code_button_link))
         )
-
-        val donateButton = view.findViewById<TextView>(R.id.button3)
-        setLinkTextView(donateButton, resources.getString(R.string.donate_button_text))
-        donateButton.setOnClickListener(
-            getOnClickListenerForLink(resources.getString(R.string.donate_button_link))
+        setLinkTextView(binding.btnSupport, resources.getString(R.string.support_button_text))
+        binding.btnSupport.setOnClickListener(
+            getOnClickListenerForLink(resources.getString(R.string.support_button_link))
         )
 
-        val versionInfoView = view.findViewById<TextView>(R.id.version_info)
-        versionInfoView.text = versionInfo
+        setLinkTextView(binding.btnWebsiteEq, resources.getString(R.string.website_button_text))
+        binding.btnWebsiteEq.setOnClickListener(
+            getOnClickListenerForLink(resources.getString(R.string.website_eq_button_link))
+        )
+        setLinkTextView(binding.btnNews, resources.getString(R.string.eq_news_button_text))
+        binding.btnNews.setOnClickListener(
+            getOnClickListenerForLink(resources.getString(R.string.eq_news_button_link))
+        )
 
-        versionInfoView.setOnTouchListener { v, _ ->
-            val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipBoard.setPrimaryClip(ClipData.newPlainText(versionInfo, versionInfo))
+        setLinkTextView(binding.btnValues, resources.getString(R.string.eq_values_button_text))
+        binding.btnValues.setOnClickListener(
+            getOnClickListenerForLink(resources.getString(R.string.eq_values_button_link))
+        )
 
-            Toast.makeText(requireContext(), getString(R.string.toast_copied), Toast.LENGTH_SHORT).show()
-
-            v.performClick()
-        }
+        binding.versionInfo.text = versionInfo
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -142,15 +140,6 @@ class AboutFragment : Fragment() {
         return View.OnClickListener {
             val browserActivity = activity as BrowserActivity
             browserActivity.openToBrowser(url, newTab = true)
-            /*
-            val entry: BackStackEntry =
-                browserActivity.supportFragmentManager.getBackStackEntryAt(0)
-            browserActivity.supportFragmentManager.popBackStack(
-                entry.id,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
-            browserActivity.supportFragmentManager.executePendingTransactions()
-             */
         }
     }
 }

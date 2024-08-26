@@ -237,7 +237,6 @@
     <string name="preferences_ceno_bridge_announcement">启用桥接模式</string>
     <string name="clear_cache_success">缓存清除成功</string>
     <string name="ouinet_client_fetch_success">Ceno设置已更新</string>
-    <string name="donate_button_text">捐赠</string>
     <string name="onboarding_cleanup_text">只需一个按钮清除您的浏览器历史记录、凭据以及您在Ceno上留下的任何痕迹。</string>
     <string name="ceno_home_card_personal_text">良好的连接性，更好的隐私性。用于登录账户、不留痕迹、不分享</string>
     <string name="ouinet_taking_too_long_title">花费太长时间？</string>

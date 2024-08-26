@@ -41,11 +41,17 @@
 
     <color name="reader_view_floating_btn">@color/ceno_blue_800</color>
 
+    <color name="logo_text_color">@color/photonWhite</color>
+    <color name="logo_icon_color">@color/ceno_blue_400</color>
+    <color name="logo_accent">@color/ceno_orange_500</color>
+
 
     <color name="ceno_blue_50">#F0F9FF</color>
     <color name="ceno_blue_100">#E0F2FE</color>
     <color name="ceno_blue_200">#BAE6FD</color>
     <color name="ceno_blue_300">#7DD3FC</color>
+    <color name="ceno_blue_400">#38BDF8</color>
+    <color name="ceno_blue_500">#0EA5E9</color>
     <color name="ceno_blue_600">#0284C7</color>
     <color name="ceno_blue_700">#0369A1</color>
     <color name="ceno_blue_800">#075985</color>
@@ -75,6 +81,7 @@
     <color name="ceno_orange_300">#FDBA74</color>
     <color name="ceno_orange_400">#FB923C</color>
     <color name="ceno_orange_500">#F97316</color>
+    <color name="ceno_orange_600">#EA580C</color>
     <color name="ceno_orange_700">#C2410C</color>
     <color name="ceno_orange_800">#9A3412</color>
     <color name="ceno_orange_900">#7C2D12</color>

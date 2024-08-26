@@ -102,7 +102,6 @@
     <string name="ouinet_client_fetch_fail">Gagal mengubah pengaturan Ceno</string>
     <string name="addon_placeholder">Tidak Ada Pengaya yang Tersedia</string>
     <string name="source_code_button_text">Kode Sumber</string>
-    <string name="donate_button_text">Donasi</string>
     <string name="ceno_onboarding_start_title">Berbagi web,
 \nklien ke klien</string>
     <string name="ceno_onboarding_start_text">Tulang punggung klien ke klien Ceno memungkinkan orang untuk mengakses dan berbagi konten situs web di dalam dan di seluruh wilayah di mana konektivitas sedang terganggu atau disusupi.</string>
