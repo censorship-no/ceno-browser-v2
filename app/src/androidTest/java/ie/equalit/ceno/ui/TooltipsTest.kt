@@ -11,6 +11,8 @@ import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.ui.robots.OnboardingRobot
+import ie.equalit.ceno.ui.robots.clickNext
+import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.givePermissions
 import ie.equalit.ceno.ui.robots.onboarding
 import okhttp3.mockwebserver.MockWebServer
@@ -45,7 +47,6 @@ class TooltipsTest {
         mockWebServer.shutdown()
     }
 
-    @Ignore("Custom matcher needed for verifying text within the tooltip")
     @Test
     fun allTooltipsTest() {
         onboarding {
@@ -54,18 +55,18 @@ class TooltipsTest {
             verifyStartTooltipButtons()
             beginTooltipsTour()
             verifyPublicPersonalTooltip()
-//            goToNextTooltip()
-//            verifyShortcutsTooltip()
-//            goToNextTooltip()
-//            verifyUrlTooltip()
-//            goToNextTooltip()
-//            verifySourcesTooltip()
-//            goToNextTooltip()
-//            verifyClearTooltip()
-//            goToNextTooltip()
-//            verifyPermissionsTooltip()
-//            givePermissions()
-        }
+            clickNext()
+            verifyShortcutsTooltip()
+            clickNext()
+            verifyUrlTooltip()
+            clickNext()
+            verifySourcesTooltip()
+            clickNext()
+            verifyClearTooltip()
+            clickNext()
+            verifyPermissionsTooltip()
+            clickPermissions()
+        }.givePermissionsIfNeeded()
     }
 
     @Test
@@ -85,8 +86,7 @@ class TooltipsTest {
             clickExit()
             verifyPermissionsTooltip()
             clickPermissions()
-            givePermissions()
-        }
+        }.givePermissionsIfNeeded()
     }
 
 }

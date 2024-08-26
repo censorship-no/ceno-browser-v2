@@ -122,6 +122,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     getString(R.string.onboarding_cleanup_text),
                     CirclePromptFocal(),
                     stopCaptureTouchOnFocal = true,
+                    buttonText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                        R.string.btn_next
+                    else
+                        R.string.onboarding_finish_button,
                     listener = { _, state ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_FINISHED-> {
@@ -136,7 +140,13 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         }
                     },
                     onButtonPressListener = {
-                        goToNextTooltip()
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                            goToNextTooltip()
+                        else {
+                            requireComponents.cenoPreferences.nextTooltip = -1
+                            tooltip.dismiss()
+                            Settings.setShowOnboarding(requireContext(), false)
+                        }
                     }
                 )
                 tooltip.tooltip?.show()

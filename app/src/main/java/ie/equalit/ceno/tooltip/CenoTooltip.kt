@@ -1,11 +1,13 @@
 package ie.equalit.ceno.tooltip
 
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -20,13 +22,14 @@ class CenoTooltip(
     var promptFocal: PromptFocal,
     isAutoFinish: Boolean = false,
     stopCaptureTouchOnFocal: Boolean = false,
+    val buttonText: Int = R.string.btn_next,
     listener: ( prompt:MaterialTapTargetPrompt, state:Int) -> Unit,
-    var onButtonPressListener: () -> Unit
+    var onButtonPressListener: (view:View) -> Unit
 ) {
     var tooltip: MaterialTapTargetPrompt?
     val tooltipBuilder : MaterialTapTargetPrompt.Builder
     val promptTextWithBtn = PromptTextWithBtn(
-        fragment.getString(R.string.btn_next),
+        fragment.getString(buttonText),
         getColor(fragment.requireContext(), R.color.ceno_blue_100)
     )
     var isButtonPressed:Boolean = false
@@ -41,7 +44,7 @@ class CenoTooltip(
             .setAutoDismiss(false)
             .setBackgroundColour(getColor(fragment.requireContext(), R.color.tooltip_prompt_color))
             .setFocalColour(getColor(fragment.requireContext(), R.color.tooltip_focal_color))
-            .setPromptBackground(DimmedPromptBackground(promptButtonCallback = ::promptButtonCallback))
+            .setPromptBackground(DimmedPromptBackground())
             .setPromptStateChangeListener(listener)
             .setAutoFinish(isAutoFinish)
             .setCaptureTouchEventOnFocal(stopCaptureTouchOnFocal)
@@ -49,15 +52,15 @@ class CenoTooltip(
 
     }
 
-    fun promptButtonCallback(x:Float, y:Float) {
-        if (promptTextWithBtn.isButtonPressed(x, y) && !isButtonPressed) {
-            isButtonPressed = true
-            onButtonPressListener.invoke()
-            //dismiss tooltip
-            dismiss()
-        }
-
-    }
+//    fun promptButtonCallback(x:Float, y:Float) {
+//        if (promptTextWithBtn.isButtonPressed(x, y) && !isButtonPressed) {
+//            isButtonPressed = true
+//            onButtonPressListener.invoke()
+//            //dismiss tooltip
+//            dismiss()
+//        }
+//
+//    }
 
     fun addExitButton(listener: View.OnClickListener) {
         val container = fragment.activity?.findViewById<FrameLayout>(R.id.container)
@@ -67,7 +70,12 @@ class CenoTooltip(
         tooltipOverlay.addView(prompt, 0)
         container?.addView(tooltipOverlay)
         val btnSkip = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
+        val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
+        (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnBounds.top.toInt()
+        (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnBounds.left.toInt()
+        btnNext.text = fragment.getString(buttonText)
         btnSkip.setOnClickListener(listener)
+        btnNext.setOnClickListener(onButtonPressListener)
     }
 
     fun dismiss() {

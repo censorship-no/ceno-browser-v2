@@ -60,15 +60,6 @@ class PromptTextWithBtn(
                     + mSecondaryTextLeft - mSecondaryTextLeftChange,
             mSecondaryTextLayout.height + textSeparation
         )
-        // draw a rectangle for button
-        val btn_color = TextPaint()
-        btn_color.setColor(buttonColor)
-        canvas.drawRoundRect(btnRect, 10f, 10f, btn_color)
-        canvas.translate(
-            buttonPaddingHorizontal,
-            buttonPaddingVertical
-        )
-        btnTextLayout.draw(canvas)
     }
 
     /*

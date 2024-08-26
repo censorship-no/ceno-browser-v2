@@ -416,7 +416,7 @@ class HomeFragment : BaseHomeFragment() {
         }
     }
 
-    private fun goToNextTooltip() {
+    private fun goToNextTooltip(view:View) {
         requireComponents.cenoPreferences.nextTooltip += 1
         tooltip.dismiss()
         showTooltip()
