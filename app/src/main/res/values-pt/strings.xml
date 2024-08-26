@@ -200,7 +200,6 @@
     <string name="addon_placeholder">Sem Extensões Disponíveis</string>
     <string name="website_button_text">Website</string>
     <string name="source_code_button_text">Código-fonte</string>
-    <string name="donate_button_text">Faça uma doação</string>
     <string name="preferences_allow_notifications">Permitir Notificações</string>
     <string name="onboarding_warning_text_v33_1">As notificações não são permitidas.
 \n

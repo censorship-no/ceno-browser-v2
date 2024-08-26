@@ -163,7 +163,6 @@
     <string name="preferences_ceno_download_log">Exportar registro do Ouinet</string>
     <string name="website_button_text">Website</string>
     <string name="source_code_button_text">Código-fonte</string>
-    <string name="donate_button_text">Faça uma doação</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; irá enviar o que você digita na barra de endereços para seu buscador</string>
     <string name="changeIconCtaCancel">Cancelar</string>
     <string name="changeIconDialogTitle">Aplicar novo ícone?</string>

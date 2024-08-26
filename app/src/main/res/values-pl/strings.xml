@@ -184,7 +184,6 @@
     <string name="changeIconDialogMessage">Aplikacja może samoczynnie się zamknąć, aby zastosować zmiany. Jak skończysz podziwianie nowej, przepięknej ikony, wróć do nas.</string>
     <string name="website_button_text">Strona internetowa</string>
     <string name="source_code_button_text">Kod źródłowy</string>
-    <string name="donate_button_text">Złóż darowiznę</string>
     <string name="addon_placeholder">Brak dostępnych rozszerzeń</string>
     <string name="ceno_onboarding_start_text">Struktura &brandShortName; oparta o topologię peer-to-peer pozwala użytkownikom na zdobywanie informacji w sieci i dzielenie się nimi w i pomiędzy regionami, w których dostęp do Internetu jest nieciągły lub zagrożony.</string>
     <string name="preference_show_search_suggestions_summary">&brandShortName; przekaże wyszukiwarce to, co napisałeś w pasku wyszukiwania</string>
