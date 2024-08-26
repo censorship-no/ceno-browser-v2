@@ -131,7 +131,6 @@
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/de/concepts/public-private.html</string>
     <string name="preferences_make_default_browser">Ceno als Standardbrowser verwenden</string>
     <string name="onboarding_warning_button">Okay</string>
-    <string name="donate_button_text">Spenden</string>
     <string name="about_content"><p>%1$sTeile das Web!</p><p>Ceno (kurz für censorship.no!) ist der weltweit erste mobile Browser, der die derzeitigen Methoden der Internet-Zensur umgeht. Sein Peer-to-Peer-Backbone ermöglicht es den Menschen, in Regionen, in denen die Internetverbindung unterbrochen oder beeinträchtigt ist, auf Webinformationen zuzugreifen und diese mit anderen zu teilen.</p><p>%1$s ist ein Projekt von eQualitie, einer kanadischen Organisation, deren Aufgabe es ist, die Grundfreiheiten und Menschenrechte zu fördern und zu verteidigen, einschließlich des freien Flusses von Informationen im Internet. Unser Ziel ist es, zugängliche Technologien zu schaffen und die Fähigkeiten zu verbessern, die für die Verteidigung der Menschenrechte und Freiheiten im digitalen Zeitalter erforderlich sind.</p></string>
     <string name="ceno_notification_description">Tippen zum Anhalten</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Es wird empfohlen, Ceno zu verwenden, wenn du eine Wi-Fi-Verbindung haben, da es mehr Daten verbrauchen kann, als Sie erwarten. Wenn du mobile Daten verwendest, solltest du Ceno deaktivieren.</string>

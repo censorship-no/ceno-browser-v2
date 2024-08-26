@@ -4,73 +4,199 @@
   ~  file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="ie.equalit.ceno.settings.AboutFragment">
 
-    <TextView
-        android:id="@+id/about_content"
+    <ImageView
+        android:id="@+id/imageview_ceno_logo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
-        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
-        android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ceno_logo_colorful"
+        app:layout_constraintBottom_toTopOf="@+id/about_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/button1"
-        android:layout_width="0dp"
+        android:id="@+id/about_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
-        android:backgroundTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
+        android:text="@string/about_content_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/about_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageview_ceno_logo" />
 
     <TextView
-        android:id="@+id/button2"
+        android:id="@+id/about_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="@string/about_content_para_1"
         android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/btn_website"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_title" />
+
+    <TextView
+        android:id="@+id/btn_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/website_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/equalitie_logo"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sourcecode"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_content" />
+
+    <TextView
+        android:id="@+id/btn_sourcecode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/transparent"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        />
+        android:text="@string/source_code_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website"
+        app:layout_constraintEnd_toStartOf="@+id/btn_support"
+        app:layout_constraintStart_toEndOf="@+id/btn_website"
+        app:layout_constraintTop_toTopOf="@+id/btn_website" />
 
     <TextView
-        android:id="@+id/button3"
+        android:id="@+id/btn_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/support_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_sourcecode"
+        app:layout_constraintTop_toTopOf="@+id/btn_website" />
+
+    <ImageView
+        android:id="@+id/equalitie_logo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
-        android:backgroundTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/about_content"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@null"
+        android:src="@drawable/equalitie_logo"
+        app:layout_constraintBottom_toTopOf="@+id/about_equalitie_content"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_website" />
+
+    <TextView
+        android:id="@+id/about_equalitie_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="@string/about_content_para_2"
+        android:textAlignment="center"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/btn_website_eq"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/equalitie_logo" />
+
+    <TextView
+        android:id="@+id/btn_website_eq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/website_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/version_info"
+        app:layout_constraintEnd_toStartOf="@+id/btn_news"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_equalitie_content" />
+
+    <TextView
+        android:id="@+id/btn_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="@string/eq_news_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website_eq"
+        app:layout_constraintEnd_toStartOf="@+id/btn_values"
+        app:layout_constraintStart_toEndOf="@+id/btn_website_eq"
+        app:layout_constraintTop_toTopOf="@+id/btn_website_eq" />
+
+    <TextView
+        android:id="@+id/btn_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/eq_values_button_text"
+        android:textAlignment="center"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_website_eq"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_news"
+        app:layout_constraintTop_toTopOf="@+id/btn_website_eq" />
 
     <TextView
         android:id="@+id/version_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ceno_about_fragment_margin_top"
         android:layout_marginHorizontal="@dimen/ceno_about_fragment_margin_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:textAlignment="center"
-        android:textSize="@dimen/ceno_about_fragment_text_size"
         android:textIsSelectable="true"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
+        app:layout_constraintTop_toBottomOf="@id/btn_website_eq" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
