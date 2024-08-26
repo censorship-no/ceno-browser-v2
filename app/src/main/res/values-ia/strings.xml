@@ -107,4 +107,5 @@
     <string name="share_link_all_apps_subheader">Tote le actiones</string>
     <string name="share_link_recent_apps_subheader">Usate recentemente</string>
     <string name="share_save_to_pdf">Salvar como PDF</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

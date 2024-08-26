@@ -344,4 +344,5 @@
         <item quantity="other">%d sites</item>
     </plurals>
     <string name="error_page_learn_more_3">Votre appareil est connecté au réseau et votre navigateur Web standard peut ouvrir des sites Web. Ceno et Ouinet ne peuvent pas fonctionner sans connectivité réseau.</string>
+    <string name="website_button_link">https://censorship.no/fr/index.html</string>
 </resources>

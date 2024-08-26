@@ -227,4 +227,5 @@
     <string name="share_save_to_pdf">PDF အဖြစ် သိမ်းမည်</string>
     <string name="preferences_clear_behavior">ပုံသေ အပြုအမူ</string>
     <string name="preferences_clear_in_toolbar">ကိရိယာဘား တွင် ပြပါ</string>
+    <string name="website_button_link">https://censorship.no/my/index.html</string>
 </resources>

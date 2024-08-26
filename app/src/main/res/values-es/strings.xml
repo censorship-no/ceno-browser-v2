@@ -344,4 +344,5 @@
     <string name="preferences_theme_option_2">Claro</string>
     <string name="preferences_theme_option_3">Ajustado por el ahorro de batería</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Descargar</string>
+    <string name="website_button_link">https://censorship.no/es/index.html</string>
 </resources>

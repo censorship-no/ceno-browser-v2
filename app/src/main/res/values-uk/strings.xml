@@ -346,4 +346,5 @@
     <string name="preferences_theme_option_1">Темний</string>
     <string name="preferences_theme_option_2">Світлий</string>
     <string name="preferences_theme_option_3">Встановити за допомогою Battery Saver</string>
+    <string name="website_button_link">https://censorship.no/uk/index.html</string>
 </resources>

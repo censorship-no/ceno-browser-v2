@@ -337,4 +337,5 @@
     <string name="preferences_theme_option_3">Definido pela economia de bateria</string>
     <string name="preferences_clear_behavior_option_1">Prompt</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

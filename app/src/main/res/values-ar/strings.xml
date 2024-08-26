@@ -321,4 +321,5 @@
     <string name="confirm_groups_file_download_desc">سيتم حفظ ملف txt على وحدة التخزين المحلية لديك.</string>
     <string name="confirm_clear_cached_content_desc">ستتم إزالة المحتوى المخزن مؤقتًا على الفور</string>
     <string name="confirm_clear_cached_content">هل تريد مسح المحتوى المخزن مؤقتًا؟</string>
+    <string name="website_button_link">https://censorship.no/ar/index.html</string>
 </resources>
