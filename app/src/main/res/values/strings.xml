@@ -284,7 +284,7 @@
     <string name="ouinet_client_fetch_fail">Failed to change Ceno setting</string>
     <string name="addon_placeholder">No Add-ons Available</string>
     <string name="website_button_text">Website</string>
-    <string name="website_button_link" translatable="false">https://censorship.no/</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="source_code_button_text">Source Code</string>
     <string name="source_code_button_link" translatable="false">https://gitlab.com/censorship-no/</string>
     <string name="support_button_text">Support</string>

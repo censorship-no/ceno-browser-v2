@@ -309,4 +309,5 @@
     <string name="dialog_btn_positive_ok">OK</string>
     <string name="shutdown_message_one">Czyszczenie danych aplikacji</string>
     <string name="shutdown_message_two">Wyłączanie Ceno</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

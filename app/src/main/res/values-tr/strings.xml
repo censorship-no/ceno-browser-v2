@@ -334,4 +334,5 @@
     <string name="preferences_theme_option_2">Açık</string>
     <string name="preferences_theme_option_3">Pil Tasarrufu tarafından ayarlanır</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">İndir</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

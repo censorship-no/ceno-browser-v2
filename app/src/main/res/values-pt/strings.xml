@@ -330,4 +330,5 @@
     <string name="error_page_sub_header">Isso significa que Ceno tentou todos os mecanismos disponíveis para acessar o conteúdo, mas nenhum deles teve sucesso:</string>
     <string name="error_page_learn_more">Saber mais</string>
     <string name="error_page_learn_more_header">Você deve certificar-se de que os seguintes requisitos sejam atendidos para que o Ceno funcione</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

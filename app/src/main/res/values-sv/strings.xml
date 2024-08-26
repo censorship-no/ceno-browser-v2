@@ -131,4 +131,5 @@
     <string name="share_link_all_apps_subheader">Alla åtgärder</string>
     <string name="share_link_recent_apps_subheader">Nyligen använd</string>
     <string name="share_save_to_pdf">Spara som PDF</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

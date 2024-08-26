@@ -32,4 +32,5 @@
     <string name="menu_action_add_tab">Új ablak hozzáadása</string>
     <string name="menu_action_close_tabs">Az összes ablak bezárása</string>
     <string name="menu_action_close_tabs_private">A személyes ablakok bezárása</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

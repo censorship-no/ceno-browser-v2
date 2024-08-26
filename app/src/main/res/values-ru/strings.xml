@@ -342,4 +342,5 @@
     <string name="error_page_learn_more">Узнать больше</string>
     <string name="preferences_clear_behavior_option_1">Промпт</string>
     <string name="preferences_clear_behavior_option_2">Очистить только Ceno кэш</string>
+    <string name="website_button_link"> https://ceno.app/ru/index.html</string>
 </resources>

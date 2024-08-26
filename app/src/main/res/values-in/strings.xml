@@ -233,4 +233,5 @@
     <string name="browser_menu_back">Kembali</string>
     <string name="browser_menu_stop">Berhenti</string>
     <string name="browser_menu_settings">Pengaturan</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>
