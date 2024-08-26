@@ -341,4 +341,10 @@
     <string name="error_page_learn_more_3">Ваш пристрій має робоче з\'єднання з мережею, тобто звичайний веб браузер може відкривати деякі вебсайти. Ceno та Ouinet не можуть працювати, якщо всі підключення до мережі вимкнено.</string>
     <string name="content_description_close_button">Закрити</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Завантажити</string>
+    <string name="preferences_clear_behavior_option_1">Швидко</string>
+    <string name="preferences_clear_behavior_option_2">Очистити тільки кеш Ceno</string>
+    <string name="preferences_clear_behavior_option_3">Очистити дані та кеш Ceno</string>
+    <string name="preferences_theme_option_1">Темний</string>
+    <string name="preferences_theme_option_2">Світлий</string>
+    <string name="preferences_theme_option_3">Встановити за допомогою Battery Saver</string>
 </resources>
