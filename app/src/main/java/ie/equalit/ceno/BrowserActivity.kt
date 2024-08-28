@@ -27,6 +27,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
+import ie.equalit.ceno.R.string.clean_insights_successful_opt_in
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BrowserFragment
@@ -72,6 +76,8 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
+import org.cleaninsights.sdk.Consent
+import org.cleaninsights.sdk.Feature
 import kotlin.system.exitProcess
 
 /**
@@ -81,6 +87,10 @@ open class BrowserActivity : BaseActivity() {
 
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
+    private val screenStartTime = System.currentTimeMillis()
+    var ouinetStartupTime = 0.0
+    private var hasOuinetStarted = false
+    private var hasRanChecksAndPermissions = false
 
     private val sessionId: String?
         get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
@@ -125,6 +135,26 @@ open class BrowserActivity : BaseActivity() {
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.homeFragment && !hasRanChecksAndPermissions) {
+                hasRanChecksAndPermissions = true
+
+                when {
+                    Settings.showCrashReportingPermissionNudge(this) -> showCrashReportingPermission()
+                    Settings.shouldShowCleanInsightsPermissionNudge(this) -> {
+                        Settings.setCleanInsightsEnabled(this, false)
+                        Settings.toggleShowCleanInsightsPermissionNudge(this, false)
+                        launchCleanInsightsPermissionDialog()
+                    }
+                }
+
+                if(cleanInsights?.state("test") == Consent.State.Granted) {
+                    Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
+                    Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
+                }
+            }
+        }
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
             openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
@@ -183,47 +213,94 @@ open class BrowserActivity : BaseActivity() {
             Toast.makeText(this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT).show()
         }
 
-        // Check for previous crashes
-        if(Settings.showCrashReportingPermissionNudge(this)) {
-
-            // launch Sentry activation dialog
-            val dialogView = View.inflate(this, R.layout.crash_reporting_nudge_dialog, null)
-            val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
-            val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
-
-            val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
-                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
-            } }
-
-            AlertDialog.Builder(this@BrowserActivity).apply {
-                setView(dialogView)
-                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    when {
-                        radio0.isChecked -> {
-                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
-                            SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
-
-                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
-                        }
-                        radio1.isChecked -> {
-                            Settings.neverAllowCrashReporting(this@BrowserActivity)
-                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
-                        }
-                    }
-                }
-                setOnDismissListener {
-                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-                }
-                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
-                    Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
-                }
-                create()
-            }.show()
-        } else {
+        // reset the value of lastCrash if permission nudge won't be shown
+        if(!Settings.showCrashReportingPermissionNudge(this)) {
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
 
         updateOuinetStatus()
+    }
+
+    /* This function displays the popup that asks users if they want to opt in for
+    the crash reporting feature
+     */
+    private fun showCrashReportingPermission() {
+        // launch Sentry activation dialog
+        val dialogView = View.inflate(this@BrowserActivity, R.layout.crash_reporting_nudge_dialog, null)
+        val radio0 = dialogView.findViewById<RadioButton>(R.id.radio0)
+        val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
+
+        val sentryActionDialog by lazy { AlertDialog.Builder(this).apply {
+            setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+        } }
+
+        AlertDialog.Builder(this).apply {
+            setView(dialogView)
+            setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                when {
+                    radio0.isChecked -> {
+                        Settings.alwaysAllowCrashReporting(this@BrowserActivity)
+                        SentryAndroid.init(this@BrowserActivity, SentryOptionsConfiguration.getConfig(this@BrowserActivity))
+
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in)).show()
+                    }
+                    radio1.isChecked -> {
+                        Settings.neverAllowCrashReporting(this@BrowserActivity)
+                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out)).show()
+                    }
+                }
+            }
+            setOnDismissListener {
+                Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+            }
+            setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
+            }
+            create()
+        }.show()
+    }
+
+
+    /* This function displays the popup that asks users if they want to opt in for
+    the clean insights reporting
+     */
+    private fun launchCleanInsightsPermissionDialog() {
+
+        val ui = ConsentRequestUi(this)
+
+        cleanInsights?.requestConsent("test", ui) { granted ->
+            if (!granted) {
+                Settings.setCleanInsightsEnabled(this@BrowserActivity, false)
+                return@requestConsent
+            }
+            cleanInsights?.requestConsent(Feature.Lang, ui) {
+                cleanInsights?.requestConsent(Feature.Ua, ui) {
+
+                    Settings.setCleanInsightsEnabled(this, true)
+
+                    // success toast message
+                    Toast.makeText(
+                        this,
+                        getString(clean_insights_successful_opt_in),
+                        Toast.LENGTH_LONG,
+                    ).show()
+
+                    // log Ouinet startup time if it already has a value
+                    ouinetStartupTime.let { startupTime ->
+                        if(startupTime > 0.0) {
+                            CleanInsightTrackerHelper.trackData(
+                                activity = "BrowserActivity",
+                                category = "app-state",
+                                action = "ouinet-startup-success",
+                                campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                                name = "actual_ouinet_startup_time",
+                                value = startupTime
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
@@ -249,6 +326,26 @@ open class BrowserActivity : BaseActivity() {
                     val status = RunningState.valueOf(components.ouinet.background.getState())
                     if (components.appStore.state.ouinetStatus != status) {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
+                        if(!hasOuinetStarted && status == RunningState.Started) {
+                            ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
+                            if(cleanInsights?.state("test") == Consent.State.Granted) {
+                                CleanInsightTrackerHelper.trackData(
+                                    activity = "BrowserActivity",
+                                    category = "app-state",
+                                    action = "ouinet-startup-success",
+                                    campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                                    name = "actual_ouinet_startup_time",
+                                    value = ouinetStartupTime
+                                )
+
+                                // check if this is the (n % 10 == 0)th launch and show the Ouinet prompt if true
+                                if(Settings.getLaunchCountWithCleanInsightsEnabled(this@BrowserActivity) % 10 == 0) {
+                                    CleanInsightTrackerHelper.showStartupTimePrompt(this@BrowserActivity)
+                                }
+                            }
+                            hasOuinetStarted = true
+                        }
+
                     }
                     delay(DELAY_TWO_SECONDS)
                 }

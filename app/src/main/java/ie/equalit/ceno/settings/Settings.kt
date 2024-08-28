@@ -8,10 +8,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
+import org.cleaninsights.sdk.Consent
 
 object Settings {
     fun shouldShowOnboarding(context: Context): Boolean =
@@ -214,6 +216,45 @@ object Settings {
             .putBoolean(key, value)
             .apply()
     }
+
+    fun getLaunchCountWithCleanInsightsEnabled(context: Context) : Int {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(
+            context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking), 0
+        )
+    }
+
+    fun incrementLaunchCountWithCleanInsightsEnabled(context: Context) {
+        val key = context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking)
+        val currentValue = getLaunchCountWithCleanInsightsEnabled(context)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putInt(key, currentValue + 1)
+            .apply()
+    }
+
+    fun shouldShowCleanInsightsPermissionNudge(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_clean_insights_permission_nudge),
+            BrowserApplication.cleanInsights?.state("test") == Consent.State.Unknown
+        )
+    }
+
+    fun toggleShowCleanInsightsPermissionNudge(context: Context, show: Boolean) {
+        val key = context.getString(R.string.pref_key_show_clean_insights_permission_nudge)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, show)
+            .apply()
+    }
+
+    fun setCleanInsightsEnabled(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_enabled)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
 
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)

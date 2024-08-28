@@ -16,4 +16,4 @@ FRONTEND_PORT="8078"
 # where the first string is the country code for the bootstrap node 
 # and the second string is a space delimited series of hostnames 
 # (or IP addresses) for the bootstrap nodes for the given country
-#BT_BOOTSTRAP_EXTRAS={{"XX", "HOST1_COUNTRY_XX"}, {"XY", "HOST1_COUNTRY_XY"}, {"XZ", "HOST1_COUNTRY_XZ HOST2_COUNTRY_XZ"};
+#BT_BOOTSTRAP_EXTRAS={"XX", "HOST1_COUNTRY_XX"}, {"XY", "HOST1_COUNTRY_XY"}, {"XZ", "HOST1_COUNTRY_XZ HOST2_COUNTRY_XZ"};
