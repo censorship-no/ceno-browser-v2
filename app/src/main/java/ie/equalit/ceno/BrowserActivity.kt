@@ -140,18 +140,13 @@ open class BrowserActivity : BaseActivity() {
             if(destination.id == R.id.homeFragment && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
 
-                when {
-                    Settings.showCrashReportingPermissionNudge(this) -> showCrashReportingPermission()
-                    Settings.shouldShowCleanInsightsPermissionNudge(this) -> {
-                        Settings.setCleanInsightsEnabled(this, false)
-                        Settings.toggleShowCleanInsightsPermissionNudge(this, false)
-                        launchCleanInsightsPermissionDialog()
-                    }
+                if((Settings.getLaunchCount(this@BrowserActivity) % ASK_FOR_ANALYTICS_LIMIT
+                        ).toInt() == 0) {
+                    launchCleanInsightsPermissionDialog()
                 }
 
-                if(cleanInsights?.state("test") == Consent.State.Granted) {
-                    Logger.info("${Settings.getLaunchCountWithCleanInsightsEnabled(this)}th launch with clean insights tracking")
-                    Settings.incrementLaunchCountWithCleanInsightsEnabled(this)
+                if (Settings.showCrashReportingPermissionNudge(this)) {
+                    showCrashReportingPermission()
                 }
             }
         }
@@ -338,8 +333,9 @@ open class BrowserActivity : BaseActivity() {
                                     value = ouinetStartupTime
                                 )
 
-                                // check if this is the (n % 10 == 0)th launch and show the Ouinet prompt if true
-                                if(Settings.getLaunchCountWithCleanInsightsEnabled(this@BrowserActivity) % 10 == 0) {
+                                // check if this is the (n % 20 == 0)th launch and show the Ouinet prompt if true
+                                if((Settings.getLaunchCount(this@BrowserActivity) % ASK_FOR_SURVEY_LIMIT
+                                        ).toInt() == 0) {
                                     CleanInsightTrackerHelper.showStartupTimePrompt(this@BrowserActivity)
                                 }
                             }
@@ -662,5 +658,7 @@ open class BrowserActivity : BaseActivity() {
 
     companion object {
         const val DELAY_TWO_SECONDS = 2000L
+        const val ASK_FOR_ANALYTICS_LIMIT = 3
+        const val ASK_FOR_SURVEY_LIMIT = 6
     }
 }

@@ -217,33 +217,19 @@ object Settings {
             .apply()
     }
 
-    fun getLaunchCountWithCleanInsightsEnabled(context: Context) : Int {
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(
-            context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking), 0
+    fun getLaunchCount(context: Context) : Long {
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(
+            context.getString(R.string.pref_key_app_launch_count), 0
         )
     }
 
-    fun incrementLaunchCountWithCleanInsightsEnabled(context: Context) {
-        val key = context.getString(R.string.pref_key_app_launch_count_with_clean_insights_tracking)
-        val currentValue = getLaunchCountWithCleanInsightsEnabled(context)
+    fun incrementLaunchCount(context: Context) {
+        val key = context.getString(R.string.pref_key_app_launch_count)
+        var currentValue = getLaunchCount(context)
+        if (currentValue == Long.MAX_VALUE) currentValue = 0
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putInt(key, currentValue + 1)
-            .apply()
-    }
-
-    fun shouldShowCleanInsightsPermissionNudge(context: Context): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_clean_insights_permission_nudge),
-            BrowserApplication.cleanInsights?.state("test") == Consent.State.Unknown
-        )
-    }
-
-    fun toggleShowCleanInsightsPermissionNudge(context: Context, show: Boolean) {
-        val key = context.getString(R.string.pref_key_show_clean_insights_permission_nudge)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, show)
+            .putLong(key, currentValue + 1)
             .apply()
     }
 

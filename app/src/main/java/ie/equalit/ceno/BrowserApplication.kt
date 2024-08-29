@@ -48,6 +48,7 @@ open class BrowserApplication : Application() {
         AppCompatDelegate.setDefaultNightMode(
                 Settings.getAppTheme(this)
         )
+        Settings.incrementLaunchCount(this)
 
         // Record exceptions as well as app crashes
         Thread.setDefaultUncaughtExceptionHandler { _, _ ->
