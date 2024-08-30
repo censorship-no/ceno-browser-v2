@@ -324,4 +324,17 @@
     <string name="preferences_theme_option_2">Jasny</string>
     <string name="support_button_text">Pomoc</string>
     <string name="eq_news_button_text">Wiadomości</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Pobierz</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d strona</item>
+        <item quantity="few">%d strony</item>
+        <item quantity="many">%d stron</item>
+        <item quantity="other">%d stron</item>
+    </plurals>
+    <string name="error_page_learn_more">Dowiedz się więcej</string>
+    <string name="error_page_learn_more_1">Używasz najnowszej wersji przeglądarki Ceno. Przestarzałe wersje mogę nie być w stanie komunikować się z nowszymi wtryskiwaczami lub innymi klientami. Sprawdź &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;stronę pobierania&lt;/a&gt; aby znaleźć najnowszą wersję.</string>
+    <string name="confirm_groups_file_download_desc">Plik tekstowy zostanie zapisany w pamięci urządzenia.</string>
+    <string name="error_page_title">Strona błędu</string>
+    <string name="error_page_header">Ups! Nie udało się wczytać strony internetowej.</string>
+    <string name="error_page_sub_header">To oznacza, że Ceno próbowało wszystkich możliwych mechanizmów aby uzyskać dostęp do treści, ale żaden nie zadziałał:</string>
 </resources>
