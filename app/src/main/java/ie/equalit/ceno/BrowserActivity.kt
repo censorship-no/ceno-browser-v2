@@ -27,9 +27,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
-import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.R.string.clean_insights_successful_opt_in
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
@@ -46,6 +43,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isCrashReportActive
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
+import ie.equalit.ceno.ext.launchCleanInsightsPermissionDialog
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -142,7 +140,33 @@ open class BrowserActivity : BaseActivity() {
 
                 if((Settings.getLaunchCount(this@BrowserActivity) % ASK_FOR_ANALYTICS_LIMIT
                         ).toInt() == 0) {
-                    launchCleanInsightsPermissionDialog()
+                    components.cleanInsights?.launchCleanInsightsPermissionDialog(this@BrowserActivity) { granted ->
+                        Settings.setCleanInsightsEnabled(this, granted)
+
+                        if (granted) {
+                            // success toast message
+                            Toast.makeText(
+                                this,
+                                getString(clean_insights_successful_opt_in),
+                                Toast.LENGTH_LONG,
+                            ).show()
+
+                            // log Ouinet startup time if it already has a value
+                            ouinetStartupTime.let { startupTime ->
+                                if (startupTime > 0.0) {
+                                    CleanInsightTrackerHelper.trackData(
+                                        context = this@BrowserActivity,
+                                        activity = "BrowserActivity",
+                                        category = "app-state",
+                                        action = "ouinet-startup-success",
+                                        campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
+                                        name = "actual_ouinet_startup_time",
+                                        value = startupTime
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (Settings.showCrashReportingPermissionNudge(this)) {
@@ -255,49 +279,6 @@ open class BrowserActivity : BaseActivity() {
         }.show()
     }
 
-
-    /* This function displays the popup that asks users if they want to opt in for
-    the clean insights reporting
-     */
-    private fun launchCleanInsightsPermissionDialog() {
-
-        val ui = ConsentRequestUi(this)
-
-        cleanInsights?.requestConsent("test", ui) { granted ->
-            if (!granted) {
-                Settings.setCleanInsightsEnabled(this@BrowserActivity, false)
-                return@requestConsent
-            }
-            cleanInsights?.requestConsent(Feature.Lang, ui) {
-                cleanInsights?.requestConsent(Feature.Ua, ui) {
-
-                    Settings.setCleanInsightsEnabled(this, true)
-
-                    // success toast message
-                    Toast.makeText(
-                        this,
-                        getString(clean_insights_successful_opt_in),
-                        Toast.LENGTH_LONG,
-                    ).show()
-
-                    // log Ouinet startup time if it already has a value
-                    ouinetStartupTime.let { startupTime ->
-                        if(startupTime > 0.0) {
-                            CleanInsightTrackerHelper.trackData(
-                                activity = "BrowserActivity",
-                                category = "app-state",
-                                action = "ouinet-startup-success",
-                                campaign = CleanInsightTrackerHelper.CleanInsightCampaigns.TEST,
-                                name = "actual_ouinet_startup_time",
-                                value = startupTime
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
         return if (components.core.store.state.selectedTab == null)
             BrowsingMode.Normal
@@ -323,8 +304,9 @@ open class BrowserActivity : BaseActivity() {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
-                            if(cleanInsights?.state("test") == Consent.State.Granted) {
+                            if(components.cleanInsights?.state("test") == Consent.State.Granted) {
                                 CleanInsightTrackerHelper.trackData(
+                                    context = this@BrowserActivity,
                                     activity = "BrowserActivity",
                                     category = "app-state",
                                     action = "ouinet-startup-success",
@@ -658,7 +640,7 @@ open class BrowserActivity : BaseActivity() {
 
     companion object {
         const val DELAY_TWO_SECONDS = 2000L
-        const val ASK_FOR_ANALYTICS_LIMIT = 3
-        const val ASK_FOR_SURVEY_LIMIT = 6
+        const val ASK_FOR_ANALYTICS_LIMIT = 10
+        const val ASK_FOR_SURVEY_LIMIT = 20
     }
 }

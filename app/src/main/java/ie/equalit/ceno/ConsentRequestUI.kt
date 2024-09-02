@@ -8,15 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import ie.equalit.ceno.ext.click
-import org.cleaninsights.sdk.Campaign
-import org.cleaninsights.sdk.ConsentRequestUi
-import org.cleaninsights.sdk.ConsentRequestUiComplete
+import ie.equalit.ceno.ext.components
 import org.cleaninsights.sdk.Feature
 
-class ConsentRequestUi(private val context: Context) :
-    ConsentRequestUi {
+class ConsentRequestUi(private val context: Context) {
 
-    override fun show(campaignId: String, campaign: Campaign, complete: ConsentRequestUiComplete) {
+    fun show(complete: (Boolean) -> Unit) {
 
         val dialogView = View.inflate(context, R.layout.clean_insights_nudge_dialog, null)
         dialogView.findViewById<TextView>(R.id.explainer).text = buildSpannedString {
@@ -49,7 +46,7 @@ class ConsentRequestUi(private val context: Context) :
             .show()
     }
 
-    override fun show(feature: Feature, complete: ConsentRequestUiComplete) {
+    fun show(feature: Feature, complete: (Boolean) -> Unit) {
         val msg = context.getString(
             R.string.clean_insights_feature_consent_explanation,
             feature.localized(context)
@@ -60,7 +57,6 @@ class ConsentRequestUi(private val context: Context) :
             .setMessage(msg)
             .setNegativeButton(R.string.clean_insights_no) { _, _ -> complete(false) }
             .setPositiveButton(R.string.ceno_notification_clear_do_description) { _, _ ->
-                BrowserApplication.cleanInsights?.grant(feature)
                 complete(true)
             }
             .create()
@@ -70,7 +66,7 @@ class ConsentRequestUi(private val context: Context) :
 
 fun Feature.localized(context: Context): String {
     return when (this) {
-        Feature.Lang -> context.getString(R.string.clean_insights__locale)
+        Feature.Lang -> context.getString(R.string.clean_insights_locale)
         Feature.Ua -> context.getString(R.string.clean_insights_device_type)
     }
 }

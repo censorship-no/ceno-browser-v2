@@ -134,7 +134,7 @@ open class BrowserApplication : Application() {
         // Since there's no good callback before the app gets killed, we work around this problem
         // by persisting, when the OS gets annoyed about memory consumption, which is an indicator,
         // that we're soon going to get killed.
-        cleanInsights?.persist()
+        components.cleanInsights?.persist()
 
         runOnlyInMainProcess {
             components.core.store.dispatch(SystemAction.LowMemoryAction(level))
@@ -163,14 +163,14 @@ open class BrowserApplication : Application() {
         // Since there's no good callback before the app gets killed, we work around this problem
         // by persisting, when the OS gets annoyed about memory consumption, which is an indicator,
         // that we're soon going to get killed.
-        cleanInsights?.persist()
+        components.cleanInsights?.persist()
     }
 
     override fun onTerminate() {
         super.onTerminate()
 
         // This only works in emulators, but nevertheless, for completeness sakes.
-        cleanInsights?.persist()
+        components.cleanInsights?.persist()
     }
 
 
@@ -181,19 +181,6 @@ open class BrowserApplication : Application() {
 
         @SuppressLint("StaticFieldLeak")
         private var context: Context? = null
-
-        @JvmStatic
-        val cleanInsights: CleanInsights? by lazy {
-            // try/catch caters for exception thrown when cleaninsights.json does not exist
-            try {
-                CleanInsights(
-                    context!!.assets.open("cleaninsights.json").reader().readText(),
-                    context!!.filesDir)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-        }
 
         private var _tracker: Tracker? = null
         @Synchronized

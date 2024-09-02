@@ -2,11 +2,12 @@ package ie.equalit.ceno
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
-import ie.equalit.ceno.BrowserApplication.Companion.cleanInsights
 import ie.equalit.ceno.BrowserApplication.Companion.getTracker
+import ie.equalit.ceno.ext.components
 import org.matomo.sdk.Tracker
 import org.matomo.sdk.extra.TrackHelper
 
@@ -61,6 +62,7 @@ object CleanInsightTrackerHelper {
                 if (recordedValue != 0.0) {
 
                     trackData(
+                        context = activity.applicationContext,
                         category = "user-feedback",
                         action = "ouinet_startup-success",
                         campaign = CleanInsightCampaigns.TEST,
@@ -96,6 +98,7 @@ object CleanInsightTrackerHelper {
     }
 
     fun trackData(
+        context: Context,
         activity: String? = null,
         category: String,
         action: String,
@@ -104,7 +107,7 @@ object CleanInsightTrackerHelper {
         value: Double
     ) {
 
-        cleanInsights?.measureEvent(category, action, campaign.toServerString(), name, value)
+        context.components.cleanInsights?.measureEvent(category, action, campaign.toServerString(), name, value)
 //        cleanInsights.measureVisit(listOf("Main"), "test")
 
         val tracker: Tracker? = getTracker()

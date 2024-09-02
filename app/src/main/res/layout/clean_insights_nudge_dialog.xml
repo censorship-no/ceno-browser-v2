@@ -58,7 +58,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/crash_reports"
+        android:text="@string/device_type"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -85,7 +85,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/load_times"
+        android:text="@string/device_locale"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/bullet1" />
@@ -112,7 +112,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/device_locale"
+        android:text="@string/freq_app_usage"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/bullet2" />
@@ -139,7 +139,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/freq_app_usage"
+        android:text="@string/load_times"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/bullet3" />

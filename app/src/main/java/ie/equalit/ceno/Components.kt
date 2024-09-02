@@ -19,6 +19,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
 import mozilla.components.support.base.android.NotificationsDelegate
+import org.cleaninsights.sdk.CleanInsights
 
 /**
  * Provides access to all components.
@@ -73,4 +74,16 @@ class Components(private val context: Context) {
     val permissionHandler by lazy { PermissionHandler(context) }
 
     val webExtensionPort by lazy { WebExtensionPort(context) }
+
+    val cleanInsights: CleanInsights? by lazy {
+        // try/catch caters for exception thrown when cleaninsights.json does not exist
+        try {
+            CleanInsights(
+                context.assets.open("cleaninsights.json").reader().readText(),
+                context.filesDir)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

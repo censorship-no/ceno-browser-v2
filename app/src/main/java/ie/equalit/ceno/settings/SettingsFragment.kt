@@ -40,7 +40,6 @@ import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
 import ie.equalit.ceno.downloads.DownloadService
@@ -49,9 +48,11 @@ import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
+import ie.equalit.ceno.ext.launchCleanInsightsPermissionDialog
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
+import ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -531,35 +532,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCleanInsightsTracking(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
-            if (activity != null) {
-
-                when {
-
-                    // grant request
-                    BrowserApplication.cleanInsights?.state("test") == Consent.State.Denied
-                        && newValue as Boolean -> {
-                            BrowserApplication.cleanInsights?.grant("test")
-                            ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled(requireContext(), true)
-                            Toast.makeText(
-                                context,
-                                getString(clean_insights_successful_opt_in),
-                                Toast.LENGTH_LONG,
-                            ).show()
-                    }
-
-                    // deny request
-                    BrowserApplication.cleanInsights?.state("test") == Consent.State.Granted
-                        && !(newValue as Boolean) -> {
-                        BrowserApplication.cleanInsights?.deny("test")
-                        ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled(requireContext(), false)
-                        Toast.makeText(
-                            context,
-                            getString(clean_insights_successful_opt_out),
-                            Toast.LENGTH_LONG,
-                        ).show()
+            context?.let { ctx ->
+                if (newValue == true) {
+                    requireComponents.cleanInsights?.launchCleanInsightsPermissionDialog(ctx)
+                    { granted ->
+                        setCleanInsightsEnabled(ctx, granted)
+                        ctx.components.cenoPreferences.sharedPrefsReload = true
                     }
                 }
-
+                else {
+                    requireComponents.cleanInsights?.deny("test")
+                    setCleanInsightsEnabled(ctx, false)
+                    Toast.makeText(
+                        ctx,
+                        getString(clean_insights_successful_opt_out),
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
             }
             true
         }
