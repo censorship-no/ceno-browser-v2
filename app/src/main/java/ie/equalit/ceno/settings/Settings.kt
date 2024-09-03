@@ -8,12 +8,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
-import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
-import org.cleaninsights.sdk.Consent
 
 object Settings {
     fun shouldShowOnboarding(context: Context): Boolean =
@@ -241,6 +239,39 @@ object Settings {
             .apply()
     }
 
+    fun isCleanInsightsEnabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_enabled), false
+        )
+    }
+
+    fun setCleanInsightsDeviceType(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_include_device_type)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isCleanInsightsDeviceTypeIncluded(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_include_device_type), false
+        )
+    }
+
+    fun setCleanInsightsDeviceLocale(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_include_device_locale)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isCleanInsightsDeviceLocaleIncluded(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_include_device_locale), false
+        )
+    }
 
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)

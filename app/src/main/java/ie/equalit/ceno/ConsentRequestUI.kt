@@ -3,12 +3,11 @@ package ie.equalit.ceno
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
-import androidx.core.text.color
-import ie.equalit.ceno.ext.click
-import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.Feature
 
 class ConsentRequestUi(private val context: Context) {
@@ -30,6 +29,19 @@ class ConsentRequestUi(private val context: Context) {
 //                }
 //            }
         }
+        val deviceType = dialogView.findViewById<View>(R.id.checkbox) as CheckBox
+        deviceType.isChecked = Settings.isCleanInsightsDeviceTypeIncluded(context)
+        deviceType.setOnCheckedChangeListener { _, isChecked ->
+            // Save to shared preferences
+            Settings.setCleanInsightsDeviceType(context, isChecked)
+        }
+
+        val deviceLocale = dialogView.findViewById<View>(R.id.checkbox2) as CheckBox
+        deviceLocale.isChecked = Settings.isCleanInsightsDeviceLocaleIncluded(context)
+        deviceLocale.setOnCheckedChangeListener { _, isChecked ->
+            // Save to shared preferences
+            Settings.setCleanInsightsDeviceLocale(context, isChecked)
+        }
 
         AlertDialog.Builder(context)
             .setView(dialogView)
@@ -39,34 +51,11 @@ class ConsentRequestUi(private val context: Context) {
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
                 complete(true)
             }
+            /* Do nothing when dismissed
             .setOnDismissListener {
-                complete(false)
             }
+            */
             .create()
             .show()
-    }
-
-    fun show(feature: Feature, complete: (Boolean) -> Unit) {
-        val msg = context.getString(
-            R.string.clean_insights_feature_consent_explanation,
-            feature.localized(context)
-        )
-
-        AlertDialog.Builder(context)
-            .setTitle(R.string.clean_insights_header)
-            .setMessage(msg)
-            .setNegativeButton(R.string.clean_insights_no) { _, _ -> complete(false) }
-            .setPositiveButton(R.string.ceno_notification_clear_do_description) { _, _ ->
-                complete(true)
-            }
-            .create()
-            .show()
-    }
-}
-
-fun Feature.localized(context: Context): String {
-    return when (this) {
-        Feature.Lang -> context.getString(R.string.clean_insights_locale)
-        Feature.Ua -> context.getString(R.string.clean_insights_device_type)
     }
 }

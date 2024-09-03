@@ -2,6 +2,7 @@ package ie.equalit.ceno.ext
 
 import android.content.Context
 import ie.equalit.ceno.ConsentRequestUi
+import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.CleanInsights
 import org.cleaninsights.sdk.Feature
 
@@ -15,27 +16,17 @@ fun CleanInsights.launchCleanInsightsPermissionDialog(context : Context, callbac
     ui.show() { granted ->
         if (granted) {
             this.grant("test")
-            ui.show(Feature.Lang) { grantedLang ->
-                if (grantedLang) {
-                    this.grant(Feature.Lang)
-                }
-                else {
-                    this.deny(Feature.Lang)
-                }
-                ui.show(Feature.Ua) { grantedUa ->
-                    if (grantedUa) {
-                        this.grant(Feature.Ua)
-                    }
-                    else {
-                        this.deny(Feature.Ua)
-                    }
-                    callback.invoke(true)
-                }
+            if (Settings.isCleanInsightsDeviceTypeIncluded(context)) {
+                this.grant(Feature.Ua)
+            }
+            if (Settings.isCleanInsightsDeviceLocaleIncluded(context)) {
+                this.grant(Feature.Lang)
             }
         }
         else {
-            this.grant("test")
+            this.deny("test")
         }
+        Settings.setCleanInsightsEnabled(context, granted)
         callback.invoke(granted)
     }
 }

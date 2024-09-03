@@ -58,7 +58,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/device_type"
+        android:text="@string/freq_app_usage"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -85,7 +85,7 @@
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/device_locale"
+        android:text="@string/load_times"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/bullet1" />
@@ -96,50 +96,77 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@null"
         android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bullet5"
+        app:tint="?attr/textPrimary" />
+
+    <TextView
+        android:id="@+id/bullet5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/optional_metrics"
+        android:textSize="16sp"
+        app:drawableTint="@color/photonBlack"
+        app:layout_constraintTop_toBottomOf="@+id/bullet2" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/bullet3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bullet3"
-        app:tint="?attr/textPrimary" />
+        app:layout_constraintTop_toTopOf="@+id/bullet3" />
 
     <TextView
         android:id="@+id/bullet3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/freq_app_usage"
+        android:text="@string/device_type"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
-        app:layout_constraintTop_toBottomOf="@+id/bullet2" />
+        app:layout_constraintTop_toBottomOf="@+id/bullet5" />
 
-    <ImageView
+    <CheckBox
+        android:id="@+id/checkbox2"
+        style="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:contentDescription="@null"
-        android:src="@drawable/dot"
+        android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/bullet4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bullet4"
-        app:tint="?attr/textPrimary" />
+        app:layout_constraintTop_toTopOf="@+id/bullet4" />
 
     <TextView
         android:id="@+id/bullet4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         android:drawablePadding="8dp"
         android:gravity="start"
         android:importantForAutofill="no"
-        android:text="@string/load_times"
+        android:text="@string/device_locale"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
         app:layout_constraintTop_toBottomOf="@+id/bullet3" />

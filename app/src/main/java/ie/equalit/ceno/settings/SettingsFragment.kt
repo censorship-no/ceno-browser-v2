@@ -53,6 +53,7 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
 import ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled
+import ie.equalit.ceno.settings.Settings.isCleanInsightsEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -77,7 +78,6 @@ import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
-import org.cleaninsights.sdk.Consent
 import org.mozilla.geckoview.BuildConfig
 import java.io.File
 import java.util.Locale
@@ -136,6 +136,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }
                     getPreference(pref_key_ceno_download_android_log)?.let {
                         it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
+                        it.isEnabled = !(it.isEnabled)
+                        it.isEnabled = !(it.isEnabled)
+                    }
+                    getSwitchPreferenceCompat(pref_key_clean_insights_enabled)?.let {
+                        it.isChecked = isCleanInsightsEnabled(requireContext())
                         it.isEnabled = !(it.isEnabled)
                         it.isEnabled = !(it.isEnabled)
                     }
@@ -280,7 +285,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForCrashReporting()
         getPreference(pref_key_search_engine)?.onPreferenceClickListener =
             getClickListenerForSearch()
-        getSwitchPreferenceCompat(pref_key_clean_insights_enabled)?.onPreferenceChangeListener = getClickListenerForCleanInsightsTracking()
+        getSwitchPreferenceCompat(pref_key_clean_insights_enabled)?.onPreferenceChangeListener = getChangeListenerForCleanInsights()
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener = getClickListenerForLanguageChange()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary = getCurrentLocale().displayLanguage
@@ -530,30 +535,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForCleanInsightsTracking(): OnPreferenceChangeListener {
+    private fun getChangeListenerForCleanInsights(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->
-            context?.let { ctx ->
-                if (newValue == true) {
-                    requireComponents.cleanInsights?.launchCleanInsightsPermissionDialog(ctx)
-                    { granted ->
-                        setCleanInsightsEnabled(ctx, granted)
-                        ctx.components.cenoPreferences.sharedPrefsReload = true
-                    }
+            if (newValue == true) {
+                requireComponents.cleanInsights?.launchCleanInsightsPermissionDialog(requireContext())
+                { _ -> requireComponents.cenoPreferences.sharedPrefsUpdate = true
                 }
-                else {
-                    requireComponents.cleanInsights?.deny("test")
-                    setCleanInsightsEnabled(ctx, false)
-                    Toast.makeText(
-                        ctx,
-                        getString(clean_insights_successful_opt_out),
-                        Toast.LENGTH_LONG,
-                    ).show()
-                }
+            } else {
+                requireComponents.cleanInsights?.deny("test")
+                setCleanInsightsEnabled(requireContext(), false)
+                Toast.makeText(
+                    requireContext(),
+                    getString(clean_insights_successful_opt_out),
+                    Toast.LENGTH_LONG,
+                ).show()
+                requireComponents.cenoPreferences.sharedPrefsUpdate = true
             }
             true
         }
     }
-
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, newValue ->

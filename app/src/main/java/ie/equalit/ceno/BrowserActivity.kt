@@ -75,7 +75,6 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.cleaninsights.sdk.Consent
-import org.cleaninsights.sdk.Feature
 import kotlin.system.exitProcess
 
 /**
@@ -138,11 +137,8 @@ open class BrowserActivity : BaseActivity() {
             if(destination.id == R.id.homeFragment && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
 
-                if((Settings.getLaunchCount(this@BrowserActivity) % ASK_FOR_ANALYTICS_LIMIT
-                        ).toInt() == 0) {
+                if(Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_ANALYTICS_LIMIT) {
                     components.cleanInsights?.launchCleanInsightsPermissionDialog(this@BrowserActivity) { granted ->
-                        Settings.setCleanInsightsEnabled(this, granted)
-
                         if (granted) {
                             // success toast message
                             Toast.makeText(
@@ -316,8 +312,7 @@ open class BrowserActivity : BaseActivity() {
                                 )
 
                                 // check if this is the (n % 20 == 0)th launch and show the Ouinet prompt if true
-                                if((Settings.getLaunchCount(this@BrowserActivity) % ASK_FOR_SURVEY_LIMIT
-                                        ).toInt() == 0) {
+                                if(Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_SURVEY_LIMIT) {
                                     CleanInsightTrackerHelper.showStartupTimePrompt(this@BrowserActivity)
                                 }
                             }

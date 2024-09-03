@@ -374,6 +374,7 @@
     <string name="clean_insights_header">Help make Ceno better!</string>
     <string name="clean_insights_sub_header">Help us improve Ceno Browser! This study measures 4 things for 2 weeks:</string>
     <string name="clean_insights_explainer">Your contribution will be anonymous, and you can opt out at any time.</string>
+    <string name="optional_metrics">Include optional metrics,</string>
     <string name="device_type">Device type</string>
     <string name="load_times">Load times</string>
     <string name="device_locale">Device locale (language)</string>
