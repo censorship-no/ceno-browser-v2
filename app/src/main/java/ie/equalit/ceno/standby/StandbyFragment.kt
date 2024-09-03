@@ -181,6 +181,11 @@ class StandbyFragment : Fragment() {
             extraBTDialog.show()
 
         }
+
+        val btnExportLogs = timeoutDialogView.findViewById<Button>(R.id.btn_export_logs)
+        btnExportLogs.setOnClickListener {
+
+        }
         dialog?.show()
 
     }
