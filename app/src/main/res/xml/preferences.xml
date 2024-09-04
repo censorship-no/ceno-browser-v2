@@ -204,17 +204,17 @@
             android:title="@string/ceno_notification_title"
             app:iconSpaceReserved="false" />
 
-        <androidx.preference.Preference
+        <ie.equalit.ceno.settings.LongClickPreference
             android:key="@string/pref_key_about_ceno"
             android:title="@string/preferences_about_ceno"
             app:iconSpaceReserved="false" />
 
-        <androidx.preference.Preference
+        <ie.equalit.ceno.settings.LongClickPreference
             android:key="@string/pref_key_about_geckoview"
             android:title="@string/preferences_about_geckoview"
             app:iconSpaceReserved="false" />
 
-        <androidx.preference.Preference
+        <ie.equalit.ceno.settings.LongClickPreference
             android:key="@string/pref_key_about_ouinet"
             android:title="@string/preferences_about_ouinet"
             app:iconSpaceReserved="false" />
