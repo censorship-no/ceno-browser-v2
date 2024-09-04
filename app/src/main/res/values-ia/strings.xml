@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-<!ENTITY brandShortName "Ceno">
-<!ENTITY brandFullName "eQualitie Ceno">
-<!ENTITY vendorShortName "eQualitie">
-]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_delete_browsing_data">Deler datos de navigation</string>
     <string name="top_sites_rename_dialog_title">Nomine</string>
@@ -78,7 +73,7 @@
     <string name="preferences_add_ons">Additivos</string>
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
     <string name="preferences_delete_browsing_data_cached_files">Imagines e files in cache</string>
-    <string name="delete_browsing_data_prompt_message_3">%s delera le datos de navigation seligite.</string>
+    <string name="delete_browsing_data_prompt_message_3">Ceno delera le datos de navigation seligite.</string>
     <string name="preferences_delete_browsing_data_button">Deler le datos de navigation</string>
     <string name="insecure_connection">Le connexion non es secur</string>
     <string name="not_applicable">N/D</string>
@@ -112,4 +107,5 @@
     <string name="share_link_all_apps_subheader">Tote le actiones</string>
     <string name="share_link_recent_apps_subheader">Usate recentemente</string>
     <string name="share_save_to_pdf">Salvar como PDF</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>

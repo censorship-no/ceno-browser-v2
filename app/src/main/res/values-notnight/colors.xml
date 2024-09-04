@@ -33,6 +33,10 @@
 
     <color name="reader_view_floating_btn">@color/ceno_blue_200</color>
 
+    <color name="logo_text_color">@color/ceno_blue_900</color>
+    <color name="logo_icon_color">@color/ceno_blue_500</color>
+    <color name="logo_accent">@color/ceno_orange_600</color>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <!-- Design system color variables -->

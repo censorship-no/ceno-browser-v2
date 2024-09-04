@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_toolbar_position"
-        android:defaultValue="true" />
+        android:defaultValue="false" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_toolbar_hide"
         android:defaultValue="true" />

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-<!ENTITY brandShortName "Ceno">
-<!ENTITY brandFullName "eQualitie Ceno">
-<!ENTITY vendorShortName "eQualitie">
-]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="preferences_about_ouinet_protocol">Ouinet நெறிமுறை</string>
     <string name="about_category">பற்றி</string>
-    <string name="preferences_make_default_browser">உங்கள் இயல்புநிலை உலாவலாக &brandShortName; அமைக்கவும்</string>
-    <string name="preferences_about_page">&vendorShortName; பற்றி</string>
+    <string name="preferences_make_default_browser">உங்கள் இயல்புநிலை உலாவலாக Ceno அமைக்கவும்</string>
+    <string name="preferences_about_page">eQualitie பற்றி</string>
     <string name="bridge_mode_faq_url">https://censorship.no/ta/support.html#bridgemode</string>
     <string name="preferences_remote_debugging">யூ.எச்.பி வழியாக தொலை பிழைத்திருத்தம்</string>
     <string name="preferences_tracking_protection_normal">சாதாரண உலாவல் பயன்முறையில் இயக்கவும்</string>
@@ -51,12 +46,12 @@
     <string name="title_success">செய்</string>
     <string name="thank_you_bridge_mode_enabled">ஒரு பாலமாக மாறி, செனோ நெட்வொர்க்கை வளர்த்ததற்கு நன்றி!</string>
     <string name="dialog_btn_positive_ok">சரி</string>
-    <string name="preferences_about_ceno">&amp; பிராண்ட்சார்ட் பெயர்; உலாவி</string>
+    <string name="preferences_about_ceno">Ceno உலாவி</string>
     <string name="preferences_about_geckoview">கெக்கோவியூ</string>
     <string name="crash_reporting_opt_out">செயலிழப்பு அறிக்கைகளைப் பகிர்வதில் இருந்து நீங்கள் விலகிவிட்டீர்கள். அமைப்புகள்&gt; செயலிழப்பு அறிக்கையிடலுக்குச் செல்வதன் மூலம் நீங்கள் எப்போதும் தேர்வு செய்யலாம்.</string>
     <string name="bt_sources_none">எதுவுமில்லை</string>
     <string name="bt_invalid_ip_error">தவறான ஐபி</string>
-    <string name="onboarding_fragment">&amp; பிராண்ட்சார்ட் பெயர்;</string>
+    <string name="onboarding_fragment">Ceno</string>
     <string name="onboarding_skip_button">தவிர்</string>
     <string name="onboarding_info_title">உங்கள் சராசரி உலாவி அல்ல</string>
     <string name="onboarding_battery_title">இசைவு தேவை</string>
@@ -79,7 +74,7 @@
     <string name="onboarding_warning_text_v33_2">அறிவிப்புகள் அனுமதிக்கப்படவில்லை மற்றும் பேட்டரி உகப்பாக்கம் இன்னும் இயக்கப்பட்டது.
 \n
 \n பின்னர் இசைவு வழங்க \"அமைப்புகளுக்கு\" செல்லுங்கள்</string>
-    <string name="onboarding_thanks_text">ஒரு &amp; பிராண்ட்சார்ட் பெயர்; பயனர், தணிக்கை செய்யப்பட்ட உள்ளடக்கத்திற்கான அணுகலை செயல்படுத்தும் கிடைக்கக்கூடிய பாலங்களின் பிணையத்தை வளர்க்க உதவுகிறீர்கள்.</string>
+    <string name="onboarding_thanks_text">ஒரு Ceno பயனர், தணிக்கை செய்யப்பட்ட உள்ளடக்கத்திற்கான அணுகலை செயல்படுத்தும் கிடைக்கக்கூடிய பாலங்களின் பிணையத்தை வளர்க்க உதவுகிறீர்கள்.</string>
     <string name="preferences_show_home_button">முகப்பு பொத்தானைக் காட்டு</string>
     <string name="preferences_show_onboarding">அடுத்த துவக்கத்தில் ஒன்போர்டிங்கைக் காண்பி</string>
     <string name="preferences_allow_crash_reporting">செயலிழப்பு அறிக்கை</string>
@@ -113,15 +108,15 @@
     <string name="preferences_ceno_website_sources">வலைத்தள ஆதாரங்கள்</string>
     <string name="preferences_ceno_bridge_announcement">பாலம் பயன்முறையை இயக்கவும்</string>
     <string name="changeIconCtaAccept">இடு</string>
-    <string name="preference_show_search_suggestions_summary">&amp; பிராண்ட்சார்ட் பெயர்; முகவரி பட்டியில் நீங்கள் தட்டச்சு செய்வதை உங்கள் தேடுபொறிக்கு அனுப்புவீர்கள்</string>
+    <string name="preference_show_search_suggestions_summary">Ceno முகவரி பட்டியில் நீங்கள் தட்டச்சு செய்வதை உங்கள் தேடுபொறிக்கு அனுப்புவீர்கள்</string>
     <string name="clear_cache_fail">கேச் தெளிவாக தோல்வியடைந்தது, விரைவில் மீண்டும் முயற்சிக்கவும்</string>
-    <string name="ouinet_client_fetch_success">&amp; பிராண்ட்சார்ட் பெயர்; புதுப்பிக்கப்பட்ட அமைப்பு</string>
+    <string name="ouinet_client_fetch_success">Ceno புதுப்பிக்கப்பட்ட அமைப்பு</string>
     <string name="website_button_text">இணையதளம்</string>
     <string name="source_code_button_text">மூலக் குறியீடு</string>
     <string name="enable_bridge_card_text">&amp; பிராண்ட்சார்ட் பெயரை உருவாக்குங்கள்; ஒரு பாலமாக மாறுவதன் மூலம் பிணையம் வலுவானது! அமைப்புகளுக்குச் செல்வதன் மூலம் நீங்கள் பாலம் பயன்முறையை இயக்கலாம் -&amp; gt; பாலம் பயன்முறையை இயக்கவும்.</string>
     <string name="home_go_to_settings">அமைப்புகளுக்குச் செல்லுங்கள்</string>
     <string name="enable_bridge_card_title">பாலம் பயன்முறையை இயக்கவும்</string>
-    <string name="ceno_onboarding_start_text">&amp; பிராண்ட்சார்ட் பெயர்; இன் பியர்-டு-பியர் முதுகெலும்பு இணைப்பு குறுக்கிடப்பட்ட அல்லது வேறுபாடின்மை செய்யப்பட்ட பகுதிகளில் மற்றும் குறுக்கே வலைத்தள உள்ளடக்கத்தை அணுகவும் பகிர்ந்து கொள்ளவும் மக்களை அனுமதிக்கிறது.</string>
+    <string name="ceno_onboarding_start_text">Ceno இன் பியர்-டு-பியர் முதுகெலும்பு இணைப்பு குறுக்கிடப்பட்ட அல்லது வேறுபாடின்மை செய்யப்பட்ட பகுதிகளில் மற்றும் குறுக்கே வலைத்தள உள்ளடக்கத்தை அணுகவும் பகிர்ந்து கொள்ளவும் மக்களை அனுமதிக்கிறது.</string>
     <string name="ouinet_log_file_prompt_desc">எச்சரிக்கையாக இருங்கள், இந்த பதிவில் தனிப்பட்ட முறையில் அடையாளம் காணக்கூடிய தகவல்கள் இருக்கலாம். பகிரும்போது எச்சரிக்கையுடன் உடற்பயிற்சி செய்யுங்கள்.</string>
     <string name="view_logs">பார்வை</string>
     <string name="share_logs">பங்கு</string>
@@ -132,7 +127,7 @@
     <string name="last_5_minutes">கடைசி 5 நிமிடங்கள்</string>
     <string name="last_10_minutes">கடைசி 10 நிமிடங்கள்</string>
     <string name="all_logs">அனைத்து பதிவுகள்</string>
-    <string name="bridge_announcement_dialog_text">&amp; பிராண்ட்சார்ட் பெயர்; உங்கள் மாற்றங்கள் நடைமுறைக்கு வர உலாவி பணி மறுதொடக்கம் செய்யப்படுகிறது.</string>
+    <string name="bridge_announcement_dialog_text">Ceno உங்கள் மாற்றங்கள் நடைமுறைக்கு வர உலாவி பணி மறுதொடக்கம் செய்யப்படுகிறது.</string>
     <string name="bridge_mode_ip_warning_text">இது உங்கள் பொது ஐபி முகவரியை மற்ற CENO பயனர்களுக்குக் காணும் என்பதை நினைவில் கொள்க.</string>
     <string name="learn_more_title">மேலும் அறிக</string>
     <string name="standby_restarting_text">மறுதொடக்கம்…</string>
@@ -144,19 +139,19 @@
     <string name="confirm_clear_cached_content">தற்காலிக சேமிப்பு உள்ளடக்கத்தை அழிக்கவா?</string>
     <string name="confirm_clear_cached_content_desc">உங்கள் தற்காலிக சேமிப்பு உள்ளடக்கம் உடனடியாக அகற்றப்படும்</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
-    <string name="ceno_notification_title">&amp; பிராண்ட்சார்ட் பெயர்; உலாவி பணி</string>
+    <string name="ceno_notification_title">Ceno உலாவி பணி</string>
     <string name="ceno_notification_description">நிறுத்த தட்டவும்</string>
     <string name="ceno_notification_home_description">வீடு</string>
     <string name="ceno_notification_clear_do_description">ஆம்</string>
-    <string name="ceno_notification_channel_name">&amp; பிராண்ட்சார்ட் பெயர்; பணி</string>
-    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">நிறுத்து &amp; பிராண்ட்சார்ட் பெயர்; இப்போது</string>
+    <string name="ceno_notification_channel_name">Ceno பணி</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">நிறுத்து Ceno இப்போது</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">தொடரவும்</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">மீண்டும் காட்ட வேண்டாம்</string>
-    <string name="ceno_clear_dialog_clear_entire_app">தெளிவான &amp; பிராண்ட்சார்ட் பெயர்; கேச் மற்றும் பயன்பாட்டு தரவு</string>
+    <string name="ceno_clear_dialog_clear_entire_app">தெளிவான Ceno கேச் மற்றும் பயன்பாட்டு தரவு</string>
     <string name="ceno_clear_dialog_cancel">ரத்துசெய்</string>
-    <string name="ceno_clear_dialog_title">தெளிவான &amp; பிராண்ட்சார்ட் பெயர்;</string>
-    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">&amp; பிராண்ட்சார்ட் பெயர்; அமைப்புகள்</string>
-    <string name="default_top_site_1_title">&amp; பிராண்ட்சார்ட் பெயர்; கையேடு</string>
+    <string name="ceno_clear_dialog_title">தெளிவான Ceno</string>
+    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Ceno அமைப்புகள்</string>
+    <string name="default_top_site_1_title">Ceno கையேடு</string>
     <string name="onboarding_button">தொடங்கவும்</string>
     <string name="onboarding_warning_text">பேட்டரி உகப்பாக்கம் இன்னும் இயக்கப்பட்டது.
 \n
@@ -180,9 +175,8 @@
     <string name="changeIconDialogTitle">புதிய ஐகானைப் பயன்படுத்தவா?</string>
     <string name="changeIconDialogMessage">மாற்றங்களைப் பயன்படுத்த பயன்பாடு மூடப்படலாம். உங்கள் அழகான புதிய ஐகானைப் பாராட்டிய பிறகு திரும்பி வாருங்கள்.</string>
     <string name="clear_cache_success">கேச் வெற்றிகரமாக அழிக்கப்பட்டது</string>
-    <string name="ouinet_client_fetch_fail">மாற்றத் தவறிவிட்டது &amp; பிராண்ட்சார்ட் பெயர்; அமைத்தல்</string>
+    <string name="ouinet_client_fetch_fail">மாற்றத் தவறிவிட்டது Ceno அமைத்தல்</string>
     <string name="addon_placeholder">துணை நிரல்கள் எதுவும் கிடைக்கவில்லை</string>
-    <string name="donate_button_text">நன்கொடை</string>
     <string name="ceno_onboarding_start_title">வலையைப் பகிரவும்,
 \n பியர்-டு-பியர்</string>
     <string name="onboarding_public_or_personal_title">பொது அல்லது தனிப்பட்டதா?</string>
@@ -254,7 +248,7 @@
     <string name="preferences_delete_browsing_data_site_permissions">தள அனுமதிகள்</string>
     <string name="preferences_delete_browsing_data_button">உலாவல் தரவை நீக்கு</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">தாவல்களைத் திறக்கவும்</string>
-    <string name="delete_browsing_data_prompt_message_3">தேர்ந்தெடுக்கப்பட்ட உலாவல் தரவை %s நீக்கும்.</string>
+    <string name="delete_browsing_data_prompt_message_3">தேர்ந்தெடுக்கப்பட்ட உலாவல் தரவை Ceno நீக்கும்.</string>
     <string name="close_mode_item" tools:ignore="UnusedResources">அறிவிப்பை மூடு</string>
     <string name="set_default_search_engine">இயல்புநிலை தேடுபொறியை அமைக்கவும்</string>
     <string name="preference_show_search_suggestions">தேடல் பரிந்துரைகளைப் பெறுங்கள்</string>
@@ -274,20 +268,20 @@
     <string name="about_content"><p>%1$s - வலையைப் பகிரவும்!</p> <p>செனோ (தணிக்கை குறுகியதாக இருக்கிறது. அதன் பியர்-டு-பியர் முதுகெலும்பு இணைப்பு குறுக்கிடப்பட்ட அல்லது வேறுபாடின்மை செய்யப்பட்ட பிராந்தியங்களில் மற்றும் குறுக்கே வலை தகவல்களை அணுகவும் பகிர்ந்து கொள்ளவும் மக்களை அனுமதிக்கிறது. </p> <p>%1$s என்பது கனேடிய அமைப்பான ஈக்விட்டியின் திட்டமாகும், இதன் நோக்கம் ஆன்லைனில் இலவச தகவல்களை உள்ளடக்கிய அடிப்படை சுதந்திரங்களையும் மனித உரிமைகளையும் ஊக்குவிப்பதும் பாதுகாப்பதும் ஆகும். அணுகக்கூடிய தொழில்நுட்பத்தை உருவாக்குவதும், டிசிட்டல் யுகத்தில் மனித உரிமைகள் மற்றும் சுதந்திரங்களை பாதுகாப்பதற்குத் தேவையான திறன் தொகுப்பை மேம்படுத்துவதும் எங்கள் குறிக்கோள்.</p></string>
     <string name="ceno_private_browsing_body"><h1>தனிப்பட்ட உலாவல் </h1> <p>செனோ தனிப்பட்ட தாவல்களிலிருந்து உள்ளடக்கத்தை பிற பயனர்களுடன் பகிராது. உள்நுழைவு தேவைப்படும் தளங்களை நீங்கள் பாதுகாப்பாக பார்வையிடலாம். இருப்பினும், இணையத்திற்கான பாதை தேவைப்படுகிறது.</p></string>
     <string name="ceno_notification_clear_description">Erase⚠</string>
-    <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">&amp; பிராண்ட்சார்ட் பெயர்; உலாவி அறிவிப்பு</string>
-    <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">&amp; பிராண்ட்சார்ட் பெயர் பயன்படுத்த பரிந்துரைக்கப்படுகிறது; உங்களிடம் வைஃபை இணைப்பு இருக்கும்போது, நீங்கள் எதிர்பார்ப்பதை விட அதிக தரவைப் பயன்படுத்தலாம். நீங்கள் நிறுத்த விரும்பலாம் &amp; பிராண்ட்சார்ட் பெயர்; மொபைல் தரவைப் பயன்படுத்தும் போது.</string>
-    <string name="ceno_clear_dialog_clear_cache_only">தெளிவான &amp; பிராண்ட்சார்ட் பெயர்; கேச் மட்டும்</string>
-    <string name="ceno_clear_dialog_description">எச்சரிக்கை: தற்காலிக சேமிப்பு மற்றும் பயன்பாட்டு தரவை அழித்தல் &amp; பிராண்ட்சார்ட் பெயரை மீட்டமைக்கும்; இது ஒருபோதும் பயன்படுத்தப்படாதது போல் பயன்பாடு.</string>
+    <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">Ceno உலாவி அறிவிப்பு</string>
+    <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">&amp; பிராண்ட்சார்ட் பெயர் பயன்படுத்த பரிந்துரைக்கப்படுகிறது; உங்களிடம் வைஃபை இணைப்பு இருக்கும்போது, நீங்கள் எதிர்பார்ப்பதை விட அதிக தரவைப் பயன்படுத்தலாம். நீங்கள் நிறுத்த விரும்பலாம் Ceno மொபைல் தரவைப் பயன்படுத்தும் போது.</string>
+    <string name="ceno_clear_dialog_clear_cache_only">தெளிவான Ceno கேச் மட்டும்</string>
+    <string name="ceno_clear_dialog_description">எச்சரிக்கை: தற்காலிக சேமிப்பு மற்றும் பயன்பாட்டு தரவை அழித்தல் Ceno இது ஒருபோதும் பயன்படுத்தப்படாதது போல் பயன்பாடு.</string>
     <string name="ceno_clear_action_description">தெளிவான</string>
     <string name="crash_reporting_dialog_title">மன்னிக்கவும், &amp; பிராண்ட்சார்ட் பெயர் போல் தெரிகிறது; செயலிழந்தது!</string>
-    <string name="crash_reporting_dialog_description">எங்களுக்கு உதவுங்கள் &amp; பிராண்ட்சார்ட் பெயர்; செயலிழப்பு அறிக்கைகளை எங்களுக்கு அனுப்புவதன் மூலம் சிறந்தது.</string>
-    <string name="crash_reporting_always_send">எப்போதும் அனுப்பவும், மேம்படுத்தவும் &amp; பிராண்ட்சார்ட் பெயர்;</string>
+    <string name="crash_reporting_dialog_description">எங்களுக்கு உதவுங்கள் Ceno செயலிழப்பு அறிக்கைகளை எங்களுக்கு அனுப்புவதன் மூலம் சிறந்தது.</string>
+    <string name="crash_reporting_always_send">எப்போதும் அனுப்பவும், மேம்படுத்தவும் Ceno</string>
     <string name="crash_reporting_never_send">ஒருபோதும் அனுப்ப வேண்டாம்</string>
-    <string name="crash_reporting_opt_in">மேம்படுத்த உதவும் செயலிழப்பு அறிக்கைகளைப் பகிர்ந்தமைக்கு நன்றி &amp; பிராண்ட்சார்ட் பெயர்;! அமைப்புகளுக்குச் செல்வதன் மூலம் இதை நீங்கள் எப்போதும் முடக்கலாம் &amp; gt; செயலிழப்பு அறிக்கை.</string>
+    <string name="crash_reporting_opt_in">மேம்படுத்த உதவும் செயலிழப்பு அறிக்கைகளைப் பகிர்ந்தமைக்கு நன்றி Ceno! அமைப்புகளுக்குச் செல்வதன் மூலம் இதை நீங்கள் எப்போதும் முடக்கலாம் &amp; gt; செயலிழப்பு அறிக்கை.</string>
     <string name="onboarding_public_personal_text">செய்திகளைப் படிப்பதற்கும், வீடியோக்களைப் பார்ப்பது மற்றும் பொது வலை-சர்ஃபிங் செய்வதற்கும் பொது தாவல்களைப் பயன்படுத்தவும். பிற CENO பயனர்களுடன் வலை உள்ளடக்கத்தைப் பகிரவும்.
 \n
 \n சமூக ஊடக கணக்குகள், நிகழ்நிலை சாப்பிங் மற்றும் உலாவல் வலைத்தளங்களுக்கு நீங்கள் மற்றவர்களுடன் பகிர்ந்து கொள்ள விரும்பாத தனிப்பட்ட தாவல்கள் மிகவும் பொருத்தமானவை.</string>
-    <string name="onboarding_cleanup_text">உங்கள் உலாவி வரலாறு, நற்சான்றிதழ்கள் மற்றும் நீங்கள் விட்டுச்சென்ற எந்த தடயத்தையும் அழிக்கவும் &amp; பிராண்ட்சார்ட் பெயர்; ஒரு ஒற்றை பொத்தானைக் கொண்டு.</string>
+    <string name="onboarding_cleanup_text">உங்கள் உலாவி வரலாறு, நற்சான்றிதழ்கள் மற்றும் நீங்கள் விட்டுச்சென்ற எந்த தடயத்தையும் அழிக்கவும் Ceno ஒரு ஒற்றை பொத்தானைக் கொண்டு.</string>
     <string name="network_settings">பிணைய அமைப்புகள்</string>
     <string name="standby_no_internet_text">இணைய இணைப்பு இல்லை.
 \n
@@ -299,7 +293,7 @@
     <string name="ceno_ouinet_disconnected">CENO நெட்வொர்க்கிலிருந்து துண்டிக்கப்பட்டது</string>
     <string name="ceno_sources_direct_from_website">வலைத்தளத்திலிருந்து நேரடியாக</string>
     <string name="ceno_sources_via_ceno_network">&amp; பிராண்ட்சார்ட் பெயர் பயன்படுத்துதல்; வலைப்பின்னல்</string>
-    <string name="ceno_sources_shared_by_ceno_cache">&amp; பிராண்ட்சார்ட் பெயர்; கேச்</string>
+    <string name="ceno_sources_shared_by_ceno_cache">Ceno கேச்</string>
     <string name="personal_home_learn_more">மேலும் அறிய விரும்புகிறீர்களா?</string>
     <string name="change_bt_bootstrap_server">BT தொடக்கவார் சேவையகத்தை மாற்றவும்</string>
     <string name="ceno_support_link_url">https://censorship.no/en/support.html</string>
@@ -308,9 +302,9 @@
     <string name="personal_mode_icon">தனிப்பட்ட பயன்முறை படவுரு</string>
     <string name="ceno_log_file_saved">பதிவு கோப்பு வெற்றிகரமாக சேமிக்கப்பட்டது</string>
     <string name="ceno_log_file_saved_desc">உங்கள் தனியுரிமைக்கு முன்னுரிமை அளிக்க, தனிப்பட்ட முறையில் அடையாளம் காணக்கூடிய அனைத்து தகவல்களும் இந்த பதிவிலிருந்து கவனமாக அகற்றப்பட்டுள்ளன.</string>
-    <string name="ceno_android_logs_file_name">&amp; பிராண்ட்சார்ட் பெயர்; பதிவுகள்</string>
+    <string name="ceno_android_logs_file_name">Ceno பதிவுகள்</string>
     <string name="ceno_log_content_group_file_saved">பகிரப்பட்ட உள்ளடக்கம் வெற்றிகரமாக சேமிக்கப்பட்டது</string>
-    <string name="ceno_android_content_group_file_name">&amp; பிராண்ட்சார்ட் பெயர்; பகிரப்பட்ட உள்ளடக்கம்</string>
+    <string name="ceno_android_content_group_file_name">Ceno பகிரப்பட்ட உள்ளடக்கம்</string>
     <string name="browser_menu_share">பகிர்</string>
     <string name="share_header_2">பகிர்</string>
     <string name="share_link_recent_apps_subheader">சமீபத்தில் பாவித்தவை</string>
@@ -332,4 +326,5 @@
     <string name="error_page_title">பிழை பக்கம்</string>
     <string name="error_page_header">அச்சச்சோ! வலைப்பக்கத்தை ஏற்ற முடியவில்லை.</string>
     <string name="error_page_sub_header">இதன் பொருள் செனோ உள்ளடக்கத்தை அணுக கிடைக்கக்கூடிய அனைத்து வழிமுறைகளையும் முயற்சித்தது, ஆனால் அவை எதுவும் வெற்றிபெறவில்லை:</string>
+    <string name="website_button_link">https://censorship.no/en/index.html</string>
 </resources>
