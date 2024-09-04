@@ -137,7 +137,8 @@ open class BrowserActivity : BaseActivity() {
             if(destination.id == R.id.homeFragment && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
 
-                if(Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_ANALYTICS_LIMIT) {
+                if( !Settings.isCleanInsightsEnabled(this@BrowserActivity) &&
+                    Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_ANALYTICS_LIMIT) {
                     components.cleanInsights?.launchCleanInsightsPermissionDialog(this@BrowserActivity) { granted ->
                         if (granted) {
                             // success toast message
@@ -300,7 +301,7 @@ open class BrowserActivity : BaseActivity() {
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
-                            if(components.cleanInsights?.state("test") == Consent.State.Granted) {
+                            if(Settings.isCleanInsightsEnabled(this@BrowserActivity)) {
                                 CleanInsightTrackerHelper.trackData(
                                     context = this@BrowserActivity,
                                     activity = "BrowserActivity",
