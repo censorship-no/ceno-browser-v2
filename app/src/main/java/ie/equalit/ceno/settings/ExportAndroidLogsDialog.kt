@@ -135,7 +135,7 @@ class ExportAndroidLogsDialog (
                                     }
                                     setPositiveButton(context.getString(R.string.view_logs)) { _, _ ->
                                         fragment.findNavController().navigate(
-                                            R.id.action_settingsFragment_to_androidLogFragment,
+                                            R.id.action_standbyFragment_to_androidLogFragment,
                                             bundleOf().apply {
                                                 putStringArrayList(LOG, ArrayList(logs))
                                             }

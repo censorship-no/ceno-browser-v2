@@ -25,6 +25,7 @@ import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentStandbyBinding
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.ExportAndroidLogsDialog
 import ie.equalit.ceno.settings.ExtraBTBootstrapsDialog
 import ie.equalit.ouinet.Ouinet.RunningState
 import kotlinx.coroutines.cancel
@@ -184,7 +185,12 @@ class StandbyFragment : Fragment() {
 
         val btnExportLogs = timeoutDialogView.findViewById<Button>(R.id.btn_export_logs)
         btnExportLogs.setOnClickListener {
-
+            dialog?.dismiss()
+            val exportLogsDialog = ExportAndroidLogsDialog(requireContext(), this).getDialog()
+            exportLogsDialog.setOnDismissListener {
+                tryAgain()
+            }
+            exportLogsDialog.show()
         }
         dialog?.show()
 
