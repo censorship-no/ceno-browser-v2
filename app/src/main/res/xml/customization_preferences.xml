@@ -35,7 +35,6 @@
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_toolbar_position"
-            android:defaultValue="false"
             android:title="@string/preferences_toolbar_position"/>
 
         <androidx.preference.SwitchPreferenceCompat
