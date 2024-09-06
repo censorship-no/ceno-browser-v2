@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
@@ -75,6 +76,7 @@ class StandbyFragment : Fragment() {
     )
 
     private var dialog: AlertDialog? = null
+    private var isAnyDialogVisible = false
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
@@ -101,7 +103,8 @@ class StandbyFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentStandbyBinding.inflate(inflater, container, false)
         container?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.ceno_standby_background))
-
+        (activity as AppCompatActivity).supportActionBar!!.hide()
+        index = 0
         repeat(3){
             displayTextStopping.add (0,
                 if (doClear == true) {
@@ -143,18 +146,20 @@ class StandbyFragment : Fragment() {
     }
 
     private fun displayTimeoutDialog() {
-
+        binding.progressBar.visibility = View.INVISIBLE
         val timeoutDialogBuilder = AlertDialog.Builder(requireContext())
         val timeoutDialogView = View.inflate(requireContext(), R.layout.layout_standby_timeout, null)
 
         timeoutDialogBuilder.apply {
             setView(timeoutDialogView)
             setPositiveButton(getString(R.string.standby_try_again)) { _, _ ->
+                isAnyDialogVisible = false
                 tryAgain()
             }
         }
 
         timeoutDialogBuilder.setOnCancelListener{
+            isAnyDialogVisible = false
             tryAgain()
         }
 
@@ -178,28 +183,33 @@ class StandbyFragment : Fragment() {
             val extraBTDialog = ExtraBTBootstrapsDialog(requireContext(), btSourcesMap).getDialog()
             extraBTDialog.setOnDismissListener {
                 tryAgain()
+                isAnyDialogVisible = false
             }
             extraBTDialog.show()
-
+            isAnyDialogVisible = true
         }
 
         val btnExportLogs = timeoutDialogView.findViewById<Button>(R.id.btn_export_logs)
         btnExportLogs.setOnClickListener {
             dialog?.dismiss()
-            val exportLogsDialog = ExportAndroidLogsDialog(requireContext(), this).getDialog()
-            exportLogsDialog.setOnDismissListener {
+            val exportLogsDialog = ExportAndroidLogsDialog(requireContext(), this) {
+                isAnyDialogVisible = false
+            }.getDialog()
+            exportLogsDialog.setOnCancelListener {
                 tryAgain()
+                isAnyDialogVisible = false
             }
             exportLogsDialog.show()
+            isAnyDialogVisible = true
         }
         dialog?.show()
-
+        isAnyDialogVisible = true
     }
 
     private fun tryAgain() {
         //restart progressbar indicator
         view?.let {
-            binding.progressBar.isActivated = true
+            binding.progressBar.visibility = View.VISIBLE
             index = 0
             updateDisplayText()
         }
@@ -208,17 +218,18 @@ class StandbyFragment : Fragment() {
     private fun updateDisplayText() {
         viewLifecycleOwner.lifecycleScope.launch{
             while (currentStatus == RunningState.Starting) {
-                if (isNetworkAvailable()) {
-                    binding.llNoInternet.visibility = View.INVISIBLE
-                } else
-                    binding.llNoInternet.visibility = View.VISIBLE
-                if (index < displayText.size)
-                {
-                    binding.tvStatus.text = getString(displayText[index])
-                    index += 1
-                } else {
-                    displayTimeoutDialog()
-                    break
+                if(!isAnyDialogVisible) {
+                    if (isNetworkAvailable()) {
+                        binding.llNoInternet.visibility = View.INVISIBLE
+                    } else
+                        binding.llNoInternet.visibility = View.VISIBLE
+                    if (index < displayText.size) {
+                        binding.tvStatus.text = getString(displayText[index])
+                        index += 1
+                    } else {
+                        displayTimeoutDialog()
+                        break
+                    }
                 }
                 delay(refreshIntervalMS)
             }

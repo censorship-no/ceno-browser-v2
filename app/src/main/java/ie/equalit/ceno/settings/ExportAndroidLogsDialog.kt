@@ -23,6 +23,7 @@ import ie.equalit.ceno.settings.SettingsFragment.Companion.LOG
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.TAG
+import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.utils.LogReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -33,7 +34,8 @@ import java.io.File
 
 class ExportAndroidLogsDialog (
     val context: Context,
-    val fragment: Fragment
+    val fragment: Fragment,
+    var onDismiss: () -> Unit = {}
 ) {
     private val builder: AlertDialog.Builder = AlertDialog.Builder(context)
     private var job: Job? = null
@@ -132,14 +134,19 @@ class ExportAndroidLogsDialog (
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             fragment.startActivity(intent)
                                         }
+                                        onDismiss.invoke()
                                     }
                                     setPositiveButton(context.getString(R.string.view_logs)) { _, _ ->
                                         fragment.findNavController().navigate(
-                                            R.id.action_standbyFragment_to_androidLogFragment,
+                                            if (fragment is StandbyFragment)
+                                                R.id.action_standbyFragment_to_androidLogFragment
+                                            else
+                                                R.id.action_settingsFragment_to_androidLogFragment,
                                             bundleOf().apply {
                                                 putStringArrayList(LOG, ArrayList(logs))
                                             }
                                         )
+                                        onDismiss.invoke()
                                     }
                                     create()
                                 }.show()
