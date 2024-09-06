@@ -5,6 +5,7 @@
 package ie.equalit.ceno.settings
 
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -37,12 +38,22 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     private fun setupPreferences() {
         val changeAppIconKey = requireContext().getPreferenceKey(R.string.pref_key_change_app_icon)
         val themeKey = requireContext().getPreferenceKey(R.string.pref_key_theme)
+        val toolbarPositionKey = requireContext().getPreferenceKey(R.string.pref_key_toolbar_position)
 
         val preferenceChangeAppIcon = findPreference<Preference>(changeAppIconKey)
         val preferenceTheme = findPreference<Preference>(themeKey)
+        val preferenceToolbarPosition = findPreference<Preference>(toolbarPositionKey)
 
         preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
         preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
+            /* In Android 7, the toolbar position can not be put in bottom position
+             * due to issue with the direction that the menu pops up, see this issue,
+             * for more details, https://gitlab.com/censorship-no/ceno-browser/-/issues/172
+             */
+            preferenceToolbarPosition?.isEnabled = false
+        }
     }
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {
