@@ -5,6 +5,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.marginTop
@@ -69,12 +70,18 @@ class CenoTooltip(
         val tooltipOverlay = View.inflate(fragment.requireContext(), R.layout.tooltip_overlay_layout, null) as ConstraintLayout
         tooltipOverlay.addView(prompt, 0)
         container?.addView(tooltipOverlay)
-        val btnSkip = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
+
         val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
         (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnBounds.top.toInt()
         (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnBounds.left.toInt()
         btnNext.text = fragment.getString(buttonText)
-        btnSkip.setOnClickListener(listener)
+        val btnExit = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
+        var constraintSet = ConstraintSet()
+        constraintSet.clone(tooltipOverlay)
+        constraintSet.connect(R.id.btn_skip_tour, ConstraintSet.START, R.id.btn_next_tooltip, ConstraintSet.END)
+        constraintSet.connect(R.id.btn_skip_tour, ConstraintSet.TOP, R.id.btn_next_tooltip, ConstraintSet.TOP)
+        constraintSet.applyTo(tooltipOverlay)
+        btnExit.setOnClickListener(listener)
         btnNext.setOnClickListener(onButtonPressListener)
     }
 
