@@ -78,16 +78,20 @@ fun BrowserToolbar.enableDynamicBehavior(context: Context, engineView: EngineVie
 /**
  * Show this toolbar at the top of the screen, fixed in place, with the EngineView immediately below it.
  *
- * @param context [Context] used for various system interactions
  * @param engineView [EngineView] that must be shown immediately below the toolbar.
  */
-fun BrowserToolbar.showAsFixed(context: Context, engineView: EngineView) {
+fun BrowserToolbar.showAsFixed(engineView: EngineView, shouldUseTopToolbar  : Boolean) {
     visibility = View.VISIBLE
 
-    engineView.setDynamicToolbarMaxHeight(0)
-
     val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
-    (engineView.asView().layoutParams as? CoordinatorLayout.LayoutParams)?.topMargin = toolbarHeight
+    engineView.setDynamicToolbarMaxHeight(toolbarHeight)
+
+    engineView.asView().translationY = if (shouldUseTopToolbar) {
+        context.resources.getDimension(R.dimen.browser_toolbar_height)
+    }
+    else {
+        0f
+    }
 }
 
 /**
