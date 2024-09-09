@@ -39,8 +39,8 @@
     <string name="browser_menu_desktop_site">درخواست نسخه دسکتاپ سایت</string>
     <string name="browser_menu_add_to_homescreen">افزودن به صفحه اصلی</string>
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
-    <string name="browser_menu_add_to_shortcuts">به سایت‌های برتر اضافه کنید</string>
-    <string name="browser_menu_remove_from_shortcuts">از سایت‌های برتر حذف کنید</string>
+    <string name="browser_menu_add_to_shortcuts">افزودن به سایت‌های برتر</string>
+    <string name="browser_menu_remove_from_shortcuts">حذف از سایت‌های برتر</string>
     <string name="button_content_readerview">حالت خواندنی</string>
     <string name="menu_share_with">اشتراک‌گذاری با…</string>
     <string name="toast_copied">کپی شد!</string>
