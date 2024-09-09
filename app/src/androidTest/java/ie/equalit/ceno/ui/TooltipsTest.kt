@@ -65,7 +65,6 @@ class TooltipsTest {
             verifyClearTooltip()
             clickNext()
             verifyPermissionsTooltip()
-            clickPermissions()
         }.givePermissionsIfNeeded()
     }
 
@@ -85,7 +84,6 @@ class TooltipsTest {
             verifyExitButton()
             clickExit()
             verifyPermissionsTooltip()
-            clickPermissions()
         }.givePermissionsIfNeeded()
     }
 
