@@ -9,6 +9,7 @@ import ie.equalit.ceno.ui.robots.denyPermissions
 import ie.equalit.ceno.ui.robots.givePermissions
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.standby
 import ie.equalit.ceno.ui.robots.waitForNextTooltipButton
 import ie.equalit.ceno.ui.robots.waitForPermissionsTooltip
 import org.junit.After
@@ -46,9 +47,10 @@ class ScreenshotGenerator {
         CleanStatusBar.disable()
     }
 
-    @Ignore("not working")
     @Test
     fun testTakeScreenshots() {
+        standby {
+        }.waitForStandbyIfNeeded()
         onboarding {
             Thread.sleep(1000)
             Screengrab.screenshot("000_tooltip_begin_tour")
