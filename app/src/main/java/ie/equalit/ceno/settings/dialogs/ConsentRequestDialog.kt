@@ -1,34 +1,34 @@
-package ie.equalit.ceno
+package ie.equalit.ceno.settings.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Build
 import android.view.View
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
-import androidx.core.text.buildSpannedString
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.LifecycleOwner
+import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
-import org.cleaninsights.sdk.Feature
+import java.util.Locale
 
-class ConsentRequestUi(private val context: Context) {
+class ConsentRequestDialog(val context: Context) {
 
     fun show(complete: (Boolean) -> Unit) {
 
-        val dialogView = View.inflate(context, R.layout.clean_insights_nudge_dialog, null)
-        dialogView.findViewById<TextView>(R.id.explainer).text = buildSpannedString {
-
-            append(context.getString(R.string.clean_insights_explainer))
-
-//            color(ContextCompat.getColor(context, R.color.accent)) {
-//                click(false, onClick = {
-//                    // todo: open popup?
-//                }) {
-//                    append(" ")
-//                    append(context.getString(R.string.learn_more_title))
-//                    append(".")
-//                }
-//            }
+        val currentLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+        } else {
+            Locale.getDefault()
         }
+        val privacyPolicyUrl = context.getString(R.string.privacy_policy_url)
+
+        val dialogView = View.inflate(context, R.layout.clean_insights_nudge_dialog, null)
+        dialogView.findViewById<TextView>(R.id.learn_more).setOnClickListener {
+            val dialog = WebViewPopupPanel(context, context as LifecycleOwner, privacyPolicyUrl)
+            dialog.show()
+        }
+
         val deviceType = dialogView.findViewById<View>(R.id.checkbox) as CheckBox
         deviceType.isChecked = Settings.isCleanInsightsDeviceTypeIncluded(context)
         deviceType.setOnCheckedChangeListener { _, isChecked ->

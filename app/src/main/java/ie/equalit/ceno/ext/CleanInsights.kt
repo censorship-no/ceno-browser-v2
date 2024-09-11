@@ -1,7 +1,7 @@
 package ie.equalit.ceno.ext
 
 import android.content.Context
-import ie.equalit.ceno.ConsentRequestUi
+import ie.equalit.ceno.settings.dialogs.ConsentRequestDialog
 import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.CleanInsights
 import org.cleaninsights.sdk.Feature
@@ -11,9 +11,9 @@ the clean insights reporting
  */
 fun CleanInsights.launchCleanInsightsPermissionDialog(context : Context, callback : (Boolean) -> Unit) {
 
-    val ui = ConsentRequestUi(context)
+    val dialog = ConsentRequestDialog(context)
 
-    ui.show() { granted ->
+    dialog.show() { granted ->
         if (granted) {
             this.grant("test")
             if (Settings.isCleanInsightsDeviceTypeIncluded(context)) {

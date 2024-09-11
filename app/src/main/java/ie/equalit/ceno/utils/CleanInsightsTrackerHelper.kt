@@ -1,4 +1,4 @@
-package ie.equalit.ceno
+package ie.equalit.ceno.utils
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -7,11 +7,12 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import ie.equalit.ceno.BrowserApplication.Companion.getTracker
+import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import org.matomo.sdk.Tracker
 import org.matomo.sdk.extra.TrackHelper
 
-object CleanInsightTrackerHelper {
+object CleanInsightsTrackerHelper {
 
     fun showStartupTimePrompt(activity: Activity) {
         val dialogView = View.inflate(activity, R.layout.ouinet_startup_time_prompt, null)

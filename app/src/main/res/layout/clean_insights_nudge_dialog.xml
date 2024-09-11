@@ -187,5 +187,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bullet4" />
 
+    <TextView
+        android:id="@+id/learn_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:drawablePadding="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/learn_more_title"
+        android:textSize="16sp"
+        android:textColor="@color/accent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explainer" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
