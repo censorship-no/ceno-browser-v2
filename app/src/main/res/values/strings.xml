@@ -383,7 +383,7 @@
     <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
     <string name="clean_insights_successful_opt_in">Enabled background analytics</string>
     <string name="clean_insights_successful_opt_out">Disabled background analytics</string>
-    <string name="ouinet_startup_time_header">How long do you feel it took Ceno to startup?</string>
+    <string name="ouinet_startup_time_header">How long do you feel it typically takes for Ceno to start?</string>
     <string name="ouinet_startup_time_too_long">Too long</string>
     <string name="ouinet_startup_time_quick">Quick</string>
     <string name="ouinet_startup_time_1">1</string>

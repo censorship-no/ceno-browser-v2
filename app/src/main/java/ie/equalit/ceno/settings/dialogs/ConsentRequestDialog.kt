@@ -16,11 +16,6 @@ class ConsentRequestDialog(val context: Context) {
 
     fun show(complete: (Boolean) -> Unit) {
 
-        val currentLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
-        } else {
-            Locale.getDefault()
-        }
         val privacyPolicyUrl = context.getString(R.string.privacy_policy_url)
 
         val dialogView = View.inflate(context, R.layout.clean_insights_nudge_dialog, null)
@@ -43,18 +38,24 @@ class ConsentRequestDialog(val context: Context) {
             Settings.setCleanInsightsDeviceLocale(context, isChecked)
         }
 
+        var selectionMade = false
         AlertDialog.Builder(context)
             .setView(dialogView)
             .setNegativeButton(R.string.clean_insights_maybe_later) { _, _ ->
+                selectionMade = true
                 complete(false)
             }
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
+                selectionMade = true
                 complete(true)
             }
-            /* Do nothing when dismissed
             .setOnDismissListener {
+                if (!selectionMade) {
+                    /* No selection was made, but dialog was dismissed
+                        do not grant consent */
+                    complete(false)
+                }
             }
-            */
             .create()
             .show()
     }
