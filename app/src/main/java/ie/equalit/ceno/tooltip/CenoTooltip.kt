@@ -76,11 +76,6 @@ class CenoTooltip(
         (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnBounds.left.toInt()
         btnNext.text = fragment.getString(buttonText)
         val btnExit = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
-        var constraintSet = ConstraintSet()
-        constraintSet.clone(tooltipOverlay)
-        constraintSet.connect(R.id.btn_skip_tour, ConstraintSet.START, R.id.btn_next_tooltip, ConstraintSet.END)
-        constraintSet.connect(R.id.btn_skip_tour, ConstraintSet.TOP, R.id.btn_next_tooltip, ConstraintSet.TOP)
-        constraintSet.applyTo(tooltipOverlay)
         btnExit.setOnClickListener(listener)
         btnNext.setOnClickListener(onButtonPressListener)
     }
