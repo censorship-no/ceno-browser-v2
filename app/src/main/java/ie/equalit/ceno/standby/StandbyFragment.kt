@@ -1,6 +1,7 @@
 package ie.equalit.ceno.standby
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
@@ -8,8 +9,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.provider.Settings.ACTION_SETTINGS
 import android.provider.Settings.ACTION_WIRELESS_SETTINGS
 import android.util.Log
 import android.view.LayoutInflater
@@ -162,8 +162,12 @@ class StandbyFragment : Fragment() {
         val btnNetwork = timeoutDialogView.findViewById<Button>(R.id.btn_network_settings)
         btnNetwork?.setOnClickListener {
             dialog?.dismiss()
-            val intent = Intent(ACTION_WIRELESS_SETTINGS)
-            startActivity(intent)
+            try {
+                startActivity(Intent(ACTION_WIRELESS_SETTINGS))
+            } catch (e: ActivityNotFoundException) {
+                e.message?.let { it1 -> Log.w("ERROR", it1) }
+                startActivity(Intent(ACTION_SETTINGS))
+            }
         }
         val btnExtraBTBootstraps = timeoutDialogView.findViewById<Button>(R.id.btn_extra_bt_bootstraps)
         btnExtraBTBootstraps.setOnClickListener{
@@ -235,4 +239,8 @@ class StandbyFragment : Fragment() {
         const val DO_CLEAR = "do_clear"
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        dialog?.dismiss()
+    }
 }
