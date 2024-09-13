@@ -96,10 +96,12 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                             MaterialTapTargetPrompt.STATE_FINISHED-> {
                                 requireComponents.cenoPreferences.nextTooltip += 1
                                 tooltip.dismiss()
-                                showSourcesTooltip()
+                            }
+                            MaterialTapTargetPrompt.STATE_FOCAL_PRESSED-> {
+                                tooltip.dismiss()
                             }
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons() {
+                                tooltip.addButtons {
                                     exitCenoTour()
                                 }
                             }
