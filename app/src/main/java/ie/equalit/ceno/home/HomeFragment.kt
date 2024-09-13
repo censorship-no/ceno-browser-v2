@@ -1,8 +1,6 @@
 package ie.equalit.ceno.home
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
@@ -336,10 +333,10 @@ class HomeFragment : BaseHomeFragment() {
                             tooltip.dismiss()
                         }
                     },
-                    onButtonPressListener = ::goToNextTooltip
+                    onNextButtonPressListener = ::goToNextTooltip
                 )
                 tooltip.tooltip?.show()
-                tooltip.addExitButton() {
+                tooltip.addButtons() {
                     exitCenoTour()
                 }
             }
@@ -353,7 +350,7 @@ class HomeFragment : BaseHomeFragment() {
                     listener = { _: MaterialTapTargetPrompt, state: Int ->
                         when(state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addExitButton {
+                                tooltip.addButtons {
                                     exitCenoTour()
                                 }
                             }
@@ -363,7 +360,7 @@ class HomeFragment : BaseHomeFragment() {
                             }
                         }
                     },
-                    onButtonPressListener = ::goToNextTooltip
+                    onNextButtonPressListener = ::goToNextTooltip
 
                 )
                 tooltip.tooltip?.show()
@@ -387,13 +384,13 @@ class HomeFragment : BaseHomeFragment() {
                             }
 
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addExitButton() {
+                                tooltip.addButtons() {
                                     exitCenoTour()
                                 }
                             }
                         }
                     },
-                    onButtonPressListener = {
+                    onNextButtonPressListener = {
                         requireComponents.cenoPreferences.nextTooltip += 1
                         tooltip.dismiss()
                         (activity as BrowserActivity).openToBrowser("https://wikipedia.org", newTab = true)
@@ -424,7 +421,14 @@ class HomeFragment : BaseHomeFragment() {
     private fun exitCenoTour() {
         //exit tour
         tooltip.dismiss()
-        requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
+            //show permission tooltip
+            showTooltip()
+        }
+        else {
+            requireComponents.cenoPreferences.nextTooltip = -1
+        }
         //show permission tooltip
         showTooltip()
         Settings.setShowOnboarding(requireContext(), false)

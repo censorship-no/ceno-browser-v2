@@ -12,7 +12,6 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.requireComponents
@@ -21,9 +20,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tooltip.CenoTooltip
 import ie.equalit.ceno.tooltip.CenoTourStartOverlay
 import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.feature.readerview.view.ReaderViewControlsBar
 import mozilla.components.support.base.feature.UserInteractionHandler
-import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.CirclePromptFocal
 
@@ -102,13 +99,13 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                                 showSourcesTooltip()
                             }
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addExitButton() {
+                                tooltip.addButtons() {
                                     exitCenoTour()
                                 }
                             }
                         }
                     },
-                    onButtonPressListener = {
+                    onNextButtonPressListener = {
                         goToNextTooltip()
                     }
                 )
@@ -133,13 +130,13 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                                 tooltip.dismiss()
                             }
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addExitButton() {
+                                tooltip.addButtons(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                                     exitCenoTour()
                                 }
                             }
                         }
                     },
-                    onButtonPressListener = {
+                    onNextButtonPressListener = {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
                             goToNextTooltip()
                         else {
