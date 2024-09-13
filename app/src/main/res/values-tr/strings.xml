@@ -15,7 +15,6 @@
     <string name="preference_category_search">Arama</string>
     <string name="menu_share_with">Şununla paylaş…</string>
     <string name="toast_copied">Kopyalandı!</string>
-    <string name="preferences_autofill">Uygulamalar otomatik doldurulsun</string>
     <string name="customize_addon_collection_cancel">İptal</string>
     <string name="menu_action_close_tabs_private">Kişisel sekmeleri kapat</string>
     <string name="preferences_remote_debugging">USB ile uzaktan hata ayıklama</string>
@@ -56,7 +55,6 @@
     <string name="top_sites_rename_dialog_ok">Tamam</string>
     <string name="top_sites_rename_dialog_cancel">İptal</string>
     <string name="top_sites_sponsored_label">Destekleniyor</string>
-    <string name="preferences_autofill_summary">Diğer uygulamaların kullanıcı adı ve parolalarını doldurur</string>
     <string name="privacy">Gizlilik</string>
     <string name="theme_category">Tema</string>
     <string name="customization_settings">Özelleştirme</string>

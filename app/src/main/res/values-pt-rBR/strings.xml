@@ -43,8 +43,6 @@
     <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
     <string name="menu_action_close_tabs_private">Fechar Abas Pessoais</string>
-    <string name="preferences_autofill">Aplicativos de preenchimento automático</string>
-    <string name="preferences_autofill_summary">Preencher automaticamente logins e senhas em outros aplicativos</string>
     <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Pessoais</string>
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>

@@ -21,7 +21,6 @@
         <item quantity="one">%d Tab</item>
         <item quantity="other">%d Tabs</item>
     </plurals>
-    <string name="preferences_autofill">Autofill-Anwendungen</string>
     <string name="preferences_customization_summary">App-Symbol, Symbolleiste, Schaltfläche Löschen</string>
     <string name="browser_menu_refresh">Neu laden</string>
     <string name="toolbar_category">Optionen der Symbolleiste</string>
@@ -43,7 +42,6 @@
     <string name="menu_action_add_tab">Neue Registerkarte hinzufügen</string>
     <string name="menu_action_close_tabs">Alle Tabs schließen</string>
     <string name="menu_action_close_tabs_private">Private Tabs schließen</string>
-    <string name="preferences_autofill_summary">Automatisches Ausfüllen von Logins und Passwörtern in anderen Anwendungen</string>
     <string name="preferences_remote_debugging">Ferndebugging über USB</string>
     <string name="preferences_tracking_protection_normal">Aktivieren im normalen Browsing-Modus</string>
     <string name="preferences_tracking_protection_private">Aktivieren im Privaten Modus</string>
