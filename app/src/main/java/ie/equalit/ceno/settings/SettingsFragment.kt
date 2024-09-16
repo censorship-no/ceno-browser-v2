@@ -40,10 +40,8 @@ import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.*
-import ie.equalit.ceno.autofill.AutofillPreference
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.getAutofillPreference
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
@@ -249,12 +247,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupPreferences() {
-
-        if (!AutofillPreference.isSupported(requireContext())) {
-            getAutofillPreference(pref_key_autofill)?.isVisible = false
-        } else {
-            (getAutofillPreference(pref_key_autofill) as AutofillPreference).updateSwitch()
-        }
 
         getPreference(pref_key_make_default_browser)?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
         getSwitchPreferenceCompat(pref_key_remote_debugging)?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()

@@ -21,7 +21,6 @@ import ie.equalit.ceno.helpers.TestHelper.packageName
  */
 class ExternalAppsRobot {
     fun verifyAndroidDefaultApps() = assertDefaultAppsLayout()
-    fun verifyAndroidAutofillServices() = assertAutofillServices()
     fun verifyYouTubeApp() = assertYouTubeApp()
 
     class Transition {
@@ -33,14 +32,6 @@ class ExternalAppsRobot {
 
 private fun assertDefaultAppsLayout() {
     mDevice.wait(Until.findObject(By.text("Default apps")), waitingTimeShort)
-}
-
-private fun assertAutofillServices() {
-    mDevice.waitForWindowUpdate(packageName, waitingTime)
-    assertTrue(
-        mDevice.findObject(UiSelector().textContains("Autofill service"))
-            .waitForExists(waitingTime),
-    )
 }
 
 private fun assertYouTubeApp() {

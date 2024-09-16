@@ -5,12 +5,7 @@
 package ie.equalit.ceno
 
 import android.content.Context
-import android.os.Build
 import androidx.core.app.NotificationManagerCompat
-import mozilla.components.feature.autofill.AutofillConfiguration
-import ie.equalit.ceno.autofill.AutofillConfirmActivity
-import ie.equalit.ceno.autofill.AutofillSearchActivity
-import ie.equalit.ceno.autofill.AutofillUnlockActivity
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.Core
 import ie.equalit.ceno.components.Ouinet
@@ -53,24 +48,6 @@ class Components(private val context: Context) {
     val services by lazy { Services(context) }
     /* CENO F-Droid: Do not use firebase push */
     //val push by lazy { Push(context, analytics.crashReporter) }
-
-    val autofillConfiguration by lazy {
-        /* CENO: Support older versions of Android, which don't have Autofill activities */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AutofillConfiguration(
-                storage = core.loginsStorage,
-                publicSuffixList = utils.publicSuffixList,
-                unlockActivity = AutofillUnlockActivity::class.java,
-                confirmActivity = AutofillConfirmActivity::class.java,
-                searchActivity = AutofillSearchActivity::class.java,
-                applicationName = context.getString(R.string.app_name),
-                httpClient = core.client
-            )
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
-    }
-
 
     private val notificationManagerCompat = NotificationManagerCompat.from(context)
 

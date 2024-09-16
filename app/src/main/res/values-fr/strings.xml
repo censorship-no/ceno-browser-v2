@@ -44,8 +44,6 @@
     <string name="button_content_readerview">Vue lecteur</string>
     <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <string name="toolbar_category">Options de la barre d’outils</string>
-    <string name="preferences_autofill">Remplissage automatique des applis</string>
-    <string name="preferences_autofill_summary">Remplir automatiquement les identifiants et mots de passe dans d’autres applis</string>
     <string name="preferences_tracking_protection_normal">Activer en mode de navigation normal</string>
     <string name="preferences_privacy_summary">Activer pour la navigation personnelle et publique</string>
     <string name="theme_category">Thème</string>

@@ -48,8 +48,6 @@
     <string name="preferences_customization_summary">Параметры панели инструментов</string>
     <string name="customization_settings">Индивидуальная настройка</string>
     <string name="toolbar_category">Панель инструментов</string>
-    <string name="preferences_autofill_summary">Автозаполнение логинов и паролей в других приложениях</string>
-    <string name="preferences_autofill">Автозаполнение приложений</string>
     <string name="preferences_privacy_summary">Отслеживание, файлы cookie, выбор данных</string>
     <string name="browser_menu_library">Библиотека</string>
     <string name="delete_browsing_data_prompt_cancel">Отмена</string>

@@ -83,7 +83,6 @@ mozilla-browserthumbnails = { group = "org.mozilla.components", name = "browser-
 
 mozilla-featureaddons = { group = "org.mozilla.components", name = "feature-addons", version.ref = "android_components" }
 mozilla-featureapplinks = { group = "org.mozilla.components", name = "feature-app-links", version.ref = "android_components" }
-mozilla-featureautofill = { group = "org.mozilla.components", name = "feature-autofill", version.ref = "android_components" }
 mozilla-featureawesomebar = { group = "org.mozilla.components", name = "feature-awesomebar", version.ref = "android_components" }
 mozilla-featurecontextmenu = { group = "org.mozilla.components", name = "feature-contextmenu", version.ref = "android_components" }
 mozilla-featurecustomtabs = { group = "org.mozilla.components", name = "feature-customtabs", version.ref = "android_components" }

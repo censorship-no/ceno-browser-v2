@@ -43,12 +43,10 @@
     <string name="button_content_readerview">ဖတ်ရှုသူ အမြင်</string>
     <string name="menu_share_with">မျှဝေရန် …</string>
     <string name="preferences_customization_summary">အပ်ပ် အိုင်ကွန်၊ Toolbar၊ ပယ်ဖျက်ခြင်းခလုတ်</string>
-    <string name="preferences_autofill_summary">အခြားသော အက်ပလီကေးရှင်းများတွင် လက်မှတ်ထိုးဝင်ခြင်းနှင့် စကားဝှက်များကို အလိုအလျောက်ဖြည့်ခြင်း</string>
     <string name="customization_settings">စိတ်ကြိုက်ပြင်ဆင်မှု</string>
     <string name="clear_button_category">ပယ်ဖျက်ခြင်း ခလုတ်</string>
     <string name="general_category">အထွေထွေ</string>
     <string name="toolbar_category">Toolbar ရွေးစရာများ</string>
-    <string name="preferences_autofill">အလိုအလျောက်ဖြည့်ခြင်း အက်ပလီကေးရှင်းများ</string>
     <string name="preferences_tracking_protection_normal">ပုံမှန် ရှာဖွေခြင်းမုဒ်၌ ဖွင့်မည်</string>
     <string name="preferences_privacy_summary">တကိုယ်ရည်သုံးနှင့် အများသုံး ရှာဖွေခြင်းအတွက် ဖွင့်ထားသည်</string>
     <string name="theme_category">အပြင်အဆင်</string>

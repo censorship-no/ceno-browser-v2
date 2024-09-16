@@ -13,7 +13,6 @@
     <string name="toast_customize_addon_collection_done">Tilläggssamlingen har ändrats. Avsluta programmet för att tillämpa ändringar…</string>
     <string name="content_description_private_browsing_button">Aktivera privat surfning</string>
     <string name="menu_action_close_tabs_private">Stäng privata flikar</string>
-    <string name="preferences_autofill_summary">Autofyll inloggningar och lösenord i andra appar</string>
     <string name="privacy">Sekretess</string>
     <string name="developer_tools_category">Utvecklarverktyg</string>
     <string name="preferences_remote_debugging">Fjärrfelsökning via USB</string>
@@ -31,7 +30,6 @@
     <string name="menu_action_close_tabs">Stäng alla flikar</string>
     <string name="toolbar_hint">Sök eller ange en adress</string>
     <string name="menu_action_add_tab">Lägg till ny flik</string>
-    <string name="preferences_autofill">Autofyll appar</string>
     <string name="preferences_tracking_protection_normal">Aktivera i normalt surfläge</string>
     <string name="preferences_tracking_protection_private">Aktivera i privat surfläge</string>
     <string name="theme_category">Tema</string>
