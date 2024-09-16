@@ -41,6 +41,8 @@
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_margin="16dp"
+        android:indeterminate="true"
+        android:indeterminateDuration="10000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
