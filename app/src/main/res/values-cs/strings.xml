@@ -7,7 +7,6 @@
     <string name="rename_top_site">Přejmenovat</string>
     <string name="shortcut_max_limit_title">Byl dosažen limit zástupců</string>
     <string name="toast_copied">Zkopírováno!</string>
-    <string name="preferences_autofill">Automaticky vyplnit aplikace</string>
     <string name="preferences_customization_summary">Ikona aplikace, Panel nástrojů, Tlačítko vymazání</string>
     <string name="open_links_in_apps">Otevírat odkazy v aplikacích</string>
     <string name="developer_tools_category">Nástroje pro vývojáře</string>
@@ -17,7 +16,6 @@
     <string name="menu_action_add_tab">Přidat novou záložku</string>
     <string name="menu_action_close_tabs">Zavřít všechny záložky</string>
     <string name="menu_action_close_tabs_private">Zavřít soukromé záložky</string>
-    <string name="preferences_autofill_summary">Automaticky vyplnit přihlašovací údaje a hesla v jiných aplikacích</string>
     <string name="preferences_remote_debugging">Vzdálené debugování přes USB</string>
     <string name="privacy">Soukromí</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Uvolní prostor v úložišti zařízení</string>
