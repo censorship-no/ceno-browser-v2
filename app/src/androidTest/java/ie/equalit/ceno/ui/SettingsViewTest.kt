@@ -78,10 +78,6 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
 
             clickDownRecyclerView(1)
-            verifyAutofillAppsButton()
-            verifyAutofillAppsSummary()
-
-            clickDownRecyclerView(1)
             // extra click down for Add-ons option,
             // which will be hidden soon
 
@@ -184,17 +180,6 @@ class SettingsViewTest {
         }.openSettings {
         }.makeDefaultBrowser {
             verifyAndroidDefaultApps()
-        }
-    }
-
-    @Test
-    @Ignore ("Fails on Android 12+")
-    fun autofillAppsTest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-        }.clickAutofillAppsButton {
-            verifyAndroidAutofillServices()
         }
     }
 

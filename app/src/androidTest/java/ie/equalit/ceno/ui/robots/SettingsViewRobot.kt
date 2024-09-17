@@ -51,8 +51,6 @@ class SettingsViewRobot {
     fun verifyCustomizationSummary(): ViewInteraction = assertCustomizationButton()
     fun verifyOpenLinksInApps() = assertOpenLinksInApps()
     fun verifyMakeDefaultBrowserButton() = assertMakeDefaultBrowserButton()
-    fun verifyAutofillAppsButton() = assertAutofillAppsButton()
-    fun verifyAutofillAppsSummary() = assertAutofillAppsSummary()
     fun verifyAddOnsButton() = assertAddOnsButton()
 
     fun verifyBridgeModeToggle(): ViewInteraction = assertBridgeModeToggle()
@@ -167,13 +165,6 @@ class SettingsViewRobot {
             return ExternalAppsRobot.Transition()
         }
 
-        fun clickAutofillAppsButton(interact: ExternalAppsRobot.() -> Unit):
-                ExternalAppsRobot.Transition {
-            autofillAppsButton().click()
-            ExternalAppsRobot().interact()
-            return ExternalAppsRobot.Transition()
-        }
-
         fun openSettingsViewDeleteBrowsingData(interact: SettingsViewDeleteBrowsingDataRobot.() -> Unit):
                 SettingsViewDeleteBrowsingDataRobot.Transition {
             deleteBrowsingDataButton().click()
@@ -234,8 +225,6 @@ private fun customizationButton() = onView(withText(R.string.preferences_customi
 private fun customizationSummary() = onView(withText(R.string.preferences_customization_summary))
 private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
 private fun makeDefaultBrowserButton() = Espresso.onView(withText(R.string.preferences_make_default_browser))
-private fun autofillAppsButton() = onView(withText("Autofill apps"))
-private fun autofillAppsSummary() = onView(withText("Autofill logins and passwords in other apps"))
 
 private fun addOnsButton() = onView(withText(R.string.preferences_add_ons))
 
@@ -294,10 +283,6 @@ private fun assertOpenLinksInApps() = openLinksInAppsToggle()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertMakeDefaultBrowserButton() = makeDefaultBrowserButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertAutofillAppsButton() = autofillAppsButton()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertAutofillAppsSummary() = autofillAppsSummary()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAddOnsButton() = addOnsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 

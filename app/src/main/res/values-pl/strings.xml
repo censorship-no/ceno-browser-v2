@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="preferences_autofill_summary">Automatycznie uzupełniaj loginy i hasła w innych aplikacjach</string>
     <string name="privacy" tools:ignore="UnusedResources">Prywatność</string>
     <string name="private_browsing_title">Osobiste przeglądanie</string>
     <string name="theme_category">Kompozycja</string>
@@ -64,7 +63,6 @@
     <string name="browser_menu_add_to_shortcuts">Dodaj do skrótów</string>
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
     <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
-    <string name="preferences_autofill">Automatycznie uzupełniaj w aplikacjach</string>
     <string name="preferences_customization_summary">Ikona aplikacji, Pasek narzędzi, przycisk Wyczyść</string>
     <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
     <string name="general_category">Ogólne</string>

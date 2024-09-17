@@ -37,7 +37,6 @@
     <string name="top_sites_rename_dialog_cancel">ביטול</string>
     <string name="top_sites_sponsored_label">ממומן</string>
     <string name="rename_top_site">שנה שם</string>
-    <string name="preferences_autofill">אפליקציות למילוי אוטומטי</string>
     <string name="toolbar_hint">חפש או הזן כתובת</string>
     <string name="menu_action_add_tab">הוסף כרטיסיה חדשה</string>
     <string name="browser_menu_share">שיתוף</string>
@@ -54,7 +53,6 @@
     <string name="browser_menu_library">ספריה</string>
     <string name="confirm_clear_cached_content_desc">התוכן השמור שלך יוסר באופן מיידי</string>
     <string name="preferences_customize_amo_collection">אוסף תוספות מותאם אישית</string>
-    <string name="preferences_autofill_summary">מילוי אוטומטי של כניסות וסיסמאות באפליקציות אחרות</string>
     <string name="preferences_privacy_summary">אפשר לגלישה אישית וציבורית</string>
     <string name="top_sites_rename_dialog_ok">בסדר</string>
     <string name="crash_report_non_fatal_message" tools:ignore="UnusedResources">"מצטער.  התרסקנו"</string>

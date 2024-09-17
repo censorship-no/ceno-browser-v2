@@ -44,10 +44,8 @@
     <string name="button_content_readerview">Reader view</string>
     <string name="menu_share_with">分享给…</string>
     <string name="toast_copied">已复制！</string>
-    <string name="preferences_autofill">自动填充应用</string>
     <string name="customization_settings">个性化</string>
     <string name="toolbar_category">工具栏选项</string>
-    <string name="preferences_autofill_summary">在其他应用程序中自动填写登录名和密码</string>
     <string name="preferences_tracking_protection_normal">在正常浏览模式下启用</string>
     <string name="browser_menu_back">返回</string>
     <string name="browser_menu_library">库</string>

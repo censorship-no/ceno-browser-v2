@@ -187,8 +187,6 @@
     <string name="menu_action_add_tab">புதிய தாவலைச் சேர்க்கவும்</string>
     <string name="menu_action_close_tabs">எல்லா தாவல்களையும் மூடு</string>
     <string name="menu_action_close_tabs_private">தனிப்பட்ட தாவல்களை மூடு</string>
-    <string name="preferences_autofill">ஆட்டோஃபில் பயன்பாடுகள்</string>
-    <string name="preferences_autofill_summary">மற்ற பயன்பாடுகளில் ஆட்டோஃபில் உள்நுழைவுகள் மற்றும் கடவுச்சொற்கள்</string>
     <string name="general_category">பொது</string>
     <string name="preferences_privacy_summary">தனிப்பட்ட மற்றும் பொது உலாவலுக்கு இயக்கு</string>
     <string name="preferences_website_sources_summary">வலைத்தள உள்ளடக்கத்தை எங்கிருந்து ஏற்ற விரும்புகிறீர்கள் என்பதைத் தேர்ந்தெடுக்கவும்</string>

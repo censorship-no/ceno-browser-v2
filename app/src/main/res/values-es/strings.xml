@@ -47,8 +47,6 @@
     <string name="toolbar_category">Opciones de Barra de Herramientas</string>
     <string name="customization_settings">Personalización</string>
     <string name="menu_share_with">Compartir con…</string>
-    <string name="preferences_autofill">Apps de autocompletar</string>
-    <string name="preferences_autofill_summary">Autocompletar inicios de sesión y contraseñas en otras apps</string>
     <string name="preferences_tracking_protection_normal">Habilitar en Modo de Navegación Normal</string>
     <string name="preferences_privacy_summary">Activar en Navegación Personal y Pública</string>
     <string name="browser_menu_library">Biblioteca</string>
