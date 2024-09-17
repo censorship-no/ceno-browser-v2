@@ -10,6 +10,7 @@
 
     <TextView
         android:id="@+id/title"
+        android:textColor="@color/fx_mobile_text_color_primary"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginHorizontal="16dp"
@@ -57,6 +58,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/progress_dialog_log_export_message"
         android:textSize="16sp"
+        android:textColor="@color/fx_mobile_text_color_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
