@@ -28,10 +28,6 @@ import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.rusthttp.RustHttpConfig
 import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.webextensions.WebExtensionSupport
-import org.cleaninsights.sdk.CleanInsights
-import org.matomo.sdk.Matomo
-import org.matomo.sdk.Tracker
-import org.matomo.sdk.TrackerBuilder
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -40,8 +36,6 @@ open class BrowserApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        context = this
 
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
@@ -178,24 +172,6 @@ open class BrowserApplication : Application() {
         var mOuinetConfig: Config? = null
         var mNotificationConfig: NotificationConfig? = null
         const val NON_FATAL_CRASH_BROADCAST = "ie.equalit.ceno"
-
-        @SuppressLint("StaticFieldLeak")
-        private var context: Context? = null
-
-        private var _tracker: Tracker? = null
-        @Synchronized
-        fun getTracker(): Tracker? {
-            if (_tracker == null) {
-                _tracker = TrackerBuilder.createDefault("https://matomo.ouinet.work/matomo.php", 4).build(
-                    context?.let {
-                        Matomo.getInstance(
-                            it
-                        )
-                    })
-            }
-            return _tracker
-        }
-
     }
 }
 

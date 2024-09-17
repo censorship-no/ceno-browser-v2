@@ -127,7 +127,6 @@ thirdparty_sentry = { group = "io.sentry", name = "sentry-android", version.ref 
 thirdparty_gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 thirdparty_tooltips = { group = "uk.co.samuelwall", name = "material-tap-target-prompt", version.ref = "tooltips" }
 thirdparty_cleaninsights = { group = "org.cleaninsights.sdk", name = "clean-insights-sdk", version.ref = "clean_insights" }
-thirdparty_matomo = { group = "com.github.matomo-org", name = "matomo-sdk-android", version.ref = "matomo" }
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx_appcompat" }
 androidx-corektx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx_core" }

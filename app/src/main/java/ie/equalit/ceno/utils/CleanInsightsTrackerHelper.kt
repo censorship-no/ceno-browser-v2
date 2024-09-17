@@ -2,15 +2,11 @@ package ie.equalit.ceno.utils
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
-import ie.equalit.ceno.BrowserApplication.Companion.getTracker
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import org.matomo.sdk.Tracker
-import org.matomo.sdk.extra.TrackHelper
 
 object CleanInsightsTrackerHelper {
 
@@ -61,12 +57,10 @@ object CleanInsightsTrackerHelper {
             .setPositiveButton(R.string.submit) { _, _ ->
 
                 if (recordedValue != 0.0) {
-
-                    trackData(
-                        context = activity.applicationContext,
+                    activity.applicationContext.components.cleanInsights?.measureEvent(
                         category = "user-feedback",
                         action = "ouinet_startup-success",
-                        campaign = CleanInsightCampaigns.TEST,
+                        campaignId = CleanInsightCampaigns.TEST.toServerString(),
                         name = "perceived_ouinet_startup_time",
                         value = recordedValue
                     )
@@ -96,27 +90,6 @@ object CleanInsightsTrackerHelper {
             R.id.radio_5 -> 5.0
             else -> 0.0
         }
-    }
-
-    fun trackData(
-        context: Context,
-        activity: String? = null,
-        category: String,
-        action: String,
-        campaign: CleanInsightCampaigns,
-        name: String,
-        value: Double
-    ) {
-
-        context.components.cleanInsights?.measureEvent(category, action, campaign.toServerString(), name, value)
-//        cleanInsights.measureVisit(listOf("Main"), "test")
-
-        val tracker: Tracker? = getTracker()
-
-        activity?.let { act -> TrackHelper.track().screen("/$act").title(act).with(tracker) }
-
-        TrackHelper.track().event(category, action).value(value.toFloat()).with(tracker)
-        TrackHelper.track().download().with(tracker)
     }
 
     enum class CleanInsightCampaigns() {

@@ -151,12 +151,10 @@ open class BrowserActivity : BaseActivity() {
                             // log Ouinet startup time if it already has a value
                             ouinetStartupTime.let { startupTime ->
                                 if (startupTime > 0.0) {
-                                    CleanInsightsTrackerHelper.trackData(
-                                        context = this@BrowserActivity,
-                                        activity = "BrowserActivity",
+                                    components.cleanInsights?.measureEvent(
                                         category = "app-state",
                                         action = "ouinet-startup-success",
-                                        campaign = CleanInsightsTrackerHelper.CleanInsightCampaigns.TEST,
+                                        campaignId = CleanInsightsTrackerHelper.CleanInsightCampaigns.TEST.toServerString(),
                                         name = "actual_ouinet_startup_time",
                                         value = startupTime
                                     )
@@ -302,16 +300,13 @@ open class BrowserActivity : BaseActivity() {
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
                             if(Settings.isCleanInsightsEnabled(this@BrowserActivity)) {
-                                CleanInsightsTrackerHelper.trackData(
-                                    context = this@BrowserActivity,
-                                    activity = "BrowserActivity",
+                                components.cleanInsights?.measureEvent(
                                     category = "app-state",
                                     action = "ouinet-startup-success",
-                                    campaign = CleanInsightsTrackerHelper.CleanInsightCampaigns.TEST,
+                                    campaignId = CleanInsightsTrackerHelper.CleanInsightCampaigns.TEST.toServerString(),
                                     name = "actual_ouinet_startup_time",
                                     value = ouinetStartupTime
                                 )
-
                                 // check if this is the (n % 20 == 0)th launch and show the Ouinet prompt if true
                                 if(Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_SURVEY_LIMIT) {
                                     CleanInsightsTrackerHelper.showStartupTimePrompt(this@BrowserActivity)

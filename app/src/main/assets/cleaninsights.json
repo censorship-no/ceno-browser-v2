@@ -1,6 +1,6 @@
 {
-  "server": "https://metrics.cleaninsights.org/cleaninsights.php",
-  "siteId": 1,
+  "server": "https://matomo.ouinet.work/ci/cleaninsights.php",
+  "siteId": 4,
   "timeout": 5,
   "debug": true,
   "campaigns": {
