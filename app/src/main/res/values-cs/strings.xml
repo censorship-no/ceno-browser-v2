@@ -115,7 +115,7 @@
     <string name="shutdown_message_one">Vymazání dat aplikace</string>
     <string name="shutdown_message_two">Vypínání Ceno</string>
     <string name="dialog_btn_positive_ok">OK</string>
-    <string name="preferences_make_default_browser">Nastavte Ceno jako výchozí prohlížeč</string>
+    <string name="preferences_make_default_browser">…Nastavte Ceno jako výchozí prohlížeč</string>
     <string name="preferences_about_ceno">Prohlížeč Ceno</string>
     <string name="preferences_about_page">O nás</string>
     <string name="about_category">O nás</string>
