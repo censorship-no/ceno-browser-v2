@@ -371,7 +371,6 @@ dependencies {
     implementation libs.mozilla.featureaddons
     implementation libs.mozilla.featureapplinks
     implementation libs.mozilla.featureawesomebar
-    implementation libs.mozilla.featureautofill
     implementation libs.mozilla.featurecontextmenu
     implementation libs.mozilla.featurecustomtabs
     implementation libs.mozilla.featurefindinpage

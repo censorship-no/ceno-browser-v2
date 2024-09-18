@@ -35,12 +35,6 @@
             android:layout="@layout/ceno_clickable_preference"
             app:iconSpaceReserved="false" />
 
-        <ie.equalit.ceno.autofill.AutofillPreference
-            android:key="@string/pref_key_autofill"
-            android:summary="@string/preferences_autofill_summary"
-            android:title="@string/preferences_autofill"
-            app:iconSpaceReserved="false" />
-
         <androidx.preference.Preference
             android:key="@string/pref_key_add_ons"
             android:title="@string/preferences_add_ons"
