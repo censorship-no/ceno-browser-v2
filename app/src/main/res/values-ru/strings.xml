@@ -340,7 +340,7 @@
     <string name="error_page_learn_more">Узнать больше</string>
     <string name="preferences_clear_behavior_option_1">Промпт</string>
     <string name="preferences_clear_behavior_option_2">Очистить только Ceno кэш</string>
-    <string name="website_button_link"> https://ceno.app/ru/index.html</string>
+    <string name="website_button_link">https://ceno.app/ru/index.html</string>
     <string name="preferences_clear_behavior_option_3">Очистить контент и настройки</string>
     <string name="preferences_theme_option_2">Светлая</string>
     <string name="preferences_theme_option_1">Тёмная</string>
