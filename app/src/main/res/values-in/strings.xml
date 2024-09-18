@@ -196,8 +196,6 @@
     <string name="menu_action_add_tab">Tambah Tab Baru</string>
     <string name="menu_action_close_tabs">Tutup Semua Tab</string>
     <string name="menu_action_close_tabs_private">Tutup Tab Pribadi</string>
-    <string name="preferences_autofill">Isi otomatis aplikasi</string>
-    <string name="preferences_autofill_summary">Isi otomatis login dan kata sandi di aplikasi lain</string>
     <string name="preferences_remote_debugging">Debug jarak jauh (remote) melalui USB</string>
     <string name="privacy" tools:ignore="UnusedResources">Privasi</string>
     <string name="open_links_in_apps">Buka tautan di aplikasi</string>
@@ -234,4 +232,10 @@
     <string name="browser_menu_stop">Berhenti</string>
     <string name="browser_menu_settings">Pengaturan</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="toolbar_hint">Cari atau masukkan alamat</string>
+    <string name="preferences_tracking_protection_normal">Aktifkan dalam Mode Penjelajahan Normal</string>
+    <string name="preferences_tracking_protection_private">Aktifkan dalam Mode Penjelajahan Privat</string>
+    <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
+    <string name="preferences_privacy_summary">Aktifkan untuk Penjelajahan Privat dan Publik</string>
+    <string name="preferences_website_sources_summary">Pilih dari mana Anda ingin memuat konten situs web</string>
 </resources>

@@ -21,8 +21,6 @@
     <string name="toolbar_hint">پتہ تلاش یا درج کریں</string>
     <string name="menu_action_add_tab">نیا ٹیب شامل کریں</string>
     <string name="menu_action_close_tabs_private">نجی ٹیبز بند کریں</string>
-    <string name="preferences_autofill">آٹوفل ایپس</string>
-    <string name="preferences_autofill_summary">دیگر ایپس میں آٹو فل لاگ انز اور پاس ورڈز</string>
     <string name="preferences_tracking_protection_normal">عام براؤزنگ موڈ میں فعال کریں</string>
     <string name="privacy">رازداری</string>
     <string name="tracker_category">ٹریکنگ پروٹیکشن</string>

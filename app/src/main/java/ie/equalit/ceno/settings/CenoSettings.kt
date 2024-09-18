@@ -27,7 +27,7 @@ data class OuinetStatus(val auto_refresh : Boolean,
                         val external_udp_endpoints : Array<String>? = null,
                         val injector_access : Boolean,
                         val is_upnp_active : String,
-                        val local_cache_size : Int? = null,
+                        val local_cache_size : Long? = null,
                         val bridge_announcement : Boolean,
                         val local_udp_endpoints : Array<String>? = null,
                         val logfile : Boolean,
@@ -375,7 +375,7 @@ object CenoSettings {
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)
         setCenoSourcesShared(context, status.distributed_cache)
-        setCenoCacheSize(context, bytesToString(status.local_cache_size?.toLong()!!))
+        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
         setOuinetVersion(context, status.ouinet_version)
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
