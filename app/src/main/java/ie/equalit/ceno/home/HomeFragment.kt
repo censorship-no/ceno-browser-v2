@@ -346,17 +346,12 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.top_sites_title),
                     secondaryText = getString(R.string.tooltip_shortcuts_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
-                    stopCaptureTouchOnFocal = true,
                     listener = { _: MaterialTapTargetPrompt, state: Int ->
                         when(state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip.addButtons {
                                     exitCenoTour()
                                 }
-                            }
-                            MaterialTapTargetPrompt.STATE_FOCAL_PRESSED -> {
-                                requireComponents.cenoPreferences.nextTooltip += 1
-                                tooltip.dismiss()
                             }
                         }
                     },
@@ -371,18 +366,8 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.tooltip_toolbar_title),
                     secondaryText = getString(R.string.tooltip_toolbar_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
-                    isAutoFinish = true,
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
-                            MaterialTapTargetPrompt.STATE_DISMISSING -> {
-
-                            }
-
-                            MaterialTapTargetPrompt.STATE_FINISHED -> {
-                                requireComponents.cenoPreferences.nextTooltip += 1
-                                tooltip.dismiss()
-                            }
-
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip.addButtons() {
                                     exitCenoTour()
@@ -393,7 +378,7 @@ class HomeFragment : BaseHomeFragment() {
                     onNextButtonPressListener = {
                         requireComponents.cenoPreferences.nextTooltip += 1
                         tooltip.dismiss()
-                        (activity as BrowserActivity).openToBrowser("https://wikipedia.org", newTab = true)
+                        (activity as BrowserActivity).openToBrowser("https://example.com/", newTab = true)
                     }
                 )
 
@@ -429,8 +414,6 @@ class HomeFragment : BaseHomeFragment() {
         else {
             requireComponents.cenoPreferences.nextTooltip = -1
         }
-        //show permission tooltip
-        showTooltip()
         Settings.setShowOnboarding(requireContext(), false)
     }
 

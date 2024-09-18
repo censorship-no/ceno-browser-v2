@@ -45,6 +45,8 @@ class CenoTourStartOverlay(
             //hide skip button
             btnSkipTour.visibility = View.GONE
         }
+
+        tooltipOverlay.isClickable = true
     }
 
     fun show() {

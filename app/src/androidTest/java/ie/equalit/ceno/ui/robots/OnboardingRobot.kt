@@ -92,14 +92,14 @@ private fun assertStartTooltipButtons() {
 private fun assertPublicPersonalTooltip() {
     tooltipView().check(matches(isDisplayed()))
     exitButton().check(matches(isDisplayed()))
-    tooltipView().check(matches(withContentDescription("Public or Personal?. Use Public tabs for reading news, watching videos and general web-surfing. Share web content with other Ceno users. Personal tabs are better suited for social media accounts, online shopping, and browsing websites you don’t want to share with others.")))
+    tooltipView().check(matches(withContentDescription("Public or Personal?. Use Public tabs for reading news, watching videos, and general web-surfing. In Public mode, you can also share web content with other Ceno users. Personal tabs are better suited for social media accounts, online shopping, and browsing websites you don't want to share with others.")))
     nextButton().check(matches(isDisplayed()))
 }
 
 private fun assertShortcutsTooltip() {
     tooltipView().check(matches(isDisplayed()))
     exitButton().check(matches(isDisplayed()))
-    tooltipView().check(matches(withContentDescription("Shortcuts. Save your most visited sites to shortcuts for easy access")))
+    tooltipView().check(matches(withContentDescription("Shortcuts. Save your favorite sites as shortcuts for easy access from your homepage.")))
     nextButton().check(matches(isDisplayed()))
 }
 
@@ -113,15 +113,15 @@ private fun assertUrlTooltip() {
 private fun assertSourcesTooltip() {
     tooltipView().check(matches(isDisplayed()))
     exitButton().check(matches(isDisplayed()))
-    tooltipView().check(matches(withContentDescription("Ceno Sources. Easily see where the webpage content is fetched from - directly from the website, via the Ceno network, or Ceno cache")))
     nextButton().check(matches(isDisplayed()))
+    tooltipView().check(matches(withContentDescription("Ceno Sources. Easily see where the site's content is fetched from - directly from the website, via the Ceno network, or from the Ceno cache")))
 }
 
 private fun assertClearTooltip() {
     tooltipView().check(matches(isDisplayed()))
     exitButton().check(matches(isDisplayed()))
     tooltipView().check(matches(withContentDescription("Clear everything, \n" +
-            "everywhere, all at once. Clear your browser history, credentials and any trace you left on Ceno with one single button.")))
+            "everywhere, all at once. Clear your browsing history, credentials and any trace you left on Ceno with one single button.")))
     nextButton().check(matches(isDisplayed()))
 }
 

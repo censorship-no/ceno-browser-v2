@@ -27,8 +27,7 @@ class CenoTooltip(
     var tooltip: MaterialTapTargetPrompt?
     val tooltipBuilder : MaterialTapTargetPrompt.Builder
     val promptTextWithBtn = PromptTextWithBtn(
-        fragment.getString(buttonText),
-        getColor(fragment.requireContext(), R.color.ceno_blue_100)
+        fragment.resources.displayMetrics.density * 40f
     )
     var isButtonPressed:Boolean = false
 
@@ -65,12 +64,13 @@ class CenoTooltip(
         val prompt = container?.findViewById<View>(R.id.material_target_prompt_view)
         container?.removeView(prompt)
         val tooltipOverlay = View.inflate(fragment.requireContext(), R.layout.tooltip_overlay_layout, null) as ConstraintLayout
+        tooltipOverlay.isClickable = true
         tooltipOverlay.addView(prompt, 0)
         container?.addView(tooltipOverlay)
 
         val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
-        (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnBounds.top.toInt()
-        (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnBounds.left.toInt()
+        (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnLocation.y.toInt() + 8
+        (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnLocation.x.toInt()
         btnNext.text = fragment.getString(buttonText)
         btnNext.setOnClickListener(onNextButtonPressListener)
 
@@ -80,6 +80,11 @@ class CenoTooltip(
             btnExit.visibility = View.VISIBLE
         } else {
             btnExit.visibility = View.GONE
+        }
+
+        promptTextWithBtn.onUpdate = {
+            (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnLocation.y.toInt()
+            (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnLocation.x.toInt()
         }
     }
 
