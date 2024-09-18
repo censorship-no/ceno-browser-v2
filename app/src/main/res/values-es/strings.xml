@@ -349,4 +349,5 @@
     <string name="eq_news_button_text">Noticias</string>
     <string name="eq_values_button_text">Valores</string>
     <string name="about_content_para_2">El Navegador Ceno es un proyecto de eQualitie, una organización canadiense sin ánimo de lucro que crea servicios de Internet descentralizados en apoyo de una red más igualitaria y equitativa. Las soluciones de eQualitie son de código abierto, están probadas en batallas y se desarrollan teniendo en cuenta nuestros valores. Cada día hacen posible la libertad de asociación de millones de personas en la red.</string>
+    <string name="enable_debug_logs">Activar registros de depuración</string>
 </resources>
