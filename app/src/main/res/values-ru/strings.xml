@@ -341,4 +341,16 @@
     <string name="preferences_clear_behavior_option_1">Промпт</string>
     <string name="preferences_clear_behavior_option_2">Очистить только Ceno кэш</string>
     <string name="website_button_link"> https://ceno.app/ru/index.html</string>
+    <string name="preferences_clear_behavior_option_3">Очистить контент и настройки</string>
+    <string name="preferences_theme_option_2">Светлая</string>
+    <string name="preferences_theme_option_1">Тёмная</string>
+    <string name="preferences_theme_option_3">На усмотрение Battery Saver</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Скачать</string>
+    <string name="eq_news_button_text">Новости</string>
+    <string name="eq_values_button_text">Ценности</string>
+    <string name="enable_debug_logs">Включить сохранение логов</string>
+    <string name="about_content_title">Делитесь интернетом!</string>
+    <string name="support_button_text">Поддержка</string>
+    <string name="about_content_para_1">Ceno (сокращение от censorship.no!) - первый в мире мобильный браузер, способный обходить цензуру. Он использует peer-to-peer технологии для доступа к заблокированным сайтам и будет работать даже в ситуации шатдауна.</string>
+    <string name="about_content_para_2">Браузер Ceno разработан компанией eQualitie. Это канадская некоммерческая организация, которая создаёт и поддерживает децентрализованные интернет-сервисы и инфраструктуру для них. Мы верим в то, что доступ должен быть равным для всех. Наши сервисы имеют открытый исходный код и проверены в боях. Каждый день благодаря этим сервисам — Ceno, Ouisync, Deflect, — наши пользователи могут оставаться на связи и получать свежую информацию.</string>
 </resources>
