@@ -105,7 +105,7 @@
     <string name="set_default_search_engine">Поисковая система по умолчанию</string>
     <string name="bridge_mode_category">Объявления о мостах</string>
     <string name="preferences_make_default_browser">Сделайте Ceno своим браузером по умолчанию</string>
-    <string name="preferences_about_page">О eQualitie</string>
+    <string name="preferences_about_page">Об eQualitie</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;Ceno не будет распространять содержимое личных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше?&lt;/p&gt;</string>
     <string name="ceno_notification_title">Сервис браузера Ceno</string>
