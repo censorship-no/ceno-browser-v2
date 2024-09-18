@@ -109,4 +109,106 @@
     <string name="share_link_recent_apps_subheader">Naposledy použité</string>
     <string name="share_save_to_pdf">Uložit jako PDF</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="preferences_theme_option_1">Temný</string>
+    <string name="shutdown_message_one">Vymazání dat aplikace</string>
+    <string name="shutdown_message_two">Vypínání Ceno</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="preferences_make_default_browser">…Nastavte Ceno jako výchozí prohlížeč</string>
+    <string name="preferences_about_ceno">Prohlížeč Ceno</string>
+    <string name="preferences_about_page">O nás</string>
+    <string name="about_category">O nás</string>
+    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+    <string name="ceno_notification_home_description">Domů</string>
+    <string name="ceno_notification_description">Dotykem zastavíte</string>
+    <string name="ceno_notification_clear_description">Vymazat⚠</string>
+    <string name="ceno_notification_channel_name">Služba Ceno Service</string>
+    <string name="ceno_notification_clear_do_description">Ano</string>
+    <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">Oznámení prohlížeče Ceno</string>
+    <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Pokračovat</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Znovu neukazovat</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Zavit Ceno nyní</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Vymazat pouze mezipaměť Ceno</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Vymazání mezipaměti a dat aplikace Ceno</string>
+    <string name="ceno_clear_dialog_cancel">Zrušit</string>
+    <string name="ceno_clear_action_description">Vymazat</string>
+    <string name="crash_reporting_dialog_description">Pomozte nám vylepšit Ceno tím, že nám budete posílat hlášení o pádech.</string>
+    <string name="crash_reporting_always_send">Vždy posílat, zlepšit Ceno</string>
+    <string name="crash_reporting_never_send">Nikdy posílat</string>
+    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Nastavení Ceno</string>
+    <string name="default_top_site_1_title">Příručka Ceno</string>
+    <string name="onboarding_fragment">Vítejte v Ceno</string>
+    <string name="onboarding_button">Začít</string>
+    <string name="onboarding_skip_button">Přeskočit</string>
+    <string name="onboarding_info_title">Nejedná se o průměrný prohlížeč</string>
+    <string name="onboarding_battery_title">Povolení je nutné</string>
+    <string name="onboarding_battery_button">Pokračovat</string>
+    <string name="onboarding_warning_text">Optimalizace baterie je stále povolena.
+\n
+\nPřejděte na „Nastavení &gt; Zakázat optimalizaci baterie“ a dejte povolení později</string>
+    <string name="onboarding_warning_title">Povolení odepřeno</string>
+    <string name="onboarding_thanks_title">Děkujeme za rozšiřování sítě!</string>
+    <string name="preferences_toolbar_position">Umístění v horní části obrazovky</string>
+    <string name="preferences_toolbar_hide">Posunutím se skryjete</string>
+    <string name="preferences_show_home_button">Zobrazit tlačítko domů</string>
+    <string name="preferences_allow_notifications">Povolit oznámení</string>
+    <string name="preferences_disable_battery_opt">Zakázat optimalizaci baterie</string>
+    <string name="preferences_customization">Přizpůsobení</string>
+    <string name="preferences_theme_summary">Tmavý, Světlý, Úspora baterie</string>
+    <string name="preferences_theme_default">2</string>
+    <string name="ceno_sources_category">Zdroje</string>
+    <string name="preferences_ceno_sources_private">Soukromě</string>
+    <string name="preferences_ceno_sources_peers">Sdílené</string>
+    <string name="ceno_data_category">Data</string>
+    <string name="preferences_ceno_groups_count">Vámi sdílený obsah</string>
+    <string name="preferences_ceno_network_config">Podrobnosti o síti</string>
+    <string name="ouinet_client_fetch_fail">Nepodařilo se změnit nastavení Ceno</string>
+    <string name="about_content_title">Sdílejte web!</string>
+    <string name="about_content_para_1">Ceno (zkratka pro censorship.no!) je první mobilní prohlížeč na světě, který obchází současné metody cenzury internetu. Jeho peer-to-peer umožňuje lidem přistupovat k internetovým informacím a sdílet je v regionech, kde je připojení přerušeno nebo ohroženo.</string>
+    <string name="bt_sources_none">Žádné</string>
+    <string name="addon_placeholder">Nejsou k dispozici žádné doplňky</string>
+    <string name="website_button_text">Webová stránka</string>
+    <string name="source_code_button_text">Zdrojový kód</string>
+    <string name="support_button_text">Podpora</string>
+    <string name="bt_invalid_ip_error">Neplatná IP adresa</string>
+    <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_change_app_icon">Změna ikony aplikace</string>
+    <string name="preferences_theme_option_2">Světlý</string>
+    <string name="preferences_ceno_sources_origin">Stránka</string>
+    <string name="preferences_ceno_enable_log">Povolení souboru protokolu</string>
+    <string name="content_description_close_button">Zavřít</string>
+    <string name="title_success">Úspěch</string>
+    <string name="thank_you_bridge_mode_enabled">Děkujeme, že jste se stali mostem a přispíváte do sítě Ceno!</string>
+    <string name="onboarding_warning_button">Ok</string>
+    <string name="preferences_ceno_sources_public">Veřejně</string>
+    <string name="preferences_theme_option_3">Nastavení podle spořiče baterie</string>
+    <string name="eq_news_button_text">Novinky</string>
+    <string name="eq_values_button_text">Hodnoty</string>
+    <string name="ceno_clear_dialog_description">UPOZORNĚNÍ: Vymazáním mezipaměti a dat aplikace se Ceno resetuje, jako by nebyla nikdy použita.</string>
+    <string name="preferences_clear_behavior_option_2">Vymazat pouze mezipaměť Ceno</string>
+    <string name="preferences_clear_behavior_option_3">Vymazání dat aplikací a mezipaměti Ceno</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_about_ouinet_protocol">Ouinet Protokol</string>
+    <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">Doporučujeme používat aplikaci Ceno, pokud máte připojení Wi-Fi, protože může využívat více dat, než očekáváte. Při používání mobilních dat můžete aplikaci Ceno zastavit.</string>
+    <string name="ceno_clear_dialog_title">Vyčistit Ceno</string>
+    <string name="crash_reporting_dialog_title">Omlouváme se, vypadá to, že Ceno přestal pracovat!</string>
+    <string name="onboarding_battery_text">Krátce vás operační systém požádá o povolení.
+\n
+\n- Vypnout optimalizaci baterie.
+\n
+\nToje nutné pro zachování sdílení webových stránek, když je aplikace na pozadí</string>
+    <string name="onboarding_battery_text_v33">Krátce vás operační systém požádá o povolení.
+\n
+\n- Povolit oznámení
+\n- Zakázat optimalizaci baterie
+\n
+\nTo je nutné, abyste mohli pokračovat ve sdílení webových stránek, když je aplikace na pozadí</string>
+    <string name="onboarding_warning_text_v33_1">Oznámení nejsou povolena.
+\n
+\nPřejděte na „Nastavení &gt; Povolit oznámení“ a udělíte povolení později</string>
+    <string name="crash_reporting_opt_in">Děkujeme za sdílení hlášení o pádech aplikace, které pomáhají vylepšovat systém Ceno! Tuto funkci můžete vždy vypnout v Nastavení &gt; Hlášení o pádech.</string>
+    <string name="crash_reporting_opt_out">Odhlásili jste se ze sdílení hlášení o nehodách. Vždy se můžete přihlásit v Nastavení &gt; Hlášení nehod.</string>
+    <string name="onboarding_warning_text_v33_2">Oznámení nejsou povolena a optimalizace baterie je stále povolena.
+\n
+\nPřejděte do „Nastavení“ a dejte povolení později</string>
+    <string name="ceno_notification_title">Služba Browser Ceno</string>
 </resources>
