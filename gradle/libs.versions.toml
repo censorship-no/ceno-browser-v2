@@ -13,7 +13,7 @@ androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.9.0"
 
 # Android Components
-android_components = "129.0.2"
+android_components = "130.0"
 
 # Google
 google_composecompiler = "1.5.11"
@@ -44,7 +44,7 @@ gson = "2.10.1"
 tooltips = "3.3.2"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "0.28.0"
+ouinet_version = "0.29.0"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 
@@ -84,7 +84,6 @@ mozilla-browserthumbnails = { group = "org.mozilla.components", name = "browser-
 
 mozilla-featureaddons = { group = "org.mozilla.components", name = "feature-addons", version.ref = "android_components" }
 mozilla-featureapplinks = { group = "org.mozilla.components", name = "feature-app-links", version.ref = "android_components" }
-mozilla-featureautofill = { group = "org.mozilla.components", name = "feature-autofill", version.ref = "android_components" }
 mozilla-featureawesomebar = { group = "org.mozilla.components", name = "feature-awesomebar", version.ref = "android_components" }
 mozilla-featurecontextmenu = { group = "org.mozilla.components", name = "feature-contextmenu", version.ref = "android_components" }
 mozilla-featurecustomtabs = { group = "org.mozilla.components", name = "feature-customtabs", version.ref = "android_components" }

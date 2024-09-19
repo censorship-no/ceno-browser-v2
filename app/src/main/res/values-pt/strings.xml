@@ -14,8 +14,6 @@
     <string name="developer_tools_category">Ferramentas de desenvolvimento</string>
     <string name="customize_addon_collection_ok">OK</string>
     <string name="toast_customize_addon_collection_done">Coleção de extensões modificada. Saindo da aplicação para aplicar mudanças…</string>
-    <string name="preferences_autofill">Apps para autocompletar</string>
-    <string name="preferences_autofill_summary">Autocompletar logins e palavras-passe em outros apps</string>
     <string name="preferences_remote_debugging">Depuração remota via USB</string>
     <string name="preferences_tracking_protection_private">Ativar o Modo de Navegação Pessoal</string>
     <string name="privacy">Privacidade</string>

@@ -44,6 +44,7 @@ import ie.equalit.ceno.ext.createSegment
 import ie.equalit.ceno.ext.disableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.showAsFixed
 import ie.equalit.ceno.ext.withoutScheme
 import ie.equalit.ceno.pip.PictureInPictureIntegration
 import ie.equalit.ceno.search.AwesomeBarWrapper
@@ -415,16 +416,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
         else {
+            binding.toolbar.disableDynamicBehavior(
+                binding.engineView,
+                prefs.getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+                    false
+                )
+            )
+        }
         */
-        binding.toolbar.disableDynamicBehavior(
+        binding.toolbar.showAsFixed(
             binding.engineView,
             prefs.getBoolean(
                 requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
                 false
             )
         )
-        //}
-
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {

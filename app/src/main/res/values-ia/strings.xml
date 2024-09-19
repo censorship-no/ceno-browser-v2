@@ -78,8 +78,6 @@
     <string name="insecure_connection">Le connexion non es secur</string>
     <string name="not_applicable">N/D</string>
     <string name="preferences_website_sources_summary">Seliger de ubi tu vole cargar le contento del sito web</string>
-    <string name="preferences_autofill">Apps de autoplenar</string>
-    <string name="preferences_autofill_summary">Autoplenar nomines de usator e contrasignos in altere applicationes</string>
     <string name="toast_customize_addon_collection_done">Collection de additivos modificate. Quitante le application pro applicar le cambiamentos…</string>
     <string name="crash_report_non_fatal_message">Pardono, nos falleva</string>
     <string name="shortcut_max_limit_title">Limite de accessos directe attingite</string>
@@ -108,4 +106,5 @@
     <string name="share_link_recent_apps_subheader">Usate recentemente</string>
     <string name="share_save_to_pdf">Salvar como PDF</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="content_description_close_button">Clauder</string>
 </resources>

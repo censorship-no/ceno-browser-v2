@@ -266,8 +266,8 @@ open class BrowserActivity : BaseActivity() {
         components.notificationsDelegate.bindToActivity(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         components.notificationsDelegate.unBindActivity(this)
     }
 
