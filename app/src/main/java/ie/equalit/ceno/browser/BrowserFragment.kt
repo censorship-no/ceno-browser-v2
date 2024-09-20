@@ -28,7 +28,8 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.CirclePromptFocal
  * Fragment used for browsing the web within the main app.
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
-    private lateinit var tooltip: CenoTooltip
+    private var tooltip: CenoTooltip? = null
+    private var startTooltip:CenoTourStartOverlay? = null
     /* Removing WebExtension toolbar feature, see below for more details
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
      */
@@ -95,13 +96,13 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         when (state) {
                             MaterialTapTargetPrompt.STATE_FINISHED-> {
                                 requireComponents.cenoPreferences.nextTooltip += 1
-                                tooltip.dismiss()
+                                tooltip?.dismiss()
                             }
                             MaterialTapTargetPrompt.STATE_FOCAL_PRESSED-> {
-                                tooltip.dismiss()
+                                tooltip?.dismiss()
                             }
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons {
+                                tooltip?.addButtons {
                                     exitCenoTour()
                                 }
                             }
@@ -111,7 +112,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         goToNextTooltip()
                     }
                 )
-                tooltip.tooltip?.show()
+                tooltip?.tooltip?.show()
             }
             TOOLTIP_CLEAR_CENO -> {
                 tooltip = CenoTooltip(
@@ -129,10 +130,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         when (state) {
                             MaterialTapTargetPrompt.STATE_FINISHED-> {
                                 requireComponents.cenoPreferences.nextTooltip += 1
-                                tooltip.dismiss()
+                                tooltip?.dismiss()
                             }
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                                tooltip?.addButtons(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                                     exitCenoTour()
                                 }
                             }
@@ -143,15 +144,15 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                             goToNextTooltip()
                         else {
                             requireComponents.cenoPreferences.nextTooltip = -1
-                            tooltip.dismiss()
+                            tooltip?.dismiss()
                             Settings.setShowOnboarding(requireContext(), false)
                         }
                     }
                 )
-                tooltip.tooltip?.show()
+                tooltip?.tooltip?.show()
             }
             TOOLTIP_PERMISSION -> {
-                CenoTourStartOverlay(
+                startTooltip = CenoTourStartOverlay(
                     this,
                     true,
                     startListener = {
@@ -160,13 +161,14 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         askForPermissions()
                     },
                     skipListener = {}
-                ).show()
+                )
+                startTooltip?.show()
             }
         }
     }
 
     private fun exitCenoTour() {
-        tooltip.dismiss()
+        tooltip?.dismiss()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             requireComponents.cenoPreferences.nextTooltip = TOOLTIP_PERMISSION
             //show permission tooltip
@@ -180,7 +182,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     private fun goToNextTooltip() {
         requireComponents.cenoPreferences.nextTooltip += 1
-        tooltip.dismiss()
+        tooltip?.dismiss()
         showSourcesTooltip()
     }
 
@@ -191,6 +193,12 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     override fun onResume() {
         super.onResume()
         showSourcesTooltip()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        tooltip?.dismiss()
+        startTooltip?.remove()
     }
 
 

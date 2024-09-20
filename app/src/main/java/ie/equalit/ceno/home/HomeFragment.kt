@@ -65,7 +65,8 @@ import java.util.Locale
  */
 class HomeFragment : BaseHomeFragment() {
 
-    private lateinit var tooltip: CenoTooltip
+    private var tooltip: CenoTooltip? = null
+    private var startTooltip:CenoTourStartOverlay? = null
     var adapter: SessionControlAdapter? = null
 
     private var _sessionControlInteractor: SessionControlInteractor? = null
@@ -308,20 +309,33 @@ class HomeFragment : BaseHomeFragment() {
             showTooltip()
     }
 
+    override fun onPause() {
+        super.onPause()
+        startTooltip?.remove()
+        tooltip?.dismiss()
+    }
+
     fun showTooltip() {
         when (requireComponents.cenoPreferences.nextTooltip) {
             BEGIN_TOUR_TOOLTIP -> {
-                CenoTourStartOverlay(this, false,
+                startTooltip = CenoTourStartOverlay(this, false,
                     skipListener =
                     {
-                        requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
-                        showTooltip()
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
+                            //show permission tooltip
+                            showTooltip()
+                        }
+                        else {
+                            requireComponents.cenoPreferences.nextTooltip = -1
+                        }
                     },
                     startListener = {
                         requireComponents.cenoPreferences.nextTooltip += 1
                         showTooltip()
                     }
-                ).show()
+                )
+                startTooltip?.show()
             }
             PUBLIC_PERSONAL_TOOLTIP -> {
                 tooltip = CenoTooltip(this,
@@ -333,7 +347,7 @@ class HomeFragment : BaseHomeFragment() {
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when(state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons {
+                                tooltip?.addButtons {
                                     exitCenoTour()
                                 }
                             }
@@ -341,7 +355,7 @@ class HomeFragment : BaseHomeFragment() {
                     },
                     onNextButtonPressListener = ::goToNextTooltip
                 )
-                tooltip.tooltip?.show()
+                tooltip?.tooltip?.show()
             }
             SHORTCUTS_TOOLTIP -> {
                 tooltip = CenoTooltip(this,
@@ -353,7 +367,7 @@ class HomeFragment : BaseHomeFragment() {
                     listener = { _: MaterialTapTargetPrompt, state: Int ->
                         when(state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons {
+                                tooltip?.addButtons {
                                     exitCenoTour()
                                 }
                             }
@@ -362,7 +376,7 @@ class HomeFragment : BaseHomeFragment() {
                     onNextButtonPressListener = ::goToNextTooltip
 
                 )
-                tooltip.tooltip?.show()
+                tooltip?.tooltip?.show()
             }
             TOOLBAR_TOOLTIP -> {
                 tooltip = CenoTooltip(this,
@@ -373,12 +387,12 @@ class HomeFragment : BaseHomeFragment() {
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip.addButtons() {
+                                tooltip?.addButtons() {
                                     exitCenoTour()
                                 }
                             }
                             MaterialTapTargetPrompt.STATE_FOCAL_PRESSED -> {
-                                tooltip.dismiss()
+                                tooltip?.dismiss()
                                 requireComponents.cenoPreferences.nextTooltip += 1
                             }
                         }
@@ -395,10 +409,10 @@ class HomeFragment : BaseHomeFragment() {
                     }
                 )
 
-                tooltip.tooltip?.show()
+                tooltip?.tooltip?.show()
             }
             BrowserFragment.TOOLTIP_PERMISSION -> {
-                CenoTourStartOverlay(
+                startTooltip = CenoTourStartOverlay(
                     this,
                     true,
                     startListener = {
@@ -406,19 +420,20 @@ class HomeFragment : BaseHomeFragment() {
                         askForPermissions()
                     },
                     skipListener = {}
-                ).show()
+                )
+                startTooltip?.show()
             }
         }
     }
 
     private fun goToNextTooltip(view:View) {
         requireComponents.cenoPreferences.nextTooltip += 1
-        tooltip.dismiss()
+        tooltip?.dismiss()
         showTooltip()
     }
     private fun exitCenoTour() {
         //exit tour
-        tooltip.dismiss()
+        tooltip?.dismiss()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
             //show permission tooltip

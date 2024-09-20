@@ -46,7 +46,6 @@ class CenoTooltip(
             .setAutoFinish(isAutoFinish)
             .setCaptureTouchEventOnFocal(stopCaptureTouchOnFocal)
             .setCaptureTouchEventOutsidePrompt(true)
-            .setIdleAnimationEnabled(false)
         tooltip = tooltipBuilder.create()
 
     }
