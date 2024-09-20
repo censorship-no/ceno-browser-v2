@@ -88,7 +88,7 @@
     <string name="preference_search_summary">انتخاب به‌عنوان پیش‌فرض</string>
     <string name="secure_connection">ارتباط امن است</string>
     <string name="not_applicable">موجود نیست</string>
-    <string name="crash_report_sent">گزارش خرابی ارسال شد!</string>
+    <string name="crash_report_sent">گزارش اشکال ارسال شد!</string>
     <string name="preferences_website_sources_summary">انتخاب کنید که می‌خواهید محتوای وب‌سایت را از کجا بارگذاری کنید</string>
     <string name="browser_menu_back">بازگشت</string>
     <string name="general_category">عمومی</string>
@@ -236,7 +236,7 @@
     <string name="preferences_ceno_sources_public_udp">نقاط پایانی UDP عمومی</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">بوت‌استرپ اضافی بیت‌تورنت</string>
     <string name="preferences_ceno_enable_log">فعال‌سازی فایل گزارش (log)</string>
-    <string name="preferences_ceno_download_log">خروجی گزارش وی‌نت</string>
+    <string name="preferences_ceno_download_log">خروجی از گزارش وی‌نت</string>
     <string name="preferences_ceno_export_android_logs">خروجی از گزارش کامل اپلیکیشن</string>
     <string name="preferences_ceno_bridge_announcement">فعال‌سازی حالت پل</string>
     <string name="changeIconDialogTitle">آیکون جدید اعمال شود؟</string>
