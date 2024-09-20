@@ -384,6 +384,7 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.tooltip_toolbar_title),
                     secondaryText = getString(R.string.tooltip_toolbar_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
+                    buttonText = R.string.top_sites_rename_dialog_ok,
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
@@ -398,14 +399,8 @@ class HomeFragment : BaseHomeFragment() {
                         }
                     },
                     onNextButtonPressListener = {
-                        //show a dialog that asks user to enter the url
-                        AlertDialog.Builder(requireContext()).apply {
-                            setTitle("Input Needed")
-                            setMessage("Please enter a url or search phrase to continue")
-                            setPositiveButton(R.string.dialog_btn_positive_ok) { dialog:DialogInterface, _ ->
-                                dialog.dismiss()
-                            }
-                        }.show()
+                        requireComponents.cenoPreferences.nextTooltip += 1
+                        tooltip?.dismiss()
                     }
                 )
 
