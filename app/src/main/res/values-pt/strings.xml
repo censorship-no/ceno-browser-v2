@@ -148,7 +148,7 @@
     <string name="ceno_clear_action_description">Limpar</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="preferences_make_default_browser">Faça o Ceno o seu navegador padrão</string>
-    <string name="preferences_about_page">Sobre eQualitie</string>
+    <string name="preferences_about_page">Sobre e qualidade</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/pt_BR/concepts/public-private.html</string>
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Configurações Ceno</string>
     <string name="default_top_site_1_title">Manual Ceno</string>
@@ -329,4 +329,5 @@
     <string name="error_page_learn_more">Saber mais</string>
     <string name="error_page_learn_more_header">Você deve certificar-se de que os seguintes requisitos sejam atendidos para que o Ceno funcione</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="about_content_title">Compartilhe a Web!</string>
 </resources>
