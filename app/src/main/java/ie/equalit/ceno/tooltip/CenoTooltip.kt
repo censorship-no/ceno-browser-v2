@@ -1,10 +1,10 @@
 package ie.equalit.ceno.tooltip
 
 import android.view.View
-import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
@@ -29,7 +29,7 @@ class CenoTooltip(
     val promptTextWithBtn = PromptTextWithBtn(
         fragment.resources.displayMetrics.density * 40f
     )
-    var isButtonPressed:Boolean = false
+    var btnLocationY: Int = 0
 
     init {
         tooltipBuilder = MaterialTapTargetPrompt.Builder(fragment)
@@ -45,6 +45,8 @@ class CenoTooltip(
             .setPromptStateChangeListener(listener)
             .setAutoFinish(isAutoFinish)
             .setCaptureTouchEventOnFocal(stopCaptureTouchOnFocal)
+            .setCaptureTouchEventOutsidePrompt(true)
+            .setIdleAnimationEnabled(false)
         tooltip = tooltipBuilder.create()
 
     }
@@ -64,13 +66,16 @@ class CenoTooltip(
         val prompt = container?.findViewById<View>(R.id.material_target_prompt_view)
         container?.removeView(prompt)
         val tooltipOverlay = View.inflate(fragment.requireContext(), R.layout.tooltip_overlay_layout, null) as ConstraintLayout
-        tooltipOverlay.isClickable = true
         tooltipOverlay.addView(prompt, 0)
         container?.addView(tooltipOverlay)
 
         val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
-        (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnLocation.y.toInt() + 8
-        (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnLocation.x.toInt()
+        btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(tooltipOverlay)
+        constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.START, R.id.tooltip_overlay_layout, ConstraintSet.START, promptTextWithBtn.btnLocation.x.toInt())
+        constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.TOP, R.id.tooltip_overlay_layout, ConstraintSet.TOP, promptTextWithBtn.btnLocation.y.toInt())
+        constraintSet.applyTo(tooltipOverlay)
         btnNext.text = fragment.getString(buttonText)
         btnNext.setOnClickListener(onNextButtonPressListener)
 
@@ -83,8 +88,14 @@ class CenoTooltip(
         }
 
         promptTextWithBtn.onUpdate = {
-            (btnNext.layoutParams as MarginLayoutParams).topMargin = promptTextWithBtn.btnLocation.y.toInt()
-            (btnNext.layoutParams as MarginLayoutParams).marginStart = promptTextWithBtn.btnLocation.x.toInt()
+            if (btnLocationY != promptTextWithBtn.btnLocation.y.toInt()) {
+                btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(tooltipOverlay)
+                constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.START, R.id.tooltip_overlay_layout, ConstraintSet.START, promptTextWithBtn.btnLocation.x.toInt())
+                constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.TOP, R.id.tooltip_overlay_layout, ConstraintSet.TOP, promptTextWithBtn.btnLocation.y.toInt())
+                constraintSet.applyTo(tooltipOverlay)
+            }
         }
     }
 

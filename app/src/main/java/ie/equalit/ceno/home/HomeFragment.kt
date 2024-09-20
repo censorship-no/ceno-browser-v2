@@ -1,6 +1,7 @@
 package ie.equalit.ceno.home
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -327,18 +329,19 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.onboarding_public_or_personal_title),
                     secondaryText = getString(R.string.onboarding_public_personal_text),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
+                    stopCaptureTouchOnFocal = true,
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
-                        if (state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED && tooltip.isButtonPressed) {
-                            requireComponents.cenoPreferences.nextTooltip += 1
-                            tooltip.dismiss()
+                        when(state) {
+                            MaterialTapTargetPrompt.STATE_REVEALED -> {
+                                tooltip.addButtons {
+                                    exitCenoTour()
+                                }
+                            }
                         }
                     },
                     onNextButtonPressListener = ::goToNextTooltip
                 )
                 tooltip.tooltip?.show()
-                tooltip.addButtons() {
-                    exitCenoTour()
-                }
             }
             SHORTCUTS_TOOLTIP -> {
                 tooltip = CenoTooltip(this,
@@ -346,6 +349,7 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.top_sites_title),
                     secondaryText = getString(R.string.tooltip_shortcuts_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
+                    stopCaptureTouchOnFocal = true,
                     listener = { _: MaterialTapTargetPrompt, state: Int ->
                         when(state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
@@ -373,12 +377,21 @@ class HomeFragment : BaseHomeFragment() {
                                     exitCenoTour()
                                 }
                             }
+                            MaterialTapTargetPrompt.STATE_FOCAL_PRESSED -> {
+                                tooltip.dismiss()
+                                requireComponents.cenoPreferences.nextTooltip += 1
+                            }
                         }
                     },
                     onNextButtonPressListener = {
-                        requireComponents.cenoPreferences.nextTooltip += 1
-                        tooltip.dismiss()
-                        (activity as BrowserActivity).openToBrowser("https://example.com/", newTab = true)
+                        //show a dialog that asks user to enter the url
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle("Input Needed")
+                            setMessage("Please enter a url or search phrase to continue")
+                            setPositiveButton(R.string.dialog_btn_positive_ok) { dialog:DialogInterface, _ ->
+                                dialog.dismiss()
+                            }
+                        }.show()
                     }
                 )
 

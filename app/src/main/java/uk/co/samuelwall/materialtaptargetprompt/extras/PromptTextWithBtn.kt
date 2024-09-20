@@ -33,14 +33,14 @@ class PromptTextWithBtn(
 
         val verticalTextPositionAbove = options.promptFocal.bounds.centerY() > clipBounds.centerY()
         if (verticalTextPositionAbove) {
-            mPrimaryTextTop -= buttonHeight + (2*textSeparation)
-            mTextBounds.top -= buttonHeight + (2*textSeparation)
+            mPrimaryTextTop -= buttonHeight + textSeparation
+            mTextBounds.top -= buttonHeight + textSeparation
         } else {
-            mTextBounds.bottom += buttonHeight + (2*textSeparation)
+            mTextBounds.bottom += buttonHeight + (textSeparation)
         }
 
         btnLocation.x = mPrimaryTextLeft
-        btnLocation.y = mTextBounds.top + mPrimaryTextLayout.height + textSeparation + mSecondaryTextLayout.height + (textSeparation *2)
+        btnLocation.y = mTextBounds.top + mPrimaryTextLayout.height + textSeparation + mSecondaryTextLayout.height + textSeparation
 
         onUpdate?.invoke()
     }

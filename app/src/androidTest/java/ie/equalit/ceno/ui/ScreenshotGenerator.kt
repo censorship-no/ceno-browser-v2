@@ -3,6 +3,8 @@ package ie.equalit.ceno.ui
 import android.os.Build
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.helpers.AndroidAssetDispatcher
+import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.denyPermissions
@@ -12,9 +14,9 @@ import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
 import ie.equalit.ceno.ui.robots.waitForNextTooltipButton
 import ie.equalit.ceno.ui.robots.waitForPermissionsTooltip
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,10 +29,10 @@ import tools.fastlane.screengrab.locale.LocaleTestRule
 
 @RunWith(JUnit4::class)
 class ScreenshotGenerator {
+    private lateinit var mockWebServer: MockWebServer
 
     @get:Rule
     var activityRule = ActivityScenarioRule(BrowserActivity::class.java)
-
 
     @Rule
     @JvmField
@@ -40,11 +42,17 @@ class ScreenshotGenerator {
     fun setUp() {
         Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
         CleanStatusBar.enableWithDefaults()
+
+        mockWebServer = MockWebServer().apply {
+            dispatcher = AndroidAssetDispatcher()
+            start()
+        }
     }
 
     @After
     fun after() {
         CleanStatusBar.disable()
+        mockWebServer.shutdown()
     }
 
     @Test
@@ -70,8 +78,11 @@ class ScreenshotGenerator {
             waitForNextTooltipButton()
             Thread.sleep(1000)
             Screengrab.screenshot("003_tooltip_address_bar")
-            clickNext()
-
+        }
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser(TestAssetHelper.getGenericAsset(mockWebServer, 1).url){
+        }
+        onboarding {
             waitForNextTooltipButton()
             Thread.sleep(1000)
             Screengrab.screenshot("004_tooltip_ceno_sources")

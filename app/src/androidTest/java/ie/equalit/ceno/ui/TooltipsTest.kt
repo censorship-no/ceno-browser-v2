@@ -14,6 +14,7 @@ import ie.equalit.ceno.ui.robots.OnboardingRobot
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.givePermissions
+import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -49,6 +50,7 @@ class TooltipsTest {
 
     @Test
     fun allTooltipsTest() {
+        val genericOneURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         onboarding {
             verifyStartTooltipExists()
             verifyStartTooltipText()
@@ -59,7 +61,11 @@ class TooltipsTest {
             verifyShortcutsTooltip()
             clickNext()
             verifyUrlTooltip()
-            clickNext()
+        }
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser(genericOneURL.url) {
+        }
+        onboarding {
             verifySourcesTooltip()
             clickNext()
             verifyClearTooltip()
