@@ -166,8 +166,15 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     }
 
     private fun exitCenoTour() {
-        requireComponents.cenoPreferences.nextTooltip = -1
         tooltip.dismiss()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requireComponents.cenoPreferences.nextTooltip = TOOLTIP_PERMISSION
+            //show permission tooltip
+            showSourcesTooltip()
+        }
+        else {
+            requireComponents.cenoPreferences.nextTooltip = -1
+        }
         Settings.setShowOnboarding(requireContext(), false)
     }
 
