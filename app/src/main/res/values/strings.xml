@@ -396,7 +396,7 @@
     <string name="tooltip_toolbar_description">Type in a website address to start browsing</string>
     <string name="tooltip_sources_title">Ceno Sources</string>
     <string name="tooltip_sources_description">Easily see where the site\'s content is fetched from - directly from the website, via the Ceno network, or from the Ceno cache</string>
-    <string name="tooltip_permission_text">To keep sharing websites seamlessly even when the app is in the background, Ceno requires you to allow notifications and disable battery optimizations. You can always adjust these permissions later in your phone\'s settings</string>
+    <string name="tooltip_permission_text">To keep sharing websites seamlessly even when the app is in the background, please allow Ceno to send notifications and disable battery optimizations. You can always adjust these permissions later in your phone\'s settings</string>
 
     <string name="standby_tip_title">Tip</string>
     <string name="standby_tip_bridge">Become a bridge, help others access websites</string>
