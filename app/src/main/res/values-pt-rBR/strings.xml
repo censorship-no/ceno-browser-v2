@@ -335,7 +335,7 @@
     <string name="preferences_theme_option_3">Definido pela economia de bateria</string>
     <string name="preferences_clear_behavior_option_1">Prompt</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
-    <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="website_button_link">https://censorship.no/pt_BR/index.html</string>
     <string name="about_content_title">Compartilhe a Web!</string>
     <string name="about_content_para_1">Ceno (abreviação de censorship.no!) é o primeiro navegador móvel do mundo que contorna os métodos atuais de censura da Internet. Seu backbone de ponto a ponto permite que as pessoas acessem e compartilhem informações da Web em regiões onde a conectividade foi interrompida ou comprometida.</string>
     <string name="eq_values_button_text">Princípios</string>
