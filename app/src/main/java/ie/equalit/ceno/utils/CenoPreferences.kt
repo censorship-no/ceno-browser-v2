@@ -119,7 +119,12 @@ class CenoPreferences(private val appContext: Context,) : PreferencesHolder {
 
     var isModeCardExpanded by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_mode_card_expanded),
-        default = true
+        default = false
+    )
+
+    var nextTooltip by intPreference(
+        appContext.getPreferenceKey(R.string.pref_key_ceno_tour),
+        default = 1
     )
 
     /**
