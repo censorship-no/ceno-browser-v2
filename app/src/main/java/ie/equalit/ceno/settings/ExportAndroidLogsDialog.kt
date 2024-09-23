@@ -23,6 +23,7 @@ import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.dialogs.ExtraBTBootstrapsDialog
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOG
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES

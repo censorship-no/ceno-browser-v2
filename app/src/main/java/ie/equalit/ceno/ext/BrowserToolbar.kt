@@ -86,6 +86,13 @@ fun BrowserToolbar.showAsFixed(engineView: EngineView, shouldUseTopToolbar  : Bo
     val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
     engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
+    (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
+        Gravity.TOP
+    }
+    else {
+        Gravity.BOTTOM
+    }
+
     engineView.asView().translationY = if (shouldUseTopToolbar) {
         context.resources.getDimension(R.dimen.browser_toolbar_height)
     }

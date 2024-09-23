@@ -408,6 +408,7 @@ dependencies {
 
     implementation libs.thirdparty.sentry
     implementation libs.thirdparty.gson
+    implementation libs.thirdparty.tooltips
 
     implementation libs.kotlin.coroutines
     implementation libs.kotlin.serialization
