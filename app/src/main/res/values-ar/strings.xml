@@ -120,8 +120,8 @@
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">إيقاف سنو الآن</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">تابع</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">لا تُظهِر مرة أخرى</string>
-    <string name="onboarding_fragment">مرحباً بكم في سنو</string>
-    <string name="onboarding_button">ابدأ الآن</string>
+    <string name="onboarding_welcome_title">مرحباً بكم في سنو</string>
+    <string name="onboarding_btn_get_started">ابدأ الآن</string>
     <string name="onboarding_info_title">ليس متصفحك العادي</string>
     <string name="preferences_theme_default">2</string>
     <string name="ceno_sources_category">المصادر</string>
@@ -175,7 +175,7 @@
     <string name="onboarding_warning_text_v33_2">الإشعارات غير مسموح بها وما يزال تحسين البطارية مُمَكَّنًا.
 \n
 \nانتقل إلى \"الإعدادات\" لمنح الإذن لاحقاً</string>
-    <string name="onboarding_battery_title">الإذن مطلوب</string>
+    <string name="onboarding_permissions_title">الإذن مطلوب</string>
     <string name="onboarding_battery_text_v33">سيطلب منك نظام التشغيل قريباً الإذن لِـ
 \n
 \n• السماح بالإشعارات
