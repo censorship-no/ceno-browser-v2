@@ -145,7 +145,7 @@
     <string name="onboarding_thanks_title">Дякуємо за розширення мережі!</string>
     <string name="preferences_toolbar_position">Розмістіть у верхній частині екрана</string>
     <string name="preferences_toolbar_hide">Прогорніть, щоб приховати</string>
-    <string name="preferences_show_onboarding">Показати вхід під час наступного запуску</string>
+    <string name="preferences_show_onboarding">Показувати підказки при наступному запуску</string>
     <string name="preferences_customization">Налаштування</string>
     <string name="ceno_clear_dialog_cancel">Відмінити</string>
     <string name="ceno_clear_dialog_clear_cache_only">Очистити Ceno тільки кеш</string>
@@ -217,12 +217,10 @@
     <string name="ceno_onboarding_start_title">Поширюйте веб
 \nвід користувача до користувача</string>
     <string name="onboarding_public_or_personal_title">Публічний чи персональний?</string>
-    <string name="onboarding_public_personal_text">Використовуйте Публічні вкладки аби читати новини, дивитися відео чи загальний серфінг в інтернеті. Поширюйте цей контент з іншими користувачами Ceno.
-\n
-\nПерсональні вкладки краще підходять для акаунтів у соцмережах, магазинів онлайн-покупок і перегляду веб-сайтів, інформацією про які ви не хочете ділитися з іншими.</string>
+    <string name="onboarding_public_personal_text">Використовуйте Публічні вкладки для читання новин, перегляду відео та загального веб-серфінгу. У Публічному режимі ви також можете ділитися веб-вмістом з іншими користувачами Ceno. Персональні вкладки краще підходять для акаунтів у соціальних мережах, онлайн-покупок і перегляду веб-сайтів, якими ви не хочете ділитися з іншими.</string>
     <string name="onboarding_cleanup_title">Очистити все,
 \nусюди, все й відразу</string>
-    <string name="onboarding_cleanup_text">Очистіть історію браузера, облікові дані та будь-які сліди, які ви залишили в Ceno за допомогою однієї кнопки.</string>
+    <string name="onboarding_cleanup_text">Очистіть історію переглядів, облікові дані та будь-які сліди, які ви залишили в Ceno за допомогою однієї кнопки.</string>
     <string name="ceno_onboarding_start_text">Ceno’s одноранговий (піринговий) протокол дозволяє людям отримувати доступ до вмісту веб-сайту та обмінюватися ним у регіонах, де з’єднання було перервано або порушено.</string>
     <string name="ceno_home_card_personal_text">Менш швидкий зв\'язок, однак більше конфіденційності. Аби логінитися в акаунти, не залишаючи слідів</string>
     <string name="ceno_home_card_public_text">Хороша якість зв\'язку, однак менше конфіденційності. Для читання новин, перегляду відео та обміну контентом з іншими</string>
@@ -352,4 +350,23 @@
     <string name="eq_values_button_text">Цінності</string>
     <string name="about_content_title">Поділіться інтернетом!</string>
     <string name="about_content_para_1">Ceno (скорочення від censorship.no!) – це перший у світі мобільний браузер, який обходить наявні методи цензури в Інтернеті. Його пірингова основа дозволяє людям отримувати доступ до веб-інформації та обмінюватися нею в регіонах, де зв\'язок був перерваний або скомпрометований.</string>
+    <string name="skip_the_tour_button">Пропустити підказки</string>
+    <string name="btn_exit">Вийти</string>
+    <string name="tooltip_toolbar_title">До перегляду!</string>
+    <string name="tooltip_toolbar_description">Введіть адресу веб-сайту, щоб почати перегляд</string>
+    <string name="tooltip_sources_title">Джерела Сeno</string>
+    <string name="standby_tip_icon">Змініть іконку застосунку, аби приховати користування браузером Ceno</string>
+    <string name="standby_tip_pdf">Поширюй веб-сторінки як файли PDF</string>
+    <string name="standby_tip_announcements">Слідкуйте за оновленнями в розділі анонсів</string>
+    <string name="top_sites_title">Ярлики для швидкого доступу</string>
+    <string name="change_language">Змініть мову</string>
+    <string name="update">Оновлення</string>
+    <string name="tooltip_sources_description">Легко бачити, звідки завантажується вміст сайту – безпосередньо з сайту, через мережу Ceno або з кешу Ceno</string>
+    <string name="tooltip_permission_text">Щоб безперешкодно ділитися веб-сайтами, навіть коли програма працює у фоновому режимі, дозвольте Ceno надсилати сповіщення та вимкніть оптимізацію заряду акумулятора. Ви завжди можете змінити ці дозволи пізніше в налаштуваннях телефону</string>
+    <string name="standby_tip_title">Підказка</string>
+    <string name="standby_tip_bridge">Станьте мостом, допоможіть іншим отримати доступ до веб-сайтів</string>
+    <string name="preferences_change_language">Змінити мову</string>
+    <string name="start_tooltip_description">Відкрийте для себе весь потенціал Ceno – перегляньте підказки, щоб дізнатися про ключові функції та дозволи, які допоможуть надавати спільний доступ до інтернету, навіть коли застосунок працює у фоновому режимі.</string>
+    <string name="btn_next">Далі</string>
+    <string name="tooltip_shortcuts_description">Збережіть улюблені сайти як ярлики для швидкого доступу до них з домашньої сторінки.</string>
 </resources>
