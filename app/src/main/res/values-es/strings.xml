@@ -144,7 +144,7 @@
     <string name="onboarding_thanks_title">¡Gracias por hacer crecer la red!</string>
     <string name="preferences_toolbar_position">Colocar en la parte superior de la pantalla</string>
     <string name="preferences_toolbar_hide">Desplácese para ocultar</string>
-    <string name="preferences_show_onboarding">Mostrar la incorporación en el próximo lanzamiento</string>
+    <string name="preferences_show_onboarding">Mostrar información sobre herramientas en el próximo lanzamiento</string>
     <string name="preferences_disable_battery_opt">Desactivar la Optimización de Batería</string>
     <string name="preferences_customization">Personalización</string>
     <string name="about_content">&lt;p&gt;%1$s - ¡Comparte la Web!&lt;/p&gt; &lt;p&gt;Ceno (abreviatura de censorship.no!) es el primer navegador móvil del mundo que elude los métodos actuales de censura en Internet. Su red troncal peer-to-peer permite a las personas acceder y compartir información web en y entre regiones donde la conectividad se ha interrumpido o se ha visto comprometida. &lt;/p&gt; &lt;p&gt;%1$s es un proyecto de &lt;a href=https://equalit.ie/&gt;eQualit.ie&lt;/a&gt;, una organización canadiense sin fines de lucro que crea servicios de Internet descentralizados en apoyo de una red más igualitaria y equitativa. Las soluciones de eQualitie son de código abierto, probadas en batalla y desarrolladas teniendo en cuenta nuestros valores. Todos los días, permiten la libertad de asociación para millones de personas en línea.&lt;/p&gt;</string>
@@ -217,12 +217,10 @@
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal peer-to-peer de Ceno permite a las personas acceder y compartir el contenido de las páginas web en y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
     <string name="onboarding_public_or_personal_title">¿Pública o personal?</string>
-    <string name="onboarding_public_personal_text">Utilice las pestañas públicas para leer noticias, ver vídeos y navegar por Internet en general. Comparte contenidos web con otros usuarios de Ceno.
-\n
-\nLas pestañas personales son más adecuadas para las sociales, compras en línea y navegación por páginas web que no desea compartir con otros.</string>
+    <string name="onboarding_public_personal_text">Utilice las pestañas públicas para leer noticias, ver vídeos y navegar por Internet en general. En el modo Público, también puedes compartir contenido web con otros usuarios de Ceno. Las pestañas personales son más adecuadas para cuentas de redes sociales, compras en línea y navegación por páginas web que no desea compartir con otros.</string>
     <string name="onboarding_cleanup_title">Limpiar todo,
 \nen todas partes, todo a la vez</string>
-    <string name="onboarding_cleanup_text">Borra el historial del navegador, las credenciales y cualquier rastro que hayas dejado en Ceno con un solo botón.</string>
+    <string name="onboarding_cleanup_text">Borra tu historial de navegación, credenciales y cualquier rastro que hayas dejado en Ceno con un solo botón.</string>
     <string name="ceno_home_card_public_text">La mejor conectividad, menos privacidad. Para leer noticias, ver vídeos y compartir con los demás</string>
     <string name="ceno_home_card_personal_title">PERSONAL</string>
     <string name="ceno_home_card_public_title">PÚBLICA</string>
@@ -350,4 +348,23 @@
     <string name="eq_values_button_text">Valores</string>
     <string name="about_content_para_2">El Navegador Ceno es un proyecto de eQualitie, una organización canadiense sin ánimo de lucro que crea servicios de Internet descentralizados en apoyo de una red más igualitaria y equitativa. Las soluciones de eQualitie son de código abierto, están probadas en batallas y se desarrollan teniendo en cuenta nuestros valores. Cada día hacen posible la libertad de asociación de millones de personas en la red.</string>
     <string name="enable_debug_logs">Activar registros de depuración</string>
+    <string name="top_sites_title">Atajos</string>
+    <string name="preferences_change_language">Cambiar idioma</string>
+    <string name="standby_tip_title">Consejo</string>
+    <string name="standby_tip_bridge">Conviértete en un puente, ayuda a otros a acceder a las páginas web</string>
+    <string name="standby_tip_icon">Cambiar el icono de la aplicación para ocultar Ceno</string>
+    <string name="standby_tip_pdf">Compartir páginas web como PDF</string>
+    <string name="update">Actualizar</string>
+    <string name="change_language">Cambiar idioma</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="start_tooltip_description">Desbloquea todo el potencial de Ceno - Realiza una visita guiada para descubrir las funciones clave y permite que los permisos ayuden a compartir la web incluso cuando la aplicación está en segundo plano.</string>
+    <string name="tooltip_shortcuts_description">Guarda tus páginas favoritas como accesos directos para acceder fácilmente desde tu página de inicio.</string>
+    <string name="skip_the_tour_button">Omitir el tour</string>
+    <string name="btn_exit">Salir</string>
+    <string name="tooltip_toolbar_title">¡A navegar!</string>
+    <string name="tooltip_toolbar_description">Escriba la dirección de una página web para empezar a navegar</string>
+    <string name="tooltip_sources_title">Fuentes de Ceno</string>
+    <string name="tooltip_sources_description">Vea fácilmente de dónde se obtiene el contenido de la página: directamente de la página web, a través de la red de Ceno o de la caché de Ceno</string>
+    <string name="tooltip_permission_text">Para seguir compartiendo páginas web sin problemas incluso cuando la aplicación está en segundo plano, permite que Ceno envíe notificaciones y desactiva las optimizaciones de batería. Siempre puedes ajustar estos permisos más tarde en la configuración de tu teléfono</string>
+    <string name="standby_tip_announcements">Consulte las actualizaciones en la sección de anuncios</string>
 </resources>
