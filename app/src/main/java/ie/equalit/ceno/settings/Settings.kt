@@ -335,4 +335,12 @@ object Settings {
             .apply()
     }
 
+    fun clearAnnouncementData(context: Context) {
+        val key = context.getString(R.string.pref_key_rss_announcement_data)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .remove(key)
+            .apply()
+    }
+
 }
