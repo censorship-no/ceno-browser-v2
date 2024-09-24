@@ -1,0 +1,27 @@
+# v2.3.0
+Esta versión:
+- Añade la opción de configuración para cambiar el idioma de la aplicación
+- Sustitución de las pantallas de introducción por una introducción guiada por herramientas.
+- Actualización de la interfaz de usuario de la página de espera
+- Actualiza las traducciones a varios idiomas.
+
+# v2.2.3
+Esta versión del parche:
+- Añade la opción de exportar registros desde la página de espera
+- Elimina el servicio de autorrelleno de las opciones de configuración
+- Corrige un error de interfaz de usuario en el que la barra de herramientas cubría parte de la vista web.
+- Actualiza Android-Components a v130.0
+- Actualiza Ouinet a v0.29.0
+- Fuerza la barra de herramientas a la posición superior para Android 7.1 y anteriores
+- Corrección de errores menores
+- Actualiza las traducciones para varios idiomas
+
+# v2.2.2
+Esta versión del parche:
+
+- Actualiza Android-Components a 129.0.2
+- Actualiza Ouinet a v0.28.0
+- Actualiza la interfaz de usuario para la página acerca de con nuevos enlaces y logotipos actualizados
+- Establece la posición predeterminada de la barra de herramientas en la parte superior para Android 7.1 y anteriores
+- Refactoriza los recursos de cadena
+- Actualiza las traducciones para determinadas localizaciones
