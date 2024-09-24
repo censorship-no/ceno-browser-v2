@@ -353,4 +353,9 @@
     <string name="support_button_text">Поддержка</string>
     <string name="about_content_para_1">Ceno (сокращение от censorship.no!) - первый в мире мобильный браузер, способный обходить цензуру. Он использует peer-to-peer технологии для доступа к заблокированным сайтам и будет работать даже в ситуации шатдауна.</string>
     <string name="about_content_para_2">Браузер Ceno разработан компанией eQualitie. Это канадская некоммерческая организация, которая создаёт и поддерживает децентрализованные интернет-сервисы и инфраструктуру для них. Мы верим в то, что доступ должен быть равным для всех. Наши сервисы имеют открытый исходный код и проверены в боях. Каждый день благодаря этим сервисам — Ceno, Ouisync, Deflect, — наши пользователи могут оставаться на связи и получать свежую информацию.</string>
+    <string name="preferences_change_language">Изменить язык</string>
+    <string name="change_language">Изменить язык</string>
+    <string name="btn_exit">Выход</string>
+    <string name="btn_next">Далее</string>
+    <string name="skip_the_tour_button">Пропустить</string>
 </resources>
