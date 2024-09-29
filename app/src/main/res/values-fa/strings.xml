@@ -130,7 +130,7 @@
     <string name="onboarding_info_title">مرورگر معمولی شما نیست</string>
     <string name="onboarding_skip_button">رد کردن</string>
     <string name="onboarding_warning_button">باشه</string>
-    <string name="preferences_show_onboarding">نمایش صفحات آشناسازی در اجرای بعدی</string>
+    <string name="preferences_show_onboarding">نمایش نکات راهنما در اجرای بعدی</string>
     <string name="preferences_disable_battery_opt">غیرفعال کردن بهینه‌سازی باتری</string>
     <string name="onboarding_btn_get_started">شروع کنید</string>
     <string name="onboarding_battery_text">به زودی سیستم‌عامل از شما این مجوز را می‌خواهد
@@ -214,9 +214,7 @@
     <string name="ceno_onboarding_start_text">ساختار همتا‌به‌همتای سنو به افراد امکان می‌دهد به محتوای وب‌سایت در مناطقی که اتصال اینترنت قطع شده یا به خطر افتاده، دسترسی داشته باشند و محتوا را به اشتراک بگذارند.</string>
     <string name="ceno_onboarding_start_title">به‌صورت همتا‌به‌همتا
 \nوب را به‌ دست‌به‌دست کن</string>
-    <string name="onboarding_public_personal_text">از زبانه‌های عمومی برای خواندن اخبار، تماشای فیلم و به‌طور کلی وب‌گردی استفاده کنید. محتوای وب را با سایر کاربران سنو به اشتراک بگذارید.
-\n
-\nزبانه‌های شخصی برای حساب‌های شبکه‌های اجتماعی، خرید آنلاین و مرور وب‌سایت‌هایی که نمی‌خواهید با دیگران به اشتراک بگذارید، مناسب‌تر است.</string>
+    <string name="onboarding_public_personal_text">از زبانه‌های عمومی برای خواندن اخبار، تماشای فیلم، و به‌طور کلی وب‌گردی استفاده کنید. هم‌چنین در حالت عمومی می‌توانید محتوای وب را با سایر کاربران سنو به اشتراک بگذارید. زبانه‌های شخصی برای حساب‌های شبکه‌های اجتماعی، خرید آنلاین و مرور وب‌سایت‌هایی که نمی‌خواهید با دیگران به اشتراک بگذارید، مناسب‌تر است.</string>
     <string name="ouinet_timeout_dialog_text">سنو برای کار کردن نیاز به اتصال به اینترنت دارد. لطفا تنظیمات شبکه خود را بررسی کنید.</string>
     <string name="ceno_ouinet_connecting">در حال اتصال به شبکه سنو</string>
     <string name="ceno_personal_browsing_description">سنو محتوای زبانه‌های شخصی را با سایر کاربران به اشتراک نمی‌گذارد. می‌توانید از سایت‌هایی که نیاز به ورود به سیستم دارند، بازدید کنید.</string>
@@ -254,7 +252,7 @@
     <string name="preferences_ceno_groups_count">محتوای به اشتراک گذاشته شده توسط شما</string>
     <string name="preferences_clear_ceno_cache">پاک کردن محتوای حافظه کش</string>
     <string name="onboarding_public_or_personal_title">عمومی یا شخصی؟</string>
-    <string name="onboarding_cleanup_text">تاریخچه مرورگر، اطلاعات کاربری و هر اثری را که در سنو باقی گذاشته‌اید، با یک دکمه پاک کنید.</string>
+    <string name="onboarding_cleanup_text">تاریخچه مرورگری، اطلاعات کاربری و هر اثری را که در سنو باقی گذاشته‌اید، با یک دکمه پاک کنید.</string>
     <string name="ceno_home_card_public_title">عمومی</string>
     <string name="ceno_home_card_public_text">بهترین اتصال، حریم خصوصی کمتر. برای خواندن اخبار، تماشای ویدئو و اشتراک‌گذاری با دیگران</string>
     <string name="ceno_home_card_personal_title">شخصی</string>
@@ -316,7 +314,7 @@
     <string name="confirm_groups_file_download_desc">یک فایل متنی در حافظه محلی شما ذخیره می‌شود.</string>
     <string name="confirm_clear_cached_content">پاک کردن محتوای کش؟</string>
     <string name="confirm_clear_cached_content_desc">محتوای کش‌شده شما بلافاصله حذف می‌شود</string>
-    <string name="thank_you_bridge_mode_enabled">ممنون که تبدیل به یک پل شدید و به رشد شبکه سنو کمک کردید!</string>
+    <string name="thank_you_bridge_mode_enabled">ممنون که پُلی شدید و به رشد شبکه سنو کمک کردید!</string>
     <string name="error_page_title">صفحه خطا</string>
     <string name="error_page_header">اوه! بارگذاری صفحه وب ناموفق بود.</string>
     <string name="error_page_sub_header">این یعنی سنو تمام روش‌های موجود را برای دسترسی به محتوا امتحان کرد، اما هیچ کدام موفق نبودند:</string>
@@ -347,4 +345,23 @@
     <string name="eq_news_button_text">اخبار</string>
     <string name="eq_values_button_text">ارزش‌ها</string>
     <string name="enable_debug_logs">فعال‌سازی گزارش‌های اشکال‌زدایی</string>
+    <string name="preferences_change_language">تغییر زبان‌</string>
+    <string name="btn_next">بعدی</string>
+    <string name="skip_the_tour_button">صرف‌نظر از تور</string>
+    <string name="standby_tip_title">نکته</string>
+    <string name="change_language">تغییر زبان</string>
+    <string name="top_sites_title">سایت‌های برتر</string>
+    <string name="update">به‌روزرسانی‌</string>
+    <string name="start_tooltip_description">از تمام ظرفیت سنو استفاده کنید - ‏با تور راهنما، ویژگی‌های کلیدی برنامه را کشف کنید، و با دادن دسترسی‌های لازم، حتی وقتی که برنامه در پس‌زمینه فعال است وب را دست‌به‌دست کنید..</string>
+    <string name="btn_exit">خروج</string>
+    <string name="tooltip_shortcuts_description">سایت‌های محبوب خود را به‌عنوان سایت برتر ذخیره کنید تا از صفحه اصلی به آن‌ها دسترسی سریع داشته باشید.</string>
+    <string name="tooltip_toolbar_title">وب‌گردی را شروع کنید!</string>
+    <string name="tooltip_sources_title">منابع سنو</string>
+    <string name="tooltip_toolbar_description">برای شروع وب‌گردی، آدرس یک سایت را تایپ کنید</string>
+    <string name="tooltip_sources_description">به‌راحتی ببینید محتوای سایت از کجا دریافت شده - مستقیم از وب‌سایت، از طریق شبکه سنو، یا از حافظه کش سنو</string>
+    <string name="tooltip_permission_text">برای این که وب‌سایت‌ها حتی در پس‌زمینه هم‌چنان بدون وقفه به اشتراک گذاشته شوند، لطفا به سنو اجازه ارسال اعلان‌ها را بدهید و بهینه‌سازی باتری را غیرفعال کنید. همیشه می‌توانید این گزینه‌ها را بعدا در تنظیمات گوشی خود تغییر دهید.</string>
+    <string name="standby_tip_icon">برای مخفی کردن سنو، آیکون برنامه را تغییر دهید</string>
+    <string name="standby_tip_bridge">تبدیل به پل شوید و دسترسی دیگران به وب‌سایت‌ها را آسان کنید</string>
+    <string name="standby_tip_announcements">برای آگاهی از به‌روزرسانی‌ها بخش اعلان‌ها را چک کنید</string>
+    <string name="standby_tip_pdf">وب‌سایت‌ها را به‌شکل فایل PDF به اشتراک بگذارید</string>
 </resources>

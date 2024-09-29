@@ -13,7 +13,7 @@ androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.9.0"
 
 # Android Components
-android_components = "130.0"
+android_components = "130.0.1"
 
 # Google
 google_composecompiler = "1.5.11"
@@ -44,7 +44,7 @@ gson = "2.10.1"
 tooltips = "3.3.2"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "0.29.0"
+ouinet_version = "0.29.1"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 
