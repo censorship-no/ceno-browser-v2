@@ -8,25 +8,31 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAndroidLogBinding
 import ie.equalit.ceno.settings.adapters.LogTextAdapter
 
-class AndroidLogFragment : Fragment() {
+class AndroidLogFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentAndroidLogBinding? = null
     private val binding get() = _binding!!
     private val itemsPerBatch = 100
     private var loadedItemCount = 0
-    private lateinit var allItems: List<String>
+    private var allItems: MutableList<String> = mutableListOf()
     private var adapter = LogTextAdapter()
     private var isLoading = true
 
@@ -37,16 +43,12 @@ class AndroidLogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        getActionBar().apply {
-            show()
-            title = getString(R.string.ceno_android_logs_file_name)
-            setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
+        // get logs from internal storage
+        requireContext().openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt").bufferedReader().useLines { lines ->
+            allItems = lines.toMutableList()
         }
-
-        // get logs from arguments
-        allItems = arguments?.getStringArrayList(SettingsFragment.LOG) ?: emptyList()
         Log.d(TAG, "${allItems.size} logs retrieved")
 
         // Set adapter and load initial data
@@ -105,10 +107,36 @@ class AndroidLogFragment : Fragment() {
         return allItems.subList(0, endIndex.coerceAtMost(allItems.size))
     }
 
+    override fun onResume() {
+        super.onResume()
+        getActionBar().apply {
+            show()
+            title = getString(R.string.ceno_android_logs_file_name)
+            setDisplayHomeAsUpEnabled(true)
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)))
+        }
+    }
+
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     companion object {
         private const val TAG = "AndroidLogFragment"
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.log_export_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when(menuItem.itemId) {
+            R.id.share_logs -> {
+                Log.d(TAG, "share")
+            }
+            R.id.download_logs -> {
+                Log.d(TAG, "download")
+                (activity as BrowserActivity).getLogfileLocation.launch(getString(R.string.ceno_android_logs_file_name))
+            }
+        }
+        return true
+    }
 }
