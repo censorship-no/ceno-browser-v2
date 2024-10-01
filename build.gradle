@@ -101,7 +101,6 @@ subprojects {
                 lintOptions {
                     warningsAsErrors true
                     abortOnError true
-                    disable 'LogNotTimber'
                 }
             }
 
