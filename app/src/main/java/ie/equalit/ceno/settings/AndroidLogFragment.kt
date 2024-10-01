@@ -19,12 +19,15 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAndroidLogBinding
 import ie.equalit.ceno.settings.adapters.LogTextAdapter
+import mozilla.components.concept.engine.prompt.ShareData
 
 class AndroidLogFragment : Fragment(), MenuProvider {
 
@@ -130,7 +133,17 @@ class AndroidLogFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when(menuItem.itemId) {
             R.id.share_logs -> {
-                Log.d(TAG, "share")
+                val directions = NavGraphDirections.actionGlobalShareFragment(
+                    arrayOf(
+                        ShareData(
+                            url = "Logfile",
+                            title = "Logs",
+                        ),
+                    )
+                ).apply {
+                    setLogsFilePath("${ContextCompat.getString(requireContext(), R.string.ceno_android_logs_file_name)}.txt")
+                }
+                findNavController().navigate(directions)
             }
             R.id.download_logs -> {
                 Log.d(TAG, "download")

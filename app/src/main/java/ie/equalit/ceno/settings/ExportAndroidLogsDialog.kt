@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
+import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.requireComponents
@@ -34,6 +35,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.concept.engine.prompt.ShareData
 import java.io.File
 
 class ExportAndroidLogsDialog (
@@ -172,26 +174,22 @@ class ExportAndroidLogsDialog (
     }
 
     private fun viewAndShareLogs(): AlertDialog.Builder {
-        val file = File(context.filesDir, "${ContextCompat.getString(context, R.string.ceno_android_logs_file_name)}.txt")
         return AlertDialog.Builder(context).apply {
             setTitle(context.getString(R.string.ceno_log_file_saved))
             setMessage(context.getString(R.string.ceno_log_file_saved_desc))
             setNegativeButton(context.getString(R.string.share_logs)) { _, _ ->
-                if (file?.exists() == true) {
-
-                    val uri = FileProvider.getUriForFile(
-                        context,
-                        BuildConfig.APPLICATION_ID + ".provider",
-                        file
-                    )
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.setType("*/*")
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    fragment.startActivity(intent)
-                }
                 onDismiss.invoke()
+                val directions = NavGraphDirections.actionGlobalShareFragment(
+                    arrayOf(
+                        ShareData(
+                            url = "Logfile",
+                            title = "Logs",
+                        ),
+                    )
+                ).apply {
+                    setLogsFilePath("${getString(context, R.string.ceno_android_logs_file_name)}.txt")
+                }
+                fragment.findNavController().navigate(directions)
             }
             setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
                 fragment.findNavController().navigate(
