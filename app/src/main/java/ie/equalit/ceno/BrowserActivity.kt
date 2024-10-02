@@ -554,6 +554,7 @@ open class BrowserActivity : BaseActivity() {
             callback,
             resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
         )
+        components.cleanInsights?.persist()
         components.ouinet.background.shutdown(doClear) {
             handler.removeCallbacks(callback)
             callback.run()
