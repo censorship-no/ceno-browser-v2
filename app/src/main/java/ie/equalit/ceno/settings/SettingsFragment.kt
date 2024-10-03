@@ -13,23 +13,18 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.os.LocaleListCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -41,30 +36,77 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.*
+import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
+import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
+import ie.equalit.ceno.R.string.confirm_clear_cached_content
+import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
+import ie.equalit.ceno.R.string.customize_addon_collection_cancel
+import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.dialog_btn_positive_ok
+import ie.equalit.ceno.R.string.download_logs
+import ie.equalit.ceno.R.string.no_content_shared
+import ie.equalit.ceno.R.string.onboarding_battery_button
+import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
+import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
+import ie.equalit.ceno.R.string.pref_key_about_ceno
+import ie.equalit.ceno.R.string.pref_key_about_geckoview
+import ie.equalit.ceno.R.string.pref_key_about_ouinet
+import ie.equalit.ceno.R.string.pref_key_about_page
+import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
+import ie.equalit.ceno.R.string.pref_key_allow_notifications
+import ie.equalit.ceno.R.string.pref_key_bridge_announcement
+import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
+import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
+import ie.equalit.ceno.R.string.pref_key_ceno_download_log
+import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
+import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
+import ie.equalit.ceno.R.string.pref_key_ceno_network_config
+import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
+import ie.equalit.ceno.R.string.pref_key_change_language
+import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
+import ie.equalit.ceno.R.string.pref_key_customization
+import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
+import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_make_default_browser
+import ie.equalit.ceno.R.string.pref_key_ouinet_state
+import ie.equalit.ceno.R.string.pref_key_override_amo_collection
+import ie.equalit.ceno.R.string.pref_key_privacy
+import ie.equalit.ceno.R.string.pref_key_remote_debugging
+import ie.equalit.ceno.R.string.pref_key_search_engine
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
+import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
+import ie.equalit.ceno.R.string.preference_choose_search_engine
+import ie.equalit.ceno.R.string.preferences_about_page
+import ie.equalit.ceno.R.string.preferences_ceno_download_log
+import ie.equalit.ceno.R.string.preferences_customize_amo_collection
+import ie.equalit.ceno.R.string.preferences_delete_browsing_data
+import ie.equalit.ceno.R.string.setting_item_selected
+import ie.equalit.ceno.R.string.settings
+import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
+import ie.equalit.ceno.R.string.title_success
+import ie.equalit.ceno.R.string.toast_copied
+import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
+import ie.equalit.ceno.R.string.tracker_category
+import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
 import ie.equalit.ceno.utils.CenoPreferences
-import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
@@ -76,7 +118,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
-import java.io.File
 import java.util.Locale
 import kotlin.system.exitProcess
 
@@ -777,14 +818,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             LocaleListCompat.create(Locale.forLanguageTag(locale.toLanguageTag()))
                         )
                         ie.equalit.ceno.settings.Settings.clearAnnouncementData(requireContext())
-                        // restart the activity to apply the new locale
-                        activity?.recreate()
-
-                        // reload the current tab
-                        requireComponents.core.store.state.selectedTab?.let {
-                            requireComponents.useCases.tabsUseCases.selectTab(requireComponents.core.store.state.selectedTab!!.id)
-                            requireComponents.useCases.sessionUseCases.reload.invoke()
-                        }
                     }
                 }
             )
