@@ -1,3 +1,7 @@
+# v2.3.1
+This release:
+- Fixes bugs related to changing language of application from settings
+
 # v2.3.0
 This release:
 - Adds settings option to change language of application
