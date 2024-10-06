@@ -322,4 +322,5 @@
         <item quantity="one">%d Seite</item>
         <item quantity="other">%d Seiten</item>
     </plurals>
+    <string name="shutdown_message_one">Appdaten entfernen</string>
 </resources>
