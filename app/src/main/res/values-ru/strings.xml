@@ -221,9 +221,7 @@
 \nдруг с другом</string>
     <string name="onboarding_cleanup_title">Очищайте всё,
 \nвезде и сразу</string>
-    <string name="onboarding_public_personal_text">Используйте Публичный режим для чтения новостей и обычного веб-сёрфинга. Страницы, которые вы открываете таким образом, будут доступны другим пользователям Ceno.
-\n
-\nЛичный режим подходит для соцсетей, просмотра видео, онлайн-покупок и посещения сайтов, которыми вы не хотите делиться с другими.</string>
+    <string name="onboarding_public_personal_text">Используйте Публичный режим для чтения новостей и обычного веб-сёрфинга. Страницы, которые вы открываете таким образом, будут доступны другим пользователям Ceno. Личный режим подходит для соцсетей, просмотра видео, онлайн-покупок и посещения сайтов, которыми вы не хотите делиться с другими.</string>
     <string name="onboarding_cleanup_text">Вы можете удалить историю посещений, сохранённые пароли и остальное одной кнопкой.</string>
     <string name="ceno_home_card_public_title">ПУБЛИЧНОЕ</string>
     <string name="ceno_home_card_public_text">Лучше соединяемость, хуже приватность. Для чтения новостей, просмотра видео и обменом с другими</string>
@@ -364,12 +362,12 @@
     <string name="standby_tip_pdf">Отправить страницу в виде PDF-файла</string>
     <string name="top_sites_title">Ярлыки</string>
     <string name="update">Обновить</string>
-    <string name="standby_tip_announcements">Информация об обновлениях будет в разделе объявлений на домашней странице браузера.</string>
+    <string name="standby_tip_announcements">Информация об обновлениях будет в разделе объявлений на домашней странице браузера</string>
     <string name="tooltip_sources_title">Источники</string>
     <string name="tooltip_shortcuts_description">Вы можете добавлять сайты на домашнюю страницу браузера для быстрого доступа к ним.</string>
-    <string name="tooltip_sources_description">Вы можете посмотреть, как Ceno получил контент веб-страницы — напрямую с сайта, через сеть Ceno или из децентрализованного кэша.</string>
+    <string name="tooltip_sources_description">Вы можете посмотреть, как Ceno получил контент веб-страницы — напрямую с сайта, через сеть Ceno или из децентрализованного кэша</string>
     <string name="tooltip_toolbar_title">Поехали!</string>
-    <string name="tooltip_toolbar_description">Введите адрес сайта.</string>
+    <string name="tooltip_toolbar_description">Введите адрес сайта</string>
     <string name="start_tooltip_description">Экскурсия по браузеру — расскажем о ключевых функциях и предложим выдать два разрешения, чтобы Ceno мог работать в фоне и обеспечивать связь для вас и для других пользователей.</string>
     <string name="tooltip_permission_text">Чтобы обеспечить постоянный обмен веб-сайтами в сети Ceno, — даже в фоновом режиме, — мы предложим разрешить Ceno отправлять уведомления и отключить оптимизацию батареи. Вы всегда можете отозвать эти разрешения в настройках.</string>
 </resources>

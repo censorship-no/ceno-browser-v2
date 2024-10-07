@@ -307,4 +307,10 @@
     <string name="website_button_link">https://censorship.no/ar/index.html</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="about_content_title">شارك الويب!</string>
+    <string name="update">تحديث</string>
+    <string name="change_language">غير اللغة</string>
+    <string name="top_sites_title">الإختصارات</string>
+    <string name="content_description_close_button">إغلاق</string>
+    <string name="share_copy_link_to_clipboard">نسخ إلى الحافظة</string>
+    <string name="share_save_to_pdf">حفظ كـ PDF</string>
 </resources>
