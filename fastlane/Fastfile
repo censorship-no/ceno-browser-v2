@@ -115,7 +115,7 @@ platform :android do
       #  gradle(
       #    task: 'connectedDebugAndroidTest'
       #  )
-      end
+      #end
     end
   end
 end
