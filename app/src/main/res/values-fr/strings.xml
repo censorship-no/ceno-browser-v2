@@ -133,7 +133,7 @@
     <string name="ceno_clear_action_description">Effacer</string>
     <string name="preferences_toolbar_position">Placer en haut de l’écran</string>
     <string name="onboarding_btn_get_started">Commencer</string>
-    <string name="preferences_show_onboarding">Afficher l’intégration lors du prochain lancement</string>
+    <string name="preferences_show_onboarding">Afficher les info-bulles au prochain lancement</string>
     <string name="preferences_disable_battery_opt">Désactiver l’optimisation de la batterie</string>
     <string name="onboarding_info_title">Un navigateur pas comme les autres</string>
     <string name="onboarding_warning_text">L’optimisation de la batterie est encore activée.
@@ -236,9 +236,7 @@
     <string name="ceno_home_card_personal_text">Bonne connectivité, plus d\'intimité. Pour se connecter à des comptes, ne pas laisser de traces, pas de partage</string>
     <string name="onboarding_finish_button">Finition</string>
     <string name="preferences_ceno_sources_external_udp">Points de terminaison UDP externes</string>
-    <string name="onboarding_public_personal_text">Utilisez les onglets publics pour lire les nouvelles, regarder les vidéos et le web-surf général. Partagez du contenu web avec d\'autres utilisateurs de Ceno.
-\n
-\nLes onglets personnels sont mieux adaptés pour les comptes de médias sociaux, les achats en ligne et les sites Web de navigation que vous ne voulez pas partager avec d\'autres.</string>
+    <string name="onboarding_public_personal_text">Utilisez les onglets publics pour lire les actualités, regarder des vidéos et surfer sur le Web en général. En mode public, vous pouvez également partager du contenu Web avec d\'autres utilisateurs de Ceno. Les onglets personnels sont mieux adaptés aux comptes de réseaux sociaux, aux achats en ligne et à la navigation sur des sites Web que vous ne souhaitez pas partager avec d\'autres.</string>
     <string name="preferences_ceno_sources_public_udp">Points de terminaison UDP publics</string>
     <string name="ceno_support_link_url">https://censorship.no/fr/support.html</string>
     <string name="personal_home_learn_more">Voulez-vous en savoir plus ?</string>
@@ -350,4 +348,23 @@
     <string name="eq_news_button_text">Actualités</string>
     <string name="eq_values_button_text">Valeurs</string>
     <string name="enable_debug_logs">Activer les journaux de débogage</string>
+    <string name="preferences_change_language">Changer de langue</string>
+    <string name="start_tooltip_description">Libérez tout le potentiel de Ceno - Faites une visite guidée pour découvrir les fonctionnalités clés et confirmez les autorisations pour aider à partager le Web même lorsque l\'application est en arrière-plan.</string>
+    <string name="skip_the_tour_button">Passer la visite guidée</string>
+    <string name="btn_next">Suivant</string>
+    <string name="btn_exit">Sortie</string>
+    <string name="tooltip_shortcuts_description">Enregistrez vos sites favoris sous forme de raccourcis pour un accès facile depuis votre page d\'accueil.</string>
+    <string name="tooltip_toolbar_title">Commençons à naviguer !</string>
+    <string name="tooltip_sources_title">Sources Ceno</string>
+    <string name="tooltip_permission_text">Pour continuer à partager des sites Web de manière transparente même lorsque l\'application est en arrière-plan, veuillez autoriser Ceno à envoyer des notifications et désactiver les optimisations de la batterie. Vous pouvez toujours ajuster ces autorisations ultérieurement dans les paramètres de votre téléphone</string>
+    <string name="standby_tip_title">Conseil</string>
+    <string name="standby_tip_bridge">Devenez un pont, aidez les autres à accéder aux sites Web</string>
+    <string name="standby_tip_pdf">Partager des pages Web au format PDF</string>
+    <string name="update">Mise à jour</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="top_sites_title">Raccourcis</string>
+    <string name="tooltip_sources_description">Voyez facilement d\'où provient le contenu du site : directement depuis le site Web, via le réseau Ceno ou depuis le cache Ceno</string>
+    <string name="tooltip_toolbar_description">Saisissez l\'adresse d\'un site Web pour commencer à naviguer</string>
+    <string name="standby_tip_icon">Changer l\'icône de l\'application pour masquer Ceno</string>
+    <string name="standby_tip_announcements">Vérifiez les mises à jour dans la section des annonces</string>
 </resources>

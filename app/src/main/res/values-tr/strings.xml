@@ -140,7 +140,7 @@
     <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Ceno ayarları</string>
     <string name="onboarding_warning_title">İzin verilmedi</string>
     <string name="onboarding_battery_button">İlerle</string>
-    <string name="preferences_show_onboarding">Bir sonraki açılışta tanıtım görüntülensin</string>
+    <string name="preferences_show_onboarding">Bir sonraki açılışta ipuçları görüntülensin</string>
     <string name="preferences_customization">Özelleştirme</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Kişisel gezinme&lt;/h1&gt; &lt;p&gt;Ceno, Kişisel sekmelerdeki içeriği diğer kullanıcılarla paylaşmaz. Oturum açılması gereken siteleri güvenle ziyaret edebilirsiniz. Yine de İnternet bağlantısı gereklidir.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Ayrıntılı bilgi almak ister misiniz?&lt;/p&gt;</string>
     <string name="preferences_about_page">Hakkında</string>
@@ -204,10 +204,8 @@
 \n
 \nDaha sonra izin vermek için \"Ayarlar \" bölümüne gidin</string>
     <string name="preferences_allow_notifications">Bildirimlere izin ver</string>
-    <string name="onboarding_public_personal_text">Herkese açık sekmeleri haberleri okumak, videolar seyretmek ya da genel İnternet gezinmesi için kullanın. İnternet içeriğini diğer Ceno kullanıcıları ile paylaşın.
-\n
-\nKişisel sekmeler, sosyal ağ hesapları, çevrim içi alışveriş ve başkalarıyla paylaşmak istemediğiniz siteler için daha uygundur.</string>
-    <string name="onboarding_cleanup_text">Tarayıcı geçmişinizi, kimlik doğrulama bilgilerinizi ve Ceno üzerinde bıraktığınız izleri tek bir düğme ile temizleyin.</string>
+    <string name="onboarding_public_personal_text">Herkese açık sekmeleri haberleri okumak, videolar seyretmek ya da genel İnternet gezinmesi için kullanın. Herkese açık kipte İnternet içeriğini diğer Ceno kullanıcıları ile paylaşın. Kişisel sekmeler, sosyal ağ hesapları, çevrim içi alışveriş ve başkalarıyla paylaşmak istemediğiniz siteler için daha uygundur.</string>
+    <string name="onboarding_cleanup_text">Gezinme geçmişinizi, kimlik doğrulama bilgilerinizi ve Ceno üzerinde bıraktığınız izleri tek bir düğme ile temizleyin.</string>
     <string name="onboarding_public_or_personal_title">Herkese açık ya da Kişisel?</string>
     <string name="ceno_onboarding_start_title">İnternet içeriklerini paylaşın,
 \neşler arasında</string>
@@ -339,4 +337,24 @@
     <string name="eq_news_button_text">Haberler</string>
     <string name="eq_values_button_text">Değerler</string>
     <string name="about_content_para_2">Ceno Browser, daha eşit ve eşitlikçi bir ağ desteği için merkezi olmayan internet hizmetleri geliştiren kar amacı gütmeyen bir Kanada kuruluşu olan bir eQualitie projesidir. eQualitie çözümleri açık kaynaklıdır, saha koşullarında denenmiştir ve değerlerimiz göz önünde bulundurularak geliştirilmiştir. Her gün, milyonlarca insana çevrim içi olarak bir araya gelme özgürlüğü sağlarlar.</string>
+    <string name="skip_the_tour_button">Turu atla</string>
+    <string name="btn_next">İleri</string>
+    <string name="btn_exit">Çık</string>
+    <string name="tooltip_shortcuts_description">Sık kullandığınız sitelere giriş sayfanızdan kolayca erişmek için kısayollar olarak kaydedin.</string>
+    <string name="tooltip_sources_description">Site içeriğinin nereden alındığını kolayca görün - Doğrudan siteden, Ceno ağı üzerinden ya da Ceno ön belleğinden</string>
+    <string name="standby_tip_title">İpucu</string>
+    <string name="standby_tip_bridge">Bir köprü olun, başkalarının sitelere erişmesine yardımcı olun</string>
+    <string name="standby_tip_icon">Ceno uygulamasını gizlemek için simgesini değiştirin</string>
+    <string name="standby_tip_pdf">Site sayfalarını PDF olarak paylaşın</string>
+    <string name="standby_tip_announcements">Duyurular bölümünden son güncellemeleri öğrenin</string>
+    <string name="change_language">Dili değiştir</string>
+    <string name="update">Güncelle</string>
+    <string name="top_sites_title">Kısayollar</string>
+    <string name="preferences_change_language">Dili değiştir</string>
+    <string name="enable_debug_logs">Hata ayıklama günlüğünü etkinleştir</string>
+    <string name="start_tooltip_description">Ceno uygulamasının tam potansiyelini kullanın - Anahtar özellikleri keşfetmek için tura katılın ve uygulama arka plandayken bile internet içeriklerini paylaşmasına izin verin.</string>
+    <string name="tooltip_toolbar_title">Haydi gezinmeye başlayalım!</string>
+    <string name="tooltip_toolbar_description">Gezinmeye başlamak için bir site adresi yazın</string>
+    <string name="tooltip_sources_title">Ceno kaynakları</string>
+    <string name="tooltip_permission_text">Uygulama arka planda olsa bile siteleri sorunsuz olarak paylaşmayı sürdürmek için lütfen Ceno uygulamasının bildirim göndermesine ve pil optimizasyonlarını devre dışı bırakmasına izin verin. Bu izinleri daha sonra istediğiniz zaman telefonunuzun ayarlarından değiştirebilirsiniz</string>
 </resources>
