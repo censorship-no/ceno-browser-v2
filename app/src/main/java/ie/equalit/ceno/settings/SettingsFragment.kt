@@ -900,12 +900,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         exportDialog.getDialog().show()
     }
 
-    private fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
-    } else {
-        Locale.getDefault()
-    })
-
     companion object {
         private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         const val TAG = "SettingsFragment"
@@ -920,5 +914,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
         const val DELAY_ONE_SECOND = 1000L
+
+        fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+        } else {
+            Locale.getDefault()
+        })
     }
 }
