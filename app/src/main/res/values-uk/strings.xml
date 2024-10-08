@@ -377,4 +377,5 @@
     <string name="standby_dont_show">Не показувати попередження знову</string>
     <string name="preferences_show_standby_warning">Показувати попередження про таймаут запуску</string>
     <string name="startup_category">Запуск</string>
+    <string name="privacy_policy_url">https://ceno.network/uk/privacy_policy.html</string>
 </resources>

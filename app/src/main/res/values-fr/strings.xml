@@ -368,4 +368,5 @@
     <string name="standby_tip_icon">Changer l\'icône de l\'application pour masquer Ceno</string>
     <string name="standby_tip_announcements">Vérifiez les mises à jour dans la section des annonces</string>
     <string name="select_language">Sélectionner la langue :</string>
+    <string name="privacy_policy_url">https://censorship.no/fr/privacy_policy.html</string>
 </resources>

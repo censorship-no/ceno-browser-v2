@@ -375,4 +375,5 @@
     <string name="preferences_show_standby_warning">Mostrar advertencia en el tiempo de inicio</string>
     <string name="standby_take_me_anyway">Llévame a Ceno de todos modos</string>
     <string name="standby_dont_show">No mostrar advertencia nuevamente</string>
+    <string name="privacy_policy_url">https://censorship.no/es/privacy_policy.html</string>
 </resources>
