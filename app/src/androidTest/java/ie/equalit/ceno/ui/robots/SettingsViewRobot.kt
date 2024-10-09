@@ -210,8 +210,8 @@ private fun waitForSettingsRecyclerViewToExist() {
 
 private fun assertSettingsView() {
     // verify that we are in the correct settings view
-    Espresso.onView(withText(R.string.settings))
-    Espresso.onView(withText(R.string.preferences_about_page))
+    onView(withText(R.string.settings))
+        .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 
 private fun recycleView() = onView(withId(R.id.recycler_view))
