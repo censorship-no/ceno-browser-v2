@@ -89,7 +89,7 @@ class HomeFragment : BaseHomeFragment() {
         val activity = activity as BrowserActivity
         val components = requireComponents
         themeManager = activity.themeManager
-        _binding = FragmentHomeBinding.inflate(inflater, container, false);
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -321,14 +321,7 @@ class HomeFragment : BaseHomeFragment() {
                 startTooltip = CenoTourStartOverlay(this, false,
                     skipListener =
                     {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
-                            //show permission tooltip
-                            showTooltip()
-                        }
-                        else {
-                            requireComponents.cenoPreferences.nextTooltip = -1
-                        }
+                        exitCenoTour()
                     },
                     startListener = {
                         requireComponents.cenoPreferences.nextTooltip += 1
@@ -388,7 +381,7 @@ class HomeFragment : BaseHomeFragment() {
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
-                                tooltip?.addButtons() {
+                                tooltip?.addButtons {
                                     exitCenoTour()
                                 }
                             }
@@ -429,15 +422,27 @@ class HomeFragment : BaseHomeFragment() {
     private fun exitCenoTour() {
         //exit tour
         tooltip?.dismiss()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
-            //show permission tooltip
             showTooltip()
         }
         else {
             requireComponents.cenoPreferences.nextTooltip = -1
         }
         Settings.setShowOnboarding(requireContext(), false)
+    }
+
+    private fun shouldShowPermissionsTooltip() : Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations() || !requireComponents.permissionHandler.isAllowingPostNotifications()
+            } else {
+                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+            }
+        }
+        else {
+            false
+        }
     }
 
     private fun askForPermissions() {
