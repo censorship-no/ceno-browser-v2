@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/download_logs"
+        android:icon="@drawable/mozac_feature_download_ic_download"
+        android:title="@string/download_logs"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/share_logs"
+        android:icon="@drawable/mozac_ic_share_android_24"
+        android:title="@string/browser_menu_share"
+        app:showAsAction="ifRoom"/>
+</menu>
