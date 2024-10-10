@@ -3,7 +3,9 @@ package ie.equalit.ceno.ui.robots
 import android.util.Log
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -35,6 +37,7 @@ class DownloadRobot {
 
     fun verifyDownloadPrompt(filename:String) {
         Espresso.onView(ViewMatchers.withText("Download"))
+            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 
     class Transition {
