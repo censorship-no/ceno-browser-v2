@@ -3,6 +3,7 @@ package ie.equalit.ceno.tooltip
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
@@ -32,7 +33,7 @@ class CenoTourStartOverlay(
 
     init {
         tooltipOverlay.setBackgroundColor(ContextCompat.getColor(fragment.requireContext(), R.color.tooltip_background))
-        val localePicker = tooltipOverlay.findViewById<TextView>(R.id.locale_picker)
+        val localeLayout = tooltipOverlay.findViewById<LinearLayout>(R.id.locale_picker_layout)
         btnSkipTour = tooltipOverlay.findViewById(R.id.btn_skip_all_ceno_tour)
         btnStartTour = tooltipOverlay.findViewById(R.id.btn_start_ceno_tour)
         btnSkipTour.setOnClickListener {
@@ -53,8 +54,9 @@ class CenoTourStartOverlay(
             btnStartTour.text = fragment.getString(R.string.onboarding_battery_button)
             //hide skip button
             btnSkipTour.visibility = View.GONE
-            localePicker.visibility = View.GONE
+            localeLayout.visibility = View.GONE
         } else {
+            val localePicker = tooltipOverlay.findViewById<TextView>(R.id.locale_picker)
             localePicker.text = SettingsFragment.getCurrentLocale().displayLanguage
             localePicker.setOnClickListener {
                 val languageChangeDialog = LanguageChangeDialog(

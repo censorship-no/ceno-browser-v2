@@ -51,6 +51,7 @@
             android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/locale_picker_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
