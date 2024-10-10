@@ -1,6 +1,10 @@
 # v2.3.1
 This release:
 - Fixes bugs related to changing language of application from settings
+- Updates Android-Components to v131.0
+- Updates various Android libraries
+- Fixes bugs with permissions tooltip
+- Adds ability to select app language on the welcome tooltip
 
 # v2.3.0
 This release:

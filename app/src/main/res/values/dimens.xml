@@ -86,4 +86,7 @@
     <dimen name="preference_row_height">56dp</dimen>
     <!-- END COPIED FROM FOCUS -->
 
+    <!-- REMOVED IN FIREFOX 131, COPIED HERE -->
+    <dimen name="mozac_browser_toolbar_page_action_separator_width">4dp</dimen>
+
 </resources>

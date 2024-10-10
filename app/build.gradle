@@ -355,7 +355,6 @@ dependencies {
     implementation libs.mozilla.browserdomains
     implementation libs.mozilla.browsertabstray
     implementation libs.mozilla.browsertoolbar
-    implementation libs.mozilla.browsertoolbar2
     implementation libs.mozilla.browsermenu
     implementation libs.mozilla.browsermenu2
     implementation libs.mozilla.browsersessionstorage

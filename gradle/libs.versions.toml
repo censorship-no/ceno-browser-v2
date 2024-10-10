@@ -1,39 +1,39 @@
 [versions]
 
 # AndroidX
-androidx_activity_compose = "1.9.0"
+androidx_activity_compose = "1.9.2"
 androidx_appcompat = "1.7.0"
-androidx_compose = "1.6.8"
+androidx_compose = "1.7.3"
 androidx_constraintlayout = "2.1.4"
 androidx_core = "1.13.1"
-androidx_lifecycle = "2.8.2"
-androidx_navigation = "2.7.7"
+androidx_lifecycle = "2.8.6"
+androidx_navigation = "2.8.2"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.1.0"
-androidx_work = "2.9.0"
+androidx_work = "2.9.1"
 
 # Android Components
-android_components = "130.0.1"
+android_components = "131.0"
 
 # Google
-google_composecompiler = "1.5.11"
+google_composecompiler = "1.5.14"
 google_material = "1.12.0"
 
 # Gradle
 #noinspection AndroidGradlePluginVersion
-gradle_android_plugin = "8.5.0"
-gradle_kotlin_plugin = "1.9.23"
+gradle_android_plugin = "8.5.2"
+gradle_kotlin_plugin = "1.9.24"
 
 # Kotlin
-kotlin_coroutines = "1.8.0"
+kotlin_coroutines = "1.8.1"
 kotlin_serialization = "1.6.3"
 
 # Testing
-testing_androidx_core = "1.5.0"
-testing_androidx_espresso = "3.5.1"
-testing_androidx_ext_junit = "1.1.5"
-testing_androidx_orchestrator = "1.4.2"
-testing_androidx_runner = "1.5.2"
+testing_androidx_core = "1.6.1"
+testing_androidx_espresso = "3.6.1"
+testing_androidx_ext_junit = "1.2.1"
+testing_androidx_orchestrator = "1.5.0"
+testing_androidx_runner = "1.6.2"
 testing_androidx_uiautomator = "2.3.0"
 testing_jacoco = "0.8.10"
 testing_mockwebserver = "4.10.0"
@@ -76,7 +76,6 @@ mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "brow
 mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
 mozilla-browsertabstray = { group = "org.mozilla.components", name = "browser-tabstray", version.ref = "android_components" }
 mozilla-browsertoolbar = { group = "org.mozilla.components", name = "browser-toolbar", version.ref = "android_components" }
-mozilla-browsertoolbar2 = { group = "org.mozilla.components", name = "browser-toolbar2", version.ref = "android_components" }
 mozilla-browsermenu = { group = "org.mozilla.components", name = "browser-menu", version.ref = "android_components" }
 mozilla-browsermenu2 = { group = "org.mozilla.components", name = "browser-menu2", version.ref = "android_components" }
 mozilla-browserstoragesync = { group = "org.mozilla.components", name = "browser-storage-sync", version.ref = "android_components" }
