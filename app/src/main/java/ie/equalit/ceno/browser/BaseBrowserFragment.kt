@@ -99,7 +99,7 @@ import org.mozilla.geckoview.WebExtension
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private var ouinetStatus: Ouinet.RunningState = Ouinet.RunningState.Started
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
@@ -733,15 +733,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 //        const val LOCAL_CACHE = "local-cache"
 
         const val URL = "url"
-    }
-
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        Logger.info(
-            "Fragment onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data",
-        )
-
-        return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 
     private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
