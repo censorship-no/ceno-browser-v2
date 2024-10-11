@@ -107,4 +107,5 @@
     <string name="share_save_to_pdf">Salvar como PDF</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="content_description_close_button">Clauder</string>
+    <string name="standby_tip_icon">Cambiar le icone de application pro celar Ceno</string>
 </resources>

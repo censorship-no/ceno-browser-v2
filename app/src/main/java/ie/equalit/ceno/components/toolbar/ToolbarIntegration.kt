@@ -218,7 +218,7 @@ class ToolbarIntegration(
             menuItemsList += CompoundMenuCandidate(
                 text = context.getString(R.string.browser_menu_desktop_site),
                 isChecked = sessionState.content.desktopMode,
-                end = CompoundMenuCandidate.ButtonType.SWITCH
+                end = CompoundMenuCandidate.ButtonType.CHECKBOX
             ) { checked ->
                 sessionUseCases.requestDesktopSite.invoke(checked)
             }

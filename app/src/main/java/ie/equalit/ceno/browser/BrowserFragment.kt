@@ -122,7 +122,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     getString(R.string.onboarding_cleanup_text),
                     CirclePromptFocal(),
                     stopCaptureTouchOnFocal = true,
-                    buttonText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                    buttonText = if (shouldShowPermissionsTooltip())
                         R.string.btn_next
                     else
                         R.string.onboarding_finish_button,
@@ -140,12 +140,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         }
                     },
                     onNextButtonPressListener = {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                        if (shouldShowPermissionsTooltip())
                             goToNextTooltip()
                         else {
-                            requireComponents.cenoPreferences.nextTooltip = -1
-                            tooltip?.dismiss()
-                            Settings.setShowOnboarding(requireContext(), false)
+                            exitCenoTour()
                         }
                     }
                 )
@@ -167,11 +165,23 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         }
     }
 
+    private fun shouldShowPermissionsTooltip() : Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations() || !requireComponents.permissionHandler.isAllowingPostNotifications()
+            } else {
+                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
+            }
+        }
+        else {
+            false
+        }
+    }
+
     private fun exitCenoTour() {
         tooltip?.dismiss()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = TOOLTIP_PERMISSION
-            //show permission tooltip
             showSourcesTooltip()
         }
         else {

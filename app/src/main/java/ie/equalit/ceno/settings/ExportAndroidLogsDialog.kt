@@ -3,7 +3,6 @@ package ie.equalit.ceno.settings
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -13,18 +12,18 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.core.content.FileProvider
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
+import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.dialogs.ExtraBTBootstrapsDialog
-import ie.equalit.ceno.settings.SettingsFragment.Companion.LOG
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.TAG
@@ -36,6 +35,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.concept.engine.prompt.ShareData
 import java.io.File
 
 class ExportAndroidLogsDialog (
@@ -111,7 +111,6 @@ class ExportAndroidLogsDialog (
 
                 var logs: MutableList<String>
                 var logString: String
-                var file: File?
 
                 val progressDialogView = View.inflate(context, R.layout.progress_dialog, null)
                 val progressView = progressDialogView.findViewById<ProgressBar>(R.id.progress_bar)
@@ -148,12 +147,12 @@ class ExportAndroidLogsDialog (
 
                             Log.d(TAG, "Log content size: ${logString.getSizeInMB()} MB")
 
-                            // save file to external storage
-                            file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.path +"/${ContextCompat.getString(context,
-                                R.string.ceno_android_logs_file_name
-                            )}.txt")
-
-                            file?.writeText(logString)
+                            // save file to internal storage
+                            context.openFileOutput(
+                                "${ContextCompat.getString(context, R.string.ceno_android_logs_file_name)}.txt", Context.MODE_PRIVATE)
+                                .use {
+                                    it.write(logString.toByteArray())
+                                }
 
                             withContext(Dispatchers.Main) {
 
@@ -165,7 +164,7 @@ class ExportAndroidLogsDialog (
                                 progressDialog.dismiss()
 
                                 // prompt the user to view or share
-                                viewAndShareLogs(file, logs).show()
+                                viewAndShareLogs().show()
                             }
                         }
                     }
@@ -174,41 +173,35 @@ class ExportAndroidLogsDialog (
         }
     }
 
-    private fun viewAndShareLogs(
-        file: File?,
-        logs: MutableList<String>
-    ): AlertDialog.Builder {
+    private fun viewAndShareLogs(): AlertDialog.Builder {
         return AlertDialog.Builder(context).apply {
             setTitle(context.getString(R.string.ceno_log_file_saved))
             setMessage(context.getString(R.string.ceno_log_file_saved_desc))
             setNegativeButton(context.getString(R.string.share_logs)) { _, _ ->
-                if (file?.exists() == true) {
-
-                    val uri = FileProvider.getUriForFile(
-                        context,
-                        BuildConfig.APPLICATION_ID + ".provider",
-                        file
-                    )
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.setType("*/*")
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    fragment.startActivity(intent)
-                }
                 onDismiss.invoke()
+                val directions = NavGraphDirections.actionGlobalShareFragment(
+                    arrayOf(
+                        ShareData(
+                            url = "Logfile",
+                            title = "Logs",
+                        ),
+                    )
+                ).apply {
+                    setLogsFilePath("${getString(context, R.string.ceno_android_logs_file_name)}.txt")
+                }
+                fragment.findNavController().navigate(directions)
             }
-            setPositiveButton(context.getString(R.string.view_logs)) { _, _ ->
+            setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
                 fragment.findNavController().navigate(
                     if (fragment is StandbyFragment)
                         R.id.action_standbyFragment_to_androidLogFragment
                     else
                         R.id.action_settingsFragment_to_androidLogFragment,
-                    bundleOf().apply {
-                        putStringArrayList(LOG, ArrayList(logs))
-                    }
                 )
                 onDismiss.invoke()
+            }
+            setPositiveButton(R.string.download_logs) { _, _ ->
+                (fragment.requireActivity() as BrowserActivity).getLogfileLocation.launch(getString(context, R.string.ceno_android_logs_file_name))
             }
             create()
         }

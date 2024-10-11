@@ -1,0 +1,27 @@
+# v2.3.0
+Bu sürümde:
+- Uygulama dilini değiştirmek için ayarlar seçeneği eklendi
+- Başlangıç ekranları araç ipucu rehberli ekranlarla değiştirildi
+- Kullanıcı arayüzünde bekleme sayfasında güncellemeler yapıldı
+- Çeşitli yerellerin çevirileri güncellendi
+
+# v2.2.3
+Bu yama sürümünde:
+- Bekleme sayfasında günlükleri dışa aktarma seçeneği eklendi
+- Otomatik doldurma hizmeti ayar seçeneklerinden kaldırıldı
+- Kullanıcı arayüzünde, site görünümünün bir bölümünü kaplayan araç çubuğu hatası düzeltildi
+- Android bileşenleri 130.0 sürümüne güncellendi
+- Ouinet 0.29.0 sürümüne güncellendi
+- Android 7.1 ve öncesi için araç çubuğunu üstte görüntülenmesi sağlandı
+- Çökmeler için küçük hata düzeltmeleri yapıldı
+- Çeşitli yerellerin çevirileri güncellendi
+
+# v2.2.2
+Bu yama sürümünde:
+
+- Android bileşenleri 129.0.2 sürümüne güncellendi
+- Ouinet 0.28.0 sürümüne güncellendi
+- Kullanıcı arayüzü Hakkında sayfasına yeni bağlantılar eklenti ve logolar güncellendi
+- Android 7.1 ve öncesi için varsayılan araç çubuğu konumu üstte olarak ayarlandı
+- Dizge kaynakları yeniden düzenlendi
+- Çeşitli yerellerin çevirileri güncellendi
