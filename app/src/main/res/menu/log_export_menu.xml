@@ -4,9 +4,11 @@
     <item android:id="@+id/download_logs"
         android:icon="@drawable/mozac_feature_download_ic_download"
         android:title="@string/download_logs"
+        app:iconTint="@color/ceno_ui_icons_fill"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/share_logs"
         android:icon="@drawable/mozac_ic_share_android_24"
         android:title="@string/browser_menu_share"
+        app:iconTint="@color/ceno_ui_icons_fill"
         app:showAsAction="ifRoom"/>
 </menu>
