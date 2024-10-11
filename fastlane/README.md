@@ -31,6 +31,14 @@ Clean build directory and re-build debug and test apks
 
 Build debug and test apks
 
+### android lint
+
+```sh
+[bundle exec] fastlane android lint
+```
+
+Run gradle lintDebug
+
 ### android cleanAssembleNightly
 
 ```sh
@@ -38,6 +46,14 @@ Build debug and test apks
 ```
 
 Clean build directory and re-build nightly apks and bundle
+
+### android createReleaseNotes
+
+```sh
+[bundle exec] fastlane android createReleaseNotes
+```
+
+Copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt
 
 ### android screenshots
 
