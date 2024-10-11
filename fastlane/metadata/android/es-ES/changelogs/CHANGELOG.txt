@@ -1,29 +1,37 @@
-# v2.3.0
+#v2.3.1
 Esta versión:
-- Añade la opción de configuración para cambiar el idioma de la aplicación
-- Sustitución de las pantallas de introducción por una introducción guiada por herramientas.
-- Actualización de la interfaz de usuario de la página de espera
-- Actualiza los componentes de Android a v130.0.1
+- Corrige errores con el cambio de idioma
+- Actualiza los componentes de Android a la versión v131.0
+- Actualiza varias bibliotecas de Android.
+- Corrige errores con la información sobre herramientas y permisos.
+- Agrega la capacidad de seleccionar el idioma de la aplicación en el tooltip de bienvenida.
+
+#v2.3.0
+Esta versión:
+- Ajuste para cambiar el idioma
+- Reemplaza pantallas de incorporación con una incorporación guiada con información de herramientas.
+- Actualizaciones de la interfaz de usuario de la página de espera
+- Actualiza los componentes de Android a la versión v130.0.1
 - Actualiza Ouinet a v0.29.1
-- Actualiza las traducciones a varios idiomas.
+- Actualiza traducciones
 
-# v2.2.3
-Esta versión del parche:
-- Añade la opción de exportar registros desde la página de espera
-- Elimina el servicio de autorrelleno de las opciones de configuración
-- Corrige un error de interfaz de usuario en el que la barra de herramientas cubría parte de la vista web.
-- Actualiza Android-Components a v130.0
+#v2.2.3
+Este parche:
+- Opción para exportar registros desde la página de espera
+- Elimina autocompletar de los ajustes 
+- Corrige un error con la barra de herramientas que cubre parte de la página 
+- Componentes de Android a la versión v130.0
 - Actualiza Ouinet a v0.29.0
-- Fuerza la barra de herramientas a la posición superior para Android 7.1 y anteriores
-- Corrección de errores menores
-- Actualiza las traducciones para varios idiomas
+- Barra de herramientas a la posición superior para Android 7.1 y anteriores
+- Correcciones de errores.
+- Actualiza traducciones
 
-# v2.2.2
-Esta versión del parche:
+#v2.2.2
+Este parche:
 
-- Actualiza Android-Components a 129.0.2
+- Actualiza a Android a 129.0.2
 - Actualiza Ouinet a v0.28.0
-- Actualiza la interfaz de usuario para la página acerca de con nuevos enlaces y logotipos actualizados
-- Establece la posición predeterminada de la barra de herramientas en la parte superior para Android 7.1 y anteriores
-- Refactoriza los recursos de cadena
-- Actualiza las traducciones para determinadas localizaciones
+- Actualiza Acerca de, con nuevos enlaces y logotipos.
+- Posición predeterminada de la barra de herramientas en la parte superior para Android 7.1 y anteriores
+- Refactoriza recursos de cadena
+- Actualiza las traducciones
