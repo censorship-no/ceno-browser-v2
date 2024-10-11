@@ -2,11 +2,10 @@ package ie.equalit.ceno.share
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.content.FileProvider
 import androidx.fragment.app.clearFragmentResult
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -15,14 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import ie.equalit.ceno.R
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.databinding.FragmentShareBinding
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.concept.engine.prompt.PromptRequest
 import mozilla.components.feature.share.RecentAppsStorage
+import java.io.File
 
 class ShareFragment : BottomSheetDialogFragment() {
 
@@ -36,7 +35,7 @@ class ShareFragment : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        viewModel.loadDevicesAndApps(requireContext())
+        viewModel.loadDevicesAndApps(requireContext(), args.logsFilePath != null)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,49 +57,85 @@ class ShareFragment : BottomSheetDialogFragment() {
             container,
             false,
         )
-        val shareData = args.data.toList()
 
-        shareInteractor = ShareInteractor(
-            DefaultShareController(
-                context = requireContext(),
-                shareSubject = args.shareSubject,
-                shareData = shareData,
-                navController = findNavController(),
-                saveToPdfUseCase = requireComponents.useCases.sessionUseCases.saveToPdf,
-                printUseCase = requireComponents.useCases.sessionUseCases.printContent,
-                recentAppsStorage = RecentAppsStorage(requireContext()),
-                viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
-            ) { result ->
-                consumePrompt {
-                    when (result) {
-                        ShareController.Result.DISMISSED -> onDismiss()
-                        ShareController.Result.SHARE_ERROR -> onFailure()
-                        ShareController.Result.SUCCESS -> onSuccess()
-                    }
-                }
-                super.dismiss()
-            },
-        )
-        binding.shareWrapper.setOnClickListener { shareInteractor.onShareClosed() }
+        val logsFilePath = args.logsFilePath
+        if (logsFilePath != null) {
+            binding.savePdf.visibility = View.GONE
+            val file = File(requireContext().filesDir, logsFilePath)
+            if (file?.exists() == true) {
+                val uri = FileProvider.getUriForFile(
+                    requireContext(),
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    file
+                )
+                shareInteractor = ShareInteractor(
+                    LogsShareController(
+                        context = requireContext(),
+                        logsUri = uri,
+                        navController = findNavController(),
+                        recentAppsStorage = RecentAppsStorage(requireContext()),
+                        viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
+                    ) { result ->
+                        consumePrompt {
+                            when (result) {
+                                ShareController.Result.DISMISSED -> onDismiss()
+                                ShareController.Result.SHARE_ERROR -> onFailure()
+                                ShareController.Result.SUCCESS -> onSuccess()
+                            }
+                        }
+                        super.dismiss()
+                    },
+                )
+            }
 
-        if (args.showPage) {
-            // Show the previous fragment underneath the share background scrim
-            // by making it translucent.
-            binding.closeSharingScrim.alpha = SHOW_PAGE_ALPHA
-            binding.shareWrapper.setOnClickListener { shareInteractor.onShareClosed() }
         } else {
-            // Otherwise, show a list of tabs to share.
-            binding.closeSharingScrim.alpha = 1.0f
-            shareCloseView = ShareCloseView(binding.closeSharingContent, shareInteractor)
-            shareCloseView.setTabs(shareData)
-        }
-        shareToAppsView = ShareToAppsView(binding.appsShareLayout, shareInteractor)
+            val shareData = args.data.toList()
+            shareInteractor = ShareInteractor(
+                DefaultShareController(
+                    context = requireContext(),
+                    shareSubject = args.shareSubject,
+                    shareData = shareData,
+                    navController = findNavController(),
+                    saveToPdfUseCase = requireComponents.useCases.sessionUseCases.saveToPdf,
+                    printUseCase = requireComponents.useCases.sessionUseCases.printContent,
+                    recentAppsStorage = RecentAppsStorage(requireContext()),
+                    viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
+                ) { result ->
+                    consumePrompt {
+                        when (result) {
+                            ShareController.Result.DISMISSED -> onDismiss()
+                            ShareController.Result.SHARE_ERROR -> onFailure()
+                            ShareController.Result.SUCCESS -> onSuccess()
+                        }
+                    }
+                    super.dismiss()
+                },
+            )
 
-        binding.savePdf.setContent {
-            SaveToPDFItem {
-                shareInteractor.onSaveToPDF(tabId = args.sessionId)
+            if (args.showPage) {
+                // Show the previous fragment underneath the share background scrim
+                // by making it translucent.
+                binding.closeSharingScrim.alpha = SHOW_PAGE_ALPHA
+                binding.shareWrapper.setOnClickListener { shareInteractor.onShareClosed() }
+            } else {
+                // Otherwise, show a list of tabs to share.
+                binding.closeSharingScrim.alpha = 1.0f
+                shareCloseView = ShareCloseView(binding.closeSharingContent, shareInteractor)
+                shareCloseView.setTabs(shareData)
+            }
+
+            binding.savePdf.visibility = View.VISIBLE
+            binding.savePdf.setContent {
+                SaveToPDFItem {
+                    shareInteractor.onSaveToPDF(tabId = args.sessionId)
+                }
             }
         }
+
+        binding.shareWrapper.setOnClickListener { shareInteractor.onShareClosed() }
+        shareToAppsView = ShareToAppsView(binding.appsShareLayout, shareInteractor)
+
+
         return binding.root
     }
 
