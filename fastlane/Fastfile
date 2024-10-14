@@ -67,13 +67,28 @@ platform :android do
     )
   end
 
-  desc "Copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt"
-  lane :createReleaseNotes do
-    ENV["VERSION_NAME"] = sh "cat ../local.properties \
-                                | grep versionName \
-                                | cut -d '=' -f2 \
-                                | tr -d '\n'"
-    ENV["VERSION_CODE"]  = sh "java -jar $BUNDLETOOL_JAR dump manifest \
+  desc "Clean build directory and re-build nightly apks and bundle"
+  lane :cleanAssembleRelease do
+    gradle(
+      task: 'clean'
+    )
+    gradle(
+      task: 'assemble',
+      build_type: 'Release'
+    )
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+  end
+
+  desc "Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly release"
+  lane :createNightlyNotes do
+    ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
+                                    | grep versionName \
+                                    | cut -d '=' -f2"
+    ENV["VERSION_NAME"] = sh "echo $([ -z $CENO_VERSION ] && echo $LOCAL_VERSION || echo $CENO_VERSION) | tr -d '\n'"
+    ENV["VERSION_CODE"]  = sh "java -jar /opt/bundletool-all-1.17.1.jar dump manifest \
                                 --bundle ../app/build/outputs/bundle/nightly/app-nightly.aab \
                                 --xpath /manifest/@android:versionCode \
                                 | tr -d '\n'"
@@ -81,6 +96,28 @@ platform :android do
         | head -n -2 \
         | tail -n +2 \
         > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+  end
+
+  desc "Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release"
+  lane :createReleaseNotes do
+    ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
+                                    | grep versionName \
+                                    | cut -d '=' -f2"
+    ENV["VERSION_NAME"] = sh "echo $([ -z $CENO_VERSION ] && echo $LOCAL_VERSION || echo $CENO_VERSION) | tr -d '\n'"
+    ENV["VERSION_CODE"]  = sh "java -jar /opt/bundletool-all-1.17.1.jar dump manifest \
+                                --bundle ../app/build/outputs/bundle/release/app-release.aab \
+                                --xpath /manifest/@android:versionCode \
+                                | tr -d '\n'"
+    sh "sed -n \"/${VERSION_NAME}/,/#/p\" metadata/android/en-US/changelogs/CHANGELOG.txt \
+        | head -n -2 \
+        | tail -n +2 \
+        > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+    # 32-bit F-droid release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE-1)).txt"
+    # 64-bit F-droid release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE+1)).txt"
+    # 64-bit play store release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE+2)).txt"
   end
 
   lane :screenshots do
@@ -122,5 +159,12 @@ platform :android do
       #  )
       #end
     end
+  end
+
+  desc "Prepare release APKS, AAB, and release notes"
+  lane :prepareRelease do
+      lint
+      cleanAssembleRelease
+      createReleaseNotes
   end
 end

@@ -47,13 +47,29 @@ Run gradle lintDebug
 
 Clean build directory and re-build nightly apks and bundle
 
+### android cleanAssembleRelease
+
+```sh
+[bundle exec] fastlane android cleanAssembleRelease
+```
+
+Clean build directory and re-build nightly apks and bundle
+
+### android createNightlyNotes
+
+```sh
+[bundle exec] fastlane android createNightlyNotes
+```
+
+Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly release
+
 ### android createReleaseNotes
 
 ```sh
 [bundle exec] fastlane android createReleaseNotes
 ```
 
-Copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt
+Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release
 
 ### android screenshots
 
@@ -70,6 +86,14 @@ Copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt
 ```
 
 Run tasks if new commits have been made to develop
+
+### android prepareRelease
+
+```sh
+[bundle exec] fastlane android prepareRelease
+```
+
+Prepare release APKS, AAB, and release notes
 
 ----
 
