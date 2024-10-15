@@ -43,6 +43,15 @@ platform :android do
       build_type: 'AndroidTest'
     )
   end
+
+  desc "Run gradle lintDebug"
+  lane :lint do
+    gradle(
+      task: 'lint',
+      build_type: 'Debug'
+    )
+  end
+
   desc "Clean build directory and re-build nightly apks and bundle"
   lane :cleanAssembleNightly do
     gradle(
@@ -58,6 +67,59 @@ platform :android do
     )
   end
 
+  desc "Clean build directory and re-build nightly apks and bundle"
+  lane :cleanAssembleRelease do
+    gradle(
+      task: 'clean'
+    )
+    gradle(
+      task: 'assemble',
+      build_type: 'Release'
+    )
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+  end
+
+  desc "Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly release"
+  lane :createNightlyNotes do
+    ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
+                                    | grep versionName \
+                                    | cut -d '=' -f2"
+    ENV["VERSION_NAME"] = sh "echo $([ -z $CENO_VERSION ] && echo $LOCAL_VERSION || echo $CENO_VERSION) | tr -d '\n'"
+    ENV["VERSION_CODE"]  = sh "java -jar /opt/bundletool-all-1.17.1.jar dump manifest \
+                                --bundle ../app/build/outputs/bundle/nightly/app-nightly.aab \
+                                --xpath /manifest/@android:versionCode \
+                                | tr -d '\n'"
+    sh "sed -n \"/${VERSION_NAME}/,/#/p\" metadata/android/en-US/changelogs/CHANGELOG.txt \
+        | head -n -2 \
+        | tail -n +2 \
+        > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+  end
+
+  desc "Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release"
+  lane :createReleaseNotes do
+    ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
+                                    | grep versionName \
+                                    | cut -d '=' -f2"
+    ENV["VERSION_NAME"] = sh "echo $([ -z $CENO_VERSION ] && echo $LOCAL_VERSION || echo $CENO_VERSION) | tr -d '\n'"
+    ENV["VERSION_CODE"]  = sh "java -jar /opt/bundletool-all-1.17.1.jar dump manifest \
+                                --bundle ../app/build/outputs/bundle/release/app-release.aab \
+                                --xpath /manifest/@android:versionCode \
+                                | tr -d '\n'"
+    sh "sed -n \"/${VERSION_NAME}/,/#/p\" metadata/android/en-US/changelogs/CHANGELOG.txt \
+        | head -n -2 \
+        | tail -n +2 \
+        > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+    # 32-bit F-droid release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE-1)).txt"
+    # 64-bit F-droid release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE+1)).txt"
+    # 64-bit play store release version code
+    sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE+2)).txt"
+  end
+
   lane :screenshots do
     capture_android_screenshots()
   end
@@ -68,40 +130,20 @@ platform :android do
     sh "git pull origin develop"
     current_commit = last_git_commit[:commit_hash]
     if current_commit != previous_commit then
-      gradle(
-        task: 'clean'
-      )
-      gradle(
-        task: 'assemble',
-        build_type: 'Debug'
-      )
-      gradle(
-        task: 'assemble',
-        build_type: 'AndroidTest'
-      )
-      gradle(
-        task: 'lint',
-        build_type: 'Debug'
-      )
-
+      cleanAssembleDebugTest
+      lint
       # Uploads debug apk to BrowserStack and starts tests
       sh "../start_testsuite.sh -u"
 
       # Make nightly builds and upload to Play Store internal test track
-      gradle(
-        task: 'assemble',
-        build_type: 'Nightly'
-      )
-      gradle(
-        task: 'bundle',
-        build_type: 'Nightly'
-      )
+      cleanAssembleNightly
+      createNightlyNotes
       upload_to_play_store(
         track: 'internal',
         release_status: 'draft',
         skip_upload_apk: 'true',
         skip_upload_metadata: 'true',
-        skip_upload_changelogs: 'true',
+        skip_upload_changelogs: 'false',
         skip_upload_images: 'true',
         skip_upload_screenshots: 'true',
       )
@@ -117,5 +159,12 @@ platform :android do
       #  )
       #end
     end
+  end
+
+  desc "Prepare release APKS, AAB, and release notes"
+  lane :prepareRelease do
+      lint
+      cleanAssembleRelease
+      createReleaseNotes
   end
 end
