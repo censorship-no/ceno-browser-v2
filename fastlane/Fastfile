@@ -137,7 +137,7 @@ platform :android do
 
       # Make nightly builds and upload to Play Store internal test track
       cleanAssembleNightly
-      createReleaseNotes
+      createNightlyNotes
       upload_to_play_store(
         track: 'internal',
         release_status: 'draft',
