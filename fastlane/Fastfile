@@ -120,8 +120,15 @@ platform :android do
     sh "cp metadata/android/en-US/changelogs/${VERSION_CODE}.txt metadata/android/en-US/changelogs/$((VERSION_CODE+2)).txt"
   end
 
-  lane :screenshots do
-    capture_android_screenshots()
+  lane :screenshots do |options|
+    if options[:abi] == "" then
+        apk_path = './app/build/outputs/apk/debug/app-arm64-v8a-debug.apk'
+    else
+        apk_path = './app/build/outputs/apk/debug/app-' + options[:abi] + '-debug.apk'
+    end
+    capture_android_screenshots(
+        app_apk_path: apk_path
+    )
   end
 
   desc "Run tasks if new commits have been made to develop"
