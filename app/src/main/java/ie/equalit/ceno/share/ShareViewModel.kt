@@ -53,7 +53,7 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
      * Load a list of devices and apps into [devicesList] and [appsList].
      * Should be called when the fragment is attached so the data can be fetched early.
      */
-    fun loadDevicesAndApps(context: Context) {
+    fun loadDevicesAndApps(context: Context, shareLogs:Boolean = false) {
 
         // Start preparing the data as soon as we have a valid Context
         viewModelScope.launch(ioDispatcher) {
@@ -68,9 +68,12 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
             val recentApps = buildRecentAppsList(apps)
             apps = filterOutRecentApps(apps, recentApps)
 
+            // if sharing logs file don't show copy app
             // if copy app is available, prepend to the list of actions
-            getCopyApp(context)?.let {
-                apps = listOf(it) + apps
+            if (!shareLogs) {
+                getCopyApp(context)?.let {
+                    apps = listOf(it) + apps
+                }
             }
 
             recentAppsListLiveData.postValue(recentApps)
