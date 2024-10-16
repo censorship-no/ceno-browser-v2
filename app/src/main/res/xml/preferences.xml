@@ -55,18 +55,6 @@
             android:title="@string/preferences_mobile_data"/>
             -->
 
-        <androidx.preference.Preference
-            android:key="@string/pref_key_allow_notifications"
-            android:title="@string/preferences_allow_notifications"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false" />
-
-        <androidx.preference.Preference
-            android:key="@string/pref_key_disable_battery_opt"
-            android:title="@string/preferences_disable_battery_opt"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false" />
-
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="@string/pref_key_show_onboarding"
@@ -92,6 +80,24 @@
             android:enabled="true"
             android:title="@string/preferences_change_language" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/preference_category_style"
+        android:key="@string/pref_permissions_category"
+        android:title="@string/ceno_permissions_category">
+
+        <androidx.preference.Preference
+            android:key="@string/pref_key_allow_notifications"
+            android:title="@string/preferences_allow_notifications"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="true" />
+
+        <androidx.preference.Preference
+            android:key="@string/pref_key_disable_battery_opt"
+            android:title="@string/preferences_disable_battery_opt"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="true" />
     </PreferenceCategory>
 
     <PreferenceCategory

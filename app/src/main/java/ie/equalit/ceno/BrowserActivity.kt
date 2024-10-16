@@ -143,6 +143,9 @@ open class BrowserActivity : BaseActivity() {
 
         components.ouinet.background.startup()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
+
         /* CENO: Set default behavior for AppBar */
         supportActionBar!!.apply {
             hide()
@@ -349,11 +352,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-//        if (isGranted) {
-//            Log.d("PERMISSIONS", "permission was granted")
-//        } else {
-//            Log.d("PERMISSIONS", "permission was denied")
-//        }
+        Settings.setAllowNotifications(this, isGranted)
         components.permissionHandler.requestBatteryOptimizationsOff(this)
     }
 

@@ -11,7 +11,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -22,7 +21,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -85,6 +84,8 @@ import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
+import ie.equalit.ceno.R.string.status_disabled
+import ie.equalit.ceno.R.string.status_enabled
 import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
@@ -94,6 +95,7 @@ import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.getPreferenceCategory
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
@@ -137,10 +139,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var bridgeAnnouncementDialog: AlertDialog
     private var logFileReset:Boolean = false
     private var logLevelReset:Boolean = false
-
-    val getFileResult = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri: Uri? ->
-        Log.d("DOC", uri.toString())
-    }
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -322,27 +320,32 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
         // Update notifications
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !requireComponents.permissionHandler.isAllowingPostNotifications() -> {
-                getPreference(pref_key_allow_notifications)?.isVisible = true
-                getPreference(pref_key_allow_notifications)?.onPreferenceClickListener = getClickListenerForAllowNotifications()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getPreference(pref_key_allow_notifications)?.apply {
+                isVisible = true
+                onPreferenceClickListener = getClickListenerForAllowNotifications()
+                summary = if (requireComponents.permissionHandler.isAllowingPostNotifications())
+                    getString(status_enabled)
+                else getString(status_disabled)
             }
 
-            else -> {
-                getPreference(pref_key_allow_notifications)?.isVisible = false
-            }
+        }
+        else {
+            getPreference(pref_key_allow_notifications)?.isVisible = false
         }
 
         // Update battery optimization
-        when {
-            requireComponents.permissionHandler.isIgnoringBatteryOptimizations() -> {
-                getPreference(pref_key_disable_battery_opt)?.isVisible = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            getPreference(pref_key_disable_battery_opt)?.apply {
+                isVisible = true
+                summary = if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations())
+                    getString(status_disabled)
+                else getString(status_enabled)
+                onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
             }
-
-            else -> {
-                getPreference(pref_key_disable_battery_opt)?.isVisible = true
-                getPreference(pref_key_disable_battery_opt)?.onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
-            }
+        } else {
+            getPreference(pref_key_disable_battery_opt)?.isVisible = false
+            getPreferenceCategory(R.string.pref_permissions_category)?.isVisible = false
         }
 
     }
@@ -639,6 +642,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
      */
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             OnPreferenceClickListener {
@@ -654,10 +658,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             OnPreferenceClickListener {
-                requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
+                Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
+                    requireActivity().startActivity(this)
+                }
                 true
             }
         } else {
