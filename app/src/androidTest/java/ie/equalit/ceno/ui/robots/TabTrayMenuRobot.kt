@@ -104,7 +104,7 @@ class TabTrayMenuRobot {
 private fun regularTabs() = onView(ViewMatchers.withContentDescription("Tabs"))
 private fun privateTabs() = onView(ViewMatchers.withContentDescription("Personal tabs"))
 private fun goBackButton() = onView(ViewMatchers.withContentDescription("back"))
-private fun newTabButton() = onView(ViewMatchers.withContentDescription("Add New Tab"))
+private fun newTabButton() = onView(ViewMatchers.withContentDescription(R.string.menu_action_add_tab))
 private fun closeTabButtonTabTray(text : String): ViewInteraction {
     return onView(allOf(withId(R.id.mozac_browser_tabstray_close), hasSibling(withText(text))))
 }
