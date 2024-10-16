@@ -71,6 +71,14 @@ Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly relea
 
 Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release
 
+### android cleanRepo
+
+```sh
+[bundle exec] fastlane android cleanRepo
+```
+
+Clean up repo after changes required for play store upload
+
 ### android screenshots
 
 ```sh
