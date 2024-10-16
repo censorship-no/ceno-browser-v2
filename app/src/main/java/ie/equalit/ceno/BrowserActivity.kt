@@ -15,10 +15,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -39,8 +41,6 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.isCrashReportActive
-import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
@@ -361,6 +361,23 @@ open class BrowserActivity : BaseActivity() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    val getLogfileLocation = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
+        try {
+            if (uri != null) {
+
+                // get logs from internal storage
+                this.openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt").bufferedReader().useLines { lines ->
+                    var fileContent = lines.toMutableList().joinToString("\n")
+                    var file = contentResolver.openOutputStream(uri)
+                    file?.write(fileContent.toByteArray())
+                    file?.close()
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, e.message.toString())
+        }
     }
 
     /* CENO: Handle intent sent to BrowserActivity to open to Homepage or open a homescreen shortcut link */

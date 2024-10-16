@@ -118,7 +118,7 @@
     <string name="ceno_notification_home_description">Strona główna</string>
     <string name="ceno_clear_dialog_cancel">Anuluj</string>
     <string name="ceno_notification_clear_description">Wymaż⚠</string>
-    <string name="preferences_about_page">Informacje o eQualitie</string>
+    <string name="preferences_about_page">O nas</string>
     <string name="onboarding_warning_button">Okej</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Tryb prywatny&lt;/h1&gt; &lt;p&gt;Ceno nie będzie udostępniać zawartości kart prywatnych innym użytkownikom. Możesz bez obaw logować się na stronach.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Chcesz dowiedzieć się więcej?&lt;/p&gt;</string>
     <string name="onboarding_warning_text">Optymalizacja baterii jest nadal włączona
@@ -142,7 +142,7 @@
     <string name="preferences_ceno_download_log">Eksport dziennika Ouinet</string>
     <string name="ouinet_client_fetch_fail">Nie udało się wprowadzić zmian w ustawieniach Ceno</string>
     <string name="preferences_change_app_icon">Zmień ikonę aplikacji</string>
-    <string name="preferences_show_onboarding">Pokaż wprowadzenie podczas następnego uruchomienia</string>
+    <string name="preferences_show_onboarding">Pokaż wskazówki podczas następnego uruchomienia</string>
     <string name="ceno_onboarding_start_title">Dziel się siecią,
 \npeer-to-peer</string>
     <string name="onboarding_public_or_personal_title">Karty publiczne, czy osobiste?</string>
@@ -182,9 +182,7 @@
     <string name="preference_show_search_suggestions_summary">Ceno przekaże wyszukiwarce to, co napisałeś w pasku wyszukiwania</string>
     <string name="clear_cache_success">Pamięć podręczna została pomyślnie wyczyszczona</string>
     <string name="clear_cache_fail">Czyszczenie pamięci podręcznej zakończyło się niepowodzeniem, spróbuj ponownie później</string>
-    <string name="onboarding_public_personal_text">Używaj zakładek publicznych do czytania wiadomości, oglądania filmów i ogólnego surfowania po sieci. Udostępniaj treści internetowe innym użytkownikom Ceno.
-\n
-\nZakładki osobiste lepiej nadają się do korzystania z kont w mediach społecznościowych, zakupów online i przeglądania stron internetowych, których nie chcesz udostępniać innym.</string>
+    <string name="onboarding_public_personal_text">Używaj zakładek publicznych do czytania wiadomości, oglądania filmów i ogólnego surfowania po sieci. W trybie Publicznym możesz także udostępniać treści internetowe innym użytkownikom Ceno. Zakładki osobiste lepiej nadają się do korzystania z kont w mediach społecznościowych, zakupów online i przeglądania stron internetowych, których nie chcesz udostępniać innym.</string>
     <string name="onboarding_cleanup_title">Wyczyść wszystko,
 \nwszędzie, naraz</string>
     <string name="onboarding_cleanup_text">Usuń historię przeglądania, dane logowania i zatrzyj wszelkie ślady zostawione na Ceno za jednym dotknięciem.</string>
@@ -194,8 +192,8 @@
     <string name="ceno_clear_action_description">Wyczyść</string>
     <string name="ceno_clear_dialog_title">Wyczyść Ceno</string>
     <string name="crash_reporting_dialog_title">Przykro mi, wygląda na to że Ceno uległ awarii!</string>
-    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">"Zatrzymaj &amp;brandShortName  now"</string>
-    <string name="crash_reporting_always_send">Zawsze wysylaj, powiększone &amp;brandShortName</string>
+    <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Zatrzymaj &amp;brandShortName teraz</string>
+    <string name="crash_reporting_always_send">Zawsze wysyłaj, ulepszaj Ceno</string>
     <string name="crash_reporting_dialog_description">Pomóż nam uczynić Ceno lepszyą wysyłając raporty błędów.</string>
     <string name="ceno_clear_dialog_clear_entire_app">Wyczyść Ceno pamięć podręczna i dane aplikacji</string>
     <string name="crash_reporting_opt_out">Zrezygnowałeś z udostępniania zgłoszeń o awariach. Możesz zawsze je włączyć wchodząc do Ustawień &gt; Zgłoszenia o awariach.</string>
@@ -213,7 +211,7 @@
     <string name="preferences_ceno_network_config_summary">Status Ouinet, endpointy UDP, bootstrapy BitTorrent</string>
     <string name="crash_reporting_opt_in">Dziękujemy za zgłoszenie raportu awarii w celu ulepszenia Ceno! Możesz zawsze wyłączyć tą opcje, wchodząc do Ustawień &gt; Zgłoszenia awarii.</string>
     <string name="bt_invalid_ip_error">Nieprawidłowy adres IP</string>
-    <string name="default_top_site_1_title">Instrukcja</string>
+    <string name="default_top_site_1_title">Instrukcja Ceno</string>
     <string name="onboarding_btn_get_started">Rozpocznij</string>
     <string name="onboarding_battery_text_v33">Wkrótce system poprosi cię o pozwolenie na
 \n
@@ -226,7 +224,7 @@
     <string name="preferences_ceno_sources_public_udp">Publiczne punkty końcowe UDP</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Dodatkowe bootstrap-y BitTorrent</string>
     <string name="preferences_ceno_website_sources">Źródła stron</string>
-    <string name="ouinet_client_fetch_success">ustawienie zaktualizowane</string>
+    <string name="ouinet_client_fetch_success">ustawienie Ceno zaktualizowane</string>
     <string name="ceno_home_card_personal_title">OSOBISTE</string>
     <string name="onboarding_battery_text">Wkrótce system poprosi cię o pozwolenie na
 \n
@@ -336,4 +334,31 @@
     <string name="error_page_header">Ups! Nie udało się wczytać strony internetowej.</string>
     <string name="error_page_sub_header">To oznacza, że Ceno próbowało wszystkich możliwych mechanizmów aby uzyskać dostęp do treści, ale żaden nie zadziałał:</string>
     <string name="thank_you_bridge_mode_enabled">Dziękujemy za pozostanie mostem i powiększenie sieci Ceno!</string>
+    <string name="preferences_theme_option_3">Ustawione przez Oszczędzanie Baterii</string>
+    <string name="preferences_change_language">Zmień język</string>
+    <string name="browser_menu_enable_reader_view">Pokaż widok Czytelnika</string>
+    <string name="browser_menu_disable_reader_view">Ukryj Widok Czytelknika</string>
+    <string name="skip_the_tour_button">Pomiń przewodnik</string>
+    <string name="btn_next">Następne</string>
+    <string name="btn_exit">Wyjście</string>
+    <string name="tooltip_shortcuts_description">Zachowaj swoje ulubione strony jako skróty, dla prostszego dostępu ze strony domowej.</string>
+    <string name="tooltip_toolbar_title">Zacznijmy przeglądać!</string>
+    <string name="tooltip_toolbar_description">Wpisz adres strony by zacząć przeglądać</string>
+    <string name="tooltip_sources_title">Źródła Ceno</string>
+    <string name="tooltip_permission_text">By pomagać płynnie udostępniać strony nawet gdy aplikacja pracuje w tle, proszę zezwól Ceno na wysyłanie powiadomień oraz wyłącz optymalizacje baterii. W każdej chwili możesz dostosować te uprawnienia w ustawieniach swojego telefonu.</string>
+    <string name="standby_tip_title">Wskazówka</string>
+    <string name="standby_tip_bridge">Stań się mostem, pomóż innym połączyć się ze stronami internetowymi</string>
+    <string name="standby_tip_icon">Zmień ikonę aplikacji by ukryć Ceno</string>
+    <string name="standby_tip_pdf">Udostępniaj strony internetowe jako PDF</string>
+    <string name="standby_tip_announcements">Sprawdzaj aktualizacje w sekcji ogłoszeń</string>
+    <string name="change_language">Zmień język</string>
+    <string name="top_sites_title">Skróty</string>
+    <string name="update">Aktualizuj</string>
+    <string name="error_page_learn_more_header">Upewnij się, że wymienione wymagania są spełnione by Ceno mogło działać</string>
+    <string name="error_page_learn_more_2">Wszystkie mechanizmy dostępów w Ustawieniach są włączone. W innym przypadku Ceno nie będzie w stanie obejść niektórych problemów z połączeniem podczas pobierania zawartości.</string>
+    <string name="start_tooltip_description">Uwolnij pełen potencjał Ceno - Przejdź przez przewodnik by odkryć kluczowe funkcje i zezwól na dzielenie się siecią nawet gdy aplikacja pracuje w tle.</string>
+    <string name="tooltip_sources_description">Łatwo sprawdź skąd zawartość strony jest pobierana - bezpośrednio ze strony, poprzez sieć Ceno lub z pamięci podręcznej Ceno</string>
+    <string name="about_content_para_2">CENO Browser jest tworzona przez eQualitie - kanadyjską organizację non-profit, która tworzy zdecentralizowane usługi Internetowe by wspierać bardziej równą sieć. Produkty eQualitie są open source, zaprawione w boju i tworzone w duchu naszych zasad. Codziennie, umożliwiają zrzeszanie się milionom ludzi.</string>
+    <string name="enable_debug_logs">Włącz logi debugowania</string>
+    <string name="error_page_learn_more_3">Twoje urządzenia posiada sprawne połączenie z siecią, np. Twoja normalna przeglądarka internetowa jest zdolna do otwierania stron. Ceno i Ouinet nie może działać gdy wszystkie połączenia sieciowe są wyłączone.</string>
 </resources>
