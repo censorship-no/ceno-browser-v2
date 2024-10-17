@@ -34,7 +34,6 @@ import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
-import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
@@ -92,7 +91,6 @@ import ie.equalit.ceno.R.string.toast_copied
 import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.R.string.view_logs
-import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceCategory
@@ -106,7 +104,6 @@ import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.ContentAction
@@ -114,11 +111,7 @@ import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
-import mozilla.components.feature.downloads.DownloadsFeature
-import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.lib.state.ext.consumeFrom
-import mozilla.components.support.base.feature.PermissionsFeature
-import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
@@ -129,9 +122,6 @@ import kotlin.system.exitProcess
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs: CenoPreferences
-    private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-
-    private var job: Job? = null
 
     private var hasOuinetStopped: Boolean = false
     private var wasLogEnabled: Boolean = false
@@ -192,29 +182,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* TODO: The downloads feature is also used by the BaseBrowserFragment,
-            should move this to a BaseFragment that both Settings and BaseBrowserFragment can inherit */
-        downloadsFeature.set(
-            feature = DownloadsFeature(
-                requireContext(),
-                store = requireComponents.core.store,
-                useCases = requireComponents.useCases.downloadsUseCases,
-                fragmentManager = childFragmentManager,
-                downloadManager = FetchDownloadManager(
-                    requireContext().applicationContext,
-                    requireComponents.core.store,
-                    DownloadService::class,
-                    notificationsDelegate = requireComponents.notificationsDelegate
-                ),
-                onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS)
-                },
-            ),
-            owner = this,
-            view = view,
-        )
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
         bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
@@ -254,20 +221,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 show()
             }
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        val feature: PermissionsFeature? = when (requestCode) {
-            AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            else -> null
-        }
-        feature?.onPermissionsResult(permissions, grantResults)
     }
 
     override fun onResume() {
@@ -930,7 +883,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
         const val DELAY_ONE_SECOND = 1000L
 
-        fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        fun getCurrentLocale(): Locale = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
         } else {
             Locale.getDefault()
