@@ -4,22 +4,17 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper
-import ie.equalit.ceno.ui.robots.OnboardingRobot
 import ie.equalit.ceno.ui.robots.clickNext
-import ie.equalit.ceno.ui.robots.clickPermissions
-import ie.equalit.ceno.ui.robots.givePermissions
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -53,8 +48,7 @@ class TooltipsTest {
         val genericOneURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         onboarding {
             verifyStartTooltipExists()
-            verifyStartTooltipText()
-            verifyStartTooltipButtons()
+            verifyStartTooltip()
             beginTooltipsTour()
             verifyPublicPersonalTooltip()
             clickNext()
@@ -84,7 +78,7 @@ class TooltipsTest {
     fun exitTooltip() {
         onboarding {
             verifyStartTooltipExists()
-            verifyStartTooltipButtons()
+            verifyStartTooltip()
             beginTooltipsTour()
             verifyPublicPersonalTooltip()
             verifyExitButton()
