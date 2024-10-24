@@ -4,7 +4,7 @@
 [![pipeline status](https://gitlab.com/censorship-no/ceno-browser/badges/main/pipeline.svg)](https://gitlab.com/censorship-no/ceno-browser/commits/main)
 [![Gitlab release (latest by date)](https://img.shields.io/gitlab/v/release/censorship-no/ceno-browser)](https://gitlab.com/censorship-no/ceno-browser/-/releases)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](./LICENSE)
-[![Weblate](https://hosted.weblate.org/widgets/censorship-no/-/android-strings/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/)
+[![Weblate](https://hosted.weblate.org/widget/censorship-no/svg-badge.svg)](https://hosted.weblate.org/projects/censorship-no/)
 
 Ceno (Censorship.No!) is a next-generation mobile web browser that uses peer-to-peer technology to deliver websites to your phone and caches popular content with cooperating peers. Ceno can be used to bypass Internet censorship and help others retrieve blocked pages.
 
