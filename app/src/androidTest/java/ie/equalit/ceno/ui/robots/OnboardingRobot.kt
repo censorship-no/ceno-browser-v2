@@ -140,7 +140,7 @@ private fun skipTourButton() = onView(ViewMatchers.withText(R.string.skip_the_to
 private fun exitButton() = onView(withId(R.id.btn_skip_tour))
 private fun nextButton() = onView(withId(R.id.btn_next_tooltip))
 private fun tooltipView() = onView(withId(R.id.material_target_prompt_view))
-
+fun selectLanguageButton() = onView(withId(R.id.locale_picker))
 private fun skipCenoTourButton() = mDevice.findObject(
     UiSelector().resourceId("${TestHelper.packageName}:id/btn_skip_all_ceno_tour"),
 )

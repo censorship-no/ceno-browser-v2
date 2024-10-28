@@ -78,6 +78,7 @@
             android:key="@string/pref_key_change_language"
             android:defaultValue="false"
             android:enabled="true"
+            android:layout="@layout/ceno_clickable_preference"
             android:title="@string/preferences_change_language" />
 
     </PreferenceCategory>

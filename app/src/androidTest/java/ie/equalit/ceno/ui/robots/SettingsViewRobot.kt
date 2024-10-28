@@ -15,6 +15,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
@@ -100,6 +101,9 @@ class SettingsViewRobot {
     fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickBridgeModeToggle() = bridgeModeToggle().click()
+    fun clickChangeLanguageButton() {
+        changeLanguageButton().click()
+    }
 
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
@@ -266,7 +270,7 @@ private fun aboutHeading() = onView(allOf(withText(R.string.about_category), wit
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
-private fun changeLanguageButton() = onView(withText(R.string.change_language))
+private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
 private fun permissionsHeading() = onView(withText(R.string.ceno_permissions_category))
 
 private fun aboutEqualitieButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
@@ -357,7 +361,7 @@ private fun assertCustomAddonCollectionPanel() {
         ),
     ).check(matches(isCompletelyDisplayed()))
 }
-private fun assertChangeLanguageButton() = changeLanguageButton()
+private fun assertChangeLanguageButton() = changeLanguageButton().check(matches( isDisplayed()))
 private fun assertAllowNotificationButton() {
     mDevice.wait(Until.findObject(By.text("Notifications")), waitingTime)
 }
