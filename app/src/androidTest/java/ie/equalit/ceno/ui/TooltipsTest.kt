@@ -52,8 +52,10 @@ class TooltipsTest {
             beginTooltipsTour()
             verifyPublicPersonalTooltip()
             clickNext()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyShortcutsTooltip()
             clickNext()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyUrlTooltip()
         }
         navigationToolbar {
