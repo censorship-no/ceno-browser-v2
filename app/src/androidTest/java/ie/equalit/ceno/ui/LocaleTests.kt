@@ -39,11 +39,11 @@ class LocaleTests {
             selectLanguageButton().click()
             locale {
                 verifyChangeLanguageDialog()
-            }.changeLanguage("Persian")
+            }.changeLanguage("French")
             standby {}.waitForStandbyIfNeeded()
             //verify new locale
             locale {
-                verifyLocale("fa")
+                verifyLocale("fr")
             }
         }
     }
@@ -65,11 +65,11 @@ class LocaleTests {
         }
         locale {
             verifyChangeLanguageDialog()
-        }.changeLanguage("Persian")
+        }.changeLanguage("French")
         standby {}.waitForStandbyIfNeeded()
         //verify new locale
         locale {
-            verifyLocale("fa")
+            verifyLocale("fr")
         }
     }
 }
