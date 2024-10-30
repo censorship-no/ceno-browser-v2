@@ -50,6 +50,7 @@ class TooltipsTest {
             verifyStartTooltipExists()
             verifyStartTooltip()
             beginTooltipsTour()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyPublicPersonalTooltip()
             clickNext()
             Thread.sleep(TestAssetHelper.waitingTimeShort)
@@ -62,10 +63,13 @@ class TooltipsTest {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
         }
         onboarding {
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifySourcesTooltip()
             clickNext()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyClearTooltip()
             clickNext()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyPermissionsTooltip()
         }.givePermissionsIfNeeded()
     }
@@ -82,9 +86,11 @@ class TooltipsTest {
             verifyStartTooltipExists()
             verifyStartTooltip()
             beginTooltipsTour()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyPublicPersonalTooltip()
             verifyExitButton()
             clickExit()
+            Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyPermissionsTooltip()
         }.givePermissionsIfNeeded()
     }
