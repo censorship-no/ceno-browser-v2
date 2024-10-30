@@ -1,6 +1,9 @@
 # v2.3.2
 This release:
 - Updates Android-Components to v131.0.3
+- Updates UI tests
+- Fixes tooltips for small screen devices
+- Refactors permissions and adds option to revoke them through Settings
 
 # v2.3.1
 This release:
