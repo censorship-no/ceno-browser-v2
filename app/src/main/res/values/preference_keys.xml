@@ -23,6 +23,8 @@
     <string name="pref_key_clean_insights_enabled" translatable="false">pref_key_clean_insights_enabled</string>
     <string name="pref_key_clean_insights_include_device_type" translatable="false">pref_key_clean_insights_include_device_type</string>
     <string name="pref_key_clean_insights_include_device_locale" translatable="false">pref_key_clean_insights_include_device_locale</string>
+    <string name="pref_key_ci_campaign001_prompt_completed" translatable="false">pref_key_ci_campaign001_prompt_completed</string>
+    <string name="pref_key_ci_campaign001_survey_completed" translatable="false">pref_key_ci_campaign001_survey_completed</string>
     <string name="pref_key_show_crash_reporting_permission" translatable="false">pref_key_show_crash_reporting_permission</string>
     <string name="pref_key_crash_happened">pref_key_crash_happened</string>
     <string name="pref_key_crash_was_logged">pref_key_crash_was_logged</string>

@@ -1,11 +1,13 @@
 package ie.equalit.ceno.metrics.campaign001
 
 import android.content.Context
+import androidx.preference.PreferenceManager
+import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.CleanInsights
 import org.cleaninsights.sdk.Feature
 
-class Campaign001(private val cleanInsights: CleanInsights, private val campaignId: String) {
+class Campaign001(private val cleanInsights: CleanInsights) {
 
     fun launchCampaign(context : Context, callback : (Boolean) -> Unit) {
 
@@ -13,7 +15,7 @@ class Campaign001(private val cleanInsights: CleanInsights, private val campaign
 
         dialog.show() { granted ->
             if (granted) {
-                cleanInsights.grant(campaignId)
+                cleanInsights.grant(ID)
                 if (Settings.isCleanInsightsDeviceTypeIncluded(context)) {
                     cleanInsights.grant(Feature.Ua)
                 }
@@ -22,25 +24,18 @@ class Campaign001(private val cleanInsights: CleanInsights, private val campaign
                 }
             }
             else {
-                cleanInsights.deny(campaignId)
+                cleanInsights.deny(ID)
             }
             Settings.setCleanInsightsEnabled(context, granted)
             callback.invoke(granted)
         }
     }
 
-    fun measureEvent(startupCount: Long, startupTime: Double) {
+    fun measureEvent(startupTime: Double) {
         cleanInsights.measureEvent(
             category = "app-state",
             action = "ouinet-startup-success",
-            campaignId = campaignId,
-            name = "app_startup_count",
-            value = startupCount.toDouble()
-        )
-        cleanInsights.measureEvent(
-            category = "app-state",
-            action = "ouinet-startup-success",
-            campaignId = campaignId,
+            campaignId = ID,
             name = "actual_ouinet_startup_time",
             value = startupTime
         )
@@ -54,7 +49,7 @@ class Campaign001(private val cleanInsights: CleanInsights, private val campaign
             cleanInsights.measureEvent(
                 category = "user-feedback",
                 action = "ouinet-startup-success",
-                campaignId = campaignId,
+                campaignId = ID,
                 name = "perceived_ouinet_startup_time",
                 value = value
             )
@@ -63,8 +58,41 @@ class Campaign001(private val cleanInsights: CleanInsights, private val campaign
     }
 
     fun disableCampaign(callback : () -> Unit) {
-        cleanInsights.deny(campaignId)
+        cleanInsights.deny(ID)
         callback.invoke()
     }
 
+    fun setPromptCompleted(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ci_campaign001_prompt_completed)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isPromptCompleted(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_ci_campaign001_prompt_completed), false
+        )
+    }
+
+    fun setSurveyCompleted(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ci_campaign001_survey_completed)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isSurveyCompleted(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_ci_campaign001_survey_completed), false
+        )
+    }
+
+    companion object {
+        const val ID = "ouinet-startup-time"
+        const val ASK_FOR_ANALYTICS_LIMIT = 2
+        const val ASK_FOR_SURVEY_LIMIT = 5
+    }
 }

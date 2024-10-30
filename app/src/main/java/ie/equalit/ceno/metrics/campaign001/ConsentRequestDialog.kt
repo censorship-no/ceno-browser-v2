@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.dialogs.WebViewPopupPanel
 
@@ -41,10 +42,12 @@ class ConsentRequestDialog(val context: Context) {
             .setView(dialogView)
             .setNegativeButton(R.string.clean_insights_maybe_later) { _, _ ->
                 selectionMade = true
+                context.components.metrics.campaign001.setPromptCompleted(context, true)
                 complete(false)
             }
             .setPositiveButton(R.string.clean_insights_opt_in) { _, _ ->
                 selectionMade = true
+                context.components.metrics.campaign001.setPromptCompleted(context, true)
                 complete(true)
             }
             .setOnDismissListener {

@@ -7,14 +7,6 @@ class Metrics {
     lateinit var campaign001 : Campaign001
 
     fun initCampaign001(cleanInsights: CleanInsights) {
-        campaign001 = Campaign001(cleanInsights, Campaigns.C001.campaignId())
-    }
-
-    enum class Campaigns {
-        C001;
-
-        fun campaignId() = when (this) {
-            C001 -> "ouinet-startup-time"
-        }
+        campaign001 = Campaign001(cleanInsights)
     }
 }

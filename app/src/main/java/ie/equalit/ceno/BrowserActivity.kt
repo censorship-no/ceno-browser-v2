@@ -43,6 +43,8 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
+import ie.equalit.ceno.metrics.campaign001.Campaign001.Companion.ASK_FOR_ANALYTICS_LIMIT
+import ie.equalit.ceno.metrics.campaign001.Campaign001.Companion.ASK_FOR_SURVEY_LIMIT
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -136,7 +138,9 @@ open class BrowserActivity : BaseActivity() {
                 hasRanChecksAndPermissions = true
 
                 if( !Settings.isCleanInsightsEnabled(this@BrowserActivity) &&
-                    Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_ANALYTICS_LIMIT) {
+                    Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_ANALYTICS_LIMIT &&
+                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity)
+                    ) {
                     components.metrics.campaign001.launchCampaign(this@BrowserActivity) { granted ->
                         if (granted) {
                             // success toast message
@@ -149,7 +153,6 @@ open class BrowserActivity : BaseActivity() {
                             // log Ouinet startup time if it already has a value
                             if (ouinetStartupTime > 0.0) {
                                 components.metrics.campaign001.measureEvent(
-                                    startupCount = Settings.getLaunchCount(this@BrowserActivity),
                                     startupTime = ouinetStartupTime
                                 )
                             }
@@ -299,11 +302,12 @@ open class BrowserActivity : BaseActivity() {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
                             if(Settings.isCleanInsightsEnabled(this@BrowserActivity)) {
                                 components.metrics.campaign001.measureEvent(
-                                    startupCount = Settings.getLaunchCount(this@BrowserActivity),
                                     startupTime = ouinetStartupTime
                                 )
                                 // check if this is the (n % 20 == 0)th launch and show the Ouinet prompt if true
-                                if(Settings.getLaunchCount(this@BrowserActivity).toInt() == ASK_FOR_SURVEY_LIMIT) {
+                                if(Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_SURVEY_LIMIT &&
+                                    !components.metrics.campaign001.isSurveyCompleted(this@BrowserActivity)
+                                    ) {
                                     components.metrics.campaign001.promptSurvey(this@BrowserActivity) {
                                         Toast.makeText(
                                             this@BrowserActivity,
@@ -640,7 +644,5 @@ open class BrowserActivity : BaseActivity() {
 
     companion object {
         const val DELAY_TWO_SECONDS = 2000L
-        const val ASK_FOR_ANALYTICS_LIMIT = 5
-        const val ASK_FOR_SURVEY_LIMIT = 10
     }
 }

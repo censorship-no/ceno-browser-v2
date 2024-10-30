@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.View
 import android.widget.RadioButton
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.Settings
 
 class StartupSurveyDialog(val context: Context) {
 
@@ -52,9 +54,11 @@ class StartupSurveyDialog(val context: Context) {
 
         AlertDialog.Builder(context)
             .setView(dialogView)
-            .setNegativeButton(R.string.onboarding_skip_button) { _, _ -> }
+            .setNegativeButton(R.string.onboarding_skip_button) { _, _ ->
+                context.components.metrics.campaign001.setSurveyCompleted(context, true)
+            }
             .setPositiveButton(R.string.submit) { _, _ ->
-
+                context.components.metrics.campaign001.setSurveyCompleted(context, true)
                 if (recordedValue != 0.0) {
                     complete(recordedValue)
                 }
