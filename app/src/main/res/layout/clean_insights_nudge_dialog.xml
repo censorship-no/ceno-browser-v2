@@ -42,33 +42,6 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@null"
         android:src="@drawable/dot"
-        app:layout_constraintBottom_toBottomOf="@+id/bullet1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bullet1"
-        app:tint="?attr/textPrimary" />
-
-    <TextView
-        android:id="@+id/bullet1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        android:drawablePadding="8dp"
-        android:gravity="start"
-        android:importantForAutofill="no"
-        android:text="@string/freq_app_usage"
-        android:textSize="16sp"
-        app:drawableTint="@color/photonBlack"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@null"
-        android:src="@drawable/dot"
         app:layout_constraintBottom_toBottomOf="@+id/bullet2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bullet2"
@@ -88,7 +61,7 @@
         android:text="@string/load_times"
         android:textSize="16sp"
         app:drawableTint="@color/photonBlack"
-        app:layout_constraintTop_toBottomOf="@+id/bullet1" />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <ImageView
         android:layout_width="wrap_content"
