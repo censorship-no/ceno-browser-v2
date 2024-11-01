@@ -1,13 +1,7 @@
 package uk.co.samuelwall.materialtaptargetprompt.extras
 
-import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.PointF
 import android.graphics.Rect
-import android.graphics.RectF
-import android.text.Layout
-import android.text.TextPaint
-import android.util.Log
 
 class PromptTextWithBtn(
     val buttonHeight: Float,
@@ -15,8 +9,6 @@ class PromptTextWithBtn(
 
     var textSeparation : Float = 0.0f
     var btnLocation = PointF()
-
-    var mPaintButtonText : TextPaint = TextPaint()
 
     var onUpdate: (() -> Unit)? = null
 
@@ -26,8 +18,6 @@ class PromptTextWithBtn(
         clipBounds: Rect
     ) {
         super.prepare(options, clipToBounds, clipBounds)
-        mPaintButtonText.setColor(Color.BLACK)
-        mPaintButtonText.setTextSize(options.secondaryTextSize)
 
         textSeparation = options.textSeparation
 
