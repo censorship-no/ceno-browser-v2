@@ -1,3 +1,10 @@
+# v2.3.2
+Esta versión:
+- Actualiza Android-Components a v132.0
+- Actualiza las pruebas de interfaz de usuario
+- Corrige los tooltips para dispositivos de pantalla pequeña
+- Refactoriza los permisos y añade la opción de revocarlos a través de Ajustes
+
 #v2.3.1
 Esta versión:
 - Corrige errores con el cambio de idioma
