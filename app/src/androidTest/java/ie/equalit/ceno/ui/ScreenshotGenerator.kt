@@ -8,7 +8,8 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.denyPermissions
-import ie.equalit.ceno.ui.robots.givePermissions
+import ie.equalit.ceno.ui.robots.giveNotificationAndBatteryOptimizationPermissions
+import ie.equalit.ceno.ui.robots.hasPermissions
 import ie.equalit.ceno.ui.robots.homepage
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
@@ -94,7 +95,7 @@ class ScreenshotGenerator {
             Screengrab.screenshot("005_tooltip_clear_ceno")
             clickNext()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
                 //wait for permissions tooltip
                 waitForPermissionsTooltip()
                 Thread.sleep(1000)
@@ -103,7 +104,7 @@ class ScreenshotGenerator {
 
                 // TODO: on Android 13, clicking deny double clicks the continue btn?
                 if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
-                    givePermissions()
+                    giveNotificationAndBatteryOptimizationPermissions()
                 }
                 else {
                     denyPermissions()

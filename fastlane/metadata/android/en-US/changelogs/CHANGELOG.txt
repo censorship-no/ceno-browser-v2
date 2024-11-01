@@ -1,3 +1,10 @@
+# v2.3.2
+This release:
+- Updates Android-Components to v132.0
+- Updates UI tests
+- Fixes tooltips for small screen devices
+- Refactors permissions and adds option to revoke them through Settings
+
 # v2.3.1
 This release:
 - Fixes bugs related to changing language of application from settings

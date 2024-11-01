@@ -2,16 +2,20 @@ package ie.equalit.ceno.ui.robots
 
 import android.util.Log
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withSubstring
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import ie.equalit.ceno.R
 import junit.framework.Assert.assertTrue
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
+import ie.equalit.ceno.helpers.TestAssetHelper.waitingTimeShort
 import ie.equalit.ceno.helpers.TestHelper.getPermissionAllowID
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
@@ -36,8 +40,10 @@ class DownloadRobot {
     }
 
     fun verifyDownloadPrompt(filename:String) {
-        Espresso.onView(ViewMatchers.withText("Download"))
-            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(ViewMatchers.withId(R.id.title))
+            .check(matches(withText(R.string.mozac_feature_downloads_dialog_download)))
+        onView(ViewMatchers.withId(R.id.filename))
+            .check(matches(withSubstring(filename)))
     }
 
     class Transition {
@@ -47,8 +53,8 @@ class DownloadRobot {
     }
 }
 private fun downloadButton() =
-    Espresso.onView(ViewMatchers.withId(R.id.download_button))
-        .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    onView(ViewMatchers.withId(R.id.download_button))
+        .check(matches(ViewMatchers.isDisplayed()))
 
 fun downloadRobot(interact: DownloadRobot.() -> Unit): DownloadRobot.Transition {
     DownloadRobot().interact()

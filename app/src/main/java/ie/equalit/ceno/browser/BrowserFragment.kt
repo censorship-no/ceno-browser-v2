@@ -122,7 +122,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     getString(R.string.onboarding_cleanup_text),
                     CirclePromptFocal(),
                     stopCaptureTouchOnFocal = true,
-                    buttonText = if (shouldShowPermissionsTooltip())
+                    buttonText = if (requireComponents.permissionHandler.shouldShowPermissionsTooltip())
                         R.string.btn_next
                     else
                         R.string.onboarding_finish_button,
@@ -140,7 +140,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         }
                     },
                     onNextButtonPressListener = {
-                        if (shouldShowPermissionsTooltip())
+                        if (requireComponents.permissionHandler.shouldShowPermissionsTooltip())
                             goToNextTooltip()
                         else {
                             exitCenoTour()
@@ -165,22 +165,9 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         }
     }
 
-    private fun shouldShowPermissionsTooltip() : Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations() || !requireComponents.permissionHandler.isAllowingPostNotifications()
-            } else {
-                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
-            }
-        }
-        else {
-            false
-        }
-    }
-
     private fun exitCenoTour() {
         tooltip?.dismiss()
-        if (shouldShowPermissionsTooltip()) {
+        if (requireComponents.permissionHandler.shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = TOOLTIP_PERMISSION
             showSourcesTooltip()
         }
@@ -219,44 +206,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private fun askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            allowPostNotifications()
+            requireComponents.permissionHandler.requestPostNotificationsPermission(this)
         } else {
             /* This is NOT Android 13, just ask to disable battery optimization */
-            disableBatteryOptimization()
+            requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-            Log.i(TAG, "Permission - Success")
-        } else {
-            Log.w(TAG, "Permission denied")
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS) {
-            requireComponents.ouinet.background.start()
-            disableBatteryOptimization()
-        } else {
-            Log.e(TAG, "Unknown request code received: $requestCode")
-        }
-    }
-
-    private fun disableBatteryOptimization() {
-        requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun allowPostNotifications() {
-        requireComponents.permissionHandler.requestPostNotificationsPermission(this)
     }
 
     companion object {

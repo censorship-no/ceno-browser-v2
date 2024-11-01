@@ -72,6 +72,13 @@ object Settings {
             .putBoolean(key, value)
             .apply()
     }
+    fun setAllowNotifications(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_allow_notifications)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
 
     fun setMobileData(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_mobile_data)
