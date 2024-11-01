@@ -92,7 +92,7 @@ class Campaign001(private val cleanInsights: CleanInsights) {
 
     companion object {
         const val ID = "ouinet-startup-time"
-        const val ASK_FOR_ANALYTICS_LIMIT = 2
-        const val ASK_FOR_SURVEY_LIMIT = 5
+        const val ASK_FOR_ANALYTICS_LIMIT = 5
+        const val ASK_FOR_SURVEY_LIMIT = 10
     }
 }
