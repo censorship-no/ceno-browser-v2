@@ -1,6 +1,6 @@
 {
   "server": "https://matomo.ouinet.work/ci/cleaninsights.php",
-  "siteId": 4,
+  "siteId": 3,
   "timeout": 5,
   "debug": true,
   "campaigns": {
