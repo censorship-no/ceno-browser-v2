@@ -143,6 +143,9 @@ open class BrowserActivity : BaseActivity() {
 
         components.ouinet.background.startup()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
+
         /* CENO: Set default behavior for AppBar */
         supportActionBar!!.apply {
             hide()
@@ -348,19 +351,9 @@ open class BrowserActivity : BaseActivity() {
         removeSessionIfNeeded()
     }
 
-    @Suppress("DEPRECATION") // ComponentActivity wants us to use registerForActivityResult
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Logger.info(
-            "Activity onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data"
-        )
-
-        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        if (fragment is ActivityResultHandler && fragment.onActivityResult(requestCode, data, resultCode)) {
-            return
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
+    val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        Settings.setAllowNotifications(this, isGranted)
+        components.permissionHandler.requestBatteryOptimizationsOff(this)
     }
 
     val getLogfileLocation = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->

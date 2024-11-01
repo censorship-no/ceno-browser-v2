@@ -5,6 +5,7 @@
 package ie.equalit.ceno.ext
 
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 
@@ -20,6 +21,14 @@ fun PreferenceFragmentCompat.getPreference(key: Int): Preference? {
  * Get the SwitchPreferenceCompat object corresponding to a key
  */
 fun PreferenceFragmentCompat.getSwitchPreferenceCompat(key: Int): SwitchPreferenceCompat? {
+    val prefKey = requireContext().getPreferenceKey(key)
+    return findPreference(prefKey)
+}
+
+/**
+ * Get the PreferenceCategory object corresponding to a key
+ */
+fun PreferenceFragmentCompat.getPreferenceCategory(key: Int): PreferenceCategory? {
     val prefKey = requireContext().getPreferenceKey(key)
     return findPreference(prefKey)
 }

@@ -95,7 +95,7 @@ class DownloadTest {
             if (allowButtonExists()) {
                 clickAllow()
             }
-            verifyDownloadPrompt("Page content: 1")
+            verifyDownloadPrompt(genericURL.title)
         }.clickDownload ()
     }
 }

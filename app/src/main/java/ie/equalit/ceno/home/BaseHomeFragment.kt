@@ -55,7 +55,7 @@ import mozilla.components.support.base.log.logger.Logger
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
     private lateinit var tabConterView: TabCounterView
     var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
@@ -335,28 +335,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler, ActivityRe
         return backButtonHandler.any { it.onBackPressed() }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        val feature: PermissionsFeature? = when (requestCode) {
-            REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            else -> null
-        }
-        feature?.onPermissionsResult(permissions, grantResults)
-    }
-
     companion object {
         private const val SESSION_ID = "session_id"
-    }
-
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        Logger.info(
-            "Fragment onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data",
-        )
-
-        return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 }
