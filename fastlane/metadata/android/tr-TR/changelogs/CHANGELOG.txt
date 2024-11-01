@@ -1,9 +1,18 @@
+# v2.3.1
+Bu sürümde:
+- Uygulamanın dilini ayarlar bölümünden değiştirme ile ilgili hatalar düzeltildi
+-Android bileşenleri 131.0 sürümüne güncellendi
+- Çeşitli Android kitaplıkları güncellendi
+- İzinler ipucundaki sorunlar giderildi
+- Uygulama dilini başlangıç ipucundan değiştirme özelliği eklendi
 # v2.3.0
 Bu sürümde:
-- Uygulama dilini değiştirmek için ayarlar seçeneği eklendi
-- Başlangıç ekranları araç ipucu rehberli ekranlarla değiştirildi
-- Kullanıcı arayüzünde bekleme sayfasında güncellemeler yapıldı
-- Çeşitli yerellerin çevirileri güncellendi
+- Uygulamanın dilini değiştirmek için ayar seçeneği eklendi
+- Başlangıç ekranları araç ipucu rehberli başlangıç ile değiştirildi
+- Bekleme sayfası kullanıcı arayüzünde güncellemeler yapıldı
+- Android bileşenleri 130.0.1 sürümüne güncellendi
+- Ouinet 0.29.1 sürümüne güncellendi
+- Çeşitli yerel ayarların çevirileri güncellendi
 
 # v2.2.3
 Bu yama sürümünde:
