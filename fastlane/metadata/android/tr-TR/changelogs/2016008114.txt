@@ -1,0 +1,7 @@
+Bu sürüm:
+- Ayarlardan uygulama dilini değiştirmeyle ilgili hatalar düzeltir
+- Android-Components'i 131.0 versiyonuna günceller
+- Çeşitli Android kütüphanelerini günceller
+- İzin araç çubuğu hatalarını düzeltir
+- Hoş Geldin araç çubuğundan uygulama dilini seçme özelliği ekler
+- Logları hafızaya kaydetme ve log paylaşım arayüzünü geliştirir
