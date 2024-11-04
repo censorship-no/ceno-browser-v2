@@ -371,4 +371,8 @@
     <string name="ceno_permissions_category">Permisos</string>
     <string name="status_enabled">Activado</string>
     <string name="status_disabled">Desactivado</string>
+    <string name="startup_category">Iniciar</string>
+    <string name="preferences_show_standby_warning">Mostrar advertencia en el tiempo de inicio</string>
+    <string name="standby_take_me_anyway">Llévame a Ceno de todos modos</string>
+    <string name="standby_dont_show">No mostrar advertencia nuevamente</string>
 </resources>
