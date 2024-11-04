@@ -149,11 +149,7 @@ class StandbyFragment : Fragment() {
                 context?.let { ctx ->
                     updateDisplayText(ctx, infoIndex)
                 }
-                if (currentStatus == RunningState.Stopped) {
-                    if(isCenoStopping == false) {
-                        tryAgain()
-                    }
-                }
+
             }
         }
     }
@@ -234,6 +230,7 @@ class StandbyFragment : Fragment() {
         view?.let {
             binding.progressBar.visibility = View.VISIBLE
             index = 0
+            currentStatus = requireComponents.appStore.state.ouinetStatus
             context?.let { ctx ->
                 updateDisplayText(ctx, (System.currentTimeMillis() % 2).toInt())
             }
@@ -252,51 +249,70 @@ class StandbyFragment : Fragment() {
 
     private fun updateDisplayText(ctx: Context, infoIndex:Int) {
         viewLifecycleOwner.lifecycleScope.launch{
-            Log.d("StandbyFragment", "Update display text")
-            while (currentStatus == RunningState.Starting || currentStatus == RunningState.Degraded) {
-                if(!isAnyDialogVisible) {
-                    if (isNetworkAvailable()) {
-                        binding.ivExtraInfo.setImageDrawable(ContextCompat
-                        .getDrawable(requireContext(), R.drawable.lightbulb_icon))
-                        binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_standby_logo_color))
-                        binding.tvExtraInfoTitle.visibility = View.VISIBLE
-                        //randomly select text
-                        binding.tvExtraInfoText.text = getString(extraInfoList[infoIndex])
-                    } else {
-                        binding.ivExtraInfo.setImageDrawable(ContextCompat
-                        .getDrawable(requireContext(), R.drawable.ic_no_internet))
-                        binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.fx_mobile_icon_color_warning))
-                        binding.tvExtraInfoTitle.visibility = View.GONE
-                        binding.tvExtraInfoText.text = getString(R.string.standby_no_internet_text)
-                }
-                    if (index < displayText.size) {
-                        binding.tvStatus.text = getString(displayText[index])
-                        index += 1
-                    } else {
-                        if (Settings.shouldShowStandbyWarning(ctx)) {
-                            displayTimeoutDialog(ctx)
+            Log.d("StandbyFragment", "Update display text $currentStatus")
+            Log.d("StandbyFragment", "Current setting of standby warning: ${Settings.shouldShowStandbyWarning(ctx)}")
+            when(currentStatus) {
+                RunningState.Starting, RunningState.Degraded -> {
+                    while (currentStatus == RunningState.Starting || currentStatus == RunningState.Degraded) {
+                        if(!isAnyDialogVisible) {
+                            if (isNetworkAvailable()) {
+                                binding.ivExtraInfo.setImageDrawable(ContextCompat
+                                    .getDrawable(requireContext(), R.drawable.lightbulb_icon))
+                                binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_standby_logo_color))
+                                binding.tvExtraInfoTitle.visibility = View.VISIBLE
+                                //randomly select text
+                                binding.tvExtraInfoText.text = getString(extraInfoList[infoIndex])
+                            } else {
+                                binding.ivExtraInfo.setImageDrawable(ContextCompat
+                                    .getDrawable(requireContext(), R.drawable.ic_no_internet))
+                                binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.fx_mobile_icon_color_warning))
+                                binding.tvExtraInfoTitle.visibility = View.GONE
+                                binding.tvExtraInfoText.text = getString(R.string.standby_no_internet_text)
+                            }
+                            if (index < displayText.size) {
+                                binding.tvStatus.text = getString(displayText[index])
+                                index += 1
+                            } else {
+                                if (Settings.shouldShowStandbyWarning(ctx)) {
+                                    displayTimeoutDialog(ctx)
+                                }
+                                else {
+                                    navigateToBrowser()
+                                }
+                                break
+                            }
                         }
-                        else {
-                            navigateToBrowser()
-                        }
-                        break
+                        delay(refreshIntervalMS)
                     }
                 }
-                delay(refreshIntervalMS)
-            }
-            Log.d("StandbyFragment", "Current setting of standby warning: ${Settings.shouldShowStandbyWarning(ctx)}")
-            if (currentStatus == RunningState.Started) {
-                //Navigate away
-                navigateToBrowser()
-            }
-            if (currentStatus == RunningState.Stopping) {
-                if (isCenoStopping == true) {
-                    binding.tvStatus.text = getString(R.string.shutdown_message_two)
-                    binding.llStandbyExtraInfo.visibility = View.INVISIBLE
-                } else {
-                    binding.tvStatus.text = getString(R.string.standby_restarting_text)
-                    binding.llStandbyExtraInfo.visibility = View.INVISIBLE
+                RunningState.Started -> {
+                    //Navigate away
+                    navigateToBrowser()
                 }
+                RunningState.Stopping -> {
+                    if (isCenoStopping == true) {
+                        binding.tvStatus.text = getString(R.string.shutdown_message_two)
+                        binding.llStandbyExtraInfo.visibility = View.INVISIBLE
+                    } else {
+                        binding.tvStatus.text = getString(R.string.standby_restarting_text)
+                        binding.llStandbyExtraInfo.visibility = View.INVISIBLE
+                    }
+                }
+                RunningState.Stopped -> {
+                    if(isCenoStopping == false) {
+                        if (isNetworkAvailable())
+                            tryAgain()
+                        else {
+                            if (Settings.shouldShowStandbyWarning(ctx)) {
+                                displayTimeoutDialog(ctx)
+                            }
+                            else {
+                                navigateToBrowser()
+                            }
+                        }
+                    }
+                }
+                else -> cancel()
             }
             cancel()
         }
