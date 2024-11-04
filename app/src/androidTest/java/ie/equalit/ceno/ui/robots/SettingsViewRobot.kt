@@ -232,7 +232,7 @@ private fun trackingProtectionSummary() = onView(withText(R.string.preferences_p
 private fun searchButton() = onView(withText(R.string.set_default_search_engine))
 private fun searchSummary() = onView(withText("DuckDuckGo selected"))
 //TODO: check for different search engines when they are set
-private fun customizationButton() = onView(withText(R.string.preferences_customization))
+private fun customizationButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_customization))))
 private fun customizationSummary() = onView(withText(R.string.preferences_customization_summary))
 private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
 private fun makeDefaultBrowserButton() = Espresso.onView(withText(R.string.preferences_make_default_browser))
