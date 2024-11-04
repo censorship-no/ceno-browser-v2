@@ -155,7 +155,7 @@
 \n
 \nПерейдіть до «Hалаштування &gt; Вимкнути оптимізацію акумулятора», щоб надати дозвіл пізніше</string>
     <string name="onboarding_thanks_text">Як користувач Ceno, ви допомагаєте розширити мережу доступних мостів, що забезпечують доступ до цензурованого контенту.</string>
-    <string name="preferences_disable_battery_opt">Вимкнути оптимізацію батареї</string>
+    <string name="preferences_disable_battery_opt">Оптимізація Батареї</string>
     <string name="about_content"><p>%1$s - Поділіться інтернетом!</p> <p>Ceno (скорочення від censorship.no!) - перший у світі мобільний браузер, який обходить наявні методи цензури в інтернеті. Його пірингова основа дозволяє людям отримувати доступ до інформації в мережі та обмінюватися нею у місцевості, де зв\'язок був перерваний або скомпрометований. </p> <p>%1$s є проектом eQualitie, неприбуткової канадської організації, яка створює децентралізовані інтернет-сервіси для підтримки більш рівноправної та справедливої мережі. Рішення eQualitie мають відкритий вихідний код, перевірені на практиці та розроблені з урахуванням наших цінностей. Щодня вони забезпечують свободу об\'єднання для мільйонів людей в інтернеті.</p></string>
     <string name="ceno_clear_dialog_clear_entire_app">Очистити Ceno кеш і дані застосунку</string>
     <string name="preferences_clear_in_toolbar">Показати на панелі інструментів</string>
@@ -193,7 +193,7 @@
 \n
 \nПерейдіть у «Налаштування», щоб надати дозвіл пізніше</string>
     <string name="preferences_show_home_button">Показати кнопку Home</string>
-    <string name="preferences_allow_notifications">Дозволити сповіщення</string>
+    <string name="preferences_allow_notifications">Сповіщення</string>
     <string name="ceno_sources_category">Джерела</string>
     <string name="preferences_ceno_sources_origin_summary">Завантажити контент безпосередньо з сайту</string>
     <string name="preferences_ceno_sources_public_summary">Завантажити контент через публічну мережу Ceno</string>
@@ -370,4 +370,7 @@
     <string name="btn_next">Далі</string>
     <string name="tooltip_shortcuts_description">Збережіть улюблені сайти як ярлики для швидкого доступу до них з домашньої сторінки.</string>
     <string name="select_language">Оберіть мову:</string>
+    <string name="ceno_permissions_category">Дозволи</string>
+    <string name="status_enabled">Увімкнено</string>
+    <string name="status_disabled">Вимкнено</string>
 </resources>
