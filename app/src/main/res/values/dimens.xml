@@ -34,6 +34,9 @@
     <dimen name="tooltip_primary_text_size">18sp</dimen>
     <dimen name="tooltip_secondary_text_size">14sp</dimen>
 
+    <dimen name="standby_btn_top_margin">12dp</dimen>
+    <dimen name="standby_btn_padding">6dp</dimen>
+
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->
     <dimen name="library_item_icon_margin_horizontal">16dp</dimen>
