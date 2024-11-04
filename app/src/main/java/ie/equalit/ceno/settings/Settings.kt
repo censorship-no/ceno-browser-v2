@@ -19,6 +19,11 @@ object Settings {
             context.getString(R.string.pref_key_show_onboarding), false
         )
 
+    fun shouldShowStandbyWarning(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_standby_warning), false
+        )
+
     fun shouldShowHomeButton(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_home_button), false
@@ -74,6 +79,14 @@ object Settings {
     }
     fun setAllowNotifications(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_notifications)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setShowStandbyWarning(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_standby_warning)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
             .putBoolean(key, value)
