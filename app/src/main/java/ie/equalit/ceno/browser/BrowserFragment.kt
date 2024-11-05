@@ -78,7 +78,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             view = view,
         )
         */
-        binding.sessionControlRecyclerView.visibility = View.GONE
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 

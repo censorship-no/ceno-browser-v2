@@ -41,7 +41,6 @@
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_toolbar_hide"
             android:defaultValue="false"
-            android:enabled="false"
             android:title="@string/preferences_toolbar_hide"/>
 
         <androidx.preference.SwitchPreferenceCompat
@@ -76,6 +75,18 @@
             android:defaultValue="@string/preferences_clear_behavior_default"
             android:entryValues="@array/preferences_clear_behavior_values"
             android:entries="@array/preferences_clear_behavior_options"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/startup_category"
+        android:layout="@layout/preference_category_style">
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_show_standby_warning"
+            android:defaultValue="true"
+            android:title="@string/preferences_show_standby_warning"/>
 
     </PreferenceCategory>
 
