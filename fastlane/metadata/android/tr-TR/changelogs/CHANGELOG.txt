@@ -1,3 +1,9 @@
+# v2.3.2
+Bu sürümde:
+- Android bileşenleri 132.0 sürümüne güncelendi
+- Arayüz testleri güncellendi
+- Küçük ekranlı cihazlar için araç çubukları düzenlendi
+- İzinler yeniden ele alındı ve seçeneklerden kaldırma seçeneği eklendi
 # v2.3.1
 Bu sürümde:
 - Uygulamanın dilini ayarlar bölümünden değiştirme ile ilgili hatalar düzeltildi
