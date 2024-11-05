@@ -373,4 +373,8 @@
     <string name="ceno_permissions_category">Дозволи</string>
     <string name="status_enabled">Увімкнено</string>
     <string name="status_disabled">Вимкнено</string>
+    <string name="standby_take_me_anyway">Направ мене до Сено</string>
+    <string name="standby_dont_show">Не показувати попередження знову</string>
+    <string name="preferences_show_standby_warning">Показувати попередження про таймаут запуску</string>
+    <string name="startup_category">Запуск</string>
 </resources>
