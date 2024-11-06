@@ -1,3 +1,12 @@
+# v2.3.2
+Esta versión:
+- Actualiza los componentes de Android a la versión v132.0
+- Actualiza las pruebas de UI
+- Corrige las descripciones emergentes para dispositivos de pantalla pequeña.
+- Refactoriza los permisos y agrega la opción de revocarlos a través de Configuración
+- Actualiza Ouinet a v0.30.1
+- Agrega la opción "Llévame a Ceno de todos modos" al cuadro de diálogo de tiempo de espera.
+
 #v2.3.1
 Esta versión:
 - Corrige errores con el cambio de idioma
@@ -5,6 +14,7 @@ Esta versión:
 - Actualiza varias bibliotecas de Android.
 - Corrige errores con la información sobre herramientas y permisos.
 - Agrega la capacidad de seleccionar el idioma de la aplicación en el tooltip de bienvenida.
+- Añade la opción de guardar registros en el almacenamiento y mejora los registros de compartir interfaz de usuario
 
 #v2.3.0
 Esta versión:
