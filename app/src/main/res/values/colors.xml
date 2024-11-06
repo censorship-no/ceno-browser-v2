@@ -48,6 +48,8 @@
     <color name="tooltip_focal_color">#4D0284C7</color>
     <color name="tooltip_prompt_color">#CC0C4A6E</color>
     <color name="tooltip_background">#4D000000</color>
+    <color name="tooltip_text_color">@color/ceno_blue_100</color>
+    <color name="tooltip_title_color">@color/photonWhite</color>
 
 
     <color name="ceno_blue_50">#F0F9FF</color>
