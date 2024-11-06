@@ -41,7 +41,7 @@ import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.createSegment
-import ie.equalit.ceno.ext.disableDynamicBehavior
+import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ext.showAsFixed
@@ -88,7 +88,6 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
@@ -99,7 +98,7 @@ import org.mozilla.geckoview.WebExtension
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
 @Suppress("TooManyFunctions")
-abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, ActivityResultHandler {
+abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private var ouinetStatus: Ouinet.RunningState = Ouinet.RunningState.Started
     var _binding: FragmentBrowserBinding? = null
     val binding get() = _binding!!
@@ -403,20 +402,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
 
-        /*
-        // Disable scroll-to-hide until it is fixed, https://gitlab.com/censorship-no/ceno-browser/-/issues/144
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
+                binding.swipeRefresh,
                 binding.engineView,
-                prefs.getBoolean(
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
                     false
                 )
             )
         }
         else {
-            binding.toolbar.disableDynamicBehavior(
+//            binding.toolbar.disableDynamicBehavior(
+//                binding.engineView,
+//                prefs.getBoolean(
+//                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+//                    false
+//                )
+//            )
+            binding.toolbar.showAsFixed(
                 binding.engineView,
                 prefs.getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
@@ -424,14 +429,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 )
             )
         }
-        */
-        binding.toolbar.showAsFixed(
-            binding.engineView,
-            prefs.getBoolean(
-                requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                false
-            )
-        )
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
@@ -582,18 +579,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             if (ouinetStatus != it.ouinetStatus) {
                 ouinetStatus = it.ouinetStatus
                 activity?.applicationContext?.let { ctx ->
-                    val message = when (ouinetStatus) {
-                        Ouinet.RunningState.Started -> {
-                            ctx.getString(R.string.ceno_ouinet_connected)
-                        }
-                        Ouinet.RunningState.Stopped -> {
-                            ctx.getString(R.string.ceno_ouinet_disconnected)
-                        }
-                        else -> {
-                            ctx.getString(R.string.ceno_ouinet_connecting)
-                        }
+                    val message : String? = when(ouinetStatus) {
+                        Ouinet.RunningState.Starting -> getString(R.string.ceno_ouinet_connecting)
+                        Ouinet.RunningState.Started -> getString(R.string.ceno_ouinet_connected)
+                        Ouinet.RunningState.Stopped -> getString(R.string.ceno_ouinet_disconnected)
+                        else -> null
                     }
-                    Toast.makeText(ctx, message, Toast.LENGTH_LONG).show()
+                    message?.let { msg ->
+                        Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -733,15 +727,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 //        const val LOCAL_CACHE = "local-cache"
 
         const val URL = "url"
-    }
-
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        Logger.info(
-            "Fragment onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data",
-        )
-
-        return activityResultHandler.any { it.onActivityResult(requestCode, data, resultCode) }
     }
 
     private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {

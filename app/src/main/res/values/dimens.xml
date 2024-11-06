@@ -4,12 +4,18 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
 
-    <dimen name="ceno_mode_text_size">18sp</dimen>
-    <dimen name="ceno_mode_margin_horizontal">24dp</dimen>
-    <dimen name="ceno_mode_margin_top">8dp</dimen>
-    <dimen name="ceno_mode_margin_bottom">12dp</dimen>
+    <dimen name="ceno_mode_title_size">18sp</dimen>
+    <dimen name="ceno_mode_text_size">14sp</dimen>
+    <dimen name="ceno_mode_title_margin">16dp</dimen>
+    <dimen name="ceno_mode_margin">16dp</dimen>
+    <dimen name="ceno_mode_inner_padding">16dp</dimen>
+    <dimen name="ceno_mode_margin_horizontal">16dp</dimen>
+    <dimen name="ceno_mode_margin_top">16dp</dimen>
+    <dimen name="ceno_mode_margin_bottom">16dp</dimen>
     <dimen name="ceno_onboarding_text_margin_end">48dp</dimen>
     <dimen name="ceno_onboarding_text_margin_start">48dp</dimen>
+
+    <dimen name="ceno_home_wordmark_margin_bottom">32dp</dimen>
 
     <dimen name="ceno_about_fragment_text_size">16sp</dimen>
     <dimen name="ceno_about_fragment_margin_top">16dp</dimen>
@@ -24,6 +30,12 @@
 
     <dimen name="panel_horizontal_margin">16dp</dimen>
     <dimen name="panel_vertical_margin">16dp</dimen>
+
+    <dimen name="tooltip_primary_text_size">18sp</dimen>
+    <dimen name="tooltip_secondary_text_size">14sp</dimen>
+
+    <dimen name="standby_btn_top_margin">12dp</dimen>
+    <dimen name="standby_btn_padding">6dp</dimen>
 
     <!-- CENO: COPIED FROM FENIX in bulk for convenience,
         many of the values below may be unused and should be removed -->

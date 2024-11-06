@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.concept.engine.EngineView
 import ie.equalit.ceno.R
@@ -48,27 +49,27 @@ fun BrowserToolbar.disableDynamicBehavior(engineView: EngineView, shouldUseTopTo
  * @param context [Context] used in setting up the dynamic behavior.
  * @param engineView [EngineView] that should react to toolbar's dynamic behavior.
  */
-fun BrowserToolbar.enableDynamicBehavior(context: Context, engineView: EngineView, shouldUseTopToolbar  : Boolean) {
-    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = EngineViewScrollingBehavior(
-        context,
-        null,
-        if (shouldUseTopToolbar) browserToolbarPosition.TOP else browserToolbarPosition.BOTTOM,
-    )
+fun BrowserToolbar.enableDynamicBehavior(context: Context, swipeRefresh: SwipeRefreshLayout, engineView: EngineView, shouldUseTopToolbar  : Boolean) {
     (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
         Gravity.TOP
     }
     else {
         Gravity.BOTTOM
     }
+    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = EngineViewScrollingBehavior(
+        context,
+        null,
+        if (shouldUseTopToolbar) browserToolbarPosition.TOP else browserToolbarPosition.BOTTOM,
+    )
+
 
     val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
     engineView.setDynamicToolbarMaxHeight(toolbarHeight)
-    (engineView.asView().layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-        topMargin = 0
+    (swipeRefresh.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
         behavior = EngineViewClippingBehavior(
             context,
             null,
-            engineView.asView(),
+            swipeRefresh,
             toolbarHeight,
             if (shouldUseTopToolbar) engineToolbarPosition.TOP else engineToolbarPosition.BOTTOM,
         )

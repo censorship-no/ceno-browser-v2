@@ -35,6 +35,8 @@ class CenoTooltip(
         tooltipBuilder = MaterialTapTargetPrompt.Builder(fragment)
             .setTarget(target)
             .setPrimaryText(primaryText)
+            .setPrimaryTextSize(R.dimen.tooltip_primary_text_size)
+            .setSecondaryTextSize(R.dimen.tooltip_secondary_text_size)
             .setSecondaryText(secondaryText)
             .setPromptFocal(promptFocal)
             .setPromptText(promptTextWithBtn)

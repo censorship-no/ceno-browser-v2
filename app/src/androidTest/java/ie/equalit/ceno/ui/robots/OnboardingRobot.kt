@@ -1,9 +1,12 @@
 package ie.equalit.ceno.ui.robots
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
-import androidx.test.espresso.Espresso
+import android.os.PowerManager
+import androidx.core.content.ContextCompat
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -24,9 +27,7 @@ class OnboardingRobot {
 
     fun verifyStartTooltipExists() = startTooltipExists()
 
-    fun verifyStartTooltipText() = assertStartTooltipText()
-
-    fun verifyStartTooltipButtons() = assertStartTooltipButtons()
+    fun verifyStartTooltip() = assertStartTooltip()
 
     fun verifyPublicPersonalTooltip() = assertPublicPersonalTooltip()
 
@@ -47,10 +48,13 @@ class OnboardingRobot {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         fun givePermissionsIfNeeded(){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
                 getStartedButton().check(matches(withText(R.string.onboarding_battery_button)))
                 clickPermissions()
-                givePermissions()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    giveNotificationAndBatteryOptimizationPermissions()
+                else
+                    giveBatteryOptimizationPermission()
             }
         }
         fun skipOnboardingIfNeeded() {
@@ -58,7 +62,7 @@ class OnboardingRobot {
                 skipCenoTourButton().waitForExists(TestAssetHelper.waitingTime)
                 skipCenoTourButton().click()
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     givePermissionsIfNeeded()
                 }
             }
@@ -74,19 +78,19 @@ fun startTooltipExists() {
 fun assertExitButton() {
     exitButton().check(matches(isDisplayed()))
 }
-private fun assertStartTooltipText() {
+private fun assertStartTooltip() {
     onView(withId(R.id.tv_start_tooltip_description)).check(matches(withText(R.string.start_tooltip_description)))
+    onView(withId(R.id.locale_picker_layout)).check(matches(isDisplayed()))
+    getStartedButton().check(matches(withText(R.string.onboarding_btn_get_started)))
+    skipTourButton().check(matches(isDisplayed()))
 }
 
 private fun assertPermissionsTooltip() {
-    onView(withId(R.id.tooltip_overlay_start_layout)).check(matches(isDisplayed()))
-    onView(withId(R.id.tv_start_tooltip_title)).check(matches(withText(R.string.onboarding_permissions_title)))
-    getStartedButton().check(matches(withText(R.string.onboarding_battery_button)))
-}
-
-private fun assertStartTooltipButtons() {
-    getStartedButton().check(matches(withText(R.string.onboarding_btn_get_started)))
-    skipTourButton().check(matches(isDisplayed()))
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
+        onView(withId(R.id.tooltip_overlay_start_layout)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_start_tooltip_title)).check(matches(withText(R.string.onboarding_permissions_title)))
+        getStartedButton().check(matches(withText(R.string.onboarding_battery_button)))
+    }
 }
 
 private fun assertPublicPersonalTooltip() {
@@ -119,7 +123,8 @@ private fun assertSourcesTooltip() {
 
 private fun assertClearTooltip() {
     tooltipView().check(matches(isDisplayed()))
-    exitButton().check(matches(isDisplayed()))
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        exitButton().check(matches(isDisplayed()))
     tooltipView().check(matches(withContentDescription("Clear everything, \n" +
             "everywhere, all at once. Clear your browsing history, credentials and any trace you left on Ceno with one single button.")))
     nextButton().check(matches(isDisplayed()))
@@ -135,7 +140,7 @@ private fun skipTourButton() = onView(ViewMatchers.withText(R.string.skip_the_to
 private fun exitButton() = onView(withId(R.id.btn_skip_tour))
 private fun nextButton() = onView(withId(R.id.btn_next_tooltip))
 private fun tooltipView() = onView(withId(R.id.material_target_prompt_view))
-
+fun selectLanguageButton() = onView(withId(R.id.locale_picker))
 private fun skipCenoTourButton() = mDevice.findObject(
     UiSelector().resourceId("${TestHelper.packageName}:id/btn_skip_all_ceno_tour"),
 )
@@ -174,10 +179,18 @@ private fun backgroundDenyButton() = mDevice.findObject(
 )
 
 
-fun givePermissions() {
+fun giveNotificationAndBatteryOptimizationPermissions() {
     //for allowing notifications
     permissionAllowButton().waitForExists(waitingTime)
     permissionAllowButton().click()
+    //for battery optimizations
+    if(backgroundAllowButton().waitForExists(waitingTime)) {
+        backgroundAllowButton().click()
+    }
+}
+
+fun giveBatteryOptimizationPermission() {
+    //for battery optimizations
     if(backgroundAllowButton().waitForExists(waitingTime)) {
         backgroundAllowButton().click()
     }
@@ -193,4 +206,27 @@ fun denyPermissions() {
     if(backgroundDenyButton().waitForExists(waitingTime)) {
         backgroundDenyButton().clickAndWaitForNewWindow(waitingTime)
     }
+}
+
+fun hasPermissions():Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
+        var batteryPermission = (context.getSystemService(Context.POWER_SERVICE) as PowerManager).isIgnoringBatteryOptimizations(context.packageName)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            var notifPermission = when (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            )) {
+                PackageManager.PERMISSION_GRANTED -> true
+                PackageManager.PERMISSION_DENIED -> false
+                else -> false
+            }
+            notifPermission && batteryPermission
+        } else {
+            batteryPermission
+        }
+    } else {
+        true
+    }
+
 }

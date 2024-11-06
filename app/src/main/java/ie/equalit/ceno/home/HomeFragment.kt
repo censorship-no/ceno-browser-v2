@@ -258,14 +258,15 @@ class HomeFragment : BaseHomeFragment() {
 
     private fun updateOuinetStatus(context: Context, status: RunningState) {
         ouinetStatus = status
-        val message = if (ouinetStatus == RunningState.Started) {
-            getString(R.string.ceno_ouinet_connected)
-        } else if (ouinetStatus == RunningState.Stopped) {
-            getString(R.string.ceno_ouinet_disconnected)
-        } else {
-            getString(R.string.ceno_ouinet_connecting)
+        val message : String? = when(ouinetStatus) {
+            RunningState.Starting -> getString(R.string.ceno_ouinet_connecting)
+            RunningState.Started -> getString(R.string.ceno_ouinet_connected)
+            RunningState.Stopped -> getString(R.string.ceno_ouinet_disconnected)
+            else -> null
         }
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        message?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun updateUI(mode: BrowsingMode) {
@@ -422,7 +423,7 @@ class HomeFragment : BaseHomeFragment() {
     private fun exitCenoTour() {
         //exit tour
         tooltip?.dismiss()
-        if (shouldShowPermissionsTooltip()) {
+        if (requireComponents.permissionHandler.shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
             showTooltip()
         }
@@ -432,60 +433,14 @@ class HomeFragment : BaseHomeFragment() {
         Settings.setShowOnboarding(requireContext(), false)
     }
 
-    private fun shouldShowPermissionsTooltip() : Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations() || !requireComponents.permissionHandler.isAllowingPostNotifications()
-            } else {
-                !requireComponents.permissionHandler.isIgnoringBatteryOptimizations()
-            }
-        }
-        else {
-            false
-        }
-    }
-
     private fun askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            allowPostNotifications()
+            requireComponents.permissionHandler.requestPostNotificationsPermission(this)
         } else {
             /* This is NOT Android 13, just ask to disable battery optimization */
-            disableBatteryOptimization()
+            requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requireComponents.permissionHandler.onActivityResult(requestCode, data, resultCode)) {
-            Log.i(TAG, "Permission - Success")
-        } else {
-            Log.w(TAG, "Permission denied")
-        }
-        showTooltip()
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == AppPermissionCodes.REQUEST_CODE_NOTIFICATION_PERMISSIONS) {
-            requireComponents.ouinet.background.start()
-            disableBatteryOptimization()
-        } else {
-            Log.e(TAG, "Unknown request code received: $requestCode")
-        }
-    }
-
-    private fun disableBatteryOptimization() {
-        requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun allowPostNotifications() {
-        requireComponents.permissionHandler.requestPostNotificationsPermission(this)
     }
 
     companion object {

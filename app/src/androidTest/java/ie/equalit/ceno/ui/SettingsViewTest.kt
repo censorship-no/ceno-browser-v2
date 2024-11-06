@@ -94,9 +94,17 @@ class SettingsViewTest {
             clickDownRecyclerView(1)
             verifyDeleteBrowsingData()
 
+            clickDownRecyclerView(1)
+            verifyChangeLanguageButton()
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                clickDownRecyclerView(1)
+                clickDownRecyclerView(2)
+                verifyPermissionHeading()
                 Thread.sleep(5000)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    verifyAllowNotification()
+                    clickDownRecyclerView(1)
+                }
                 verifyDisableBatteryOptimization()
             }
 
@@ -189,7 +197,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(14)
+            clickDownRecyclerView(16)
             Thread.sleep(5000)
             verifyRemoteDebugging()
             toggleRemoteDebuggingOn()

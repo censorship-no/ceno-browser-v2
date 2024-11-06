@@ -143,6 +143,9 @@ open class BrowserActivity : BaseActivity() {
 
         components.ouinet.background.startup()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
+
         /* CENO: Set default behavior for AppBar */
         supportActionBar!!.apply {
             hide()
@@ -155,14 +158,16 @@ open class BrowserActivity : BaseActivity() {
         }
 
         navHost.navController.popBackStack() // Remove startupFragment from backstack
-        navHost.navController.navigate(
-            when {
+
+        when {
 //                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
-                components.ouinet.background.getState() != RunningState.Started.toString() -> R.id.action_global_standbyFragment
-                components.core.store.state.selectedTab == null -> R.id.action_global_home
-                else -> R.id.action_global_browser
+            components.ouinet.background.getState() != RunningState.Started.toString() -> {
+                val bundle = bundleOf(StandbyFragment.shutdownCeno to false)
+                navHost.navController.navigate(R.id.action_global_standbyFragment, bundle)
             }
-        )
+            components.core.store.state.selectedTab == null -> navHost.navController.navigate(R.id.action_global_home)
+            else -> navHost.navController.navigate(R.id.action_global_browser)
+        }
 
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
@@ -348,19 +353,9 @@ open class BrowserActivity : BaseActivity() {
         removeSessionIfNeeded()
     }
 
-    @Suppress("DEPRECATION") // ComponentActivity wants us to use registerForActivityResult
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Logger.info(
-            "Activity onActivityResult received with " +
-                "requestCode: $requestCode, resultCode: $resultCode, data: $data"
-        )
-
-        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        if (fragment is ActivityResultHandler && fragment.onActivityResult(requestCode, data, resultCode)) {
-            return
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
+    val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        Settings.setAllowNotifications(this, isGranted)
+        components.permissionHandler.requestBatteryOptimizationsOff(this)
     }
 
     val getLogfileLocation = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->

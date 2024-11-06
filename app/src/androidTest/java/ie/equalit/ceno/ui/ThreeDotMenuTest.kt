@@ -56,10 +56,10 @@ class ThreeDotMenuTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
-        onboarding {
-        }.skipOnboardingIfNeeded()
         standby {
         }.waitForStandbyIfNeeded()
+        onboarding {
+        }.skipOnboardingIfNeeded()
     }
 
     @After

@@ -14,12 +14,17 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
+import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
@@ -84,6 +89,9 @@ class SettingsViewRobot {
     fun verifyOuinetVersionDisplay(): ViewInteraction = assertOuinetVersionDisplay()
     fun verifyAboutEqualitieButton() = assertAboutEqualitieButton()
     fun verifySettingsRecyclerViewToExist() = waitForSettingsRecyclerViewToExist()
+    fun verifyChangeLanguageButton() = assertChangeLanguageButton()
+    fun verifyPermissionHeading(): ViewInteraction = assertPermissionsHeading()
+    fun verifyAllowNotification(): Unit = assertAllowNotificationButton()
 
     fun clickCustomAddonCollectionButton() = customAddonCollectionButton().click()
     fun verifyCustomAddonCollectionPanelExist() = assertCustomAddonCollectionPanel()
@@ -93,6 +101,9 @@ class SettingsViewRobot {
     fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickBridgeModeToggle() = bridgeModeToggle().click()
+    fun clickChangeLanguageButton() {
+        changeLanguageButton().click()
+    }
 
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
@@ -221,7 +232,7 @@ private fun trackingProtectionSummary() = onView(withText(R.string.preferences_p
 private fun searchButton() = onView(withText(R.string.set_default_search_engine))
 private fun searchSummary() = onView(withText("DuckDuckGo selected"))
 //TODO: check for different search engines when they are set
-private fun customizationButton() = onView(withText(R.string.preferences_customization))
+private fun customizationButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_customization))))
 private fun customizationSummary() = onView(withText(R.string.preferences_customization_summary))
 private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
 private fun makeDefaultBrowserButton() = Espresso.onView(withText(R.string.preferences_make_default_browser))
@@ -255,12 +266,14 @@ private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
 
-private fun aboutHeading() = Espresso.onView(withText(R.string.about_category))
+private fun aboutHeading() = onView(allOf(withText(R.string.about_category), withParent(withId(R.id.recycler_view))))
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
+private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
+private fun permissionsHeading() = onView(withText(R.string.ceno_permissions_category))
 
-private fun aboutEqualitieButton() = onView(withText(R.string.preferences_about_page))
+private fun aboutEqualitieButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
 
 private fun assertGeneralHeading() = generalHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
@@ -294,7 +307,7 @@ private fun assertBridgeModeSummary() = bridgeModeSummary()
 private fun assertDeleteBrowsingData() = deleteBrowsingDataButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDisableBatteryOptimizationButton() {
-    mDevice.wait(Until.findObject(By.text("Disable Battery Optimization")), waitingTime)
+    mDevice.wait(Until.findObject(By.text("Battery Optimization")), waitingTime)
 }
 private fun assertShowOnboarding() = showOnboardingToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
@@ -302,6 +315,8 @@ private fun assertCrashReportingButton() = crashReportingButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertDataHeading() = dataHeading()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertPermissionsHeading() = permissionsHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertLocalCacheDisplay() = localCacheDisplay()
 private fun assertLocalCacheDefaultValue() = localCacheDefaultValue()
@@ -345,4 +360,8 @@ private fun assertCustomAddonCollectionPanel() {
             isDescendantOfA(withId(R.id.title_template)),
         ),
     ).check(matches(isCompletelyDisplayed()))
+}
+private fun assertChangeLanguageButton() = changeLanguageButton().check(matches( isDisplayed()))
+private fun assertAllowNotificationButton() {
+    mDevice.wait(Until.findObject(By.text("Notifications")), waitingTime)
 }
