@@ -62,6 +62,11 @@ object Settings {
                     context.getString(R.string.pref_key_update_search_engines), false
             )
 
+    fun shouldShowDeveloperTools(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_developer_tools), false
+        )
+
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -119,6 +124,14 @@ object Settings {
 
     fun isAmoCollectionOverrideConfigured(context: Context): Boolean {
         return getOverrideAmoUser(context).isNotEmpty() && getOverrideAmoCollection(context).isNotEmpty()
+    }
+
+    fun setShowDeveloperTools(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_developer_tools)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
     }
 
     fun setAppIcon(context: Context, value: String?) {

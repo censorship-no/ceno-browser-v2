@@ -1,0 +1,17 @@
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/pref_key_remote_debugging"
+        android:title="@string/preferences_remote_debugging"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.Preference
+        android:defaultValue="false"
+        android:key="@string/pref_key_ceno_download_log"
+        android:title="@string/preferences_ceno_download_log"
+        app:iconSpaceReserved="false" />
+
+</androidx.preference.PreferenceScreen>

@@ -43,17 +43,17 @@ import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
 import ie.equalit.ceno.R.string.customize_addon_collection_cancel
 import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.developer_tools_category
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
-import ie.equalit.ceno.R.string.download_logs
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
-import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
 import ie.equalit.ceno.R.string.pref_key_about_page
 import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_additional_developer_tools
 import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
 import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
@@ -74,13 +74,11 @@ import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_override_amo_collection
 import ie.equalit.ceno.R.string.pref_key_privacy
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
 import ie.equalit.ceno.R.string.pref_key_search_engine
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
 import ie.equalit.ceno.R.string.preference_choose_search_engine
 import ie.equalit.ceno.R.string.preferences_about_page
-import ie.equalit.ceno.R.string.preferences_ceno_download_log
 import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.setting_item_selected
@@ -92,7 +90,6 @@ import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
 import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
-import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceCategory
@@ -102,6 +99,8 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
 import ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled
+import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
+import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.isCleanInsightsEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -110,10 +109,6 @@ import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import mozilla.components.browser.state.action.ContentAction
-import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.state.content.DownloadState
-import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.log.logger.Logger
@@ -131,8 +126,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var wasLogEnabled: Boolean = false
     private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
-    private var logFileReset: Boolean = false
-    private var logLevelReset: Boolean = false
+    private var logFileReset:Boolean = false
+    private var logLevelReset:Boolean = false
+    private var developerToolsTapCount = 0
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -268,7 +264,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setupPreferences() {
 
         getPreference(pref_key_make_default_browser)?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
-        getSwitchPreferenceCompat(pref_key_remote_debugging)?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
         getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
         getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener =
@@ -285,7 +280,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener = getClickListenerForLanguageChange()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary = getCurrentLocale().displayLanguage
-        getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener =
             getClickListenerForWebsiteSources()
         getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
@@ -294,10 +288,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setting_item_selected,
             requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name
         )
-
-        getPreference(pref_key_bridge_announcement)?.summary =
-            getString(bridge_mode_ip_warning_text)
-
+        getPreference(pref_key_bridge_announcement)?.summary = getString(bridge_mode_ip_warning_text)
+        getPreference(pref_key_about_ceno)?.onPreferenceClickListener = getClickListenerForCenoVersion()
+        getPreference(pref_key_additional_developer_tools)?.let {
+            it.onPreferenceClickListener = getClickListenerForAdditionalDeveloperTools()
+            it.isVisible = shouldShowDeveloperTools(requireContext())
+        }
 
         // Update notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -411,11 +407,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_enable_log),
                 true,
                 changeListener = getChangeListenerForLogFileToggle()
-            )
-            setPreference(
-                getPreference(pref_key_ceno_download_log),
-                true,
-                clickListener = getClickListenerForOuinetLogExport()
             )
             setPreference(
                 getPreference(pref_key_ceno_download_android_log),
@@ -767,35 +758,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForOuinetLogExport(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            val store = requireComponents.core.store
-            val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
-            val download = DownloadState(logUrl)
-
-            // prompt the user to view or download
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(context.getString(preferences_ceno_download_log))
-                setMessage(context.getString(ouinet_log_file_prompt_desc))
-                setNegativeButton(getString(download_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
-                        store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
-                    }
-                    (activity as BrowserActivity).openToBrowser()
-                }
-                setPositiveButton(getString(view_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
-                    }
-                    (activity as BrowserActivity).openToBrowser()
-                }
-                create()
-            }.show()
-            true
-        }
-    }
-
     private fun getChangeListenerForBridgeAnnouncement(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, _ ->
             /* Resetting the log settings is a workaround for ouinet logs disappearing after toggling bridge mode,
@@ -845,6 +807,34 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
 
             languageChangeDialog.getDialog().show()
+            true
+        }
+    }
+
+    private fun getClickListenerForCenoVersion(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            if (developerToolsTapCount >= TAPS_TO_ENABLE_DEVELOPER_TOOLS) {
+                setShowDeveloperTools(requireContext(), !shouldShowDeveloperTools(requireContext()))
+                shouldShowDeveloperTools(requireContext()).let { enabled ->
+                    val status = if (enabled) getString(status_enabled) else getString(status_disabled)
+                    val msg = "${getString(developer_tools_category)} $status"
+                    Toast.makeText(context, msg, LENGTH_SHORT).show()
+                    getPreference(pref_key_additional_developer_tools)?.isVisible = enabled
+                }
+                developerToolsTapCount = 0
+            }
+            else {
+                developerToolsTapCount++
+            }
+            true
+        }
+    }
+
+    private fun getClickListenerForAdditionalDeveloperTools(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_developerToolsSettingsFragment
+            )
             true
         }
     }
@@ -938,6 +928,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
         const val DELAY_ONE_SECOND = 1000L
+
+        const val TAPS_TO_ENABLE_DEVELOPER_TOOLS = 7
 
         fun getCurrentLocale(): Locale = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
