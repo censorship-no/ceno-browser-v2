@@ -38,7 +38,7 @@ object EngineProvider {
             builder.httpProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
             builder.sslProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
 
-            runtime = GeckoRuntime.create(context, builder.build())
+            runtime = GeckoRuntime.create(context, builder.build().apply { setConsoleOutputEnabled(true) })
         }
 
         return runtime!!
