@@ -75,7 +75,6 @@ class SettingsViewRobot {
 
     fun verifyDeveloperToolsHeading() = assertDeveloperToolsHeading()
     fun verifyRemoteDebugging() = assertRemoteDebugging()
-    fun verifyCustomAddonCollectionButton() = assertCustomAddonCollectionButton()
     fun verifyCenoNetworkDetailsButton(): ViewInteraction = assertCenoNetworkDetailsButton()
     fun verifyCenoNetworkDetailsSummary(): ViewInteraction = assertCenoNetworkDetailsSummary()
     fun verifyEnableLogFile(): ViewInteraction = assertEnableLogFile()
@@ -92,9 +91,6 @@ class SettingsViewRobot {
     fun verifyChangeLanguageButton() = assertChangeLanguageButton()
     fun verifyPermissionHeading(): ViewInteraction = assertPermissionsHeading()
     fun verifyAllowNotification(): Unit = assertAllowNotificationButton()
-
-    fun clickCustomAddonCollectionButton() = customAddonCollectionButton().click()
-    fun verifyCustomAddonCollectionPanelExist() = assertCustomAddonCollectionPanel()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
 
@@ -258,7 +254,6 @@ private fun clearCachedContentSummary() = onView(withText(R.string.preferences_c
 
 private fun developerToolsHeading() = Espresso.onView(withText(R.string.developer_tools_category))
 private fun remoteDebuggingToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_remote_debugging))))
-private fun customAddonCollectionButton() = onView(withText("Custom Add-on collection"))
 private fun cenoNetworkDetailsButton() = onView(withText(R.string.preferences_ceno_network_config))
 private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_ceno_network_config_summary))
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
@@ -329,8 +324,6 @@ private fun assertDeveloperToolsHeading() = developerToolsHeading()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertRemoteDebugging() = remoteDebuggingToggle()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertCustomAddonCollectionButton() = customAddonCollectionButton()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCenoNetworkDetailsButton() = cenoNetworkDetailsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCenoNetworkDetailsSummary() = cenoNetworkDetailsSummary()
@@ -350,17 +343,6 @@ private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertCustomAddonCollectionPanel() {
-    mDevice.waitForIdle()
-    mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
-        .waitForExists(waitingTime)
-    onView(
-        allOf(
-            withText(R.string.preferences_customize_amo_collection),
-            isDescendantOfA(withId(R.id.title_template)),
-        ),
-    ).check(matches(isCompletelyDisplayed()))
-}
 private fun assertChangeLanguageButton() = changeLanguageButton().check(matches( isDisplayed()))
 private fun assertAllowNotificationButton() {
     mDevice.wait(Until.findObject(By.text("Notifications")), waitingTime)

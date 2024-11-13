@@ -12,12 +12,6 @@
     <string name="tracker_category">ခြေရာခံခြင်း ကာကွယ်မှု</string>
     <string name="settings">အပြင်အဆင်များ</string>
     <string name="private_browsing_title">တကိုယ်ရည်သုံး ရှာဖွေခြင်း</string>
-    <string name="preferences_customize_amo_collection">စိတ်ကြိုက် အတ်-အွန်(Add-on) စုဆောင်းခြင်း</string>
-    <string name="customize_addon_collection_ok">အိုကေ</string>
-    <string name="customize_addon_collection_cancel">ပယ်ဖျက်မည်</string>
-    <string name="customize_addon_collection_hint">စုဆောင်းမှု အမည်</string>
-    <string name="customize_addon_collection_user_hint">စုဆောင်းမှုပိုင်ရှင် (အသုံးပြုသူ အိုင်ဒီ)</string>
-    <string name="toast_customize_addon_collection_done">အပို စုဆောင်းမှုကို ပြုပြင်ပြီး ဖြစ်သည်။ အပြောင်းအလဲများ လျှောက်ထားရန် လျှောက်လွှာ မှ ထွက်ပါ …</string>
     <string name="content_description_private_browsing_button">တကိုယ်ရည်သုံးရှာဖွေမှုကို ဖွင့်ပါ</string>
     <string name="bookmark_menu_open_in_private_tab_button">တကိုယ်ရေသုံးတပ်ဗ်၌ ဖွင့်မည်</string>
     <string name="rename_top_site">အမည်ပြောင်းပါ</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">အိုကေ၊ ရပြီ</string>
     <string name="top_sites_rename_dialog_title">အမည်</string>
     <string name="shortcut_name_hint">အတိုကောက်နာမည်</string>
-    <string name="top_sites_rename_dialog_ok">အိုကေ</string>
-    <string name="top_sites_rename_dialog_cancel">ပယ်ဖျက်ပါ</string>
+    <string name="dialog_ok">အိုကေ</string>
+    <string name="dialog_cancel">ပယ်ဖျက်ပါ</string>
     <string name="top_sites_sponsored_label">Sponsored</string>
     <string name="browser_menu_forward">ရှေ့သို့</string>
     <string name="browser_menu_refresh">ပြန်စပါ</string>

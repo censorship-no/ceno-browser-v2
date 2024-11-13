@@ -7,18 +7,14 @@ package ie.equalit.ceno.settings
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
@@ -41,8 +37,6 @@ import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.clean_insights_successful_opt_out
 import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
-import ie.equalit.ceno.R.string.customize_addon_collection_cancel
-import ie.equalit.ceno.R.string.customize_addon_collection_ok
 import ie.equalit.ceno.R.string.developer_tools_category
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
@@ -72,14 +66,12 @@ import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
 import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
-import ie.equalit.ceno.R.string.pref_key_override_amo_collection
 import ie.equalit.ceno.R.string.pref_key_privacy
 import ie.equalit.ceno.R.string.pref_key_search_engine
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
 import ie.equalit.ceno.R.string.preference_choose_search_engine
 import ie.equalit.ceno.R.string.preferences_about_page
-import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
@@ -88,7 +80,6 @@ import ie.equalit.ceno.R.string.status_enabled
 import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
-import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
@@ -112,10 +103,8 @@ import kotlinx.coroutines.launch
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
 import java.util.Locale
-import kotlin.system.exitProcess
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -266,8 +255,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_make_default_browser)?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
         getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
-        getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener =
-            getClickListenerForCustomAddons()
         getPreference(pref_key_customization)?.onPreferenceClickListener =
             getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener =
@@ -572,73 +559,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            val context = requireContext()
-            val dialogView = View.inflate(context, R.layout.amo_collection_override_dialog, null)
-            val userView = dialogView.findViewById<EditText>(R.id.custom_amo_user)
-            val collectionView = dialogView.findViewById<EditText>(R.id.custom_amo_collection)
-
-            AlertDialog.Builder(context).apply {
-                setTitle(context.getString(preferences_customize_amo_collection))
-                setView(dialogView)
-                setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
-                    dialog.cancel()
-                }
-
-                setPositiveButton(customize_addon_collection_ok) { _, _ ->
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoUser(
-                        context,
-                        userView.text.toString()
-                    )
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoCollection(
-                        context,
-                        collectionView.text.toString()
-                    )
-
-                    Toast.makeText(
-                        context,
-                        getString(toast_customize_addon_collection_done),
-                        Toast.LENGTH_LONG,
-                    ).show()
-
-                    Handler(Looper.getMainLooper()).postDelayed(
-                        {
-                            exitProcess(0)
-                        },
-                        AMO_COLLECTION_OVERRIDE_EXIT_DELAY,
-                    )
-                }
-
-                collectionView.setText(
-                    ie.equalit.ceno.settings.Settings.getOverrideAmoCollection(
-                        context
-                    )
-                )
-                userView.setText(ie.equalit.ceno.settings.Settings.getOverrideAmoUser(context))
-                userView.requestFocus()
-                userView.showKeyboard()
-                create()
-            }.show()
-            true
-        }
-    }
-
-    /*
-    private fun getChangeListenerForMobileData(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, newValue ->
-            if (newValue == true) {
-                /* this should pop-up the mobile data dialog to provide warning and allow user to select option*/
-                Toast.makeText(context, preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(context, preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
-            }
-            true
-        }
-    }
-     */
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -915,9 +835,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         const val TAG = "SettingsFragment"
-        const val LOG = "log"
 
         const val LOG_FILE_SIZE_LIMIT_MB = 20.0
 

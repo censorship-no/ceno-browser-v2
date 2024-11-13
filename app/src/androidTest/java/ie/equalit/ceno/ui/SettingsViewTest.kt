@@ -219,26 +219,6 @@ class SettingsViewTest {
         }
     }
 
-    /* Can't check further because after creating the custom add-on collection
-    the currently running process is terminated see:
-    /blob/master/app/src/main/java/org/mozilla/reference/browser/settings/SettingsFragment.kt#L217
-    Confirming the custom add-on collection creation or trying to continue testing afterwards
-    will cause the test instrumentation process to crash */
-    @Test
-    @Ignore("Custom add-on are disabled right now due to breaking changes with android-component-v128")
-    fun customAddonsCollectionTest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(15)
-            Thread.sleep(5000)
-            verifyCustomAddonCollectionButton()
-            clickCustomAddonCollectionButton()
-            verifyCustomAddonCollectionPanelExist()
-        }
-    }
-
     @Test
     @Ignore("Disabled - too dependent on third-party UI, find some other not terrible app to test against")
     fun openLinksInAppsTest() {

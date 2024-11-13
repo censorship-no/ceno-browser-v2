@@ -9,8 +9,8 @@
     <string name="browser_menu_desktop_site">Αίτηση σελίδας για υπολογιστή</string>
     <string name="browser_menu_add_to_shortcuts">Προσθήκη στις συντομεύσεις</string>
     <string name="browser_menu_find_in_page">Αναζήτηση στη σελίδα</string>
-    <string name="top_sites_rename_dialog_ok">ΟΚ</string>
-    <string name="top_sites_rename_dialog_cancel">Άκυρο</string>
+    <string name="dialog_ok">ΟΚ</string>
+    <string name="dialog_cancel">Άκυρο</string>
     <string name="close_mode_item">Κλείσιμο ειδοποίησης</string>
     <string name="preferences_tracking_protection_normal">Ενεργοποίηση σε κανονική λειτουργία περιήγησης</string>
     <string name="preferences_privacy_summary">Ενεργοποίηση για ιδιωτική και δημόσια περιήγηση</string>
@@ -24,10 +24,6 @@
     <string name="clear_button_category">Κουμπί εκκαθάρισης</string>
     <string name="crash_report_non_fatal_message">Μας συγχωρείτε. Παρουσιάστηκε σφάλμα</string>
     <string name="toast_copied">Αντιγράφηκε!</string>
-    <string name="preferences_customize_amo_collection">Προσαρμοσμένη συλλογή πρόσθετων</string>
-    <string name="customize_addon_collection_ok">ΟΚ</string>
-    <string name="customize_addon_collection_cancel">Άκυρο</string>
-    <string name="customize_addon_collection_hint">Όνομα συλλογής</string>
     <string name="content_description_private_browsing_button">Ενεργοποίηση ιδιωτικής περιήγησης</string>
     <string name="rename_top_site">Μετονομασία</string>
     <string name="remove_top_site">Αφαίρεση</string>
@@ -63,12 +59,10 @@
     <string name="settings">Ρυθμίσεις</string>
     <string name="private_browsing_title">Ιδιωτική περιήγηση</string>
     <string name="menu_share_with">Κοινή χρήση με…</string>
-    <string name="customize_addon_collection_user_hint">Κάτοχος συλλογής (ID χρήστη)</string>
     <string name="bookmark_menu_open_in_private_tab_button">Άνοιγμα σε ιδιωτική καρτέλα</string>
     <string name="preferences_add_ons">Πρόσθετα</string>
     <string name="menu_action_add_tab">Προσθήκη νέας καρτέλας</string>
     <string name="preferences_remote_debugging">Απομακρυσμένη αποσφαλμάτωση μέσω USB</string>
-    <string name="toast_customize_addon_collection_done">Η συλλογή πρόσθετων τροποποιήθηκε. Τερματίστε την εφαρμογή για εφαρμογή αλλαγών…</string>
     <string name="browser_menu_forward">Εμπρός</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
         <item quantity="one">%d διεύθυνση</item>

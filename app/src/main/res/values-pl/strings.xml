@@ -19,14 +19,12 @@
     <string name="shortcut_max_limit_title">Osiągnięto limit skrótów</string>
     <string name="delete_from_history">Usuń z historii</string>
     <string name="shortcut_name_hint">Nazwa skrótu</string>
-    <string name="customize_addon_collection_ok">OK</string>
     <string name="browser_menu_remove_from_shortcuts">Usuń ze skrótów</string>
     <string name="udp_category">UDP</string>
     <string name="browser_menu_desktop_site">Zażądaj strony w wersji dla komputera</string>
     <string name="browser_menu_back">Cofnij</string>
     <string name="customize_add_bootstrap_save">Zapisz</string>
     <string name="preferences_add_ons">Dodatki</string>
-    <string name="customize_addon_collection_cancel">Anuluj</string>
     <string name="preferences_delete_browsing_data_snackbar">Historia przeglądania usunięta</string>
     <string name="customize_extra_bittorrent_bootstrap">Dodatkowe bootstrapy BitTorrent</string>
     <string name="content_description_private_browsing_button">Włącz tryb przeglądania osobistego</string>
@@ -45,21 +43,18 @@
         <item quantity="other">%d zakładek</item>
     </plurals>
     <string name="top_sites_sponsored_label">Sponsorowane</string>
-    <string name="customize_addon_collection_hint">Nazwa kolekcji</string>
     <string name="open_links_in_apps">Otwieraj linki w aplikacji</string>
-    <string name="top_sites_rename_dialog_ok">Ok</string>
+    <string name="dialog_ok">Ok</string>
     <string name="delete_browsing_data_prompt_cancel">Anuluj</string>
     <string name="rename_top_site">Zmień nazwę</string>
-    <string name="customize_addon_collection_user_hint">Właściciel Kolekcji (Id użytkownika)</string>
     <string name="browser_menu_find_in_page">Znajdź na stronie</string>
     <string name="remove_top_site">Usuń</string>
     <string name="top_sites_max_limit_confirmation_button">Ok, zrozumiano</string>
     <string name="developer_tools_category">Narzędzia Developerskie</string>
     <string name="shortcut_max_limit_content">Aby dodać nowy skrót, usuń jeden istniejący. Dotknij i przytrzymaj stronę, a następnie wybierz opcję \'Usuń\'.</string>
     <string name="browser_menu_library">Biblioteka</string>
-    <string name="top_sites_rename_dialog_cancel">Anuluj</string>
+    <string name="dialog_cancel">Anuluj</string>
     <string name="browser_menu_add_to_homescreen">Dodaj do ekranu głównego</string>
-    <string name="toast_customize_addon_collection_done">Kolekcja dodatków zmodyfikowana. Zamykanie aplikacji w celu zastosowania zmian…</string>
     <string name="browser_menu_add_to_shortcuts">Dodaj do skrótów</string>
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
     <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
@@ -86,7 +81,6 @@
     <string name="preferences_delete_browsing_data_tabs_title_2">Otwórz karty</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Zwalnia miejsce do przechowywania</string>
     <string name="delete_browsing_data_prompt_message_3">Ceno usunie wybrane dane przeglądania.</string>
-    <string name="preferences_customize_amo_collection">Niestandardowa kolekcja dodatków</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Nastąpi wylogowanie z większości witryn</string>
     <string name="secure_connection">Połączenie jest bezpieczne</string>
     <string name="preference_select_preferred_engine">Wybierz preferowany silnik:</string>

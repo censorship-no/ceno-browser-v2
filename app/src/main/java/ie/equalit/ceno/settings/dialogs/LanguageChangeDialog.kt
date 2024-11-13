@@ -39,7 +39,7 @@ class LanguageChangeDialog(
         builder.apply {
             setTitle(getString(context, R.string.change_language))
             setView(languageChangeDialogView)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.update) { _, _ ->
                 if (radioGroup.checkedRadioButtonId == -1) {
                     return@setPositiveButton
