@@ -78,10 +78,6 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
 
             clickDownRecyclerView(1)
-            // extra click down for Add-ons option,
-            // which will be hidden soon
-
-            clickDownRecyclerView(1)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
 
@@ -123,11 +119,12 @@ class SettingsViewTest {
             verifyDeveloperToolsHeading()
 
             clickDownRecyclerView(1)
-            verifyRemoteDebugging()
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
 
             clickDownRecyclerView(1)
-            // extra click down for Custom Add-on Collection option,
-            // which will be hidden soon
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
 
             clickDownRecyclerView(1)
             verifyCenoNetworkDetailsButton()
@@ -135,14 +132,6 @@ class SettingsViewTest {
 
             clickDownRecyclerView(1)
             verifyEnableLogFile()
-
-            clickDownRecyclerView(1)
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
-
-            clickDownRecyclerView(1)
-            verifyWebsiteSourcesButton()
-            verifyWebsiteSourcesSummary()
 
             clickDownRecyclerView(1)
             verifyAboutHeading()
@@ -243,7 +232,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(19)
+            clickDownRecyclerView(16)
             Thread.sleep(5000)
         }.openSettingsViewSources {
             verifySourcesUpButton()
@@ -265,7 +254,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(17)
             verifyCenoNetworkDetailsButton()
             Thread.sleep(5000)
         }.openSettingsViewNetworkDetails {
@@ -296,7 +285,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -315,7 +304,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -336,7 +325,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
