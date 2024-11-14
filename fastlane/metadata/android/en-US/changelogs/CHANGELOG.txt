@@ -1,6 +1,7 @@
 # v2.3.3
 This release:
 - Updates Ceno extension to v1.8.1
+- Updates Android-Components to v132.0.2
 
 # v2.3.2
 This release:
