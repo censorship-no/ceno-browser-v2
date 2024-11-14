@@ -142,14 +142,12 @@ class SettingsViewRobot {
     }
 
     class Transition {
-        /*
         fun openSettingsViewPrivacy(interact: SettingsViewPrivacyRobot.() -> Unit):
                 SettingsViewPrivacyRobot.Transition {
             privacyButton().click()
             SettingsViewPrivacyRobot().interact()
             return SettingsViewPrivacyRobot.Transition()
         }
-        */
 
         fun openSettingsViewSearch(interact: SettingsViewSearchRobot.() -> Unit):
                 SettingsViewSearchRobot.Transition {
@@ -257,6 +255,7 @@ private fun remoteDebuggingToggle() = Espresso.onView(allOf(withId(R.id.switchWi
 private fun cenoNetworkDetailsButton() = onView(withText(R.string.preferences_ceno_network_config))
 private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_ceno_network_config_summary))
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
+private fun privacyButton() = onView(withText(R.string.tracker_category))
 
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))

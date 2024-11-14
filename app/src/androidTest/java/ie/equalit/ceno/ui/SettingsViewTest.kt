@@ -151,24 +151,22 @@ class SettingsViewTest {
         }
     }
 
-    /*
     @Test
     fun privacySettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(17)
+            verifyTrackingProtectionButton()
+            Thread.sleep(5000)
         }.openSettingsViewPrivacy {
             verifyPrivacyUpButton()
-            verifyPrivacySettings()
             verifyTrackingProtectionHeading()
             verifyTPEnableInNormalBrowsing()
             verifyTPEnableinPrivateBrowsing()
-            verifyDataChoicesHeading()
-            verifyUseTelemetryToggle()
-            verifyTelemetrySummary()
         }
     }
-     */
 
     @Test
     fun setDefaultBrowserTest() {
