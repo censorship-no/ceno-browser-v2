@@ -74,16 +74,17 @@ class SettingsViewRobot {
     fun verifyClearCachedContentSummary(): ViewInteraction = assertClearCachedContentSummary()
 
     fun verifyDeveloperToolsHeading() = assertDeveloperToolsHeading()
-    fun verifyRemoteDebugging() = assertRemoteDebugging()
     fun verifyCenoNetworkDetailsButton(): ViewInteraction = assertCenoNetworkDetailsButton()
     fun verifyCenoNetworkDetailsSummary(): ViewInteraction = assertCenoNetworkDetailsSummary()
     fun verifyEnableLogFile(): ViewInteraction = assertEnableLogFile()
     fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
+    fun verifyAdditionalDeveloperToolsButton() = assertAdditionalDeveloperToolsButton()
 
     fun verifyAboutHeading() = assertAboutHeading()
 
     fun verifyCenoBrowserServiceDisplay(): ViewInteraction = assertCenoBrowserServiceDisplay()
+    fun verifyCenoVersionDisplay(): ViewInteraction = assertCenoVersionDisplay()
     fun verifyGeckoviewVersionDisplay(): ViewInteraction = assertGeckoviewVersionDisplay()
     fun verifyOuinetVersionDisplay(): ViewInteraction = assertOuinetVersionDisplay()
     fun verifyAboutEqualitieButton() = assertAboutEqualitieButton()
@@ -100,6 +101,7 @@ class SettingsViewRobot {
     fun clickChangeLanguageButton() {
         changeLanguageButton().click()
     }
+    fun clickCenoVersionDisplay() = cenoVersionDisplay().click()
 
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
@@ -123,22 +125,6 @@ class SettingsViewRobot {
         for (i in 1..count) {
             recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_UP))
         }
-    }
-
-    // toggleRemoteDebugging does not yet verify that the debug service is started
-    // server runs on port 6000
-    fun toggleRemoteDebuggingOn() : ViewInteraction {
-        //onView(withText("OFF")).check(matches(isDisplayed()))
-        remoteDebuggingToggle().assertIsChecked(false)
-        remoteDebuggingToggle().click()
-        return remoteDebuggingToggle().assertIsChecked(true)
-        //return onView(withText("ON")).check(matches(isDisplayed()))
-    }
-
-    fun toggleRemoteDebuggingOff() : ViewInteraction {
-        remoteDebuggingToggle().assertIsChecked(true)
-        remoteDebuggingToggle().click()
-        return remoteDebuggingToggle().assertIsChecked(false)
     }
 
     class Transition {
@@ -198,6 +184,13 @@ class SettingsViewRobot {
             return SettingsViewNetworkDetailsRobot.Transition()
         }
 
+        fun openSettingsViewDeveloperTools(interact: SettingsViewDeveloperToolsRobot.() -> Unit):
+                SettingsViewDeveloperToolsRobot.Transition {
+            additionalDeveloperToolsButton().click()
+            SettingsViewDeveloperToolsRobot().interact()
+            return SettingsViewDeveloperToolsRobot.Transition()
+        }
+
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
             mDevice.pressBack()
             NavigationToolbarRobot().interact()
@@ -251,17 +244,18 @@ private fun clearCachedContentButton() = onView(withText(R.string.preferences_cl
 private fun clearCachedContentSummary() = onView(withText(R.string.preferences_clear_ceno_cache_summary))
 
 private fun developerToolsHeading() = Espresso.onView(withText(R.string.developer_tools_category))
-private fun remoteDebuggingToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_remote_debugging))))
 private fun cenoNetworkDetailsButton() = onView(withText(R.string.preferences_ceno_network_config))
 private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_ceno_network_config_summary))
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
 private fun privacyButton() = onView(withText(R.string.tracker_category))
+private fun additionalDeveloperToolsButton() = onView(withText(R.string.preferences_additional_developer_tools))
 
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
 
 private fun aboutHeading() = onView(allOf(withText(R.string.about_category), withParent(withId(R.id.recycler_view))))
 private fun cenoBrowserServiceDisplay() = onView(withText(R.string.ceno_notification_title))
+private fun cenoVersionDisplay() = onView(withText(R.string.preferences_about_ceno))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
 private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
@@ -321,8 +315,6 @@ private fun assertClearCachedContentSummary() = clearCachedContentSummary()
 
 private fun assertDeveloperToolsHeading() = developerToolsHeading()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertRemoteDebugging() = remoteDebuggingToggle()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCenoNetworkDetailsButton() = cenoNetworkDetailsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCenoNetworkDetailsSummary() = cenoNetworkDetailsSummary()
@@ -333,11 +325,14 @@ private fun assertWebsiteSourcesButton() = websiteSourcesButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAdditionalDeveloperToolsButton() = additionalDeveloperToolsButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertAboutHeading() { aboutHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 private fun assertCenoBrowserServiceDisplay() = cenoBrowserServiceDisplay()
+private fun assertCenoVersionDisplay() = cenoVersionDisplay()
 private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()

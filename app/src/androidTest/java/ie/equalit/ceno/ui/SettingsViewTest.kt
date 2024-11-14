@@ -140,6 +140,9 @@ class SettingsViewTest {
             verifyCenoBrowserServiceDisplay()
 
             clickDownRecyclerView(1)
+            verifyCenoVersionDisplay()
+
+            clickDownRecyclerView(1)
             verifyGeckoviewVersionDisplay()
 
             clickDownRecyclerView(1)
@@ -175,21 +178,6 @@ class SettingsViewTest {
         }.openSettings {
         }.makeDefaultBrowser {
             verifyAndroidDefaultApps()
-        }
-    }
-
-    @Test
-    fun remoteDebuggingViaUSB() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(16)
-            Thread.sleep(5000)
-            verifyRemoteDebugging()
-            toggleRemoteDebuggingOn()
-            toggleRemoteDebuggingOff()
-            toggleRemoteDebuggingOn()
         }
     }
 
@@ -271,6 +259,31 @@ class SettingsViewTest {
             clickDownRecyclerView(2)
             verifyBtBootstrapsHeading()
             verifyExtraBtBootstrapsButton()
+        }
+    }
+
+    @Test
+    fun developerToolsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(20)
+            verifyCenoVersionDisplay()
+            Thread.sleep(5000)
+            for (i in 0..7) {
+                clickCenoVersionDisplay()
+            }
+            Thread.sleep(5000)
+            verifyAdditionalDeveloperToolsButton()
+        }.openSettingsViewDeveloperTools {
+            verifyDeveloperToolsUpButton()
+            verifyDeveloperToolsHeading()
+            verifyRemoteDebugging()
+            toggleRemoteDebuggingOn()
+            toggleRemoteDebuggingOff()
+            toggleRemoteDebuggingOn()
+            verifyExportOuinetLog()
         }
     }
 
