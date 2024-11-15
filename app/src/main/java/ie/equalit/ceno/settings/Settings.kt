@@ -316,6 +316,12 @@ object Settings {
             .commit()
     }
 
+    fun isAnnouncementExpirationDisabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_rss_announcement_expire_disable), false
+        )
+    }
+
     fun getSwipedAnnouncementGuids(context: Context): List<String>? {
         val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_rss_past_announcement_data), null
@@ -351,9 +357,9 @@ object Settings {
                 text = rssAnnouncementResponse.text,
                 items = buildList {
                     rssAnnouncementResponse.items.forEach {
-                        if((swipedGuids == null || !swipedGuids.contains(it.guid))
-                            && it.guid.split("/").getOrNull(1)?.isDateMoreThanXDaysAway(30) == false
-                            ) {
+                        val pubDate : String = it.guid.split("/")[1]
+                        val isExpired = pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(context)
+                        if((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
                             add(it)
                         }
                     }
@@ -381,6 +387,19 @@ object Settings {
             .edit()
             .remove(key)
             .apply()
+    }
+
+    fun getRSSAnnouncementUrl(context: Context, locale : String) :String {
+        val baseUrl = context.getString(R.string.ceno_base_url)
+        val source = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_rss_announcement_source), context.getString(R.string.preferences_announcement_source_default)
+        )
+        return when (source) {
+            "1" -> "${baseUrl}/${locale}/rss-announce.xml"
+            "2" -> "${baseUrl}/${locale}/rss-announce-draft.xml"
+            "3" -> "${baseUrl}/${locale}/rss-announce-archive.xml"
+            else -> "${baseUrl}/${locale}/rss-announce.xml"
+        }
     }
 
 }

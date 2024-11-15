@@ -216,14 +216,14 @@ class HomeFragment : BaseHomeFragment() {
 
                     var response = CenoSettings.webClientRequest(
                         context,
-                        Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
+                        Request(Settings.getRSSAnnouncementUrl(context, languageCode))
                     )
 
                     // if the network call fails, try to load 'en' locale
                     if (response == null) {
                         response = CenoSettings.webClientRequest(
                             context,
-                            Request(CenoSettings.getRSSAnnouncementUrl("en"))
+                            Request(Settings.getRSSAnnouncementUrl(context, "en"))
                         )
                     }
 
