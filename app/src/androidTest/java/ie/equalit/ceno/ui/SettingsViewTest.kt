@@ -282,8 +282,17 @@ class SettingsViewTest {
             verifyRemoteDebugging()
             toggleRemoteDebuggingOn()
             toggleRemoteDebuggingOff()
-            toggleRemoteDebuggingOn()
             verifyExportOuinetLog()
+            verifyAnnouncementSource()
+            verifyAnnouncementSourceSummary()
+            clickAnnouncementSource()
+            verifyAnnouncementOption1()
+            verifyAnnouncementOption2()
+            verifyAnnouncementOption3()
+            clickCancelDialog()
+            verifyAnnouncementExpiration()
+            toggleAnnouncementExpirationOn()
+            toggleAnnouncementExpirationOff()
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
@@ -24,6 +25,12 @@ class SettingsViewDeveloperToolsRobot {
     fun verifyDeveloperToolsHeading() = assertDeveloperToolsHeading()
     fun verifyRemoteDebugging() = assertRemoteDebugging()
     fun verifyExportOuinetLog() = assertExportOuinetLog()
+    fun verifyAnnouncementSource() = assertAnnouncementSource()
+    fun verifyAnnouncementSourceSummary() = assertAnnouncementSourceSummary()
+    fun verifyAnnouncementExpiration() = assertAnnouncementExpiration()
+    fun verifyAnnouncementOption1() = assertAnnouncementOption1()
+    fun verifyAnnouncementOption2() = assertAnnouncementOption2()
+    fun verifyAnnouncementOption3() = assertAnnouncementOption3()
 
     // toggleRemoteDebugging does not yet verify that the debug service is started
     // server runs on port 6000
@@ -37,6 +44,26 @@ class SettingsViewDeveloperToolsRobot {
         remoteDebuggingToggle().assertIsChecked(true)
         remoteDebuggingToggle().click()
         return remoteDebuggingToggle().assertIsChecked(false)
+    }
+
+    fun toggleAnnouncementExpirationOn() : ViewInteraction {
+        announcementExpiration().assertIsChecked(false)
+        announcementExpiration().click()
+        return announcementExpiration().assertIsChecked(true)
+    }
+
+    fun toggleAnnouncementExpirationOff() : ViewInteraction {
+        announcementExpiration().assertIsChecked(true)
+        announcementExpiration().click()
+        return announcementExpiration().assertIsChecked(false)
+    }
+
+    fun clickAnnouncementSource() {
+        announcementSource().click()
+    }
+
+    fun clickCancelDialog() {
+        cancelDialogButton().click()
     }
 
     class Transition {
@@ -55,6 +82,21 @@ private fun remoteDebuggingToggle() = Espresso.onView(
     )
 )
 private fun exportOuinetLog() = Espresso.onView(withText(R.string.preferences_ceno_download_log))
+private fun announcementSource() = Espresso.onView(withText(R.string.preferences_announcement_source))
+private fun announcementSourceSummary() = Espresso.onView(withText(R.string.preferences_announcement_source_summary))
+private fun announcementExpiration() = Espresso.onView(
+    allOf(
+        withId(R.id.switchWidget), hasCousin(
+            withText(R.string.preferences_announcement_expire_disable)
+        )
+    )
+)
+private fun announcementOption1() = Espresso.onView(withText(R.string.preferences_announcement_source_option_1))
+private fun announcementOption2() = Espresso.onView(withText(R.string.preferences_announcement_source_option_2))
+private fun announcementOption3() = Espresso.onView(withText(R.string.preferences_announcement_source_option_3))
+private fun cancelDialogButton() = mDevice.findObject(
+    UiSelector().resourceId("android:id/button2"),
+)
 private fun assertDeveloperToolsUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
@@ -63,4 +105,16 @@ private fun assertDeveloperToolsHeading() = developerToolsHeading()
 private fun assertRemoteDebugging() = remoteDebuggingToggle()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertExportOuinetLog() = exportOuinetLog()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementSource() = announcementSource()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementSourceSummary() = announcementSourceSummary()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementExpiration() = announcementExpiration()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementOption1() = announcementOption1()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementOption2() = announcementOption2()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAnnouncementOption3() = announcementOption3()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
