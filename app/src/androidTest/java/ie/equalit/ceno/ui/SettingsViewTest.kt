@@ -367,8 +367,12 @@ class SettingsViewTest {
             clickBridgeModeToggle()
             waitForBridgeModeDialog()
             Thread.sleep(5000)
-            assert(LogHelper.findInLogs("[DEBUG] Bep5Client: Got pong from injectors, announcing as helper (bridge)"))
             waitForThankYouDialog()
+        }.goBack {
+            Thread.sleep(1000)
+        }.openThreeDotMenu {
+        }.openSettings {
+            assert(LogHelper.findInLogs("bridge_announcement=true"))
         }
     }
 
