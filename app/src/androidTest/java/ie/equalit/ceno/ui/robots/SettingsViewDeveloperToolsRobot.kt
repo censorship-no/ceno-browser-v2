@@ -25,6 +25,9 @@ class SettingsViewDeveloperToolsRobot {
     fun verifyDeveloperToolsHeading() = assertDeveloperToolsHeading()
     fun verifyRemoteDebugging() = assertRemoteDebugging()
     fun verifyExportOuinetLog() = assertExportOuinetLog()
+    fun verifyExportOuinetLogDescription() = assertExportOuinetLogDescription()
+    fun verifyExportOuinetLogDownload() = assertExportOuinetLogDownload()
+    fun verifyExportOuinetLogView() = assertExportOuinetLogView()
     fun verifyAnnouncementSource() = assertAnnouncementSource()
     fun verifyAnnouncementSourceSummary() = assertAnnouncementSourceSummary()
     fun verifyAnnouncementExpiration() = assertAnnouncementExpiration()
@@ -58,6 +61,10 @@ class SettingsViewDeveloperToolsRobot {
         return announcementExpiration().assertIsChecked(false)
     }
 
+    fun clickExportOuinetLog() {
+        exportOuinetLog().click()
+    }
+
     fun clickAnnouncementSource() {
         announcementSource().click()
     }
@@ -82,6 +89,9 @@ private fun remoteDebuggingToggle() = Espresso.onView(
     )
 )
 private fun exportOuinetLog() = Espresso.onView(withText(R.string.preferences_ceno_download_log))
+private fun exportOuinetLogDescription() = Espresso.onView(withText(R.string.ouinet_log_file_prompt_desc))
+private fun exportOuinetLogDownload() = Espresso.onView(withText(R.string.download_logs))
+private fun exportOuinetLogView() = Espresso.onView(withText(R.string.view_logs))
 private fun announcementSource() = Espresso.onView(withText(R.string.preferences_announcement_source))
 private fun announcementSourceSummary() = Espresso.onView(withText(R.string.preferences_announcement_source_summary))
 private fun announcementExpiration() = Espresso.onView(
@@ -105,6 +115,12 @@ private fun assertDeveloperToolsHeading() = developerToolsHeading()
 private fun assertRemoteDebugging() = remoteDebuggingToggle()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertExportOuinetLog() = exportOuinetLog()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertExportOuinetLogDescription() = exportOuinetLogDescription()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertExportOuinetLogDownload() = exportOuinetLogDownload()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertExportOuinetLogView() = exportOuinetLogView()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAnnouncementSource() = announcementSource()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
