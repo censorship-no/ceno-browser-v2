@@ -34,7 +34,7 @@
             android:layout_margin="8dp"
             android:gravity="center"
             android:text="@string/onboarding_welcome_title"
-            android:textColor="@color/fx_mobile_text_color_primary"
+            android:textColor="@color/tooltip_title_color"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/start_tooltip_description"
-            android:textColor="@color/fx_mobile_text_color_primary"
+            android:textColor="@color/tooltip_text_color"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/fx_mobile_text_color_secondary"
+                android:textColor="@color/tooltip_text_color"
                 android:text="@string/select_language" />
 
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:gravity="center_vertical"
-                android:textColor="@color/fx_mobile_text_color_primary"
+                android:textColor="@color/tooltip_text_color"
                 app:drawableEndCompat="@drawable/ic_arrow_collapsed"
                 android:background="@drawable/browsing_mode_card_outline"
                 android:backgroundTint="@color/ceno_blue_100"
@@ -103,6 +103,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:text="@string/skip_the_tour_button"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@color/tooltip_text_color"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

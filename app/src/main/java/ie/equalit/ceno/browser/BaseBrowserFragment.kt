@@ -41,7 +41,7 @@ import ie.equalit.ceno.databinding.FragmentBrowserBinding
 import ie.equalit.ceno.downloads.DownloadService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.createSegment
-import ie.equalit.ceno.ext.disableDynamicBehavior
+import ie.equalit.ceno.ext.enableDynamicBehavior
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ext.showAsFixed
@@ -88,7 +88,6 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
-import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
@@ -403,20 +402,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             )
         }
 
-        /*
-        // Disable scroll-to-hide until it is fixed, https://gitlab.com/censorship-no/ceno-browser/-/issues/144
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_toolbar_hide), false)) {
             binding.toolbar.enableDynamicBehavior(
                 requireContext(),
+                binding.swipeRefresh,
                 binding.engineView,
-                prefs.getBoolean(
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
                     false
                 )
             )
         }
         else {
-            binding.toolbar.disableDynamicBehavior(
+//            binding.toolbar.disableDynamicBehavior(
+//                binding.engineView,
+//                prefs.getBoolean(
+//                    requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
+//                    false
+//                )
+//            )
+            binding.toolbar.showAsFixed(
                 binding.engineView,
                 prefs.getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
@@ -424,14 +429,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 )
             )
         }
-        */
-        binding.toolbar.showAsFixed(
-            binding.engineView,
-            prefs.getBoolean(
-                requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
-                false
-            )
-        )
 
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
