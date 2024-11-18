@@ -361,4 +361,5 @@
     <string name="about_content_para_2">CENO Browser jest tworzona przez eQualitie - kanadyjską organizację non-profit, która tworzy zdecentralizowane usługi Internetowe by wspierać bardziej równą sieć. Produkty eQualitie są open source, zaprawione w boju i tworzone w duchu naszych zasad. Codziennie, umożliwiają zrzeszanie się milionom ludzi.</string>
     <string name="enable_debug_logs">Włącz logi debugowania</string>
     <string name="error_page_learn_more_3">Twoje urządzenia posiada sprawne połączenie z siecią, np. Twoja normalna przeglądarka internetowa jest zdolna do otwierania stron. Ceno i Ouinet nie może działać gdy wszystkie połączenia sieciowe są wyłączone.</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

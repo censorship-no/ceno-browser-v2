@@ -323,4 +323,5 @@
         <item quantity="other">%d Seiten</item>
     </plurals>
     <string name="shutdown_message_one">Appdaten entfernen</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>
