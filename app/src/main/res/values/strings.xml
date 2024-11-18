@@ -446,6 +446,6 @@
     </string-array>
     <string name="preferences_announcement_source_option_1">Production</string>
     <string name="preferences_announcement_source_option_2">Draft</string>
-    <string name="preferences_announcement_source_option_3">Legacy</string>
+    <string name="preferences_announcement_source_option_3">Archive</string>
     <string name="preferences_announcement_expire_disable">Disable announcement expiration</string>
 </resources>
