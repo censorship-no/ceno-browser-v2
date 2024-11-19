@@ -107,7 +107,7 @@ class ContextMenusTest {
             clickContextCopyLink()
             waitUntilCopyLinkSnackbarIsGone()
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // TODO: Android 14+ has annoy QuickShare auto pop-up
             // should write a better check, for now just wait 10s for it to disappear
             Thread.sleep(10000)
