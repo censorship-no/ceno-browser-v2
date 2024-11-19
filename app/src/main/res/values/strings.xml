@@ -450,4 +450,6 @@
     <string name="preferences_announcement_expire_disable">Disable announcement expiration</string>
     <string name="developer_tools_enable_alert">You are %d taps away from enabling developer tools</string>
     <string name="developer_tools_disable_alert">You are %d taps away from disabling developer tools</string>
+    <string name="developer_tools_enabled">Developer tools enabled</string>
+    <string name="developer_tools_disabled">Developer tools disabled</string>
 </resources>

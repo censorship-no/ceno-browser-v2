@@ -37,9 +37,10 @@ import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.clean_insights_successful_opt_out
 import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
-import ie.equalit.ceno.R.string.developer_tools_category
 import ie.equalit.ceno.R.string.developer_tools_disable_alert
+import ie.equalit.ceno.R.string.developer_tools_disabled
 import ie.equalit.ceno.R.string.developer_tools_enable_alert
+import ie.equalit.ceno.R.string.developer_tools_enabled
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.onboarding_battery_button
@@ -738,8 +739,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (developerToolsTapCount >= TAPS_TO_TOGGLE_DEVELOPER_TOOLS) {
                 setShowDeveloperTools(requireContext(), !shouldShowDeveloperTools(requireContext()))
                 shouldShowDeveloperTools(requireContext()).let { enabled ->
-                    val status = if (enabled) getString(status_enabled) else getString(status_disabled)
-                    val msg = "${getString(developer_tools_category)} $status"
+                    val msg = if (enabled)
+                        getString(developer_tools_enabled)
+                    else
+                        getString(developer_tools_disabled)
                     Toast.makeText(context, msg, LENGTH_SHORT).show()
                     getPreference(pref_key_additional_developer_tools)?.isVisible = enabled
                 }
@@ -747,12 +750,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             else {
                 if (developerToolsTapCount >= TAPS_TO_ALERT_DEVELOPER_TOOLS) {
-                    val resId = if (shouldShowDeveloperTools(requireContext())) {
+                    val resId = if (shouldShowDeveloperTools(requireContext()))
                         developer_tools_disable_alert
-                    }
-                    else {
+                    else
                         developer_tools_enable_alert
-                    }
                     val msg = getString(resId, TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount)
                     Toast.makeText(context, msg, LENGTH_SHORT).show()
                 }
