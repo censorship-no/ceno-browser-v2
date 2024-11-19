@@ -32,14 +32,14 @@ import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.R.plurals.developer_tools_disable_alert
+import ie.equalit.ceno.R.plurals.developer_tools_enable_alert
 import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.clean_insights_successful_opt_out
 import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
-import ie.equalit.ceno.R.string.developer_tools_disable_alert
 import ie.equalit.ceno.R.string.developer_tools_disabled
-import ie.equalit.ceno.R.string.developer_tools_enable_alert
 import ie.equalit.ceno.R.string.developer_tools_enabled
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
@@ -754,7 +754,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         developer_tools_disable_alert
                     else
                         developer_tools_enable_alert
-                    val msg = getString(resId, TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount)
+                    val msg = resources.getQuantityString(
+                        resId,
+                        TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount,
+                        TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount
+                    )
                     Toast.makeText(context, msg, LENGTH_SHORT).show()
                 }
                 developerToolsTapCount++
