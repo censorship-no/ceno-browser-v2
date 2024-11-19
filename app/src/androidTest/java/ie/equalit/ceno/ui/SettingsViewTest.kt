@@ -240,7 +240,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             verifyCenoNetworkDetailsButton()
             Thread.sleep(5000)
         }.openSettingsViewNetworkDetails {

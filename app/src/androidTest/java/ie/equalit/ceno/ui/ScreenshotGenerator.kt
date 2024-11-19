@@ -135,6 +135,8 @@ class ScreenshotGenerator {
                     clickCenoVersionDisplay()
                 }
                 Screengrab.screenshot("023_preferences_additionaldevelopertools")
+                // Wait for developer tool toasts to disappear
+                Thread.sleep(10000)
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
@@ -170,7 +172,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(17)
+                clickDownRecyclerView(18)
                 Thread.sleep(1000)
             }.openSettingsViewNetworkDetails {
                 Thread.sleep(1000)
@@ -189,7 +191,7 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(24)
+                clickDownRecyclerView(25)
                 Thread.sleep(1000)
             }.openSettingsViewAboutPage {
                 Thread.sleep(1000)
@@ -201,7 +203,7 @@ class ScreenshotGenerator {
                 Screengrab.screenshot("021_fragment_public_home")
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(24)
+                clickDownRecyclerView(20)
                 Thread.sleep(1000)
             }.openSettingsViewDeveloperTools {
                 Screengrab.screenshot("024_fragment_developer_tools")
