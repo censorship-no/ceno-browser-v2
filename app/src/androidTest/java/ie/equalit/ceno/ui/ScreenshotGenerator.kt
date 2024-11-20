@@ -137,6 +137,15 @@ class ScreenshotGenerator {
                 Screengrab.screenshot("023_preferences_additionaldevelopertools")
                 // Wait for developer tool toasts to disappear
                 Thread.sleep(10000)
+            }.openSettingsViewDeveloperTools {
+                Screengrab.screenshot("024_fragment_developer_tools")
+                clickExportOuinetLog()
+                Screengrab.screenshot("025_developer_tools_export_ouinet_log")
+                mDevice.pressBack()
+                clickAnnouncementSource()
+                Screengrab.screenshot("026_developer_tools_announcement_source")
+                clickCancelDialog()
+            }.goBack {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
@@ -193,6 +202,11 @@ class ScreenshotGenerator {
             }.openSettings {
                 clickDownRecyclerView(25)
                 Thread.sleep(1000)
+                // Disable developer tools before finishing test
+                for (i in 0..7) {
+                    clickCenoVersionDisplay()
+                }
+                Thread.sleep(10000)
             }.openSettingsViewAboutPage {
                 Thread.sleep(1000)
                 Screengrab.screenshot("020_fragment_about")
@@ -201,20 +215,6 @@ class ScreenshotGenerator {
             }.openTabTrayMenu {
             }.openNewTab {
                 Screengrab.screenshot("021_fragment_public_home")
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(20)
-                Thread.sleep(1000)
-            }.openSettingsViewDeveloperTools {
-                Screengrab.screenshot("024_fragment_developer_tools")
-                clickExportOuinetLog()
-                Screengrab.screenshot("025_developer_tools_export_ouinet_log")
-                mDevice.pressBack()
-                clickAnnouncementSource()
-                Screengrab.screenshot("026_developer_tools_announcement_source")
-                clickCancelDialog()
-            }.goBack {
-            }.goBack {
             }
             homepage {
             }.openPersonalHomepage {
