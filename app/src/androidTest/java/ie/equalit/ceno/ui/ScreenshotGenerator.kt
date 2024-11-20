@@ -125,7 +125,7 @@ class ScreenshotGenerator {
                 // TODO: improve how all the settings are captured
                 Thread.sleep(1000)
                 Screengrab.screenshot("009_preferences_general")
-                clickDownRecyclerView(15)
+                clickDownRecyclerView(16)
                 Thread.sleep(1000)
                 Screengrab.screenshot("010_preferences_data")
                 clickDownRecyclerView(8)
