@@ -121,6 +121,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var logFileReset:Boolean = false
     private var logLevelReset:Boolean = false
     private var developerToolsTapCount = 0
+    private var developerToolsToast : Toast? = null
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -743,7 +744,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         getString(developer_tools_enabled)
                     else
                         getString(developer_tools_disabled)
-                    Toast.makeText(context, msg, LENGTH_SHORT).show()
+                    developerToolsToast?.cancel()
+                    developerToolsToast = Toast.makeText(context, msg, LENGTH_SHORT)
+                    developerToolsToast?.show()
                     getPreference(pref_key_additional_developer_tools)?.isVisible = enabled
                 }
                 developerToolsTapCount = 0
@@ -759,7 +762,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount,
                         TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount
                     )
-                    Toast.makeText(context, msg, LENGTH_SHORT).show()
+                    developerToolsToast?.cancel()
+                    developerToolsToast = Toast.makeText(context, msg, LENGTH_SHORT)
+                    developerToolsToast?.show()
                 }
                 developerToolsTapCount++
             }
