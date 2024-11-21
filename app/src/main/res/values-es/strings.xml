@@ -12,12 +12,6 @@
     <string name="tracker_category">Protección de Rastreo</string>
     <string name="settings">Configuración</string>
     <string name="private_browsing_title">Navegación personal</string>
-    <string name="preferences_customize_amo_collection">Colección de Complementos personalizada</string>
-    <string name="customize_addon_collection_ok">OK</string>
-    <string name="customize_addon_collection_cancel">Cancelar</string>
-    <string name="customize_addon_collection_hint">Nombre de la colección</string>
-    <string name="customize_addon_collection_user_hint">Dueño de la colección (ID de usuaria(o))</string>
-    <string name="toast_customize_addon_collection_done">Colección de complementos modificada. Cerrando la aplicación para aplicar los cambios…</string>
     <string name="content_description_private_browsing_button">Activar la navegación personal</string>
     <string name="bookmark_menu_open_in_private_tab_button">Abrir en una pestaña personal</string>
     <string name="rename_top_site">Renombrar</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">Ok, Entendido</string>
     <string name="top_sites_rename_dialog_title">Nombre</string>
     <string name="shortcut_name_hint">Nombre de acceso directo</string>
-    <string name="top_sites_rename_dialog_ok">OK</string>
-    <string name="top_sites_rename_dialog_cancel">Cancelar</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
     <string name="top_sites_sponsored_label">Patrocinado</string>
     <string name="browser_menu_forward">Avanzar</string>
     <string name="browser_menu_refresh">Actualizar</string>

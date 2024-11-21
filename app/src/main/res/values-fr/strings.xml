@@ -12,12 +12,6 @@
     <string name="tracker_category">Protection contre le pistage</string>
     <string name="settings">Paramètres</string>
     <string name="private_browsing_title">Navigation Personnelle</string>
-    <string name="preferences_customize_amo_collection">Collection de modules complémentaires personnalisée</string>
-    <string name="customize_addon_collection_ok">D’accord</string>
-    <string name="customize_addon_collection_cancel">Annuler</string>
-    <string name="customize_addon_collection_hint">Nom de la collection</string>
-    <string name="customize_addon_collection_user_hint">Propriétaire de la collection (ID de l’utilisateur)</string>
-    <string name="toast_customize_addon_collection_done">La collection de modules complémentaires a été modifiée. Fermeture de l’appli pour appliquer les modifications…</string>
     <string name="content_description_private_browsing_button">Activer la navigation personnelle</string>
     <string name="bookmark_menu_open_in_private_tab_button">Ouvrir dans un onglet personnel</string>
     <string name="rename_top_site">Renommer</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">D’accord, j’ai compris</string>
     <string name="top_sites_rename_dialog_title">Nom</string>
     <string name="shortcut_name_hint">Nom du raccourci</string>
-    <string name="top_sites_rename_dialog_ok">D’accord</string>
-    <string name="top_sites_rename_dialog_cancel">Annuler</string>
+    <string name="dialog_ok">D’accord</string>
+    <string name="dialog_cancel">Annuler</string>
     <string name="top_sites_sponsored_label">Commandité</string>
     <string name="browser_menu_forward">Suivant</string>
     <string name="browser_menu_refresh">Actualiser</string>

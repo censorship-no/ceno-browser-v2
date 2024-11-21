@@ -12,12 +12,6 @@
     <string name="tracker_category">Защита от отслеживания</string>
     <string name="settings">Параметры</string>
     <string name="private_browsing_title">Личный браузинг</string>
-    <string name="preferences_customize_amo_collection">Настраиваемая коллекция дополнений</string>
-    <string name="customize_addon_collection_ok">OK</string>
-    <string name="customize_addon_collection_cancel">Отмена</string>
-    <string name="customize_addon_collection_hint">Имя коллекции</string>
-    <string name="customize_addon_collection_user_hint">Владелец коллекции (ID пользователя)</string>
-    <string name="toast_customize_addon_collection_done">Коллекция дополнений была изменена. Закрываем приложение, чтобы применить изменения…</string>
     <string name="content_description_private_browsing_button">Включить личный просмотр</string>
     <string name="bookmark_menu_open_in_private_tab_button">Открыть в личной вкладке</string>
     <string name="rename_top_site">Переименовать</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">OK, понятно</string>
     <string name="top_sites_rename_dialog_title">Имя</string>
     <string name="shortcut_name_hint">Название ярлыка</string>
-    <string name="top_sites_rename_dialog_ok">OK</string>
-    <string name="top_sites_rename_dialog_cancel">Отмена</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Отмена</string>
     <string name="top_sites_sponsored_label">Спонсировано</string>
     <string name="browser_menu_forward">Вперёд</string>
     <string name="browser_menu_refresh">Обновить</string>

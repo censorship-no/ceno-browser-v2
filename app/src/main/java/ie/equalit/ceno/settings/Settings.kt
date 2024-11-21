@@ -29,29 +29,6 @@ object Settings {
             context.getString(R.string.pref_key_show_home_button), false
         )
 
-    fun isMobileDataEnabled(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_mobile_data), false
-        )
-
-    fun isTelemetryEnabled(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_telemetry),
-            true
-        )
-
-    fun getOverrideAmoUser(context: Context): String =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_override_amo_user),
-            ""
-        ) ?: ""
-
-    fun getOverrideAmoCollection(context: Context): String =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_override_amo_collection),
-            ""
-        ) ?: ""
-
     fun shouldShowSearchSuggestions(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_search_suggestions), false
@@ -61,6 +38,11 @@ object Settings {
             PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
                     context.getString(R.string.pref_key_update_search_engines), false
             )
+
+    fun shouldShowDeveloperTools(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_developer_tools), false
+        )
 
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
@@ -93,32 +75,12 @@ object Settings {
             .apply()
     }
 
-    fun setMobileData(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_mobile_data)
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(key, value)
-                .apply()
-    }
-
-    fun setOverrideAmoUser(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_override_amo_user)
+    fun setShowDeveloperTools(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_developer_tools)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putString(key, value)
+            .putBoolean(key, value)
             .apply()
-    }
-
-    fun setOverrideAmoCollection(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_override_amo_collection)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putString(key, value)
-            .apply()
-    }
-
-    fun isAmoCollectionOverrideConfigured(context: Context): Boolean {
-        return getOverrideAmoUser(context).isNotEmpty() && getOverrideAmoCollection(context).isNotEmpty()
     }
 
     fun setAppIcon(context: Context, value: String?) {
@@ -354,6 +316,12 @@ object Settings {
             .commit()
     }
 
+    fun isAnnouncementExpirationDisabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_rss_announcement_expire_disable), false
+        )
+    }
+
     fun getSwipedAnnouncementGuids(context: Context): List<String>? {
         val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_rss_past_announcement_data), null
@@ -389,9 +357,9 @@ object Settings {
                 text = rssAnnouncementResponse.text,
                 items = buildList {
                     rssAnnouncementResponse.items.forEach {
-                        if((swipedGuids == null || !swipedGuids.contains(it.guid))
-                            && it.guid.split("/").getOrNull(1)?.isDateMoreThanXDaysAway(30) == false
-                            ) {
+                        val pubDate : String = it.guid.split("/")[1]
+                        val isExpired = pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(context)
+                        if((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
                             add(it)
                         }
                     }
@@ -419,6 +387,19 @@ object Settings {
             .edit()
             .remove(key)
             .apply()
+    }
+
+    fun getRSSAnnouncementUrl(context: Context, locale : String) :String {
+        val baseUrl = context.getString(R.string.ceno_base_url)
+        val source = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_rss_announcement_source), context.getString(R.string.preferences_announcement_source_default)
+        )
+        return when (source) {
+            "1" -> "${baseUrl}/${locale}/rss-announce.xml"
+            "2" -> "${baseUrl}/${locale}/rss-announce-draft.xml"
+            "3" -> "${baseUrl}/${locale}/rss-announce-archive.xml"
+            else -> "${baseUrl}/${locale}/rss-announce.xml"
+        }
     }
 
 }

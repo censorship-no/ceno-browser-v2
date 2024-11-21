@@ -78,10 +78,6 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
 
             clickDownRecyclerView(1)
-            // extra click down for Add-ons option,
-            // which will be hidden soon
-
-            clickDownRecyclerView(1)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
 
@@ -123,11 +119,12 @@ class SettingsViewTest {
             verifyDeveloperToolsHeading()
 
             clickDownRecyclerView(1)
-            verifyRemoteDebugging()
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
 
             clickDownRecyclerView(1)
-            // extra click down for Custom Add-on Collection option,
-            // which will be hidden soon
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
 
             clickDownRecyclerView(1)
             verifyCenoNetworkDetailsButton()
@@ -137,18 +134,13 @@ class SettingsViewTest {
             verifyEnableLogFile()
 
             clickDownRecyclerView(1)
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
-
-            clickDownRecyclerView(1)
-            verifyWebsiteSourcesButton()
-            verifyWebsiteSourcesSummary()
-
-            clickDownRecyclerView(1)
             verifyAboutHeading()
 
             clickDownRecyclerView(1)
             verifyCenoBrowserServiceDisplay()
+
+            clickDownRecyclerView(1)
+            verifyCenoVersionDisplay()
 
             clickDownRecyclerView(1)
             verifyGeckoviewVersionDisplay()
@@ -162,24 +154,22 @@ class SettingsViewTest {
         }
     }
 
-    /*
     @Test
     fun privacySettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(17)
+            verifyTrackingProtectionButton()
+            Thread.sleep(5000)
         }.openSettingsViewPrivacy {
             verifyPrivacyUpButton()
-            verifyPrivacySettings()
             verifyTrackingProtectionHeading()
             verifyTPEnableInNormalBrowsing()
             verifyTPEnableinPrivateBrowsing()
-            verifyDataChoicesHeading()
-            verifyUseTelemetryToggle()
-            verifyTelemetrySummary()
         }
     }
-     */
 
     @Test
     fun setDefaultBrowserTest() {
@@ -188,21 +178,6 @@ class SettingsViewTest {
         }.openSettings {
         }.makeDefaultBrowser {
             verifyAndroidDefaultApps()
-        }
-    }
-
-    @Test
-    fun remoteDebuggingViaUSB() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(16)
-            Thread.sleep(5000)
-            verifyRemoteDebugging()
-            toggleRemoteDebuggingOn()
-            toggleRemoteDebuggingOff()
-            toggleRemoteDebuggingOn()
         }
     }
 
@@ -216,26 +191,6 @@ class SettingsViewTest {
             Thread.sleep(5000)
         }.openSettingsViewAboutPage {
             verifyAboutBrowser()
-        }
-    }
-
-    /* Can't check further because after creating the custom add-on collection
-    the currently running process is terminated see:
-    /blob/master/app/src/main/java/org/mozilla/reference/browser/settings/SettingsFragment.kt#L217
-    Confirming the custom add-on collection creation or trying to continue testing afterwards
-    will cause the test instrumentation process to crash */
-    @Test
-    @Ignore("Custom add-on are disabled right now due to breaking changes with android-component-v128")
-    fun customAddonsCollectionTest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(15)
-            Thread.sleep(5000)
-            verifyCustomAddonCollectionButton()
-            clickCustomAddonCollectionButton()
-            verifyCustomAddonCollectionPanelExist()
         }
     }
 
@@ -263,7 +218,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(19)
+            clickDownRecyclerView(16)
             Thread.sleep(5000)
         }.openSettingsViewSources {
             verifySourcesUpButton()
@@ -285,7 +240,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(18)
             verifyCenoNetworkDetailsButton()
             Thread.sleep(5000)
         }.openSettingsViewNetworkDetails {
@@ -307,6 +262,45 @@ class SettingsViewTest {
         }
     }
 
+    @Test
+    fun developerToolsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(20)
+            verifyCenoVersionDisplay()
+            Thread.sleep(5000)
+            for (i in 0..7) {
+                clickCenoVersionDisplay()
+            }
+            Thread.sleep(5000)
+            verifyAdditionalDeveloperToolsButton()
+        }.openSettingsViewDeveloperTools {
+            verifyDeveloperToolsUpButton()
+            verifyDeveloperToolsHeading()
+            verifyRemoteDebugging()
+            toggleRemoteDebuggingOn()
+            toggleRemoteDebuggingOff()
+            verifyExportOuinetLog()
+            clickExportOuinetLog()
+            verifyExportOuinetLogDescription()
+            verifyExportOuinetLogDownload()
+            verifyExportOuinetLogView()
+            mDevice.pressBack()
+            verifyAnnouncementSource()
+            verifyAnnouncementSourceSummary()
+            clickAnnouncementSource()
+            verifyAnnouncementOption1()
+            verifyAnnouncementOption2()
+            verifyAnnouncementOption3()
+            clickCancelDialog()
+            verifyAnnouncementExpiration()
+            toggleAnnouncementExpirationOn()
+            toggleAnnouncementExpirationOff()
+        }
+    }
+
     // TODO: log assertion is unreliable on Android 14+
     @SdkSuppress(maxSdkVersion = 33)
     @Test
@@ -316,7 +310,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -335,7 +329,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
@@ -356,7 +350,7 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(18)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()

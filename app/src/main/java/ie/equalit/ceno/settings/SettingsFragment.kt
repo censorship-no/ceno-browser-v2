@@ -7,18 +7,14 @@ package ie.equalit.ceno.settings
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
@@ -36,24 +32,25 @@ import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.R.plurals.developer_tools_disable_alert
+import ie.equalit.ceno.R.plurals.developer_tools_enable_alert
 import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.clean_insights_successful_opt_out
 import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
-import ie.equalit.ceno.R.string.customize_addon_collection_cancel
-import ie.equalit.ceno.R.string.customize_addon_collection_ok
+import ie.equalit.ceno.R.string.developer_tools_disabled
+import ie.equalit.ceno.R.string.developer_tools_enabled
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
-import ie.equalit.ceno.R.string.download_logs
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
-import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
 import ie.equalit.ceno.R.string.pref_key_about_page
 import ie.equalit.ceno.R.string.pref_key_add_ons
+import ie.equalit.ceno.R.string.pref_key_additional_developer_tools
 import ie.equalit.ceno.R.string.pref_key_allow_crash_reporting
 import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
@@ -72,16 +69,12 @@ import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
 import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
-import ie.equalit.ceno.R.string.pref_key_override_amo_collection
 import ie.equalit.ceno.R.string.pref_key_privacy
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
 import ie.equalit.ceno.R.string.pref_key_search_engine
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
 import ie.equalit.ceno.R.string.preference_choose_search_engine
 import ie.equalit.ceno.R.string.preferences_about_page
-import ie.equalit.ceno.R.string.preferences_ceno_download_log
-import ie.equalit.ceno.R.string.preferences_customize_amo_collection
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
@@ -90,9 +83,7 @@ import ie.equalit.ceno.R.string.status_enabled
 import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
-import ie.equalit.ceno.R.string.toast_customize_addon_collection_done
 import ie.equalit.ceno.R.string.tracker_category
-import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceCategory
@@ -102,6 +93,8 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
 import ie.equalit.ceno.settings.Settings.setCleanInsightsEnabled
+import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
+import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.isCleanInsightsEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -110,17 +103,11 @@ import ie.equalit.ouinet.Ouinet
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import mozilla.components.browser.state.action.ContentAction
-import mozilla.components.browser.state.action.TabListAction
-import mozilla.components.browser.state.state.content.DownloadState
-import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.log.logger.Logger
-import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.geckoview.BuildConfig
 import java.util.Locale
-import kotlin.system.exitProcess
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -131,8 +118,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var wasLogEnabled: Boolean = false
     private var bridgeModeChanged: Boolean = false
     private lateinit var bridgeAnnouncementDialog: AlertDialog
-    private var logFileReset: Boolean = false
-    private var logLevelReset: Boolean = false
+    private var logFileReset:Boolean = false
+    private var logLevelReset:Boolean = false
+    private var developerToolsTapCount = 0
+    private var developerToolsToast : Toast? = null
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
@@ -268,11 +257,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setupPreferences() {
 
         getPreference(pref_key_make_default_browser)?.onPreferenceClickListener = getClickListenerForMakeDefaultBrowser()
-        getSwitchPreferenceCompat(pref_key_remote_debugging)?.onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
         getPreference(pref_key_about_page)?.onPreferenceClickListener = getAboutPageListener()
         getPreference(pref_key_privacy)?.onPreferenceClickListener = getClickListenerForPrivacy()
-        getPreference(pref_key_override_amo_collection)?.onPreferenceClickListener =
-            getClickListenerForCustomAddons()
         getPreference(pref_key_customization)?.onPreferenceClickListener =
             getClickListenerForCustomization()
         getPreference(pref_key_delete_browsing_data)?.onPreferenceClickListener =
@@ -285,7 +271,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_add_ons)?.onPreferenceClickListener = getClickListenerForAddOns()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener = getClickListenerForLanguageChange()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary = getCurrentLocale().displayLanguage
-        getPreference(pref_key_search_engine)?.summary = getString(setting_item_selected, requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name)
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener =
             getClickListenerForWebsiteSources()
         getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
@@ -294,10 +279,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setting_item_selected,
             requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name
         )
-
-        getPreference(pref_key_bridge_announcement)?.summary =
-            getString(bridge_mode_ip_warning_text)
-
+        getPreference(pref_key_bridge_announcement)?.summary = getString(bridge_mode_ip_warning_text)
+        getPreference(pref_key_about_ceno)?.onPreferenceClickListener = getClickListenerForCenoVersion()
+        getPreference(pref_key_additional_developer_tools)?.let {
+            it.onPreferenceClickListener = getClickListenerForAdditionalDeveloperTools()
+            it.isVisible = shouldShowDeveloperTools(requireContext())
+        }
 
         // Update notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -411,11 +398,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_enable_log),
                 true,
                 changeListener = getChangeListenerForLogFileToggle()
-            )
-            setPreference(
-                getPreference(pref_key_ceno_download_log),
-                true,
-                clickListener = getClickListenerForOuinetLogExport()
             )
             setPreference(
                 getPreference(pref_key_ceno_download_android_log),
@@ -581,73 +563,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForCustomAddons(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            val context = requireContext()
-            val dialogView = View.inflate(context, R.layout.amo_collection_override_dialog, null)
-            val userView = dialogView.findViewById<EditText>(R.id.custom_amo_user)
-            val collectionView = dialogView.findViewById<EditText>(R.id.custom_amo_collection)
-
-            AlertDialog.Builder(context).apply {
-                setTitle(context.getString(preferences_customize_amo_collection))
-                setView(dialogView)
-                setNegativeButton(customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
-                    dialog.cancel()
-                }
-
-                setPositiveButton(customize_addon_collection_ok) { _, _ ->
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoUser(
-                        context,
-                        userView.text.toString()
-                    )
-                    ie.equalit.ceno.settings.Settings.setOverrideAmoCollection(
-                        context,
-                        collectionView.text.toString()
-                    )
-
-                    Toast.makeText(
-                        context,
-                        getString(toast_customize_addon_collection_done),
-                        Toast.LENGTH_LONG,
-                    ).show()
-
-                    Handler(Looper.getMainLooper()).postDelayed(
-                        {
-                            exitProcess(0)
-                        },
-                        AMO_COLLECTION_OVERRIDE_EXIT_DELAY,
-                    )
-                }
-
-                collectionView.setText(
-                    ie.equalit.ceno.settings.Settings.getOverrideAmoCollection(
-                        context
-                    )
-                )
-                userView.setText(ie.equalit.ceno.settings.Settings.getOverrideAmoUser(context))
-                userView.requestFocus()
-                userView.showKeyboard()
-                create()
-            }.show()
-            true
-        }
-    }
-
-    /*
-    private fun getChangeListenerForMobileData(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, newValue ->
-            if (newValue == true) {
-                /* this should pop-up the mobile data dialog to provide warning and allow user to select option*/
-                Toast.makeText(context, preferences_mobile_data_warning_disabled, LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(context, preferences_mobile_data_warning_enabled, LENGTH_SHORT).show()
-            }
-            true
-        }
-    }
-     */
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -767,35 +682,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForOuinetLogExport(): OnPreferenceClickListener {
-        return OnPreferenceClickListener {
-            val store = requireComponents.core.store
-            val logUrl = "${CenoSettings.SET_VALUE_ENDPOINT}/${CenoSettings.LOGFILE_TXT}"
-            val download = DownloadState(logUrl)
-
-            // prompt the user to view or download
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(context.getString(preferences_ceno_download_log))
-                setMessage(context.getString(ouinet_log_file_prompt_desc))
-                setNegativeButton(getString(download_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
-                        store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
-                    }
-                    (activity as BrowserActivity).openToBrowser()
-                }
-                setPositiveButton(getString(view_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
-                    }
-                    (activity as BrowserActivity).openToBrowser()
-                }
-                create()
-            }.show()
-            true
-        }
-    }
-
     private fun getChangeListenerForBridgeAnnouncement(): OnPreferenceChangeListener {
         return OnPreferenceChangeListener { _, _ ->
             /* Resetting the log settings is a workaround for ouinet logs disappearing after toggling bridge mode,
@@ -845,6 +731,52 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
 
             languageChangeDialog.getDialog().show()
+            true
+        }
+    }
+
+    private fun getClickListenerForCenoVersion(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            if (developerToolsTapCount >= TAPS_TO_TOGGLE_DEVELOPER_TOOLS) {
+                setShowDeveloperTools(requireContext(), !shouldShowDeveloperTools(requireContext()))
+                shouldShowDeveloperTools(requireContext()).let { enabled ->
+                    val msg = if (enabled)
+                        getString(developer_tools_enabled)
+                    else
+                        getString(developer_tools_disabled)
+                    developerToolsToast?.cancel()
+                    developerToolsToast = Toast.makeText(context, msg, LENGTH_SHORT)
+                    developerToolsToast?.show()
+                    getPreference(pref_key_additional_developer_tools)?.isVisible = enabled
+                }
+                developerToolsTapCount = 0
+            }
+            else {
+                if (developerToolsTapCount >= TAPS_TO_ALERT_DEVELOPER_TOOLS) {
+                    val resId = if (shouldShowDeveloperTools(requireContext()))
+                        developer_tools_disable_alert
+                    else
+                        developer_tools_enable_alert
+                    val msg = resources.getQuantityString(
+                        resId,
+                        TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount,
+                        TAPS_TO_TOGGLE_DEVELOPER_TOOLS - developerToolsTapCount
+                    )
+                    developerToolsToast?.cancel()
+                    developerToolsToast = Toast.makeText(context, msg, LENGTH_SHORT)
+                    developerToolsToast?.show()
+                }
+                developerToolsTapCount++
+            }
+            true
+        }
+    }
+
+    private fun getClickListenerForAdditionalDeveloperTools(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_developerToolsSettingsFragment
+            )
             true
         }
     }
@@ -925,9 +857,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        private const val AMO_COLLECTION_OVERRIDE_EXIT_DELAY = 3000L
         const val TAG = "SettingsFragment"
-        const val LOG = "log"
 
         const val LOG_FILE_SIZE_LIMIT_MB = 20.0
 
@@ -938,6 +868,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
         const val DELAY_ONE_SECOND = 1000L
+
+        const val TAPS_TO_ALERT_DEVELOPER_TOOLS = 4
+        const val TAPS_TO_TOGGLE_DEVELOPER_TOOLS = 7
 
         fun getCurrentLocale(): Locale = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()

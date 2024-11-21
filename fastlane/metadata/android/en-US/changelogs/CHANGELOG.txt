@@ -1,6 +1,7 @@
 # v2.4.0
 This release:
 - Implements initial Clean Insights metrics campaign
+- Adds a hidden developer tools sub-menu
 
 # v2.3.3
 This release:

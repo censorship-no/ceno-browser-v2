@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -13,13 +12,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
-import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
@@ -36,7 +33,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.engine.prompt.ShareData
-import java.io.File
 
 class ExportAndroidLogsDialog (
     val context: Context,
@@ -62,7 +58,7 @@ class ExportAndroidLogsDialog (
             setTitle(R.string.select_log_scope_header)
             setMessage(R.string.select_log_scope_message)
             setView(logTimeFilterDialogView)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
 
                 //enable debug logs

@@ -1,24 +1,18 @@
 package ie.equalit.ceno.home
 
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -222,14 +216,14 @@ class HomeFragment : BaseHomeFragment() {
 
                     var response = CenoSettings.webClientRequest(
                         context,
-                        Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
+                        Request(Settings.getRSSAnnouncementUrl(context, languageCode))
                     )
 
                     // if the network call fails, try to load 'en' locale
                     if (response == null) {
                         response = CenoSettings.webClientRequest(
                             context,
-                            Request(CenoSettings.getRSSAnnouncementUrl("en"))
+                            Request(Settings.getRSSAnnouncementUrl(context, "en"))
                         )
                     }
 
@@ -378,7 +372,7 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.tooltip_toolbar_title),
                     secondaryText = getString(R.string.tooltip_toolbar_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
-                    buttonText = R.string.top_sites_rename_dialog_ok,
+                    buttonText = R.string.dialog_ok,
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
