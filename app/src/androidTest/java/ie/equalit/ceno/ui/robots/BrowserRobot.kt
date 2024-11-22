@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -22,6 +23,7 @@ import ie.equalit.ceno.helpers.Constants.LONG_CLICK_DURATION
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.TestHelper.waitForObjects
+import ie.equalit.ceno.helpers.click
 
 /**
  * Implementation of Robot Pattern for browser action.
@@ -145,22 +147,10 @@ class BrowserRobot {
             mDevice.findObject(UiSelector().resourceId("$packageName:id/titleView"))
                 .waitForExists(waitingTime),
         )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Open link in new tab"))
-                .waitForExists(waitingTime),
-        )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
-                .waitForExists(waitingTime),
-        )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Copy link"))
-                .waitForExists(waitingTime),
-        )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Share link"))
-                .waitForExists(waitingTime),
-        )
+        assertContextMenuOpenInNewTab()
+        assertContextMenuOpenInNewPrivateTab()
+        assertContextMenuCopyLink()
+        assertContextMenuShareLink()
     }
 
     fun verifyNoControlsVideoContextMenuItems() {
@@ -171,48 +161,33 @@ class BrowserRobot {
             mDevice.findObject(UiSelector().resourceId("$packageName:id/titleView"))
                 .waitForExists(waitingTime),
         )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Copy link"))
-                .waitForExists(waitingTime),
-        )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Share link"))
-                .waitForExists(waitingTime),
-        )
-        assertTrue(
-            mDevice.findObject(UiSelector().textContains("Save file to device"))
-                .waitForExists(waitingTime),
-        )
+        assertContextMenuCopyLink()
+        assertContextMenuShareLink()
+        assertContextMenuSaveFileToDevice()
     }
 
     fun clickContextOpenLinkInNewTab() {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains("Open link in new tab"))
-            .waitForExists(waitingTime)
-
-        val contextMenuOpenInNewTab = mDevice.findObject(UiSelector().textContains("Open link in new tab"))
-        contextMenuOpenInNewTab.click()
+        mDevice.waitForIdle()
+        assertContextMenuOpenInNewTab()
+        contextMenuOpenInNewTab().click()
     }
 
     fun clickContextOpenLinkInPrivateTab() {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
-            .waitForExists(waitingTime)
-
-        val contextMenuOpenInNewPrivateTab = mDevice.findObject(UiSelector().textContains("Open link in personal tab"))
-        contextMenuOpenInNewPrivateTab.click()
+        mDevice.waitForIdle()
+        assertContextMenuOpenInNewPrivateTab()
+        contextMenuOpenInNewPrivateTab().click()
     }
 
     fun clickContextCopyLink() {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains("Copy link"))
-            .waitForExists(waitingTime)
-
-        val contextCopyLink = mDevice.findObject(UiSelector().textContains("Copy link"))
-        contextCopyLink.click()
+        mDevice.waitForIdle()
+        assertContextMenuCopyLink()
+        contextMenuCopyLink().click()
     }
 
     fun waitUntilCopyLinkSnackbarIsGone() =
@@ -266,11 +241,10 @@ class BrowserRobot {
         fun clickContextShareLink(interact: ContentPanelRobot.() -> Unit): ContentPanelRobot.Transition {
             mDevice.findObject(UiSelector().resourceId("$packageName:id/parentPanel"))
                 .waitForExists(waitingTime)
-            mDevice.findObject(UiSelector().textContains("Share link"))
-                .waitForExists(waitingTime)
 
-            val contextCopyLink = mDevice.findObject(UiSelector().textContains("Share link"))
-            contextCopyLink.click()
+            mDevice.waitForIdle()
+            assertContextMenuShareLink()
+            contextMenuShareLink().click()
 
             ContentPanelRobot().interact()
             return ContentPanelRobot.Transition()
@@ -299,3 +273,20 @@ private fun mediaPlayerPlayButton(state: String) =
             .className("android.widget.Button")
             .text(state),
     )
+
+private fun contextMenuOpenInNewTab() = onView(withText(R.string.mozac_feature_contextmenu_open_link_in_new_tab))
+private fun contextMenuOpenInNewPrivateTab() = onView(withText(R.string.mozac_feature_contextmenu_open_link_in_private_tab))
+private fun contextMenuCopyLink() = onView(withText(R.string.mozac_feature_contextmenu_copy_link))
+private fun contextMenuShareLink() = onView(withText(R.string.mozac_feature_contextmenu_share_link))
+private fun contextMenuSaveFileToDevice() = onView(withText(R.string.mozac_feature_contextmenu_save_file_to_device))
+
+private fun assertContextMenuOpenInNewTab() = contextMenuOpenInNewTab()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertContextMenuOpenInNewPrivateTab() = contextMenuOpenInNewPrivateTab()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertContextMenuCopyLink() = contextMenuCopyLink()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertContextMenuShareLink() = contextMenuShareLink()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertContextMenuSaveFileToDevice() = contextMenuSaveFileToDevice()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
