@@ -12,6 +12,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
@@ -80,6 +81,7 @@ class SettingsViewRobot {
     fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
     fun verifyAdditionalDeveloperToolsButton() = assertAdditionalDeveloperToolsButton()
+    fun verifyAdditionalDeveloperToolsButtonGone() = assertAdditionalDeveloperToolsButtonGone()
 
     fun verifyAboutHeading() = assertAboutHeading()
 
@@ -327,6 +329,8 @@ private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAdditionalDeveloperToolsButton() = additionalDeveloperToolsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAdditionalDeveloperToolsButtonGone() = additionalDeveloperToolsButton()
+    .check(doesNotExist())
 
 private fun assertAboutHeading() { aboutHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

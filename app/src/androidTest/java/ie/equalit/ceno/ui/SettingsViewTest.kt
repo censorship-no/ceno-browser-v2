@@ -268,10 +268,9 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(20)
+            clickDownRecyclerView(23)
             verifyCenoVersionDisplay()
-            Thread.sleep(5000)
-            for (i in 0..7) {
+            for (i in 0..8) {
                 clickCenoVersionDisplay()
             }
             Thread.sleep(5000)
@@ -298,6 +297,14 @@ class SettingsViewTest {
             verifyAnnouncementExpiration()
             toggleAnnouncementExpirationOn()
             toggleAnnouncementExpirationOff()
+        }.goBack {
+            Thread.sleep(5000)
+            verifyCenoVersionDisplay()
+            for (i in 0..8) {
+                clickCenoVersionDisplay()
+            }
+            Thread.sleep(5000)
+            verifyAdditionalDeveloperToolsButtonGone()
         }
     }
 
@@ -350,11 +357,13 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
-            clickUpRecyclerView(8)
+        }.goBack {
+        }.openThreeDotMenu {
+        }.openSettings {
             Thread.sleep(2000)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
@@ -362,10 +371,7 @@ class SettingsViewTest {
             waitForBridgeModeDialog()
             Thread.sleep(5000)
             waitForThankYouDialog()
-        }.goBack {
             Thread.sleep(1000)
-        }.openThreeDotMenu {
-        }.openSettings {
             assert(LogHelper.findInLogs("bridge_announcement=true"))
         }
     }
