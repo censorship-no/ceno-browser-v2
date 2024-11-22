@@ -82,6 +82,8 @@ class SettingsViewRobot {
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
     fun verifyAdditionalDeveloperToolsButton() = assertAdditionalDeveloperToolsButton()
     fun verifyAdditionalDeveloperToolsButtonGone() = assertAdditionalDeveloperToolsButtonGone()
+    fun verifyExportLogButton(): ViewInteraction = assertExportLogButton()
+    fun verifyExportLogButtonGone(): ViewInteraction = assertExportLogButtonGone()
 
     fun verifyAboutHeading() = assertAboutHeading()
 
@@ -251,6 +253,7 @@ private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_c
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
 private fun privacyButton() = onView(withText(R.string.tracker_category))
 private fun additionalDeveloperToolsButton() = onView(withText(R.string.preferences_additional_developer_tools))
+private fun exportLogButton() = onView(withText(R.string.preferences_ceno_export_android_logs))
 
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
@@ -330,6 +333,10 @@ private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
 private fun assertAdditionalDeveloperToolsButton() = additionalDeveloperToolsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAdditionalDeveloperToolsButtonGone() = additionalDeveloperToolsButton()
+    .check(doesNotExist())
+private fun assertExportLogButton() = exportLogButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertExportLogButtonGone() = exportLogButton()
     .check(doesNotExist())
 
 private fun assertAboutHeading() { aboutHeading()

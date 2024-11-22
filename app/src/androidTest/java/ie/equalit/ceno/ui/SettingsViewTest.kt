@@ -317,11 +317,12 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
             Thread.sleep(5000)
+            verifyExportLogButton()
         }.goBack {
             assert(LogHelper.findInLogs("[DEBUG]", 10000))
         }
@@ -336,17 +337,20 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
             Thread.sleep(5000)
+            verifyExportLogButtonGone()
         }.goBack {
             Thread.sleep(5000)
             assert(!LogHelper.findInLogs("[DEBUG]", 10000))
         }
     }
 
+    // TODO: also relies on log assertion, which is unreliable on Android 14+
+    @SdkSuppress(maxSdkVersion = 33)
     @Test
     fun enableBridgeModeTest() {
         /* This is a regression test for a bug found in MR !127, see this comment for more info
