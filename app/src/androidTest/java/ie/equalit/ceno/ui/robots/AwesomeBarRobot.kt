@@ -32,8 +32,11 @@ class AwesomeBarRobot {
     fun verifyPastedToolbarText(expectedText: String) = assertPastedToolbarText(expectedText)
 
     fun typeText(searchTerm: String) {
-        mDevice.waitForIdle()
-        awesomeBar().perform(ViewActions.typeText(searchTerm))
+        mDevice.findObject(
+            UiSelector()
+                .textContains("Search or enter address"),
+        ).waitForExists(waitingTime)
+        awesomeBar().setText(searchTerm)
     }
 
     fun clickClearToolbarButton() =
@@ -70,7 +73,7 @@ class AwesomeBarRobot {
         longClickToolbar()
         clickPasteText()
         mDevice.pressEnter()
-        mDevice.waitForWindowUpdate("$packageName", waitingTime)
+        mDevice.waitForWindowUpdate(packageName, waitingTime)
     }
 
     class Transition {
@@ -96,12 +99,7 @@ fun browserScreen(interact: AwesomeBarRobot.() -> Unit): AwesomeBarRobot.Transit
 }
 
 private fun awesomeBar() =
-    onView(
-        allOf(
-            withId(R.id.mozac_browser_toolbar_edit_url_view),
-            isDescendantOfA(withId(R.id.mozac_browser_toolbar_container)),
-        ),
-    )
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
 
 private fun clearToolbarButton() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_clear_view"))
