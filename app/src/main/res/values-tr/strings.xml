@@ -358,4 +358,11 @@
     <string name="tooltip_sources_title">Ceno kaynakları</string>
     <string name="tooltip_permission_text">Uygulama arka planda olsa bile siteleri sorunsuz olarak paylaşmayı sürdürmek için lütfen Ceno uygulamasının bildirim göndermesine ve pil optimizasyonlarını devre dışı bırakmasına izin verin. Bu izinleri daha sonra istediğiniz zaman telefonunuzun ayarlarından değiştirebilirsiniz</string>
     <string name="select_language">Dili seçin:</string>
+    <string name="standby_take_me_anyway">Yine de Ceno\'ya git</string>
+    <string name="standby_dont_show">Uyarıyı tekrar gösterme</string>
+    <string name="startup_category">Başlangıç</string>
+    <string name="preferences_show_standby_warning">Başlangıç zaman aşımında uyarıyı göster</string>
+    <string name="ceno_permissions_category">İzinler</string>
+    <string name="status_enabled">Etkinleştirildi</string>
+    <string name="status_disabled">Devre dışı</string>
 </resources>
