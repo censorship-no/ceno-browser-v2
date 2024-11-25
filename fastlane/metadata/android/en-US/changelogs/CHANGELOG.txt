@@ -2,6 +2,7 @@
 This release:
 - Implements initial Clean Insights metrics campaign
 - Adds a hidden developer tools sub-menu
+- Adds en locale strings
 
 # v2.3.3
 This release:
