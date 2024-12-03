@@ -128,13 +128,21 @@ class BrowserRobot {
             // Click again Select all from the text selection toolbar
             if (selectAll) {
                 mDevice.findObject(UiSelector().textContains("Select all")).waitForExists(waitingTime)
-                val selectAllText = mDevice.findObject(By.textContains("Select all"))
+                var selectAllText = mDevice.findObject(By.textContains("Select all"))
+                if (selectAllText == null) {
+                    mDevice.findObject(UiSelector().textContains("SELECT ALL")).waitForExists(waitingTime)
+                    selectAllText = mDevice.findObject(By.textContains("SELECT ALL"))
+                }
                 selectAllText.click()
             }
 
             // Click again Copy from the text selection toolbar
             mDevice.findObject(UiSelector().textContains("Copy")).waitForExists(waitingTime)
-            val copyText = mDevice.findObject(By.textContains("Copy"))
+            var copyText = mDevice.findObject(By.textContains("Copy"))
+            if (copyText == null) {
+                mDevice.findObject(UiSelector().textContains("COPY")).waitForExists(waitingTime)
+                copyText = mDevice.findObject(By.textContains("COPY"))
+            }
             copyText.click()
         }
     }
