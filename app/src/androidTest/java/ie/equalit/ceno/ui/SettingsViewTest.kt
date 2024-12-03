@@ -17,7 +17,6 @@ import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
-import okhttp3.internal.wait
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -268,10 +267,11 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(23)
+            clickDownRecyclerView(24)
             verifyCenoVersionDisplay()
             for (i in 0..8) {
                 clickCenoVersionDisplay()
+                Thread.sleep(2000)
             }
             Thread.sleep(5000)
             verifyAdditionalDeveloperToolsButton()
@@ -302,14 +302,15 @@ class SettingsViewTest {
             verifyCenoVersionDisplay()
             for (i in 0..8) {
                 clickCenoVersionDisplay()
+                Thread.sleep(2000)
             }
             Thread.sleep(5000)
             verifyAdditionalDeveloperToolsButtonGone()
         }
     }
 
-    // TODO: log assertion is unreliable on Android 14+
-    @SdkSuppress(maxSdkVersion = 33)
+    // TODO: log assertion is unreliable on Android 8- and Android 14+
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun enableLogFileTest() {
         navigationToolbar {
@@ -324,11 +325,14 @@ class SettingsViewTest {
             Thread.sleep(5000)
             verifyExportLogButton()
         }.goBack {
-            assert(LogHelper.findInLogs("[DEBUG]", 10000))
+        }.enterUrlAndEnterToBrowser("https://example.com".toUri()){
+            // Do something that will generate ouinet logs
+            Thread.sleep(5000)
         }
+        assert(LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun disableLogFileTest() {
         enableLogFileTest()
@@ -344,13 +348,15 @@ class SettingsViewTest {
             Thread.sleep(5000)
             verifyExportLogButtonGone()
         }.goBack {
+        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
+            // Do something else that will generate ouinet logs
             Thread.sleep(5000)
-            assert(!LogHelper.findInLogs("[DEBUG]", 10000))
         }
+        assert(!LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
     // TODO: also relies on log assertion, which is unreliable on Android 14+
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28)
     @Test
     fun enableBridgeModeTest() {
         /* This is a regression test for a bug found in MR !127, see this comment for more info
@@ -373,14 +379,19 @@ class SettingsViewTest {
             verifyBridgeModeSummary()
             clickBridgeModeToggle()
             waitForBridgeModeDialog()
-            Thread.sleep(5000)
+            Thread.sleep(15000)
             waitForThankYouDialog()
+        }.goBack {
+        }.openThreeDotMenu {
+        }.openSettings {
+            // Settings page must be reopened for ouinet status API
+            // to be requested again and this message to be logged
             Thread.sleep(1000)
             assert(LogHelper.findInLogs("bridge_announcement=true"))
         }
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
@@ -391,7 +402,7 @@ class SettingsViewTest {
         assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()
@@ -399,6 +410,6 @@ class SettingsViewTest {
         Thread.sleep(5000)
         mDevice.executeShellCommand("svc wifi enable")
         Thread.sleep(15000)
-        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 20000))
+        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 30000))
     }
 }

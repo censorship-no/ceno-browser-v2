@@ -15,19 +15,13 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
-import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
-import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
 import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -35,7 +29,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
-import ie.equalit.ceno.helpers.assertIsChecked
 import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.helpers.hasCousin
 import org.hamcrest.CoreMatchers.allOf
@@ -122,6 +115,7 @@ class SettingsViewRobot {
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
             recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
+            Thread.sleep(250)
         }
     }
 
