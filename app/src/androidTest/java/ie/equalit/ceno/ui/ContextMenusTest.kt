@@ -5,6 +5,7 @@
 package ie.equalit.ceno.ui
 
 import android.os.Build
+import androidx.test.filters.SdkSuppress
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -96,6 +97,8 @@ class ContextMenusTest {
         }
     }
 
+    // Pasting text fails on preferred Android 11 text device (Xiaomi Note 11)
+    @SdkSuppress(minSdkVersion = 31)
     @Test
     fun contextCopyLinkTest() {
         val pageLinks = TestAssetHelper.getGenericAsset(mockWebServer, 4)
@@ -134,6 +137,7 @@ class ContextMenusTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 31)
     @Test
     fun copyTextTest() {
         val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -156,6 +160,7 @@ class ContextMenusTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 31)
     @Test
     fun selectAllAndCopyTextTest() {
         val genericURL = TestAssetHelper.getGenericAsset(mockWebServer, 1)

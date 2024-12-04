@@ -172,11 +172,16 @@ class ThreeDotMenuRobot {
         }
         */
 
-        fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            mDevice.pressBack()
+        fun goBack(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            backButton().click()
+            mDevice.findObject(
+                UiSelector()
+                    .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
+            ).waitUntilGone(waitingTime)
+            mDevice.waitForIdle()
 
-            NavigationToolbarRobot().interact()
-            return NavigationToolbarRobot.Transition()
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
         }
 
         fun openAddToHomeScreen(interact: AddToHomeScreenRobot.() -> Unit): AddToHomeScreenRobot.Transition {

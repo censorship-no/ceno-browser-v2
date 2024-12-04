@@ -12,21 +12,16 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
-import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
-import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
 import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -34,7 +29,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
-import ie.equalit.ceno.helpers.assertIsChecked
 import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.helpers.hasCousin
 import org.hamcrest.CoreMatchers.allOf
@@ -80,6 +74,9 @@ class SettingsViewRobot {
     fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
     fun verifyAdditionalDeveloperToolsButton() = assertAdditionalDeveloperToolsButton()
+    fun verifyAdditionalDeveloperToolsButtonGone() = assertAdditionalDeveloperToolsButtonGone()
+    fun verifyExportLogButton(): ViewInteraction = assertExportLogButton()
+    fun verifyExportLogButtonGone(): ViewInteraction = assertExportLogButtonGone()
 
     fun verifyAboutHeading() = assertAboutHeading()
 
@@ -118,6 +115,7 @@ class SettingsViewRobot {
     fun clickDownRecyclerView(count: Int) {
         for (i in 1..count) {
             recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
+            Thread.sleep(250)
         }
     }
 
@@ -249,6 +247,7 @@ private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_c
 private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
 private fun privacyButton() = onView(withText(R.string.tracker_category))
 private fun additionalDeveloperToolsButton() = onView(withText(R.string.preferences_additional_developer_tools))
+private fun exportLogButton() = onView(withText(R.string.preferences_ceno_export_android_logs))
 
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
@@ -327,6 +326,12 @@ private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAdditionalDeveloperToolsButton() = additionalDeveloperToolsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAdditionalDeveloperToolsButtonGone() = additionalDeveloperToolsButton()
+    .check(doesNotExist())
+private fun assertExportLogButton() = exportLogButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertExportLogButtonGone() = exportLogButton()
+    .check(doesNotExist())
 
 private fun assertAboutHeading() { aboutHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
