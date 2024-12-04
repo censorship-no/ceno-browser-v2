@@ -4,6 +4,7 @@ This release:
 - Adds a hidden developer tools sub-menu
 - Adds en locale strings
 - Supports monochrome launcher icons
+- Updates Android-Components to v133.0
 
 # v2.3.3
 This release:
