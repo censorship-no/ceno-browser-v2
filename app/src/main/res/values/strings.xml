@@ -458,6 +458,7 @@
     </plurals>
     <string name="developer_tools_enabled">Developer tools enabled</string>
     <string name="developer_tools_disabled">Developer tools disabled</string>
+    <string name="preferences_clean_insights_backdate">Enable metrics backdating</string>
     <string name="ceno_network_status_title">Ceno Network Status</string>
     <string name="ceno_network_status_connected">Fully connected to the Ceno network. Blocked websites should be accessible.</string>
     <string name="ceno_network_status_disconnected">Disconnected. Check your network settings or export logs for additional information.</string>
