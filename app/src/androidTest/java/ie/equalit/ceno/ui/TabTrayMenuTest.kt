@@ -183,12 +183,14 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(genericOneURL.url) {
+            Thread.sleep(5000)
             verifyUrl(genericOneURL.displayUrl)
         }
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
         }.enterUrlAndEnterToBrowser(genericFourURL.url) {
+            Thread.sleep(5000)
             verifyUrl(genericFourURL.displayUrl)
         }
         navigationToolbar {

@@ -12,12 +12,6 @@
     <string name="tracker_category">跟踪保护</string>
     <string name="settings">设置</string>
     <string name="private_browsing_title">私人浏览模式</string>
-    <string name="preferences_customize_amo_collection">自定义附加组件收藏集</string>
-    <string name="customize_addon_collection_ok">确定</string>
-    <string name="customize_addon_collection_cancel">取消</string>
-    <string name="customize_addon_collection_hint">收藏集名称</string>
-    <string name="customize_addon_collection_user_hint">收藏集所有者（用户 ID）</string>
-    <string name="toast_customize_addon_collection_done">已更改附加组件收藏集设置。退出应用程序以应用更改…</string>
     <string name="content_description_private_browsing_button">启用私人浏览模式</string>
     <string name="bookmark_menu_open_in_private_tab_button">新建私人标签页打开</string>
     <string name="rename_top_site">重命名</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">我知道了</string>
     <string name="top_sites_rename_dialog_title">名称</string>
     <string name="shortcut_name_hint">快捷方式名称</string>
-    <string name="top_sites_rename_dialog_ok">确定</string>
-    <string name="top_sites_rename_dialog_cancel">取消</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
     <string name="top_sites_sponsored_label">赞助项目</string>
     <string name="browser_menu_forward">前进</string>
     <string name="browser_menu_refresh">刷新</string>
@@ -342,4 +336,5 @@
     <string name="eq_values_button_text">价值观</string>
     <string name="about_content_para_2">Ceno 浏览器是 eQualitie 的一个项目。eQualitie 是加拿大的一个非营利组织，致力于创建去中心化的互联网服务来支持更加平等和公平的网络。每天，它们都在为数百万人的网络结社自由提供支持。</string>
     <string name="eq_news_button_text">新闻</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

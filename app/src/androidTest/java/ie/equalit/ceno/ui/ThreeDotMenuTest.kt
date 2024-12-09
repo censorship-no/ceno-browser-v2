@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui
 
+import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
@@ -16,7 +17,6 @@ import ie.equalit.ceno.ui.robots.standby
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -139,7 +139,10 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
             verifyPageContent("Page content: 2")
-        }.goBack {
+        }
+        navigationToolbar{
+        }.openThreeDotMenu{
+        }.goBack{
             verifyPageContent("Page content: 1")
         }
         navigationToolbar {
@@ -164,7 +167,10 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
             verifyUrl(nextWebPage.displayUrl)
-        }.goBack {
+        }
+        navigationToolbar{
+        }.openThreeDotMenu{
+        }.goBack{
             verifyUrl(defaultWebPage.displayUrl)
         }
         navigationToolbar {
@@ -206,6 +212,8 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }.clickShareButton {
+            mDevice.waitForIdle()
+            Thread.sleep(5000)
             verifyShareTabLayout()
             verifyRecentAppsContainer()
             verifyShareApps()
@@ -298,14 +306,16 @@ class ThreeDotMenuTest {
         }.switchRequestDesktopSiteToggle {
         }.openThreeDotMenu {
             verifyRequestDesktopSiteIsTurnedOn()
-        }.goBack {
-        }.openThreeDotMenu {
         }.switchRequestDesktopSiteToggle {
         }.openThreeDotMenu {
             verifyRequestDesktopSiteIsTurnedOff()
         }
     }
 
+    // TODO: this feature is needs permissions for
+    //  Android  9 and 11 on our preferred test devices
+    //  for these version, Xiaomi Redmi Note 8 and 11
+    @SdkSuppress(minSdkVersion = 31)
     @Test
     fun addToHomeScreenTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -328,6 +338,7 @@ class ThreeDotMenuTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun uBlockOriginTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
@@ -346,7 +357,10 @@ class ThreeDotMenuTest {
 
         navigationToolbar {
         }.openContentSourcesSheet {
-        }.goBack{}
+           verifyContentSourcesSiteTitle()
+           verifyContentSourcesHeader()
+        }.closeContentSourcesSheet {
+        }
 
         navigationToolbar {
         }.openThreeDotMenu {
@@ -356,6 +370,7 @@ class ThreeDotMenuTest {
         }.goBack{}
     }
 
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun httpsByDefaultTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
@@ -374,7 +389,10 @@ class ThreeDotMenuTest {
 
         navigationToolbar {
         }.openContentSourcesSheet {
-        }.goBack{}
+            verifyContentSourcesSiteTitle()
+            verifyContentSourcesHeader()
+        }.closeContentSourcesSheet {
+        }
 
         navigationToolbar {
         }.openThreeDotMenu {

@@ -42,7 +42,7 @@ class ExtraBTBootstrapsDialog(
         builder.apply {
             setTitle(getString(context, R.string.select_extra_bt_source))
             setView(extraBtOptionsDialogView)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
                 val allSelectedIPs = mutableListOf<String>()
                 for (child in linearLayout.iterator()) {
@@ -117,7 +117,7 @@ class ExtraBTBootstrapsDialog(
                 val alertDialog2 = AlertDialog.Builder(context).apply {
                     setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))
                     setView(customDialogView)
-                    setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ ->
+                    setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ ->
                         customBTSourcesView.hideKeyboard()
                         dialog.cancel()
                     }

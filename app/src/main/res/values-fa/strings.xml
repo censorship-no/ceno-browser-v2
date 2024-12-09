@@ -12,12 +12,6 @@
     <string name="tracker_category">محافظت در برابر ردیابی</string>
     <string name="settings">تنظیمات</string>
     <string name="private_browsing_title">مرور شخصی</string>
-    <string name="preferences_customize_amo_collection">مجموعه افزونه‌های سفارشی</string>
-    <string name="customize_addon_collection_ok">تایید</string>
-    <string name="customize_addon_collection_cancel">لغو</string>
-    <string name="customize_addon_collection_hint">نام مجموعه</string>
-    <string name="customize_addon_collection_user_hint">مالک مجموعه (شناسه کاربری)</string>
-    <string name="toast_customize_addon_collection_done">مجموعه افزونه‌ها اصلاح شد. خروج از برنامه برای اعمال تغییرات…</string>
     <string name="content_description_private_browsing_button">فعال‌سازی حالت شخصی</string>
     <string name="bookmark_menu_open_in_private_tab_button">باز کردن در زبانه شخصی</string>
     <string name="rename_top_site">تغییر نام</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">باشه،‌ متوجه شدم</string>
     <string name="top_sites_rename_dialog_title">نام</string>
     <string name="shortcut_name_hint">نامِ سایتِ برتر</string>
-    <string name="top_sites_rename_dialog_ok">تایید</string>
-    <string name="top_sites_rename_dialog_cancel">انصراف</string>
+    <string name="dialog_ok">تایید</string>
+    <string name="dialog_cancel">انصراف</string>
     <string name="top_sites_sponsored_label">حمایت‌شده</string>
     <string name="browser_menu_forward">جلو</string>
     <string name="browser_menu_refresh">به‌روزرسانی</string>
@@ -352,4 +346,5 @@
     <string name="startup_category">راه‌اندازی</string>
     <string name="ceno_permissions_category">مجوزها</string>
     <string name="status_enabled">فعال</string>
+    <string name="privacy_policy_url">https://censorship.no/fa/privacy_policy.html</string>
 </resources>

@@ -66,8 +66,6 @@ object CenoSettings {
     const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
     const val LOGFILE_TXT = "logfile.txt"
 
-    fun getRSSAnnouncementUrl(locale: String) = "https://censorship.no/${locale}/rss-announce.xml"
-
     private fun log2(n: Double): Double {
         return ln(n) / ln(2.0)
     }

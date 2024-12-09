@@ -15,20 +15,17 @@
     <string name="preference_category_search">Arama</string>
     <string name="menu_share_with">Şununla paylaş…</string>
     <string name="toast_copied">Kopyalandı!</string>
-    <string name="customize_addon_collection_cancel">İptal</string>
     <string name="menu_action_close_tabs_private">Kişisel sekmeleri kapat</string>
     <string name="preferences_remote_debugging">USB ile uzaktan hata ayıklama</string>
     <string name="preferences_tracking_protection_private">Kişisel gezinme kipinde aç</string>
     <string name="browser_menu_settings">Ayarlar</string>
     <string name="browser_menu_remove_from_shortcuts">Kısayollardan kaldır</string>
-    <string name="customize_addon_collection_ok">Tamam</string>
     <string name="preference_show_search_suggestions">Arama önerileri görüntülensin</string>
     <string name="preference_search_summary">Varsayılan olarak ayarla</string>
     <string name="menu_action_add_tab">Yeni sekme ekle</string>
     <string name="menu_action_close_tabs">Tüm sekmeleri kapat</string>
     <string name="preferences_customization_summary">Uygulama simgesi, araç çubuğu, temizle düğmesi</string>
     <string name="open_links_in_apps">Bağlantılar uygulamalarında açılsın</string>
-    <string name="customize_addon_collection_user_hint">Derleme sahibi (kullanıcı kodu)</string>
     <string name="preferences_delete_browsing_data_site_permissions">Site izinleri</string>
     <string name="browser_menu_desktop_site">Masaüstü siteye geç</string>
     <string name="deleting_browsing_data_in_progress">Gezinme verileri siliniyor…</string>
@@ -52,15 +49,13 @@
     <string name="top_sites_max_limit_confirmation_button">Tamam, anladım</string>
     <string name="crash_report_non_fatal_message">Ne yazık ki uygulama çöktü</string>
     <string name="top_sites_rename_dialog_title">Ad</string>
-    <string name="top_sites_rename_dialog_ok">Tamam</string>
-    <string name="top_sites_rename_dialog_cancel">İptal</string>
+    <string name="dialog_ok">Tamam</string>
+    <string name="dialog_cancel">İptal</string>
     <string name="top_sites_sponsored_label">Destekleniyor</string>
     <string name="privacy">Gizlilik</string>
     <string name="theme_category">Tema</string>
     <string name="customization_settings">Özelleştirme</string>
     <string name="private_browsing_title">Kişisel gezinme</string>
-    <string name="preferences_customize_amo_collection">Özel eklenti derlemesi</string>
-    <string name="customize_addon_collection_hint">Derleme adı</string>
     <string name="content_description_private_browsing_button">Kişisel gezinmeyi etkinleştir</string>
     <string name="browser_menu_add_to_homescreen">Giriş ekranına ekle</string>
     <string name="preferences_delete_browsing_data">Gezinme verilerini sil</string>
@@ -71,7 +66,6 @@
     <string name="toolbar_category">Araç çubuğu seçenekleri</string>
     <string name="clear_button_category">Temizle düğmesi</string>
     <string name="settings">Ayarlar</string>
-    <string name="toast_customize_addon_collection_done">Eklenti derlemesi değiştirildi. Değişikliklerin uygulanması için uygulama kapatılıyor…</string>
     <string name="bookmark_menu_open_in_private_tab_button">Kişisel sekmede aç</string>
     <string name="rename_top_site">Yeniden adlandır</string>
     <string name="browser_menu_add_to_shortcuts">Kısayollara ekle</string>
@@ -358,4 +352,5 @@
     <string name="tooltip_sources_title">Ceno kaynakları</string>
     <string name="tooltip_permission_text">Uygulama arka planda olsa bile siteleri sorunsuz olarak paylaşmayı sürdürmek için lütfen Ceno uygulamasının bildirim göndermesine ve pil optimizasyonlarını devre dışı bırakmasına izin verin. Bu izinleri daha sonra istediğiniz zaman telefonunuzun ayarlarından değiştirebilirsiniz</string>
     <string name="select_language">Dili seçin:</string>
+    <string name="privacy_policy_url">https://censorship.no/tr/privacy_policy.html</string>
 </resources>

@@ -4,12 +4,9 @@
 
 package ie.equalit.ceno.ui.robots
 
-import android.os.Build
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
@@ -32,8 +29,11 @@ class AwesomeBarRobot {
     fun verifyPastedToolbarText(expectedText: String) = assertPastedToolbarText(expectedText)
 
     fun typeText(searchTerm: String) {
-        mDevice.waitForIdle()
-        awesomeBar().perform(ViewActions.typeText(searchTerm))
+        mDevice.findObject(
+            UiSelector()
+                .textContains("Search or enter address"),
+        ).waitForExists(waitingTime)
+        awesomeBar().setText(searchTerm)
     }
 
     fun clickClearToolbarButton() =
@@ -53,16 +53,14 @@ class AwesomeBarRobot {
     }
 
     fun clickPasteText() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            mDevice.findObject(UiSelector().textContains("Paste")).waitForExists(waitingTime)
-            val pasteText = mDevice.findObject(By.textContains("Paste"))
-            pasteText.click()
-        }
-        else {
+        // Click again Copy from the text selection toolbar
+        mDevice.findObject(UiSelector().textContains("Paste")).waitForExists(waitingTime)
+        var pasteText = mDevice.findObject(By.textContains("Paste"))
+        if (pasteText == null) {
             mDevice.findObject(UiSelector().textContains("PASTE")).waitForExists(waitingTime)
-            val pasteText = mDevice.findObject(By.textContains("PASTE"))
-            pasteText.click()
+            pasteText = mDevice.findObject(By.textContains("PASTE"))
         }
+        pasteText.click()
     }
 
     fun pasteAndLoadCopiedLink() {
@@ -70,7 +68,7 @@ class AwesomeBarRobot {
         longClickToolbar()
         clickPasteText()
         mDevice.pressEnter()
-        mDevice.waitForWindowUpdate("$packageName", waitingTime)
+        mDevice.waitForWindowUpdate(packageName, waitingTime)
     }
 
     class Transition {
@@ -96,12 +94,7 @@ fun browserScreen(interact: AwesomeBarRobot.() -> Unit): AwesomeBarRobot.Transit
 }
 
 private fun awesomeBar() =
-    onView(
-        allOf(
-            withId(R.id.mozac_browser_toolbar_edit_url_view),
-            isDescendantOfA(withId(R.id.mozac_browser_toolbar_container)),
-        ),
-    )
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
 
 private fun clearToolbarButton() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_clear_view"))

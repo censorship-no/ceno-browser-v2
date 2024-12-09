@@ -17,18 +17,4 @@
         android:title="@string/preferences_tracking_protection_private"
         android:key="@string/pref_key_tracking_protection_private"/>
 
-    <!-- CENO: Telemetry is disabled by default and not possible to enable
-    <PreferenceCategory
-        android:title="@string/data_choices_category">
-
-        <androidx.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:title="@string/use_telemetry"
-            android:key="@string/pref_key_telemetry"
-            android:summary="@string/preferences_use_telemetry_summary"/>
-
-    </PreferenceCategory>
-    -->
-
-
 </androidx.preference.PreferenceScreen>
