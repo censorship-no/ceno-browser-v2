@@ -1,16 +1,26 @@
+# v2.3.3
+Bu sürümde:
+- Ceno eklentileri 1.8.1 sürümüne güncellendi
+- Android-Components 132.0.2 sürümüne güncellendi
+- Ouinet 0.31.0 sürümüne güncellendi
+
 # v2.3.2
 Bu sürümde:
 - Android bileşenleri 132.0 sürümüne güncelendi
 - Arayüz testleri güncellendi
 - Küçük ekranlı cihazlar için araç çubukları düzenlendi
-- İzinler yeniden ele alındı ve seçeneklerden kaldırma seçeneği eklendi
+- İzinler yeniden düzenlendi ve Ayarlar bölümünden kaldırma seçeneği eklendi
+- Kaydırmada araç çubuğunun gizlenmesi sorunu düzeltildi
+
 # v2.3.1
 Bu sürümde:
-- Uygulamanın dilini ayarlar bölümünden değiştirme ile ilgili hatalar düzeltildi
--Android bileşenleri 131.0 sürümüne güncellendi
+- Ayarlar bölümünde uygulama dilini değiştirmekle ilgili sorunlar düzeltildi
+- Android-Components 131.0 sürümüne güncellendi
 - Çeşitli Android kitaplıkları güncellendi
-- İzinler ipucundaki sorunlar giderildi
-- Uygulama dilini başlangıç ipucundan değiştirme özelliği eklendi
+- İzinler ipucundaki hatalar düzeltildi
+- Karşılama ipucuna uygulama dilini seçme özelliği eklendi
+- Günlükleri depolama alanına kaydetme seçeneği eklendi ve günlük paylaşım arayüzü geliştirildi
+
 # v2.3.0
 Bu sürümde:
 - Uygulamanın dilini değiştirmek için ayar seçeneği eklendi
