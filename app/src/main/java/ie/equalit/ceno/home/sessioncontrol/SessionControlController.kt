@@ -105,7 +105,7 @@ class DefaultSessionControlController(
             AlertDialog.Builder(it).apply {
                 setTitle(R.string.rename_top_site)
                 setView(customLayout)
-                setPositiveButton(R.string.top_sites_rename_dialog_ok) { dialog, _ ->
+                setPositiveButton(R.string.dialog_ok) { dialog, _ ->
                     viewLifecycleScope.launch(Dispatchers.IO) {
                         with(activity.components.useCases.cenoTopSitesUseCase) {
                             updateTopSites(
@@ -117,7 +117,7 @@ class DefaultSessionControlController(
                     }
                     dialog.dismiss()
                 }
-                setNegativeButton(R.string.top_sites_rename_dialog_cancel) { dialog, _ ->
+                setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
                     dialog.cancel()
                 }
             }.show().also {

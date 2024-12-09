@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="customize_addon_collection_user_hint">مالك المجموعة (معرًف المستخدم)</string>
     <string name="bookmark_menu_open_in_private_tab_button">افتح في علامة تبويب شخصية</string>
     <string name="remove_top_site">إزالة</string>
     <string name="top_sites_rename_dialog_title">الاسم</string>
@@ -25,10 +24,8 @@
     <string name="preferences_delete_browsing_data_cached_files">الصور والملفات المخزنة مؤقتًا</string>
     <string name="preferences_delete_browsing_data_button">احذف بيانات التصفح</string>
     <string name="delete_browsing_data_prompt_message_3">سيحذف بيانات التصفح المحددة.</string>
-    <string name="customize_addon_collection_ok">موافق</string>
     <string name="preference_choose_search_engine">اختر محرك البحث</string>
     <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصاراً قديماً. المس اسم الموقع واستمر ثم حدد إزالة.</string>
-    <string name="toast_customize_addon_collection_done">تم تعديل مجموعة الوظائف الإضافية. إغلاق التطبيق لتطبيق التغييرات…</string>
     <string name="preference_search_summary">اضبط الوضع الافتراضي</string>
     <string name="preference_select_preferred_engine">حدد محركك المفضل:</string>
     <string name="insecure_connection">الاتصال غير آمن</string>
@@ -40,7 +37,7 @@
     <string name="general_category">عام</string>
     <string name="settings">الإعدادات</string>
     <string name="customization_settings">التخصيص</string>
-    <string name="top_sites_rename_dialog_ok">موافق</string>
+    <string name="dialog_ok">موافق</string>
     <string name="browser_menu_forward">التالي</string>
     <string name="browser_menu_settings">الإعدادات</string>
     <string name="browser_menu_desktop_site">اطلب إصدار سطح المكتب</string>
@@ -51,7 +48,6 @@
     <string name="preferences_customization_summary">أيقونة التطبيق، شريط الأدوات، زر \'مسح\'</string>
     <string name="top_sites_max_limit_confirmation_button">حسناً، فهمت</string>
     <string name="button_content_readerview">عرض القارئ</string>
-    <string name="customize_addon_collection_hint">اسم المجموعة</string>
     <string name="browser_menu_add_to_homescreen">أضف إلى الشاشة الرئيسية</string>
     <string name="browser_menu_library">المكتبة</string>
     <string name="preferences_delete_browsing_data_snackbar">تم حذف بيانات التصفح</string>
@@ -78,13 +74,12 @@
     <string name="crash_report_non_fatal_message">معذرة. لقد تعطلنا</string>
     <string name="menu_share_with">شارك مع…</string>
     <string name="toast_copied">تم النسخ!</string>
-    <string name="customize_addon_collection_cancel">إلغاء</string>
     <string name="content_description_private_browsing_button">تمكين التصفح الشخصي</string>
     <string name="rename_top_site">إعادة التسمية</string>
     <string name="delete_from_history">حذف من سجل التاريخ</string>
     <string name="shortcut_max_limit_title">تم الوصول إلى الحد الأقصى لعدد الاختصارات</string>
     <string name="shortcut_name_hint">اسم الاختصار</string>
-    <string name="top_sites_rename_dialog_cancel">إلغاء</string>
+    <string name="dialog_cancel">إلغاء</string>
     <string name="top_sites_sponsored_label">برعاية</string>
     <string name="browser_menu_refresh">أعِد تحميل</string>
     <string name="browser_menu_stop">إيقاف</string>
@@ -93,7 +88,6 @@
     <string name="browser_menu_remove_from_shortcuts">أزل من الاختصارات</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">سيتم تسجيل خروجك من معظم المواقع</string>
     <string name="toolbar_category">خيارات شريط الأدوات</string>
-    <string name="preferences_customize_amo_collection">مجموعة الإضافات المخصصة</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">افتح الرابط في علامة تبويب شخصية</string>
     <string name="customize_add_bootstrap_save">حفظ</string>
     <string name="not_applicable">غير متوفِّر</string>
@@ -313,4 +307,5 @@
     <string name="content_description_close_button">إغلاق</string>
     <string name="share_copy_link_to_clipboard">نسخ إلى الحافظة</string>
     <string name="share_save_to_pdf">حفظ كـ PDF</string>
+    <string name="privacy_policy_url">https:///censorship.no/ar/privacy_policy.html</string>
 </resources>

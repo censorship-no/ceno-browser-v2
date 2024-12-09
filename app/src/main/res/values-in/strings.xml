@@ -208,9 +208,6 @@
     <string name="customization_settings">Kustomisasi</string>
     <string name="menu_share_with">Bagikan dengan…</string>
     <string name="toast_copied">Telah disalin!</string>
-    <string name="customize_addon_collection_cancel">Batal</string>
-    <string name="customize_addon_collection_hint">Nama Koleksi</string>
-    <string name="customize_addon_collection_user_hint">Pemilik Koleksi (User ID)</string>
     <string name="bookmark_menu_open_in_private_tab_button">Buka di tab pribadi</string>
     <string name="rename_top_site">Ganti Nama</string>
     <string name="remove_top_site">Hapus</string>
@@ -224,9 +221,8 @@
     <string name="browser_menu_refresh">Segarkan</string>
     <string name="preferences_customization_summary">Ikon Aplikasi, Bilah Alat (Toolbar), Tombol Hapus</string>
     <string name="toolbar_category">Pilihan toolbar</string>
-    <string name="customize_addon_collection_ok">Oke</string>
-    <string name="top_sites_rename_dialog_ok">Oke</string>
-    <string name="top_sites_rename_dialog_cancel">Batal</string>
+    <string name="dialog_ok">Oke</string>
+    <string name="dialog_cancel">Batal</string>
     <string name="top_sites_sponsored_label">Disponsori</string>
     <string name="browser_menu_back">Kembali</string>
     <string name="browser_menu_stop">Berhenti</string>
@@ -238,4 +234,5 @@
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
     <string name="preferences_privacy_summary">Aktifkan untuk Penjelajahan Privat dan Publik</string>
     <string name="preferences_website_sources_summary">Pilih dari mana Anda ingin memuat konten situs web</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="top_sites_max_limit_confirmation_button">OK, verstanden.</string>
     <string name="shortcut_max_limit_content">Um eine neue Verknüpfung hinzuzufügen, entfernen Sie eine. Berühren und halten Sie die Seite und wählen Sie Entfernen.</string>
-    <string name="top_sites_rename_dialog_ok">ok</string>
+    <string name="dialog_ok">ok</string>
     <string name="top_sites_sponsored_label">Gesponsert</string>
     <string name="browser_menu_stop">Stop</string>
     <string name="browser_menu_desktop_site">Desktop-Site anfordern</string>
@@ -49,10 +49,7 @@
     <string name="private_browsing_title">Privates Surfen</string>
     <string name="menu_share_with">Teilen mit…</string>
     <string name="toast_copied">Kopiert!</string>
-    <string name="customize_addon_collection_ok">ok</string>
-    <string name="customize_addon_collection_cancel">Abbruch</string>
     <string name="bookmark_menu_open_in_private_tab_button">In privatem Tab öffnen</string>
-    <string name="toast_customize_addon_collection_done">Add-on-Sammlung geändert. Beenden der Anwendung, um Änderungen zu übernehmen…</string>
     <string name="content_description_private_browsing_button">Privates Surfen aktivieren</string>
     <string name="rename_top_site">Umbenennen</string>
     <string name="remove_top_site">Entfernen</string>
@@ -60,13 +57,10 @@
     <string name="tracker_category">Tracking-Schutz</string>
     <string name="settings">Einstellungen</string>
     <string name="preferences_privacy_summary">Tracking, Cookies, Datenauswahl</string>
-    <string name="preferences_customize_amo_collection">Benutzerdefinierte Add-on-Sammlung</string>
     <string name="open_links_in_apps">Links in Anwendungen öffnen</string>
     <string name="developer_tools_category">Entwicklertools</string>
-    <string name="customize_addon_collection_hint">Name der Sammlung</string>
-    <string name="customize_addon_collection_user_hint">Eigentümer der Sammlung (Benutzer-ID)</string>
     <string name="top_sites_rename_dialog_title">Name</string>
-    <string name="top_sites_rename_dialog_cancel">Abbruch</string>
+    <string name="dialog_cancel">Abbruch</string>
     <string name="shortcut_name_hint">Name der Verknüpfung</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Sie werden aus den meisten Seiten abgemeldet</string>
     <string name="preferences_delete_browsing_data_snackbar">Browsing-Daten gelöscht</string>
@@ -323,4 +317,5 @@
         <item quantity="other">%d Seiten</item>
     </plurals>
     <string name="shutdown_message_one">Appdaten entfernen</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

@@ -12,12 +12,6 @@
     <string name="tracker_category">Захист від стеження</string>
     <string name="settings">Налаштування</string>
     <string name="private_browsing_title">Персональний перегляд</string>
-    <string name="preferences_customize_amo_collection">Власна підбірка застосунків</string>
-    <string name="customize_addon_collection_ok">Гаразд</string>
-    <string name="customize_addon_collection_cancel">Скасувати</string>
-    <string name="customize_addon_collection_hint">Назва збірки</string>
-    <string name="customize_addon_collection_user_hint">Власник збірки (ID користувача)</string>
-    <string name="toast_customize_addon_collection_done">Збірку застосунків змінено. Вихід з застосунку для застосування змін…</string>
     <string name="content_description_private_browsing_button">Увімкнути режим персонального перегляду</string>
     <string name="bookmark_menu_open_in_private_tab_button">Відкрити у персональній вкладці</string>
     <string name="rename_top_site">Перейменувати</string>
@@ -28,8 +22,8 @@
     <string name="top_sites_max_limit_confirmation_button">Гаразд, зрозуміло</string>
     <string name="top_sites_rename_dialog_title">Назва</string>
     <string name="shortcut_name_hint">Назва ярлика</string>
-    <string name="top_sites_rename_dialog_ok">Гаразд</string>
-    <string name="top_sites_rename_dialog_cancel">Скасувати</string>
+    <string name="dialog_ok">Гаразд</string>
+    <string name="dialog_cancel">Скасувати</string>
     <string name="top_sites_sponsored_label">Спонсоровано</string>
     <string name="browser_menu_forward">Вперед</string>
     <string name="browser_menu_refresh">Оновити</string>
@@ -377,4 +371,5 @@
     <string name="standby_dont_show">Не показувати попередження знову</string>
     <string name="preferences_show_standby_warning">Показувати попередження про таймаут запуску</string>
     <string name="startup_category">Запуск</string>
+    <string name="privacy_policy_url">https://ceno.network/uk/privacy_policy.html</string>
 </resources>
