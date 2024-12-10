@@ -58,6 +58,7 @@ class SettingsViewRobot {
     fun verifyDisableBatteryOptimization(): Unit = assertDisableBatteryOptimizationButton()
     fun verifyShowOnboarding(): ViewInteraction = assertShowOnboarding()
     fun verifyCrashReportingButton() = assertCrashReportingButton()
+    fun verifyMetricsButton() = assertMetricsButton()
 
     fun verifyDataHeading(): ViewInteraction = assertDataHeading()
     fun verifyLocalCacheDisplay(): ViewInteraction = assertLocalCacheDisplay()
@@ -189,6 +190,13 @@ class SettingsViewRobot {
             return SettingsViewDeveloperToolsRobot.Transition()
         }
 
+        fun openSettingsViewMetrics(interact: SettingsViewMetricsRobot.() -> Unit):
+                SettingsViewMetricsRobot.Transition {
+            metricsButton().click()
+            SettingsViewMetricsRobot().interact()
+            return SettingsViewMetricsRobot.Transition()
+        }
+
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
             mDevice.pressBack()
             NavigationToolbarRobot().interact()
@@ -230,8 +238,7 @@ private fun deleteBrowsingDataButton() =  onView(withText(R.string.preferences_d
 private fun showOnboardingToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_show_onboarding))))
 
 private fun crashReportingButton() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_allow_crash_reporting))))
-
-private fun sourcesHeading() = onView(withText(R.string.ceno_sources_category))
+private fun metricsButton() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_allow_clean_insights_tracking))))
 
 private fun dataHeading() = onView(withText(R.string.ceno_data_category))
 private fun localCacheDisplay() = onView(withText(R.string.preferences_ceno_cache_size))
@@ -299,6 +306,8 @@ private fun assertDisableBatteryOptimizationButton() {
 private fun assertShowOnboarding() = showOnboardingToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertCrashReportingButton() = crashReportingButton()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertMetricsButton() = metricsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertDataHeading() = dataHeading()
