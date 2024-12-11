@@ -190,10 +190,7 @@ class ExportAndroidLogsDialog (
             }
             setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
                 fragment.findNavController().navigate(
-                    if (fragment is StandbyFragment)
-                        R.id.action_standbyFragment_to_androidLogFragment
-                    else
-                        R.id.action_settingsFragment_to_androidLogFragment,
+                    R.id.action_global_androidLogFragment
                 )
                 onDismiss.invoke()
             }
