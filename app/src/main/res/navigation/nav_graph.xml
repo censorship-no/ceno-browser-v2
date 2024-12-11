@@ -125,14 +125,6 @@
             app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/action_settingsFragment_to_androidLogFragment"
-            app:destination="@id/androidLogFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
-
-        <action
             android:id="@+id/action_settingsFragment_to_siteContentGroupFragment"
             app:destination="@id/siteContentGroupFragment"
             app:enterAnim="@anim/slide_in"
@@ -232,11 +224,7 @@
         android:id="@+id/standbyFragment"
         android:name="ie.equalit.ceno.standby.StandbyFragment"
         android:label="fragment_standby"
-        tools:layout="@layout/fragment_standby" >
-        <action
-            android:id="@+id/action_standbyFragment_to_androidLogFragment"
-            app:destination="@id/androidLogFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_standby" />
     <action
         android:id="@+id/action_global_standbyFragment"
         app:destination="@id/standbyFragment" />
@@ -273,5 +261,6 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
+    <action android:id="@+id/action_global_androidLogFragment" app:destination="@id/androidLogFragment" />
 
 </navigation>
