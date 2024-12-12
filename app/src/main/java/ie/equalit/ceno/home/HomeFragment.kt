@@ -75,6 +75,8 @@ class HomeFragment : BaseHomeFragment() {
 
     private var ouinetStatus = RunningState.Started
 
+    private var isNetworkStatusDialogVisible:Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -252,13 +254,24 @@ class HomeFragment : BaseHomeFragment() {
 
     private fun updateOuinetStatus(context: Context, status: RunningState) {
         ouinetStatus = status
-        val message : String? = when(ouinetStatus) {
-            RunningState.Starting -> getString(R.string.ceno_ouinet_connecting)
-            RunningState.Started -> getString(R.string.ceno_ouinet_connected)
-            RunningState.Stopped -> getString(R.string.ceno_ouinet_disconnected)
-            else -> null
+        var message:String?
+        when(ouinetStatus) {
+            RunningState.Started -> {
+                message = getString(R.string.ceno_ouinet_connected)
+                //set connected icon
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_connected_icon))
+            }
+            RunningState.Degraded -> {
+                message = getString(R.string.ceno_ouinet_connecting)
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_degraded_icon))
+            }
+            else -> {
+                message = getString(R.string.ceno_ouinet_disconnected)
+                //set disconnected icon
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_disconnected_icon))
+            }
         }
-        message?.let {
+        message.let {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
     }
@@ -295,6 +308,15 @@ class HomeFragment : BaseHomeFragment() {
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
 
         binding.sessionControlRecyclerView.itemAnimator = null
+
+        binding.cenoNetworkStatusIcon.setOnClickListener {
+            if(!isNetworkStatusDialogVisible) {
+                CenoNetworkStatusDialog(requireContext(), this, ouinetStatus) {
+                    isNetworkStatusDialogVisible = false
+                }.getDialog().show()
+                isNetworkStatusDialogVisible = true
+            }
+        }
     }
 
     override fun onStart() {

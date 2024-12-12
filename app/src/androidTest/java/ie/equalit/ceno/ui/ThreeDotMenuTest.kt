@@ -90,7 +90,6 @@ class ThreeDotMenuTest {
             //verifyHttpsByDefaultButtonExists()
             //TODO: uBlock Origin takes some time to install, needs special test case
             //verifyUblockOriginButtonExists()
-            //verifyAddOnsButtonExists()
             verifyOpenSettingsExists()
         }
     }
