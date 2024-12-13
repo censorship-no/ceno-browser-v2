@@ -247,7 +247,7 @@
     <plurals name="developer_tools_enable_alert">
         <item quantity="one">Jste %d klepnutím od aktivace vývojářských nástrojů</item>
         <item quantity="few">Od povolení vývojářských nástrojů vás dělí %d klepnutí</item>
-        <item quantity="other"/>
+        <item quantity="other">Od povolení vývojářských nástrojů vás dělí %d klepnutí</item>
     </plurals>
     <string name="preferences_clear_behavior_option_1">Výzva</string>
     <string name="clean_insights_successful_opt_in">Povolena analýza na pozadí</string>
@@ -310,7 +310,7 @@
     <plurals name="preferences_ceno_groups_count_subtitle">
         <item quantity="one">%d web</item>
         <item quantity="few">%d webů</item>
-        <item quantity="other"/>
+        <item quantity="other">%d webů</item>
     </plurals>
     <string name="ceno_sources_via_ceno_network">Pomocí sítě Ceno</string>
     <string name="standby_try_again">Zkuste to znovu</string>
