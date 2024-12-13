@@ -413,4 +413,10 @@
         <item quantity="many">Estás a %d toques de habilitar las herramientas de desarrollador</item>
         <item quantity="other">Estás a %d toques de habilitar las herramientas de desarrollador</item>
     </plurals>
+    <string name="ceno_network_status_title">Estado de la red Ceno</string>
+    <string name="ceno_network_status_connected">Conectado totalmente a la red Ceno. Sitios bloqueados tendrían que ser accesibles.</string>
+    <string name="ceno_network_status_disconnected">Sin conexión. Por favor revise su configuración de red o exporte los registros para obtener información adicional.</string>
+    <string name="ceno_network_status_degraded">Conectándose a la red Ceno. Algunos sitios podrían no estar disponibles. Favor revisar su configuración de red o exporte los registros para obtener información adicional.</string>
+    <string name="contact_support">Contacte a soporte</string>
+    <string name="ceno_support_ticket_subject">Ticket de soporte Ceno</string>
 </resources>
