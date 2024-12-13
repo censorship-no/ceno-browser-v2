@@ -144,8 +144,8 @@
     <string name="preferences_toolbar_position">Umístění v horní části obrazovky</string>
     <string name="preferences_toolbar_hide">Posunutím se skryjete</string>
     <string name="preferences_show_home_button">Zobrazit tlačítko domů</string>
-    <string name="preferences_allow_notifications">Povolit oznámení</string>
-    <string name="preferences_disable_battery_opt">Zakázat optimalizaci baterie</string>
+    <string name="preferences_allow_notifications">Oznámení</string>
+    <string name="preferences_disable_battery_opt">Optimalizace baterie</string>
     <string name="preferences_customization">Přizpůsobení</string>
     <string name="preferences_theme_summary">Tmavý, Světlý, Úspora baterie</string>
     <string name="preferences_theme_default">2</string>
@@ -207,7 +207,7 @@
     <string name="ceno_notification_title">Služba Browser Ceno</string>
     <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
     <string name="update">Aktualizovat</string>
-    <string name="change_language">Změnit jazyk</string>
+    <string name="change_language">Změnit Jazyk</string>
     <string name="top_sites_title">Zkratky</string>
     <string name="onboarding_cleanup_title">Vymazat vše, \n všude, najednou</string>
     <string name="onboarding_finish_button">Dokončit</string>
@@ -229,7 +229,7 @@
     <string name="empty_log_text">Zdá se, že váš protokol je prázdný</string>
     <string name="progress_dialog_log_export_header">Čekejte prosím…</string>
     <string name="all_logs">Všechny protokoly</string>
-    <string name="enable_bridge_card_title">Povolit režim mostu</string>
+    <string name="enable_bridge_card_title">Povolit Režim Mostu</string>
     <string name="no_content_shared">Momentálně nesdílíte žádný obsah</string>
     <string name="confirm_groups_file_download_desc">Soubor txt bude uložen do vašeho místního úložiště.</string>
     <string name="browser_menu_disable_reader_view">Skrýt zobrazení čtenáře</string>
@@ -247,7 +247,7 @@
     <plurals name="developer_tools_enable_alert">
         <item quantity="one">Jste %d klepnutím od aktivace vývojářských nástrojů</item>
         <item quantity="few">Od povolení vývojářských nástrojů vás dělí %d klepnutí</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="preferences_clear_behavior_option_1">Výzva</string>
     <string name="clean_insights_successful_opt_in">Povolena analýza na pozadí</string>
@@ -290,7 +290,7 @@
     <string name="onboarding_public_personal_text">Karty Veřejné používejte ke čtení zpráv, sledování videí a obecnému procházení webu. Ve veřejném režimu můžete také sdílet webový obsah s ostatními uživateli Ceno. Osobní karty se lépe hodí pro účty na sociálních sítích, online nakupování a procházení webů, které nechcete sdílet s ostatními.</string>
     <string name="preferences_allow_clean_insights_tracking">Povolit analýzu na pozadí</string>
     <string name="preference_show_search_suggestions_summary">Ceno odešle to, co zadáte do adresního řádku, do vašeho vyhledávače</string>
-    <string name="about_content_para_2">"Ceno Browser je projekt eQualitie – neziskové kanadské organizace, která vytváří decentralizované internetové služby na podporu rovnější a spravedlivější sítě.  Řešení eQualitie jsou open source, osvědčená a vyvinutá s ohledem na naše hodnoty.  Každý den umožňují svobodu sdružování milionů lidí online."</string>
+    <string name="about_content_para_2">Ceno Browser je projekt eQualitie – neziskové kanadské organizace, která vytváří decentralizované internetové služby na podporu rovnější a spravedlivější sítě. Řešení eQualitie jsou open source, osvědčená a vyvinutá s ohledem na naše hodnoty. Každý den umožňují svobodu sdružování milionů lidí online.</string>
     <string name="preferences_clear_ceno_cache_summary">Vymazat webový obsah uložený v místní mezipaměti</string>
     <string name="ceno_log_file_saved_desc">Abychom upřednostnili vaše soukromí, byly z tohoto protokolu pečlivě odstraněny všechny osobně identifikovatelné informace.</string>
     <string name="enable_bridge_card_text">Posilněte síť Ceno tím, že se stanete mostem! Režim mostu můžete povolit tak, že přejdete do Nastavení -&gt; Povolit režim mostu.</string>
@@ -299,7 +299,7 @@
     <string name="preferences_change_language">Změnit jazyk</string>
     <string name="preferences_ceno_download_log">Exportovat protokol Ouinet</string>
     <string name="preferences_ceno_bridge_announcement">Povolit režim mostu</string>
-    <string name="changeIconDialogMessage">"Aplikace se může zavřít kvůli použití změn.  Vraťte se, až budete obdivovat svou krásnou novou ikonu."</string>
+    <string name="changeIconDialogMessage">Aplikace se může zavřít kvůli použití změn. Vraťte se, až budete obdivovat svou krásnou novou ikonu.</string>
     <string name="preferences_ceno_sources_public_summary">Načtěte obsah prostřednictvím veřejné sítě Ceno</string>
     <string name="preferences_clear_behavior_summary">Nastavit chování při klepnutí na tlačítko Vymazat</string>
     <string name="ouinet_client_fetch_success">Nastavení Ceno aktualizováno</string>
@@ -310,7 +310,7 @@
     <plurals name="preferences_ceno_groups_count_subtitle">
         <item quantity="one">%d web</item>
         <item quantity="few">%d webů</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="ceno_sources_via_ceno_network">Pomocí sítě Ceno</string>
     <string name="standby_try_again">Zkuste to znovu</string>
@@ -391,4 +391,19 @@
     <string name="preferences_announcement_source_option_3">Archiv</string>
     <string name="preferences_announcement_expire_disable">Zakázat vypršení platnosti oznámení</string>
     <string name="start_tooltip_description">Odemkněte plný potenciál Ceno – Projděte si komentovanou prohlídku, abyste objevili klíčové funkce a povolte oprávnění, která vám pomohou sdílet web, i když je aplikace na pozadí.</string>
+    <string name="ceno_network_status_degraded">Připojení k síti Ceno. Některé webové stránky mohou být nedostupné. Zkontrolujte nastavení sítě nebo exportujte protokoly pro další informace.</string>
+    <plurals name="developer_tools_disable_alert">
+        <item quantity="one">Jste %d klepnutí od deaktivace nástrojů pro vývojáře</item>
+        <item quantity="few">Od deaktivace nástrojů pro vývojáře vás dělí %d klepnutí</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="ceno_network_status_title">Stav sítě Ceno</string>
+    <string name="ceno_network_status_connected">Plně připojeno k síti Ceno. Blokované webové stránky by měly být přístupné.</string>
+    <string name="contact_support">Kontaktujte podporu</string>
+    <string name="ceno_support_ticket_subject">Ceno vstupenka na podporu</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Osobní procházení&lt;/h1&gt; &lt;p&gt;Ceno nebude sdílet obsah z osobních karet s ostatními uživateli. Můžete bezpečně navštěvovat stránky, které vyžadují přihlášení. Cesta k internetu je však potřeba.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Chcete se dozvědět více?&lt;/p&gt;</string>
+    <string name="developer_tools_enabled">Vývojářské nástroje povoleny</string>
+    <string name="developer_tools_disabled">Vývojářské nástroje jsou zakázány</string>
+    <string name="ceno_network_status_disconnected">Odpojeno. Zkontrolujte nastavení sítě nebo exportujte protokoly pro další informace.</string>
+    <string name="about_content" tools:ignore="UnusedResources">&lt;p&gt;%1$s – Sdílejte Web!&lt;/p&gt; &lt;p&gt;Ceno (zkratka pro censorship.no!) je první mobilní prohlížeč na světě, který obchází současné metody internetové cenzury. Jeho peer-to-peer páteř umožňuje lidem přístup a sdílení webových informací v regionech a mezi nimi, kde bylo připojení přerušeno nebo ohroženo. &lt;/p&gt; &lt;p&gt;%1$s je projekt &lt;a href=https://equalit.ie/&gt;eQualit.ie&lt;/a&gt; – neziskové Kanadské organizace, která vytváří decentralizované internetové služby na podporu rovnější a spravedlivější sítě. Řešení eQualitie jsou open source, osvědčená a vyvinutá s ohledem na naše hodnoty. Každý den umožňují milionům lidí online svobodu sdružování.&lt;/p&gt;</string>
 </resources>
