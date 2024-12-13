@@ -1,3 +1,16 @@
+#v2.4.0
+Esta versión:
+- Implementa la campaña inicial de métricas Clean Insights
+- Agrega un submenú de herramientas de desarrollador oculto
+- Agrega una cadena de configuración regional
+- Admite iconos de inicio monocromáticos
+
+#v2.3.3
+Este versión:
+- Actualiza la extensión Ceno a v1.8.1
+- Actualiza los componentes de Android a la versión v132.0.2
+- Actualiza Ouinet a v0.31.0
+
 # v2.3.2
 Esta versión:
 - Actualiza los componentes de Android a la versión v132.0
@@ -6,6 +19,7 @@ Esta versión:
 - Refactoriza los permisos y agrega la opción de revocarlos a través de Configuración
 - Actualiza Ouinet a v0.30.1
 - Agrega la opción "Llévame a Ceno de todos modos" al cuadro de diálogo de tiempo de espera.
+- Corrige el error de desplazarse para ocultar la barra de herramientas
 
 #v2.3.1
 Esta versión:
