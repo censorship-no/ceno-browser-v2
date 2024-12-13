@@ -16,4 +16,7 @@
          for an update. So let's just ignore those errors here. -->
         <ignore path="**/*.jar" />
     </issue>
+    <issue id="MissingQuantity">
+        <ignore regexp=".*?Czech.*?many" />
+    </issue>
 </lint>
