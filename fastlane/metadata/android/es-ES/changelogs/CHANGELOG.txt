@@ -1,3 +1,10 @@
+#v2.4.0
+Esta versión:
+- Implementa la campaña inicial de métricas Clean Insights
+- Agrega un submenú de herramientas de desarrollador oculto
+- Agrega una cadena de configuración regional
+- Admite iconos de inicio monocromáticos
+
 #v2.3.3
 Este versión:
 - Actualiza la extensión Ceno a v1.8.1
