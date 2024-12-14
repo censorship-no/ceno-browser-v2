@@ -212,9 +212,7 @@
     <string name="addon_placeholder">Keine Add-ons verfügbar</string>
     <string name="onboarding_finish_button">Fertigstellen</string>
     <string name="preferences_ceno_sources_external_udp">Externe UDP Endpunkte</string>
-    <string name="onboarding_public_personal_text">Verwenden Sie öffentliche Registerkarten, um Nachrichten zu lesen, Videos anzusehen und allgemein im Internet zu surfen. Teilen Sie Webinhalte mit anderen Ceno-Nutzern.
-\n
-\nPersönliche Registerkarten eignen sich besser für Social-Media-Konten, Online-Shopping und das Surfen auf Websites, die Sie nicht mit anderen teilen möchten.</string>
+    <string name="onboarding_public_personal_text">Verwenden Sie öffentliche Registerkarten, um Nachrichten zu lesen, Videos anzusehen und allgemein im Internet zu surfen. Teilen Sie Webinhalte mit anderen Ceno-Nutzern. Persönliche Registerkarten eignen sich besser für Social-Media-Konten, Online-Shopping und das Surfen auf Websites, die Sie nicht mit anderen teilen möchten.</string>
     <string name="preferences_show_home_button">Home Button anzeigen</string>
     <string name="preferences_ceno_sources_public_udp">Öffentliche UDP Endpunkte</string>
     <string name="standby_no_internet_text">Keine Verbindung zum Internet.
@@ -318,4 +316,6 @@
     </plurals>
     <string name="shutdown_message_one">Appdaten entfernen</string>
     <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
+    <string name="select_extra_bt_source">Weiteren BitTorrent Bootstrap auswählen</string>
+    <string name="bridge_mode_category">Bridge Ankündigungen</string>
 </resources>
