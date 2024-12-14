@@ -387,8 +387,8 @@
     <string name="status_enabled">Włączone</string>
     <string name="preferences_allow_clean_insights_tracking">Zezwól na analizowanie w tle</string>
     <string name="confirm_clear_cached_content_desc">Twoja zawartość zostanie natychmiastowo usunięta</string>
-    <string name="clean_insights_sub_header">Chcielibyśmy rejestrować następujące wskaźniki do 31 stycznia 2025 r.:</string>
-    <string name="optional_metrics">Opcjonalne wskaźniki:</string>
+    <string name="clean_insights_sub_header">Chcielibyśmy rejestrować następujące metryki do 31 stycznia 2025 r.:</string>
+    <string name="optional_metrics">Opcjonalne metryki:</string>
     <string name="device_type">Typ urządzenia</string>
     <string name="load_times">Czas uruchomienia aplikacji</string>
     <string name="device_locale">Lokalizacja urządzenia (język)</string>
@@ -417,4 +417,5 @@
     <string name="clean_insights_explainer">Twój wkład będzie anonimowy i możesz z niego zrezygnować w dowolnym momencie.</string>
     <string name="clean_insights_opt_in">TAK, WPUŚĆ MNIE</string>
     <string name="ouinet_startup_time_header">Jak myślisz, ile czasu zajmuje start Ceno?</string>
+    <string name="preferences_clean_insights_backdate">Włącz wstępne datowanie metryk</string>
 </resources>
