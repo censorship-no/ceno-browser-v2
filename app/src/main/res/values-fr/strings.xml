@@ -294,7 +294,7 @@
     <string name="dialog_btn_positive_ok">OK</string>
     <string name="canceled">Annulé</string>
     <string name="confirm_groups_file_download">Exporter la liste des contenus partagés ?</string>
-    <string name="confirm_groups_file_download_desc">Un fichier txt sera sauvegardé dans votre stockage local.</string>
+    <string name="confirm_groups_file_download_desc">Un fichier .txt sera sauvegardé dans votre stockage local.</string>
     <string name="confirm_clear_cached_content_desc">Votre contenu mis en cache sera supprimé immédiatement</string>
     <string name="confirm_clear_cached_content">Vider le cache ?</string>
     <string name="learn_more_title">En savoir plus</string>
