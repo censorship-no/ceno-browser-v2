@@ -394,4 +394,5 @@
     <string name="preferences_announcement_source_option_3">بایگانی</string>
     <string name="developer_tools_enabled">ابزارهای توسعه‌دهنده فعال شد</string>
     <string name="preferences_announcement_source_option_1">تولید (Production)</string>
+    <string name="preferences_clean_insights_backdate">فعال‌سازی ثبت معیارها به‌صورت گذشته‌نگر</string>
 </resources>
