@@ -386,4 +386,5 @@
     <string name="contact_support">Destek Talebi</string>
     <string name="ceno_support_ticket_subject">Ceno Destek Ticket\'i</string>
     <string name="ceno_network_status_degraded">Ceno ağına bağlanıyor. Bazı siteler kullanım dışı olabilir. Ek bilgi için ağ ayarlarınızı kontrol edin ya da logları dışa aktarın.</string>
+    <string name="ceno_network_status_connected">Ceno ağına tamamen bağlı. Engelli siteler erişilebilir olmalı.</string>
 </resources>
