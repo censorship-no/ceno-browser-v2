@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="top_sites_max_limit_confirmation_button">OK, verstanden.</string>
-    <string name="shortcut_max_limit_content">Um eine neue Verknüpfung hinzuzufügen, entfernen Sie eine. Berühren und halten Sie die Seite und wählen Sie Entfernen.</string>
+    <string name="shortcut_max_limit_content">Entfernen Sie eine Verknüpfung, um eine neue hinzuzufügen. Berühren und halten Sie die Verknüpfung und wählen Sie dann \"Entfernen\".</string>
     <string name="dialog_ok">ok</string>
     <string name="top_sites_sponsored_label">Gesponsert</string>
     <string name="browser_menu_stop">Stop</string>
@@ -43,8 +43,8 @@
     <string name="menu_action_close_tabs">Alle Tabs schließen</string>
     <string name="menu_action_close_tabs_private">Private Tabs schließen</string>
     <string name="preferences_remote_debugging">Ferndebugging über USB</string>
-    <string name="preferences_tracking_protection_normal">Aktivieren im normalen Browsing-Modus</string>
-    <string name="preferences_tracking_protection_private">Aktivieren im Privaten Modus</string>
+    <string name="preferences_tracking_protection_normal">Aktivieren im öffentlichen Browsing-Modus</string>
+    <string name="preferences_tracking_protection_private">Im privaten Browsing-Modus aktivieren</string>
     <string name="privacy">Privatsphäre</string>
     <string name="private_browsing_title">Privates Surfen</string>
     <string name="menu_share_with">Teilen mit…</string>
@@ -289,7 +289,7 @@
     <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="update">Aktualisieren</string>
     <string name="change_language">Sprache ändern</string>
-    <string name="top_sites_title">Shortcut</string>
+    <string name="top_sites_title">Verknüpfungen</string>
     <string name="onboarding_permissions_title">Berechtigung erforderlich</string>
     <string name="preferences_change_language">Sprache ändern</string>
     <string name="error_page_title">Fehlerseite</string>
@@ -356,4 +356,9 @@
     <string name="tooltip_sources_description">Sehen Sie leicht, woher der Inhalt der Seite geladen wird – direkt von der Webseite, über das Ceno-Netzwerk oder aus dem Ceno-Cache</string>
     <string name="preferences_allow_clean_insights_tracking">Nutzungsdaten-Analyse zulassen</string>
     <string name="standby_take_me_anyway">Bring mich trotzdem zu Ceno</string>
+    <string name="confirm_clear_cached_content">Cache leeren?</string>
+    <string name="confirm_clear_cached_content_desc">Ihr Cache-Inhalt wird unverzüglich gelöscht</string>
+    <string name="clean_insights_successful_opt_in">Hintergrundanalyse aktiviert</string>
+    <string name="clean_insights_successful_opt_out">Hintergrundanalyse deaktiviert</string>
+    <string name="error_page_learn_more_1">Sie benutzen eine aktuelle Version vom Ceno Browser. Veraltete Versionen können nicht mit neueren Injektoren oder anderen Clients kommunizieren. Besuchen Sie die <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Download-Seite</a> um die neueste Version zu finden.</string>
 </resources>
