@@ -6,6 +6,8 @@ This release:
 - Supports monochrome launcher icons
 - Updates Android-Components to v133.0.3
 - Adds a Ceno network connection status indicator on homepage
+- Update cacert.pem bundle
+- Updates translations for various locales
 
 # v2.3.3
 This release:
