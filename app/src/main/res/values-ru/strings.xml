@@ -375,12 +375,6 @@
     <string name="privacy_policy_url">https://ceno.network/ru/privacy_policy.html</string>
     <string name="preferences_announcement_source">Источник объявлений на главной</string>
     <string name="preferences_announcement_source_option_3">Архив</string>
-    <plurals name="developer_tools_disable_alert">
-        <item quantity="one"></item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
-    </plurals>
     <string name="ouinet_startup_time_1">1</string>
     <string name="optional_metrics">Опциональные метрики:</string>
     <string name="ouinet_startup_time_2">2</string>
@@ -419,10 +413,4 @@
     <string name="preferences_announcement_expire_disable">Отключить истечение срока действия объявлений</string>
     <string name="developer_tools_enabled">Инструменты разработчика включены</string>
     <string name="developer_tools_disabled">Инструменты разработчика выключены</string>
-    <plurals name="developer_tools_enable_alert">
-        <item quantity="one"></item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
-    </plurals>
 </resources>
