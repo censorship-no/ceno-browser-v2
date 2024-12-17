@@ -376,10 +376,10 @@
     <string name="preferences_announcement_source">Источник объявлений на главной</string>
     <string name="preferences_announcement_source_option_3">Архив</string>
     <plurals name="developer_tools_disable_alert">
-        <item quantity="one">Один</item>
-        <item quantity="few">Несколько</item>
-        <item quantity="many">Много</item>
-        <item quantity="other">Много</item>
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="ouinet_startup_time_1">1</string>
     <string name="optional_metrics">Опциональные метрики:</string>
@@ -420,9 +420,9 @@
     <string name="developer_tools_enabled">Инструменты разработчика включены</string>
     <string name="developer_tools_disabled">Инструменты разработчика выключены</string>
     <plurals name="developer_tools_enable_alert">
-        <item quantity="one">Один</item>
-        <item quantity="few">Несколько</item>
-        <item quantity="many">Много</item>
-        <item quantity="other">Много</item>
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
 </resources>
