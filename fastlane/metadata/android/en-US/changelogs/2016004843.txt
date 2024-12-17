@@ -5,4 +5,3 @@ This release:
 - Updates Android-Components to v130.0.1
 - Updates Ouinet to v0.29.1
 - Updates translations for various locales
-

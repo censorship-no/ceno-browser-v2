@@ -231,7 +231,7 @@
     <string name="all_logs">Všechny protokoly</string>
     <string name="enable_bridge_card_title">Povolit Režim Mostu</string>
     <string name="no_content_shared">Momentálně nesdílíte žádný obsah</string>
-    <string name="confirm_groups_file_download_desc">Soubor txt bude uložen do vašeho místního úložiště.</string>
+    <string name="confirm_groups_file_download_desc">Soubor .txt bude uložen do vašeho místního úložiště.</string>
     <string name="browser_menu_disable_reader_view">Skrýt zobrazení čtenáře</string>
     <string name="enable_debug_logs">Povolit protokoly ladění</string>
     <string name="skip_the_tour_button">Přeskočit prohlídku</string>

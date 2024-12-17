@@ -381,4 +381,10 @@
         <item quantity="one">Geliştirici seçeneklerini etkinleştirmeye %d dokunuş</item>
         <item quantity="other">Geliştirici seçeneklerini etkinleştirmeye %d dokunuş</item>
     </plurals>
+    <string name="ceno_network_status_disconnected">Bağlantı Kesildi. Ek bilgi için ağ ayarlarınıza bakın ya da logları dışa aktarın.</string>
+    <string name="ceno_network_status_title">Ceno Ağ Durumu</string>
+    <string name="contact_support">Destek Talebi</string>
+    <string name="ceno_support_ticket_subject">Ceno Destek Ticket\'i</string>
+    <string name="ceno_network_status_degraded">Ceno ağına bağlanıyor. Bazı siteler kullanım dışı olabilir. Ek bilgi için ağ ayarlarınızı kontrol edin ya da logları dışa aktarın.</string>
+    <string name="ceno_network_status_connected">Ceno ağına tamamen bağlı. Engelli siteler erişilebilir olmalı.</string>
 </resources>

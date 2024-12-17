@@ -1,9 +1,11 @@
-#v2.4.0
+# v2.4.0
 Esta versión:
 - Implementa la campaña inicial de métricas Clean Insights
-- Agrega un submenú de herramientas de desarrollador oculto
-- Agrega una cadena de configuración regional
-- Admite iconos de inicio monocromáticos
+- Añade un submenú oculto de herramientas para desarrolladores
+- Añade cadenas de configuración regional
+- Admite iconos monocromos en el lanzador
+- Actualiza Android-Components a v133.0.3
+- Añade un indicador de estado de conexión de red Ceno en la página de inicio
 
 #v2.3.3
 Este versión:
