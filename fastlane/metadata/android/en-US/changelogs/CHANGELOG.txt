@@ -1,6 +1,6 @@
 # v2.4.0
 This release:
-- Implements initial Clean Insights metrics campaign
+- Implements initial "Clean Insights" metrics campaign
 - Adds a hidden developer tools sub-menu
 - Adds en locale strings
 - Supports monochrome launcher icons
@@ -30,7 +30,7 @@ This release:
 - Updates various Android libraries
 - Fixes bugs with permissions tooltip
 - Adds ability to select app language on the welcome tooltip
-- Adds option to save logs to storage ands improves share logs UI
+- Adds option to save logs to storage and improves share logs UI
 
 # v2.3.0
 This release:
@@ -54,7 +54,6 @@ This patch release:
 
 # v2.2.2
 This patch release:
-
 - Updates Android-Components to 129.0.2
 - Updates Ouinet to v0.28.0
 - Updates UI for about page with new links and updated logos

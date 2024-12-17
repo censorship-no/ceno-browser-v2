@@ -4,4 +4,3 @@ This patch release:
 - Fix IllegalStateException crash related to toolbar status icon
 - Minor improvements to error page UI, including swipe-to-refresh action
 - Updates translations for certain locales, especially Persian
-

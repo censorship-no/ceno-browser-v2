@@ -326,7 +326,7 @@
     <string name="change_language">تغییر زبان</string>
     <string name="top_sites_title">سایت‌های برتر</string>
     <string name="update">به‌روزرسانی‌</string>
-    <string name="start_tooltip_description">از تمام ظرفیت سنو استفاده کنید - ‏با تور راهنما، ویژگی‌های کلیدی برنامه را کشف کنید، و با دادن دسترسی‌های لازم، حتی وقتی که برنامه در پس‌زمینه فعال است وب را دست‌به‌دست کنید..</string>
+    <string name="start_tooltip_description">از تمام ظرفیت سنو استفاده کنید – ‏با تور راهنما، ویژگی‌های کلیدی برنامه را کشف کنید، و با دادن دسترسی‌های لازم، حتی وقتی که برنامه در پس‌زمینه فعال است وب را دست‌به‌دست کنید..</string>
     <string name="btn_exit">خروج</string>
     <string name="tooltip_shortcuts_description">سایت‌های محبوب خود را به‌عنوان سایت برتر ذخیره کنید تا از صفحه اصلی به آن‌ها دسترسی سریع داشته باشید.</string>
     <string name="tooltip_toolbar_title">وب‌گردی را شروع کنید!</string>
@@ -394,4 +394,5 @@
     <string name="preferences_announcement_source_option_3">بایگانی</string>
     <string name="developer_tools_enabled">ابزارهای توسعه‌دهنده فعال شد</string>
     <string name="preferences_announcement_source_option_1">تولید (Production)</string>
+    <string name="preferences_clean_insights_backdate">فعال‌سازی ثبت معیارها به‌صورت گذشته‌نگر</string>
 </resources>

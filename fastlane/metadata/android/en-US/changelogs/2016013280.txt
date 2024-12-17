@@ -6,4 +6,3 @@ This release:
 - Updates Ouinet to v0.30.1
 - Adds "Take me to Ceno anyway" option to standby timeout dialog
 - Fixes scroll to hide toolbar bug
-

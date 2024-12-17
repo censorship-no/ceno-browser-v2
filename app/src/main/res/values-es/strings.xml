@@ -298,7 +298,7 @@
     <string name="dialog_btn_positive_ok">De acuerdo</string>
     <string name="ceno_log_content_group_file_saved">Contenido compartido guardado exitosamente</string>
     <string name="download_site_content">Descargar contenido de la página</string>
-    <string name="confirm_groups_file_download_desc">Se guardará un archivo txt en tu almacenamiento local.</string>
+    <string name="confirm_groups_file_download_desc">Se guardará un archivo .txt en su almacenamiento local.</string>
     <string name="confirm_groups_file_download">¿Exportar lista de contenido compartido?</string>
     <string name="ceno_android_content_group_file_name">Contenido compartido por Ceno</string>
     <string name="canceled">Cancelado</string>
@@ -419,4 +419,5 @@
     <string name="ceno_network_status_degraded">Conectándose a la red Ceno. Algunos sitios podrían no estar disponibles. Favor revisar su configuración de red o exporte los registros para obtener información adicional.</string>
     <string name="contact_support">Contacte a soporte</string>
     <string name="ceno_support_ticket_subject">Ticket de soporte Ceno</string>
+    <string name="preferences_clean_insights_backdate">Activar la retroactividad de los parámetros</string>
 </resources>
