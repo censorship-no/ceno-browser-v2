@@ -1,5 +1,6 @@
 package ie.equalit.ceno.ui
 
+import androidx.test.filters.SdkSuppress
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.click
@@ -12,6 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@SdkSuppress(minSdkVersion = 28)
 class LocaleTests {
 
     @get:Rule
@@ -58,8 +60,11 @@ class LocaleTests {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(9)
+            Thread.sleep(1000)
+            // Must click down further than the options
+            // for test to succeed on smaller screen devices
+            clickDownRecyclerView(11)
+            Thread.sleep(1000)
             verifyChangeLanguageButton()
             clickChangeLanguageButton()
         }

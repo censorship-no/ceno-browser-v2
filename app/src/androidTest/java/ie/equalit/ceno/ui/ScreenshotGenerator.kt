@@ -1,16 +1,17 @@
 package ie.equalit.ceno.ui
 
 import android.os.Build
+import androidx.core.net.toUri
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
-import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.denyPermissions
 import ie.equalit.ceno.ui.robots.giveNotificationAndBatteryOptimizationPermissions
 import ie.equalit.ceno.ui.robots.hasPermissions
 import ie.equalit.ceno.ui.robots.homepage
+import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
@@ -82,7 +83,7 @@ class ScreenshotGenerator {
             Screengrab.screenshot("003_tooltip_address_bar")
         }
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser(TestAssetHelper.getGenericAsset(mockWebServer, 1).url){
+        }.enterUrlAndEnterToBrowser("https://abcd.efg/".toUri()){
         }
         onboarding {
             waitForNextTooltipButton()
@@ -124,12 +125,27 @@ class ScreenshotGenerator {
                 // TODO: improve how all the settings are captured
                 Thread.sleep(1000)
                 Screengrab.screenshot("009_preferences_general")
-                clickDownRecyclerView(20)
+                clickDownRecyclerView(16)
                 Thread.sleep(1000)
                 Screengrab.screenshot("010_preferences_data")
-                clickDownRecyclerView(6)
+                clickDownRecyclerView(8)
                 Thread.sleep(1000)
                 Screengrab.screenshot("011_preferences_developertools")
+                for (i in 0..7) {
+                    clickCenoVersionDisplay()
+                }
+                Screengrab.screenshot("023_preferences_additionaldevelopertools")
+                // Wait for developer tool toasts to disappear
+                Thread.sleep(10000)
+            }.openSettingsViewDeveloperTools {
+                Screengrab.screenshot("024_fragment_developer_tools")
+                clickExportOuinetLog()
+                Screengrab.screenshot("025_developer_tools_export_ouinet_log")
+                mDevice.pressBack()
+                clickAnnouncementSource()
+                Screengrab.screenshot("026_developer_tools_announcement_source")
+                clickCancelDialog()
+            }.goBack {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
@@ -175,21 +191,35 @@ class ScreenshotGenerator {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(21)
+                clickDownRecyclerView(16)
                 Thread.sleep(1000)
             }.openSettingsViewSources {
                 Thread.sleep(1000)
                 Screengrab.screenshot("019_sources_preferences")
-            }.goBack{
+            }.goBack {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {
-                clickDownRecyclerView(26)
+                clickDownRecyclerView(11)
                 Thread.sleep(1000)
+            }.openSettingsViewMetrics {
+                Thread.sleep(1000)
+                Screengrab.screenshot("027_metrics_preferences")
+            }.clickNegative {
+            }.goBack {
+            }.openThreeDotMenu {
+            }.openSettings {
+                clickDownRecyclerView(25)
+                Thread.sleep(1000)
+                // Disable developer tools before finishing test
+                for (i in 0..7) {
+                    clickCenoVersionDisplay()
+                }
+                Thread.sleep(10000)
             }.openSettingsViewAboutPage {
                 Thread.sleep(1000)
                 Screengrab.screenshot("020_fragment_about")
-            }.goBack{
+            }.goBack {
             }.goBack {
             }.openTabTrayMenu {
             }.openNewTab {

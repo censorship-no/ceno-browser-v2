@@ -25,14 +25,6 @@
         app:destination="@id/settingsFragment" />
 
     <action
-        android:id="@+id/action_global_addons"
-        app:destination="@id/addonsFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
-    <action
         android:id="@+id/action_global_tabsTray"
         app:destination="@id/tabsTrayFragment" />
 
@@ -133,14 +125,6 @@
             app:popExitAnim="@anim/slide_back_out" />
 
         <action
-            android:id="@+id/action_settingsFragment_to_androidLogFragment"
-            app:destination="@id/androidLogFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
-
-        <action
             android:id="@+id/action_settingsFragment_to_siteContentGroupFragment"
             app:destination="@id/siteContentGroupFragment"
             app:enterAnim="@anim/slide_in"
@@ -148,25 +132,9 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/addonsFragment"
-        android:name="ie.equalit.ceno.addons.AddonsFragment"
-        android:label="@string/preferences_add_ons"
-        tools:layout="@layout/fragment_add_ons">
-
         <action
-            android:id="@+id/action_addonsFragment_to_addonDetailsFragment"
-            app:destination="@id/addonDetailsFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
-
-        <action
-            android:id="@+id/action_addonsFragment_to_installedAddonDetailsFragment"
-            app:destination="@id/installedAddonDetailsFragment"
+            android:id="@+id/action_settingsFragment_to_developerToolsSettingsFragment"
+            app:destination="@id/developerToolsSettingsFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/slide_out"
             app:popEnterAnim="@anim/slide_back_in"
@@ -182,27 +150,6 @@
     <fragment
         android:id="@+id/externalAppBrowserFragment"
         android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment" />
-
-    <fragment
-        android:id="@+id/addonDetailsFragment"
-        android:name="ie.equalit.ceno.addons.AddonDetailsFragment"
-        android:label="@string/mozac_feature_addons_details"
-        tools:layout="@layout/fragment_addon_details" />
-
-    <fragment
-        android:id="@+id/installedAddonDetailsFragment"
-        android:name="ie.equalit.ceno.addons.InstalledAddOnDetailsFragment"
-        android:label="@string/mozac_feature_addons_details"
-        tools:layout="@layout/fragment_installed_add_on_details">
-
-        <action
-            android:id="@+id/action_installedAddonDetailsFragment_to_addonDetailsFragment"
-            app:destination="@id/addonDetailsFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
-            app:popEnterAnim="@anim/slide_back_in"
-            app:popExitAnim="@anim/slide_back_out" />
-    </fragment>
 
     <fragment
         android:id="@+id/privacySettingsFragment"
@@ -263,6 +210,12 @@
         android:label="WebsiteSourceSettingsFragment" />
 
     <fragment
+        android:id="@+id/developerToolsSettingsFragment"
+        android:name="ie.equalit.ceno.settings.DeveloperToolsSettingsFragment"
+        android:label="DeveloperToolsSettingsFragment" >
+    </fragment>
+
+    <fragment
         android:id="@+id/androidLogFragment"
         android:name="ie.equalit.ceno.settings.AndroidLogFragment"
         android:label="AndroidLogFragment" />
@@ -271,11 +224,7 @@
         android:id="@+id/standbyFragment"
         android:name="ie.equalit.ceno.standby.StandbyFragment"
         android:label="fragment_standby"
-        tools:layout="@layout/fragment_standby" >
-        <action
-            android:id="@+id/action_standbyFragment_to_androidLogFragment"
-            app:destination="@id/androidLogFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_standby" />
     <action
         android:id="@+id/action_global_standbyFragment"
         app:destination="@id/standbyFragment" />
@@ -312,5 +261,6 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
+    <action android:id="@+id/action_global_androidLogFragment" app:destination="@id/androidLogFragment" />
 
 </navigation>

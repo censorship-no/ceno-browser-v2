@@ -1,24 +1,18 @@
 package ie.equalit.ceno.home
 
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
@@ -80,6 +74,8 @@ class HomeFragment : BaseHomeFragment() {
     private val scope = MainScope()
 
     private var ouinetStatus = RunningState.Started
+
+    private var isNetworkStatusDialogVisible:Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -222,14 +218,14 @@ class HomeFragment : BaseHomeFragment() {
 
                     var response = CenoSettings.webClientRequest(
                         context,
-                        Request(CenoSettings.getRSSAnnouncementUrl(languageCode))
+                        Request(Settings.getRSSAnnouncementUrl(context, languageCode))
                     )
 
                     // if the network call fails, try to load 'en' locale
                     if (response == null) {
                         response = CenoSettings.webClientRequest(
                             context,
-                            Request(CenoSettings.getRSSAnnouncementUrl("en"))
+                            Request(Settings.getRSSAnnouncementUrl(context, "en"))
                         )
                     }
 
@@ -258,13 +254,24 @@ class HomeFragment : BaseHomeFragment() {
 
     private fun updateOuinetStatus(context: Context, status: RunningState) {
         ouinetStatus = status
-        val message : String? = when(ouinetStatus) {
-            RunningState.Starting -> getString(R.string.ceno_ouinet_connecting)
-            RunningState.Started -> getString(R.string.ceno_ouinet_connected)
-            RunningState.Stopped -> getString(R.string.ceno_ouinet_disconnected)
-            else -> null
+        var message:String?
+        when(ouinetStatus) {
+            RunningState.Started -> {
+                message = getString(R.string.ceno_ouinet_connected)
+                //set connected icon
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_connected_icon))
+            }
+            RunningState.Degraded -> {
+                message = getString(R.string.ceno_ouinet_connecting)
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_degraded_icon))
+            }
+            else -> {
+                message = getString(R.string.ceno_ouinet_disconnected)
+                //set disconnected icon
+                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_disconnected_icon))
+            }
         }
-        message?.let {
+        message.let {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
     }
@@ -301,6 +308,15 @@ class HomeFragment : BaseHomeFragment() {
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
 
         binding.sessionControlRecyclerView.itemAnimator = null
+
+        binding.cenoNetworkStatusIcon.setOnClickListener {
+            if(!isNetworkStatusDialogVisible) {
+                CenoNetworkStatusDialog(requireContext(), this, ouinetStatus) {
+                    isNetworkStatusDialogVisible = false
+                }.getDialog().show()
+                isNetworkStatusDialogVisible = true
+            }
+        }
     }
 
     override fun onStart() {
@@ -378,7 +394,7 @@ class HomeFragment : BaseHomeFragment() {
                     primaryText = getString(R.string.tooltip_toolbar_title),
                     secondaryText = getString(R.string.tooltip_toolbar_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
-                    buttonText = R.string.top_sites_rename_dialog_ok,
+                    buttonText = R.string.dialog_ok,
                     listener = { prompt: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {

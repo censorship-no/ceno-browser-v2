@@ -2,15 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_share_with">Dela med…</string>
     <string name="toast_copied">Kopierad!</string>
-    <string name="customize_addon_collection_ok">OK</string>
     <string name="bookmark_menu_open_in_private_tab_button">Öppna i privat flik</string>
     <string name="delete_from_history">Ta bort från historiken</string>
     <string name="shortcut_max_limit_title">Genvägsgränsen har nåtts</string>
     <string name="preferences_customization_summary">App-ikon, Verktygsfält, Rensa-knapp</string>
     <string name="toolbar_category">Alternativ för verktygsfält</string>
     <string name="rename_top_site">Byt namn</string>
-    <string name="preferences_customize_amo_collection">Anpassad tilläggssamling</string>
-    <string name="toast_customize_addon_collection_done">Tilläggssamlingen har ändrats. Avsluta programmet för att tillämpa ändringar…</string>
     <string name="content_description_private_browsing_button">Aktivera privat surfning</string>
     <string name="menu_action_close_tabs_private">Stäng privata flikar</string>
     <string name="privacy">Sekretess</string>
@@ -20,8 +17,6 @@
     <string name="open_links_in_apps">Öppna länkar i appar</string>
     <string name="tracker_category">Spårningsskydd</string>
     <string name="clear_button_category">Rensa-knapp</string>
-    <string name="customize_addon_collection_cancel">Avbryt</string>
-    <string name="customize_addon_collection_hint">Samlingens namn</string>
     <string name="remove_top_site">Ta bort</string>
     <string name="general_category">Allmänt</string>
     <string name="settings">Inställningar</string>
@@ -34,8 +29,7 @@
     <string name="preferences_tracking_protection_private">Aktivera i privat surfläge</string>
     <string name="theme_category">Tema</string>
     <string name="private_browsing_title">Privat surfning</string>
-    <string name="customize_addon_collection_user_hint">Samlingsägare (användar-ID)</string>
-    <string name="top_sites_rename_dialog_ok">Okej</string>
+    <string name="dialog_ok">Okej</string>
     <string name="top_sites_sponsored_label">Sponsrad</string>
     <string name="browser_menu_refresh">Uppdatera</string>
     <string name="browser_menu_desktop_site">Begär PC sida</string>
@@ -81,7 +75,7 @@
     <string name="preferences_delete_browsing_data">Ta bort bläddringsdata</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Öppna flikar</string>
     <string name="delete_browsing_data_prompt_message_3">Ceno kommer att ta bort vald bläddringsdata.</string>
-    <string name="top_sites_rename_dialog_cancel">Avbryt</string>
+    <string name="dialog_cancel">Avbryt</string>
     <string name="preferences_add_ons">Tillägg</string>
     <string name="browser_menu_add_to_shortcuts">Lägg till i genvägar</string>
     <string name="preferences_delete_browsing_data_button">Ta bort bläddringsdata</string>
@@ -130,4 +124,5 @@
     <string name="share_link_recent_apps_subheader">Nyligen använd</string>
     <string name="share_save_to_pdf">Spara som PDF</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

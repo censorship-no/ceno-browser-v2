@@ -7,4 +7,3 @@ This patch release:
 - Forces toolbar to top position for Android 7.1 and earlier
 - Minor bug fixes for crashes
 - Updates translations for various locales
-

@@ -11,10 +11,9 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.espresso.matcher.ViewMatchers.hasSibling
-import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.uiautomator.UiSelector
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
@@ -40,7 +39,6 @@ class ThreeDotMenuRobot {
     fun verifyRequestDesktopSiteToggleExists() = assertRequestDesktopSiteToggle()
     fun verifyAddToHomescreenButtonExists() = assertAddToHomescreenButton()
     fun verifyFindInPageButtonExists() = assertFindInPageButton()
-    fun verifyAddOnsButtonExists() = assertAddOnsButton()
     fun verifySyncedTabsButtonExists() = assertSyncedTabsButton()
     fun verifyReportIssueExists() = assertReportIssueButton()
     fun verifyOpenSettingsExists() = assertSettingsButton()
@@ -155,13 +153,6 @@ class ThreeDotMenuRobot {
             return SettingsViewRobot.Transition()
         }
 
-        fun openAddonsManager(interact: AddonsManagerRobot.() -> Unit): AddonsManagerRobot.Transition {
-            addOnsButton().click()
-
-            AddonsManagerRobot().interact()
-            return AddonsManagerRobot.Transition()
-        }
-
         /*
         fun openSyncedTabs(interact: SyncedTabsRobot.() -> Unit): SyncedTabsRobot.Transition {
             mDevice.findObject(UiSelector().text("Synced Tabs")).waitForExists(waitingTime)
@@ -172,11 +163,16 @@ class ThreeDotMenuRobot {
         }
         */
 
-        fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            mDevice.pressBack()
+        fun goBack(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            backButton().click()
+            mDevice.findObject(
+                UiSelector()
+                    .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
+            ).waitUntilGone(waitingTime)
+            mDevice.waitForIdle()
 
-            NavigationToolbarRobot().interact()
-            return NavigationToolbarRobot.Transition()
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
         }
 
         fun openAddToHomeScreen(interact: AddToHomeScreenRobot.() -> Unit): AddToHomeScreenRobot.Transition {
@@ -231,7 +227,6 @@ private fun findInPageButton() = onView(withText("Find in page"))
 private fun reportIssueButton() = onView(withText("Report issue"))
 private fun settingsButton() = onView(withText(R.string.browser_menu_settings))
 private fun addToHomescreenButton() = onView(withText("Add to Home screen"))
-private fun addOnsButton() = onView(withText("Add-ons"))
 private fun syncedTabsButton() = onView(withText("Synced Tabs"))
 private fun clearCenoButton() = onView(withText("Clear Ceno"))
 private fun addToShortcutsButton() = onView(withText("Add to shortcuts"))
@@ -273,8 +268,6 @@ private fun assertAddToHomescreenButton() = addToHomescreenButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertFindInPageButton() = findInPageButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertAddOnsButton() = addOnsButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertSyncedTabsButton() = syncedTabsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertReportIssueButton() = reportIssueButton()

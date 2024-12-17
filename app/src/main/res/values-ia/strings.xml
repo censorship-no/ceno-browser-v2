@@ -4,13 +4,11 @@
     <string name="top_sites_rename_dialog_title">Nomine</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Aperir ligamine in scheda personal</string>
     <string name="delete_from_history">Deler del chronologia</string>
-    <string name="customize_addon_collection_ok">OK</string>
     <string name="udp_category">UDP</string>
     <string name="browser_menu_desktop_site">Requestar sito de scriptorio</string>
     <string name="browser_menu_back">Retornar</string>
     <string name="toast_copied">Copiate!</string>
     <string name="customize_add_bootstrap_save">Salvar</string>
-    <string name="customize_addon_collection_cancel">Cancellar</string>
     <string name="bit_torrent_bootstraps_category">Lanceamiento initial de BitTorrent</string>
     <string name="preferences_customization_summary">Icone del app, Barra de instrumentos, button Rader</string>
     <string name="customize_extra_bittorrent_bootstrap">Lanciamiento additional de BitTorrent</string>
@@ -34,13 +32,10 @@
         <item quantity="other">%d schedas</item>
     </plurals>
     <string name="toolbar_category">Preferentias del barra de instrumentos</string>
-    <string name="customize_addon_collection_hint">Nomine del collection</string>
     <string name="open_links_in_apps">Aperir ligamines in apps</string>
-    <string name="top_sites_rename_dialog_ok">OK</string>
+    <string name="dialog_ok">OK</string>
     <string name="delete_browsing_data_prompt_cancel">Cancellar</string>
-    <string name="preferences_customize_amo_collection">Collection de additivos personalisate</string>
     <string name="rename_top_site">Renominar</string>
-    <string name="customize_addon_collection_user_hint">Proprietario del collection (ID de usator)</string>
     <string name="toolbar_hint">Cerca o insere un adresse</string>
     <string name="browser_menu_find_in_page">Trovar in pagina</string>
     <string name="clear_button_category">Button Rader</string>
@@ -53,7 +48,7 @@
     <string name="customization_settings">Personalisation</string>
     <string name="preferences_remote_debugging">Depuration remote via USB</string>
     <string name="browser_menu_library">Bibliotheca</string>
-    <string name="top_sites_rename_dialog_cancel">Cancellar</string>
+    <string name="dialog_cancel">Cancellar</string>
     <string name="close_mode_item">Clauder le notification</string>
     <string name="privacy" tools:ignore="UnusedResources">Confidentialitate</string>
     <string name="browser_menu_add_to_homescreen">Adder al schermo de initio</string>
@@ -78,7 +73,6 @@
     <string name="insecure_connection">Le connexion non es secur</string>
     <string name="not_applicable">N/D</string>
     <string name="preferences_website_sources_summary">Seliger de ubi tu vole cargar le contento del sito web</string>
-    <string name="toast_customize_addon_collection_done">Collection de additivos modificate. Quitante le application pro applicar le cambiamentos…</string>
     <string name="crash_report_non_fatal_message">Pardono, nos falleva</string>
     <string name="shortcut_max_limit_title">Limite de accessos directe attingite</string>
     <string name="shortcut_max_limit_content">Pro adder un nove accesso directe, remove un. Tocca e retene le sito e selige remover.</string>
@@ -108,4 +102,5 @@
     <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="content_description_close_button">Clauder</string>
     <string name="standby_tip_icon">Cambiar le icone de application pro celar Ceno</string>
+    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
 </resources>

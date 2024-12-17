@@ -1,5 +1,4 @@
 This patch release:
-
 - Updates Android-Components to 129.0.2
 - Updates Ouinet to v0.28.0
 - Updates UI for about page with new links and updated logos

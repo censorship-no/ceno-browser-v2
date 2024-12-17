@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="toast_customize_addon_collection_done">ایڈ آن کلیکشن میں ترمیم کی گئی۔ تبدیلیاں لاگو کرنے کے لیے ایپلیکیشن چھوڑ رہے ہیں…</string>
     <string name="top_sites_max_limit_confirmation_button">ٹھیک ہے، سمجھ آیا</string>
     <string name="button_content_readerview">قارئین کا منظر</string>
     <string name="secure_connection">کنکشن محفوظ ہے</string>
@@ -41,17 +40,13 @@
     <string name="preferences_delete_browsing_data_button">براؤزنگ ڈیٹا کو حذف کریں</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">ٹیبز کو کھولیں</string>
     <string name="preferences_tracking_protection_private">نجی براؤزنگ موڈ میں فعال کریں</string>
-    <string name="top_sites_rename_dialog_ok">ٹھیک ہے</string>
+    <string name="dialog_ok">ٹھیک ہے</string>
     <string name="delete_browsing_data_prompt_allow">حذف کریں</string>
     <string name="menu_share_with">کے ساتھ اشتراک کریں…</string>
     <string name="toast_copied">کاپی کیا گیا!</string>
     <string name="preferences_delete_browsing_data">براؤزنگ ڈیٹا کو حذف کریں</string>
     <string name="theme_category">تھیم</string>
-    <string name="customize_addon_collection_ok">ٹھیک ہے</string>
     <string name="clear_button_category">صاف کریں بٹن</string>
-    <string name="preferences_customize_amo_collection">حسب ضرورت ایڈ آن مجموعہ</string>
-    <string name="customize_addon_collection_cancel">منسوخ کریں</string>
-    <string name="customize_addon_collection_hint">مجموعہ کا نام</string>
     <string name="remove_top_site">ہٹائیں</string>
     <string name="delete_from_history">سرگزشت سے حذف کریں</string>
     <string name="shortcut_max_limit_title">شارٹ کٹ کی حد پوری ہو گئی</string>
@@ -59,7 +54,6 @@
     <string name="preference_search_summary">ڈیفالٹ سیٹ کریں</string>
     <string name="preferences_privacy_summary">ذاتی اور عوامی براؤزنگ کے لیے فعال کریں</string>
     <string name="crash_report_non_fatal_message">معذرت. ہم کریش ہوئے</string>
-    <string name="customize_addon_collection_user_hint">مجموعہ کا مالک (صارف کی ID)</string>
     <string name="rename_top_site">نام تبدیل کریں</string>
     <string name="general_category">عمومی</string>
     <string name="private_browsing_title">نجی براؤزنگ</string>
@@ -68,7 +62,7 @@
     <string name="content_description_private_browsing_button">نجی براؤزنگ کو فعال کریں</string>
     <string name="shortcut_max_limit_content">نیا شارٹ کٹ شامل کرنے کے لیے، ایک کو ہٹا دیں۔ سائٹ کو چھوئیں اور دبائے رکھیں اور ہٹائیں کو منتخب کریں۔</string>
     <string name="top_sites_rename_dialog_title">نام</string>
-    <string name="top_sites_rename_dialog_cancel">منسوخ کریں</string>
+    <string name="dialog_cancel">منسوخ کریں</string>
     <string name="top_sites_sponsored_label">سپانسر شدہ</string>
     <string name="browser_menu_forward">آگے</string>
     <string name="browser_menu_stop">روكيں</string>
@@ -196,4 +190,5 @@
     <string name="share_link_recent_apps_subheader">حال ہی میں استعمال کی گئی</string>
     <string name="download_logs">ڈاؤن لوڈ کریں</string>
     <string name="website_button_link">https://censorship.no/ur/index.html</string>
+    <string name="privacy_policy_url">https://censorship.no/ur/privacy_policy.html</string>
 </resources>

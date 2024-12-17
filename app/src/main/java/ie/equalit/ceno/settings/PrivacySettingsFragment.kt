@@ -19,15 +19,12 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.privacy_preferences, rootKey)
 
         val context = requireContext()
-        //val telemetryKey = context.getPreferenceKey(R.string.pref_key_telemetry)
         val trackingProtectionNormalKey = context.getPreferenceKey(R.string.pref_key_tracking_protection_normal)
         val trackingProtectionPrivateKey = context.getPreferenceKey(R.string.pref_key_tracking_protection_private)
 
-        //val prefTelemetry = findPreference<SwitchPreferenceCompat>(telemetryKey)
         val prefTrackingProtectionNormal = findPreference<SwitchPreferenceCompat>(trackingProtectionNormalKey)
         val prefTrackingProtectionPrivate = findPreference<SwitchPreferenceCompat>(trackingProtectionPrivateKey)
 
-        //prefTelemetry?.onPreferenceChangeListener = getChangeListenerForTelemetry()
         prefTrackingProtectionNormal?.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
             requireComponents.core.createTrackingProtectionPolicy(normalMode = enabled)
         }
@@ -35,14 +32,6 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
             requireComponents.core.createTrackingProtectionPolicy(privateMode = enabled)
         }
     }
-
-    /*
-    private fun getChangeListenerForTelemetry(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, _ ->
-            true
-        }
-    }
-    */
 
     private fun getChangeListenerForTrackingProtection(
         createTrackingProtectionPolicy: (Boolean) -> TrackingProtectionPolicy,

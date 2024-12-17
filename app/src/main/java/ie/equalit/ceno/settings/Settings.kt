@@ -29,29 +29,6 @@ object Settings {
             context.getString(R.string.pref_key_show_home_button), false
         )
 
-    fun isMobileDataEnabled(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_mobile_data), false
-        )
-
-    fun isTelemetryEnabled(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_telemetry),
-            true
-        )
-
-    fun getOverrideAmoUser(context: Context): String =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_override_amo_user),
-            ""
-        ) ?: ""
-
-    fun getOverrideAmoCollection(context: Context): String =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_override_amo_collection),
-            ""
-        ) ?: ""
-
     fun shouldShowSearchSuggestions(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_show_search_suggestions), false
@@ -61,6 +38,16 @@ object Settings {
             PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
                     context.getString(R.string.pref_key_update_search_engines), false
             )
+
+    fun shouldShowDeveloperTools(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_show_developer_tools), false
+        )
+
+    fun shouldBackdateCleanInsights(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_backdate), false
+        )
 
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
@@ -93,32 +80,20 @@ object Settings {
             .apply()
     }
 
-    fun setMobileData(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_mobile_data)
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(key, value)
-                .apply()
-    }
-
-    fun setOverrideAmoUser(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_override_amo_user)
+    fun setShowDeveloperTools(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_show_developer_tools)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putString(key, value)
+            .putBoolean(key, value)
             .apply()
     }
 
-    fun setOverrideAmoCollection(context: Context, value: String) {
-        val key = context.getString(R.string.pref_key_override_amo_collection)
+    fun setBackdateCleanInsights(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_backdate)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit()
-            .putString(key, value)
+            .putBoolean(key, value)
             .apply()
-    }
-
-    fun isAmoCollectionOverrideConfigured(context: Context): Boolean {
-        return getOverrideAmoUser(context).isNotEmpty() && getOverrideAmoCollection(context).isNotEmpty()
     }
 
     fun setAppIcon(context: Context, value: String?) {
@@ -235,6 +210,64 @@ object Settings {
             .apply()
     }
 
+    fun getLaunchCount(context: Context) : Long {
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(
+            context.getString(R.string.pref_key_app_launch_count), 0
+        )
+    }
+
+    fun incrementLaunchCount(context: Context) {
+        val key = context.getString(R.string.pref_key_app_launch_count)
+        var currentValue = getLaunchCount(context)
+        if (currentValue == Long.MAX_VALUE) currentValue = 0
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putLong(key, currentValue + 1)
+            .apply()
+    }
+
+    fun setCleanInsightsEnabled(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_enabled)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isCleanInsightsEnabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_enabled), false
+        )
+    }
+
+    fun setCleanInsightsDeviceType(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_include_device_type)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isCleanInsightsDeviceTypeIncluded(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_include_device_type), false
+        )
+    }
+
+    fun setCleanInsightsDeviceLocale(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_clean_insights_include_device_locale)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isCleanInsightsDeviceLocaleIncluded(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_clean_insights_include_device_locale), false
+        )
+    }
+
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -296,6 +329,12 @@ object Settings {
             .commit()
     }
 
+    fun isAnnouncementExpirationDisabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_rss_announcement_expire_disable), false
+        )
+    }
+
     fun getSwipedAnnouncementGuids(context: Context): List<String>? {
         val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_rss_past_announcement_data), null
@@ -331,9 +370,9 @@ object Settings {
                 text = rssAnnouncementResponse.text,
                 items = buildList {
                     rssAnnouncementResponse.items.forEach {
-                        if((swipedGuids == null || !swipedGuids.contains(it.guid))
-                            && it.guid.split("/").getOrNull(1)?.isDateMoreThanXDaysAway(30) == false
-                            ) {
+                        val pubDate : String = it.guid.split("/")[1]
+                        val isExpired = pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(context)
+                        if((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
                             add(it)
                         }
                     }
@@ -361,6 +400,19 @@ object Settings {
             .edit()
             .remove(key)
             .apply()
+    }
+
+    fun getRSSAnnouncementUrl(context: Context, locale : String) :String {
+        val baseUrl = context.getString(R.string.ceno_base_url)
+        val source = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_rss_announcement_source), context.getString(R.string.preferences_announcement_source_default)
+        )
+        return when (source) {
+            "1" -> "${baseUrl}/${locale}/rss-announce.xml"
+            "2" -> "${baseUrl}/${locale}/rss-announce-draft.xml"
+            "3" -> "${baseUrl}/${locale}/rss-announce-archive.xml"
+            else -> "${baseUrl}/${locale}/rss-announce.xml"
+        }
     }
 
 }

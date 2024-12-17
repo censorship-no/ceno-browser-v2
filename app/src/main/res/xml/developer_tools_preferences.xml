@@ -1,0 +1,39 @@
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/pref_key_remote_debugging"
+        android:title="@string/preferences_remote_debugging"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.Preference
+        android:defaultValue="false"
+        android:key="@string/pref_key_ceno_download_log"
+        android:title="@string/preferences_ceno_download_log"
+        app:iconSpaceReserved="false" />
+
+    <ListPreference
+        app:iconSpaceReserved="false"
+        android:key="@string/pref_key_rss_announcement_source"
+        android:title="@string/preferences_announcement_source"
+        android:summary="@string/preferences_announcement_source_summary"
+        android:defaultValue="@string/preferences_announcement_source_default"
+        android:entryValues="@array/preferences_announcement_source_values"
+        android:entries="@array/preferences_announcement_source_options"/>
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/pref_key_rss_announcement_expire_disable"
+        android:title="@string/preferences_announcement_expire_disable"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/pref_key_clean_insights_backdate"
+        android:title="@string/preferences_clean_insights_backdate"
+        app:isPreferenceVisible="false"
+        app:iconSpaceReserved="false" />
+
+</androidx.preference.PreferenceScreen>

@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -13,17 +12,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
-import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.TAG
@@ -36,7 +34,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.engine.prompt.ShareData
-import java.io.File
 
 class ExportAndroidLogsDialog (
     val context: Context,
@@ -52,7 +49,7 @@ class ExportAndroidLogsDialog (
         val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
         val checkboxDebugLogs = logTimeFilterDialogView.findViewById<CheckBox>(R.id.checkBox_debug_logs)
 
-        if(fragment is StandbyFragment) {
+        if(fragment is StandbyFragment || fragment is HomeFragment) {
             checkboxDebugLogs.visibility = View.VISIBLE
         } else {
             checkboxDebugLogs.visibility = View.GONE
@@ -62,7 +59,7 @@ class ExportAndroidLogsDialog (
             setTitle(R.string.select_log_scope_header)
             setMessage(R.string.select_log_scope_message)
             setView(logTimeFilterDialogView)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
 
                 //enable debug logs
@@ -193,10 +190,7 @@ class ExportAndroidLogsDialog (
             }
             setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
                 fragment.findNavController().navigate(
-                    if (fragment is StandbyFragment)
-                        R.id.action_standbyFragment_to_androidLogFragment
-                    else
-                        R.id.action_settingsFragment_to_androidLogFragment,
+                    R.id.action_global_androidLogFragment
                 )
                 onDismiss.invoke()
             }

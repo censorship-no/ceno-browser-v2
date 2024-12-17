@@ -35,13 +35,6 @@
             android:layout="@layout/ceno_clickable_preference"
             app:iconSpaceReserved="false" />
 
-        <androidx.preference.Preference
-            android:key="@string/pref_key_add_ons"
-            android:title="@string/preferences_add_ons"
-            android:layout="@layout/ceno_clickable_preference"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false" />
-
         <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="@string/pref_key_bridge_announcement"
@@ -65,6 +58,12 @@
             android:defaultValue="false"
             android:key="@string/pref_key_allow_crash_reporting"
             android:title="@string/preferences_allow_crash_reporting"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_key_clean_insights_enabled"
+            android:title="@string/preferences_allow_clean_insights_tracking"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
@@ -126,30 +125,26 @@
             android:title="@string/preferences_clear_ceno_cache"
             android:summary="@string/preferences_clear_ceno_cache_summary" />
 
-        <!--        <androidx.preference.Preference-->
-        <!--            android:defaultValue="0 B"-->
-        <!--            android:key="@string/pref_key_clear_ceno_cache"-->
-        <!--            android:summary="@string/preferences_clear_ceno_cache_summary"-->
-        <!--            android:title="@string/preferences_clear_ceno_cache"-->
-        <!--            app:iconSpaceReserved="false" />-->
-
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout="@layout/preference_category_style"
         android:title="@string/developer_tools_category">
 
-        <androidx.preference.SwitchPreferenceCompat
+        <androidx.preference.Preference
             android:defaultValue="false"
-            android:key="@string/pref_key_remote_debugging"
-            android:title="@string/preferences_remote_debugging"
+            android:key="@string/pref_key_ceno_website_sources"
+            android:title="@string/preferences_ceno_website_sources"
+            android:summary="@string/preferences_website_sources_summary"
+            android:layout="@layout/ceno_clickable_preference"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
-            android:key="@string/pref_key_override_amo_collection"
-            android:title="@string/preferences_customize_amo_collection"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"/>
+            android:key="@string/pref_key_privacy"
+            android:summary="@string/preferences_privacy_summary"
+            android:title="@string/tracker_category"
+            android:layout="@layout/ceno_clickable_preference"
+            app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:defaultValue="false"
@@ -173,23 +168,9 @@
 
         <androidx.preference.Preference
             android:defaultValue="false"
-            android:key="@string/pref_key_ceno_download_log"
-            android:title="@string/preferences_ceno_download_log"
-            app:iconSpaceReserved="false" />
-
-        <androidx.preference.Preference
-            android:key="@string/pref_key_privacy"
-            android:summary="@string/preferences_privacy_summary"
-            android:title="@string/tracker_category"
-            android:layout="@layout/ceno_clickable_preference"
-            app:iconSpaceReserved="false" />
-
-        <androidx.preference.Preference
-            android:defaultValue="false"
-            android:key="@string/pref_key_ceno_website_sources"
-            android:title="@string/preferences_ceno_website_sources"
-            android:summary="@string/preferences_website_sources_summary"
-            android:layout="@layout/ceno_clickable_preference"
+            android:key="@string/pref_key_additional_developer_tools"
+            android:title="@string/preferences_additional_developer_tools"
+            app:isPreferenceVisible="false"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>

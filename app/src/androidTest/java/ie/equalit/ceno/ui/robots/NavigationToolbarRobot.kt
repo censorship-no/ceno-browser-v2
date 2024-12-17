@@ -31,6 +31,8 @@ class NavigationToolbarRobot {
     fun verifyNewTabAddressView(url: String) = assertNewTabAddressText(url)
     fun verifyReaderViewButton() = assertReaderViewButton()
     fun checkNumberOfTabsTabCounter(numTabs: String) = numberOfOpenTabsTabCounter.check(matches(withText(numTabs)))
+    fun verifyContentSourcesSiteTitle() = assertContentSourcesSiteTitle()
+    fun verifyContentSourcesHeader() = assertContentSourcesHeader()
 
     class Transition {
 
@@ -62,6 +64,9 @@ class NavigationToolbarRobot {
                 .waitForExists(waitingTime)
             navThreeDotMenuButton().click()
             mDevice.waitForIdle()
+            // Additional sleep to avoid animation of menu opening
+            // causing duplicate matches with items in list
+            Thread.sleep(2000)
 
             ThreeDotMenuRobot().interact()
             return ThreeDotMenuRobot.Transition()
@@ -90,12 +95,22 @@ class NavigationToolbarRobot {
         }
 
         // TODO: this should return Robot for testings the content sources sheet
-        fun  openContentSourcesSheet(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+        fun  openContentSourcesSheet(interact: NavigationToolbarRobot.() -> Unit): Transition {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_tracking_protection_indicator"),
             ).waitForExists(waitingTime)
             contentSourcesButton().click()
+
+            NavigationToolbarRobot().interact()
+            return Transition()
+        }
+
+        fun  closeContentSourcesSheet(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            mDevice.findObject(
+                UiSelector()
+                    .resourceId("$packageName:id/design_bottom_sheet"),
+            ).swipeDown(50)
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()
@@ -118,6 +133,8 @@ private fun navThreeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_m
 private fun readerViewButton() = onView(withId(R.id.mozac_browser_toolbar_page_actions))
 
 private fun contentSourcesButton() = onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
+private fun contentSourcesSiteTitle() = onView(withId(R.id.site_title))
+private fun contentSourcesHeader() = onView(withText(R.string.ceno_sources_header))
 
 private fun assertNoTabAddressText() {
     mDevice.waitAndInteract(Until.findObject(By.text("Search or enter address"))) {}
@@ -135,3 +152,9 @@ private fun assertReaderViewButton() {
 
     readerViewButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
+
+private fun assertContentSourcesSiteTitle() = contentSourcesSiteTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertContentSourcesHeader() = contentSourcesHeader()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

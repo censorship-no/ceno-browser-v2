@@ -17,7 +17,6 @@ import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
-import okhttp3.internal.wait
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -78,10 +77,6 @@ class SettingsViewTest {
             verifyMakeDefaultBrowserButton()
 
             clickDownRecyclerView(1)
-            // extra click down for Add-ons option,
-            // which will be hidden soon
-
-            clickDownRecyclerView(1)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
 
@@ -90,6 +85,9 @@ class SettingsViewTest {
 
             clickDownRecyclerView(1)
             verifyCrashReportingButton()
+
+            clickDownRecyclerView(1)
+            verifyMetricsButton()
 
             clickDownRecyclerView(1)
             verifyDeleteBrowsingData()
@@ -123,11 +121,12 @@ class SettingsViewTest {
             verifyDeveloperToolsHeading()
 
             clickDownRecyclerView(1)
-            verifyRemoteDebugging()
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
 
             clickDownRecyclerView(1)
-            // extra click down for Custom Add-on Collection option,
-            // which will be hidden soon
+            verifyTrackingProtectionButton()
+            verifyTrackingProtectionSummary()
 
             clickDownRecyclerView(1)
             verifyCenoNetworkDetailsButton()
@@ -137,18 +136,13 @@ class SettingsViewTest {
             verifyEnableLogFile()
 
             clickDownRecyclerView(1)
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
-
-            clickDownRecyclerView(1)
-            verifyWebsiteSourcesButton()
-            verifyWebsiteSourcesSummary()
-
-            clickDownRecyclerView(1)
             verifyAboutHeading()
 
             clickDownRecyclerView(1)
             verifyCenoBrowserServiceDisplay()
+
+            clickDownRecyclerView(1)
+            verifyCenoVersionDisplay()
 
             clickDownRecyclerView(1)
             verifyGeckoviewVersionDisplay()
@@ -162,24 +156,22 @@ class SettingsViewTest {
         }
     }
 
-    /*
     @Test
     fun privacySettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(17)
+            verifyTrackingProtectionButton()
+            Thread.sleep(5000)
         }.openSettingsViewPrivacy {
             verifyPrivacyUpButton()
-            verifyPrivacySettings()
             verifyTrackingProtectionHeading()
             verifyTPEnableInNormalBrowsing()
             verifyTPEnableinPrivateBrowsing()
-            verifyDataChoicesHeading()
-            verifyUseTelemetryToggle()
-            verifyTelemetrySummary()
         }
     }
-     */
 
     @Test
     fun setDefaultBrowserTest() {
@@ -188,21 +180,6 @@ class SettingsViewTest {
         }.openSettings {
         }.makeDefaultBrowser {
             verifyAndroidDefaultApps()
-        }
-    }
-
-    @Test
-    fun remoteDebuggingViaUSB() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(16)
-            Thread.sleep(5000)
-            verifyRemoteDebugging()
-            toggleRemoteDebuggingOn()
-            toggleRemoteDebuggingOff()
-            toggleRemoteDebuggingOn()
         }
     }
 
@@ -216,26 +193,6 @@ class SettingsViewTest {
             Thread.sleep(5000)
         }.openSettingsViewAboutPage {
             verifyAboutBrowser()
-        }
-    }
-
-    /* Can't check further because after creating the custom add-on collection
-    the currently running process is terminated see:
-    /blob/master/app/src/main/java/org/mozilla/reference/browser/settings/SettingsFragment.kt#L217
-    Confirming the custom add-on collection creation or trying to continue testing afterwards
-    will cause the test instrumentation process to crash */
-    @Test
-    @Ignore("Custom add-on are disabled right now due to breaking changes with android-component-v128")
-    fun customAddonsCollectionTest() {
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(15)
-            Thread.sleep(5000)
-            verifyCustomAddonCollectionButton()
-            clickCustomAddonCollectionButton()
-            verifyCustomAddonCollectionPanelExist()
         }
     }
 
@@ -263,7 +220,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(19)
+            clickDownRecyclerView(16)
             Thread.sleep(5000)
         }.openSettingsViewSources {
             verifySourcesUpButton()
@@ -285,7 +242,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(16)
+            clickDownRecyclerView(18)
             verifyCenoNetworkDetailsButton()
             Thread.sleep(5000)
         }.openSettingsViewNetworkDetails {
@@ -307,8 +264,56 @@ class SettingsViewTest {
         }
     }
 
-    // TODO: log assertion is unreliable on Android 14+
-    @SdkSuppress(maxSdkVersion = 33)
+    @Test
+    fun developerToolsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(24)
+            verifyCenoVersionDisplay()
+            for (i in 0..8) {
+                clickCenoVersionDisplay()
+                Thread.sleep(2000)
+            }
+            Thread.sleep(5000)
+            verifyAdditionalDeveloperToolsButton()
+        }.openSettingsViewDeveloperTools {
+            verifyDeveloperToolsUpButton()
+            verifyDeveloperToolsHeading()
+            verifyRemoteDebugging()
+            toggleRemoteDebuggingOn()
+            toggleRemoteDebuggingOff()
+            verifyExportOuinetLog()
+            clickExportOuinetLog()
+            verifyExportOuinetLogDescription()
+            verifyExportOuinetLogDownload()
+            verifyExportOuinetLogView()
+            mDevice.pressBack()
+            verifyAnnouncementSource()
+            verifyAnnouncementSourceSummary()
+            clickAnnouncementSource()
+            verifyAnnouncementOption1()
+            verifyAnnouncementOption2()
+            verifyAnnouncementOption3()
+            clickCancelDialog()
+            verifyAnnouncementExpiration()
+            toggleAnnouncementExpirationOn()
+            toggleAnnouncementExpirationOff()
+        }.goBack {
+            Thread.sleep(5000)
+            verifyCenoVersionDisplay()
+            for (i in 0..8) {
+                clickCenoVersionDisplay()
+                Thread.sleep(2000)
+            }
+            Thread.sleep(5000)
+            verifyAdditionalDeveloperToolsButtonGone()
+        }
+    }
+
+    // TODO: log assertion is unreliable on Android 8- and Android 14+
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun enableLogFileTest() {
         navigationToolbar {
@@ -316,17 +321,21 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
             Thread.sleep(5000)
+            verifyExportLogButton()
         }.goBack {
-            assert(LogHelper.findInLogs("[DEBUG]", 10000))
+        }.enterUrlAndEnterToBrowser("https://example.com".toUri()){
+            // Do something that will generate ouinet logs
+            Thread.sleep(5000)
         }
+        assert(LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun disableLogFileTest() {
         enableLogFileTest()
@@ -335,17 +344,22 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
             Thread.sleep(5000)
+            verifyExportLogButtonGone()
         }.goBack {
+        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
+            // Do something else that will generate ouinet logs
             Thread.sleep(5000)
-            assert(!LogHelper.findInLogs("[DEBUG]", 10000))
         }
+        assert(!LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
+    // TODO: also relies on log assertion, which is unreliable on Android 14+
+    @SdkSuppress(minSdkVersion = 28)
     @Test
     fun enableBridgeModeTest() {
         /* This is a regression test for a bug found in MR !127, see this comment for more info
@@ -356,27 +370,31 @@ class SettingsViewTest {
             verifyOpenSettingsExists()
         }.openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(17)
+            clickDownRecyclerView(20)
             Thread.sleep(5000)
             verifyEnableLogFile()
             clickEnableLogFile()
-            clickUpRecyclerView(8)
+        }.goBack {
+        }.openThreeDotMenu {
+        }.openSettings {
             Thread.sleep(2000)
             verifyBridgeModeToggle()
             verifyBridgeModeSummary()
             clickBridgeModeToggle()
             waitForBridgeModeDialog()
-            Thread.sleep(5000)
+            Thread.sleep(15000)
             waitForThankYouDialog()
         }.goBack {
-            Thread.sleep(1000)
         }.openThreeDotMenu {
         }.openSettings {
+            // Settings page must be reopened for ouinet status API
+            // to be requested again and this message to be logged
+            Thread.sleep(1000)
             assert(LogHelper.findInLogs("bridge_announcement=true"))
         }
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
@@ -387,7 +405,7 @@ class SettingsViewTest {
         assert(LogHelper.findInLogs("[INFO] Log level set to: DEBUG"))
     }
 
-    @SdkSuppress(maxSdkVersion = 33)
+    @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()
@@ -395,6 +413,30 @@ class SettingsViewTest {
         Thread.sleep(5000)
         mDevice.executeShellCommand("svc wifi enable")
         Thread.sleep(15000)
-        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 20000))
+        assert(LogHelper.findInLogs("[INFO] Log level set to: INFO", 30000))
+    }
+
+    @Test
+    fun metricsSettingsItemsTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+            verifyOpenSettingsExists()
+        }.openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(11)
+            Thread.sleep(2000)
+            verifyMetricsButton()
+        }.openSettingsViewMetrics {
+            Thread.sleep(1000)
+            verifyMetricsHeading()
+            verifyMetricsSubHeading()
+            verifyMetricsOptionalMetrics()
+            verifyMetricsToggle1()
+            verifyMetricsToggle2()
+            verifyMetricsExplainer()
+            verifyMetricsLearnMore()
+            verifyMetricsNegativeButton()
+            verifyMetricsPositiveButton()
+        }
     }
 }

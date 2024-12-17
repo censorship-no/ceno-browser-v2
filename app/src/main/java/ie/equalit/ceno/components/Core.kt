@@ -56,7 +56,6 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.share.SaveToPDFMiddleware
 import java.util.concurrent.TimeUnit
 
@@ -201,11 +200,7 @@ class Core(private val context: Context) {
     }
 
     val addonProvider by lazy {
-        if (Settings.isAmoCollectionOverrideConfigured(context)) {
-            provideCustomAddonProvider()
-        } else {
-            provideDefaultAddonProvider()
-        }
+        provideDefaultAddonProvider()
     }
 
     /* CENO: add storage locations for pinned/suggested sites */
@@ -268,15 +263,6 @@ class Core(private val context: Context) {
             client = client,
             collectionName = "7dfae8669acc4312a65e8ba5553036",
             maxCacheAgeInMinutes = DAY_IN_MINUTES,
-        )
-    }
-
-    private fun provideCustomAddonProvider(): AMOAddonsProvider {
-        return AMOAddonsProvider(
-            context,
-            client,
-            collectionUser = Settings.getOverrideAmoUser(context),
-            collectionName = Settings.getOverrideAmoCollection(context),
         )
     }
 
