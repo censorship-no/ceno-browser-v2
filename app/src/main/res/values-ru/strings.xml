@@ -413,4 +413,16 @@
     <string name="preferences_announcement_expire_disable">Отключить истечение срока действия объявлений</string>
     <string name="developer_tools_enabled">Инструменты разработчика включены</string>
     <string name="developer_tools_disabled">Инструменты разработчика выключены</string>
+    <plurals name="developer_tools_enable_alert">
+        <item quantity="one">Остался %d клик до включения \"инструментов разработчика\"</item>
+        <item quantity="few">Осталось %d клика до включения \"инструментов разработчика\"</item>
+        <item quantity="many">Осталось %d клика до включения \"инструментов разработчика\"</item>
+        <item quantity="other">Осталось %d клика до включения \"инструментов разработчика\"</item>
+    </plurals>
+    <plurals name="developer_tools_disable_alert">
+        <item quantity="one">Остался %d клик до выключения \"инструментов разработчика\"</item>
+        <item quantity="few">Осталось %d клика до выключения \"инструментов разработчика\"</item>
+        <item quantity="many">Осталось %d клика до выключения \"инструментов разработчика\"</item>
+        <item quantity="other">Осталось %d клика до выключения \"инструментов разработчика\"</item>
+    </plurals>
 </resources>
