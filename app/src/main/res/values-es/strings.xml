@@ -324,7 +324,7 @@
     <string name="error_page_title">Página de error</string>
     <string name="browser_menu_enable_reader_view">Mostrar la vista del lector</string>
     <string name="error_page_sub_header">Esto significa que Ceno intentó todos los mecanismos disponibles para acceder al contenido, pero ninguno de ellos tuvo éxito:</string>
-    <string name="error_page_learn_more_1">Estás ejecutando una versión reciente del Navegador Ceno. Es posible que las versiones obsoletas no puedan comunicarse con inyectores más nuevos u otros clientes. Revisa la página de &lt;a href=\"https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share\"&gt;descargas&lt;/a&gt; para saber dónde obtener nuevas versiones.</string>
+    <string name="error_page_learn_more_1">Estás ejecutando una versión reciente del Navegador Ceno. Es posible que las versiones obsoletas no puedan comunicarse con inyectores más nuevos u otros clientes. Revisa la página de <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">descargas</a> para saber dónde obtener nuevas versiones.</string>
     <string name="error_page_learn_more_2">Todos los mecanismos de acceso de los Ajustes están activados. De lo contrario, Ceno no podrá sortear algunos problemas de conectividad al acceder a los contenidos.</string>
     <string name="error_page_learn_more_3">Tu dispositivo tiene una conexión a la red, es decir, su navegador Web normal es capaz de abrir algunas páginas web. Ceno y Ouinet no pueden funcionar cuando toda la conectividad a la red está desconectada.</string>
     <string name="preferences_clear_behavior_option_1">Inmediato</string>
