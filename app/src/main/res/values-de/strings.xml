@@ -60,7 +60,7 @@
     <string name="open_links_in_apps">Links in Anwendungen öffnen</string>
     <string name="developer_tools_category">Entwicklertools</string>
     <string name="top_sites_rename_dialog_title">Name</string>
-    <string name="dialog_cancel">Abbruch</string>
+    <string name="dialog_cancel">Abbrechen</string>
     <string name="shortcut_name_hint">Name der Verknüpfung</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Sie werden aus den meisten Seiten abgemeldet</string>
     <string name="preferences_delete_browsing_data_snackbar">Browsing-Daten gelöscht</string>
@@ -401,4 +401,5 @@
     <string name="ceno_support_ticket_subject">Ceno Support-Ticket</string>
     <string name="about_content_para_1">Ceno (kurz für censorship.no!) ist der weltweit erste mobile Browser, der die aktuellen Methoden der Internet-Zensur umgeht. Sein Peer-to-Peer-Backbone ermöglicht es den Menschen in Regionen, in denen die Internetverbindung unterbrochen oder kompromittiert ist, auf Webinformationen zuzugreifen und diese mit anderen zu teilen.</string>
     <string name="about_content_para_2">Der Ceno Browser ist ein Projekt von eQualitie – einer gemeinnützigen kanadischen Organisation, die dezentrale Internet-Dienste zur Unterstützung eines gleichwertigen und gerechten Netzwerks schafft. Die Software von eQualitie ist quelloffen, kampferprobt und im Hinblick auf unsere Werte entwickelt. Sie ermöglicht jeden Tag Millionen von Menschen online die Vereinigungsfreiheit.</string>
+    <string name="error_page_learn_more_3">Ihr Gerät hat eine funktionierende Internetverbindung, d.h. Ihr normaler Webbrowser ist in der Lage einige Webseiten zu öffnen. Ceno und Ouinet können nicht funktionieren, wenn alle Internetverbindung unterbrochen ist.</string>
 </resources>
