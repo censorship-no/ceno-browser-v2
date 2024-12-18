@@ -5,7 +5,7 @@
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
     <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
     <string name="preferences_remote_debugging">Depuración remota vía USB</string>
-    <string name="preferences_tracking_protection_private">Activar en modo de navegación personal</string>
+    <string name="preferences_tracking_protection_private">Habilitar en modo de navegación personal</string>
     <string name="privacy">Privacidad</string>
     <string name="open_links_in_apps">Abrir enlaces en apps</string>
     <string name="developer_tools_category">Herramientas de desarrollo</string>
@@ -18,7 +18,7 @@
     <string name="remove_top_site">Eliminar</string>
     <string name="delete_from_history">Eliminar del historial</string>
     <string name="shortcut_max_limit_title">Límite de accesos directos alcanzado</string>
-    <string name="shortcut_max_limit_content">Para añadir un nuevo acceso directo, elimina uno. Toca y mantén presionado el sitio y selecciona eliminar.</string>
+    <string name="shortcut_max_limit_content">Elimina un acceso directo para agregar uno nuevo. Mantén presionado el acceso directo y selecciona \"Eliminar\".</string>
     <string name="top_sites_max_limit_confirmation_button">Ok, Entendido</string>
     <string name="top_sites_rename_dialog_title">Nombre</string>
     <string name="shortcut_name_hint">Nombre de acceso directo</string>
@@ -41,7 +41,7 @@
     <string name="toolbar_category">Opciones de Barra de Herramientas</string>
     <string name="customization_settings">Personalización</string>
     <string name="menu_share_with">Compartir con…</string>
-    <string name="preferences_tracking_protection_normal">Habilitar en Modo de Navegación Normal</string>
+    <string name="preferences_tracking_protection_normal">Habilitar en modo de navegación pública</string>
     <string name="preferences_privacy_summary">Activar en Navegación Personal y Pública</string>
     <string name="browser_menu_library">Biblioteca</string>
     <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
