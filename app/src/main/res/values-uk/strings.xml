@@ -5,7 +5,7 @@
     <string name="menu_action_close_tabs">Закрити всі вкладки</string>
     <string name="menu_action_close_tabs_private">Закрити персональні вкладки</string>
     <string name="preferences_remote_debugging">Віддалене знаходження та усунення дефектів через USB</string>
-    <string name="preferences_tracking_protection_private">Увімкнено в режимі персонального перегляду</string>
+    <string name="preferences_tracking_protection_private">Увімкнути в режимі особистого перегляду</string>
     <string name="privacy">Приватність</string>
     <string name="open_links_in_apps">Відкривати посилання у застосунках</string>
     <string name="developer_tools_category">Інструменти розробника</string>
@@ -18,7 +18,7 @@
     <string name="remove_top_site">Вилучити</string>
     <string name="delete_from_history">Видалити з історії</string>
     <string name="shortcut_max_limit_title">Досягнуто обмеження кількості ярликів</string>
-    <string name="shortcut_max_limit_content">Щоб додати новий ярлик, вилучіть один. Торкніться й утримуйте сайт, потім виберіть вилучити.</string>
+    <string name="shortcut_max_limit_content">Видаліть ярлик, щоб додати новий. Натисніть і утримуйте ярлик, а потім виберіть «Видалити».</string>
     <string name="top_sites_max_limit_confirmation_button">Гаразд, зрозуміло</string>
     <string name="top_sites_rename_dialog_title">Назва</string>
     <string name="shortcut_name_hint">Назва ярлика</string>
@@ -41,7 +41,7 @@
     <string name="menu_share_with">Поділитися з…</string>
     <string name="toast_copied">Скопійовано!</string>
     <string name="preferences_customization_summary">Налаштування панелі інструментів</string>
-    <string name="preferences_tracking_protection_normal">Увімкнути в звичайному режимі перегляду</string>
+    <string name="preferences_tracking_protection_normal">Увімкнути в загальнодоступному режимі перегляду</string>
     <string name="preferences_privacy_summary">Відстеження, файли cookie, вибір даних</string>
     <string name="preferences_delete_browsing_data">Видалити дані перегляду</string>
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
