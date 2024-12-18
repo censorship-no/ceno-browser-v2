@@ -5,7 +5,7 @@
     <string name="menu_action_close_tabs">Cerrar Todas las Pestañas</string>
     <string name="menu_action_close_tabs_private">Cerrar las pestañas personales</string>
     <string name="preferences_remote_debugging">Depuración remota vía USB</string>
-    <string name="preferences_tracking_protection_private">Activar en modo de navegación personal</string>
+    <string name="preferences_tracking_protection_private">Habilitar en modo de navegación personal</string>
     <string name="privacy">Privacidad</string>
     <string name="open_links_in_apps">Abrir enlaces en apps</string>
     <string name="developer_tools_category">Herramientas de desarrollo</string>
@@ -18,7 +18,7 @@
     <string name="remove_top_site">Eliminar</string>
     <string name="delete_from_history">Eliminar del historial</string>
     <string name="shortcut_max_limit_title">Límite de accesos directos alcanzado</string>
-    <string name="shortcut_max_limit_content">Para añadir un nuevo acceso directo, elimina uno. Toca y mantén presionado el sitio y selecciona eliminar.</string>
+    <string name="shortcut_max_limit_content">Elimina un acceso directo para agregar uno nuevo. Mantén presionado el acceso directo y selecciona \"Eliminar\".</string>
     <string name="top_sites_max_limit_confirmation_button">Ok, Entendido</string>
     <string name="top_sites_rename_dialog_title">Nombre</string>
     <string name="shortcut_name_hint">Nombre de acceso directo</string>
@@ -41,7 +41,7 @@
     <string name="toolbar_category">Opciones de Barra de Herramientas</string>
     <string name="customization_settings">Personalización</string>
     <string name="menu_share_with">Compartir con…</string>
-    <string name="preferences_tracking_protection_normal">Habilitar en Modo de Navegación Normal</string>
+    <string name="preferences_tracking_protection_normal">Habilitar en modo de navegación pública</string>
     <string name="preferences_privacy_summary">Activar en Navegación Personal y Pública</string>
     <string name="browser_menu_library">Biblioteca</string>
     <string name="delete_browsing_data_prompt_cancel">Cancelar</string>
@@ -324,7 +324,7 @@
     <string name="error_page_title">Página de error</string>
     <string name="browser_menu_enable_reader_view">Mostrar la vista del lector</string>
     <string name="error_page_sub_header">Esto significa que Ceno intentó todos los mecanismos disponibles para acceder al contenido, pero ninguno de ellos tuvo éxito:</string>
-    <string name="error_page_learn_more_1">Estás ejecutando una versión reciente del Navegador Ceno. Es posible que las versiones obsoletas no puedan comunicarse con inyectores más nuevos u otros clientes. Revisa la página de &lt;a href=\"https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share\"&gt;descargas&lt;/a&gt; para saber dónde obtener nuevas versiones.</string>
+    <string name="error_page_learn_more_1">Estás ejecutando una versión reciente del Navegador Ceno. Es posible que las versiones obsoletas no puedan comunicarse con inyectores más nuevos u otros clientes. Revisa la página de <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">descargas</a> para saber dónde obtener nuevas versiones.</string>
     <string name="error_page_learn_more_2">Todos los mecanismos de acceso de los Ajustes están activados. De lo contrario, Ceno no podrá sortear algunos problemas de conectividad al acceder a los contenidos.</string>
     <string name="error_page_learn_more_3">Tu dispositivo tiene una conexión a la red, es decir, su navegador Web normal es capaz de abrir algunas páginas web. Ceno y Ouinet no pueden funcionar cuando toda la conectividad a la red está desconectada.</string>
     <string name="preferences_clear_behavior_option_1">Inmediato</string>

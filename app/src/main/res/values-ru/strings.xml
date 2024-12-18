@@ -315,7 +315,7 @@
         <item quantity="other">%d сайтов</item>
     </plurals>
     <string name="browser_menu_enable_reader_view">Показать режим чтения</string>
-    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на &lt;a href=\"https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share\"&gt;Download page&lt;/a&gt; чтобы скачать последнюю версию.</string>
+    <string name="error_page_learn_more_1">Ваша версия Ceno Browser устарела. Предыдущие версии могут не поддерживать работу новых инжекторов и других клиентов. Зайдите на <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Download page</a> чтобы скачать последнюю версию.</string>
     <string name="error_page_learn_more_2">Все механизмы доступа в Настройках включены. Иначе Ceno не сможет обойти некоторые проблемы связности при попытке доступа к контенту.</string>
     <string name="error_page_learn_more_3">У вашего устройства рабочее подключение к сети, ваш обычный веб-браузер может открыть некоторые сайты. Ceno и Ouinet не смогут работать если вся сетевая связность отсутствует.</string>
     <string name="content_description_close_button">Закрыть</string>

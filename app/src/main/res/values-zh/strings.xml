@@ -328,7 +328,7 @@
     <string name="error_page_header">Oops！无法加载页面。</string>
     <string name="error_page_learn_more">了解更多</string>
     <string name="error_page_learn_more_header">您应该确保满足以下要求，Ceno才能工作</string>
-    <string name="error_page_learn_more_1">您正在运行最新版本的 Ceno 浏览器。过时的版本可能无法与较新的注入器或其他客户端通信。请查看&lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;下载页面&lt;/a&gt;以查找最新版本。</string>
+    <string name="error_page_learn_more_1">您正在运行最新版本的 Ceno 浏览器。过时的版本可能无法与较新的注入器或其他客户端通信。请查看<a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">下载页面</a>以查找最新版本。</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="about_content_title">共享网络！</string>
     <string name="support_button_text">支持</string>

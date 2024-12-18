@@ -307,7 +307,7 @@
     <string name="browser_menu_enable_reader_view">Mostrar visualização do leitor</string>
     <string name="browser_menu_disable_reader_view">Ocultar visualização do leitor</string>
     <string name="error_page_header">Ops! Falha ao carregar a página da web.</string>
-    <string name="error_page_learn_more_1">Você está executando uma versão recente do Navegador Ceno. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Consulte a &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;página de download&lt;/a&gt; para saber onde obter as versões mais recentes.</string>
+    <string name="error_page_learn_more_1">Você está executando uma versão recente do Navegador Ceno. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Consulte a <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">página de download</a> para saber onde obter as versões mais recentes.</string>
     <string name="error_page_learn_more_2">Todos os mecanismos de acesso nas Configurações estão habilitados. Caso contrário, o Ceno não conseguirá evitar alguns problemas de conectividade ao acessar o conteúdo.</string>
     <string name="content_description_close_button">Fechar</string>
     <plurals name="preferences_ceno_groups_count_subtitle">
