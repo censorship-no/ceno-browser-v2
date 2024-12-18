@@ -18,7 +18,7 @@
     <string name="remove_top_site">Retirer</string>
     <string name="delete_from_history">Supprimer de l’historique</string>
     <string name="shortcut_max_limit_title">Le nombre maximal de raccourcis a été atteint</string>
-    <string name="shortcut_max_limit_content">Pour ajouter un nouveau raccourci, supprimez-en un. Touchez et maintenez le site et sélectionnez Retirer.</string>
+    <string name="shortcut_max_limit_content">Supprimez le raccourci pour en ajouter un nouveau. Appuyez longuement sur le raccourci, puis sélectionnez « Supprimer ».</string>
     <string name="top_sites_max_limit_confirmation_button">D’accord, j’ai compris</string>
     <string name="top_sites_rename_dialog_title">Nom</string>
     <string name="shortcut_name_hint">Nom du raccourci</string>
@@ -38,7 +38,7 @@
     <string name="button_content_readerview">Vue lecteur</string>
     <string name="crash_report_non_fatal_message">Désolé. Nous avons planté</string>
     <string name="toolbar_category">Options de la barre d’outils</string>
-    <string name="preferences_tracking_protection_normal">Activer en mode de navigation normal</string>
+    <string name="preferences_tracking_protection_normal">Activer en mode de navigation public</string>
     <string name="preferences_privacy_summary">Activer pour la navigation personnelle et publique</string>
     <string name="theme_category">Thème</string>
     <string name="preferences_customization_summary">Icône de l’appli, barre d’outils, bouton Effacer</string>
@@ -369,4 +369,11 @@
     <string name="optional_metrics">Métriques facultatives :</string>
     <string name="device_type">Type d\'appareil</string>
     <string name="device_locale">Local de l\'appareil (langue)</string>
+    <string name="preferences_allow_clean_insights_tracking">Autoriser les analyses en arrière-plan</string>
+    <string name="clean_insights_explainer">Votre contribution sera anonyme et vous pourrez vous désinscrire à tout moment.</string>
+    <string name="load_times">Heure de démarrage de l\'application</string>
+    <string name="clean_insights_opt_in">oui, m\'inscrire</string>
+    <string name="clean_insights_maybe_later">non, peut être plus tard</string>
+    <string name="clean_insights_successful_opt_in">Activer les analyses en arrière-plan</string>
+    <string name="clean_insights_successful_opt_out">désactiver les analyses en arrière-plan</string>
 </resources>
