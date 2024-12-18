@@ -319,7 +319,7 @@
     <string name="home_go_to_settings">Přejděte do Nastavení</string>
     <string name="error_page_sub_header">To znamená, že Ceno vyzkoušelo všechny dostupné mechanismy pro přístup k obsahu, ale žádný z nich neuspěl:</string>
     <string name="error_page_learn_more_2">Všechny přístupové mechanismy v Nastavení jsou povoleny. Jinak Ceno nebude moci obejít některé problémy s připojením při přístupu k obsahu.</string>
-    <string name="error_page_learn_more_1">Používáte nejnovější verzi prohlížeče Ceno. Zastaralé verze nemusí být schopny komunikovat s novějšími vstřikovači nebo jinými klienty. Zkontrolujte &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;Download page&lt;/a&gt; najít nejnovější verzi.</string>
+    <string name="error_page_learn_more_1">Používáte nejnovější verzi prohlížeče Ceno. Zastaralé verze nemusí být schopny komunikovat s novějšími vstřikovači nebo jinými klienty. Zkontrolujte <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">stránka ke stažení</a> najít nejnovější verzi.</string>
     <string name="error_page_learn_more_3">Vaše zařízení má funkční připojení k síti, tj. váš běžný webový prohlížeč je schopen otevřít některé webové stránky. Ceno a Ouinet nemohou fungovat, když je veškeré síťové připojení vypnuto.</string>
     <string name="ceno_home_card_public_title">VEŘEJNÉ</string>
     <string name="standby_message_one">Připojování k síti Ceno</string>

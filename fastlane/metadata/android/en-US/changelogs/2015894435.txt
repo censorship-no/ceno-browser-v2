@@ -1,5 +1,4 @@
 This official release:
-
 - Modifies the appearance of the Ceno Sources pop-up
 - Updates Android-Components library to v109.2.0
 - Updates Ouinet to v0.21.6
