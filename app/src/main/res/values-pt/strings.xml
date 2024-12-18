@@ -306,7 +306,7 @@
         <item quantity="other">%d sites</item>
     </plurals>
     <string name="browser_menu_enable_reader_view">Mostrar visualização do leitor</string>
-    <string name="error_page_learn_more_1">Você está executando uma versão recente do Ceno Browser. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Verifique a <a href="#">página de download</a> para saber onde obter novas versões.</string>
+    <string name="error_page_learn_more_1">Você está executando uma versão recente do Ceno Browser. Versões obsoletas podem não conseguir se comunicar com injetores mais recentes ou outros clientes. Verifique a <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">página de download</a> para saber onde obter novas versões.</string>
     <string name="error_page_learn_more_2">Todos os mecanismos de acesso nas Configurações estão habilitados. Caso contrário, o Ceno não conseguirá contornar alguns problemas de conectividade ao acessar o conteúdo.</string>
     <string name="error_page_learn_more_3">Seu dispositivo tem uma conexão ativa com a rede, ou seja, seu navegador normal é capaz de abrir alguns sites. Ceno e Ouinet não funcionam quando toda a conectividade de rede é desligada.</string>
     <string name="content_description_close_button">Fechar</string>

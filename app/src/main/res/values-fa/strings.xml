@@ -294,7 +294,7 @@
     <string name="error_page_sub_header">این یعنی سنو تمام روش‌های موجود را برای دسترسی به محتوا امتحان کرد، اما هیچ کدام موفق نبودند:</string>
     <string name="error_page_learn_more_header">برای این که سنو کار کند باید مطمئن شوید که الزامات زیر فراهم شده‌اند</string>
     <string name="error_page_learn_more_3">دستگاه شما دارای اتصال فعال به شبکه است، به عبارت دیگر مرورگر وب معمولی شما می‌تواند برخی از وب‌سایت‌ها را باز کند. سنو و وی‌نت نمی‌توانند زمانی که تمام اتصالات شبکه قطع شده کار کنند.</string>
-    <string name="error_page_learn_more_1">شما دارید از نسخه اخیر مرورگر سنو استفاده می‌کنید. ممکن است نسخه‌های قدیمی نتوانند با تزریق‌کننده‌ها یا سرویس‌گیرنده‌های جدیدتر ارتباط برقرار کنند. برای یافتن آخرین نسخه به &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;صفحه دانلود&lt;/a&gt; مراجعه کنید.</string>
+    <string name="error_page_learn_more_1">شما دارید از نسخه اخیر مرورگر سنو استفاده می‌کنید. ممکن است نسخه‌های قدیمی نتوانند با تزریق‌کننده‌ها یا سرویس‌گیرنده‌های جدیدتر ارتباط برقرار کنند. برای یافتن آخرین نسخه به <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">صفحه دانلود</a> مراجعه کنید.</string>
     <string name="content_description_close_button">بستن</string>
     <plurals name="preferences_ceno_groups_count_subtitle">
         <item quantity="one">%d سایت</item>
@@ -387,7 +387,7 @@
     <string name="ouinet_startup_time_5">۵</string>
     <string name="thank_you_for_feedback">از بازخورد شما سپاسگزاریم!</string>
     <string name="submit">ارسال</string>
-    <string name="ceno_base_url">https://censorship.no‌</string>
+    <string name="ceno_base_url">https://censorship.no</string>
     <string name="preferences_announcement_source">منبع اعلان</string>
     <string name="preferences_announcement_source_summary">تنظیم منبع اعلان‌های صفحه اصلی</string>
     <string name="preferences_announcement_source_option_2">پیش‌نویس (Draft)</string>

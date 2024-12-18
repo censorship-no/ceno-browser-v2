@@ -5,8 +5,8 @@
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
-    <string name="preferences_tracking_protection_normal">Enable in Normal Browsing Mode</string>
-    <string name="preferences_tracking_protection_private">Enable in Personal Browsing Mode</string>
+    <string name="preferences_tracking_protection_normal">Enable in Public browsing mode</string>
+    <string name="preferences_tracking_protection_private">Enable in Personal browsing mode</string>
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
     <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
@@ -39,7 +39,7 @@
     <string name="remove_top_site">Remove</string>
     <string name="delete_from_history">Delete from history</string>
     <string name="shortcut_max_limit_title">Shortcut limit reached</string>
-    <string name="shortcut_max_limit_content">To add a new shortcut, remove one. Touch and hold the site and select remove.</string>
+    <string name="shortcut_max_limit_content">Remove a shortcut to add a new one. Touch and hold the shortcut, then select \"Remove\".</string>
     <string name="top_sites_max_limit_confirmation_button">OK, Got It</string>
     <string name="top_sites_rename_dialog_title">Name</string>
     <string name="shortcut_name_hint">Shortcut name</string>
@@ -399,7 +399,7 @@
     <string name="error_page_sub_header">This means that Ceno tried all available mechanisms to access the content, but none of them succeeded:</string>
     <string name="error_page_learn_more">Learn more</string>
     <string name="error_page_learn_more_header">You should make sure that the following requirements are fulfilled for Ceno to work</string>
-    <string name="error_page_learn_more_1">You are running a recent version of Ceno Browser. Obsolete versions may not be able to communicate with newer injectors or other clients. Check the &lt;a href=https://play.google.com/store/apps/details?id=ie.equalit.ceno&amp;pcampaignid=web_share&gt;Download page&lt;/a&gt; to find the latest version.</string>
+    <string name="error_page_learn_more_1">You are running a recent version of Ceno Browser. Obsolete versions may not be able to communicate with newer injectors or other clients. Check the <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Download page</a> to find the latest version.</string>
     <string name="error_page_learn_more_2">All access mechanisms in the Settings are enabled. Otherwise Ceno will not be able to circumvent some connectivity issues when accessing content.</string>
     <string name="error_page_learn_more_3">Your device has a working connection to the network, i.e. your normal Web browser is able to open some websites. Ceno and Ouinet cannot work when all network connectivity is shut down.</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
