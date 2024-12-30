@@ -372,7 +372,7 @@
     <string name="preferences_allow_clean_insights_tracking">Autoriser les analyses en arrière-plan</string>
     <string name="clean_insights_explainer">Votre contribution sera anonyme et vous pourrez vous désinscrire à tout moment.</string>
     <string name="load_times">Heure de démarrage de l\'application</string>
-    <string name="clean_insights_opt_in">oui, m\'inscrire</string>
+    <string name="clean_insights_opt_in">Oui, inscrivez-moi</string>
     <string name="clean_insights_maybe_later">non, peut être plus tard</string>
     <string name="clean_insights_successful_opt_in">Activer les analyses en arrière-plan</string>
     <string name="clean_insights_successful_opt_out">désactiver les analyses en arrière-plan</string>
