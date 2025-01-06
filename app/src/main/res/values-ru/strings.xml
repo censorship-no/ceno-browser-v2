@@ -36,7 +36,7 @@
     <string name="browser_menu_add_to_shortcuts">Добавить в ярлыки</string>
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
     <string name="button_content_readerview">Вид читателя</string>
-    <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
+    <string name="preferences_tracking_protection_normal">Включить в режиме публичного просмотра</string>
     <string name="menu_share_with">Поделиться с …</string>
     <string name="toast_copied">Скопировано!</string>
     <string name="preferences_customization_summary">Параметры панели инструментов</string>
