@@ -5,7 +5,7 @@
     <string name="menu_action_close_tabs">Закрыть все вкладки</string>
     <string name="menu_action_close_tabs_private">Закрыть личные вкладки</string>
     <string name="preferences_remote_debugging">Удалённая отладка по USB</string>
-    <string name="preferences_tracking_protection_private">Включить в режиме личного просмотра</string>
+    <string name="preferences_tracking_protection_private">Включить в режиме Личного просмотра</string>
     <string name="privacy">Приватности</string>
     <string name="open_links_in_apps">Открывать ссылки в приложениях</string>
     <string name="developer_tools_category">Инструменты разработчика</string>
