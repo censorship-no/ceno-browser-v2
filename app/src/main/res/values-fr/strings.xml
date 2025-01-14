@@ -415,4 +415,8 @@
     <string name="preferences_announcement_source_option_3">Archive</string>
     <string name="developer_tools_enabled">Outils de développeur activés</string>
     <string name="developer_tools_disabled">Outils de développeur désactivés</string>
+    <string name="preferences_show_standby_warning">Afficher un avertissement en cas d\'expiration du délai de démarrage</string>
+    <string name="preferences_announcement_source">Source de l\'annonce</string>
+    <string name="preferences_announcement_source_summary">Définir la source des annonces de la page d\'accueil</string>
+    <string name="preferences_announcement_expire_disable">Désactiver l\'expiration de l\'annonce</string>
 </resources>
