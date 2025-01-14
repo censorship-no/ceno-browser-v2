@@ -69,9 +69,8 @@ class CenoNetworkStatusDialog(
             alertDialog.dismiss()
             //Add mailto link to support@censorship.no
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                setData(Uri.parse("mailto:"))
-                putExtra(Intent.EXTRA_EMAIL, "support@censorship.no")
-                putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.ceno_support_ticket_subject))
+                setData(Uri.parse("mailto:support@censorship.no" +
+                        "?subject=" + Uri.encode(context.getString(R.string.ceno_support_ticket_subject))))
             }
             if (intent.resolveActivity(context.packageManager) != null) {
                 startActivity(context, intent, null)
