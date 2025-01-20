@@ -1,3 +1,12 @@
+# v2.4.0
+Bu sürümde:
+- İlk "Temiz içgörüler" ölçüm kampanyası eklendi
+- Gizli bir geliştirici araçları alt menüsü eklendi
+- 'en' yerel ayarı dizgeleri eklendi
+- Tek renkli başlatma simgeleri desteği eklendi
+- Android-Components v133.0.3 sürümüne güncellendi
+- Giriş sayfasına Ceno ağı bağlantı durumu simgesi eklendi
+
 # v2.3.3
 Bu sürümde:
 - Ceno eklentileri 1.8.1 sürümüne güncellendi
@@ -8,8 +17,10 @@ Bu sürümde:
 Bu sürümde:
 - Android bileşenleri 132.0 sürümüne güncelendi
 - Arayüz testleri güncellendi
-- Küçük ekranlı cihazlar için araç çubukları düzenlendi
+- Küçük ekranlı cihazlar için ipuçları düzeltildi
 - İzinler yeniden düzenlendi ve Ayarlar bölümünden kaldırma seçeneği eklendi
+- Ouinet v0.30.1 sürümüne güncellendi
+- Zaman aşımı penceresine "Yine de Ceno uygulamasına git" seçeneği eklendi
 - Kaydırmada araç çubuğunun gizlenmesi sorunu düzeltildi
 
 # v2.3.1
@@ -43,7 +54,6 @@ Bu yama sürümünde:
 
 # v2.2.2
 Bu yama sürümünde:
-
 - Android bileşenleri 129.0.2 sürümüne güncellendi
 - Ouinet 0.28.0 sürümüne güncellendi
 - Kullanıcı arayüzü Hakkında sayfasına yeni bağlantılar eklenti ve logolar güncellendi
