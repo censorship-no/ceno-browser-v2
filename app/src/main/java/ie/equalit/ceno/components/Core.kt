@@ -14,7 +14,6 @@ import mozilla.components.browser.state.engine.EngineMiddleware
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.storage.sync.PlacesHistoryStorage
-import mozilla.components.browser.storage.sync.RemoteTabsStorage
 import mozilla.components.browser.thumbnails.ThumbnailsMiddleware
 import mozilla.components.browser.thumbnails.storage.ThumbnailStorage
 import mozilla.components.concept.engine.DefaultSettings
@@ -42,7 +41,6 @@ import mozilla.components.feature.top.sites.PinnedSiteStorage
 import mozilla.components.feature.webnotifications.WebNotificationFeature
 import mozilla.components.lib.dataprotect.SecureAbove22Preferences
 import mozilla.components.service.location.LocationService
-import mozilla.components.service.sync.logins.SyncableLoginsStorage
 import mozilla.components.support.base.worker.Frequency
 import ie.equalit.ceno.AppRequestInterceptor
 import ie.equalit.ceno.BrowserActivity
@@ -146,21 +144,6 @@ class Core(private val context: Context) {
      * A convenience accessor to the [PlacesHistoryStorage].
      */
     val historyStorage by lazy { lazyHistoryStorage.value }
-
-    /**
-     * The storage component to persist logins data (username/password) for websites.
-     */
-    val lazyLoginsStorage = lazy { SyncableLoginsStorage(context, lazySecurePrefs) }
-
-    /**
-     * A convenience accessor to the [SyncableLoginsStorage].
-     */
-    val loginsStorage by lazy { lazyLoginsStorage.value }
-
-    /**
-     * The storage component to sync and persist tabs in a Firefox Sync account.
-     */
-    val lazyRemoteTabsStorage = lazy { RemoteTabsStorage(context) }
 
     /**
      * A storage component for persisting thumbnail images of tabs.
