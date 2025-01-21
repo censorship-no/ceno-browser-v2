@@ -23,6 +23,7 @@ import mozilla.components.concept.engine.EngineSession
 import mozilla.components.support.ktx.android.view.putCompoundDrawablesRelativeWithIntrinsicBounds
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import org.json.JSONObject
+import java.util.Locale
 
 
 class WebExtensionActionPopupPanel(
@@ -100,9 +101,9 @@ class WebExtensionActionPopupPanel(
         val injector = if (counts.has(BaseBrowserFragment.INJECTOR)) counts.getString(BaseBrowserFragment.INJECTOR).toFloat() else 0F
         val origin = if (counts.has(BaseBrowserFragment.ORIGIN)) counts.getString(BaseBrowserFragment.ORIGIN).toFloat() else 0F
 
-        binding.tvViaCenoNetworkCount.text = (proxy.plus(injector)).toInt().toString()
-        binding.tvViaCenoCacheCount.text = distCache.toInt().toString()
-        binding.tvDirectFromWebsiteCount.text = origin.toInt().toString()
+        binding.tvViaCenoNetworkCount.text = String.format(Locale.getDefault(),"%d", proxy.plus(injector).toInt())
+        binding.tvViaCenoCacheCount.text = String.format(Locale.getDefault(),"%d", distCache.toInt())
+        binding.tvDirectFromWebsiteCount.text = String.format(Locale.getDefault(),"%d", origin.toInt())
 
 
         val sum = distCache + origin + injector + proxy
