@@ -1,19 +1,19 @@
 [versions]
 
 # AndroidX
-androidx_activity_compose = "1.9.2"
+androidx_activity_compose = "1.10.0"
 androidx_appcompat = "1.7.0"
-androidx_compose = "1.7.3"
-androidx_constraintlayout = "2.1.4"
-androidx_core = "1.13.1"
-androidx_lifecycle = "2.8.6"
-androidx_navigation = "2.8.2"
+androidx_compose = "1.7.6"
+androidx_constraintlayout = "2.2.0"
+androidx_core = "1.15.0"
+androidx_lifecycle = "2.8.7"
+androidx_navigation = "2.8.5"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.1.0"
-androidx_work = "2.9.1"
+androidx_work = "2.10.0"
 
 # Android Components
-android_components = "133.0.3"
+android_components = "134.0.1"
 
 # Google
 google_composecompiler = "1.5.14"
@@ -21,7 +21,7 @@ google_material = "1.12.0"
 
 # Gradle
 #noinspection AndroidGradlePluginVersion
-gradle_android_plugin = "8.5.2"
+gradle_android_plugin = "8.6.1"
 gradle_kotlin_plugin = "1.9.24"
 
 # Kotlin
@@ -32,7 +32,7 @@ kotlin_serialization = "1.6.3"
 testing_androidx_core = "1.6.1"
 testing_androidx_espresso = "3.6.1"
 testing_androidx_ext_junit = "1.2.1"
-testing_androidx_orchestrator = "1.5.0"
+testing_androidx_orchestrator = "1.5.1"
 testing_androidx_runner = "1.6.2"
 testing_androidx_uiautomator = "2.3.0"
 testing_jacoco = "0.8.10"

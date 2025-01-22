@@ -235,4 +235,19 @@
     <string name="preferences_privacy_summary">Aktifkan untuk Penjelajahan Privat dan Publik</string>
     <string name="preferences_website_sources_summary">Pilih dari mana Anda ingin memuat konten situs web</string>
     <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="preferences_delete_browsing_data">Hapus data penjelajahan</string>
+    <string name="preference_category_search" tools:ignore="UnusedResources">Pencarian</string>
+    <string name="customize_extra_bittorrent_bootstrap">BitTorrent bootstraps ekstra</string>
+    <string name="update">Perbarui</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Tambahkan bootstraps kustom</string>
+    <string name="top_sites_title">Pintasan</string>
+    <string name="crash_report_non_fatal_message" tools:ignore="UnusedResources">Maaf. Terjadi kesalahan</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">Pisahkan IPs dengan koma</string>
+    <string name="select_extra_bt_source">Pilih extra BItTorrent bootstrap</string>
+    <string name="browser_menu_find_in_page">Cari dalam halaman</string>
+    <string name="browser_menu_add_to_shortcuts">Tambahkan ke pintasan</string>
+    <string name="browser_menu_remove_from_shortcuts">Hapus dari pintasan</string>
+    <string name="customize_add_bootstrap_save">Simpan</string>
+    <string name="content_description_private_browsing_button" tools:ignore="UnusedResources">aktifkan penelusuran pribadi</string>
 </resources>
