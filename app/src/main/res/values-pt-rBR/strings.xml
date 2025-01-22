@@ -363,4 +363,14 @@
     <string name="startup_category">Inicialização</string>
     <string name="ceno_permissions_category">Permissões</string>
     <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
+    <string name="preferences_allow_clean_insights_tracking">Permitir analytics em segundo plano</string>
+    <string name="device_type">Tipo de dispositivo</string>
+    <string name="clean_insights_header">Ajude a melhorar o Ceno!</string>
+    <string name="clean_insights_sub_header">Nos gostaríamos de armazenar as seguintes métricas até 31 de Janeiro de 2025:</string>
+    <string name="clean_insights_explainer">Sua contribuição será anônima, e você pode cancelá-la a qualquer momento.</string>
+    <string name="optional_metrics">Métricas opcionais:</string>
+    <string name="load_times">Tempo de inicialização da aplicação</string>
+    <string name="device_locale">Configuração regional do dispositivo (idioma)</string>
+    <string name="clean_insights_opt_in">SIM, QUERO CONTRIBUIR</string>
+    <string name="clean_insights_maybe_later">NÃO, TALVEZ DEPOIS</string>
 </resources>

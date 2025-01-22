@@ -5,7 +5,7 @@
     <string name="menu_action_close_tabs">Закрыть все вкладки</string>
     <string name="menu_action_close_tabs_private">Закрыть личные вкладки</string>
     <string name="preferences_remote_debugging">Удалённая отладка по USB</string>
-    <string name="preferences_tracking_protection_private">Включить в режиме личного просмотра</string>
+    <string name="preferences_tracking_protection_private">Включить в режиме Личного просмотра</string>
     <string name="privacy">Приватности</string>
     <string name="open_links_in_apps">Открывать ссылки в приложениях</string>
     <string name="developer_tools_category">Инструменты разработчика</string>
@@ -18,7 +18,7 @@
     <string name="remove_top_site">Удалить</string>
     <string name="delete_from_history">Удалить из истории</string>
     <string name="shortcut_max_limit_title">Достигнут лимит ярлыков</string>
-    <string name="shortcut_max_limit_content">Чтобы добавить ярлык, удалите другой ярлык. Нажмите и удерживайте карточку с сайтом, а затем нажмите «Удалить».</string>
+    <string name="shortcut_max_limit_content">Удалите ярлык, чтобы добавить новый. Нажмите и удерживайте ярлык, затем нажмите «Удалить».</string>
     <string name="top_sites_max_limit_confirmation_button">OK, понятно</string>
     <string name="top_sites_rename_dialog_title">Имя</string>
     <string name="shortcut_name_hint">Название ярлыка</string>
@@ -36,7 +36,7 @@
     <string name="browser_menu_add_to_shortcuts">Добавить в ярлыки</string>
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
     <string name="button_content_readerview">Вид читателя</string>
-    <string name="preferences_tracking_protection_normal">Включить в режиме обычного просмотра</string>
+    <string name="preferences_tracking_protection_normal">Включить в режиме публичного просмотра</string>
     <string name="menu_share_with">Поделиться с …</string>
     <string name="toast_copied">Скопировано!</string>
     <string name="preferences_customization_summary">Параметры панели инструментов</string>
@@ -303,7 +303,7 @@
     <string name="canceled">Отменен</string>
     <string name="download_site_content">Скачать содержимое сайта</string>
     <string name="confirm_groups_file_download">Экспортировать список разданного контента?</string>
-    <string name="confirm_groups_file_download_desc">На вашем устройстве будет сохранен txt файл.</string>
+    <string name="confirm_groups_file_download_desc">.txt файл будет сохранен на вашем устройстве.</string>
     <string name="no_content_shared">Сейчас вы не раздаете контент</string>
     <string name="dismiss">Закрыть</string>
     <string name="confirm_clear_cached_content">Очистить кэшированный контент?</string>
@@ -362,7 +362,7 @@
     <string name="tooltip_sources_description">Вы можете посмотреть, как Ceno получил контент веб-страницы — напрямую с сайта, через сеть Ceno или из децентрализованного кэша</string>
     <string name="tooltip_toolbar_title">Поехали!</string>
     <string name="tooltip_toolbar_description">Введите адрес сайта</string>
-    <string name="start_tooltip_description">Экскурсия по браузеру — расскажем о ключевых функциях и предложим выдать два разрешения, чтобы Ceno мог работать в фоне и обеспечивать связь для вас и для других пользователей.</string>
+    <string name="start_tooltip_description">Экскурсия по браузеру — расскажем о ключевых функциях и предложим выдать два разрешения, чтобы Ceno мог работать в фоне и обеспечивать связь для Вас и для других пользователей.</string>
     <string name="tooltip_permission_text">Чтобы обеспечить постоянный обмен веб-сайтами в сети Ceno, — даже в фоновом режиме, — мы предложим разрешить Ceno отправлять уведомления и отключить оптимизацию батареи. Вы всегда можете отозвать эти разрешения в настройках.</string>
     <string name="select_language">Выберите язык:</string>
     <string name="standby_take_me_anyway">Всё равно зпустить браузер</string>

@@ -28,11 +28,77 @@
     <string name="share_link_all_apps_subheader">Összes művelet</string>
     <string name="share_link_recent_apps_subheader">Nemrég használt</string>
     <string name="share_save_to_pdf">Mentés PDF-ként</string>
-    <string name="toolbar_hint">Keressen vagy írjon be egy E-mail címet.</string>
-    <string name="menu_action_add_tab">Új ablak hozzáadása</string>
+    <string name="toolbar_hint">Keressen vagy, írja be az URL-t</string>
+    <string name="menu_action_add_tab">Új lap hozzáadása</string>
     <string name="menu_action_close_tabs">Az összes ablak bezárása</string>
     <string name="menu_action_close_tabs_private">A személyes ablakok bezárása</string>
     <string name="website_button_link">https://censorship.no/en/index.html</string>
     <string name="select_language">Válasszon nyelvet:</string>
     <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
+    <string name="change_language">Nyelv módosítása</string>
+    <string name="update">Frissítés</string>
+    <string name="top_sites_title">Parancsikonok</string>
+    <string name="onboarding_welcome_title">Üdvözlünk a Ceno-ban</string>
+    <string name="onboarding_btn_get_started">Kezdés</string>
+    <string name="onboarding_permissions_title">Engedély szükséges</string>
+    <string name="browsing_mode_card_title">Böngészési mód</string>
+    <string name="start_tooltip_description">Oldja fel a Ceno teljes potenciálját – Vegyen részt egy útmutató túrán, hogy felfedezze a főbb funkciókat, és engedélyezze az alkalmazásnak a szükséges jogosultságokat, hogy az internetet akkor is megoszthassa, amikor az alkalmazás a háttérben fut.</string>
+    <string name="skip_the_tour_button">Túra kihagyása</string>
+    <string name="btn_next">Következő</string>
+    <string name="btn_exit">Kilépés</string>
+    <string name="tooltip_toolbar_description">Írjon be egy weboldal címet a böngészés megkezdéséhez</string>
+    <string name="tooltip_sources_title">Ceno Források</string>
+    <string name="tooltip_sources_description">Könnyen megtekintheti, honnan származik a webhely tartalma – közvetlenül a weboldalról, a Ceno hálózaton keresztül vagy a Ceno gyorsítótárából</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="one">%d lap</item>
+        <item quantity="other">%d lapok</item>
+    </plurals>
+    <string name="ceno_home_card_personal_title">SZEMÉLYES</string>
+    <string name="onboarding_battery_text" tools:ignore="UnusedResources">Hamarosan az operációs rendszer engedélyt kér arra, hogy \n \n• Kikapcsolja az akkumulátor-optimalizálást. \n \nEz szükséges ahhoz, hogy a weboldalakat továbbra is megoszthassa, miközben az alkalmazás a háttérben fut</string>
+    <string name="onboarding_public_or_personal_title">Nyilvános vagy Személyes?</string>
+    <string name="onboarding_info_title" tools:ignore="UnusedResources">Nem egy átlagos böngésző</string>
+    <string name="onboarding_warning_text_v33_2" tools:ignore="UnusedResources">Az értesítések nem engedélyezettek, és az akkumulátor-optimalizálás továbbra is engedélyezve van. \n \nLépjen a \"Beállítások\" menüpontra, hogy később megadja az engedélyeket</string>
+    <string name="onboarding_battery_button">Folytatás</string>
+    <string name="onboarding_cleanup_text">Egyetlen gombnyomással törölheti böngészési előzményeit, hitelesítési adatait és minden nyomot, amelyet a Ceno-ban hagyott.</string>
+    <string name="top_sites_sponsored_label">Szponzorált</string>
+    <string name="onboarding_battery_text_v33" tools:ignore="UnusedResources">Hamarosan az operációs rendszer engedélyt kér arra, hogy \n \n• Engedélyezze az Értesítéseket \n• Kikapcsolja az akkumulátor-optimalizálást\n \nEz szükséges ahhoz, hogy a weboldalakat továbbra is megoszthassa, miközben az alkalmazás a háttérben fut</string>
+    <string name="onboarding_warning_title" tools:ignore="UnusedResources">Engedély megtagadva</string>
+    <string name="onboarding_warning_text_v33_1" tools:ignore="UnusedResources">Az értesítések nem engedélyezettek. \n \nLépjen a \"Beállítások &gt; Értesítések engedélyezése\" menüpontra, hogy később engedélyezze</string>
+    <string name="open_links_in_apps">Linkek megnyitása alkalmazásokban</string>
+    <string name="settings">Beállítások</string>
+    <string name="customization_settings">Testreszabás</string>
+    <string name="top_sites_rename_dialog_title">Név</string>
+    <string name="delete_browsing_data_prompt_allow">Törlés</string>
+    <string name="preferences_delete_browsing_data_snackbar">Böngészési adatok törölve</string>
+    <string name="deleting_browsing_data_in_progress">Böngészési adatok törlése…</string>
+    <string name="preferences_delete_browsing_data">Böngészési adatok törlése</string>
+    <string name="preferences_delete_browsing_data_cookies">Sütik</string>
+    <string name="onboarding_warning_button">Rendben</string>
+    <string name="preferences_show_onboarding">Eszköztippek megjelenítése a következő indításkor</string>
+    <string name="preferences_disable_battery_opt">Akkumulátor-optimalizálás</string>
+    <string name="ceno_data_category">Adatok</string>
+    <string name="preferences_ceno_cache_size">Helyi gyorsítótár</string>
+    <string name="preferences_clear_ceno_cache_summary">Helyileg gyorsítótárazott webtartalom törlése</string>
+    <string name="preferences_ceno_website_sources">Webhelyforrások</string>
+    <string name="preferences_ceno_bridge_announcement">Híd mód engedélyezése</string>
+    <string name="changeIconCtaAccept">Alkalmazás</string>
+    <string name="changeIconCtaCancel">Mégse</string>
+    <string name="onboarding_public_personal_text">Használja a Nyilvános lapokat hírek olvasására, videók nézésére és általános böngészésre. Nyilvános módban megoszthat webes tartalmakat más Ceno felhasználókkal is. A Személyes lapok jobban megfelelnek közösségi médiafiókokhoz, online vásárláshoz és olyan weboldalak böngészéséhez, amelyeket nem szeretne másokkal megosztani.</string>
+    <string name="ceno_home_card_public_title">NYILVÁNOS</string>
+    <string name="enable_bridge_card_title">Híd mód engedélyezése</string>
+    <string name="bridge_mode_ip_warning_text">Vegye figyelembe, hogy ezzel az Ön nyilvános IP-címe láthatóvá válik más Ceno felhasználók számára.</string>
+    <string name="browser_menu_add_to_shortcuts">Hozzáadás a parancsikonokhoz</string>
+    <string name="browser_menu_remove_from_shortcuts">Eltávolítás a parancsikonok közül</string>
+    <string name="onboarding_cleanup_title">Mindent töröl, \nmindenhol, egyszerre</string>
+    <string name="onboarding_warning_text" tools:ignore="UnusedResources">Az akkumulátor-optimalizálás továbbra is engedélyezve van. \n \nLépjen a \"Beállítások &gt; Akkumulátor-optimalizálás kikapcsolása\" menüpontra, hogy később engedélyezze</string>
+    <string name="preferences_delete_browsing_data_site_permissions">Oldal Engedélyek</string>
+    <string name="delete_browsing_data_prompt_cancel">Mégse</string>
+    <string name="dialog_cancel">Mégse</string>
+    <string name="onboarding_thanks_title" tools:ignore="UnusedResources">Köszönjük, hogy hozzájárul a hálózat növekedéséhez!</string>
+    <string name="ceno_permissions_category">Engedélyek</string>
+    <string name="preferences_allow_notifications">Értesítések</string>
+    <string name="preferences_clear_ceno_cache">Gyorsítótárazott tartalom törlése</string>
+    <string name="preferences_ceno_groups_count">Az Ön által megosztott tartalom</string>
+    <string name="tooltip_shortcuts_description">Mentse kedvenc webhelyeit parancsikonként, hogy könnyen elérhesse azokat a kezdőlapjáról.</string>
+    <string name="tooltip_toolbar_title">Kezdjünk el böngészni!</string>
 </resources>
