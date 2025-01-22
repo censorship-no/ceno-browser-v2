@@ -17,7 +17,7 @@
     <string name="toast_copied">Kopyalandı!</string>
     <string name="menu_action_close_tabs_private">Kişisel sekmeleri kapat</string>
     <string name="preferences_remote_debugging">USB ile uzaktan hata ayıklama</string>
-    <string name="preferences_tracking_protection_private">Kişisel gezinme kipinde aç</string>
+    <string name="preferences_tracking_protection_private">Kişisel gezinme kipinde etkinleştir</string>
     <string name="browser_menu_settings">Ayarlar</string>
     <string name="browser_menu_remove_from_shortcuts">Kısayollardan kaldır</string>
     <string name="preference_show_search_suggestions">Arama önerileri görüntülensin</string>
@@ -32,7 +32,7 @@
     <string name="preferences_delete_browsing_data_cached_files">Ön bellekteki görsel ve dosyalar</string>
     <string name="preferences_delete_browsing_data_button">Gezinme verilerini sil</string>
     <string name="preferences_privacy_summary">Kişisel ve herkese açık gezinme kiplerinde aç</string>
-    <string name="preferences_tracking_protection_normal">Normal gezinme kipinde aç</string>
+    <string name="preferences_tracking_protection_normal">Genel gezinme kipinde etkinleştir</string>
     <string name="browser_menu_refresh">Yenile</string>
     <string name="browser_menu_back">Geri</string>
     <string name="browser_menu_stop">Durdur</string>
@@ -45,7 +45,7 @@
     <string name="tracker_category">İzlenme koruması</string>
     <string name="shortcut_max_limit_title">Kısayol sınırına ulaşıldı</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Depolama alanını boşaltır</string>
-    <string name="shortcut_max_limit_content">Yeni bir kısayol eklemek için, var olan birini kaldırın. Siteye dokunup basılı tutun ve kaldırın.</string>
+    <string name="shortcut_max_limit_content">Yeni bir kısayol eklemek için, var olan birini kaldırın. Kısayola dokunup basılı tutun, ardından \"Kaldır\" seçin.</string>
     <string name="top_sites_max_limit_confirmation_button">Tamam, anladım</string>
     <string name="crash_report_non_fatal_message">Ne yazık ki uygulama çöktü</string>
     <string name="top_sites_rename_dialog_title">Ad</string>
@@ -273,7 +273,7 @@
     <string name="no_content_shared">Şu anda herhangi bir içerik paylaşmıyorsunuz</string>
     <string name="dismiss">Yoksay</string>
     <string name="confirm_groups_file_download">Paylaşılan içerik listesini dışa aktar?</string>
-    <string name="confirm_groups_file_download_desc">Yerel depolama alanınıza bir txt dosyası kaydedilecektir.</string>
+    <string name="confirm_groups_file_download_desc">Yerel depolama alanınıza bir .txt dosyası kaydedilecek.</string>
     <string name="confirm_clear_cached_content">Önbelleğe alınmış içeriği temizleyin?</string>
     <string name="confirm_clear_cached_content_desc">Önbelleğe alınan içeriğiniz hemen kaldırılacaktır</string>
     <string name="browser_menu_share">Paylaş</string>
@@ -295,7 +295,7 @@
         <item quantity="one">%d site</item>
         <item quantity="other">%d siteler</item>
     </plurals>
-    <string name="error_page_learn_more_1">Ceno Browser\'ın son sürümünü kullanıyorsunuz. Eski sürümler yeni injectorler veya clientlar tarafından erişilemeyebilir. <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Buradan</a> son sürümü kontrol edebilirsiniz.</string>
+    <string name="error_page_learn_more_1">Son Ceno Browser sürümünü kullanıyorsunuz. Eski sürümlere yeni içerik ekleyiciler veya istemciler tarafından erişilemeyebilir. <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Buradan</a> son sürümü kontrol edebilirsiniz.</string>
     <string name="error_page_learn_more_3">Cihazınızın ağ bağlantısı var, yani normal Web tarayıcınız bazı web sitelerini açabiliyor. Ceno ve Ouinet, ağ bağlantısı kapalı olduğunda çalışamaz.</string>
     <string name="preferences_clear_behavior_option_3">Uygulama verilerini ve Ceno önbelleğini temizleyin</string>
     <string name="preferences_theme_option_1">Koyu</string>
@@ -326,7 +326,7 @@
     <string name="top_sites_title">Kısayollar</string>
     <string name="preferences_change_language">Dili değiştir</string>
     <string name="enable_debug_logs">Hata ayıklama günlüğünü etkinleştir</string>
-    <string name="start_tooltip_description">Ceno uygulamasının tam potansiyelini kullanın - Anahtar özellikleri keşfetmek için tura katılın ve uygulama arka plandayken bile internet içeriklerini paylaşmasına izin verin.</string>
+    <string name="start_tooltip_description">Ceno uygulamasının tam potansiyelini kullanın – Önemli özellikleri keşfetmek için tura katılın ve uygulama arka plandayken bile internet içeriklerini paylaşmasına izin verin.</string>
     <string name="tooltip_toolbar_title">Haydi gezinmeye başlayalım!</string>
     <string name="tooltip_toolbar_description">Gezinmeye başlamak için bir site adresi yazın</string>
     <string name="tooltip_sources_title">Ceno kaynakları</string>
@@ -340,15 +340,15 @@
     <string name="ceno_permissions_category">İzinler</string>
     <string name="status_enabled">Açık</string>
     <string name="status_disabled">Kapalı</string>
-    <string name="clean_insights_sub_header">31 Ocak 2025\'e kadar aşağıdaki ölçümleri kaydetmek istiyoruz:</string>
+    <string name="clean_insights_sub_header">31 Ocak 2025 tarihine kadar şu ölçümleri kaydetmek istiyoruz:</string>
     <string name="optional_metrics">İsteğe bağlı ölçümler:</string>
-    <string name="device_type">Cihaz tipi</string>
+    <string name="device_type">Aygıt türü</string>
     <string name="load_times">Uygulama başlangıç zamanı</string>
-    <string name="device_locale">Cihaz yereli (dil)</string>
-    <string name="clean_insights_opt_in">EVET, BENİ DAHİL ET</string>
+    <string name="device_locale">Aygıt yerel ayarı (dil)</string>
+    <string name="clean_insights_opt_in">EVET, KATILAYIM</string>
     <string name="clean_insights_maybe_later">HAYIR, BELKİ SONRA</string>
-    <string name="clean_insights_successful_opt_in">Etkin arka plan analitikleri</string>
-    <string name="clean_insights_successful_opt_out">Devre dışı arka plan analitikleri</string>
+    <string name="clean_insights_successful_opt_in">Arka planda istatistik toplama açık</string>
+    <string name="clean_insights_successful_opt_out">Arka planda istatistik toplama kapalı</string>
     <string name="ouinet_startup_time_too_long">Çok uzun</string>
     <string name="ouinet_startup_time_quick">Hızlı</string>
     <string name="ouinet_startup_time_2">2</string>
@@ -363,28 +363,29 @@
     <string name="preferences_announcement_source_option_1">Üretim</string>
     <string name="preferences_announcement_source_option_2">Taslak</string>
     <string name="preferences_announcement_source_option_3">Arşiv</string>
-    <string name="preferences_announcement_expire_disable">Duyuru zaman aşımını devre dışı bırak</string>
+    <string name="preferences_announcement_expire_disable">Duyuru zaman aşımını kapat</string>
     <plurals name="developer_tools_disable_alert">
-        <item quantity="one">Geliştirici seçeneklerini devre dışı bırakmaya %d dokunuş</item>
-        <item quantity="other">Geliştirici seçeneklerini devre dışı bırakmaya %d dokunuş</item>
+        <item quantity="one">Geliştirici seçeneklerini kapatmaya %d dokunuş kaldı</item>
+        <item quantity="other">Geliştirici seçeneklerini kapatmaya %d dokunuş kaldı</item>
     </plurals>
-    <string name="developer_tools_enabled">Geliştirici araçları etkinleştirildi</string>
-    <string name="developer_tools_disabled">Geliştirici araçları devre dışı</string>
-    <string name="preferences_allow_clean_insights_tracking">Arka plan analitiklerine izin ver</string>
-    <string name="clean_insights_header">Ceno\'yu daha iyi yapmaya yardım et!</string>
-    <string name="clean_insights_explainer">Katkınız anonimdir, ve her zaman vazgeçebilirsiniz.</string>
-    <string name="ouinet_startup_time_header">Ceno\'nun başlaması sizce ne kadar uzun sürüyor?</string>
+    <string name="developer_tools_enabled">Geliştirici araçları açık</string>
+    <string name="developer_tools_disabled">Geliştirici araçları kapalı</string>
+    <string name="preferences_allow_clean_insights_tracking">Arka planda istatistikler toplansın</string>
+    <string name="clean_insights_header">Ceno uygulamasının daha iyi olmasına yardım edin!</string>
+    <string name="clean_insights_explainer">Katkınız anonim olur ve istediğiniz zaman vazgeçebilirsiniz.</string>
+    <string name="ouinet_startup_time_header">Ceno uygulamasının başlaması sizce ne kadar sürüyor?</string>
     <string name="ouinet_startup_time_1">1</string>
     <string name="ouinet_startup_time_5">5</string>
-    <string name="preferences_announcement_source_summary">Ana sayfa duyurularının kaynağını belirle</string>
+    <string name="preferences_announcement_source_summary">Giriş sayfası duyurularının kaynağını ayarla</string>
     <plurals name="developer_tools_enable_alert">
-        <item quantity="one">Geliştirici seçeneklerini etkinleştirmeye %d dokunuş</item>
-        <item quantity="other">Geliştirici seçeneklerini etkinleştirmeye %d dokunuş</item>
+        <item quantity="one">Geliştirici seçeneklerini açmaya %d dokunuş kaldı</item>
+        <item quantity="other">Geliştirici seçeneklerini açmaya %d dokunuş kaldı</item>
     </plurals>
-    <string name="ceno_network_status_disconnected">Bağlantı Kesildi. Ek bilgi için ağ ayarlarınıza bakın ya da logları dışa aktarın.</string>
-    <string name="ceno_network_status_title">Ceno Ağ Durumu</string>
-    <string name="contact_support">Destek Talebi</string>
-    <string name="ceno_support_ticket_subject">Ceno Destek Ticket\'i</string>
-    <string name="ceno_network_status_degraded">Ceno ağına bağlanıyor. Bazı siteler kullanım dışı olabilir. Ek bilgi için ağ ayarlarınızı kontrol edin ya da logları dışa aktarın.</string>
-    <string name="ceno_network_status_connected">Ceno ağına tamamen bağlı. Engelli siteler erişilebilir olmalı.</string>
+    <string name="ceno_network_status_disconnected">Bağlantı kesildi. Ek bilgi almak için ağ ayarlarınıza bakın ya da günlükleri dışa aktarın.</string>
+    <string name="ceno_network_status_title">Ceno ağ durumu</string>
+    <string name="contact_support">Destek ekibiyle görüşün</string>
+    <string name="ceno_support_ticket_subject">Ceno destek kaydı</string>
+    <string name="ceno_network_status_degraded">Ceno ağı ile bağlantı kuruluyor. Bazı sitelere erişilemeyebilir. Ek bilgi almak için ağ ayarlarınızı kontrol edin ya da günlükleri dışa aktarın.</string>
+    <string name="ceno_network_status_connected">Ceno ağına tam olarak bağlı. Engelli sitelere erişilebiliyor olmalı.</string>
+    <string name="preferences_clean_insights_backdate">Geriye dönük tarih ölçümlerini aç</string>
 </resources>

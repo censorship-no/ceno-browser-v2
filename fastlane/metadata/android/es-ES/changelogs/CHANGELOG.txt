@@ -1,6 +1,6 @@
 # v2.4.0
 Esta versión:
-- Implementa la campaña inicial de métricas Clean Insights
+- Implementa la campaña inicial de métricas "Clean Insights"
 - Añade un submenú oculto de herramientas para desarrolladores
 - Añade cadenas de configuración regional
 - Admite iconos monocromos en el lanzador
