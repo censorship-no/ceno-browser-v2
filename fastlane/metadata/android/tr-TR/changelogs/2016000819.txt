@@ -1,5 +1,4 @@
 Bu yama sürümünde:
-
 - Android bileşenleri 129.0.2 sürümüne güncellendi
 - Ouinet 0.28.0 sürümüne güncellendi
 - Kullanıcı arayüzü Hakkında sayfasına yeni bağlantılar eklenti ve logolar güncellendi

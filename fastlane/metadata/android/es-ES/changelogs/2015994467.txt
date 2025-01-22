@@ -1,6 +1,5 @@
 Esta versión del parche:
-
-- Actualiza Android-Components a 128.0.3
-- Corrección de un fallo de IllegalStateException relacionado con el icono de estado de la barra de herramientas
-- Mejoras menores en la interfaz de usuario de la página de error, incluida la acción de deslizar para actualizar.
-- Se actualizan las traducciones para determinadas localizaciones, especialmente el persa
+- Actualiza los componentes de Android a 128.0.3
+- Se solucionó el error IllegalStateException relacionado con el ícono de estado de la barra de herramientas
+- Mejoras menores en la interfaz de usuario de la página de error, incluida la acción de deslizar para actualizar
+- Actualiza las traducciones para ciertas configuraciones regionales, especialmente el persa

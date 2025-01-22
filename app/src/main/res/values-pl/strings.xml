@@ -13,7 +13,7 @@
     <string name="menu_action_close_tabs">Zamknij wszystkie karty</string>
     <string name="menu_action_close_tabs_private">Zamknij karty osobiste</string>
     <string name="preferences_remote_debugging">Zdalne debugowanie przez USB</string>
-    <string name="preferences_tracking_protection_normal">Zezwalaj w normalnym trybie przeglądania</string>
+    <string name="preferences_tracking_protection_normal">Zezwalaj w Publicznym trybie przeglądania</string>
     <string name="preferences_delete_browsing_data">Usuń historię przeglądania</string>
     <string name="top_sites_rename_dialog_title">Nazwa</string>
     <string name="shortcut_max_limit_title">Osiągnięto limit skrótów</string>
@@ -51,7 +51,7 @@
     <string name="remove_top_site">Usuń</string>
     <string name="top_sites_max_limit_confirmation_button">Ok, zrozumiano</string>
     <string name="developer_tools_category">Narzędzia Developerskie</string>
-    <string name="shortcut_max_limit_content">Aby dodać nowy skrót, usuń jeden istniejący. Dotknij i przytrzymaj stronę, a następnie wybierz opcję \'Usuń\'.</string>
+    <string name="shortcut_max_limit_content">Aby dodać nowy skrót, usuń jeden istniejący. Dotknij i przytrzymaj skrót, a następnie wybierz opcję \'Usuń\'.</string>
     <string name="browser_menu_library">Biblioteka</string>
     <string name="dialog_cancel">Anuluj</string>
     <string name="browser_menu_add_to_homescreen">Dodaj do ekranu głównego</string>
@@ -323,7 +323,7 @@
     </plurals>
     <string name="error_page_learn_more">Dowiedz się więcej</string>
     <string name="error_page_learn_more_1">Używasz najnowszej wersji przeglądarki Ceno. Przestarzałe wersje mogę nie być w stanie komunikować się z nowszymi wtryskiwaczami lub innymi klientami. Sprawdź <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">stronę pobierania</a> aby znaleźć najnowszą wersję.</string>
-    <string name="confirm_groups_file_download_desc">Plik tekstowy zostanie zapisany w pamięci urządzenia.</string>
+    <string name="confirm_groups_file_download_desc">Plik .txt zostanie zapisany w pamięci urządzenia.</string>
     <string name="error_page_title">Strona błędu</string>
     <string name="error_page_header">Ups! Nie udało się wczytać strony internetowej.</string>
     <string name="error_page_sub_header">To oznacza, że Ceno próbowało wszystkich możliwych mechanizmów aby uzyskać dostęp do treści, ale żaden nie zadziałał:</string>
