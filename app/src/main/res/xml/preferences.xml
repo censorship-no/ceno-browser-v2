@@ -64,6 +64,7 @@
             android:defaultValue="false"
             android:key="@string/pref_key_clean_insights_enabled"
             android:title="@string/preferences_allow_clean_insights_tracking"
+            app:isPreferenceVisible="false"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
