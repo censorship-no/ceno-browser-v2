@@ -3,6 +3,7 @@ package ie.equalit.ceno.metrics.campaign001
 import android.content.Context
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.isDatePast
 import ie.equalit.ceno.settings.Settings
 import org.cleaninsights.sdk.CleanInsights
 import org.cleaninsights.sdk.Feature
@@ -90,9 +91,14 @@ class Campaign001(private val cleanInsights: CleanInsights) {
         )
     }
 
+    fun isExpired() : Boolean {
+       return EXPIRATION_DATE.isDatePast()
+    }
+
     companion object {
         const val ID = "ouinet-startup-time"
         const val ASK_FOR_ANALYTICS_LIMIT = 5
         const val ASK_FOR_SURVEY_LIMIT = 10
+        const val EXPIRATION_DATE = "2025-01-31 23:59:59"
     }
 }
