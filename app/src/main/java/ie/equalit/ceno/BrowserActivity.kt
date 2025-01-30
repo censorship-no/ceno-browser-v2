@@ -37,6 +37,8 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.browser.notification.PublicNotificationFeature
+import ie.equalit.ceno.browser.notification.PublicNotificationService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
@@ -70,7 +72,6 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
-import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
@@ -94,6 +95,9 @@ open class BrowserActivity : BaseActivity() {
 
     private val tab: SessionState?
         get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
+
+    private var publicNotificationObserver: PublicNotificationFeature<PublicNotificationService>? =
+        null
 
     private val webExtensionPopupObserver by lazy {
         WebExtensionPopupObserver(components.core.store, ::openPopup)
@@ -186,12 +190,21 @@ open class BrowserActivity : BaseActivity() {
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
         }
 
+        publicNotificationObserver = PublicNotificationFeature(
+            applicationContext,
+            components.core.store,
+            PublicNotificationService::class,
+        ).also {
+            it.start()
+        }
+
         if (Settings.shouldShowOnboarding(this)) {
             components.cenoPreferences.nextTooltip = BEGIN_TOUR_TOOLTIP
         }
 
         navHost.navController.popBackStack() // Remove startupFragment from backstack
 
+        Log.d("NOTIF", "${components.core.store.state.selectedTab}")
         when {
 //                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
             components.ouinet.background.getState() != RunningState.Started.toString() -> {
@@ -333,10 +346,17 @@ open class BrowserActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         components.notificationsDelegate.unBindActivity(this)
+        publicNotificationObserver?.stop()
     }
 
     override fun onResume() {
         super.onResume()
+        //if user has closed all tabs using the notification, go to home fragment
+        //need to figure out a better and seamless way to do this
+        if (components.core.store.state.selectedTab == null) {
+            navHost.navController.popBackStack()
+            navHost.navController.navigate(R.id.action_global_home)
+        }
         if (components.ouinet.background.getState() != RunningState.Started.toString()) {
             if (navHost.navController.currentDestination?.id  != R.id.standbyFragment) {
                 navHost.navController.popBackStack()
