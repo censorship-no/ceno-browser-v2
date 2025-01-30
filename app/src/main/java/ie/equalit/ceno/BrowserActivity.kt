@@ -139,7 +139,8 @@ open class BrowserActivity : BaseActivity() {
 
                 if( !Settings.isCleanInsightsEnabled(this@BrowserActivity) &&
                     Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_ANALYTICS_LIMIT &&
-                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity)
+                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity) &&
+                    !components.metrics.campaign001.isExpired()
                     ) {
                     components.metrics.campaign001.launchCampaign(this@BrowserActivity) { granted ->
                         if (granted) {
@@ -171,15 +172,7 @@ open class BrowserActivity : BaseActivity() {
         }
 
         Logger.info(" --------- Starting ouinet service")
-        components.ouinet.let {
-            it.setOnNotificationTapped {
-                beginShutdown(false)
-            }
-            it.setOnConfirmTapped {
-                beginShutdown(true)
-            }
-            it.setBackground(this)
-        }
+        components.ouinet.setBackground(this)
 
         components.ouinet.background.startup()
 
