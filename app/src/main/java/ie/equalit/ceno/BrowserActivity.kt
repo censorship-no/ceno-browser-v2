@@ -43,8 +43,7 @@ import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
-import ie.equalit.ceno.metrics.campaign001.Campaign001.Companion.ASK_FOR_ANALYTICS_LIMIT
-import ie.equalit.ceno.metrics.campaign001.Campaign001.Companion.ASK_FOR_SURVEY_LIMIT
+import ie.equalit.ceno.metrics.autotracker.AutoTracker.Companion.ASK_FOR_ANALYTICS_LIMIT
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -70,7 +69,6 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
-import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
@@ -129,6 +127,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        components.metrics.autoTracker.measureVisit(listOf(TAG))
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -139,10 +138,9 @@ open class BrowserActivity : BaseActivity() {
 
                 if( !Settings.isCleanInsightsEnabled(this@BrowserActivity) &&
                     Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_ANALYTICS_LIMIT &&
-                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity) &&
-                    !components.metrics.campaign001.isExpired()
+                    !components.metrics.autoTracker.isPromptCompleted(this@BrowserActivity)
                     ) {
-                    components.metrics.campaign001.launchCampaign(this@BrowserActivity) { granted ->
+                    components.metrics.autoTracker.launchCampaign(this@BrowserActivity, showLearnMore = true) { granted ->
                         if (granted) {
                             // success toast message
                             Toast.makeText(
@@ -153,7 +151,7 @@ open class BrowserActivity : BaseActivity() {
 
                             // log Ouinet startup time if it already has a value
                             if (ouinetStartupTime > 0.0) {
-                                components.metrics.campaign001.measureEvent(
+                                components.metrics.autoTracker.measureEvent(
                                     startupTime = ouinetStartupTime
                                 )
                             }
@@ -294,21 +292,9 @@ open class BrowserActivity : BaseActivity() {
                         if(!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
                             if(Settings.isCleanInsightsEnabled(this@BrowserActivity)) {
-                                components.metrics.campaign001.measureEvent(
+                                components.metrics.autoTracker.measureEvent(
                                     startupTime = ouinetStartupTime
                                 )
-                                // check if this is the (n % 20 == 0)th launch and show the Ouinet prompt if true
-                                if(Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_SURVEY_LIMIT &&
-                                    !components.metrics.campaign001.isSurveyCompleted(this@BrowserActivity)
-                                    ) {
-                                    components.metrics.campaign001.promptSurvey(this@BrowserActivity) {
-                                        Toast.makeText(
-                                            this@BrowserActivity,
-                                            getString(R.string.thank_you_for_feedback),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
                             }
                             hasOuinetStarted = true
                         }
@@ -636,6 +622,7 @@ open class BrowserActivity : BaseActivity() {
     }
 
     companion object {
+        private const val TAG = "BrowserActivity"
         const val DELAY_TWO_SECONDS = 2000L
     }
 }
