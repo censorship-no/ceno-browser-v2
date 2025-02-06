@@ -8,9 +8,7 @@ import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.tabs.FailedToRetrieveResource
 import ie.equalit.ouinet.Config
-import ie.equalit.ouinet.NotificationConfig
 import ie.equalit.ouinet.OuinetBackground
-import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import mozilla.components.support.base.log.logger.Logger
 import java.io.File
 import java.io.FileOutputStream
@@ -39,43 +37,10 @@ class Ouinet (
             .build()
     }
 
-    private val notificationConfig by lazy {
-        NotificationConfig.Builder(context)
-            .setHomeActivity("ie.equalit.ceno.BrowserActivity")
-            .setNotificationIcons(
-                statusIcon = R.drawable.ic_notification,
-                homeIcon = R.drawable.ic_globe_pm,
-                clearIcon = R.drawable.ic_cancel_pm
-            )
-            .setChannelName(context.resources.getString(R.string.ceno_notification_channel_name))
-            .setNotificationText (
-                title = context.resources.getString(R.string.ceno_notification_title),
-                description = context.resources.getString(R.string.ceno_notification_description),
-                homeText = context.resources.getString(R.string.ceno_notification_home_description),
-                clearText = context.resources.getString(R.string.ceno_notification_clear_description),
-                confirmText = context.resources.getString(R.string.ceno_notification_clear_do_description),
-            )
-            .setUpdateInterval(1 * MILLISECOND)
-            .build()
-    }
-
-    private lateinit var onNotificationTapped : () -> Unit
-    fun setOnNotificationTapped (listener : () -> Unit) {
-       onNotificationTapped = listener
-    }
-
-    private lateinit var onConfirmTapped : () -> Unit
-    fun setOnConfirmTapped (listener : () -> Unit) {
-        onConfirmTapped = listener
-    }
-
     lateinit var background : OuinetBackground
     fun setBackground (ctx: Context) {
         background = OuinetBackground.Builder(ctx)
             .setOuinetConfig(config)
-            .setNotificationConfig(notificationConfig)
-            .setOnNotifiactionTappedListener { onNotificationTapped.invoke() }
-            .setOnConfirmTappedListener{ onConfirmTapped.invoke() }
             .build()
     }
 
