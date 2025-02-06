@@ -7,6 +7,7 @@ package ie.equalit.ceno
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -37,6 +38,8 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
+import ie.equalit.ceno.browser.notification.CenoNotificationBroadcastReceiver
 import ie.equalit.ceno.browser.notification.PublicNotificationFeature
 import ie.equalit.ceno.browser.notification.PublicNotificationService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
@@ -81,7 +84,7 @@ import kotlin.system.exitProcess
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : BaseActivity() {
+open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.NotificationListener {
 
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
@@ -98,6 +101,7 @@ open class BrowserActivity : BaseActivity() {
 
     private var publicNotificationObserver: PublicNotificationFeature<PublicNotificationService>? =
         null
+    private lateinit var cenoNotificationBroadcastReceiver: CenoNotificationBroadcastReceiver
 
     private val webExtensionPopupObserver by lazy {
         WebExtensionPopupObserver(components.core.store, ::openPopup)
@@ -198,13 +202,28 @@ open class BrowserActivity : BaseActivity() {
             it.start()
         }
 
+        cenoNotificationBroadcastReceiver = CenoNotificationBroadcastReceiver(this)
+        val notificationIntentFilter = IntentFilter()
+        notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_CLEAR)
+        notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_STOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.registerReceiver(cenoNotificationBroadcastReceiver, notificationIntentFilter, Context.RECEIVER_NOT_EXPORTED)
+        }
+        else {
+            ContextCompat.registerReceiver(
+                this,
+                cenoNotificationBroadcastReceiver,
+                notificationIntentFilter,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
+        }
+
         if (Settings.shouldShowOnboarding(this)) {
             components.cenoPreferences.nextTooltip = BEGIN_TOUR_TOOLTIP
         }
 
         navHost.navController.popBackStack() // Remove startupFragment from backstack
 
-        Log.d("NOTIF", "${components.core.store.state.selectedTab}")
         when {
 //                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
             components.ouinet.background.getState() != RunningState.Started.toString() -> {
@@ -347,16 +366,11 @@ open class BrowserActivity : BaseActivity() {
         super.onDestroy()
         components.notificationsDelegate.unBindActivity(this)
         publicNotificationObserver?.stop()
+        this.unregisterReceiver(cenoNotificationBroadcastReceiver)
     }
 
     override fun onResume() {
         super.onResume()
-        //if user has closed all tabs using the notification, go to home fragment
-        //need to figure out a better and seamless way to do this
-        if (components.core.store.state.selectedTab == null) {
-            navHost.navController.popBackStack()
-            navHost.navController.navigate(R.id.action_global_home)
-        }
         if (components.ouinet.background.getState() != RunningState.Started.toString()) {
             if (navHost.navController.currentDestination?.id  != R.id.standbyFragment) {
                 navHost.navController.popBackStack()
@@ -458,14 +472,18 @@ open class BrowserActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         val safeIntent = SafeIntent(intent)
-        if(safeIntent.action == Intent.ACTION_MAIN &&
+        if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
+            navHost.navController.navigate(R.id.action_global_settings)
+        }
+        if (safeIntent.action == Intent.ACTION_MAIN &&
             safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
-        ){
+        ) {
             navHost.navController.navigate(R.id.action_global_home)
         }
-        if(safeIntent.action == Intent.ACTION_VIEW) {
+        if (safeIntent.action == Intent.ACTION_VIEW) {
             navHost.navController.navigate(R.id.action_global_browser)
         }
+
     }
 
     /**
@@ -572,12 +590,12 @@ open class BrowserActivity : BaseActivity() {
         }
     }
 
-    fun beginShutdown(doClear : Boolean) {
+    fun beginShutdown(doClear : Boolean, stalledDuration: Long = resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()) {
         val handler = Handler(Looper.myLooper()!!)
         val callback = shutdownCallback(doClear)
         handler.postDelayed(
             callback,
-            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+            stalledDuration
         )
         BrowserApplication.cleanInsights.persist()
         components.ouinet.background.shutdown(doClear) {
@@ -657,5 +675,26 @@ open class BrowserActivity : BaseActivity() {
 
     companion object {
         const val DELAY_TWO_SECONDS = 2000L
+    }
+
+    override fun onStopTapped() {
+        publicNotificationObserver?.stop()
+        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+        } else {
+            500L
+        }
+        beginShutdown(doClear = false, stalledDuration = duration)
+    }
+
+    override fun onClearTapped() {
+        publicNotificationObserver?.stop()
+        //if the app is in foreground, set the duration to show standby fragment until ouinet is closed to 15seconds
+        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+        } else {
+            500L
+        }
+        beginShutdown(doClear = true, stalledDuration = duration)
     }
 }
