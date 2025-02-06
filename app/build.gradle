@@ -311,7 +311,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // -------------------------------------------------------------------------------------------------
 // Set the name of the output apks and copy to project directory
 // -------------------------------------------------------------------------------------------------
-    if (variant.name != 'debug' && variant.name != 'nightly') {
+    if (variant.name != 'debug') {
         variant.outputs.all { output ->
             def abi = output.getFilter(OutputFile.ABI)
             outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
