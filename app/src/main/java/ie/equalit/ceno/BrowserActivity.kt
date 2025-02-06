@@ -473,7 +473,8 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         super.onNewIntent(intent)
         val safeIntent = SafeIntent(intent)
         if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
-            navHost.navController.navigate(R.id.action_global_settings)
+            val bundle = bundleOf(SettingsFragment.SCROLL_TO_CACHE to true)
+            navHost.navController.navigate(R.id.action_global_settings, bundle)
         }
         if (safeIntent.action == Intent.ACTION_MAIN &&
             safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)

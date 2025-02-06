@@ -206,6 +206,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 scrollToPreference(it)
             }
         }
+        if (arguments?.getBoolean(SCROLL_TO_CACHE) == true) {
+            getPreference(pref_key_ceno_cache_size)?.let {
+                scrollToPreference(it)
+            }
+        }
 
 
     }
@@ -858,6 +863,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val AVERAGE_TOTAL_LOGS = 3000F
 
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
+        const val SCROLL_TO_CACHE = "scrollToCache"
         const val DELAY_ONE_SECOND = 1000L
 
         const val TAPS_TO_ALERT_DEVELOPER_TOOLS = 4
