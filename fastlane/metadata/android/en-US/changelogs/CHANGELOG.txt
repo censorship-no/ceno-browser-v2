@@ -1,3 +1,8 @@
+# v2.4.1
+This release:
+- Fixes Ceno support email not being populated
+- Updates Android-Components to v134.0.1
+
 # v2.4.0
 This release:
 - Implements initial "Clean Insights" metrics campaign
@@ -6,6 +11,8 @@ This release:
 - Supports monochrome launcher icons
 - Updates Android-Components to v133.0.3
 - Adds a Ceno network connection status indicator on homepage
+- Update cacert.pem bundle
+- Updates translations for various locales
 
 # v2.3.3
 This release:
