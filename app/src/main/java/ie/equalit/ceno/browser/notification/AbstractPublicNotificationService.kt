@@ -37,9 +37,9 @@ abstract class AbstractPublicNotificationService : Service() {
     abstract val store: BrowserStore
 
     /**
-     * Customizes the private browsing notification.
+     * Customizes the public browsing notification.
      */
-    abstract fun NotificationCompat.Builder.buildNotification()
+    abstract fun NotificationCompat.Builder.buildNotification(showConfirmAction: Boolean)
 
     /**
      * Customize the notification response when the [Locale] has been changed.
@@ -73,11 +73,11 @@ abstract class AbstractPublicNotificationService : Service() {
     /**
      * Re-build and notify an existing notification.
      */
-    protected fun refreshNotification() {
+    protected fun refreshNotification(showConfirmAction:Boolean = false) {
         val notificationId = getNotificationId()
         val channelId = getChannelId()
 
-        val notification = createNotification(channelId)
+        val notification = createNotification(channelId, showConfirmAction)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
@@ -125,21 +125,24 @@ abstract class AbstractPublicNotificationService : Service() {
      *
      * @param channelId The channel id for the [Notification]
      */
-    fun createNotification(channelId: String): Notification {
+    fun createNotification(channelId: String, showConfirmAction:Boolean = false): Notification {
         return NotificationCompat.Builder(this, channelId)
             .setOngoing(true)
             .setVisibility(VISIBILITY_SECRET)
             .setShowWhen(false)
             .setLocalOnly(true)
-            .apply { buildNotification() }
+            .apply { buildNotification(showConfirmAction) }
             .build()
     }
 
     final override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        if (intent.action == ACTION_CONFIRM) {
+            refreshNotification(true)
+        }
         return START_NOT_STICKY
     }
 
-    final override fun onDestroy() {
+    override fun onDestroy() {
         publicTabScope?.cancel()
         localeScope?.cancel()
     }
@@ -157,6 +160,7 @@ abstract class AbstractPublicNotificationService : Service() {
         const val ACTION_STOP = "ie.equalit.ceno.browser.notification.action.ERASE"
         const val ACTION_CLEAR = "ie.equalit.ceno.browser.notification.action.CLEAR"
         const val ACTION_TAP = "ie.equalit.ceno.browser.notification.action.TAP"
+        const val ACTION_CONFIRM = "ie.equalit.ceno.browser.notification.action.CONFIRM"
 
         val NOTIFICATION_CHANNEL = ChannelData(
             id = "browsing-session",
