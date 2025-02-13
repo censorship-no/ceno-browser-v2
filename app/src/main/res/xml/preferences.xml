@@ -103,7 +103,8 @@
 
     <PreferenceCategory
         android:layout="@layout/preference_category_style"
-        android:title="@string/ceno_data_category">
+        android:title="@string/ceno_data_category"
+        android:key="@string/pref_data_category">
 
         <androidx.preference.Preference
             android:defaultValue="false"
