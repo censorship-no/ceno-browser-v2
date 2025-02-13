@@ -36,10 +36,7 @@ class PublicNotificationService:AbstractPublicNotificationService() {
             R.color.ceno_blue_500,
         )
         setContentIntent(getTapIntent())
-        //Adds stop button. Stops Ceno on tap
-        addAction(R.drawable.ic_clear_ceno, "STOP", getStopIntent())
-        //Adds clear button. Shows the confirm button on tap
-        addAction(R.drawable.ic_clear_ceno, "CLEAR", getConfirmIntent())
+
         //Adds confirm button to be shown for 3 seconds when clear button is tapped
         //Clear app data and close Ceno if confirm is tapped
         if(showConfirmAction) {
@@ -48,6 +45,11 @@ class PublicNotificationService:AbstractPublicNotificationService() {
                 showConfirmCallback,
                 5 * MILLISECOND
             )
+        } else {
+            //Adds stop button. Stops Ceno on tap
+            addAction(R.drawable.ic_notification, "STOP", getStopIntent())
+            //Adds clear button. Shows the confirm button on tap
+            addAction(R.drawable.ic_clear_ceno, "CLEAR", getConfirmIntent())
         }
     }
 
