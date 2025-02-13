@@ -45,6 +45,7 @@ import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
+import ie.equalit.ceno.R.string.pref_data_category
 import ie.equalit.ceno.R.string.pref_key_about_ceno
 import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
@@ -176,6 +177,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         cenoPrefs = requireComponents.cenoPreferences
         setPreferencesFromResource(R.xml.preferences, rootKey)
+        setupPreferences()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -206,6 +208,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 scrollToPreference(it)
             }
         }
+        if (arguments?.getBoolean(SCROLL_TO_CACHE) == true) {
+            getPreference(pref_data_category)?.let {
+                scrollToPreference(it)
+            }
+        }
 
 
     }
@@ -228,7 +235,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(
             sharedPreferencesChangeListener
         )
-        setupPreferences()
+//        setupPreferences()
         setupCenoSettings()
         getActionBar().apply {
             show()
@@ -858,6 +865,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val AVERAGE_TOTAL_LOGS = 3000F
 
         const val SCROLL_TO_BRIDGE = "scrollToBridge"
+        const val SCROLL_TO_CACHE = "scrollToCache"
         const val DELAY_ONE_SECOND = 1000L
 
         const val TAPS_TO_ALERT_DEVELOPER_TOOLS = 4
