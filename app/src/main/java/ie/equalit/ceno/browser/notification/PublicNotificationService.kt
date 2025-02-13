@@ -46,7 +46,7 @@ class PublicNotificationService:AbstractPublicNotificationService() {
             addAction(R.drawable.ic_notification, "CONFIRM", getClearIntent())
             handler.postDelayed(
                 showConfirmCallback,
-                3 * MILLISECOND
+                5 * MILLISECOND
             )
         }
     }
