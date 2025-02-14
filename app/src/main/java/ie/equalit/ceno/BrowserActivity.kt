@@ -7,6 +7,7 @@ package ie.equalit.ceno
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -37,6 +38,10 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.DefaultBrowsingManager
 import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
+import ie.equalit.ceno.browser.notification.CenoNotificationBroadcastReceiver
+import ie.equalit.ceno.browser.notification.PublicNotificationFeature
+import ie.equalit.ceno.browser.notification.PublicNotificationService
 import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
@@ -70,7 +75,6 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.manifest.WebAppManifest
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.pwa.ext.putWebAppManifest
-import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
@@ -80,7 +84,7 @@ import kotlin.system.exitProcess
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : BaseActivity() {
+open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.NotificationListener {
 
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
@@ -94,6 +98,10 @@ open class BrowserActivity : BaseActivity() {
 
     private val tab: SessionState?
         get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
+
+    private var publicNotificationObserver: PublicNotificationFeature<PublicNotificationService>? =
+        null
+    private lateinit var cenoNotificationBroadcastReceiver: CenoNotificationBroadcastReceiver
 
     private val webExtensionPopupObserver by lazy {
         WebExtensionPopupObserver(components.core.store, ::openPopup)
@@ -139,7 +147,8 @@ open class BrowserActivity : BaseActivity() {
 
                 if( !Settings.isCleanInsightsEnabled(this@BrowserActivity) &&
                     Settings.getLaunchCount(this@BrowserActivity).toInt() >= ASK_FOR_ANALYTICS_LIMIT &&
-                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity)
+                    !components.metrics.campaign001.isPromptCompleted(this@BrowserActivity) &&
+                    !components.metrics.campaign001.isExpired()
                     ) {
                     components.metrics.campaign001.launchCampaign(this@BrowserActivity) { granted ->
                         if (granted) {
@@ -171,15 +180,7 @@ open class BrowserActivity : BaseActivity() {
         }
 
         Logger.info(" --------- Starting ouinet service")
-        components.ouinet.let {
-            it.setOnNotificationTapped {
-                beginShutdown(false)
-            }
-            it.setOnConfirmTapped {
-                beginShutdown(true)
-            }
-            it.setBackground(this)
-        }
+        components.ouinet.setBackground(this)
 
         components.ouinet.background.startup()
 
@@ -191,6 +192,30 @@ open class BrowserActivity : BaseActivity() {
             hide()
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@BrowserActivity, R.color.ceno_action_bar)))
+        }
+
+        publicNotificationObserver = PublicNotificationFeature(
+            applicationContext,
+            components.core.store,
+            PublicNotificationService::class,
+        ).also {
+            it.start()
+        }
+
+        cenoNotificationBroadcastReceiver = CenoNotificationBroadcastReceiver(this)
+        val notificationIntentFilter = IntentFilter()
+        notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_CLEAR)
+        notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_STOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.registerReceiver(cenoNotificationBroadcastReceiver, notificationIntentFilter, Context.RECEIVER_NOT_EXPORTED)
+        }
+        else {
+            ContextCompat.registerReceiver(
+                this,
+                cenoNotificationBroadcastReceiver,
+                notificationIntentFilter,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
 
         if (Settings.shouldShowOnboarding(this)) {
@@ -340,6 +365,8 @@ open class BrowserActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         components.notificationsDelegate.unBindActivity(this)
+        publicNotificationObserver?.stop()
+        this.unregisterReceiver(cenoNotificationBroadcastReceiver)
     }
 
     override fun onResume() {
@@ -445,14 +472,19 @@ open class BrowserActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         val safeIntent = SafeIntent(intent)
-        if(safeIntent.action == Intent.ACTION_MAIN &&
+        if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
+            val bundle = bundleOf(SettingsFragment.SCROLL_TO_CACHE to true)
+            navHost.navController.navigate(R.id.action_global_settings, bundle)
+        }
+        if (safeIntent.action == Intent.ACTION_MAIN &&
             safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
-        ){
+        ) {
             navHost.navController.navigate(R.id.action_global_home)
         }
-        if(safeIntent.action == Intent.ACTION_VIEW) {
+        if (safeIntent.action == Intent.ACTION_VIEW) {
             navHost.navController.navigate(R.id.action_global_browser)
         }
+
     }
 
     /**
@@ -559,12 +591,12 @@ open class BrowserActivity : BaseActivity() {
         }
     }
 
-    fun beginShutdown(doClear : Boolean) {
+    fun beginShutdown(doClear : Boolean, stalledDuration: Long = resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()) {
         val handler = Handler(Looper.myLooper()!!)
         val callback = shutdownCallback(doClear)
         handler.postDelayed(
             callback,
-            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+            stalledDuration
         )
         BrowserApplication.cleanInsights.persist()
         components.ouinet.background.shutdown(doClear) {
@@ -644,5 +676,26 @@ open class BrowserActivity : BaseActivity() {
 
     companion object {
         const val DELAY_TWO_SECONDS = 2000L
+    }
+
+    override fun onStopTapped() {
+        publicNotificationObserver?.stop()
+        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+        } else {
+            500L
+        }
+        beginShutdown(doClear = false, stalledDuration = duration)
+    }
+
+    override fun onClearTapped() {
+        publicNotificationObserver?.stop()
+        //if the app is in foreground, set the duration to show standby fragment until ouinet is closed to 15seconds
+        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+        } else {
+            500L
+        }
+        beginShutdown(doClear = true, stalledDuration = duration)
     }
 }

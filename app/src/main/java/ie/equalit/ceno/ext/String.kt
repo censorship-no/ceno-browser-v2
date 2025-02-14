@@ -102,6 +102,22 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
 }
 
 /**
+ * Helper function to determine if a date string is in the past
+ */
+fun String.isDatePast(): Boolean {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+    dateFormat.timeZone = TimeZone.getTimeZone("GMT") // for consistency
+
+    try {
+        val date: Date = dateFormat.parse(this) ?: return false
+        return Date() < date
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return false
+    }
+}
+
+/**
  * Helper function to sanitize a URL-formatted string and remove the protocol scheme
  */
 fun String.withoutScheme(): String {
