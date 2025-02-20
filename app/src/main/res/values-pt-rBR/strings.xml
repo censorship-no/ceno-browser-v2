@@ -33,11 +33,11 @@
     <string name="toolbar_hint">Buscar ou inserir endereço</string>
     <string name="menu_action_add_tab">Adicionar Nova Aba</string>
     <string name="preferences_remote_debugging">Depurar remotamente via USB</string>
-    <string name="preferences_tracking_protection_normal">Ativar no Modo de Navegação Normal</string>
+    <string name="preferences_tracking_protection_normal">Ativar no modo de navegação Pública</string>
     <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
     <string name="menu_action_close_tabs_private">Fechar Abas Pessoais</string>
-    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Pessoais</string>
+    <string name="preferences_tracking_protection_private">Ativar no modo de navegação Pessoal</string>
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
@@ -78,7 +78,7 @@
     <string name="preference_choose_search_engine">Escolher buscador</string>
     <string name="preference_select_preferred_engine">Selecionar o buscador de sua preferência:</string>
     <string name="shortcut_max_limit_title">Número máximo de atalhos atingido</string>
-    <string name="shortcut_max_limit_content">Para adicionar um novo atalho, remova um. Toque e segure o website e selecione remover.</string>
+    <string name="shortcut_max_limit_content">Remova um atalho para adicionar um novo. Toque e segure o atalho, então selecione \"Remover\".</string>
     <string name="browser_menu_add_to_shortcuts">Adicionar aos atalhos</string>
     <string name="browser_menu_remove_from_shortcuts">Remover dos atalhos</string>
     <string name="shortcut_name_hint">Nome do atalho</string>
@@ -289,7 +289,7 @@
     <string name="ceno_log_content_group_file_saved">Conteúdo salvo e compartilhado com sucesso</string>
     <string name="download_site_content">Baixar conteúdo do site</string>
     <string name="dismiss">Descartar</string>
-    <string name="confirm_groups_file_download_desc">Um arquivo txt será salvo no seu armazenamento local.</string>
+    <string name="confirm_groups_file_download_desc">Um arquivo .txt será salvo no seu armazenamento local.</string>
     <string name="confirm_clear_cached_content">Limpar conteúdo armazenado em cache?</string>
     <string name="confirm_clear_cached_content_desc">Seu conteúdo armazenado em cache será removido imediatamente</string>
     <string name="no_content_shared">Atualmente, você não está compartilhando nenhum conteúdo</string>
@@ -351,7 +351,7 @@
     <string name="standby_tip_icon">Altere o ícone do aplicativo para ocultar o Ceno</string>
     <string name="standby_tip_pdf">Compartilhe páginas da web como PDFs</string>
     <string name="standby_tip_announcements">Verifique se há atualizações na seção de anúncios</string>
-    <string name="start_tooltip_description">Desbloqueie todo o potencial do Ceno - Faça um tour guiado para descobrir os principais recursos e conceda permissões para ajudar a compartilhar a web mesmo quando o aplicativo estiver em segundo plano.</string>
+    <string name="start_tooltip_description">Desbloqueie todo o potencial do Ceno – Faça um tour guiado para descobrir os principais recursos e conceda permissões para ajudar a compartilhar a web mesmo quando o aplicativo estiver em segundo plano.</string>
     <string name="tooltip_sources_description">Veja facilmente de onde o conteúdo do site é obtido - diretamente do site, através da rede Ceno ou do cache Ceno</string>
     <string name="tooltip_permission_text">Para continuar compartilhando sites sem problemas, mesmo quando o aplicativo está em segundo plano, permita que o Ceno envie notificações e desative as otimizações da bateria. Você sempre pode ajustar essas permissões posteriormente nas configurações do seu telefone</string>
     <string name="select_language">Selecionar idioma:</string>
@@ -373,4 +373,18 @@
     <string name="device_locale">Configuração regional do dispositivo (idioma)</string>
     <string name="clean_insights_opt_in">SIM, QUERO CONTRIBUIR</string>
     <string name="clean_insights_maybe_later">NÃO, TALVEZ DEPOIS</string>
+    <string name="ouinet_startup_time_2">2</string>
+    <string name="ouinet_startup_time_3">3</string>
+    <string name="clean_insights_successful_opt_out">Desativar análise em segundo plano</string>
+    <string name="ouinet_startup_time_header">Quanto tempo você sente que, normalmente, leva para o Ceno iniciar?</string>
+    <string name="ouinet_startup_time_too_long">Muito tempo</string>
+    <string name="ouinet_startup_time_quick">Rápido</string>
+    <string name="ouinet_startup_time_1">1</string>
+    <string name="ouinet_startup_time_4">4</string>
+    <string name="ouinet_startup_time_5">5</string>
+    <string name="thank_you_for_feedback">Obrigado pela sua avaliação!</string>
+    <string name="submit">Enviar</string>
+    <string name="ceno_base_url">https://censorship.no</string>
+    <string name="preferences_additional_developer_tools">Ferramentas de desenvolvedor adicionais</string>
+    <string name="clean_insights_successful_opt_in">Ativar análise em segundo plano</string>
 </resources>
