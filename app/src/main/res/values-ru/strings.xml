@@ -102,8 +102,9 @@
     <string name="preferences_about_page">Об eQualitie</string>
     <string name="ceno_mode_manual_link">https://censorship.no/user-manual/ru/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Приватный просмотр&lt;/h1&gt; &lt;p&gt;Ceno не будет распространять содержимое личных вкладок другим пользователям. Вы можете спокойно пользоваться сайтами, которые требуют входа. Для таких сайтов необходим прямой выход в интернет без цензуры.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Хотите узнать больше?&lt;/p&gt;</string>
-    <string name="ceno_notification_title">Сервис браузера Ceno</string>
-    <string name="ceno_notification_description">Нажмите, чтобы остановить</string>
+    <string name="ceno_notification_title">Вы подключены к сети Ceno и делитесь контентом</string>
+    <string name="ceno_notification_description">Подробнее</string>
+    <string name="preferences_about_ceno_browser_service">Сервис браузера Ceno</string>
     <string name="ceno_notification_home_description">Главная</string>
     <string name="ceno_notification_clear_description">Стереть⚠</string>
     <string name="ceno_notification_clear_do_description">Да</string>
@@ -425,4 +426,5 @@
         <item quantity="many">Осталось %d клика до выключения \"инструментов разработчика\"</item>
         <item quantity="other">Осталось %d клика до выключения \"инструментов разработчика\"</item>
     </plurals>
+    <string name="ceno_notification_confirm_description">Хотите очистить кеш браузера?</string>
 </resources>

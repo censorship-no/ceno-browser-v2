@@ -1,3 +1,7 @@
+# v2.4.2
+This release:
+- Updates AndroidManifest.xml
+
 # v2.4.1
 This release:
 - Fixes Ceno support email not being populated
